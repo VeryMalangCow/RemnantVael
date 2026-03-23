@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RigidbodyAnimSolarController : RigidbodySolarController
 {
@@ -10,7 +9,7 @@ public class RigidbodyAnimSolarController : RigidbodySolarController
     [Header("<><><><><> Anim")]
 
     [Header("=== Component")]
-    [FormerlySerializedAs("ThisAnimatorList")][SerializeField] private List<DirectionalAnimController> atList;
+    [SerializeField] private List<DirectionalAnimController> atList;
 
     #endregion
 

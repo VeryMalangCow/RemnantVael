@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MapIntroUIController : UIController
 {
@@ -15,13 +14,13 @@ public class MapIntroUIController : UIController
 
     [Space(5)]
     [Header("-- RT")]
-    [FormerlySerializedAs("ThisMovingRT")][SerializeField] private RectTransform movingRt;
-    [FormerlySerializedAs("ThisShakingRT")][SerializeField] private RectTransform shakingRt;
+    [SerializeField] private RectTransform movingRt;
+    [SerializeField] private RectTransform shakingRt;
 
     [Space(5)]
     [Header("-- Txt")]
-    [FormerlySerializedAs("MapNameTxt")][SerializeField] private TMP_Text mapNameTxt;
-    [FormerlySerializedAs("MapDescriptionTxt")][SerializeField] private TMP_Text mapDescTxt;
+    [SerializeField] private TMP_Text mapNameTxt;
+    [SerializeField] private TMP_Text mapDescTxt;
 
     #endregion
 

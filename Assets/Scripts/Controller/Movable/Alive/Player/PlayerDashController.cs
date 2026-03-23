@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerDashController : MonoBehaviour
 {
@@ -10,11 +9,11 @@ public class PlayerDashController : MonoBehaviour
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("ThisDashStyle")][SerializeField] private eDashStyle dashStyle = eDashStyle.OneWay;
+    [SerializeField] private eDashStyle dashStyle = eDashStyle.OneWay;
 
     [Space(10)]
     [Header("=== BU State")]
-    [FormerlySerializedAs("DashSpeed")][SerializeField] public BUState<float> dashSpeed;
+    [SerializeField] public BUState<float> dashSpeed;
 
     // Readonly Value
     [HideInInspector] private readonly float needEP_ForDash = 1f; // юс╫ц

@@ -9,11 +9,11 @@ public class RepairOperatorController : OperatorController
 
     [Space(10)]
     [Header("=== Build")]
-    [SerializeField] protected DestructibleBuildController TargetBuildController;
+    [SerializeField] protected DestructibleBuildController targetBuild;
 
     // Value
-    [HideInInspector] private int Pay = 50;
-    [HideInInspector] private int UseAmount = 1;
+    [HideInInspector] private int pay = 50;
+    [HideInInspector] private int useAmount = 1;
 
     #endregion
 
@@ -23,7 +23,7 @@ public class RepairOperatorController : OperatorController
     {
         base.Offset();
 
-        PayTxt.text = Get_NeedPay().ToString();
+        payTxt.text = Get_NeedPay().ToString();
     }
 
     #endregion
@@ -32,7 +32,7 @@ public class RepairOperatorController : OperatorController
 
     private int Get_NeedPay()
     {
-        return (Pay * UseAmount);
+        return (pay * useAmount);
     }
 
     #endregion
@@ -43,13 +43,13 @@ public class RepairOperatorController : OperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_RepairAC, 1f), 1f);
+        iconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_RepairAC, 1f), 1f);
     }
 
-    public void Set_TargetBuild(DestructibleBuildController _TargetBuild)
+    public void Set_TargetBuild(DestructibleBuildController targetBuild)
     {
-        TargetBuildController = _TargetBuild;
-        _TargetBuild.RepairOper = this;
+        this.targetBuild = targetBuild;
+        targetBuild.repairOper = this;
     }
 
     #endregion
@@ -58,38 +58,38 @@ public class RepairOperatorController : OperatorController
 
     public bool Can_Interact()
     {
-        return !TargetBuildController.IsBroken;
+        return !targetBuild.isBroken;
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
-        _CanInteract = Can_Interact();
+        canInteract = Can_Interact();
         return ResourceManager.instance.Get_StaticWord(56);
     }
 
     public override void Play_Interact()
     {
-        if (TargetBuildController == null ||
-            TargetBuildController.Is_MaxDur() ||
-            TargetBuildController.IsBroken ||
+        if (targetBuild == null ||
+            targetBuild.Is_MaxDur() ||
+            targetBuild.isBroken ||
             PlayerManager.instance.playerController.currentCredit.Value < Get_NeedPay()) return;
 
         // 소비 아이템
         PlayerManager.instance.playerController.Add_CurrentCredit(-Get_NeedPay());
-        UseAmount++;
+        useAmount++;
 
         // 내구도 회복
-        TargetBuildController.Set_Repair();
+        targetBuild.Set_Repair();
 
         // Pay
-        PayTxt.text = Get_NeedPay().ToString();
+        payTxt.text = Get_NeedPay().ToString();
 
         // Play
-        TargetBuildController.Play_Size();
+        targetBuild.Play_Size();
 
         SoundManager.instance.Play_2D_SFX_Build("Repair");
     }

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemyHUDController : MonoBehaviour
 {
@@ -13,16 +12,16 @@ public class EnemyHUDController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ThisCanvas")][SerializeField] public Canvas canvas;
-    [FormerlySerializedAs("StateUI")][SerializeField] public EnemyStateUIController stateUi;
-    [FormerlySerializedAs("TemporaryBuffUI")][SerializeField] public EnemyBuffUIController temporaryBuffUi;
-    [FormerlySerializedAs("PermanentBuffUI")][SerializeField] public EnemyBuffUIController permanentBuffUi;
+    [SerializeField] public Canvas canvas;
+    [SerializeField] public EnemyStateUIController stateUi;
+    [SerializeField] public EnemyBuffUIController temporaryBuffUi;
+    [SerializeField] public EnemyBuffUIController permanentBuffUi;
 
     [Space(10)]
     [Header("=== Special")]
-    [FormerlySerializedAs("EPTxtGO")][SerializeField] private GameObject epTxtGo;
-    [FormerlySerializedAs("EPChargePanelGO")][SerializeField] private GameObject epChargePanelGo;
-    [FormerlySerializedAs("EPSpecialPatterningCG")][SerializeField] private CanvasGroup epSpecialPatterningCg;
+    [SerializeField] private GameObject epTxtGo;
+    [SerializeField] private GameObject epChargePanelGo;
+    [SerializeField] private CanvasGroup epSpecialPatterningCg;
 
     #endregion
 

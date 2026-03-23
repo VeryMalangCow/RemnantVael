@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ShootingAllyController : FieldUnitAllyController
 {
@@ -13,28 +12,28 @@ public class ShootingAllyController : FieldUnitAllyController
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("IsAlwaysStatus")][SerializeField] private bool isAlwaysStatus;
-    [FormerlySerializedAs("StateType")][SerializeField] private eStatusEffect stateType;
+    [SerializeField] private bool isAlwaysStatus;
+    [SerializeField] private eStatusEffect stateType;
 
 
     [Space(10)]
     [Header("=== Bullet")]
-    [FormerlySerializedAs("BulletSprite")][SerializeField] private Sprite bulletSprite;
-    [FormerlySerializedAs("BulletObjSize")][SerializeField] private Vector2 bulletObjSize;
-    [FormerlySerializedAs("BulletColSize")][SerializeField] private Vector2 bulletColSize;
+    [SerializeField] private Sprite bulletSprite;
+    [SerializeField] private Vector2 bulletObjSize;
+    [SerializeField] private Vector2 bulletColSize;
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("BulletSpawnTF")][SerializeField] private Transform bulletSpawnTF;
+    [SerializeField] private Transform bulletSpawnTF;
 
     [Space(10)]
     [Header("=== Trail")]
-    [FormerlySerializedAs("TrailTime")][SerializeField] private float trailTime;
-    [FormerlySerializedAs("TrailStartWidth")][SerializeField] private float trailStartWidth;
+    [SerializeField] private float trailTime;
+    [SerializeField] private float trailStartWidth;
 
     [Space(10)]
     [Header("=== Light")]
-    [FormerlySerializedAs("LightIntensity")][SerializeField] private float lightIntensity;
+    [SerializeField] private float lightIntensity;
 
     #endregion
 

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemyBuffUIController : MonoBehaviour
 {
@@ -11,8 +10,8 @@ public class EnemyBuffUIController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Buff")]
-    [FormerlySerializedAs("XYInterval")][SerializeField] private float xyInterval = 44;
-    [FormerlySerializedAs("WidthMaxAmount")][SerializeField] private int widthMaxAmount = 5;
+    [SerializeField] private float xyInterval = 44;
+    [SerializeField] private int widthMaxAmount = 5;
 
     [HideInInspector] private List<BuffIconEUIController> buffIconUiList = new List<BuffIconEUIController>();
     [HideInInspector] private List<BuffIconEUIController> usingBuffIconUiList = new List<BuffIconEUIController>();

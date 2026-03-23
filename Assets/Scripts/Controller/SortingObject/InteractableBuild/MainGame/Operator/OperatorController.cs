@@ -11,10 +11,10 @@ public abstract class OperatorController : InteractableBuildController, IInterac
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] protected StateAnimController IconStateAnim;
+    [SerializeField] protected StateAnimController iconStateAnim;
 
-    [SerializeField] protected SortingGroup PaySG;
-    [SerializeField] protected TMP_Text PayTxt;
+    [SerializeField] protected SortingGroup paySg;
+    [SerializeField] protected TMP_Text payTxt;
 
     #endregion
 
@@ -32,12 +32,12 @@ public abstract class OperatorController : InteractableBuildController, IInterac
 
     #region Sorting
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
-        IconStateAnim.sr.sortingOrder = _SortingOrder - 1;
+        base.Set_SortingOrder(sortingOrder);
+        iconStateAnim.sr.sortingOrder = sortingOrder - 1;
 
-        PaySG.sortingOrder = _SortingOrder + 1;
+        paySg.sortingOrder = sortingOrder + 1;
     }
 
     #endregion
@@ -46,22 +46,22 @@ public abstract class OperatorController : InteractableBuildController, IInterac
 
     protected virtual void Set_AnimValue()
     {
-        OnOffAC = ResourceManager.instance.operator_OnOffAC;
-        OnOffStateAC = ResourceManager.instance.operator_LightAC;
+        onOffAc = ResourceManager.instance.operator_OnOffAC;
+        onOffStateAc = ResourceManager.instance.operator_LightAC;
     }
 
     public void Set_TargetBuildBroken()
     {
-        IsOn = false;
+        isOn = false;
         Set_StateAnim();
-        PaySG.gameObject.SetActive(false);
+        paySg.gameObject.SetActive(false);
     }
 
     #endregion
 
     #region Interact
 
-    public abstract string Get_InteractName(out bool _CanInteract);
+    public abstract string Get_InteractName(out bool canInteract);
 
     public abstract void Play_Interact();
 

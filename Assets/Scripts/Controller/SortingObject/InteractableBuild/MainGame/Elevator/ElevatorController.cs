@@ -8,8 +8,8 @@ public class ElevatorController : StaticDepthController
     [Space(20)]
     [Header("<><><><><> Elevator")]
     [Header("=== Data")]
-    [SerializeField] protected float EndYPos;
-    [SerializeField] public bool IsOn = false;
+    [SerializeField] protected float endYPos;
+    [SerializeField] public bool isOn = false;
 
     #endregion
 
@@ -17,7 +17,7 @@ public class ElevatorController : StaticDepthController
 
     protected virtual void Tween_Start()
     {
-        IsOn = true;
+        isOn = true;
     }
 
     protected virtual void Tween_Update()
@@ -28,7 +28,7 @@ public class ElevatorController : StaticDepthController
 
     protected virtual void Tween_Complete()
     {
-        IsOn = false;
+        isOn = false;
     }
 
     #endregion
@@ -38,7 +38,7 @@ public class ElevatorController : StaticDepthController
     protected virtual void Play_MoveToTarget()
     {
         DevTool.Play_Tween(
-            this.transform.DOLocalMove(new Vector2(this.transform.localPosition.x, EndYPos), 3f),
+            this.transform.DOLocalMove(new Vector2(this.transform.localPosition.x, endYPos), 3f),
             new Dele(Tween_Start),
             new Dele(Tween_Update),
             new Dele(Tween_Complete));

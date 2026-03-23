@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public abstract class ConverterUIController : SinglePanelUIController
 {
@@ -15,16 +14,16 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Label")]
-    [FormerlySerializedAs("LabelTxt")][SerializeField] protected TMP_Text labelTxt;
+    [SerializeField] protected TMP_Text labelTxt;
 
     [Space(10)]
     [Header("=== EUI")]
-    [FormerlySerializedAs("CvtAcquisitionEUI")][SerializeField] protected CvtAcquisitionEUIController cvtAcquisitionEui;
-    [FormerlySerializedAs("AcquisitionItemID")][SerializeField] protected int acquisitionItemId;
+    [SerializeField] protected CvtAcquisitionEUIController cvtAcquisitionEui;
+    [SerializeField] protected int acquisitionItemId;
 
     [Space(10)]
     [Header("=== Close")]
-    [FormerlySerializedAs("CloseBtn")][SerializeField] protected OwnBtnEUIController closeBtn;
+    [SerializeField] protected OwnBtnEUIController closeBtn;
 
     #endregion
 

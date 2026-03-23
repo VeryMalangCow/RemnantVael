@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemyPattern_SectorFormMelee : EnemyPattern_Melee
 {
@@ -11,7 +10,7 @@ public class EnemyPattern_SectorFormMelee : EnemyPattern_Melee
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("AngleList")][SerializeField] private List<float> angleList;
+    [SerializeField] private List<float> angleList;
 
     #endregion
 

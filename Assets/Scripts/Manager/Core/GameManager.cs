@@ -2401,8 +2401,8 @@ public class BUShopData<T>
     private bool Can_Buy()
     {
         return PlayerManager.instance.playerController.Is_EnoughChargedBettery(levelData.levelDataList[state.currentLevel.Value].needEC_ForUpgrade) &&
-            BaseUpgradeController.UsingShop != null &&
-            BaseUpgradeController.UsingShop.CurrentDur > 0;
+            BaseUpgradeController.usingShop != null &&
+            BaseUpgradeController.usingShop.currentDur > 0;
     }
 
     public void Try_Buy()
@@ -2412,7 +2412,7 @@ public class BUShopData<T>
             SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
             // Dur
-            BaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
+            BaseUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
             // Cost
             PlayerManager.instance.playerController.Use_ChargedBettery(levelData.levelDataList[state.currentLevel.Value].needEC_ForUpgrade);
@@ -2429,10 +2429,10 @@ public class BUShopData<T>
         state.Set_BuffedState();
 
         // Can Lv Up
-        upgradeEUI.BuyBtn.btn.interactable = DevTool.buMaxLevel <= state.currentLevel.Value ? false : true;
+        upgradeEUI.buyBtn.btn.interactable = DevTool.buMaxLevel <= state.currentLevel.Value ? false : true;
 
         // Desc
-        MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(upgradeEUI, upgradeEUI.SkillNameTxt.text);
+        MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(upgradeEUI, upgradeEUI.skillNameTxt.text);
     }
 
     #endregion

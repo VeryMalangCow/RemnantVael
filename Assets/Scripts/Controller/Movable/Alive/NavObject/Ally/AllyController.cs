@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AllyController : NavObjectController
 {
@@ -16,28 +15,28 @@ public class AllyController : NavObjectController
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("MultipleAllyState")][SerializeField] protected AllyState multipleAllyState;
-    [FormerlySerializedAs("MaxHP")][SerializeField] protected float maxHP = 150f;
+    [SerializeField] protected AllyState multipleAllyState;
+    [SerializeField] protected float maxHP = 150f;
     [HideInInspector] protected static readonly float maxEP = 100f;
-    [FormerlySerializedAs("AllyStateMode")][SerializeField] protected ReactiveProperty<eAllyStateMode> allyStateMode = new();
+    [SerializeField] protected ReactiveProperty<eAllyStateMode> allyStateMode = new();
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("BuffController")][SerializeField] public AllyBuffController buffController;
+    [SerializeField] public AllyBuffController buffController;
 
     [Space(10)]
     [Header("=== UI")]
-    [FormerlySerializedAs("FrontFaceSprite")][SerializeField] private Sprite frontFaceSprite;
+    [SerializeField] private Sprite frontFaceSprite;
 
     [Space(10)]
     [Header("=== Visible")]
-    [FormerlySerializedAs("ThisColor")][SerializeField] protected Color clr;
-    [FormerlySerializedAs("ThisExtraColor")][SerializeField] protected Color extraClr;
-    [FormerlySerializedAs("ThisExtraGradient")][SerializeField] protected Gradient extraGradient;
+    [SerializeField] protected Color clr;
+    [SerializeField] protected Color extraClr;
+    [SerializeField] protected Gradient extraGradient;
 
     [Space(10)]
     [Header("=== HUD")]
-    [FormerlySerializedAs("HUD")][SerializeField] public AllyHUDController hud;
+    [SerializeField] public AllyHUDController hud;
 
     #endregion
 
@@ -93,7 +92,7 @@ public class AllyController : NavObjectController
 
     // Tuner
     [HideInInspector] public static readonly float minLimitUpgradeValue = 0.01f;
-    [FormerlySerializedAs("UpgradeAllyState")][SerializeField] private AllyState upgradeAllyState = new AllyState();
+    [SerializeField] private AllyState upgradeAllyState = new AllyState();
     [HideInInspector] private List<AllyBaseTunerData> thisTunerData;
 
     [HideInInspector] private Dictionary<string, RefData<float>> upgradeStateDict;

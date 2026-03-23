@@ -1,7 +1,6 @@
 using System.Collections;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ProtoCoreCvtUIController : ConverterUIController
 {
@@ -14,8 +13,8 @@ public class ProtoCoreCvtUIController : ConverterUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [FormerlySerializedAs("CB_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController cbCvtMaterialEui;
-    [FormerlySerializedAs("C_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
+    [SerializeField] private CvtMaterialEUIController cbCvtMaterialEui;
+    [SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
 
     #endregion
 

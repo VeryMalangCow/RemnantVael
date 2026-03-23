@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class NumShapeColorPasswordUIController : PuzzleUIController
@@ -15,13 +14,13 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     [Space(10)]
     [Header("=== RT")]
-    [FormerlySerializedAs("AllNSCPanelEUIParentRT")][SerializeField] private RectTransform allNscPanelEuiParentRt;
-    [FormerlySerializedAs("SelectingSignRT")][SerializeField] private RectTransform selectingSignRt;
+    [SerializeField] private RectTransform allNscPanelEuiParentRt;
+    [SerializeField] private RectTransform selectingSignRt;
 
     [Space(10)]
     [Header("=== Ready KeyAnno")]
-    [FormerlySerializedAs("DownRollInputImg")][SerializeField] private Image downRollInputImg;
-    [FormerlySerializedAs("UpRollInputImg")][SerializeField] private Image upRollInputImg;
+    [SerializeField] private Image downRollInputImg;
+    [SerializeField] private Image upRollInputImg;
 
     #endregion
 
@@ -49,9 +48,9 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Offset_FirstValue(prison);
 
-        Debug.Log(prison.Rating);
-        unlockedAmount = 4 + prison.Rating;
-        currentCountdown = baseCountdown - prison.Rating;
+        Debug.Log(prison.rating);
+        unlockedAmount = 4 + prison.rating;
+        currentCountdown = baseCountdown - prison.rating;
     }
 
 

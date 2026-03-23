@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CvtMaterialEUIController : ElementUIController
@@ -13,19 +12,19 @@ public class CvtMaterialEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("IconImg")][SerializeField] private Image iconImg;
-    [FormerlySerializedAs("ConditionIconImg")][SerializeField] private Image conditionIconImg;
+    [SerializeField] private Image iconImg;
+    [SerializeField] private Image conditionIconImg;
 
     [Space(4)]
-    [FormerlySerializedAs("PossessionTxt")][SerializeField] private TMP_Text possessionTxt;
-    [FormerlySerializedAs("NecessaryTxt")][SerializeField] private TMP_Text necessaryTxt;
+    [SerializeField] private TMP_Text possessionTxt;
+    [SerializeField] private TMP_Text necessaryTxt;
 
     [Space(4)]
-    [FormerlySerializedAs("PossessionAmountTxt")][SerializeField] private TMP_Text possessionAmountTxt;
-    [FormerlySerializedAs("NecessaryAmountTxt")][SerializeField] private TMP_Text necessaryAmountTxt;
+    [SerializeField] private TMP_Text possessionAmountTxt;
+    [SerializeField] private TMP_Text necessaryAmountTxt;
 
     [Space(4)]
-    [FormerlySerializedAs("LineCG")][SerializeField] private CanvasGroup lineCg;
+    [SerializeField] private CanvasGroup lineCg;
 
     #endregion
 

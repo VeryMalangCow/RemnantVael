@@ -2,7 +2,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyCardEUIController : OwnBtnEUIController
@@ -11,23 +10,23 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Img")]
-    [FormerlySerializedAs("FrameImg")][SerializeField] private Image frameImg;
-    [FormerlySerializedAs("LightImg")][SerializeField] private Image lightImg;
-    [FormerlySerializedAs("BGImg")][SerializeField] private Image bgImg;
-    [FormerlySerializedAs("BGMarkImg")][SerializeField] private Image bgMarkImg;
-    [FormerlySerializedAs("IconImg")][SerializeField] private Image iconImg;
+    [SerializeField] private Image frameImg;
+    [SerializeField] private Image lightImg;
+    [SerializeField] private Image bgImg;
+    [SerializeField] private Image bgMarkImg;
+    [SerializeField] private Image iconImg;
 
     [Space(10)]
     [Header("=== Txt")]
-    [FormerlySerializedAs("RankTxt")][SerializeField] private TMP_Text rankTxt;
-    [FormerlySerializedAs("PreNameTxt")][SerializeField] private TMP_Text preNameTxt;
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
-    [FormerlySerializedAs("DescTxt")][SerializeField] private TMP_Text descTxt;
+    [SerializeField] private TMP_Text rankTxt;
+    [SerializeField] private TMP_Text preNameTxt;
+    [SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private TMP_Text descTxt;
 
 
     [Space(10)]
     [Header("=== Other Comp")]
-    [FormerlySerializedAs("ThisPanelCG")][SerializeField] private CanvasGroup panelCg;
+    [SerializeField] private CanvasGroup panelCg;
 
     // Value
     [HideInInspector] public int currentId;

@@ -2,15 +2,14 @@ using DG.Tweening;
 using LeTai.TrueShadow;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class WorldTxtEUIController : ElementUIController
 {
     #region Value
 
-    [FormerlySerializedAs("ThisCanvas")][SerializeField] private Canvas canvas;
-    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
-    [FormerlySerializedAs("ThisTS")][SerializeField] private TrueShadow ts;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private TMP_Text txt;
+    [SerializeField] private TrueShadow ts;
 
     [HideInInspector] private static readonly float normalSize = 18;
     [HideInInspector] private static readonly float criticalSize = 26;

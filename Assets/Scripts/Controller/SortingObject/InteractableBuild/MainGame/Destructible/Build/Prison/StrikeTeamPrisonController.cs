@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
 
 public class StrikeTeamPrisonController : PrisonController
 {
@@ -7,12 +5,12 @@ public class StrikeTeamPrisonController : PrisonController
 
     private void Offset_Type()
     {
-        TypeIcon.sprite = ResourceManager.instance.Get_STPrisonIcon(false);
+        typeIcon.sprite = ResourceManager.instance.Get_STPrisonIcon(false);
 
-        AllySprites = ResourceManager.instance.strikeTeamAllySprites;
-        for (int i = 0; i < PrisonAllySRList.Count; i++)
+        allySprites = ResourceManager.instance.strikeTeamAllySprites;
+        for (int i = 0; i < prisonAllySrList.Count; i++)
         {
-            PrisonAllySRList[i].sprite = AllySprites.bind;
+            prisonAllySrList[i].sprite = allySprites.bind;
         }
     }
 
@@ -31,7 +29,7 @@ public class StrikeTeamPrisonController : PrisonController
     {
         base.Set_Unlock();
 
-        PlayerManager.instance.playerController.strikeTeamPresence.Value += AllyAmount;
+        PlayerManager.instance.playerController.strikeTeamPresence.Value += allyAmount;
     }
 
     #endregion
@@ -42,7 +40,7 @@ public class StrikeTeamPrisonController : PrisonController
     {
         base.Set_LanguageTxt();
 
-        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.instance.strikeTeamString}";
+        typeTxt.text = $"<size=150%>)</size> {ResourceManager.instance.strikeTeamString}";
     }
 
     #endregion

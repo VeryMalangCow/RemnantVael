@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ShopRuleController : RoomRuleController
 {
@@ -10,10 +9,10 @@ public class ShopRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== ParentTF")]
-    [FormerlySerializedAs("InRoom_BUShopParentTF")][SerializeField] public Transform inRoom_buShopParentTf;
-    [FormerlySerializedAs("InRoom_MUShopParentTF")][SerializeField] public Transform inRoom_muShopParentTf;
-    [FormerlySerializedAs("InRoom_BURepairOperactorParentTF")][SerializeField] public Transform inRoom_buRepairOperactorParentTf;
-    [FormerlySerializedAs("InRoom_MURepairOperactorParentTF")][SerializeField] public Transform inRoom_muRepairOperactorParentTf;
+    [SerializeField] public Transform inRoom_buShopParentTf;
+    [SerializeField] public Transform inRoom_muShopParentTf;
+    [SerializeField] public Transform inRoom_buRepairOperactorParentTf;
+    [SerializeField] public Transform inRoom_muRepairOperactorParentTf;
 
     [HideInInspector] public BaseUpgradeController buShop;
     [HideInInspector] public ModuleUpgradeController muShop;

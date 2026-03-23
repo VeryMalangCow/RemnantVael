@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemyPattern_SectorFormRange : EnemyPattern_Range
 {
@@ -11,7 +10,7 @@ public class EnemyPattern_SectorFormRange : EnemyPattern_Range
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("AngleList")][SerializeField] private List<float> angleList;
+   [SerializeField] private List<float> angleList;
 
     #endregion
 

@@ -1,8 +1,6 @@
 using DG.Tweening;
-using System.Data;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PuzzleReadyPanelEUIController : ElementUIController
@@ -16,21 +14,21 @@ public class PuzzleReadyPanelEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ReadyCG")][SerializeField] public CanvasGroup readyCg;
-    [FormerlySerializedAs("ReadyAnnoTxt")][SerializeField] private TMP_Text readyAnnoTxt;
-    [FormerlySerializedAs("ReadyTimeLimitTxt")][SerializeField] private TMP_Text readyTimeLimitTxt;
-    [FormerlySerializedAs("ReadyKeyAnnoTxt")][SerializeField] private TMP_Text readyKeyAnnoTxt;
-    [FormerlySerializedAs("ReadyInputAnnoImg")][SerializeField] private Image readyInputAnnoImg;
+    [SerializeField] public CanvasGroup readyCg;
+    [SerializeField] private TMP_Text readyAnnoTxt;
+    [SerializeField] private TMP_Text readyTimeLimitTxt;
+    [SerializeField] private TMP_Text readyKeyAnnoTxt;
+    [SerializeField] private Image readyInputAnnoImg;
 
     [Space(10)]
     [Header("=== Rule")]
-    [FormerlySerializedAs("RuleTxt")][SerializeField] private TMP_Text ruleTxt;
-    [FormerlySerializedAs("RuleDescTxt")][SerializeField] private TMP_Text ruleDescTxt;
+    [SerializeField] private TMP_Text ruleTxt;
+    [SerializeField] private TMP_Text ruleDescTxt;
 
     [Space(10)]
     [Header("=== Warning")]
-    [FormerlySerializedAs("WarningTxt")][SerializeField] private TMP_Text warningTxt;
-    [FormerlySerializedAs("WarningDescTxt")][SerializeField] private TMP_Text warningDescTxt;
+    [SerializeField] private TMP_Text warningTxt;
+    [SerializeField] private TMP_Text warningDescTxt;
 
     #endregion
 

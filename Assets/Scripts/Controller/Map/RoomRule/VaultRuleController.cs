@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class VaultRuleController : RoomRuleController
 {
@@ -11,10 +10,10 @@ public class VaultRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== ParentTF")]
-    [FormerlySerializedAs("InRoom_VaultParentTF")][SerializeField] public Transform inRoom_vaultParentTf;
-    [FormerlySerializedAs("InRoom_RepairOperactorParentTF")][SerializeField] public Transform inRoom_RepairOperactorParentTf;
-    [FormerlySerializedAs("InRoom_RerollOperactorParentTF")][SerializeField] public Transform inRoom_RerollOperactorParentTf;
-    [FormerlySerializedAs("InRoom_UpgradeOperactorParentTF")][SerializeField] public Transform inRoom_UpgradeOperactorParentTf;
+    [SerializeField] public Transform inRoom_vaultParentTf;
+    [SerializeField] public Transform inRoom_RepairOperactorParentTf;
+    [SerializeField] public Transform inRoom_RerollOperactorParentTf;
+    [SerializeField] public Transform inRoom_UpgradeOperactorParentTf;
 
     [HideInInspector] public VaultController vault;
     [HideInInspector] public RepairOperatorController repairOperator;

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 // 스테이지 생성 시 적용하는 Build Sprite System
 public class BuildSpriteController : MonoBehaviour
@@ -8,7 +7,7 @@ public class BuildSpriteController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Build Sprite")]
-    [FormerlySerializedAs("SpriteKey")][SerializeField] private string spriteKey;
+    [SerializeField] private string spriteKey;
 
     #endregion
 

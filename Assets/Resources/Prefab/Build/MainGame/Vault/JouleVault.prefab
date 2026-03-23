@@ -242,20 +242,20 @@ MonoBehaviour:
   targetObject: {fileID: 7945861353772175884}
   thisSr: {fileID: 6431130664222279258}
   targetRange: 0.35
-  ThisStateAnim: {fileID: 3433866877279181021}
-  IsOn: 1
-  ThisAnimator: {fileID: 1156573706478142735}
-  IsBroken: 0
-  MaxDur: 5
-  CurrentDur: 0
-  DurSG: {fileID: 7197776414974759337}
-  DurParentTF: {fileID: 3162411028315099261}
-  FrameIntervalX: 0.08
-  RepairOper: {fileID: 0}
-  IconStateAnim: {fileID: 3476744627442842680}
-  CurrentGrade: 0
-  RerollOper: {fileID: 0}
-  UpgradeOper: {fileID: 0}
+  stateAnim: {fileID: 3433866877279181021}
+  isOn: 1
+  at: {fileID: 1156573706478142735}
+  isBroken: 0
+  maxDur: 5
+  currentDur: 0
+  durSg: {fileID: 7197776414974759337}
+  durParentTf: {fileID: 3162411028315099261}
+  frameIntervalX: 0.08
+  repairOper: {fileID: 0}
+  iconStateAnim: {fileID: 3476744627442842680}
+  currentGrade: 0
+  rerollOper: {fileID: 0}
+  upgradeOper: {fileID: 0}
 --- !u!1 &6208652108089971714
 GameObject:
   m_ObjectHideFlags: 0

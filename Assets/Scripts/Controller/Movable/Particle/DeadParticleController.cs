@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DeadParticleController : MovableDepthController
 {
@@ -14,7 +13,7 @@ public class DeadParticleController : MovableDepthController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ThisShadow")] [SerializeField] private SpriteRenderer shadowSr;
+    [SerializeField] private SpriteRenderer shadowSr;
 
     #endregion
 

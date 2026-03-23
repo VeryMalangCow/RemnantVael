@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
 
 public class BossEnemyController : EnemyController
 {
@@ -16,26 +15,26 @@ public class BossEnemyController : EnemyController
 
     [Space(10)]
     [Header("=== Data")]
-    [FormerlySerializedAs("NameID")][SerializeField] private int nameId;
+    [SerializeField] private int nameId;
     public int GetNameID => nameId;
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("PanelRT")][SerializeField] public RectTransform panelRt;
-    [FormerlySerializedAs("ThisHUDIcon")][SerializeField] private Image hudIcon;
-    [FormerlySerializedAs("ThisAuraParticleGOList")][SerializeField] private List<GameObject> auraParticleGoList;
+    [SerializeField] public RectTransform panelRt;
+    [SerializeField] private Image hudIcon;
+    [SerializeField] private List<GameObject> auraParticleGoList;
 
     [Space(10)]
     [Header("=== Data")]
-    [FormerlySerializedAs("BossPhaseData")][SerializeField] private List<BossPhaseData> bossPhaseData;
+    [SerializeField] private List<BossPhaseData> bossPhaseData;
 
     [Space(10)]
     [Header("=== Item")]
-    [FormerlySerializedAs("CoreDropItemPercent")][SerializeField] public CoreDropItemPercent coreDropItemPercent;
+    [SerializeField] public CoreDropItemPercent coreDropItemPercent;
 
     [Space(10)]
     [Header("=== Reso")]
-    [FormerlySerializedAs("BattleProdSprite")][SerializeField] public Sprite battleProdSprite;
+    [SerializeField] public Sprite battleProdSprite;
 
     #endregion
 

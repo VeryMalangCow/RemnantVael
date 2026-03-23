@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class OutMainGameUIController : SinglePanelUIController
@@ -18,32 +17,32 @@ public class OutMainGameUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Inner")]
-    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
-    [FormerlySerializedAs("BaseInteractingPanelInnerParentTF")][SerializeField] private Transform baseInteractingPanelInnerParentTf;
-    [FormerlySerializedAs("InnerImgArr")][SerializeField] private Image[] innerImgArr;
+    [SerializeField] private Transform innerParentTf;
+    [SerializeField] private Transform baseInteractingPanelInnerParentTf;
+    [SerializeField] private Image[] innerImgArr;
 
     [Space(10)]
     [Header("=== Btn")]
-    [FormerlySerializedAs("ResumeBtn")][SerializeField] private OwnBtnEUIController resumeBtn;
-    [FormerlySerializedAs("StateBtn")][SerializeField] private OwnBtnEUIController stateBtn;
-    [FormerlySerializedAs("OptionBtn")][SerializeField] private OwnBtnEUIController optionBtn;
-    [FormerlySerializedAs("InfoBtn")][SerializeField] private OwnBtnEUIController infoBtn;
-    [FormerlySerializedAs("ReturnBtn")][SerializeField] private OwnBtnEUIController returnBtn;
-    [FormerlySerializedAs("QuitBtn")][SerializeField] private OwnBtnEUIController quitBtn;
+    [SerializeField] private OwnBtnEUIController resumeBtn;
+    [SerializeField] private OwnBtnEUIController stateBtn;
+    [SerializeField] private OwnBtnEUIController optionBtn;
+    [SerializeField] private OwnBtnEUIController infoBtn;
+    [SerializeField] private OwnBtnEUIController returnBtn;
+    [SerializeField] private OwnBtnEUIController quitBtn;
 
     [Space(10)]
     [Header("=== Img")]
-    [FormerlySerializedAs("BasePanelBtnImg")][SerializeField] private Image basePanelBtnImg;
+    [SerializeField] private Image basePanelBtnImg;
 
     [Space(20)]
     [Header("=== Txt")]
-    [FormerlySerializedAs("BasePanelBtnTxt")][SerializeField] private TMP_Text basePanelBtnTxt;
-    [FormerlySerializedAs("BaseInteractingPanelTxt")][SerializeField] private TMP_Text baseInteractingPanelTxt;
+    [SerializeField] private TMP_Text basePanelBtnTxt;
+    [SerializeField] private TMP_Text baseInteractingPanelTxt;
 
     [Space(10)]
     [Header("=== Base")]
-    [FormerlySerializedAs("BasePanelRT")][SerializeField] private RectTransform basePanelRt;
-    [FormerlySerializedAs("BaseInteractingPanelCG")][SerializeField] private CanvasGroup baseInteractingPanelCg;
+    [SerializeField] private RectTransform basePanelRt;
+    [SerializeField] private CanvasGroup baseInteractingPanelCg;
 
     #endregion
 
@@ -51,19 +50,19 @@ public class OutMainGameUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("StateUI")][SerializeField] private StateUIController stateUi;
+    [SerializeField] private StateUIController stateUi;
     [Serializable] private class StateUIController
     {
         #region Value
 
-        [FormerlySerializedAs("PanelRT")][SerializeField] public RectTransform panelRt;
-        [FormerlySerializedAs("BackBtn")][SerializeField] public OwnBtnEUIController backBtn;
-        [FormerlySerializedAs("ChangeTypeBtn")][SerializeField] public OwnBtnEUIController changeTypeBtn;
-        [FormerlySerializedAs("IsBUPanelOn")][SerializeField] public bool isBuPanelOn = true;
+        [SerializeField] public RectTransform panelRt;
+        [SerializeField] public OwnBtnEUIController backBtn;
+        [SerializeField] public OwnBtnEUIController changeTypeBtn;
+        [SerializeField] public bool isBuPanelOn = true;
 
-        [FormerlySerializedAs("PlayerStateNameTxt")][SerializeField] private TMP_Text playerStateNameTxt;
-        [FormerlySerializedAs("AllyStateNameTxt")][SerializeField] private TMP_Text allyStateNameTxt;
-        [FormerlySerializedAs("InnerImgArr")][SerializeField] private Image[] innerImgArr;
+        [SerializeField] private TMP_Text playerStateNameTxt;
+        [SerializeField] private TMP_Text allyStateNameTxt;
+        [SerializeField] private Image[] innerImgArr;
 
         #endregion
 
@@ -76,16 +75,16 @@ public class OutMainGameUIController : SinglePanelUIController
         // Skill 01: Cooltime, Power, Tier
         [Space(10)]
         [Header("=== Player - BU")]
-        [FormerlySerializedAs("PlayerBUPanelGO")][SerializeField] private GameObject playerBuPanelGo;
-        [FormerlySerializedAs("PlayerBUScrollEUI")][SerializeField] private ScrollPanelEUIController playerBuScrollEui;
-        [FormerlySerializedAs("BUEUIArr")][SerializeField] private StandbyPlayerBUEUIController[] buEuiArr;
+        [SerializeField] private GameObject playerBuPanelGo;
+        [SerializeField] private ScrollPanelEUIController playerBuScrollEui;
+        [SerializeField] private StandbyPlayerBUEUIController[] buEuiArr;
 
         [Space(10)]
         [Header("=== Player - MU")]
-        [FormerlySerializedAs("PlayerMUPanelGO")][SerializeField] private GameObject playerMuPanelGo;
-        [FormerlySerializedAs("PlayerMUScrollEUI")][SerializeField] private ScrollPanelEUIController playerMuScrollEui;
-        [FormerlySerializedAs("MUEUIArr")][SerializeField] private StandbyPlayerMUEUIController[] muEuiArr;
-        [FormerlySerializedAs("SynergyEUIArr")][SerializeField] private StandbyPlayerSynergyEUIController[] synergyEuiArr;
+        [SerializeField] private GameObject playerMuPanelGo;
+        [SerializeField] private ScrollPanelEUIController playerMuScrollEui;
+        [SerializeField] private StandbyPlayerMUEUIController[] muEuiArr;
+        [SerializeField] private StandbyPlayerSynergyEUIController[] synergyEuiArr;
 
         #endregion
 
@@ -93,8 +92,8 @@ public class OutMainGameUIController : SinglePanelUIController
 
         [Space(10)]
         [Header("=== Ally - BU")]
-        [FormerlySerializedAs("AllyScrollEUI")][SerializeField] private ScrollPanelEUIController allyScrollEui;
-        [FormerlySerializedAs("AllyBUEUIPrefab")][SerializeField] private GameObject allyBuEuiPrefab;
+        [SerializeField] private ScrollPanelEUIController allyScrollEui;
+        [SerializeField] private GameObject allyBuEuiPrefab;
         [HideInInspector] private List<StandbyAllyBUEUIController> allyBuEuiList = new List<StandbyAllyBUEUIController>();
 
         #endregion
@@ -361,21 +360,21 @@ public class OutMainGameUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Option")]
-    [FormerlySerializedAs("OptionUI")][SerializeField] private OptionUIController optionUi; 
+    [SerializeField] private OptionUIController optionUi; 
     [Serializable] public class OptionUIController
     {
-        [FormerlySerializedAs("PanelRT")][SerializeField] public RectTransform panelRt;
-        [FormerlySerializedAs("BackBtn")][SerializeField] public OwnBtnEUIController backBtn;
-        [FormerlySerializedAs("ApplyBtn")][SerializeField] public OwnBtnEUIController applyBtn;
-        [FormerlySerializedAs("WarningTxt")][SerializeField] public TMP_Text warningTxt;
+        [SerializeField] public RectTransform panelRt;
+        [SerializeField] public OwnBtnEUIController backBtn;
+        [SerializeField] public OwnBtnEUIController applyBtn;
+        [SerializeField] public TMP_Text warningTxt;
 
         [Space(10)]
-        [FormerlySerializedAs("LanguagePanelEUI")][SerializeField] public LRSlidingItemEUIController languagePanelEui;
-        [FormerlySerializedAs("ScreenModePanelEUI")][SerializeField] public LRSlidingItemEUIController screenModePanelEui;
-        [FormerlySerializedAs("ResolutionPanelEUI")][SerializeField] public LRSlidingItemEUIController resolutionPanelEui;
-        [FormerlySerializedAs("FPSPanelEUI")][SerializeField] public LRSlidingItemEUIController fpsPanelEui;
-        [FormerlySerializedAs("BGMVolumePanelEUI")][SerializeField] public FillScrollbarEUIController bgmVolumePanelEui;
-        [FormerlySerializedAs("SFXVolumePanelEUI")][SerializeField] public FillScrollbarEUIController sfxVolumePanelEui;
+        [SerializeField] public LRSlidingItemEUIController languagePanelEui;
+        [SerializeField] public LRSlidingItemEUIController screenModePanelEui;
+        [SerializeField] public LRSlidingItemEUIController resolutionPanelEui;
+        [SerializeField] public LRSlidingItemEUIController fpsPanelEui;
+        [SerializeField] public FillScrollbarEUIController bgmVolumePanelEui;
+        [SerializeField] public FillScrollbarEUIController sfxVolumePanelEui;
 
         public void Offset(OutMainGameUIController uiController)
         {
@@ -450,23 +449,23 @@ public class OutMainGameUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("InfoUI")][SerializeField] private InfoUIController infoUi;
+    [SerializeField] private InfoUIController infoUi;
     [Serializable] private class InfoUIController
     {
         [Header("=== Comp")]
-        [FormerlySerializedAs("ListTxt")][SerializeField] public TMP_Text listTxt;
-        [FormerlySerializedAs("DetailTxt")][SerializeField] public TMP_Text detailTxt;
+        [SerializeField] public TMP_Text listTxt;
+        [SerializeField] public TMP_Text detailTxt;
 
-        [FormerlySerializedAs("PanelRT")][SerializeField] public RectTransform panelRt;
-        [FormerlySerializedAs("BackBtn")][SerializeField] public OwnBtnEUIController backBtn;
-        [FormerlySerializedAs("ListScrollPanelEUI")][SerializeField] private ScrollPanelEUIController listScrollPanelEui;
+        [SerializeField] public RectTransform panelRt;
+        [SerializeField] public OwnBtnEUIController backBtn;
+        [SerializeField] private ScrollPanelEUIController listScrollPanelEui;
 
         [Header("=== Element")]
-        [FormerlySerializedAs("ListElementParentTF")][SerializeField] private Transform listElementParentTf;
+        [SerializeField] private Transform listElementParentTf;
 
         [HideInInspector] private InfoEUIController[] listEuiArr;
         
-        [FormerlySerializedAs("DetailElementParentTF")][SerializeField] private Transform detailElementParentTf;
+        [SerializeField] private Transform detailElementParentTf;
 
         [HideInInspector] private InfoDetailEUIController[] detailEuiArr;
         [HideInInspector] private InfoDetailEUIController currentDetailEui;

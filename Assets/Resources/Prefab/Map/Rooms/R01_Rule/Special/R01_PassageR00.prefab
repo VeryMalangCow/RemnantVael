@@ -8534,6 +8534,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7380236284339948395, guid: 86feca960bef6574980bb4d0c752780d, type: 3}
+      propertyPath: endYPos
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380236284339948395, guid: 86feca960bef6574980bb4d0c752780d, type: 3}
       propertyPath: NextStageID
       value: 1
       objectReference: {fileID: 0}

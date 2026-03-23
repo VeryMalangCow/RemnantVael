@@ -1,7 +1,6 @@
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 public class FieldUnitAllyController : AllyController
 {
@@ -14,17 +13,17 @@ public class FieldUnitAllyController : AllyController
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("ForEnemyDis")][SerializeField] protected float forEnemyDis = 1.5f;
+    [SerializeField] protected float forEnemyDis = 1.5f;
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ThisSG")][SerializeField] private SortingGroup sg;
-    [FormerlySerializedAs("ThisSolar")][SerializeField] private AllySolarController solar;
-    [FormerlySerializedAs("ThisDirImg")][SerializeField] protected DirectionalAllyTypeImgController dirImg;
+    [SerializeField] private SortingGroup sg;
+    [SerializeField] private AllySolarController solar;
+    [SerializeField] protected DirectionalAllyTypeImgController dirImg;
 
     [Space(10)]
     [Header("=== Random Pos")]
-    [FormerlySerializedAs("randomPosAreaRadius")][SerializeField] private float randomPosAreaRadius = 5f;
+    [SerializeField] private float randomPosAreaRadius = 5f;
 
     #endregion
 

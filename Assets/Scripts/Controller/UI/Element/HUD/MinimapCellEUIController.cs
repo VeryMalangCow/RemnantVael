@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MinimapCellEUIController : ElementUIController
@@ -12,8 +11,8 @@ public class MinimapCellEUIController : ElementUIController
     [HideInInspector] private Image iconImg = null;
     [HideInInspector] private CanvasGroup cg = null;
 
-    [FormerlySerializedAs("UnknowColor")][SerializeField] private Color unknowClr;
-    [FormerlySerializedAs("IntervalMM")][SerializeField] private CoupleData<float> intervalMm = new CoupleData<float>(36, 60);
+    [SerializeField] private Color unknowClr;
+    [SerializeField] private CoupleData<float> intervalMm = new CoupleData<float>(36, 60);
 
     #endregion
 

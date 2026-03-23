@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MinimapEUIController : ElementUIController
@@ -12,34 +11,34 @@ public class MinimapEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Prefab")]
-    [FormerlySerializedAs("MinimapElement")][SerializeField] private GameObject minimapElement;
+    [SerializeField] private GameObject minimapElement;
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("MinimapFrameRT")][SerializeField] private RectTransform minimapFrameRt;
-    [FormerlySerializedAs("InnerImg")][SerializeField] public Image innerImg;
+    [SerializeField] private RectTransform minimapFrameRt;
+    [SerializeField] public Image innerImg;
     [HideInInspector] private Color mainClr;
 
 
     [Space(10)]
     [Header("=== Normal")]
-    [FormerlySerializedAs("NormalMaskRT")][SerializeField] private RectTransform normalMaskRt;
-    [FormerlySerializedAs("NormalMMEParentRT")][SerializeField] private RectTransform normalMmeParentRt;
-    [FormerlySerializedAs("NormalSize_Frame")][SerializeField] private Vector2 normalSize_Frame = new Vector2(352, 336);
+    [SerializeField] private RectTransform normalMaskRt;
+    [SerializeField] private RectTransform normalMmeParentRt;
+    [SerializeField] private Vector2 normalSize_Frame = new Vector2(352, 336);
 
     [Header("-- Element")]
-    [FormerlySerializedAs("NormalPoint")][SerializeField] private RectTransform normalPoint;
+    [SerializeField] private RectTransform normalPoint;
 
 
     [Space(10)]
     [Header("=== Interactable")]
-    [FormerlySerializedAs("InteractableMaskRT")][SerializeField] private RectTransform interactableMaskRt;
-    [FormerlySerializedAs("InteractableMMEParentRT")][SerializeField] private RectTransform interactableMmeParentRt;
-    [FormerlySerializedAs("InteractableSize_Frame")][SerializeField] private Vector2 interactableSize_Frame = new Vector2(728, 712);
+    [SerializeField] private RectTransform interactableMaskRt;
+    [SerializeField] private RectTransform interactableMmeParentRt;
+    [SerializeField] private Vector2 interactableSize_Frame = new Vector2(728, 712);
 
     [Header("-- Element")]
-    [FormerlySerializedAs("InteractablePoint")][SerializeField] private RectTransform interactablePoint;
-    [FormerlySerializedAs("InteractingPoint")][SerializeField] private RectTransform interactingPoint;
+    [SerializeField] private RectTransform interactablePoint;
+    [SerializeField] private RectTransform interactingPoint;
 
     #endregion
 

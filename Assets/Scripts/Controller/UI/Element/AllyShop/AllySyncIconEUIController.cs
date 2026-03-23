@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllySyncIconEUIController : ElementUIController
@@ -10,22 +9,22 @@ public class AllySyncIconEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ID")][SerializeField] public int id;
-    [FormerlySerializedAs("ThisIconImg")][SerializeField] private Image iconImg;
+    [SerializeField] public int id;
+    [SerializeField] private Image iconImg;
 
     [Space(5)]
     [Header("-- Progress")]
-    [FormerlySerializedAs("ProgressImg")][SerializeField] private Image progressImg;
-    [FormerlySerializedAs("ProgressTxt")][SerializeField] private TMP_Text progressTxt;
-    [FormerlySerializedAs("ProgressMaxTxt")][SerializeField] private TMP_Text progressMaxTxt;
+    [SerializeField] private Image progressImg;
+    [SerializeField] private TMP_Text progressTxt;
+    [SerializeField] private TMP_Text progressMaxTxt;
 
     [Space(5)]
     [Header("-- State")]
-    [FormerlySerializedAs("ThisApplyStateImg")][SerializeField] private Image applyStateImg;
-    [FormerlySerializedAs("ThisConnectStateImg")][SerializeField] private Image connectStateImg;
+    [SerializeField] private Image applyStateImg;
+    [SerializeField] private Image connectStateImg;
 
     [Space(2)]
-    [FormerlySerializedAs("CompletelyCG")][SerializeField] private CanvasGroup completelyCg;
+    [SerializeField] private CanvasGroup completelyCg;
 
     [HideInInspector] public RectTransform rt;
 

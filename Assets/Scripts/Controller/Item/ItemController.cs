@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ItemController : SortingObjectController
 {
@@ -10,7 +9,7 @@ public class ItemController : SortingObjectController
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("ThisRb")] [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] protected Rigidbody2D rb;
 
     #endregion
 

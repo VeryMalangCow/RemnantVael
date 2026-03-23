@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ShopUIController : PanelUIController
 {
@@ -14,16 +13,16 @@ public class ShopUIController : PanelUIController
 
     [Space(10)]
     [Header("=== Label")]
-    [FormerlySerializedAs("LabelTxt")][SerializeField] protected TMP_Text labelTxt;
+    [SerializeField] protected TMP_Text labelTxt;
 
     [Space(10)]
     [Header("=== Durablity")]
-    [FormerlySerializedAs("ThisDurEUI")][SerializeField] public DurablityEUIController durEui;
-    [FormerlySerializedAs("ThisMsgEUI")][SerializeField] public MessageWindowEUIController msgEui;
+    [SerializeField] public DurablityEUIController durEui;
+    [SerializeField] public MessageWindowEUIController msgEui;
 
     [Space(10)]
     [Header("=== Close")]
-    [FormerlySerializedAs("CloseBtn")][SerializeField] protected OwnBtnEUIController closeBtn;
+    [SerializeField] protected OwnBtnEUIController closeBtn;
 
 
     #endregion

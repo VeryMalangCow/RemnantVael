@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MovableObjectController : MovableDepthController
 {
@@ -12,11 +11,11 @@ public class MovableObjectController : MovableDepthController
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("ThisRb")][SerializeField] public Rigidbody2D rb;
+    [SerializeField] public Rigidbody2D rb;
 
     [Space(10)]
     [Header("=== Movement")]
-    [FormerlySerializedAs("AccelerationSpeed")][SerializeField] protected float accelerationSpeed = 12;
+    [SerializeField] protected float accelerationSpeed = 12;
 
     [HideInInspector] protected List<CurrentKnockbackState> kbStateList = new List<CurrentKnockbackState>();
 

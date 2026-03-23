@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GateController : StaticDepthController, IInteract
 {
@@ -16,34 +15,34 @@ public class GateController : StaticDepthController, IInteract
 
     [Space(5)]
     [Header("-- KeyCard")]
-    [FormerlySerializedAs("NeedKeyCardID")][SerializeField] private int needKeyCardId = -1;
-    [FormerlySerializedAs("KeyCardIconSR")][SerializeField] private SpriteRenderer keyCardIconSr;
+    [SerializeField] private int needKeyCardId = -1;
+    [SerializeField] private SpriteRenderer keyCardIconSr;
 
     [Space(5)]
     [Header("-- Entrance")]
-    [FormerlySerializedAs("NextMapIconSR")][SerializeField] private SpriteRenderer nextMapIconSr;
+    [SerializeField] private SpriteRenderer nextMapIconSr;
 
     [Space(5)]
     [Header("-- Vec")]
-    [FormerlySerializedAs("RoomPosGate")][SerializeField] public Vector2Int roomPosGate;
-    [FormerlySerializedAs("GateDir")][SerializeField] public Vector2Int gateDir;
+    [SerializeField] public Vector2Int roomPosGate;
+    [SerializeField] public Vector2Int gateDir;
 
     [Space(10)]
     [Header("=== Anim")]
-    [FormerlySerializedAs("ThisAC")][SerializeField] public AnimationClip ac;
+    [SerializeField] public AnimationClip ac;
 
     [Space(10)]
     [Header("=== On / Off")]
-    [FormerlySerializedAs("ThingsGO")][SerializeField] public CoupleData<GameObject> thingsGo;
-    [FormerlySerializedAs("EntranceGO")][SerializeField] private GameObject entranceGo;
+    [SerializeField] public CoupleData<GameObject> thingsGo;
+    [SerializeField] private GameObject entranceGo;
 
     [Space(10)]
     [Header("=== Visual")]
-    [FormerlySerializedAs("OpacityLowerSRList")][SerializeField] public List<SpriteRenderer> opacityLowerSrList;
+    [SerializeField] public List<SpriteRenderer> opacityLowerSrList;
 
     [Space(10)]
     [Header("=== Is Wall")]
-    [FormerlySerializedAs("ExtraTargetObject")][SerializeField] public GameObject extraTargetObject;
+    [SerializeField] public GameObject extraTargetObject;
 
     #endregion
 

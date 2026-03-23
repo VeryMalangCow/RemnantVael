@@ -1,7 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
 
 public abstract class DroppingDepthController : MovableDepthController
 {
@@ -12,29 +11,29 @@ public abstract class DroppingDepthController : MovableDepthController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ShadowTF")][SerializeField] protected Transform shadowTf;
-    [FormerlySerializedAs("ThisTrail")][SerializeField] protected TrailRenderer trail;
-    [FormerlySerializedAs("ThisLight")][SerializeField] protected Light2D light2D;
+    [SerializeField] protected Transform shadowTf;
+    [SerializeField] protected TrailRenderer trail;
+    [SerializeField] protected Light2D light2D;
 
     [Space(10)]
     [Header("=== Value")]
 
     [Space(5)]
     [Header("-- Time")]
-    [FormerlySerializedAs("DroppingSpeed")][SerializeField] private float droppingSpeed;
-    [FormerlySerializedAs("CurrentDroppingTime")][SerializeField] private float currentDroppingTime;
+    [SerializeField] private float droppingSpeed;
+    [SerializeField] private float currentDroppingTime;
 
     [Space(5)]
     [Header("-- Shadow")]
-    [FormerlySerializedAs("ShadowSize")][SerializeField] private Vector2 shadowSize;
+    [SerializeField] private Vector2 shadowSize;
 
     [Space(5)]
     [Header("-- Drop Y")]
-    [FormerlySerializedAs("DropBottomYPos")][SerializeField] private float dropBottomYPos;
+    [SerializeField] private float dropBottomYPos;
 
     [Space(5)]
     [Header("-- Alpha")]
-    [FormerlySerializedAs("ZeroToOneTime")][SerializeField] private float zeroToOneTime;
+    [SerializeField] private float zeroToOneTime;
 
     [HideInInspector] private Sequence seq = null;
     #endregion

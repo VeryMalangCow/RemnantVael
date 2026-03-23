@@ -1,5 +1,4 @@
 
-
 public class NormalEnemyController : EnemyController
 {
     #region Value

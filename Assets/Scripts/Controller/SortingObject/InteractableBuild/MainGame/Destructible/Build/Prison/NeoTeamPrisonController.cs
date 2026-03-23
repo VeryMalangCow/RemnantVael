@@ -5,12 +5,12 @@ public class NeoTeamPrisonController : PrisonController
 
     private void Offset_TypeIconTxt()
     {
-        TypeIcon.sprite = ResourceManager.instance.Get_NTPrisonIcon(false);
+        typeIcon.sprite = ResourceManager.instance.Get_NTPrisonIcon(false);
 
-        AllySprites = ResourceManager.instance.neoTeamAllySprites;
-        for (int i = 0; i < PrisonAllySRList.Count; i++)
+        allySprites = ResourceManager.instance.neoTeamAllySprites;
+        for (int i = 0; i < prisonAllySrList.Count; i++)
         {
-            PrisonAllySRList[i].sprite = AllySprites.bind;
+            prisonAllySrList[i].sprite = allySprites.bind;
         }
     }
 
@@ -29,7 +29,7 @@ public class NeoTeamPrisonController : PrisonController
     {
         base.Set_Unlock();
 
-        PlayerManager.instance.playerController.neoTeamPresence.Value += AllyAmount;
+        PlayerManager.instance.playerController.neoTeamPresence.Value += allyAmount;
     }
 
     #endregion
@@ -40,7 +40,7 @@ public class NeoTeamPrisonController : PrisonController
     {
         base.Set_LanguageTxt();
 
-        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.instance.neoTeamString}";
+        typeTxt.text = $"<size=150%>)</size> {ResourceManager.instance.neoTeamString}";
     }
 
     #endregion

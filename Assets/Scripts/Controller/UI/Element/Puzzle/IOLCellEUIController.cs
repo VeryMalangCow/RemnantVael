@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class IOLCellEUIController : OwnBtnEUIController
@@ -17,20 +16,20 @@ public class IOLCellEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== RT")]
-    [FormerlySerializedAs("OnPanelRT")][SerializeField] private RectTransform onPanelRt;
-    [FormerlySerializedAs("InnerParentRT")][SerializeField] private RectTransform innerParentRt;
+    [SerializeField] private RectTransform onPanelRt;
+    [SerializeField] private RectTransform innerParentRt;
 
-    [FormerlySerializedAs("InteractablePanelRT")][SerializeField] private Transform interactablePanelRt;
-    [FormerlySerializedAs("UninteractablePanelRT")][SerializeField] private Transform uninteractablePanelRt;
+    [SerializeField] private Transform interactablePanelRt;
+    [SerializeField] private Transform uninteractablePanelRt;
 
     [Space(10)]
     [Header("=== Inner")]
-    [FormerlySerializedAs("CenterRT")][SerializeField] private RectTransform centerRt;
-    [FormerlySerializedAs("RoundLineRTList")][SerializeField] private List<RectTransform> roundLineRtList;
+    [SerializeField] private RectTransform centerRt;
+    [SerializeField] private List<RectTransform> roundLineRtList;
 
     [Space(10)]
     [Header("=== Txt")]
-    [FormerlySerializedAs("IndexTxt")][SerializeField] private TMP_Text indexTxt;
+    [SerializeField] private TMP_Text indexTxt;
 
     #endregion
 

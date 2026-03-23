@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class EnemySolarController : SolarSystemController
 {
@@ -10,7 +9,7 @@ public class EnemySolarController : SolarSystemController
 
     [Space(10)]
     [Header("=== Controller")]
-    [FormerlySerializedAs("EnemyController")][SerializeField] protected EnemyController enemy;
+    [SerializeField] protected EnemyController enemy;
 
     #endregion
 

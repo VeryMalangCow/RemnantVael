@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BoxConnectionEUIController : ElementUIController
@@ -9,7 +8,7 @@ public class BoxConnectionEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("ThisContactPosList")][SerializeField] private List<Vector2Int> contactPosList;
+    [SerializeField] private List<Vector2Int> contactPosList;
 
     [HideInInspector] private Image innerImg;
 

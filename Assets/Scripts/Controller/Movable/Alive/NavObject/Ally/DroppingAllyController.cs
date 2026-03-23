@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DroppingAllyController : NoneUnitAllyController
 {
@@ -12,22 +11,22 @@ public class DroppingAllyController : NoneUnitAllyController
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("CurrentChargeTime")][SerializeField] private float currentChargeTime = 0f;
-    [FormerlySerializedAs("DropBottomYPos")][SerializeField] protected float dropBottomYPos = 0f;
+    [SerializeField] private float currentChargeTime = 0f;
+    [SerializeField] protected float dropBottomYPos = 0f;
 
     [Space(10)]
     [Header("=== Bullet")]
-    [FormerlySerializedAs("ThisSprite")][SerializeField] protected Sprite sprite;
+    [SerializeField] protected Sprite sprite;
 
 
     [Space(10)]
     [Header("=== Trail")]
-    [FormerlySerializedAs("TrailTime")][SerializeField] protected float trailTime;
-    [FormerlySerializedAs("TrailStartWidth")][SerializeField] protected float trailStartWidth;
+    [SerializeField] protected float trailTime;
+    [SerializeField] protected float trailStartWidth;
 
     [Space(10)]
     [Header("=== Light")]
-    [FormerlySerializedAs("LightIntensity")][SerializeField] protected float lightIntensity;
+    [SerializeField] protected float lightIntensity;
 
     #endregion
 

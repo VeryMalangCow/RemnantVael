@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyRequestUIController : MonoBehaviour
@@ -14,29 +13,29 @@ public class AllyRequestUIController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Public")]
-    [FormerlySerializedAs("ThisCanvas")][SerializeField] private TMP_Text RequestNameTxt;
+    [SerializeField] private TMP_Text RequestNameTxt;
 
     [Space(10)]
     [Header("=== Complete")]
-    [FormerlySerializedAs("CompleteDescTxt")][SerializeField] private TMP_Text completeDescTxt;
-    [FormerlySerializedAs("CompleteGageImg")][SerializeField] private Image completeGaugeImg;
-    [FormerlySerializedAs("CompletePercentTxt")][SerializeField] private TMP_Text completePercentTxt;
+    [SerializeField] private TMP_Text completeDescTxt;
+    [SerializeField] private Image completeGaugeImg;
+    [SerializeField] private TMP_Text completePercentTxt;
 
     [Space(10)]
     [Header("=== Fail")]
-    [FormerlySerializedAs("FailDescTxt")][SerializeField] private TMP_Text failDescTxt;
-    [FormerlySerializedAs("FailGageImg")][SerializeField] private Image failGaugeImg;
-    [FormerlySerializedAs("FailPercentTxt")][SerializeField] private TMP_Text failPercentTxt;
+    [SerializeField] private TMP_Text failDescTxt;
+    [SerializeField] private Image failGaugeImg;
+    [SerializeField] private TMP_Text failPercentTxt;
 
     [Space(10)]
     [Header("=== Difficulty")]
-    [FormerlySerializedAs("DiffcultyImg")][SerializeField] private Image diffcultyImg;
-    [FormerlySerializedAs("DiffcultyExtraTxt")][SerializeField] private TMP_Text diffcultyExtraTxt;
+    [SerializeField] private Image diffcultyImg;
+    [SerializeField] private TMP_Text diffcultyExtraTxt;
 
     [Space(10)]
     [Header("=== Reward")]
-    [FormerlySerializedAs("RewardImg")][SerializeField] private Image rewardImg;
-    [FormerlySerializedAs("RewardExtraTxt")][SerializeField] private TMP_Text rewardExtraTxt;
+    [SerializeField] private Image rewardImg;
+    [SerializeField] private TMP_Text rewardExtraTxt;
 
     #endregion
 

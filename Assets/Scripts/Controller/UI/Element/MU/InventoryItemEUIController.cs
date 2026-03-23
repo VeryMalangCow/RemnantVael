@@ -1,7 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHandler, IPointerExitHandler
@@ -13,16 +12,16 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
 
     [Space(10)]
     [Header("=== Partner")]
-    [FormerlySerializedAs("ThisSlot")][SerializeField] public InventorySlotEUIController slot = null;
+    [SerializeField] public InventorySlotEUIController slot = null;
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("ThisSizeDelta")][SerializeField] private Vector2 sizeDelta = new Vector2(90, 90);
+    [SerializeField] private Vector2 sizeDelta = new Vector2(90, 90);
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("ThisImg")][SerializeField] public Image thisImg;
-    [FormerlySerializedAs("RankImg")][SerializeField] public Image rankImg;
+    [SerializeField] public Image thisImg;
+    [SerializeField] public Image rankImg;
 
     // Seq
     [HideInInspector] private static readonly float selectSize = 1.1f;

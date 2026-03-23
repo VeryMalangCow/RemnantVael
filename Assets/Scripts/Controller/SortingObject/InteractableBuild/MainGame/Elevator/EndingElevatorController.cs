@@ -12,10 +12,10 @@ public class EndingElevatorController : ElevatorController, IInteract
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private int NextStageIndex;
+    [SerializeField] private int nextStageIndex;
 
-    [SerializeField] private bool Is_LobbyElevator = false;
-    [SerializeField] private bool ForPassageElevator = true;
+    [SerializeField] private bool isLobbyElevator = false;
+    [SerializeField] private bool forPassageElevator = true;
 
     #endregion
 
@@ -27,19 +27,19 @@ public class EndingElevatorController : ElevatorController, IInteract
 
     #region Data
 
-    public void Set_Data(int _NextStageIndex, bool _ForPassage)
+    public void Set_Data(int nextStageIndex, bool forPassage)
     {
-        NextStageIndex = _NextStageIndex;
+        this.nextStageIndex = nextStageIndex;
 
         if (StageManager.instance.targetStageID == 99)
-            Is_LobbyElevator = true;
+            isLobbyElevator = true;
 
-        ForPassageElevator = _ForPassage;
+        forPassageElevator = forPassage;
     }
 
     public int Get_Data()
     {
-        return NextStageIndex;
+        return nextStageIndex;
     }
 
     #endregion
@@ -80,13 +80,13 @@ public class EndingElevatorController : ElevatorController, IInteract
 
         // 로비 엘레베이터면 바로 맵 생성 OR
         // 통로 맵으로 가는 엘레베이터가 아니면 맵 생성
-        if (Is_LobbyElevator == true || !ForPassageElevator) 
+        if (isLobbyElevator == true || !forPassageElevator) 
         {
-            StageManager.instance.Play_GenStage(NextStageIndex);
+            StageManager.instance.Play_GenStage(nextStageIndex);
         }
         else // 둘 모두 아니면 통로 맵 생성
         {
-            StageManager.instance.Play_GenPassageStage(NextStageIndex);
+            StageManager.instance.Play_GenPassageStage(nextStageIndex);
         }
 
         SaveDataManager.instance.Save_JsonData();
@@ -107,15 +107,15 @@ public class EndingElevatorController : ElevatorController, IInteract
 
     #region Interact
 
-    public string Get_InteractName(out bool _CanInteract)
+    public string Get_InteractName(out bool canInteract)
     {
-        _CanInteract = IsOn;
+        canInteract = isOn;
         return ResourceManager.instance.Get_StaticWord(3);
     }
 
     public void Play_Interact()
     {
-        if (IsOn)
+        if (isOn)
         {
             PlayerManager.instance.playerController.currentInteractable.Value = null;
             Play_MoveToTarget();

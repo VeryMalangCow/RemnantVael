@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StandbyAllyBUEUIController : ElementUIController
@@ -12,25 +11,25 @@ public class StandbyAllyBUEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("FaceImg")][SerializeField] private Image faceImg;
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private Image faceImg;
+    [SerializeField] private TMP_Text nameTxt;
 
     [Space(10)]
     [Header("=== BU")]
-    [FormerlySerializedAs("BUPanelGO")][SerializeField] private GameObject buPanelGo;
+    [SerializeField] private GameObject buPanelGo;
     // Dmg, Rof, CC, CD, Size, MSpd, KB, Dur, Spd
-    [FormerlySerializedAs("StateValueArr")][SerializeField] private TMP_Text[] stateValueArr;
+    [SerializeField] private TMP_Text[] stateValueArr;
 
     [Space(10)]
     [Header("=== MU")]
-    [FormerlySerializedAs("MUPanelGO")][SerializeField] private GameObject muPanelGo;
-    [FormerlySerializedAs("AllySyncIconEUIArr")][SerializeField] private AllySyncIconEUIController[] allySyncIconEuiArr;
+    [SerializeField] private GameObject muPanelGo;
+    [SerializeField] private AllySyncIconEUIController[] allySyncIconEuiArr;
 
-    [FormerlySerializedAs("ExtraTxt")][SerializeField] private TMP_Text extraTxt;
-    [FormerlySerializedAs("ApplyStateImg")][SerializeField] private Image applyStateImg;
-    [FormerlySerializedAs("ApplyStateAmountTxt")][SerializeField] private TMP_Text applyStateAmountTxt;
-    [FormerlySerializedAs("ConnectStateImg")][SerializeField] private Image connectStateImg;
-    [FormerlySerializedAs("ConnectStateAmountTxt")][SerializeField] private TMP_Text connectStateAmountTxt;
+    [SerializeField] private TMP_Text extraTxt;
+    [SerializeField] private Image applyStateImg;
+    [SerializeField] private TMP_Text applyStateAmountTxt;
+    [SerializeField] private Image connectStateImg;
+    [SerializeField] private TMP_Text connectStateAmountTxt;
 
     #endregion
 

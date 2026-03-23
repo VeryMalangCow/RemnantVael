@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RoomRuleController : MonoBehaviour
 {
@@ -16,28 +15,28 @@ public class RoomRuleController : MonoBehaviour
 
     [Space(5)]
     [Header("-- Vec")]
-    [FormerlySerializedAs("RoomVec")][SerializeField] public List<Vector2Int> roomVec;
+    [SerializeField] public List<Vector2Int> roomVec;
 
     [Space(5)]
     [Header("-- Type")]
-    [FormerlySerializedAs("RoomType")][SerializeField] public eRoomType roomType;
-    [FormerlySerializedAs("EnemyType")][SerializeField] public eEnemy enemyType = eEnemy.Normal;
-    [FormerlySerializedAs("IsAlreadyRoomClear")][SerializeField] public bool isAlreadyRoomClear = false;
+    [SerializeField] public eRoomType roomType;
+    [SerializeField] public eEnemy enemyType = eEnemy.Normal;
+    [SerializeField] public bool isAlreadyRoomClear = false;
 
     [Space(10)]
     [Header("=== Parent TF")]
 
     [Space(5)]
     [Header("-- Build")]
-    [FormerlySerializedAs("InRoom_ObstacleParentTF")][SerializeField] private Transform inRoom_ObstacleParentTF;
+    [SerializeField] private Transform inRoom_ObstacleParentTF;
 
     [Space(5)]
     [Header("-- Enemy")]
-    [FormerlySerializedAs("InRoom_EnemySpawnParentTF")][SerializeField] private Transform inRoom_EnemySpawnParentTF;
+    [SerializeField] private Transform inRoom_EnemySpawnParentTF;
 
     [Space(5)]
     [Header("-- Field Obj")]
-    [FormerlySerializedAs("InRoom_FieldObjSpawnerParentTF")][SerializeField] private Transform inRoom_FieldObjSpawnerParentTF;
+    [SerializeField] private Transform inRoom_FieldObjSpawnerParentTF;
 
     #endregion
 

@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LootableItemEUIController : ElementUIController
@@ -12,9 +11,9 @@ public class LootableItemEUIController : ElementUIController
 
     [Space(5)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("RT")][SerializeField] private RectTransform rt;
-    [FormerlySerializedAs("InnerImg")][SerializeField] private Image innerImg;
-    [FormerlySerializedAs("AmountTxt")][SerializeField] private TMP_Text amountTxt;
+    [SerializeField] private RectTransform rt;
+    [SerializeField] private Image innerImg;
+    [SerializeField] private TMP_Text amountTxt;
 
     #endregion
 

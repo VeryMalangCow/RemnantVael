@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AllyBaseUpgradeUIController : AllyShopUIController
 {
@@ -16,38 +15,38 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     [Space(10)]
     [Header("=== Tuner Detail")]
-    [FormerlySerializedAs("TunerDetailOffGO")][SerializeField] private GameObject tunerDetailOffGo;
-    [FormerlySerializedAs("TunerDetailOnGO")][SerializeField] private GameObject tunerDetailOnGo;
-    [FormerlySerializedAs("DetailTunerEUI")][SerializeField] private TunerEUIController detailTunerEui;
+    [SerializeField] private GameObject tunerDetailOffGo;
+    [SerializeField] private GameObject tunerDetailOnGo;
+    [SerializeField] private TunerEUIController detailTunerEui;
 
     [Space(10)]
     [Header("-- Tuner Element Desc")]
-    [FormerlySerializedAs("Positive0_ElementDescEUI")][SerializeField] private TunerDescEUIController positive0_ElementDescEui;
-    [FormerlySerializedAs("Positive1_ElementDescEUI")][SerializeField] private TunerDescEUIController positive1_ElementDescEui;
-    [FormerlySerializedAs("Negative_ElementDescEUI")][SerializeField] private TunerDescEUIController negative_ElementDescEui;
+    [SerializeField] private TunerDescEUIController positive0_ElementDescEui;
+    [SerializeField] private TunerDescEUIController positive1_ElementDescEui;
+    [SerializeField] private TunerDescEUIController negative_ElementDescEui;
 
     [Space(5)]
     [Header("-- Buy")]
-    [FormerlySerializedAs("BuyBtnEUI")][SerializeField] private OwnCGBtnEUIController buyBtnEui;
-    [FormerlySerializedAs("CanBuyArrowGO")][SerializeField] private GameObject canBuyArrowGo;
-    [FormerlySerializedAs("TunerDetailExtraRT")][SerializeField] private RectTransform tunerDetailExtraRt;
+    [SerializeField] private OwnCGBtnEUIController buyBtnEui;
+    [SerializeField] private GameObject canBuyArrowGo;
+    [SerializeField] private RectTransform tunerDetailExtraRt;
 
     [Space(5)]
     [Header("-- Goods")]
-    [FormerlySerializedAs("ChargeBetteryTxt")][SerializeField] private TMP_Text chargeBetteryTxt;
-    [FormerlySerializedAs("ChargeBetteryUseTxt")][SerializeField] private TMP_Text chargeBetteryUseTxt;
-    [FormerlySerializedAs("OverriderTxt")][SerializeField] private TMP_Text overriderTxt;
-    [FormerlySerializedAs("OverriderUseTxt")][SerializeField] private TMP_Text overriderUseTxt;
+    [SerializeField] private TMP_Text chargeBetteryTxt;
+    [SerializeField] private TMP_Text chargeBetteryUseTxt;
+    [SerializeField] private TMP_Text overriderTxt;
+    [SerializeField] private TMP_Text overriderUseTxt;
 
     [Space(10)]
     [Header("=== Tuner List")]
-    [FormerlySerializedAs("AllTunerEUI")][SerializeField] private List<TunerForBuyEUIController> allTunerEui;
-    [FormerlySerializedAs("PickTunerListSignRT")][SerializeField] private RectTransform pickTunerListSignRt;
+    [SerializeField] private List<TunerForBuyEUIController> allTunerEui;
+    [SerializeField] private RectTransform pickTunerListSignRt;
 
     [Space(10)]
     [Header("=== Txt")]
-    [FormerlySerializedAs("TunerDetailTxt")][SerializeField] private TMP_Text tunerDetailTxt;
-    [FormerlySerializedAs("TunerListTxt")][SerializeField] private TMP_Text tunerListTxt;
+    [SerializeField] private TMP_Text tunerDetailTxt;
+    [SerializeField] private TMP_Text tunerListTxt;
 
 
     #endregion
@@ -55,8 +54,8 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     #region - Hide
 
     // Tuner
-    [FormerlySerializedAs("AllyTunerSet")][SerializeField] private AllyBaseUpradeTunerSet allyTunerSet;
-    [FormerlySerializedAs("PickedTunerData")][SerializeField] private AllyTunerData pickedTunerData;
+    [SerializeField] private AllyBaseUpradeTunerSet allyTunerSet;
+    [SerializeField] private AllyTunerData pickedTunerData;
     [HideInInspector] private static readonly int tunerAmount = 5;
     [HideInInspector] private static int needOverrider = 1;
     [HideInInspector] private int needChargedBettery = 0;
@@ -168,7 +167,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         Set_ChargedBetteryUI(PlayerManager.instance.playerController.currentChargedBettery.Value, needChargedBettery);
 
-        if (!AllyBaseUpgradeController.UsingShop.IsBroken)
+        if (!AllyBaseUpgradeController.usingShop.isBroken)
         {
             DevTool.Set_KillTween(tunerDetailExtraRt);
             tunerDetailExtraRt.DOSizeDelta(onOff ? tunerDetailExtraRTOpen : new Vector2(tunerDetailExtraRTOpen.x, 0), 0.2f);
@@ -206,7 +205,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     {
         if (Is_Interact_Msg()) return true;
 
-        if (currentBtn == null || AllyBaseUpgradeController.UsingShop == null) return true;
+        if (currentBtn == null || AllyBaseUpgradeController.usingShop == null) return true;
 
         if (base.Try_Interact()) return true;
         if (Is_Interact_CloseBtn()) return true;
@@ -295,7 +294,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
                 Set_PickedTuner(null);
 
 
-                AllyBaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
+                AllyBaseUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
             }
 
             return true;
@@ -310,7 +309,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     private bool Can_Buy()
     {
-        return !AllyBaseUpgradeController.UsingShop.IsBroken &&
+        return !AllyBaseUpgradeController.usingShop.isBroken &&
             (PlayerManager.instance.playerController.currentChargedBettery.Value >= needChargedBettery) &&
             currentPickedProfileEui != null;
     }
@@ -397,7 +396,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         base.SetOn_ThisPanel();
 
         // Dur
-        durEui.Set_Dur(AllyBaseUpgradeController.UsingShop.CurrentDur);
+        durEui.Set_Dur(AllyBaseUpgradeController.usingShop.currentDur);
 
         // Picked Tuner Detail
         Set_PickedTuner(null);
@@ -409,7 +408,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         base.SetOff_ThisPanel();
 
-        AllyBaseUpgradeController.UsingShop = null;
+        AllyBaseUpgradeController.usingShop = null;
     }
 
     #endregion

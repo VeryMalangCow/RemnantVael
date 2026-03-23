@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class NSCPanelEUIController : ElementUIController
@@ -14,17 +13,17 @@ public class NSCPanelEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [FormerlySerializedAs("ShapeRollEUI")][SerializeField] private NSCRollImgCellEUIController shapeRollEui;
-    [FormerlySerializedAs("ColorRollEUI")][SerializeField] private NSCRollColorCellEUIController colorRollEui;
-    [FormerlySerializedAs("NumRollEUI")][SerializeField] private NSCRollImgCellEUIController numRollEui;
+    [SerializeField] private NSCRollImgCellEUIController shapeRollEui;
+    [SerializeField] private NSCRollColorCellEUIController colorRollEui;
+    [SerializeField] private NSCRollImgCellEUIController numRollEui;
 
     [Space(10)]
     [Header("=== Answer")]
-    [FormerlySerializedAs("AnswerImg")][SerializeField] private Image answerImg;
+    [SerializeField] private Image answerImg;
 
     [Space(10)]
     [Header("=== TF")]
-    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
+    [SerializeField] private Transform innerParentTf;
 
     #endregion
 

@@ -220,11 +220,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: -1, y: 0}
-  Angle: 180
-  Radius: 3
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: -1, y: 0}
+  angle: 180
+  radius: 3
+  radialBias: 0.5
 --- !u!212 &748080834751056616
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1338,11 +1338,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 0, y: 1}
-  Angle: 180
-  Radius: 4
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 0, y: 1}
+  angle: 180
+  radius: 4
+  radialBias: 0.5
 --- !u!212 &4784091292289160215
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1572,11 +1572,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 1, y: 0}
-  Angle: 180
-  Radius: 3
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 1, y: 0}
+  angle: 180
+  radius: 3
+  radialBias: 0.5
 --- !u!212 &6430174968153538960
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2047,11 +2047,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 10
-  SpreadDir: {x: 0, y: -1}
-  Angle: 180
-  Radius: 8
-  RadialBias: 4
+  amount: 10
+  spreadDir: {x: 0, y: -1}
+  angle: 180
+  radius: 8
+  radialBias: 4
 --- !u!212 &7966324327189275648
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2933,11 +2933,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 1, y: 0}
-  Angle: 180
-  Radius: 3
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 1, y: 0}
+  angle: 180
+  radius: 3
+  radialBias: 0.5
 --- !u!212 &8354493598112379389
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4237,11 +4237,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 8
-  SpreadDir: {x: -1, y: 1}
-  Angle: 90
-  Radius: 8
-  RadialBias: 4
+  amount: 8
+  spreadDir: {x: -1, y: 1}
+  angle: 90
+  radius: 8
+  radialBias: 4
 --- !u!212 &7388793749891564714
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5339,11 +5339,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 0, y: -1}
-  Angle: 180
-  Radius: 4
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 0, y: -1}
+  angle: 180
+  radius: 4
+  radialBias: 0.5
 --- !u!212 &5111158931761144829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6771,11 +6771,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 10
-  SpreadDir: {x: -1, y: 0}
-  Angle: 180
-  Radius: 8
-  RadialBias: 4
+  amount: 10
+  spreadDir: {x: -1, y: 0}
+  angle: 180
+  radius: 8
+  radialBias: 4
 --- !u!212 &4508718011678136787
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8417,11 +8417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: -1, y: 0}
-  Angle: 180
-  Radius: 3
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: -1, y: 0}
+  angle: 180
+  radius: 3
+  radialBias: 0.5
 --- !u!212 &1379151656355732763
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8603,11 +8603,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 0, y: 1}
-  Angle: 180
-  Radius: 4
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 0, y: 1}
+  angle: 180
+  radius: 4
+  radialBias: 0.5
 --- !u!212 &2270054223775504293
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8754,11 +8754,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 8
-  SpreadDir: {x: 1, y: -1}
-  Angle: 90
-  Radius: 8
-  RadialBias: 4
+  amount: 8
+  spreadDir: {x: 1, y: -1}
+  angle: 90
+  radius: 8
+  radialBias: 4
 --- !u!212 &6382125927905732634
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11155,11 +11155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 1, y: 0}
-  Angle: 180
-  Radius: 3
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 1, y: 0}
+  angle: 180
+  radius: 3
+  radialBias: 0.5
 --- !u!212 &1873004415628656161
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11592,11 +11592,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 8
-  SpreadDir: {x: 1, y: 1}
-  Angle: 90
-  Radius: 8
-  RadialBias: 4
+  amount: 8
+  spreadDir: {x: 1, y: 1}
+  angle: 90
+  radius: 8
+  radialBias: 4
 --- !u!212 &8716764690785279790
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12315,11 +12315,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 0, y: 1}
-  Angle: 180
-  Radius: 4
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 0, y: 1}
+  angle: 180
+  radius: 4
+  radialBias: 0.5
 --- !u!212 &1181784241770583672
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12417,11 +12417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 0, y: 1}
-  Angle: 180
-  Radius: 4
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 0, y: 1}
+  angle: 180
+  radius: 4
+  radialBias: 0.5
 --- !u!212 &2795236990374017982
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12813,11 +12813,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 0, y: -1}
-  Angle: 180
-  Radius: 4
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 0, y: -1}
+  angle: 180
+  radius: 4
+  radialBias: 0.5
 --- !u!212 &251656868736838584
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14825,11 +14825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: -1, y: 0}
-  Angle: 180
-  Radius: 3
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: -1, y: 0}
+  angle: 180
+  radius: 3
+  radialBias: 0.5
 --- !u!212 &1715792506448543509
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17061,11 +17061,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 12
-  SpreadDir: {x: 1, y: 1}
-  Angle: 270
-  Radius: 8
-  RadialBias: 4
+  amount: 12
+  spreadDir: {x: 1, y: 1}
+  angle: 270
+  radius: 8
+  radialBias: 4
 --- !u!212 &623712537558237193
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17163,11 +17163,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 1, y: 0}
-  Angle: 180
-  Radius: 3
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 1, y: 0}
+  angle: 180
+  radius: 3
+  radialBias: 0.5
 --- !u!212 &8407855181735590230
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17755,11 +17755,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: -1, y: 0}
-  Angle: 180
-  Radius: 3
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: -1, y: 0}
+  angle: 180
+  radius: 3
+  radialBias: 0.5
 --- !u!212 &4611150770331608195
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18578,11 +18578,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 0, y: -1}
-  Angle: 180
-  Radius: 4
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 0, y: -1}
+  angle: 180
+  radius: 4
+  radialBias: 0.5
 --- !u!212 &1305047461865615750
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21195,11 +21195,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 8
-  SpreadDir: {x: 1, y: 1}
-  Angle: 90
-  Radius: 8
-  RadialBias: 4
+  amount: 8
+  spreadDir: {x: 1, y: 1}
+  angle: 90
+  radius: 8
+  radialBias: 4
 --- !u!212 &8754934367652526159
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21593,11 +21593,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 8
-  SpreadDir: {x: -1, y: -1}
-  Angle: 90
-  Radius: 8
-  RadialBias: 4
+  amount: 8
+  spreadDir: {x: -1, y: -1}
+  angle: 90
+  radius: 8
+  radialBias: 4
 --- !u!212 &5478918712716923139
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21891,11 +21891,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 3
-  SpreadDir: {x: 0, y: -1}
-  Angle: 180
-  Radius: 4
-  RadialBias: 0.5
+  amount: 3
+  spreadDir: {x: 0, y: -1}
+  angle: 180
+  radius: 4
+  radialBias: 0.5
 --- !u!212 &8993527134135009982
 SpriteRenderer:
   m_ObjectHideFlags: 0

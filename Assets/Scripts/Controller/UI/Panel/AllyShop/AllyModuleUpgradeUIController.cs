@@ -5,7 +5,6 @@ using UniRx;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
 
 public class AllyModuleUpgradeUIController : AllyShopUIController
 {
@@ -18,89 +17,89 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     [Space(10)]
     [Header("=== Inventory")]
-    [FormerlySerializedAs("InventoryScrollPanelEUI")][SerializeField] private ScrollPanelEUIController inventoryScrollPanelEui;
-    [FormerlySerializedAs("InventoryEUI")][SerializeField] private InventoryEUIController inventoryEui;
-    [FormerlySerializedAs("NoneSyncArrowPanelGO")][SerializeField] private GameObject noneSyncArrowPanelGo;
-    [FormerlySerializedAs("NoneSyneToggleBtn")][SerializeField] private OwnBtnEUIController noneSyneToggleBtn;
+    [SerializeField] private ScrollPanelEUIController inventoryScrollPanelEui;
+    [SerializeField] private InventoryEUIController inventoryEui;
+    [SerializeField] private GameObject noneSyncArrowPanelGo;
+    [SerializeField] private OwnBtnEUIController noneSyneToggleBtn;
 
     [Space(10)]
     [Header("-- Panel (Inven Or NoneSyne)")]
-    [FormerlySerializedAs("NoneSyncScrollPanelEUI")][SerializeField] private ScrollPanelEUIController noneSyncScrollPanelEui;
-    [FormerlySerializedAs("InventoryPanel_InventoryGO")][SerializeField] private GameObject inventoryPanel_InventoryGo;
-    [FormerlySerializedAs("InventoryPanel_NoneSyneGO")][SerializeField] private GameObject inventoryPanel_NoneSyneGo;
+    [SerializeField] private ScrollPanelEUIController noneSyncScrollPanelEui;
+    [SerializeField] private GameObject inventoryPanel_InventoryGo;
+    [SerializeField] private GameObject inventoryPanel_NoneSyneGo;
 
     [Space(10)]
     [Header("* Panel (NoneSyne)")]
-    [FormerlySerializedAs("NoneSyncPanel_EmptyGO")][SerializeField] private GameObject noneSyncPanel_EmptyGo;
-    [FormerlySerializedAs("NoneSyncPanel_ExistGO")][SerializeField] private GameObject noneSyncPanel_ExistGo;
-    [FormerlySerializedAs("NoneSyncItemParentTF")][SerializeField] private Transform noneSyncItemParentTf;
-    [FormerlySerializedAs("NoneSyncItemPrefab")][SerializeField] private GameObject noneSyncItemPrefab;
-    [FormerlySerializedAs("NoneSyneBuyBtn")][SerializeField] private OwnBtnEUIController noneSyneBuyBtn;
-    [FormerlySerializedAs("NoneSyncCanBuyGO")][SerializeField] private GameObject noneSyncCanBuyGo;
-    [FormerlySerializedAs("NoneSyncCanBuyTxt")][SerializeField] private TMP_Text noneSyncCanBuyTxt;
-    [FormerlySerializedAs("NoneSyncCannotBuyGO")][SerializeField] private GameObject noneSyncCannotBuyGo;
+    [SerializeField] private GameObject noneSyncPanel_EmptyGo;
+    [SerializeField] private GameObject noneSyncPanel_ExistGo;
+    [SerializeField] private Transform noneSyncItemParentTf;
+    [SerializeField] private GameObject noneSyncItemPrefab;
+    [SerializeField] private OwnBtnEUIController noneSyneBuyBtn;
+    [SerializeField] private GameObject noneSyncCanBuyGo;
+    [SerializeField] private TMP_Text noneSyncCanBuyTxt;
+    [SerializeField] private GameObject noneSyncCannotBuyGo;
 
 
     [Space(10)]
     [Header("=== Picked Item")]
-    [FormerlySerializedAs("ToggleBtn")][SerializeField] private OwnBtnEUIController toggleBtn;
+    [SerializeField] private OwnBtnEUIController toggleBtn;
 
     [Space(5)]
     [Header("-- Panel (Player)")]
-    [FormerlySerializedAs("PickedModulePanel_PlayerGO")][SerializeField] private GameObject pickedModulePanel_PlayerGo;
-    [FormerlySerializedAs("PlayerSyncNameTxt")][SerializeField] private TMP_Text playerSyncNameTxt;
+    [SerializeField] private GameObject pickedModulePanel_PlayerGo;
+    [SerializeField] private TMP_Text playerSyncNameTxt;
 
     [Space(2)]
     [Header("* Off")]
-    [FormerlySerializedAs("PlayerSynergyEmptyGO")][SerializeField] private GameObject playerSynergyEmptyGo;
+    [SerializeField] private GameObject playerSynergyEmptyGo;
 
     [Space(2)]
     [Header("* On")]
-    [FormerlySerializedAs("PlayerSynergyExsitGO")][SerializeField] private GameObject playerSynergyExsitGo;
-    [FormerlySerializedAs("PlayerSynergySlotParentTF")][SerializeField] private Transform playerSynergySlotParentTf;
-    [FormerlySerializedAs("PlayerSynergyDescImg")][SerializeField] private Image playerSynergyDescImg;
-    [FormerlySerializedAs("PlayerSynergyDescTxt")][SerializeField] private TMP_Text playerSynergyDescTxt;
+    [SerializeField] private GameObject playerSynergyExsitGo;
+    [SerializeField] private Transform playerSynergySlotParentTf;
+    [SerializeField] private Image playerSynergyDescImg;
+    [SerializeField] private TMP_Text playerSynergyDescTxt;
 
     [Space(5)]
     [Header("-- Panel (Ally)")]
-    [FormerlySerializedAs("PickedModulePanel_AllyGO")][SerializeField] private GameObject pickedModulePanel_AllyGo;
+    [SerializeField] private GameObject pickedModulePanel_AllyGo;
 
     [Space(5)]
     [Header("-- Off")]
-    [FormerlySerializedAs("PickedOffGO")][SerializeField] private GameObject pickedOffGo;
+    [SerializeField] private GameObject pickedOffGo;
 
     [Space(5)]
     [Header("-- On")]
-    [FormerlySerializedAs("PickedOnGO")][SerializeField] private GameObject pickedOnGo;
+    [SerializeField] private GameObject pickedOnGo;
 
     [Space(2)]
     [Header("* Item & Slot")]
-    [FormerlySerializedAs("PickedPanelSlotEUI")][SerializeField] private InventorySlotEUIController pickedPanelSlotEui;
-    [FormerlySerializedAs("PickedPanelItemNameTxt")][SerializeField] private TMP_Text pickedPanelItemNameTxt;
-    [FormerlySerializedAs("PickedPanelItemRankTxt")][SerializeField] private TMP_Text pickedPanelItemRankTxt;
-    [FormerlySerializedAs("PickedPanelItemLockImg")][SerializeField] private Image pickedPanelItemLockImg;
+    [SerializeField] private InventorySlotEUIController pickedPanelSlotEui;
+    [SerializeField] private TMP_Text pickedPanelItemNameTxt;
+    [SerializeField] private TMP_Text pickedPanelItemRankTxt;
+    [SerializeField] private Image pickedPanelItemLockImg;
 
     [Space(2)]
     [Header("* Synergy")]
-    [FormerlySerializedAs("PickedPanelSynergyEUIList")][SerializeField] private List<AllySynergySlotEUIController> pickedPanelSynergyEuiList;
+    [SerializeField] private List<AllySynergySlotEUIController> pickedPanelSynergyEuiList;
 
     [Space(5)]
     [Header("-- Buy")]
-    [FormerlySerializedAs("BuyBtnEUI")][SerializeField] private OwnCGBtnEUIController buyBtnEui;
-    [FormerlySerializedAs("CanBuyArrowGO")][SerializeField] private GameObject canBuyArrowGO;
-    [FormerlySerializedAs("ModuleDetailExtraRT")][SerializeField] private RectTransform moduleDetailExtraRt;
+    [SerializeField] private OwnCGBtnEUIController buyBtnEui;
+    [SerializeField] private GameObject canBuyArrowGO;
+    [SerializeField] private RectTransform moduleDetailExtraRt;
 
     [Space(5)]
     [Header("-- Goods")]
-    [FormerlySerializedAs("ChargeBetteryTxt")][SerializeField] private TMP_Text chargeBetteryTxt;
-    [FormerlySerializedAs("ChargeBetteryUseTxt")][SerializeField] private TMP_Text chargeBetteryUseTxt;
-    [FormerlySerializedAs("NoneSyncTxt")][SerializeField] private TMP_Text noneSyncTxt;
-    [FormerlySerializedAs("NoneSyncUseTxt")][SerializeField] private TMP_Text noneSyncUseTxt;
+    [SerializeField] private TMP_Text chargeBetteryTxt;
+    [SerializeField] private TMP_Text chargeBetteryUseTxt;
+    [SerializeField] private TMP_Text noneSyncTxt;
+    [SerializeField] private TMP_Text noneSyncUseTxt;
 
     [Space(10)]
     [Header("=== Txt")]
-    [FormerlySerializedAs("ModuleInventoryTxt")][SerializeField] private TMP_Text moduleInventoryTxt;
-    [FormerlySerializedAs("ModuleDetailTxt")][SerializeField] private TMP_Text moduleDetailTxt;
+    [SerializeField] private TMP_Text moduleInventoryTxt;
+    [SerializeField] private TMP_Text moduleDetailTxt;
 
     #endregion
 
@@ -120,7 +119,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     [HideInInspector] private Vector2 ModuleDetailExtraRTOpen;
 
     // Player Sync
-    [FormerlySerializedAs("PlayerSyncSlotEUIList")][SerializeField] private List<SynergySlotEUIController> playerSyncSlotEuiList;
+    [SerializeField] private List<SynergySlotEUIController> playerSyncSlotEuiList;
 
     // None Sync
     [HideInInspector] private List<AllyNoneSynergySlotEUIController> noneSyncItemEuiList;
@@ -221,7 +220,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         if (Is_Interact_Msg()) return true;
 
-        if (currentBtn == null || AllyModuleUpgradeController.UsingShop == null) return true;
+        if (currentBtn == null || AllyModuleUpgradeController.usingShop == null) return true;
 
         if (base.Try_Interact()) return true;
         if (Is_Interact_CloseBtn()) return true;
@@ -374,7 +373,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
                 Buy();
                 Set_Picked(null);
 
-                AllyModuleUpgradeController.UsingShop.Take_Damage(spawnItem: false, soundOn: false);
+                AllyModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
             }
 
             return true;
@@ -415,7 +414,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         return selectedNoneSyncIdList.Count > 0 &&
             currentPickedAlly.Get_HadNoneSyncAmount() >= Get_CurrentNeedNoneSync() &&
-            !AllyModuleUpgradeController.UsingShop.IsBroken;
+            !AllyModuleUpgradeController.usingShop.isBroken;
     }
 
     // None Sync 패널의 버튼 활성화/비활성화 (살 수 있느냐에 따라)
@@ -442,7 +441,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         // 재화 소모
         int needGoods = Get_CurrentNeedNoneSync();
         currentPickedAlly.Use_HadNoneSyncAmount(needGoods);
-        AllyModuleUpgradeController.UsingShop.Take_Damage(spawnItem: false, soundOn: false);
+        AllyModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
         // 소비 효과
         Play_UseTxt(noneSyncUseTxt, needGoods, 30f);
@@ -636,7 +635,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             }
         }
 
-        return !AllyModuleUpgradeController.UsingShop.IsBroken &&
+        return !AllyModuleUpgradeController.usingShop.isBroken &&
             isExist && 
             PlayerManager.instance.playerController.currentChargedBettery.Value >= goods &&
             currentPickedProfileEui != null &&
@@ -939,7 +938,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         base.SetOn_ThisPanel();
 
         // Dur
-        durEui.Set_Dur(AllyModuleUpgradeController.UsingShop.CurrentDur);
+        durEui.Set_Dur(AllyModuleUpgradeController.usingShop.currentDur);
 
         Set_Inventory();
         Set_BuyBtn();
@@ -961,7 +960,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         base.SetOff_ThisPanel();
 
-        AllyModuleUpgradeController.UsingShop = null;
+        AllyModuleUpgradeController.usingShop = null;
     }
 
     #endregion

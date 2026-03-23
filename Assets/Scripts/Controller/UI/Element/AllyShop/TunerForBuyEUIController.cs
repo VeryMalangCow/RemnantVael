@@ -1,7 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 public class TunerForBuyEUIController : OwnBtnEUIController
 {
@@ -12,10 +11,10 @@ public class TunerForBuyEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [FormerlySerializedAs("PositiveTuner0")][SerializeField] private EachTunerEUIController positiveTuner0;
-    [FormerlySerializedAs("PositiveTuner1")][SerializeField] private EachTunerEUIController positiveTuner1;
-    [FormerlySerializedAs("NegativeTuner")][SerializeField] private EachTunerEUIController negativeTuner;
-    [FormerlySerializedAs("RerollBtnEUI")][SerializeField] public TunerRerollBtnEUIController rerollBtnEUI;
+    [SerializeField] private EachTunerEUIController positiveTuner0;
+    [SerializeField] private EachTunerEUIController positiveTuner1;
+    [SerializeField] private EachTunerEUIController negativeTuner;
+    [SerializeField] public TunerRerollBtnEUIController rerollBtnEUI;
 
     #endregion
 

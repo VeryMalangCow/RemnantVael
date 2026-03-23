@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TabEUIController : ScrollPanelEUIController
 {
     #region Value
 
     [Header("=== Comp")]
-    [FormerlySerializedAs("ThisTabBtn")][SerializeField] public TabBtnEUIController tabBtn;
+    [SerializeField] public TabBtnEUIController tabBtn;
 
     #endregion
 

@@ -458,13 +458,13 @@ MonoBehaviour:
   targetObject: {fileID: 6716563269259915906}
   thisSr: {fileID: 6431130664222279258}
   targetRange: 0.55
-  ThisStateAnim: {fileID: 3433866877279181021}
-  IsOn: 1
-  ThisAnimator: {fileID: 1156573706478142735}
-  IconStateAnim: {fileID: 4984407967345628786}
-  PaySG: {fileID: 6122899334504255796}
-  PayTxt: {fileID: 8052428124750259150}
-  TargetVault: {fileID: 0}
+  stateAnim: {fileID: 3433866877279181021}
+  isOn: 1
+  at: {fileID: 1156573706478142735}
+  iconStateAnim: {fileID: 4984407967345628786}
+  paySg: {fileID: 6122899334504255796}
+  payTxt: {fileID: 8052428124750259150}
+  targetVault: {fileID: 0}
 --- !u!1 &6310173116161984221
 GameObject:
   m_ObjectHideFlags: 0

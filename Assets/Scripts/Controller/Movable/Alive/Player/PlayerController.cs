@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using UnityEngine.Serialization;
 
 public class PlayerController : AliveObjectController
 {
@@ -18,75 +17,75 @@ public class PlayerController : AliveObjectController
 
     [Space(10)]
     [Header("=== Data")]
-    [FormerlySerializedAs("NameID")][SerializeField] private int nameId;
+    [SerializeField] private int nameId;
     public int GetNameID => nameId;
 
     [Space(10)]
     [Header("=== Controller & Generator")]
-    [FormerlySerializedAs("BaseWeapon")][SerializeField] public PlayerWeaponController baseWeapon;
-    [FormerlySerializedAs("SkillWeapon")][SerializeField] public SkillWeaponController skillWeapon;
-    [FormerlySerializedAs("DashController")][SerializeField] public PlayerDashController dash;
-    [FormerlySerializedAs("LowerController")][SerializeField] public RigidbodyAnimSolarController rbLower;
+    [SerializeField] public PlayerWeaponController baseWeapon;
+    [SerializeField] public SkillWeaponController skillWeapon;
+    [SerializeField] public PlayerDashController dash;
+    [SerializeField] public RigidbodyAnimSolarController rbLower;
 
     [Space(5)]
-    [FormerlySerializedAs("AfterImgGenerator")][SerializeField] public AfterImgGenerator afterImgGenerator;
+    [SerializeField] public AfterImgGenerator afterImgGenerator;
 
     [Space(10)]
     [Header("=== BU State")]
-    [FormerlySerializedAs("AvoidChance")][SerializeField] public BUState<float> avoidChance;
-    [FormerlySerializedAs("MaxEP")][SerializeField] public BUState<float> maxEP;
-    [FormerlySerializedAs("TakingDmgMultiple")][SerializeField] public BUState<float> takingDmgMultiple;
-    [FormerlySerializedAs("SpawnESMultiple")][SerializeField] public BUState<float> spawnESMultiple;
-    [FormerlySerializedAs("NeedEP_ForSkillMultiple")][SerializeField] public BUState<float> needEP_ForSkillMultiple;
-    [FormerlySerializedAs("WalkSpeed")][SerializeField] public BUState<float> walkSpeed;
-    [FormerlySerializedAs("WalkSpeedWhenShotMultiple")][SerializeField] public BUState<float> walkSpeedWhenShotMultiple;
+    [SerializeField] public BUState<float> avoidChance;
+    [SerializeField] public BUState<float> maxEP;
+    [SerializeField] public BUState<float> takingDmgMultiple;
+    [SerializeField] public BUState<float> spawnESMultiple;
+    [SerializeField] public BUState<float> needEP_ForSkillMultiple;
+    [SerializeField] public BUState<float> walkSpeed;
+    [SerializeField] public BUState<float> walkSpeedWhenShotMultiple;
 
     [Space(10)]
     [Header("=== Visual Comp")]
 
     [Space(5)]
     [Header("-- SG")]
-    [FormerlySerializedAs("BodySG")][SerializeField] private SortingGroup bodySg;
+    [SerializeField] private SortingGroup bodySg;
 
     [Space(5)]
     [Header("-- Anim")]
-    [FormerlySerializedAs("StateAnim")][SerializeField] private StateAnimController stateAnim;
-    [FormerlySerializedAs("MoveDirStateAnim")][SerializeField] private StateAnimController moveDirStateAnim;
-    [FormerlySerializedAs("BaseAnimDepthList")][SerializeField] private List<MovableDepthController> baseAnimDepthList;
-    [FormerlySerializedAs("BoostStateAnimController")][SerializeField] private CoupleData<List<StateAnimController>> boostStateAnimController;
+    [SerializeField] private StateAnimController stateAnim;
+    [SerializeField] private StateAnimController moveDirStateAnim;
+    [SerializeField] private List<MovableDepthController> baseAnimDepthList;
+    [SerializeField] private CoupleData<List<StateAnimController>> boostStateAnimController;
 
     [Space(5)]
     [Header("-- VFX")]
-    [FormerlySerializedAs("ThisTrail")][SerializeField] private TrailRenderer trail;
+    [SerializeField] private TrailRenderer trail;
 
     [Space(10)]
     [Header("=== Visual Reso")]
 
-    [FormerlySerializedAs("MoveDirAC")][SerializeField] private AnimationClip moveDirAc;
-    [FormerlySerializedAs("ChangeState_DamageType")][SerializeField] private Sprite changeState_DamageType;
+    [SerializeField] private AnimationClip moveDirAc;
+    [SerializeField] private Sprite changeState_DamageType;
 
-    [FormerlySerializedAs("MaterialList")][SerializeField] public List<Material> materialList;
-    [FormerlySerializedAs("BoostVFXAnimList")][SerializeField] private List<AnimationClip> boostVFXAnimList;
+    [SerializeField] public List<Material> materialList;
+    [SerializeField] private List<AnimationClip> boostVFXAnimList;
 
-    [FormerlySerializedAs("ThisClr")][SerializeField] private PlayerVisual<Color> clr;
-    [FormerlySerializedAs("ThisGradient")][SerializeField] private PlayerVisual<Gradient> gradient;
+    [SerializeField] private PlayerVisual<Color> clr;
+    [SerializeField] private PlayerVisual<Gradient> gradient;
 
-    [FormerlySerializedAs("ThisHittedPointAC")][SerializeField] private PlayerVisual<AnimationClip> hittedPointAc;
-    [FormerlySerializedAs("DmgTypeStateAC")][SerializeField] private TrioData<AnimationClip> dmgTypeStateAc;
-    [FormerlySerializedAs("BoostOnOffAC")][SerializeField] private CoupleData<AnimationClip> boostOnOffAc;
+    [SerializeField] private PlayerVisual<AnimationClip> hittedPointAc;
+    [SerializeField] private TrioData<AnimationClip> dmgTypeStateAc;
+    [SerializeField] private CoupleData<AnimationClip> boostOnOffAc;
 
-    [FormerlySerializedAs("ChangeState_BoostUpDown")][SerializeField] private CoupleData<Sprite> changeState_BoostUpDown;
-    [FormerlySerializedAs("ChangeState_Skill")][SerializeField] private CoupleData<Sprite> changeState_Skill;
+    [SerializeField] private CoupleData<Sprite> changeState_BoostUpDown;
+    [SerializeField] private CoupleData<Sprite> changeState_Skill;
 
-    [FormerlySerializedAs("AimPrefab")][SerializeField] public GameObject aimPrefab;
-    [FormerlySerializedAs("AimRoundPrefab")][SerializeField] public GameObject aimRoundPrefab;
+    [SerializeField] public GameObject aimPrefab;
+    [SerializeField] public GameObject aimRoundPrefab;
 
-    [FormerlySerializedAs("BattleProdSprite")][SerializeField] public Sprite battleProdSprite;
+    [SerializeField] public Sprite battleProdSprite;
 
     [Space(10)]
     [Header("=== Sound")]
-    [FormerlySerializedAs("ASQueueSet")][SerializeField] private ASQueueSet audioQueueSet;
-    [FormerlySerializedAs("MovementAS")][SerializeField] private AudioSource movementAs;
+    [SerializeField] private ASQueueSet audioQueueSet;
+    [SerializeField] private AudioSource movementAs;
 
     #endregion
 
@@ -121,7 +120,7 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public List<BuffController> currentBuffs = new List<BuffController>();
 
     // Interact
-    [FormerlySerializedAs("CurrentInteractableGOList")][SerializeField] public List<GameObject> currentInteractableGoList = new List<GameObject>();
+    [SerializeField] public List<GameObject> currentInteractableGoList = new List<GameObject>();
     [HideInInspector] public ReactiveProperty<IInteract> currentInteractable = new();
 
     // Item

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerShopUIController : ShopUIController
 {
@@ -14,7 +13,7 @@ public class PlayerShopUIController : ShopUIController
 
     [Space(10)]
     [Header("=== Visual")]
-    [FormerlySerializedAs("TabSideTxtList")][SerializeField] protected List<TMP_Text> tabSideTxtList;
+    [SerializeField] protected List<TMP_Text> tabSideTxtList;
 
     #endregion
 

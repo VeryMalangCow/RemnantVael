@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CoreItemController : InteractItemController
 {
     #region Value
 
-    [FormerlySerializedAs("AnimSR")][SerializeField] private SpriteRenderer animSr;
+    [SerializeField] private SpriteRenderer animSr;
 
     #endregion
 

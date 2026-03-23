@@ -1,7 +1,6 @@
 using System.Collections;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class OriginCoreCvtUIController : ConverterUIController
 {
@@ -14,9 +13,9 @@ public class OriginCoreCvtUIController : ConverterUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [FormerlySerializedAs("CB_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController cbCvtMaterialEui;
-    [FormerlySerializedAs("C_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
-    [FormerlySerializedAs("EtherC_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController etherCvtMaterialEui;
+    [SerializeField] private CvtMaterialEUIController cbCvtMaterialEui;
+    [SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
+    [SerializeField] private CvtMaterialEUIController etherCvtMaterialEui;
 
     #endregion
 

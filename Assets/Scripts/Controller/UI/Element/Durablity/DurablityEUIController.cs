@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DurablityEUIController : ElementUIController
@@ -15,16 +14,16 @@ public class DurablityEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Intact")]
-    [FormerlySerializedAs("IntactGO")][SerializeField] private GameObject intactGo;
-    [FormerlySerializedAs("DurablityTxt")][SerializeField] private TMP_Text durablityTxt;
-    [FormerlySerializedAs("DurablityStateTxt")][SerializeField] private TMP_Text durablityStateTxt;
-    [FormerlySerializedAs("FillImgListParentTF")][SerializeField] private Transform fillImgListParentTf;
+    [SerializeField] private GameObject intactGo;
+    [SerializeField] private TMP_Text durablityTxt;
+    [SerializeField] private TMP_Text durablityStateTxt;
+    [SerializeField] private Transform fillImgListParentTf;
 
     [Space(10)]
     [Header("=== Broken")]
-    [FormerlySerializedAs("BrokenGO")][SerializeField] private GameObject brokenGo;
-    [FormerlySerializedAs("BrokenTxt")][SerializeField] private TMP_Text brokenTxt;
-    [FormerlySerializedAs("BrokenTxtColor")][SerializeField] private Color brokenTxtClr;
+    [SerializeField] private GameObject brokenGo;
+    [SerializeField] private TMP_Text brokenTxt;
+    [SerializeField] private Color brokenTxtClr;
 
     #endregion
 

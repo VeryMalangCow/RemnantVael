@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BattleProdUIController : UIController
@@ -9,17 +8,17 @@ public class BattleProdUIController : UIController
     #region Value
 
     [Space(10)]
-    [FormerlySerializedAs("BattleProd_CG")][SerializeField] private CanvasGroup battleProd_Cg;
+    [SerializeField] private CanvasGroup battleProd_Cg;
 
     [Space(10)]
-    [FormerlySerializedAs("BattleProd_PlayerRT")][SerializeField] private RectTransform battleProd_PlayerRt;
-    [FormerlySerializedAs("BattleProd_PlayerImg")][SerializeField] private Image battleProd_PlayerImg;
-    [FormerlySerializedAs("BattleProd_PlayerNameTxt")][SerializeField] private TMP_Text battleProd_PlayerNameTxt;
+    [SerializeField] private RectTransform battleProd_PlayerRt;
+    [SerializeField] private Image battleProd_PlayerImg;
+    [SerializeField] private TMP_Text battleProd_PlayerNameTxt;
 
     [Space(10)]
-    [FormerlySerializedAs("BattleProd_EnemyRT")][SerializeField] private RectTransform battleProd_EnemyRt;
-    [FormerlySerializedAs("BattleProd_EnemyImg")][SerializeField] private Image battleProd_EnemyImg;
-    [FormerlySerializedAs("BattleProd_EnemyNameTxt")][SerializeField] private TMP_Text battleProd_EnemyNameTxt;
+    [SerializeField] private RectTransform battleProd_EnemyRt;
+    [SerializeField] private Image battleProd_EnemyImg;
+    [SerializeField] private TMP_Text battleProd_EnemyNameTxt;
 
     #endregion
 

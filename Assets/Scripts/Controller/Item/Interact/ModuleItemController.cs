@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ModuleItemController : InteractItemController
 {
@@ -7,7 +6,7 @@ public class ModuleItemController : InteractItemController
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("ItemDataField")][SerializeField] public ItemData_Field itemDataField;
+    [SerializeField] public ItemData_Field itemDataField;
 
     #endregion
 

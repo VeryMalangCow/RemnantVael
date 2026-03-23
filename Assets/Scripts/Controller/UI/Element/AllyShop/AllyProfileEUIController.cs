@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyProfileEUIController : OwnBtnEUIController
@@ -10,8 +9,8 @@ public class AllyProfileEUIController : OwnBtnEUIController
 
     [Space(20)]
     [Header("<><><><><> Profile")]
-    [FormerlySerializedAs("FaceImg")][SerializeField] private Image faceImg;
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private Image faceImg;
+    [SerializeField] private TMP_Text nameTxt;
 
     [HideInInspector] private AllyController ally = null;
     [HideInInspector] private AllyShopUIController allyOwnerUIController;

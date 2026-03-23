@@ -14,18 +14,18 @@ public class VaultController : DestructibleBuildController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] protected StateAnimController IconStateAnim;
+    [SerializeField] protected StateAnimController iconStateAnim;
 
     [Space(10)]
     [Header("=== Grade")]
-    [SerializeField] public int CurrentGrade = 0;
+    [SerializeField] public int currentGrade = 0;
 
     // Grade
-    [HideInInspector] private int MaxGrade = 4;
+    [HideInInspector] private int maxGrade = 4;
 
     // Oper
-    [HideInInspector] public VaultRerollOperatorController RerollOper = null;
-    [HideInInspector] public VaultUpgradeOperatorController UpgradeOper = null;
+    [HideInInspector] public VaultRerollOperatorController rerollOper = null;
+    [HideInInspector] public VaultUpgradeOperatorController upgradeOper = null;
 
     #endregion
 
@@ -42,21 +42,21 @@ public class VaultController : DestructibleBuildController
 
     #region Sorting
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
         // Vault의 안에 아이콘이 보이는 이미지
-        IconStateAnim.sr.sortingOrder = _SortingOrder - 1;
+        iconStateAnim.sr.sortingOrder = sortingOrder - 1;
     }
 
     #endregion
 
     #region Set
 
-    public virtual void Set_Grade(int _Grade)
+    public virtual void Set_Grade(int grade)
     {
-        CurrentGrade = Mathf.Clamp(_Grade, 0, MaxGrade);
+        currentGrade = Mathf.Clamp(grade, 0, maxGrade);
 
         Set_AnimValue();
         Set_StateAnim();
@@ -64,17 +64,17 @@ public class VaultController : DestructibleBuildController
 
     private void Set_AnimValue()
     {
-        OnOffAC = ResourceManager.instance.Get_VaultAnim(CurrentGrade);
-        OnOffStateAC = ResourceManager.instance.vault_StateAC;
+        onOffAc = ResourceManager.instance.Get_VaultAnim(currentGrade);
+        onOffStateAc = ResourceManager.instance.vault_StateAC;
 
-        BrokenAC = ResourceManager.instance.Get_VaultBrokenAnim(CurrentGrade);
-        BrokenStateAC = ResourceManager.instance.vault_StateAC.typeBase;
+        brokenAc = ResourceManager.instance.Get_VaultBrokenAnim(currentGrade);
+        brokenStateAc = ResourceManager.instance.vault_StateAC.typeBase;
     }
 
     public void Set_Upgrade()
     {
-        CurrentGrade = Mathf.Min(CurrentGrade + 1, MaxGrade);
-        Set_Grade(CurrentGrade);
+        currentGrade = Mathf.Min(currentGrade + 1, maxGrade);
+        Set_Grade(currentGrade);
     }
 
     #endregion
@@ -83,7 +83,7 @@ public class VaultController : DestructibleBuildController
 
     public bool Is_MaxGrade()
     {
-        return CurrentGrade >= MaxGrade;
+        return currentGrade >= maxGrade;
     }
 
     #endregion
@@ -110,32 +110,32 @@ public class VaultController : DestructibleBuildController
 
         VaultController targetVault = DevTool.Get_ComponentTType<VaultController>(Instantiate(StageManager.instance.Get_VaultCorrectType(resultType), gameObject.transform.parent));
         targetVault.transform.localPosition = transform.localPosition;
-        targetVault.Change_OperValue(RepairOper, RerollOper, UpgradeOper);
+        targetVault.Change_OperValue(repairOper, rerollOper, upgradeOper);
 
-        targetVault.Change_VaultValue(CurrentDur);
+        targetVault.Change_VaultValue(currentDur);
 
         Destroy(gameObject);
     }
 
-    private void Change_OperValue(RepairOperatorController _RepairOper, VaultRerollOperatorController _RerollOper, VaultUpgradeOperatorController _UpgradeOper)
+    private void Change_OperValue(RepairOperatorController repairOper, VaultRerollOperatorController rerollOper, VaultUpgradeOperatorController upgradeOper)
     {
-        if (_RepairOper != null) _RepairOper.Set_TargetBuild(this);
-        if (_RerollOper != null) _RerollOper.Set_TargetBuild(this);
-        if (_UpgradeOper != null) _UpgradeOper.Set_TargetBuild(this);
+        if (repairOper != null) repairOper.Set_TargetBuild(this);
+        if (rerollOper != null) rerollOper.Set_TargetBuild(this);
+        if (upgradeOper != null) upgradeOper.Set_TargetBuild(this);
     }
 
 
-    public void Change_VaultValue(int _Dur)
+    public void Change_VaultValue(int dur)
     {
-        StartCoroutine(Change_VaultValue_Cor(_Dur));
+        StartCoroutine(Change_VaultValue_Cor(dur));
     }
 
-    private IEnumerator Change_VaultValue_Cor(int _Dur)
+    private IEnumerator Change_VaultValue_Cor(int dur)
     {
         yield return new WaitForEndOfFrame();
 
-        CurrentDur = _Dur;
-        Set_DurAmount(CurrentDur);
+        currentDur = dur;
+        Set_DurAmount(currentDur);
         Debug.Log("전달");
     }
 
@@ -143,13 +143,13 @@ public class VaultController : DestructibleBuildController
 
     #region Break
 
-    protected override void Play_NowBreak(bool _SpawnItem)
+    protected override void Play_NowBreak(bool spawnItem)
     {
-        base.Play_NowBreak(_SpawnItem);
+        base.Play_NowBreak(spawnItem);
 
-        if (RepairOper != null) RepairOper.Set_TargetBuildBroken();
-        if (RerollOper != null) RerollOper.Set_TargetBuildBroken();
-        if (UpgradeOper != null) UpgradeOper.Set_TargetBuildBroken();
+        if (repairOper != null) repairOper.Set_TargetBuildBroken();
+        if (rerollOper != null) rerollOper.Set_TargetBuildBroken();
+        if (upgradeOper != null) upgradeOper.Set_TargetBuildBroken();
     }
 
     #endregion

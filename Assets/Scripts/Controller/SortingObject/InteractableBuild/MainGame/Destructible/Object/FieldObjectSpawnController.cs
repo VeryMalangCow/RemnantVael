@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FieldObjectSpawnController : MonoBehaviour
 {
@@ -13,14 +10,14 @@ public class FieldObjectSpawnController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private int Amount = 24;
-    [SerializeField] private Vector2 SpreadDir;
-    [SerializeField] private float Angle = 90;
-    [SerializeField] private float Radius = 10;
-    [SerializeField] private float RadialBias = 4f;
+    [SerializeField] private int amount = 24;
+    [SerializeField] private Vector2 spreadDir;
+    [SerializeField] private float angle = 90;
+    [SerializeField] private float radius = 10;
+    [SerializeField] private float radialBias = 4f;
 
-    [HideInInspector] private static readonly float IntervalX = 0.5f;
-    [HideInInspector] private static readonly float IntervalY = 0.25f;
+    [HideInInspector] private static readonly float intervalX = 0.5f;
+    [HideInInspector] private static readonly float intervalY = 0.25f;
 
     #endregion
 
@@ -52,17 +49,17 @@ public class FieldObjectSpawnController : MonoBehaviour
     }
 
     private static List<Vector2> RandomPointsInSector(
-        Vector2 _Pos, int count, Vector2 spreadDir, float angleDeg, float radius, float radialBias)
+        Vector2 pos, int count, Vector2 spreadDir, float angleDeg, float radius, float radialBias)
     {
-        float specialIntervalX = IntervalX * 0.5f;
+        float specialIntervalX = intervalX * 0.5f;
 
         var list = new List<Vector2>(Mathf.Max(0, count));
         for (int i = 0; i < count; i++)
         {
             Vector2 vec = RandomPointInSectorInt(spreadDir, angleDeg, radius, radialBias);
-            vec = _Pos + new Vector2(vec.x * IntervalX, vec.y * IntervalY);
+            vec = pos + new Vector2(vec.x * intervalX, vec.y * intervalY);
             float y = 0 <= vec.y ? vec.y : -vec.y;
-            if (y != 0 && y % (IntervalY * 2) != 0)
+            if (y != 0 && y % (intervalY * 2) != 0)
             {
                 float x = vec.x;
                 x += spreadDir.x > 0 ? specialIntervalX : -specialIntervalX;
@@ -82,7 +79,7 @@ public class FieldObjectSpawnController : MonoBehaviour
 
     public List<Vector2> Get_RandomPointsInSector_Self()
     {
-        return RandomPointsInSector(transform.position, Amount, SpreadDir, Angle, Radius, RadialBias);
+        return RandomPointsInSector(transform.position, amount, spreadDir, angle, radius, radialBias);
     }
 
     #endregion

@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BuffIconEUIController : ElementUIController
@@ -12,12 +11,12 @@ public class BuffIconEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("UsingNow")][SerializeField] public bool usingNow = false;
+    [SerializeField] public bool usingNow = false;
 
-    [FormerlySerializedAs("ThisImg")][SerializeField] private Image img;
-    [FormerlySerializedAs("ThisShadowImg")][SerializeField] public Image shadowImg;
+    [SerializeField] private Image img;
+    [SerializeField] public Image shadowImg;
 
-    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
+    [SerializeField] private TMP_Text txt;
 
     [HideInInspector] public RectTransform rt;
 

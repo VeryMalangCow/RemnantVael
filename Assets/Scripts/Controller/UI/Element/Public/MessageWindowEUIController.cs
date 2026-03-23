@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MessageWindowEUIController : ElementUIController
@@ -13,13 +12,13 @@ public class MessageWindowEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
-    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
+    [SerializeField] private TMP_Text txt;
+    [SerializeField] private Transform innerParentTf;
 
     [Space(10)]
     [Header("=== Color")]
-    [FormerlySerializedAs("InnerColor")][SerializeField] private Color innerClr;
-    [FormerlySerializedAs("TxtColor")][SerializeField] private Color txtClr;
+    [SerializeField] private Color innerClr;
+    [SerializeField] private Color txtClr;
 
     // Comp
     [HideInInspector] private RectTransform rt;

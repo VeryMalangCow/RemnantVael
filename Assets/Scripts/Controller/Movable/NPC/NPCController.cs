@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 public class NPCController : MovableObjectController
 {
@@ -8,7 +7,7 @@ public class NPCController : MovableObjectController
 
     [Space(20)]
     [Header("<><><><><> NPC")]
-    [FormerlySerializedAs("ThisSG")][SerializeField] private SortingGroup sg;
+    [SerializeField] private SortingGroup sg;
 
     #endregion
 

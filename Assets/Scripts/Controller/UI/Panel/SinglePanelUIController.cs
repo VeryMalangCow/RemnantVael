@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SinglePanelUIController : UIController
 {
@@ -14,7 +13,7 @@ public class SinglePanelUIController : UIController
 
     [Space(10)]
     [Header("=== Input Map")]
-    [FormerlySerializedAs("ThisPanelInputMapName")][SerializeField] protected string panelInputMapName;
+    [SerializeField] protected string panelInputMapName;
 
     #endregion
 

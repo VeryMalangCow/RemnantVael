@@ -12,26 +12,26 @@ public class DestructibleBuildController : InteractableBuildController
 
     [Space(10)]
     [Header("=== Dur")]
-    [SerializeField] public bool IsBroken = false;
-    [SerializeField] protected int MaxDur = 10;
-    [HideInInspector] public int CurrentDur;
+    [SerializeField] public bool isBroken = false;
+    [SerializeField] protected int maxDur = 10;
+    [HideInInspector] public int currentDur;
 
     [Space(10)]
     [Header("=== Dur UI")]
-    [SerializeField] private SortingGroup DurSG;
-    [SerializeField] private Transform DurParentTF;
-    [SerializeField] private float FrameIntervalX = 0.08f;
+    [SerializeField] private SortingGroup durSg;
+    [SerializeField] private Transform durParentTf;
+    [SerializeField] private float frameIntervalX = 0.08f;
 
     // State
-    [HideInInspector] protected AnimationClip BrokenAC = null;
-    [HideInInspector] protected AnimationClip BrokenStateAC = null;
+    [HideInInspector] protected AnimationClip brokenAc = null;
+    [HideInInspector] protected AnimationClip brokenStateAc = null;
 
     // Dur
-    [HideInInspector] protected List<SpriteRenderer> DurFrameSRList = new List<SpriteRenderer>();
-    [HideInInspector] protected List<SpriteRenderer> DurInnerSRList = new List<SpriteRenderer>();
+    [HideInInspector] protected List<SpriteRenderer> durFrameSrList = new List<SpriteRenderer>();
+    [HideInInspector] protected List<SpriteRenderer> durInnerSrList = new List<SpriteRenderer>();
 
     // Operator
-    [HideInInspector] public RepairOperatorController RepairOper = null;
+    [HideInInspector] public RepairOperatorController repairOper = null;
 
     #endregion
 
@@ -47,8 +47,8 @@ public class DestructibleBuildController : InteractableBuildController
 
     private void Offset_Durablity()
     {
-        CurrentDur = MaxDur;
-        for (int i = 0; i < MaxDur; i++)
+        currentDur = maxDur;
+        for (int i = 0; i < maxDur; i++)
         {
             Gen_EachInnerUI(i, Gen_EachFrameUI(i).transform);
         }
@@ -60,11 +60,11 @@ public class DestructibleBuildController : InteractableBuildController
 
     public virtual void Take_Damage(bool spawnItem, bool soundOn)
     {
-        if (!IsBroken)
+        if (!isBroken)
         {
-            CurrentDur--;
+            currentDur--;
 
-            if (CurrentDur <= 0)
+            if (currentDur <= 0)
             {
                 Play_NowBreak(spawnItem);
             }
@@ -73,7 +73,7 @@ public class DestructibleBuildController : InteractableBuildController
                 Play_NotYetBreak(spawnItem);
             }
 
-            Set_DurAmount(CurrentDur);
+            Set_DurAmount(currentDur);
         }
         else
         {
@@ -84,22 +84,22 @@ public class DestructibleBuildController : InteractableBuildController
             SoundManager.instance.Play_2D_SFX_Build("Damaged");
     }
 
-    protected virtual void Play_NotYetBreak(bool _SpawnItem)
+    protected virtual void Play_NotYetBreak(bool spawnItem)
     {
         transform.DOShakePosition(0.4f, 0.1f, 20, 90, false, true);
 
-        if (_SpawnItem) Gen_ItemWhenHitted();
+        if (spawnItem) Gen_ItemWhenHitted();
     }
 
-    protected virtual void Play_NowBreak(bool _SpawnItem)
+    protected virtual void Play_NowBreak(bool spawnItem)
     {
         transform.DOShakePosition(0.8f, 0.25f, 20, 90, false, true);
 
-        IsBroken = true;
+        isBroken = true;
         UnitManager.instance.build_ExplImgGenerator.Expl_Build(targetObject.gameObject.transform.position);
         Set_StateAnim();
 
-        if (_SpawnItem)
+        if (spawnItem)
         {
             Gen_ItemWhenBreak();
         }
@@ -124,14 +124,14 @@ public class DestructibleBuildController : InteractableBuildController
 
     protected override void Set_StateAnim()
     {
-        if (!IsBroken)
+        if (!isBroken)
         {
             base.Set_StateAnim();
         }
         else
         {
-            DevTool.Set_Anim(ref AOC, ThisAnimator, BrokenAC);
-            ThisStateAnim.Set_Anim(new State_Anim(BrokenStateAC, 1f), 1f);
+            DevTool.Set_Anim(ref aoc, at, brokenAc);
+            stateAnim.Set_Anim(new State_Anim(brokenStateAc, 1f), 1f);
         }
     }
 
@@ -139,14 +139,14 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Dur
 
-    public void Set_DurAmount(int _Durablity)
+    public void Set_DurAmount(int durablity)
     {
-        for (int i = 0; i < MaxDur; i++)
+        for (int i = 0; i < maxDur; i++)
         {
-            if (i < _Durablity)
-                DurInnerSRList[i].gameObject.SetActive(true);
+            if (i < durablity)
+                durInnerSrList[i].gameObject.SetActive(true);
             else
-                DurInnerSRList[i].gameObject.SetActive(false);
+                durInnerSrList[i].gameObject.SetActive(false);
             
         }
     }
@@ -155,27 +155,27 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Gen
 
-    private SpriteRenderer Gen_EachFrameUI(int _Index)
+    private SpriteRenderer Gen_EachFrameUI(int index)
     {
         SpriteRenderer frameSr = DevTool.Gen_Component_SR(
-                DurParentTF,
-                "DurablityFrame_" + _Index,
+                durParentTf,
+                "DurablityFrame_" + index,
                 ResourceManager.instance.buildingDurFrame,
                 ResourceManager.instance.Get_BuildMaterial("Durablity"),
-                ThisStateAnim.sr.sortingOrder - 1);
+                stateAnim.sr.sortingOrder - 1);
 
-        Set_FrameUIPos(_Index, frameSr);
+        Set_FrameUIPos(index, frameSr);
         return frameSr;
     }
 
-    private SpriteRenderer Gen_EachInnerUI(int _Index, Transform _ParentTF)
+    private SpriteRenderer Gen_EachInnerUI(int index, Transform parentTf)
     {
         SpriteRenderer innerSr = DevTool.Gen_Component_SR(
-                _ParentTF,
-                "DurablityInner_" + _Index,
+                parentTf,
+                "DurablityInner_" + index,
                 ResourceManager.instance.buildingDurInner,
                 ResourceManager.instance.Get_BuildMaterial("Durablity"),
-                ThisStateAnim.sr.sortingOrder);
+                stateAnim.sr.sortingOrder);
         Set_InnerUIPos(innerSr);
         return innerSr;
     }
@@ -184,24 +184,24 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Set
 
-    private void Set_FrameUIPos(int _Index, SpriteRenderer _SR)
+    private void Set_FrameUIPos(int index, SpriteRenderer sr)
     {
-        _SR.transform.localPosition = new Vector2((_Index * FrameIntervalX) - DevTool.Get_MinusXPivot(FrameIntervalX, MaxDur), 0f);
-        _SR.sortingOrder = -1;
-        DurFrameSRList.Insert(0, _SR);
+        sr.transform.localPosition = new Vector2((index * frameIntervalX) - DevTool.Get_MinusXPivot(frameIntervalX, maxDur), 0f);
+        sr.sortingOrder = -1;
+        durFrameSrList.Insert(0, sr);
     }
 
-    private void Set_InnerUIPos(SpriteRenderer _SR)
+    private void Set_InnerUIPos(SpriteRenderer sr)
     {
-        _SR.transform.localPosition = Vector2.zero;
-        _SR.sortingOrder = 0;
-        DurInnerSRList.Insert(0, _SR);
+        sr.transform.localPosition = Vector2.zero;
+        sr.sortingOrder = 0;
+        durInnerSrList.Insert(0, sr);
     }
 
-    public void Set_Repair(int _Amount = 1)
+    public void Set_Repair(int amount = 1)
     {
-        CurrentDur = Mathf.Min(CurrentDur + _Amount, MaxDur);
-        Set_DurAmount(CurrentDur);
+        currentDur = Mathf.Min(currentDur + amount, maxDur);
+        Set_DurAmount(currentDur);
     }
 
     #endregion
@@ -210,18 +210,18 @@ public class DestructibleBuildController : InteractableBuildController
 
     public bool Is_MaxDur()
     {
-        return MaxDur <= CurrentDur;
+        return maxDur <= currentDur;
     }
 
     #endregion
 
     #region Sorting
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
-        DurSG.sortingOrder = _SortingOrder;
+        durSg.sortingOrder = sortingOrder;
     }
 
     #endregion

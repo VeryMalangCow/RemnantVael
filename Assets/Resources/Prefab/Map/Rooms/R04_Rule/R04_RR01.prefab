@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 16
-  SpreadDir: {x: 1, y: 0}
-  Angle: 360
-  Radius: 8
-  RadialBias: 4
+  amount: 16
+  spreadDir: {x: 1, y: 0}
+  angle: 360
+  radius: 8
+  radialBias: 4
 --- !u!212 &4519673370371214551
 SpriteRenderer:
   m_ObjectHideFlags: 0

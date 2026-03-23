@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AllySolarController : SolarSystemController
 {
@@ -8,14 +7,9 @@ public class AllySolarController : SolarSystemController
     [Space(20)]
     [Header("<><><><><> Ally Solar")]
 
-    [Header("=== Owner")]
-    [FormerlySerializedAs("ThisAlly")][SerializeField] private FieldUnitAllyController ally;
-
-    [Header("=== Comp")]
-    [FormerlySerializedAs("ThisRb")][SerializeField] public Rigidbody2D rb;
-
-    [Header("=== Value")]
-    [FormerlySerializedAs("AllyStateMode")][SerializeField] private eAllyStateMode allyStateMode;
+    [SerializeField] private FieldUnitAllyController ally;
+    [SerializeField] public Rigidbody2D rb;
+    [SerializeField] private eAllyStateMode allyStateMode;
 
     #endregion
 

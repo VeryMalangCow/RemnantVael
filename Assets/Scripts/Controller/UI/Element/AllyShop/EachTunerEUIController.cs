@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EachTunerEUIController : ElementUIController
@@ -12,13 +11,13 @@ public class EachTunerEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Main Comp")]
-    [FormerlySerializedAs("ThisImg")][SerializeField] private Image img;
-    [FormerlySerializedAs("ThisRankImg")][SerializeField] private Image rankImg;
+    [SerializeField] private Image img;
+    [SerializeField] private Image rankImg;
 
     [Space(10)]
     [Header("=== Sub Comp")]
-    [FormerlySerializedAs("ThisFrameImg")][SerializeField] private Image frameImg;
-    [FormerlySerializedAs("ThisArrowImg")][SerializeField] private Image arrowImg;
+    [SerializeField] private Image frameImg;
+    [SerializeField] private Image arrowImg;
 
     [HideInInspector] private RectTransform rt;
 

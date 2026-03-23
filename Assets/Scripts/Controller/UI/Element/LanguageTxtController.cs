@@ -1,12 +1,11 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class LanguageTxtController : MonoBehaviour
 {
     #region Value
 
-    [FormerlySerializedAs("Type")][SerializeField] private int type = 0;
+    [SerializeField] private int type = 0;
 
     #endregion
 

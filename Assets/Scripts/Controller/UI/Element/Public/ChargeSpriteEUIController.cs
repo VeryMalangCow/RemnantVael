@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ChargeSpriteEUIController : ElementUIController
@@ -13,13 +12,13 @@ public class ChargeSpriteEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("Img")][SerializeField] public Image img;
-    [FormerlySerializedAs("CompleteImg")][SerializeField] public Image completeImg;
-    [FormerlySerializedAs("LevelSpr")][SerializeField] public List<Sprite> lvSpr;
+    [SerializeField] public Image img;
+    [SerializeField] public Image completeImg;
+    [SerializeField] public List<Sprite> lvSpr;
 
     [Space(10)]
     [Header("=== Extra")]
-    [FormerlySerializedAs("LightInner")][SerializeField] public Image lightInner;
+    [SerializeField] public Image lightInner;
 
     [HideInInspector] private RectTransform completeRt;
 

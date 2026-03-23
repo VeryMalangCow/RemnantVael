@@ -1,17 +1,16 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InfoDetailEUIController : ElementUIController
 {
     #region Value
 
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
-    [FormerlySerializedAs("Img")][SerializeField] private Image img;
-    [FormerlySerializedAs("DescTxt")][SerializeField] private TMP_Text descTxt;
-    [FormerlySerializedAs("InputOrInstrucTxt")][SerializeField] private TMP_Text inputOrInstrucTxt;
+    [SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private Image img;
+    [SerializeField] private TMP_Text descTxt;
+    [SerializeField] private TMP_Text inputOrInstrucTxt;
 
     [HideInInspector] private int id = -1;
 

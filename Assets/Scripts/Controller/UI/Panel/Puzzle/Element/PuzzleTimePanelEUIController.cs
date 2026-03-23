@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PuzzleTimePanelEUIController : ElementUIController
 {
@@ -14,11 +13,11 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("UnlockAnnoTxt")][SerializeField] private TMP_Text unlockAnnoTxt;
-    [FormerlySerializedAs("SuccessAnnoTxt")][SerializeField] private TMP_Text successAnnoTxt;
-    [FormerlySerializedAs("FailureAnnoTxt")][SerializeField] private TMP_Text failureAnnoTxt;
-    [FormerlySerializedAs("CountdownTxt")][SerializeField] public TMP_Text countdownTxt;
-    [FormerlySerializedAs("CountdownPaneltyTxt")][SerializeField] public TMP_Text countdownPaneltyTxt;
+    [SerializeField] private TMP_Text unlockAnnoTxt;
+    [SerializeField] private TMP_Text successAnnoTxt;
+    [SerializeField] private TMP_Text failureAnnoTxt;
+    [SerializeField] public TMP_Text countdownTxt;
+    [SerializeField] public TMP_Text countdownPaneltyTxt;
 
     #endregion
 

@@ -10,10 +10,10 @@ public class DroppingTotemeAllyController : DroppingAllyController
 
     [Space(10)]
     [Header("=== Bullet")]
-    [FormerlySerializedAs("HoloSprite")][SerializeField] private Sprite holoSprite;
+    [SerializeField] private Sprite holoSprite;
 
-    [FormerlySerializedAs("PlayerBuffID")][SerializeField] private int playerBuffId;
-    [FormerlySerializedAs("AllyBuffID")][SerializeField] private string allyBuffId;
+    [SerializeField] private int playerBuffId;
+    [SerializeField] private string allyBuffId;
 
     #endregion
 

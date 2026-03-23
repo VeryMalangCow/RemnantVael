@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TabBtnEUIController : OwnBtnEUIController
@@ -12,10 +11,10 @@ public class TabBtnEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Visual")]
-    [FormerlySerializedAs("ThisCG")][SerializeField] private CanvasGroup cg;
-    [FormerlySerializedAs("ToggleOnAlpha")][SerializeField] private CoupleData<float> toggleOnAlpha;
-    [FormerlySerializedAs("ThisTxt")][SerializeField] public TMP_Text txt;
-    [FormerlySerializedAs("ThisImg")][SerializeField] public Image img;
+    [SerializeField] private CanvasGroup cg;
+    [SerializeField] private CoupleData<float> toggleOnAlpha;
+    [SerializeField] public TMP_Text txt;
+    [SerializeField] public Image img;
     
 
     #endregion

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public abstract class AliveObjectController : MovableObjectController
 {
@@ -13,18 +12,18 @@ public abstract class AliveObjectController : MovableObjectController
 
     [Space(10)]
     [Header("=== Dead")]
-    [FormerlySerializedAs("IsDead")][SerializeField] protected bool isDead = false;
+    [SerializeField] protected bool isDead = false;
 
     [Space(10)]
     [Header("=== Point")]
-    [FormerlySerializedAs("CurrentSP")][SerializeField] protected ReactiveProperty<float> currentSP = new();
-    [FormerlySerializedAs("CurrentHP")][SerializeField] protected ReactiveProperty<float> currentHP = new();
-    [FormerlySerializedAs("CurrentEP")][SerializeField] protected ReactiveProperty<float> currentEP = new();
+    [SerializeField] protected ReactiveProperty<float> currentSP = new();
+    [SerializeField] protected ReactiveProperty<float> currentHP = new();
+    [SerializeField] protected ReactiveProperty<float> currentEP = new();
 
     [Space(10)]
     [Header("=== Dead Particle")]
-    [FormerlySerializedAs("BrokenParticleData")][SerializeField] private List<DeadParticleElement> brokenParticleData;
-    [FormerlySerializedAs("ParticleThrowDis")][SerializeField] private float particleThrowDis = 1f;
+    [SerializeField] private List<DeadParticleElement> brokenParticleData;
+    [SerializeField] private float particleThrowDis = 1f;
 
     #endregion
 

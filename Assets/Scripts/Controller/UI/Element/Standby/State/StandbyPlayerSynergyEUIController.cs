@@ -1,17 +1,16 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StandbyPlayerSynergyEUIController : ElementUIController
 {
     #region Value
 
-    [FormerlySerializedAs("IconImg")][SerializeField] private Image iconImg;
-    [FormerlySerializedAs("AmountImg")][SerializeField] private Image amountImg;
+    [SerializeField] private Image iconImg;
+    [SerializeField] private Image amountImg;
 
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
-    [FormerlySerializedAs("AmountTxt")][SerializeField] private TMP_Text amountTxt;
+    [SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private TMP_Text amountTxt;
 
     #endregion
 

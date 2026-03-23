@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public abstract class NSCRollCellEUIController : OwnBtnEUIController
@@ -16,12 +15,12 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Img")]
-    [FormerlySerializedAs("RollImgParentRT")][SerializeField] private RectTransform rollImgParentRt;
-    [FormerlySerializedAs("ThisNSCType")][SerializeField] protected eNSCPuzzleType nscType;
+    [SerializeField] private RectTransform rollImgParentRt;
+    [SerializeField] protected eNSCPuzzleType nscType;
 
     [Space(10)]
     [Header("=== Lock")]
-    [FormerlySerializedAs("LockedRT")][SerializeField] private RectTransform lockedRt;
+    [SerializeField] private RectTransform lockedRt;
 
     #endregion
 

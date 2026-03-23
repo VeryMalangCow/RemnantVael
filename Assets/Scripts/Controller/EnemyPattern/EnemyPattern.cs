@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public abstract class EnemyPattern : MonoBehaviour
 {
@@ -13,17 +12,17 @@ public abstract class EnemyPattern : MonoBehaviour
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("ThisEnemy")][SerializeField] protected EnemyController enemy;
-    [FormerlySerializedAs("RepeatAmount")][SerializeField] protected int repeatAmount = 1;
+    [SerializeField] protected EnemyController enemy;
+    [SerializeField] protected int repeatAmount = 1;
     
-    [FormerlySerializedAs("StartDelay")][SerializeField] protected float startDelay = 0f;
-    [FormerlySerializedAs("EndDelay")][SerializeField] protected float endDelay = 0f;
+    [SerializeField] protected float startDelay = 0f;
+    [SerializeField] protected float endDelay = 0f;
 
     [Space(10)]
     [Header("=== Special")]
-    [FormerlySerializedAs("IsSpecialPattern")][SerializeField] protected bool isSpecialPattern = false;
-    [FormerlySerializedAs("IsSpecialStartPattern")][SerializeField] private bool isSpecialStartPattern = false;
-    [FormerlySerializedAs("IsSpecialEndPattern")][SerializeField] private bool isSpecialEndPattern = false;
+    [SerializeField] protected bool isSpecialPattern = false;
+    [SerializeField] private bool isSpecialStartPattern = false;
+    [SerializeField] private bool isSpecialEndPattern = false;
 
     #endregion
 

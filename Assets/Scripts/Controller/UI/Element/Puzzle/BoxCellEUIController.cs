@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BoxCellEUIController : OwnBtnEUIController
@@ -11,22 +10,22 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("ThisPos")][SerializeField] public Vector2Int pos;
+    [SerializeField] public Vector2Int pos;
 
     [Space(10)]
     [Header("=== GO")]
 
     [Space(5)]
     [Header("-- Main")]
-    [FormerlySerializedAs("BackGO")][SerializeField] private GameObject backGo;
-    [FormerlySerializedAs("FrontGO")][SerializeField] private GameObject frontGo;
+    [SerializeField] private GameObject backGo;
+    [SerializeField] private GameObject frontGo;
 
     [Space(5)]
     [Header("-- Dir")]
-    [FormerlySerializedAs("UpLineGO")][SerializeField] private GameObject upLineGo;
-    [FormerlySerializedAs("RightLineGO")][SerializeField] private GameObject rightLineGo;
-    [FormerlySerializedAs("DownLineGO")][SerializeField] private GameObject downLineGo;
-    [FormerlySerializedAs("LeftLineGO")][SerializeField] private GameObject leftLineGo;
+    [SerializeField] private GameObject upLineGo;
+    [SerializeField] private GameObject rightLineGo;
+    [SerializeField] private GameObject downLineGo;
+    [SerializeField] private GameObject leftLineGo;
 
     // Value
     [HideInInspector] private bool isTweening = false;

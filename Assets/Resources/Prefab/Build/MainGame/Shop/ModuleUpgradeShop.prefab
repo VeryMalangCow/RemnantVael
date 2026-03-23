@@ -376,22 +376,22 @@ MonoBehaviour:
   targetObject: {fileID: 7945861353772175884}
   thisSr: {fileID: 6431130664222279258}
   targetRange: 0.3
-  ThisStateAnim: {fileID: 5691381869496994998}
-  IsOn: 0
-  ThisAnimator: {fileID: 8138481414561888053}
-  IsBroken: 0
-  MaxDur: 10
-  CurrentDur: 0
-  DurSG: {fileID: 7300249805589395816}
-  DurParentTF: {fileID: 6434973191429520069}
-  FrameIntervalX: 0.08
-  RepairOper: {fileID: 0}
-  SpawnItem_OffMin: 1
-  SpawnItem_OffMax: 2
-  SpawnItem_OnMin: 3
-  SpawnItem_OnMax: 4
-  SpawnItem_BreakMin: 5
-  SpawnItem_BreakMax: 6
+  stateAnim: {fileID: 5691381869496994998}
+  isOn: 0
+  at: {fileID: 8138481414561888053}
+  isBroken: 0
+  maxDur: 10
+  currentDur: 0
+  durSg: {fileID: 7300249805589395816}
+  durParentTf: {fileID: 6434973191429520069}
+  frameIntervalX: 0.08
+  repairOper: {fileID: 0}
+  spawnItem_OffMin: 1
+  spawnItem_OffMax: 2
+  spawnItem_OnMin: 3
+  spawnItem_OnMax: 4
+  spawnItem_BreakMin: 5
+  spawnItem_BreakMax: 6
 --- !u!1 &6434156964202126478
 GameObject:
   m_ObjectHideFlags: 0

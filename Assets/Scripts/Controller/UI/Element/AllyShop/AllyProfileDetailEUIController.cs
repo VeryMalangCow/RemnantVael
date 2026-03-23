@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyProfileDetailEUIController : ElementUIController
@@ -12,13 +11,13 @@ public class AllyProfileDetailEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== On Panel")]
-    [FormerlySerializedAs("OnPanelGO")][SerializeField] private GameObject onPanelGo;
-    [FormerlySerializedAs("FaceImg")][SerializeField] private Image faceImg;
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private GameObject onPanelGo;
+    [SerializeField] private Image faceImg;
+    [SerializeField] private TMP_Text nameTxt;
 
     [Space(10)]
     [Header("=== Off Panel")]
-    [FormerlySerializedAs("OffPanelGO")][SerializeField] private GameObject offPanelGo;
+    [SerializeField] private GameObject offPanelGo;
 
     #endregion
 

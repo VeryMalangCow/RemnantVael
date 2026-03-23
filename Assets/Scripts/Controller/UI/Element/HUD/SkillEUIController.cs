@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SkillEUIController : ElementUIController
@@ -11,13 +10,13 @@ public class SkillEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Img")]
-    [FormerlySerializedAs("SkillShadowImg")][SerializeField] private Image skillShadowImg;
-    [FormerlySerializedAs("SkillInnerImg")][SerializeField] public Image skillInnerImg;
+    [SerializeField] private Image skillShadowImg;
+    [SerializeField] public Image skillInnerImg;
 
     [Space(10)]
     [Header("=== Txt")]
-    [FormerlySerializedAs("SkillCostTxt")][SerializeField] public TMP_Text skillCostTxt;
-    [FormerlySerializedAs("SkillErrorTxt")][SerializeField] public TMP_Text skillErrorTxt;
+    [SerializeField] public TMP_Text skillCostTxt;
+    [SerializeField] public TMP_Text skillErrorTxt;
 
     [HideInInspector] private IEnumerator eff = null;
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DirectionalController<T, U> : MonoBehaviour where U : Component
 {
@@ -12,12 +11,12 @@ public class DirectionalController<T, U> : MonoBehaviour where U : Component
 
     [Space(10)]
     [Header("=== TF")]
-    [FormerlySerializedAs("RotationTargetTF")][SerializeField] protected Transform rotTargetTf;
+    [SerializeField] protected Transform rotTargetTf;
 
     [Space(10)]
     [Header("=== TType, UType")]
-    [FormerlySerializedAs("ThisComp")][SerializeField] public U comp;
-    [FormerlySerializedAs("ThisDirectionalList")][SerializeField] protected List<T> dirList;
+    [SerializeField] public U comp;
+    [SerializeField] protected List<T> dirList;
 
     [Space(10)]
     [Header("=== Value")]

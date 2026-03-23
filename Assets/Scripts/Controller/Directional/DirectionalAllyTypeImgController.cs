@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DirectionalAllyTypeImgController : DirectionalImgController
 {
@@ -10,8 +9,8 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
 
     [Space(10)]
     [Header("=== Sprite")]
-    [FormerlySerializedAs("ThisSpriteSetName")][SerializeField] private string spriteSetName;
-    [FormerlySerializedAs("AllySpriteSet")][SerializeField] private AllySpriteSet allySpriteSet;
+    [SerializeField] private string spriteSetName;
+    [SerializeField] private AllySpriteSet allySpriteSet;
 
     #endregion
 

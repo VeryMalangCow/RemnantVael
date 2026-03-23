@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.Serialization;
 
 public class RoomController : IDController
 {
@@ -17,20 +16,20 @@ public class RoomController : IDController
 
     [Space(5)]
     [Header("-- Vec")]
-    [FormerlySerializedAs("RoomVec")][SerializeField] public List<Vector2Int> roomVec;
+    [SerializeField] public List<Vector2Int> roomVec;
 
 
     [Space(10)]
     [Header("=== Wall")]
-    [FormerlySerializedAs("InRoom_UpperWallParentTF")][SerializeField] private Transform inRoom_UpperWallParentTF;
-    [FormerlySerializedAs("InRoom_LowerWallParentTF")][SerializeField] private Transform inRoom_LowerWallParentTF;
-    [FormerlySerializedAs("InRoom_UpperGateParentTF")][SerializeField] private Transform inRoom_UpperGateParentTF;
-    [FormerlySerializedAs("InRoom_LowerGateParentTF")][SerializeField] private Transform inRoom_LowerGateParentTF;
-    [FormerlySerializedAs("InRoom_FieldObjSpawnerParentTF")][SerializeField] private Transform inRoom_FieldObjSpawnerParentTF;
+    [SerializeField] private Transform inRoom_UpperWallParentTF;
+    [SerializeField] private Transform inRoom_LowerWallParentTF;
+    [SerializeField] private Transform inRoom_UpperGateParentTF;
+    [SerializeField] private Transform inRoom_LowerGateParentTF;
+    [SerializeField] private Transform inRoom_FieldObjSpawnerParentTF;
 
     [Space(10)]
     [Header("=== Room Static ID")]
-    [FormerlySerializedAs("RoomStaticID")][SerializeField] public int roomStaticId;
+    [SerializeField] public int roomStaticId;
 
     #endregion
 

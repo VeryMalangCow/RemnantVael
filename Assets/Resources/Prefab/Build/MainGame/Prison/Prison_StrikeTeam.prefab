@@ -3159,19 +3159,19 @@ MonoBehaviour:
   targetObject: {fileID: 7945861353772175884}
   thisSr: {fileID: 6431130664222279258}
   targetRange: 0
-  ThisStateAnim: {fileID: 3433866877279181021}
-  IsOn: 0
-  ThisAnimator: {fileID: 1156573706478142735}
-  ThisCol: {fileID: 8050862362656060234}
-  Rating: 0
-  ThisUpsideSR: {fileID: 1614575985339867250}
-  ThisUpsideAT: {fileID: 5465806144076202547}
-  ExtraSG: {fileID: 5463043529264958106}
-  DangerIcon: {fileID: 1358713512728243198}
-  TypeIcon: {fileID: 267657941371425830}
-  AllySG: {fileID: 4677330978174557237}
-  PuzzleOper: {fileID: 0}
-  PayOper: {fileID: 0}
+  stateAnim: {fileID: 3433866877279181021}
+  isOn: 0
+  at: {fileID: 1156573706478142735}
+  col: {fileID: 8050862362656060234}
+  rating: 0
+  upsideSr: {fileID: 1614575985339867250}
+  upsideAt: {fileID: 5465806144076202547}
+  extraSg: {fileID: 5463043529264958106}
+  dangerIcon: {fileID: 1358713512728243198}
+  typeIcon: {fileID: 267657941371425830}
+  allySg: {fileID: 4677330978174557237}
+  puzzleOper: {fileID: 0}
+  payOper: {fileID: 0}
 --- !u!1 &5901544880892557045
 GameObject:
   m_ObjectHideFlags: 0

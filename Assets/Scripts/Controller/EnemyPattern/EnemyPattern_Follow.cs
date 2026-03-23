@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Serialization;
 
 public class EnemyPattern_Follow : EnemyPattern
 {
@@ -13,17 +12,17 @@ public class EnemyPattern_Follow : EnemyPattern
 
     [Space(10)]
     [Header("=== Condition")]
-    [FormerlySerializedAs("FollowingSpeed")][SerializeField] private float followingSpeed = 3f;
+    [SerializeField] private float followingSpeed = 3f;
 
     [Header("-- Range")]
-    [FormerlySerializedAs("UntilForTargetRange")][SerializeField] private bool untilForTargetRange = false;
-    [FormerlySerializedAs("TargetRange")][SerializeField] private float targetRange = 0f;
-    [FormerlySerializedAs("IgnoreWall")][SerializeField] private bool ignoreWall = false;
+    [SerializeField] private bool untilForTargetRange = false;
+    [SerializeField] private float targetRange = 0f;
+    [SerializeField] private bool ignoreWall = false;
 
     [Header("-- Time")]
-    [FormerlySerializedAs("UntilForTargetTime")][SerializeField] private bool untilForTargetTime = false;
-    [FormerlySerializedAs("TargetTime")][SerializeField] private float targetTime = 0f;
-    [FormerlySerializedAs("CurrentTime")][SerializeField] private float currentTime = 0f;
+    [SerializeField] private bool untilForTargetTime = false;
+    [SerializeField] private float targetTime = 0f;
+    [SerializeField] private float currentTime = 0f;
 
     #endregion
 

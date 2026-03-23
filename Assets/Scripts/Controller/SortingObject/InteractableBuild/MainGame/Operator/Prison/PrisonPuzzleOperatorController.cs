@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 public class PrisonPuzzleOperatorController : PrisonOperatorController
 {
@@ -16,21 +14,21 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
 
     #region Set
 
-    public override void Set_TargetBuild(PrisonController _TargetPrison)
+    public override void Set_TargetBuild(PrisonController targetPrison)
     {
-        base.Set_TargetBuild(_TargetPrison);
+        base.Set_TargetBuild(targetPrison);
 
-        _TargetPrison.PuzzleOper = this;
+        targetPrison.puzzleOper = this;
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
         //base.Get_InteractName();
-        _CanInteract = Can_Interact();
+        canInteract = Can_Interact();
         return ResourceManager.instance.Get_StaticWord(59);
     }
 
@@ -38,21 +36,21 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
     {
         base.Play_Interact();
 
-        if (TargetPrison == null || TargetPrison.IsOn) return;
+        if (targetPrison == null || targetPrison.isOn) return;
 
         string debugString = "";
-        switch (TargetPrison)
+        switch (targetPrison)
         {
             case StrikeTeamPrisonController:
-                MainGameUIManager.instance.boxLineConnector_UIController.Offset_FirstValue(TargetPrison);
+                MainGameUIManager.instance.boxLineConnector_UIController.Offset_FirstValue(targetPrison);
                 MainGameUIManager.instance.boxLineConnector_UIController.SetOn_ThisPanel();
                 break;
             case UplinkTeamPrisonController:
-                MainGameUIManager.instance.numShapeColorPassword_UIController.Offset_FirstValue(TargetPrison);
+                MainGameUIManager.instance.numShapeColorPassword_UIController.Offset_FirstValue(targetPrison);
                 MainGameUIManager.instance.numShapeColorPassword_UIController.SetOn_ThisPanel();
                 break;
             case NeoTeamPrisonController:
-                MainGameUIManager.instance.inOrderLocker_UIController.Offset_FirstValue(TargetPrison);
+                MainGameUIManager.instance.inOrderLocker_UIController.Offset_FirstValue(targetPrison);
                 MainGameUIManager.instance.inOrderLocker_UIController.SetOn_ThisPanel();
                 break;
 
@@ -69,7 +67,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
 
     public void Set_Language()
     {
-        PayTxt.text = ResourceManager.instance.Get_StaticWord(59);
+        payTxt.text = ResourceManager.instance.Get_StaticWord(59);
     }
 
     #endregion

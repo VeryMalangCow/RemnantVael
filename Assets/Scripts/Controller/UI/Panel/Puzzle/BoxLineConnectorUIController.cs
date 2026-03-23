@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BoxLineConnectorUIController : PuzzleUIController
@@ -15,18 +14,18 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     [Space(10)]
     [Header("=== TF")]
-    [FormerlySerializedAs("BoxCellParentTF")][SerializeField] private Transform boxCellParentTf;
-    [FormerlySerializedAs("BoxConnectionParentTF")][SerializeField] private Transform boxConnectionParentTf;
-    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
+    [SerializeField] private Transform boxCellParentTf;
+    [SerializeField] private Transform boxConnectionParentTf;
+    [SerializeField] private Transform innerParentTf;
 
     [Space(10)]
     [Header("=== Selecting")]
-    [FormerlySerializedAs("SelectingSignRT")][SerializeField] private RectTransform selectingSignRt;
+    [SerializeField] private RectTransform selectingSignRt;
 
     [Space(10)]
     [Header("=== Ready KeyAnno")]
-    [FormerlySerializedAs("LeftRollInputImg")][SerializeField] private Image leftRollInputImg;
-    [FormerlySerializedAs("RightRollInputImg")][SerializeField] private Image rightRollInputImg;
+    [SerializeField] private Image leftRollInputImg;
+    [SerializeField] private Image rightRollInputImg;
 
     #endregion
 
@@ -62,8 +61,8 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Offset_FirstValue(prison);
 
-        cellAmount = 4 + prison.Rating;
-        currentCountdown = baseCountdown - prison.Rating;
+        cellAmount = 4 + prison.rating;
+        currentCountdown = baseCountdown - prison.rating;
     }
 
     public override void Offset()

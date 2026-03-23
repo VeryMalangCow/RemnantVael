@@ -629,13 +629,13 @@ MonoBehaviour:
   targetObject: {fileID: 2588723914438145757}
   thisSr: {fileID: 6431130664222279258}
   targetRange: 0.55
-  ThisStateAnim: {fileID: 3433866877279181021}
-  IsOn: 1
-  ThisAnimator: {fileID: 1156573706478142735}
-  IconStateAnim: {fileID: 4984407967345628786}
-  PaySG: {fileID: 2175986929864838694}
-  PayTxt: {fileID: 1458736844125141845}
-  TargetBuildController: {fileID: 0}
+  stateAnim: {fileID: 3433866877279181021}
+  isOn: 1
+  at: {fileID: 1156573706478142735}
+  iconStateAnim: {fileID: 4984407967345628786}
+  paySg: {fileID: 2175986929864838694}
+  payTxt: {fileID: 1458736844125141845}
+  targetBuild: {fileID: 0}
 --- !u!1 &6310173116161984221
 GameObject:
   m_ObjectHideFlags: 0

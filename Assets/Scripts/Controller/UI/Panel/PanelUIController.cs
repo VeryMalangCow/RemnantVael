@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PanelUIController : SinglePanelUIController
@@ -15,7 +14,7 @@ public class PanelUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Tab")]
-    [FormerlySerializedAs("ThisPanelTabList")][SerializeField] protected List<TabEUIController> panelTabList;
+    [SerializeField] protected List<TabEUIController> panelTabList;
 
     #endregion
 

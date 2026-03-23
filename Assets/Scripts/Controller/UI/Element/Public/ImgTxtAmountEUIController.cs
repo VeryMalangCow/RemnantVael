@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ImgTxtAmountEUIController : ElementUIController
@@ -14,8 +13,8 @@ public class ImgTxtAmountEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("ThisSprite")][SerializeField] public Sprite sprite;
-    [FormerlySerializedAs("InnerImg")][SerializeField] public Image innerImg;
+    [SerializeField] public Sprite sprite;
+    [SerializeField] public Image innerImg;
 
     [HideInInspector] private Transform tf;
     [HideInInspector] public List<Image> amountImgs;

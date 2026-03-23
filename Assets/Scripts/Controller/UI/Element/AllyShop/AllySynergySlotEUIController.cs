@@ -2,7 +2,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllySynergySlotEUIController : OwnBtnEUIController
@@ -13,11 +12,11 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Ally Synergy")]
-    [FormerlySerializedAs("ThisFrameRT")][SerializeField] private RectTransform frameRt;
-    [FormerlySerializedAs("ThisSelectImg")][SerializeField] private Image selectImg;
-    [FormerlySerializedAs("ThisLockImg")][SerializeField] private Image lockImg;
-    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
-    [FormerlySerializedAs("PlayerSynergyStackTxt")][SerializeField] private TMP_Text playerSynergyStackTxt;
+    [SerializeField] private RectTransform frameRt;
+    [SerializeField] private Image selectImg;
+    [SerializeField] private Image lockImg;
+    [SerializeField] private TMP_Text txt;
+    [SerializeField] private TMP_Text playerSynergyStackTxt;
 
     #endregion
 

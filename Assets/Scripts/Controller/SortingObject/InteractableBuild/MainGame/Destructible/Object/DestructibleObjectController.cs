@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DestructibleObjectController : SortingObjectController
@@ -10,7 +9,7 @@ public class DestructibleObjectController : SortingObjectController
 
     [Space(10)]
     [Header("=== Index")]
-    [SerializeField] private int TypeIndex = 0;
+    [SerializeField] private int typeIndex = 0;
 
     #endregion
 
@@ -22,7 +21,7 @@ public class DestructibleObjectController : SortingObjectController
 
         thisSr.sprite = ResourceManager.instance.Get_RandomFieldObjSprite(
             StageManager.instance.targetStageID,
-            TypeIndex);
+            typeIndex);
 
         thisSr.material = StageManager.instance.Get_CurrentStageData().mapMaterialClear[1];
     }
@@ -47,9 +46,9 @@ public class DestructibleObjectController : SortingObjectController
 
     #region 
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (_Col.tag == "Wall" || _Col.tag == "FieldObj") 
+        if (col.tag == "Wall" || col.tag == "FieldObj") 
             OnlyDestruct();
     }
 

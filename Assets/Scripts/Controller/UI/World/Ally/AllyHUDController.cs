@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UniRx;
 using DG.Tweening;
-using UnityEngine.Serialization;
 
 public class AllyHUDController : MonoBehaviour
 {
@@ -15,19 +14,19 @@ public class AllyHUDController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ThisCanvas")][SerializeField] public Canvas canvas;
-    [FormerlySerializedAs("StateUI")][SerializeField] public AllyStateUIController stateUi;
-    [FormerlySerializedAs("TemporaryBuffUI")][SerializeField] public AllyBuffUIController temporaryBuffUi;
-    [FormerlySerializedAs("PermanentBuffUI")][SerializeField] public AllyBuffUIController permanentBuffUi;
-    [FormerlySerializedAs("RequestUI")][SerializeField] public AllyRequestUIController requestUi;
-    [FormerlySerializedAs("IconRT")][SerializeField] private RectTransform iconRt;
+    [SerializeField] public Canvas canvas;
+    [SerializeField] public AllyStateUIController stateUi;
+    [SerializeField] public AllyBuffUIController temporaryBuffUi;
+    [SerializeField] public AllyBuffUIController permanentBuffUi;
+    [SerializeField] public AllyRequestUIController requestUi;
+    [SerializeField] private RectTransform iconRt;
 
-    [FormerlySerializedAs("BaseCG")][SerializeField] private CanvasGroup baseCg;
-    [FormerlySerializedAs("RequestCG")][SerializeField] private CanvasGroup requestCg;
+    [SerializeField] private CanvasGroup baseCg;
+    [SerializeField] private CanvasGroup requestCg;
 
     [Space(10)]
     [Header("=== Name")]
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private TMP_Text nameTxt;
 
     #endregion
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class LRSlidingItemEUIController : ElementUIController
 {
@@ -11,16 +10,16 @@ public class LRSlidingItemEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Header")]
-    [FormerlySerializedAs("HeaderTxt")][SerializeField] public TMP_Text headerTxt;
+    [SerializeField] public TMP_Text headerTxt;
 
     [Space(10)]
     [Header("=== Main")]
-    [FormerlySerializedAs("MainItemParentTF")][SerializeField] private Transform mainItemParentTf;
+    [SerializeField] private Transform mainItemParentTf;
 
     [Space(10)]
     [Header("=== LR")]
-    [FormerlySerializedAs("LeftBtn")][SerializeField] public OwnBtnEUIController leftBtn;
-    [FormerlySerializedAs("RightBtn")][SerializeField] public OwnBtnEUIController rightBtn;
+    [SerializeField] public OwnBtnEUIController leftBtn;
+    [SerializeField] public OwnBtnEUIController rightBtn;
 
     [Space(10)]
     [Header("=== Inner")]

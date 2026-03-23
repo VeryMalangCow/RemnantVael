@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class InventoryEUIController : ElementUIController
 {
@@ -9,10 +8,10 @@ public class InventoryEUIController : ElementUIController
     [Space(10)]
     [Header("=== Item Inventory")]
     [Header("-- RT")]
-    [FormerlySerializedAs("ThisRT")][SerializeField] private RectTransform rt;
+    [SerializeField] private RectTransform rt;
 
     [Header("-- Slot")]
-    [FormerlySerializedAs("SlotSprite")][SerializeField] private Sprite slotSprite;
+    [SerializeField] private Sprite slotSprite;
 
     // Class
     [HideInInspector] public List<List<InventorySlotEUIController>> allSlot = new List<List<InventorySlotEUIController>>();

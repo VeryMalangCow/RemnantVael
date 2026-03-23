@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.Serialization;
 
 public class BaseUpgradeUIController : PlayerShopUIController
 {
@@ -17,16 +16,16 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     [Space(10)]
     [Header("=== Item")]
-    [FormerlySerializedAs("BCTxt")][SerializeField] public TMP_Text bcTxt;
-    [FormerlySerializedAs("ECTxt")][SerializeField] public TMP_Text ecTxt;
+    [SerializeField] public TMP_Text bcTxt;
+    [SerializeField] public TMP_Text ecTxt;
 
     [Space(10)]
     [Header("=== Desc")]
-    [FormerlySerializedAs("ThisDescPanel")][SerializeField] protected DescBUEUIController descPanel;
+    [SerializeField] protected DescBUEUIController descPanel;
 
     [Space(10)]
     [Header("=== Visual")]
-    [FormerlySerializedAs("FrameInnerImg")][SerializeField] public Image frameInnerImg;
+    [SerializeField] public Image frameInnerImg;
 
     #region - BU State
 
@@ -35,32 +34,32 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     [Space(5)]
     [Header("-- Attack")]
-    [FormerlySerializedAs("DamageShop")][SerializeField] private BUShopData<float> dmgShop;
-    [FormerlySerializedAs("ROFShop")][SerializeField] private BUShopData<float> rofShop;
-    [FormerlySerializedAs("CCShop")][SerializeField] private BUShopData<float> ccShop;
-    [FormerlySerializedAs("CDShop")][SerializeField] private BUShopData<float> cdShop;
-    [FormerlySerializedAs("MuzzleShop")][SerializeField] private BUShopData<float> muzzleShop;
-    [FormerlySerializedAs("AccuracyRateShop")][SerializeField] private BUShopData<float> accuracyRateShop;
-    [FormerlySerializedAs("KnockbackShop")][SerializeField] private BUShopData<float> knockbackShop;
+    [SerializeField] private BUShopData<float> dmgShop;
+    [SerializeField] private BUShopData<float> rofShop;
+    [SerializeField] private BUShopData<float> ccShop;
+    [SerializeField] private BUShopData<float> cdShop;
+    [SerializeField] private BUShopData<float> muzzleShop;
+    [SerializeField] private BUShopData<float> accuracyRateShop;
+    [SerializeField] private BUShopData<float> knockbackShop;
 
     [Space(5)]
     [Header("-- EP")]
-    [FormerlySerializedAs("MaxEPShop")][SerializeField] private BUShopData<float> maxEpShop;
-    [FormerlySerializedAs("SpawnESMultipleShop")][SerializeField] private BUShopData<float> spawnEsMultipleShop;
-    [FormerlySerializedAs("NeedEP_ForSkillMultipleShop")][SerializeField] private BUShopData<float> needEp_ForSkillMultipleShop;
+    [SerializeField] private BUShopData<float> maxEpShop;
+    [SerializeField] private BUShopData<float> spawnEsMultipleShop;
+    [SerializeField] private BUShopData<float> needEp_ForSkillMultipleShop;
     //[SerializeField] private BUShopData<float> DecEnergyPointMultipleShop;
-    [FormerlySerializedAs("ResistShop")][SerializeField] private BUShopData<float> resistShop;
+    [SerializeField] private BUShopData<float> resistShop;
 
     [Space(5)]
     [Header("-- Movement")]
-    [FormerlySerializedAs("WalkSpeedShop")][SerializeField] private BUShopData<float> walkSpeedShop;
-    [FormerlySerializedAs("WalkSpeedWhenShotMultipleShop")][SerializeField] private BUShopData<float> walkSpeedWhenShotMultipleShop;
-    [FormerlySerializedAs("DashSpeedShop")][SerializeField] private BUShopData<float> dashSpeedShop;
-    [FormerlySerializedAs("WalkAvoidChance")][SerializeField] private BUShopData<float> walkAvoidChance;
+    [SerializeField] private BUShopData<float> walkSpeedShop;
+    [SerializeField] private BUShopData<float> walkSpeedWhenShotMultipleShop;
+    [SerializeField] private BUShopData<float> dashSpeedShop;
+    [SerializeField] private BUShopData<float> walkAvoidChance;
 
     [Space(5)]
     [Header("-- Skill")]
-    [FormerlySerializedAs("SkillShopList")][SerializeField] private List<BUShopSkillData<float, int>> skillShopList;
+    [SerializeField] private List<BUShopSkillData<float, int>> skillShopList;
 
     #endregion
 
@@ -177,13 +176,13 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         void Offset_ColorComp<T>(BUShopData<T> _BUShop)
         {
-            mainColorCompList.Add(_BUShop.upgradeEUI.SkillNameTxt);
-            mainColorCompList.Add(_BUShop.upgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-            mainColorCompList.Add(_BUShop.upgradeEUI.DescTxt);
-            mainColorCompList.Add(_BUShop.upgradeEUI.BuyBtn.btn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+            mainColorCompList.Add(_BUShop.upgradeEUI.skillNameTxt);
+            mainColorCompList.Add(_BUShop.upgradeEUI.costImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+            mainColorCompList.Add(_BUShop.upgradeEUI.descTxt);
+            mainColorCompList.Add(_BUShop.upgradeEUI.buyBtn.btn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
-            subColorCompList.Add(_BUShop.upgradeEUI.SkillLvTxt);
-            subColorCompList.AddRange(_BUShop.upgradeEUI.ThisImgTxtAmountEUI.amountImgs);
+            subColorCompList.Add(_BUShop.upgradeEUI.skillLvTxt);
+            subColorCompList.AddRange(_BUShop.upgradeEUI.imgTxtAmountEui.amountImgs);
             subColorCompList.AddRange(_BUShop.upgradeEUI.innerImgList);
         }
 
@@ -227,7 +226,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         Play_OnTween();
 
         // Dur
-        durEui.Set_Dur(BaseUpgradeController.UsingShop.CurrentDur);
+        durEui.Set_Dur(BaseUpgradeController.usingShop.currentDur);
     }
 
     public override void SetOff_ThisPanel()
@@ -236,7 +235,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         base.SetOff_ThisPanel();
 
-        BaseUpgradeController.UsingShop = null;
+        BaseUpgradeController.usingShop = null;
     }
 
     #endregion
@@ -249,7 +248,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         if (Is_Interact_Msg()) return;
 
-        if (currentBtn == null || BaseUpgradeController.UsingShop == null) return;
+        if (currentBtn == null || BaseUpgradeController.usingShop == null) return;
 
         if (Is_Interact_Buy_Float()) return;
         if (Is_Interact_Buy_Int()) return;
@@ -264,7 +263,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         // 备概 内靛 (float)
         for (int i = 0; i < allBuData_Float.Count; i++)
         {
-            if (allBuData_Float[i].upgradeEUI.BuyBtn == currentBtn &&
+            if (allBuData_Float[i].upgradeEUI.buyBtn == currentBtn &&
                 currentBtn.btn.interactable)
             {
                 allBuData_Float[i].Try_Buy();
@@ -279,7 +278,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         // 备概 内靛 (int)
         for (int i = 0; i < allBuData_Int.Count; i++)
         {
-            if (allBuData_Int[i].upgradeEUI.BuyBtn == currentBtn &&
+            if (allBuData_Int[i].upgradeEUI.buyBtn == currentBtn &&
                 currentBtn.btn.interactable)
             {
                 allBuData_Int[i].Try_Buy();

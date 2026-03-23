@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BuildOpacityController : MonoBehaviour
 {
@@ -9,12 +8,12 @@ public class BuildOpacityController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Visible State")]
-    [FormerlySerializedAs("SetSRParentGateList")][SerializeField] private List<GateController> setSrParentGateList;
-    [FormerlySerializedAs("SetSRParentDepthList")][SerializeField] private List<StaticDepthController> setSrParentDepthList;
-    [FormerlySerializedAs("SetSRDepthListParent")][SerializeField] private Transform setSrDepthListParent;
+    [SerializeField] private List<GateController> setSrParentGateList;
+    [SerializeField] private List<StaticDepthController> setSrParentDepthList;
+    [SerializeField] private Transform setSrDepthListParent;
 
     // Sr
-    [FormerlySerializedAs("SetSRList")][SerializeField] private List<SpriteRenderer> setSrList = new List<SpriteRenderer>();
+    [SerializeField] private List<SpriteRenderer> setSrList = new List<SpriteRenderer>();
 
     // Value
     [HideInInspector] private bool isColliding = false;

@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using UnityEngine.Serialization;
 
 public class EnemyPattern_Range : EnemyPattern
 {
@@ -13,41 +12,41 @@ public class EnemyPattern_Range : EnemyPattern
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("ThisBS")][SerializeField] private BulletState bulletState;
-    [FormerlySerializedAs("BaseAngle")][SerializeField] private float baseAngle = 0f;
+    [SerializeField] private BulletState bulletState;
+    [SerializeField] private float baseAngle = 0f;
 
     [Space(10)]
     [Header("=== Size")]
-    [FormerlySerializedAs("BulletShadowScale")][SerializeField] private Vector2 bulletShadowScale;
-    [FormerlySerializedAs("BulletColSize")][SerializeField] private Vector2 bulletColSize;
+    [SerializeField] private Vector2 bulletShadowScale;
+    [SerializeField] private Vector2 bulletColSize;
 
     [Space(10)]
     [Header("=== Trail")]
-    [FormerlySerializedAs("TrailTime")][SerializeField] private float trailTime;
-    [FormerlySerializedAs("TrailStartWidth")][SerializeField] private float trailStartWidth;
-    [FormerlySerializedAs("TrailGradient")][SerializeField] private Gradient trailGradient;
+    [SerializeField] private float trailTime;
+    [SerializeField] private float trailStartWidth;
+    [SerializeField] private Gradient trailGradient;
 
     [Space(10)]
     [Header("=== Light")]
-    [FormerlySerializedAs("LightIntensity")][SerializeField] private float lightIntensity;
+    [SerializeField] private float lightIntensity;
 
 
     [Space(10)]
     [Header("=== Condition")]
-    [FormerlySerializedAs("MaxRange")][SerializeField] private float maxRange = 4f;
-    [FormerlySerializedAs("MinRange")][SerializeField] private float minRange = 3f;
+    [SerializeField] private float maxRange = 4f;
+    [SerializeField] private float minRange = 3f;
 
     [Space(10)]
     [Header("=== Effect")]
-    [FormerlySerializedAs("ShootExplAmount")][SerializeField] private int shootExplAmount = 3;
-    [FormerlySerializedAs("ExplAmount")][SerializeField] private int explAmount = 3;
+    [SerializeField] private int shootExplAmount = 3;
+    [SerializeField] private int explAmount = 3;
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("SpawnDepthList")][SerializeField] private List<DepthController> spawnDepthList;
-    [FormerlySerializedAs("BeforeEffectDepthList")][SerializeField] private List<DepthController> beforeEffectDepthList;
-    [FormerlySerializedAs("BeforeEffectColor")][SerializeField] private Color beforeEffectColor;
-    [FormerlySerializedAs("BulletAC")][SerializeField] private AnimationClip bulletAc;
+    [SerializeField] private List<DepthController> spawnDepthList;
+    [SerializeField] private List<DepthController> beforeEffectDepthList;
+    [SerializeField] private Color beforeEffectColor;
+    [SerializeField] private AnimationClip bulletAc;
 
     [HideInInspector] private Sequence beforeEffectSeq;
     [HideInInspector] private float bulletRadiusCondition = 0;

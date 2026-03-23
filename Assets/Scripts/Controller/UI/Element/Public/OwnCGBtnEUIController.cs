@@ -1,12 +1,11 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class OwnCGBtnEUIController : OwnBtnEUIController
 {
     #region Value
 
-    [FormerlySerializedAs("ThisTxt")][SerializeField] public TMP_Text txt;
+    [SerializeField] public TMP_Text txt;
     [HideInInspector] public CanvasGroup cg;
 
     #endregion

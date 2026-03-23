@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PrisonRuleController : RoomRuleController
 {
@@ -10,9 +9,9 @@ public class PrisonRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== ParentTF")]
-    [FormerlySerializedAs("InRoom_PrisonParentTF")][SerializeField] public Transform inRoom_PrisonParentTF;
-    [FormerlySerializedAs("InRoom_PayOperactorParentTF")][SerializeField] public Transform inRoom_PayOperactorParentTF;
-    [FormerlySerializedAs("InRoom_PuzzleOperactorParentTF")][SerializeField] public Transform inRoom_PuzzleOperactorParentTF;
+    [SerializeField] public Transform inRoom_PrisonParentTF;
+    [SerializeField] public Transform inRoom_PayOperactorParentTF;
+    [SerializeField] public Transform inRoom_PuzzleOperactorParentTF;
 
     [HideInInspector] public PrisonController prison = null;
     [HideInInspector] public PrisonPayOperatorController payOperator = null;

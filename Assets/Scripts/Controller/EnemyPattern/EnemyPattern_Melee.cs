@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using UnityEngine.Serialization;
 
 public class EnemyPattern_Melee : EnemyPattern
 {
@@ -13,30 +12,30 @@ public class EnemyPattern_Melee : EnemyPattern
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("ThisAS")][SerializeField] private AttackerState _as;
+    [SerializeField] private AttackerState _as;
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("ThisAC")][SerializeField] private AnimationClip ac;
-    [FormerlySerializedAs("JugeAndTweenTime")][SerializeField] private float jugeAndTweenTime = 0.5f;
-    [FormerlySerializedAs("AnimSpeed")][SerializeField] private float animSpeed = 2.6f;
-    [FormerlySerializedAs("SpawnDis")][SerializeField] private float spawnDis = 1f;
-    [FormerlySerializedAs("EndDis")][SerializeField] private float endDis = 1.5f;
-    [FormerlySerializedAs("AttackSizeVec")][SerializeField] private Vector2 attackSizeVec = Vector2.one;
-    [FormerlySerializedAs("IsShadowRangeByDepthController")][SerializeField] private bool isShadowRangeByDepthController = true;
-    [FormerlySerializedAs("LightOn")][SerializeField] bool lightOn = false;
-    [FormerlySerializedAs("LightSize")][SerializeField] float lightSize = 1f;
+    [SerializeField] private AnimationClip ac;
+    [SerializeField] private float jugeAndTweenTime = 0.5f;
+    [SerializeField] private float animSpeed = 2.6f;
+    [SerializeField] private float spawnDis = 1f;
+    [SerializeField] private float endDis = 1.5f;
+    [SerializeField] private Vector2 attackSizeVec = Vector2.one;
+    [SerializeField] private bool isShadowRangeByDepthController = true;
+    [SerializeField] bool lightOn = false;
+    [SerializeField] float lightSize = 1f;
 
     [Space(10)]
     [Header("=== Condition")]
-    [FormerlySerializedAs("MaxRange")][SerializeField] private float maxRange = 1.8f;
-    [FormerlySerializedAs("MinRange")][SerializeField] private float minRange = 0f;
+    [SerializeField] private float maxRange = 1.8f;
+    [SerializeField] private float minRange = 0f;
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("SpawnDepthList")][SerializeField] private List<DepthController> spawnDepthList;
-    [FormerlySerializedAs("BeforeEffectDepthList")][SerializeField] private List<DepthController> beforeEffectDepthList;
-    [FormerlySerializedAs("BeforeEffectColor")][SerializeField] private Color beforeEffectColor;
+    [SerializeField] private List<DepthController> spawnDepthList;
+    [SerializeField] private List<DepthController> beforeEffectDepthList;
+    [SerializeField] private Color beforeEffectColor;
 
     [HideInInspector] private Sequence beforeEffectSeq;
 

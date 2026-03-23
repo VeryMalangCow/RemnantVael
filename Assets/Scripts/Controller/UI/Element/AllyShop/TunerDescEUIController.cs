@@ -1,15 +1,14 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TunerDescEUIController : ElementUIController
 {
     #region Value
 
-    [FormerlySerializedAs("IncreaseTxt")][SerializeField] public TMP_Text increaseTxt;
+    [SerializeField] public TMP_Text increaseTxt;
 
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
-    [FormerlySerializedAs("ValueTxt")][SerializeField] private TMP_Text valueTxt;
+    [SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private TMP_Text valueTxt;
 
     #endregion
 

@@ -2,7 +2,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 public class AllyCardRerollEUIController : OwnBtnEUIController
 {
@@ -10,9 +9,9 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
-    [FormerlySerializedAs("NeedAmountTxt")][SerializeField] private TMP_Text needAmountTxt;
-    [FormerlySerializedAs("ThisBtnRT")][SerializeField] private RectTransform btnRt;
+    [SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private TMP_Text needAmountTxt;
+    [SerializeField] private RectTransform btnRt;
 
     // Value
     [HideInInspector] private int needAmount = 1;

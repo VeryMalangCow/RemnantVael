@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ProgressBarEUIController : ElementUIController
@@ -14,23 +13,23 @@ public class ProgressBarEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Bar")]
-    [FormerlySerializedAs("AfterImg")][SerializeField] public Image afterImg;
-    [FormerlySerializedAs("ActualImg")][SerializeField] public Image actualImg;
+    [SerializeField] public Image afterImg;
+    [SerializeField] public Image actualImg;
 
     [Space(10)]
     [Header("=== Liner")]
-    [FormerlySerializedAs("ActualImgLiner")][SerializeField] public RectTransform actualImgLiner;
+    [SerializeField] public RectTransform actualImgLiner;
 
     [Space(10)]
     [Header("=== Text")]
-    [FormerlySerializedAs("Txt")][SerializeField] private TMP_Text txt;
+    [SerializeField] private TMP_Text txt;
 
     [Space(10)]
     [Header("=== Extra")]
-    [FormerlySerializedAs("MiddleRT")][SerializeField] private RectTransform middleRT;
-    [FormerlySerializedAs("PlusSizeMiddleRTX")][SerializeField] private float plusSizeMiddleRTX;
-    [FormerlySerializedAs("RightRT")][SerializeField] private RectTransform rightRt;
-    [FormerlySerializedAs("PlusPosRightRTX")][SerializeField] private float plusPosRightRtX;
+    [SerializeField] private RectTransform middleRT;
+    [SerializeField] private float plusSizeMiddleRTX;
+    [SerializeField] private RectTransform rightRt;
+    [SerializeField] private float plusPosRightRtX;
 
     [HideInInspector] private RectTransform rt;
 

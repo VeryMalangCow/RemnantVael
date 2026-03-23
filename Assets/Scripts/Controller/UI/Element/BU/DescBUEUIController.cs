@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DescBUEUIController : ElementUIController
@@ -15,29 +14,29 @@ public class DescBUEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Center")]
-    [FormerlySerializedAs("CenterNameTxt")][SerializeField] public TMP_Text centerNameTxt;
+    [SerializeField] public TMP_Text centerNameTxt;
 
     [Space(10)]
     [Header("=== Left")]
 
     [Space(5)]
     [Header("-- Txt")]
-    [FormerlySerializedAs("LeftLVTxt")][SerializeField] private TMP_Text leftLvTxt;
-    [FormerlySerializedAs("LeftValueTxt")][SerializeField] private TMP_Text leftValueTxt;
+    [SerializeField] private TMP_Text leftLvTxt;
+    [SerializeField] private TMP_Text leftValueTxt;
 
     [Space(5)]
     [Header("-- Txt List")]
-    [FormerlySerializedAs("LeftLVTxtParentTF")][SerializeField] private Transform leftLvTxtParentTf;
-    [FormerlySerializedAs("LeftValueTxtParentTF")][SerializeField] private Transform leftValueTxtParentTf;
+    [SerializeField] private Transform leftLvTxtParentTf;
+    [SerializeField] private Transform leftValueTxtParentTf;
 
     [Space(5)]
     [Header("-- Value")]
-    [FormerlySerializedAs("BaseSpotX")][SerializeField] private float baseSpotX;
-    [FormerlySerializedAs("IntervalSpotX")][SerializeField] private float intervalSpotX;
+    [SerializeField] private float baseSpotX;
+    [SerializeField] private float intervalSpotX;
 
     [Space(5)]
     [Header("-- Current")]
-    [FormerlySerializedAs("CurrentRangeRT")][SerializeField] public RectTransform currentRangeRt;
+    [SerializeField] public RectTransform currentRangeRt;
 
 
     [Space(10)]
@@ -45,22 +44,22 @@ public class DescBUEUIController : ElementUIController
 
     [Space(5)]
     [Header("-- Txt")]
-    [FormerlySerializedAs("RightLVTxt")][SerializeField] public TMP_Text rightLvTxt;
-    [FormerlySerializedAs("RightValueTxt")][SerializeField] public TMP_Text rightValueTxt;
+    [SerializeField] public TMP_Text rightLvTxt;
+    [SerializeField] public TMP_Text rightValueTxt;
 
     [Space(5)]
     [Header("-- Current")]
-    [FormerlySerializedAs("CurrentLvTxt")][SerializeField] private TMP_Text currentLvTxt;
-    [FormerlySerializedAs("CurrentStateTxt")][SerializeField] private TMP_Text currentStateTxt;
+    [SerializeField] private TMP_Text currentLvTxt;
+    [SerializeField] private TMP_Text currentStateTxt;
 
     [Space(5)]
     [Header("-- Next")]
-    [FormerlySerializedAs("NextLvTxt")][SerializeField] public TMP_Text nextLvTxt;
-    [FormerlySerializedAs("NextStateTxt")][SerializeField] public TMP_Text nextStateTxt;
+    [SerializeField] public TMP_Text nextLvTxt;
+    [SerializeField] public TMP_Text nextStateTxt;
 
     [Space(5)]
     [Header("-- Complete")]
-    [FormerlySerializedAs("CompletedSignGO")][SerializeField] private GameObject completedSignGo;
+    [SerializeField] private GameObject completedSignGo;
 
     #endregion
 

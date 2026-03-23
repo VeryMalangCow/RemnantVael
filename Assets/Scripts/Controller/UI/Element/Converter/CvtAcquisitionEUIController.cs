@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CvtAcquisitionEUIController : ElementUIController
@@ -13,29 +12,29 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ConvertBtn")][SerializeField] public OwnBtnEUIController convertBtn;
-    [FormerlySerializedAs("MaxBtn")][SerializeField] public OwnBtnEUIController maxBtn;
-    [FormerlySerializedAs("More10Btn")][SerializeField] public OwnBtnEUIController more10Btn;
-    [FormerlySerializedAs("More1Btn")][SerializeField] public OwnBtnEUIController more1Btn;
-    [FormerlySerializedAs("Less1Btn")][SerializeField] public OwnBtnEUIController less1Btn;
-    [FormerlySerializedAs("Less10Btn")][SerializeField] public OwnBtnEUIController less10Btn;
-    [FormerlySerializedAs("MinBtn")][SerializeField] public OwnBtnEUIController minBtn;
+    [SerializeField] public OwnBtnEUIController convertBtn;
+    [SerializeField] public OwnBtnEUIController maxBtn;
+    [SerializeField] public OwnBtnEUIController more10Btn;
+    [SerializeField] public OwnBtnEUIController more1Btn;
+    [SerializeField] public OwnBtnEUIController less1Btn;
+    [SerializeField] public OwnBtnEUIController less10Btn;
+    [SerializeField] public OwnBtnEUIController minBtn;
 
     [Space(5)]
-    [FormerlySerializedAs("PossessionTxt")][SerializeField] private TMP_Text possessionTxt;
-    [FormerlySerializedAs("AcquisitionTxt")][SerializeField] private TMP_Text acquisitionTxt;
+    [SerializeField] private TMP_Text possessionTxt;
+    [SerializeField] private TMP_Text acquisitionTxt;
 
     [Space(5)]
-    [FormerlySerializedAs("PossessionAmountTxt")][SerializeField] private TMP_Text possessionAmountTxt;
-    [FormerlySerializedAs("AcquisitionAmountTxt")][SerializeField] private TMP_Text acquisitionAmountTxt;
+    [SerializeField] private TMP_Text possessionAmountTxt;
+    [SerializeField] private TMP_Text acquisitionAmountTxt;
 
     [Space(5)]
-    [FormerlySerializedAs("ConvertInnerImg")][SerializeField] private Image convertInnerImg;
-    [FormerlySerializedAs("VisualCG")][SerializeField] private CanvasGroup visualCg;
-    [FormerlySerializedAs("Cog0RT")][SerializeField] private RectTransform cog0Rt;
-    [FormerlySerializedAs("Cog1RT")][SerializeField] private RectTransform cog1Rt;
-    [FormerlySerializedAs("ProgressBarImg")][SerializeField] private Image progressBarImg;
-    [FormerlySerializedAs("AfterIconImg")][SerializeField] private Image afterIconImg;
+    [SerializeField] private Image convertInnerImg;
+    [SerializeField] private CanvasGroup visualCg;
+    [SerializeField] private RectTransform cog0Rt;
+    [SerializeField] private RectTransform cog1Rt;
+    [SerializeField] private Image progressBarImg;
+    [SerializeField] private Image afterIconImg;
 
 
     [HideInInspector] private Sequence afterIconSeq = null;

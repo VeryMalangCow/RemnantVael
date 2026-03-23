@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PuzzleUnlockPanelEUIController : ElementUIController
@@ -15,12 +14,12 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("SuccessCG")][SerializeField] private CanvasGroup successCg;
-    [FormerlySerializedAs("FailureCG")][SerializeField] private CanvasGroup failureCg;
-    [FormerlySerializedAs("TryUnlockTxt")][SerializeField] private TMP_Text tryUnlockTxt;
-    [FormerlySerializedAs("InputTxt")][SerializeField] private TMP_Text inputTxt;
-    [FormerlySerializedAs("InputImg")][SerializeField] private Image inputImg;
-    [FormerlySerializedAs("RollingRT")][SerializeField] private RectTransform rollingRt;
+    [SerializeField] private CanvasGroup successCg;
+    [SerializeField] private CanvasGroup failureCg;
+    [SerializeField] private TMP_Text tryUnlockTxt;
+    [SerializeField] private TMP_Text inputTxt;
+    [SerializeField] private Image inputImg;
+    [SerializeField] private RectTransform rollingRt;
 
     #endregion
 

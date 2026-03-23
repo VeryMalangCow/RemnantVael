@@ -1,15 +1,14 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StandbyPlayerMUEUIController : ElementUIController
 {
     #region Value
 
-    [FormerlySerializedAs("IconImg")][SerializeField] private Image iconImg;
-    [FormerlySerializedAs("RankImg")][SerializeField] private Image rankImg;
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private Image iconImg;
+    [SerializeField] private Image rankImg;
+    [SerializeField] private TMP_Text nameTxt;
 
     #endregion
 

@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InteractAnnoUIController : UIController
@@ -13,13 +12,13 @@ public class InteractAnnoUIController : UIController
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("ThisCG")][SerializeField] private CanvasGroup cg;
-    [FormerlySerializedAs("VisualCG")][SerializeField] private CanvasGroup visualCg;
-    [FormerlySerializedAs("InnerLImg")][SerializeField] private Image innerLImg;
-    [FormerlySerializedAs("InnerRImg")][SerializeField] private Image innerRImg;
-    [FormerlySerializedAs("AnnoTxt")][SerializeField] private TMP_Text annoTxt;
+    [SerializeField] private CanvasGroup cg;
+    [SerializeField] private CanvasGroup visualCg;
+    [SerializeField] private Image innerLImg;
+    [SerializeField] private Image innerRImg;
+    [SerializeField] private TMP_Text annoTxt;
 
-    [FormerlySerializedAs("UninteractableColor")][SerializeField] private Color uninteractableClr;
+    [SerializeField] private Color uninteractableClr;
 
     [HideInInspector] private Color interactableClr;
 

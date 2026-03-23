@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 public abstract class EnemyController : NavObjectController
 {
@@ -16,43 +15,43 @@ public abstract class EnemyController : NavObjectController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("ThisSG")][SerializeField] private SortingGroup sg;
-    [FormerlySerializedAs("BuffController")][SerializeField] public EnemyBuffController buff;
+    [SerializeField] private SortingGroup sg;
+    [SerializeField] public EnemyBuffController buff;
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("ThisEnemyType")][SerializeField] private eEnemy enemyType;
-    [FormerlySerializedAs("MaxHP")][SerializeField] private float maxHP;
-    [FormerlySerializedAs("MaxEP")][SerializeField] private float maxEP = 100f;
-    [FormerlySerializedAs("ChargeEPSpeed")][SerializeField] private float chargeEPSpeed = 1f;
+    [SerializeField] private eEnemy enemyType;
+    [SerializeField] private float maxHP;
+    [SerializeField] private float maxEP = 100f;
+    [SerializeField] private float chargeEPSpeed = 1f;
 
     [Space(10)]
     [Header("=== Item")]
-    [FormerlySerializedAs("EnemyDropItemPercent")][SerializeField] protected EnemyDropItemPercent enemyDropItemPercent;
+    [SerializeField] protected EnemyDropItemPercent enemyDropItemPercent;
 
     [Space(10)]
     [Header("=== UI")]
-    [FormerlySerializedAs("HUD")][SerializeField] public EnemyHUDController hud;
+    [SerializeField] public EnemyHUDController hud;
 
     [Space(10)]
     [Header("=== Satellite")]
-    [FormerlySerializedAs("LookingSatellite")][SerializeField] private EnemySolarController lookingSatellite;
-    [FormerlySerializedAs("WalkingSatellite")][SerializeField] private RigidbodyAnimSolarController walkingSatellite;
+    [SerializeField] private EnemySolarController lookingSatellite;
+    [SerializeField] private RigidbodyAnimSolarController walkingSatellite;
 
     [Space(10)]
     [Header("=== Ping Data")]
-    [FormerlySerializedAs("PingOffsetVec")][SerializeField] public Vector2 pingOffsetVec;
-    [FormerlySerializedAs("PingSizeVec")][SerializeField] public Vector2 pingSizeVec;
+    [SerializeField] public Vector2 pingOffsetVec;
+    [SerializeField] public Vector2 pingSizeVec;
 
     [Space(10)]
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
-    [FormerlySerializedAs("OrderOfPriorityEnemyPatternList")][SerializeField] protected List<OrderOfPriorityEnemyPattern> orderOfPriorityEnemyPatternList;
-    [FormerlySerializedAs("SpecialPattern")][SerializeField] protected ContinuousEnemyPattern specialPattern;
+    [SerializeField] protected List<OrderOfPriorityEnemyPattern> orderOfPriorityEnemyPatternList;
+    [SerializeField] protected ContinuousEnemyPattern specialPattern;
 
     [Space(10)]
     [Header("=== Sound")]
-    [FormerlySerializedAs("ASQueueSet")][SerializeField] private ASQueueSet audioQueueSet;
+    [SerializeField] private ASQueueSet audioQueueSet;
 
     #endregion
 

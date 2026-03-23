@@ -1,14 +1,13 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StandbyPlayerBUEUIController : ElementUIController
 {
     #region Value
 
-    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
-    [FormerlySerializedAs("FillImgArr")][SerializeField] private Image[] fillImgArr;
+    [SerializeField] private TMP_Text nameTxt;
+    [SerializeField] private Image[] fillImgArr;
 
     #endregion
 

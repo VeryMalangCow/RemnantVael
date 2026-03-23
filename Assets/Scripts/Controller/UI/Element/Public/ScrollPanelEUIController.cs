@@ -2,7 +2,6 @@ using System;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ScrollPanelEUIController : ElementUIController, IScrollHandler
@@ -10,12 +9,12 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
     #region Value
 
     [Header("=== RT")]
-    [FormerlySerializedAs("ThisPanelRT")][SerializeField] public RectTransform panelRt;
+    [SerializeField] public RectTransform panelRt;
 
     [Header("=== Scroll Bar")]
-    [FormerlySerializedAs("ThisTabScrollbar")][SerializeField] public Scrollbar tabScrollbar;
-    [FormerlySerializedAs("ActualMovableRT")][SerializeField] public RectTransform actualMovableRt;
-    [FormerlySerializedAs("VisibleY")][SerializeField] protected float visibleY = 725;
+    [SerializeField] public Scrollbar tabScrollbar;
+    [SerializeField] public RectTransform actualMovableRt;
+    [SerializeField] protected float visibleY = 725;
     [HideInInspector] protected float actualAreaY;
     [HideInInspector] protected float movableY;
 

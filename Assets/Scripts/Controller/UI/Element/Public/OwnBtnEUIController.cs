@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
@@ -9,7 +8,7 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
 
     [Space(10)]
     [Header("=== Input")]
-    [FormerlySerializedAs("IsCanSelect")][SerializeField] public bool isCanSelect = true;
+    [SerializeField] public bool isCanSelect = true;
 
     [Space(10)]
     [Header("=== Size")]

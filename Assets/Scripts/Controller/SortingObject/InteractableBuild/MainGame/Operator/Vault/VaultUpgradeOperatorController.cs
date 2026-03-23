@@ -5,7 +5,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     #region Value
 
     // Value
-    [HideInInspector] private int Pay = 5;
+    [HideInInspector] private int pay = 5;
 
     #endregion
 
@@ -15,7 +15,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         base.Offset();
 
-        PayTxt.text = Get_NeedPay().ToString();
+        payTxt.text = Get_NeedPay().ToString();
     }
 
     #endregion
@@ -24,7 +24,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
 
     private int Get_NeedPay()
     {
-        return (Pay * (TargetVault.CurrentGrade + 1));
+        return (pay * (targetVault.currentGrade + 1));
     }
 
     #endregion
@@ -35,27 +35,27 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_UpgradeAC, 1f), 1f);
+        iconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_UpgradeAC, 1f), 1f);
     }
 
-    public override void Set_TargetBuild(VaultController _TargetVault)
+    public override void Set_TargetBuild(VaultController targetVault)
     {
-        base.Set_TargetBuild(_TargetVault);
+        base.Set_TargetBuild(targetVault);
 
-        _TargetVault.UpgradeOper = this;
+        targetVault.upgradeOper = this;
 
         // Pay
-        PayTxt.text = Get_NeedPay().ToString();
+        payTxt.text = Get_NeedPay().ToString();
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
         //base.Get_InteractName(out bool _CanInteract);
-        _CanInteract = Can_Interact();
+        canInteract = Can_Interact();
         return ResourceManager.instance.Get_StaticWord(58);
     }
 
@@ -63,22 +63,22 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         base.Play_Interact();
 
-        if (TargetVault == null ||
-            TargetVault.Is_MaxGrade() || 
-            TargetVault.IsBroken ||
+        if (targetVault == null ||
+            targetVault.Is_MaxGrade() || 
+            targetVault.isBroken ||
             PlayerManager.instance.playerController.Get_CurrentEP().Value < Get_NeedPay()) return;
 
         // 소비 아이템
         PlayerManager.instance.playerController.Add_CurrentEP(-Get_NeedPay());
 
         // 업그레이드
-        TargetVault.Set_Upgrade();
+        targetVault.Set_Upgrade();
 
         // Pay
-        PayTxt.text = Get_NeedPay().ToString();
+        payTxt.text = Get_NeedPay().ToString();
 
         // Play
-        TargetVault.Play_Size();
+        targetVault.Play_Size();
 
         // Sound
         SoundManager.instance.Play_2D_SFX_Build("Enchance");

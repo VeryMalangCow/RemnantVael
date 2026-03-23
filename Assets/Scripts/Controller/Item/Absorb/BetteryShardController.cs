@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BetteryShardController : RangeAbsorbItemController
 {
@@ -11,8 +10,8 @@ public class BetteryShardController : RangeAbsorbItemController
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("BetteryValue")][SerializeField] private int betteryValue = 1;
-    [FormerlySerializedAs("AmountTxt")][SerializeField] private TMP_Text amountTxt;
+    [SerializeField] private int betteryValue = 1;
+    [SerializeField] private TMP_Text amountTxt;
 
     [HideInInspector] private MeshRenderer mesh;
 

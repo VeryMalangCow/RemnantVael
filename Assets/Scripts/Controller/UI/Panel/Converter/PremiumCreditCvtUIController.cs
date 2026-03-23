@@ -1,7 +1,6 @@
 using System.Collections;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PremiumCreditCvtUIController : ConverterUIController
 {
@@ -14,8 +13,8 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [FormerlySerializedAs("C_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
-    [FormerlySerializedAs("EP_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController epCvtMaterialEui;
+    [SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
+    [SerializeField] private CvtMaterialEUIController epCvtMaterialEui;
 
     #endregion
 

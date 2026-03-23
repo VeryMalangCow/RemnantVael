@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyPresenceEUIController : ElementUIController
@@ -10,13 +9,13 @@ public class AllyPresenceEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Main")]
-    [FormerlySerializedAs("InnerImg")][SerializeField] public Image innerImg;
-    [FormerlySerializedAs("PresenceValueTxt")][SerializeField] public TMP_Text presenceValueTxt;
-    [FormerlySerializedAs("PresenceLangTxt")][SerializeField] public TMP_Text presenceLangTxt;
+    [SerializeField] public Image innerImg;
+    [SerializeField] public TMP_Text presenceValueTxt;
+    [SerializeField] public TMP_Text presenceLangTxt;
 
     [Space(10)]
     [Header("=== Cap")]
-    [FormerlySerializedAs("CapRT")][SerializeField] public RectTransform capRt;
+    [SerializeField] public RectTransform capRt;
 
 
     [HideInInspector] public Transform capMiddleRt;

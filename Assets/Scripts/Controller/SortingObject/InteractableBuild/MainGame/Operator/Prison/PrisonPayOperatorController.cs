@@ -4,7 +4,7 @@ public class PrisonPayOperatorController : PrisonOperatorController
 {
     #region Value
 
-    [HideInInspector] private int Pay = 20;
+    [HideInInspector] private int pay = 20;
 
     #endregion
 
@@ -14,7 +14,7 @@ public class PrisonPayOperatorController : PrisonOperatorController
     {
         base.Offset();
 
-        PayTxt.text = Get_NeedPay().ToString();
+        payTxt.text = Get_NeedPay().ToString();
     }
 
     #endregion
@@ -23,28 +23,28 @@ public class PrisonPayOperatorController : PrisonOperatorController
 
     private int Get_NeedPay()
     {
-        return Pay * (TargetPrison.Rating + 1);
+        return pay * (targetPrison.rating + 1);
     }
 
     #endregion
 
     #region Set
 
-    public override void Set_TargetBuild(PrisonController _TargetPrison)
+    public override void Set_TargetBuild(PrisonController targetPrison)
     {
-        base.Set_TargetBuild(_TargetPrison);
+        base.Set_TargetBuild(targetPrison);
 
-        _TargetPrison.PayOper = this;
+        targetPrison.payOper = this;
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
         //base.Get_InteractName();
-        _CanInteract = Can_Interact();
+        canInteract = Can_Interact();
         return ResourceManager.instance.Get_StaticWord(60);
     }
 
@@ -52,14 +52,14 @@ public class PrisonPayOperatorController : PrisonOperatorController
     {
         base.Play_Interact();
 
-        if (TargetPrison == null ||
-            TargetPrison.IsOn ||
+        if (targetPrison == null ||
+            targetPrison.isOn ||
             PlayerManager.instance.playerController.Get_CurrentEP().Value <= Get_NeedPay()) return;
 
         // 소비 아이템
         PlayerManager.instance.playerController.Add_CurrentEP(-Get_NeedPay());
 
-        TargetPrison.Set_Unlock();
+        targetPrison.Set_Unlock();
     }
 
     #endregion

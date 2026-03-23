@@ -639,11 +639,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290853a2cab76c6418815dbd0235ae91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 14
-  SpreadDir: {x: 1, y: -1}
-  Angle: 90
-  Radius: 10
-  RadialBias: 4
+  amount: 14
+  spreadDir: {x: 1, y: -1}
+  angle: 90
+  radius: 10
+  radialBias: 4
 --- !u!212 &8815735863420283802
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ public class JouleVaultController : VaultController
 {
     #region Value
 
-    [HideInInspector] private readonly static Dictionary<int, CoupleData<int>> AmountByGrade = new Dictionary<int, CoupleData<int>>
+    [HideInInspector] private readonly static Dictionary<int, CoupleData<int>> amountByGrade = new Dictionary<int, CoupleData<int>>
     {
         { 0, new CoupleData<int>(1, 1) },
         { 1, new CoupleData<int>(1, 2) },
@@ -14,7 +14,7 @@ public class JouleVaultController : VaultController
         { 4, new CoupleData<int>(3, 5) }
     };
 
-    CoupleData<int> CurrentAmountByGrade;
+    CoupleData<int> currentAmountByGrade;
 
     #endregion
 
@@ -22,8 +22,8 @@ public class JouleVaultController : VaultController
 
     protected override void Offset()
     {
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.vault_JIconAC));
-        CurrentAmountByGrade = AmountByGrade[CurrentGrade];
+        iconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.vault_JIconAC));
+        currentAmountByGrade = amountByGrade[currentGrade];
 
         base.Offset();
     }
@@ -32,11 +32,11 @@ public class JouleVaultController : VaultController
 
     #region Set
 
-    public override void Set_Grade(int _Grade)
+    public override void Set_Grade(int grade)
     {
-        base.Set_Grade(_Grade);
+        base.Set_Grade(grade);
 
-        CurrentAmountByGrade = AmountByGrade[CurrentGrade];
+        currentAmountByGrade = amountByGrade[currentGrade];
     }
 
     #endregion
@@ -44,7 +44,7 @@ public class JouleVaultController : VaultController
     #region Item
     private void Gen_J_ByGrade()
     {
-        for (int i = 0; i < Random.Range(CurrentAmountByGrade.typeBase, CurrentAmountByGrade.typeSpecial + 1); i++)
+        for (int i = 0; i < Random.Range(currentAmountByGrade.typeBase, currentAmountByGrade.typeSpecial + 1); i++)
             Gen_J(10 * PlayerManager.instance.playerController.spawnESMultiple.actualState.Value);
     }
 

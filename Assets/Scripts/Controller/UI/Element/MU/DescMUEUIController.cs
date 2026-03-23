@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DescMUEUIController : ElementUIController
@@ -15,38 +14,38 @@ public class DescMUEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Item")]
-    [FormerlySerializedAs("ItemIconImg")][SerializeField] private Image itemIconImg;
-    [FormerlySerializedAs("ItemNameTxt")][SerializeField] public TMP_Text itemNameTxt;
-    [FormerlySerializedAs("ItemIntroTxt")][SerializeField] public TMP_Text itemIntroTxt;
+    [SerializeField] private Image itemIconImg;
+    [SerializeField] public TMP_Text itemNameTxt;
+    [SerializeField] public TMP_Text itemIntroTxt;
 
     [Space(10)]
     [Header("=== Rank")]
-    [FormerlySerializedAs("CurrentRankImg")][SerializeField] private Image currentRankImg;
-    [FormerlySerializedAs("CurrentRankTxt")][SerializeField] public TMP_Text currentRankTxt;
-    [FormerlySerializedAs("CurrentActualRankTxt")][SerializeField] public TMP_Text currentActualRankTxt;
+    [SerializeField] private Image currentRankImg;
+    [SerializeField] public TMP_Text currentRankTxt;
+    [SerializeField] public TMP_Text currentActualRankTxt;
 
     [Space(5)]
     [Header("-- MainChip")]
-    [FormerlySerializedAs("MainChipGO")][SerializeField] private GameObject mainChipGo;
+    [SerializeField] private GameObject mainChipGo;
 
     [Space(3)]
     [Header("* Locker")]
-    [FormerlySerializedAs("RankLv3_LockerImg")][SerializeField] private Image rankLv3_LockerImg;
-    [FormerlySerializedAs("RankLv5_LockerImg")][SerializeField] private Image rankLv5_LockerImg;
+    [SerializeField] private Image rankLv3_LockerImg;
+    [SerializeField] private Image rankLv5_LockerImg;
 
     [Space(3)]
     [Header("* Rank")]
-    [FormerlySerializedAs("RankLv1_MainChipImg")][SerializeField] private Image rankLv1_MainChipImg;
-    [FormerlySerializedAs("RankLv1_MainChipAmountImgs")][SerializeField] private List<Image> rankLv1_MainChipAmountImgs;
-    [FormerlySerializedAs("RankLv1_Name")][SerializeField] private TMP_Text rankLv1_Name;
+    [SerializeField] private Image rankLv1_MainChipImg;
+    [SerializeField] private List<Image> rankLv1_MainChipAmountImgs;
+    [SerializeField] private TMP_Text rankLv1_Name;
 
-    [FormerlySerializedAs("RankLv3_MainChipImg")][SerializeField] private Image rankLv3_MainChipImg;
-    [FormerlySerializedAs("RankLv3_MainChipAmountImgs")][SerializeField] private List<Image> rankLv3_MainChipAmountImgs;
-    [FormerlySerializedAs("RankLv3_Name")][SerializeField] private TMP_Text rankLv3_Name;
+    [SerializeField] private Image rankLv3_MainChipImg;
+    [SerializeField] private List<Image> rankLv3_MainChipAmountImgs;
+    [SerializeField] private TMP_Text rankLv3_Name;
 
-    [FormerlySerializedAs("RankLv5_MainChipImg")][SerializeField] private Image rankLv5_MainChipImg;
-    [FormerlySerializedAs("RankLv5_MainChipAmountImgs")][SerializeField] private List<Image> rankLv5_MainChipAmountImgs;
-    [FormerlySerializedAs("RankLv5_Name")][SerializeField] private TMP_Text rankLv5_Name;
+    [SerializeField] private Image rankLv5_MainChipImg;
+    [SerializeField] private List<Image> rankLv5_MainChipAmountImgs;
+    [SerializeField] private TMP_Text rankLv5_Name;
 
     #endregion
 

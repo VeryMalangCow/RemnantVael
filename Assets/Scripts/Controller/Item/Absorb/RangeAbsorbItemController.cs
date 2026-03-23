@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RangeAbsorbItemController : AbsorbItemController
 {
@@ -10,7 +9,7 @@ public class RangeAbsorbItemController : AbsorbItemController
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("AbsorbRange")][SerializeField] private float absorbRange = 1f;
+    [SerializeField] private float absorbRange = 1f;
 
 
     #endregion

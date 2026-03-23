@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AbsorbItemController : ItemController
 {
@@ -11,14 +10,14 @@ public class AbsorbItemController : ItemController
 
     [Space(10)]
     [Header("=== Target")]
-    [FormerlySerializedAs("TargetGO")][SerializeField] GameObject targetGo;
+    [SerializeField] GameObject targetGo;
 
     [Space(10)]
     [Header("=== Absorb")]
-    [FormerlySerializedAs("IsAbsorbing")][SerializeField] protected bool isAbsorbing = false;
-    [FormerlySerializedAs("AbsorbStartPower")][SerializeField] private float absorbStartPower = 300f;
-    [FormerlySerializedAs("AbsorbPower")][SerializeField] private float absorbPower = 5f;
-    [FormerlySerializedAs("RotatePower")][SerializeField] private float rotPower = 10f;
+    [SerializeField] protected bool isAbsorbing = false;
+    [SerializeField] private float absorbStartPower = 300f;
+    [SerializeField] private float absorbPower = 5f;
+    [SerializeField] private float rotPower = 10f;
 
     // Limit OnEnable
     [HideInInspector] protected bool isSpawnNow = false;

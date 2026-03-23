@@ -1,7 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
@@ -10,11 +9,11 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
 
     [Space(10)]
     [Header("=== Input")]
-    [FormerlySerializedAs("IsCanSelect")][SerializeField] public bool isCanSelect = true;
+    [SerializeField] public bool isCanSelect = true;
 
     [Space(10)]
     [Header("=== Size")]
-    [FormerlySerializedAs("ThisRT")][HideInInspector] public RectTransform rt;
+    [HideInInspector] public RectTransform rt;
 
     // Owner
     [HideInInspector] public TitleLobbyUIController ownerUIController;

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class FillScrollbarEUIController : ElementUIController
@@ -10,15 +9,15 @@ public class FillScrollbarEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("HeaderTxt")][SerializeField] public TMP_Text headerTxt;
-    [FormerlySerializedAs("Scrollbar")][SerializeField] private Scrollbar scrollbar;
-    [FormerlySerializedAs("FillImg")][SerializeField] private Image fillImg;
-    [FormerlySerializedAs("ValueTxt")][SerializeField] private TMP_Text valueTxt;
+    [SerializeField] public TMP_Text headerTxt;
+    [SerializeField] private Scrollbar scrollbar;
+    [SerializeField] private Image fillImg;
+    [SerializeField] private TMP_Text valueTxt;
 
     [Space(10)]
     [Header("=== LR")]
-    [FormerlySerializedAs("LeftBtn")][SerializeField] public OwnBtnEUIController leftBtn;
-    [FormerlySerializedAs("RightBtn")][SerializeField] public OwnBtnEUIController rightBtn;
+    [SerializeField] public OwnBtnEUIController leftBtn;
+    [SerializeField] public OwnBtnEUIController rightBtn;
 
     #endregion
 

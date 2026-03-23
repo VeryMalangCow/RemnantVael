@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DepthController : IDController
 {
@@ -10,9 +9,9 @@ public class DepthController : IDController
 
     [Space(10)]
     [Header("=== Shadow")]
-    [FormerlySerializedAs("TargetObject")][SerializeField] public GameObject targetObject;
-    [FormerlySerializedAs("ThisSR")][SerializeField] public SpriteRenderer thisSr;
-    [FormerlySerializedAs("TargetRange")][SerializeField] public float targetRange = 0.4f;
+    [SerializeField] public GameObject targetObject;
+    [SerializeField] public SpriteRenderer thisSr;
+    [SerializeField] public float targetRange = 0.4f;
 
     public int currentOrder { get; private set; } = int.MinValue;
 

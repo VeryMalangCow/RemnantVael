@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BuildPassageSpriteController : MonoBehaviour
 {
@@ -7,8 +6,8 @@ public class BuildPassageSpriteController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Build Sprite")]
-    [FormerlySerializedAs("SpriteKey")][SerializeField] private string spriteKey;
-    [FormerlySerializedAs("IsBeforeMap")][SerializeField] private bool isBeforeMap = true;
+    [SerializeField] private string spriteKey;
+    [SerializeField] private bool isBeforeMap = true;
 
     #endregion
 

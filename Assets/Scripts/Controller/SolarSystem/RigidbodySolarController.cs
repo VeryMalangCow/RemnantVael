@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RigidbodySolarController : SolarSystemController
 {
@@ -9,7 +8,7 @@ public class RigidbodySolarController : SolarSystemController
     [Header("<><><><><> Rigidbody")]
 
     [Header("=== Component")]
-    [FormerlySerializedAs("ThisRb")][SerializeField] public Rigidbody2D rb;
+    [SerializeField] public Rigidbody2D rb;
 
     #endregion
 

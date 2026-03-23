@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public abstract class InteractItemController : ItemController, IInteract
 {
@@ -11,16 +10,16 @@ public abstract class InteractItemController : ItemController, IInteract
 
     [Space(10)]
     [Header("=== Physics")]
-    [FormerlySerializedAs("SpreadPower")][SerializeField] private float spreadPower = 10f;
-    [FormerlySerializedAs("DecSpreadPowerSpeed")][SerializeField] private float decSpreadPowerSpeed = 1f;
-    [FormerlySerializedAs("CurrentSpreadPower")][SerializeField] protected float currentSpreadPower = 0f;
-    [FormerlySerializedAs("SettedSpreadDir")][SerializeField] protected Vector2 settedSpreadDir;
+    [SerializeField] private float spreadPower = 10f;
+    [SerializeField] private float decSpreadPowerSpeed = 1f;
+    [SerializeField] protected float currentSpreadPower = 0f;
+    [SerializeField] protected Vector2 settedSpreadDir;
     private Sequence upDownSeq = null;
 
 
     [Space(10)]
     [Header("=== Anim")]
-    [FormerlySerializedAs("ThisAT")][SerializeField] protected Animator at;
+    [SerializeField] protected Animator at;
 
     [HideInInspector] private SpriteRenderer OutlinerSR;
     [HideInInspector] protected AnimatorOverrideController aoc;

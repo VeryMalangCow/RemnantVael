@@ -118,11 +118,11 @@ MonoBehaviour:
   targetObject: {fileID: 7945861353772175884}
   thisSr: {fileID: 6431130664222279258}
   targetRange: 0
-  EndYPos: 5
-  IsOn: 0
-  NextStageIndex: 0
-  Is_LobbyElevator: 0
-  ForPassageElevator: 1
+  endYPos: 5
+  isOn: 0
+  nextStageIndex: 0
+  isLobbyElevator: 0
+  forPassageElevator: 1
 --- !u!1 &6434156964202126478
 GameObject:
   m_ObjectHideFlags: 0

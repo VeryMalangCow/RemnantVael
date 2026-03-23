@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class JouleController : RangeAbsorbItemController
 {
@@ -11,8 +10,8 @@ public class JouleController : RangeAbsorbItemController
 
     [Space(10)]
     [Header("=== State")]
-    [FormerlySerializedAs("EnergyValue")][SerializeField] private float energyValue = 1f;
-    [FormerlySerializedAs("AmountTxt")][SerializeField] private TMP_Text amountTxt;
+    [SerializeField] private float energyValue = 1f;
+    [SerializeField] private TMP_Text amountTxt;
 
     [HideInInspector] private MeshRenderer mesh;
 

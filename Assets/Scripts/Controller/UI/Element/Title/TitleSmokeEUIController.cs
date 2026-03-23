@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TitleSmokeEUIController : ElementUIController
 {
@@ -14,21 +13,21 @@ public class TitleSmokeEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Sprite")]
-    [FormerlySerializedAs("SmokeSpriteList")][SerializeField] private List<Sprite> smokeSpriteList;
+    [SerializeField] private List<Sprite> smokeSpriteList;
 
     [Space(10)]
     [Header("=== Comp")]
-    [FormerlySerializedAs("YRT")][SerializeField] private RectTransform yRt;
-    [FormerlySerializedAs("LeftRT")][SerializeField] private RectTransform leftRt;
-    [FormerlySerializedAs("RightRT")][SerializeField] private RectTransform rightRt;
+    [SerializeField] private RectTransform yRt;
+    [SerializeField] private RectTransform leftRt;
+    [SerializeField] private RectTransform rightRt;
 
     [Space(10)]
     [Header("=== Data")]
-    [FormerlySerializedAs("StartSize")][SerializeField] private float startSize;
-    [FormerlySerializedAs("DurColor")][SerializeField] private CoupleData<Color> durColor;
-    [FormerlySerializedAs("MovingDis")][SerializeField] private CoupleData<float> movingDis;
-    [FormerlySerializedAs("MovingTime")][SerializeField] private CoupleData<float> movingTime;
-    [FormerlySerializedAs("DelayTime")][SerializeField] private CoupleData<float> delayTime;
+    [SerializeField] private float startSize;
+    [SerializeField] private CoupleData<Color> durColor;
+    [SerializeField] private CoupleData<float> movingDis;
+    [SerializeField] private CoupleData<float> movingTime;
+    [SerializeField] private CoupleData<float> delayTime;
 
     #endregion
 

@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TitleLobbyUIController : TitleSinglePanelUIController
@@ -19,74 +18,74 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     [Space(10)]
     [Header("=== Component")]
-    [FormerlySerializedAs("BtnsRT")][SerializeField] private RectTransform btnsRt;
-    [FormerlySerializedAs("BGCG")][SerializeField] private CanvasGroup bgCg;
+    [SerializeField] private RectTransform btnsRt;
+    [SerializeField] private CanvasGroup bgCg;
 
     [Space(10)]
     [Header("=== Element")]
-    [FormerlySerializedAs("AllTitleElementUI")][SerializeField] private List<TitleElement> allTitleEui;
-    [FormerlySerializedAs("AllTitleTSElementUI")][SerializeField] private List<TitleTSElement> allTitleTsEui;
+    [SerializeField] private List<TitleElement> allTitleEui;
+    [SerializeField] private List<TitleTSElement> allTitleTsEui;
 
     [Space(5)]
     [Header("-- Smoke")]
-    [FormerlySerializedAs("AllTitleSmokeEUI")][SerializeField] private List<TitleSmokeEUIController> allTitleSmokeEui;
+    [SerializeField] private List<TitleSmokeEUIController> allTitleSmokeEui;
 
     [Space(5)]
     [Header("-- Cloud")]
-    [FormerlySerializedAs("CloudRTList_BackMoon")][SerializeField] private List<RectTransform> cloudRtList_BackMoon;
-    [FormerlySerializedAs("CloudRTList_FrontMoon")][SerializeField] private List<RectTransform> cloudRtList_FrontMoon;
-    [FormerlySerializedAs("CloudMovingLimit")][SerializeField] private float cloudMovingLimit = 3000f;
-    [FormerlySerializedAs("CloudMovingTime")][SerializeField] private float cloudMovingTime = 1f;
+    [SerializeField] private List<RectTransform> cloudRtList_BackMoon;
+    [SerializeField] private List<RectTransform> cloudRtList_FrontMoon;
+    [SerializeField] private float cloudMovingLimit = 3000f;
+    [SerializeField] private float cloudMovingTime = 1f;
 
     [Space(10)]
     [Header("=== Prefab")]
-    [FormerlySerializedAs("SmokeCellEUIPrefab")][SerializeField] public GameObject smokeCellEuiPrefab;
+    [SerializeField] public GameObject smokeCellEuiPrefab;
     
     [Space(10)]
     [Header("=== Btns")]
-    [FormerlySerializedAs("StartBtn")][SerializeField] private TitleOwnBtnEUIController startBtn;
-    [FormerlySerializedAs("StartTxt")][SerializeField] private TMP_Text startTxt;
-    [FormerlySerializedAs("OptionBtn")][SerializeField] private TitleOwnBtnEUIController optionBtn;
-    [FormerlySerializedAs("OptionTxt")][SerializeField] private TMP_Text optionTxt;
-    [FormerlySerializedAs("QuitBtn")][SerializeField] private TitleOwnBtnEUIController quitBtn;
-    [FormerlySerializedAs("QuitTxt")][SerializeField] private TMP_Text quitTxt;
-    [FormerlySerializedAs("SelectedRT")][SerializeField] private RectTransform selectedRt;
+    [SerializeField] private TitleOwnBtnEUIController startBtn;
+    [SerializeField] private TMP_Text startTxt;
+    [SerializeField] private TitleOwnBtnEUIController optionBtn;
+    [SerializeField] private TMP_Text optionTxt;
+    [SerializeField] private TitleOwnBtnEUIController quitBtn;
+    [SerializeField] private TMP_Text quitTxt;
+    [SerializeField] private RectTransform selectedRt;
 
     [Space(10)]
     [Header("=== Reset Panel")]
-    [FormerlySerializedAs("ResetPanelGO")][SerializeField] private GameObject resetPanelGo;
-    [FormerlySerializedAs("ResetBtn")][SerializeField] private TitleOwnBtnEUIController resetBtn;
-    [FormerlySerializedAs("ResetSureYesBtn")][SerializeField] private TitleOwnBtnEUIController resetSureYesBtn;
-    [FormerlySerializedAs("ResetSureNoBtn")][SerializeField] private TitleOwnBtnEUIController resetSureNoBtn;
+    [SerializeField] private GameObject resetPanelGo;
+    [SerializeField] private TitleOwnBtnEUIController resetBtn;
+    [SerializeField] private TitleOwnBtnEUIController resetSureYesBtn;
+    [SerializeField] private TitleOwnBtnEUIController resetSureNoBtn;
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("DurTime")][SerializeField] private float durTime;
+    [SerializeField] private float durTime;
 
     [Space(10)]
     [Header("=== Interact")]
-    [FormerlySerializedAs("CurrentInteractable")][SerializeField] private IInteract currentInteractable;
+    [SerializeField] private IInteract currentInteractable;
 
     [Space(10)]
     [Header("=== Option")]
-    [FormerlySerializedAs("OptionUI")][SerializeField] private OptionUIController optionUi;
+    [SerializeField] private OptionUIController optionUi;
     [Serializable]
     public class OptionUIController
     {
-        [FormerlySerializedAs("PanelRT")][SerializeField] public RectTransform panelRt;
-        [FormerlySerializedAs("BGImg")][SerializeField] public Image bgImg;
-        [FormerlySerializedAs("BackBtn")][SerializeField] public TitleOwnBtnEUIController backBtn;
-        [FormerlySerializedAs("ApplyBtn")][SerializeField] public TitleOwnBtnEUIController applyBtn;
-        [FormerlySerializedAs("WarningTxt")][SerializeField] public TMP_Text warningTxt;
-        [FormerlySerializedAs("IsOn")][SerializeField] public bool isOn = false;
+        [SerializeField] public RectTransform panelRt;
+        [SerializeField] public Image bgImg;
+        [SerializeField] public TitleOwnBtnEUIController backBtn;
+        [SerializeField] public TitleOwnBtnEUIController applyBtn;
+        [SerializeField] public TMP_Text warningTxt;
+        [SerializeField] public bool isOn = false;
 
         [Space(10)]
-        [FormerlySerializedAs("LanguagePanelEUI")][SerializeField] public TitleLRSlidingItemEUIController languagePanelEui;
-        [FormerlySerializedAs("ScreenModePanelEUI")][SerializeField] public TitleLRSlidingItemEUIController screenModePanelEui;
-        [FormerlySerializedAs("ResolutionPanelEUI")][SerializeField] public TitleLRSlidingItemEUIController resolutionPanelEui;
-        [FormerlySerializedAs("FPSPanelEUI")][SerializeField] public TitleLRSlidingItemEUIController fpsPanelEui;
-        [FormerlySerializedAs("BGMVolumePanelEUI")][SerializeField] public TitleFillScrollbarEUIController bgmVolumePanelEui;
-        [FormerlySerializedAs("SFXVolumePanelEUI")][SerializeField] public TitleFillScrollbarEUIController sfxVolumePanelEui;
+        [SerializeField] public TitleLRSlidingItemEUIController languagePanelEui;
+        [SerializeField] public TitleLRSlidingItemEUIController screenModePanelEui;
+        [SerializeField] public TitleLRSlidingItemEUIController resolutionPanelEui;
+        [SerializeField] public TitleLRSlidingItemEUIController fpsPanelEui;
+        [SerializeField] public TitleFillScrollbarEUIController bgmVolumePanelEui;
+        [SerializeField] public TitleFillScrollbarEUIController sfxVolumePanelEui;
 
         public void Offset(TitleLobbyUIController uiController)
         {

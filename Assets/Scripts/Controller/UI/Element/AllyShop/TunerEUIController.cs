@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TunerEUIController : ElementUIController
 {
@@ -10,9 +9,9 @@ public class TunerEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [FormerlySerializedAs("PositiveTuner0")][SerializeField] private EachTunerEUIController positiveTuner0;
-    [FormerlySerializedAs("PositiveTuner1")][SerializeField] private EachTunerEUIController positiveTuner1;
-    [FormerlySerializedAs("NegativeTuner")][SerializeField] private EachTunerEUIController negativeTuner;
+    [SerializeField] private EachTunerEUIController positiveTuner0;
+    [SerializeField] private EachTunerEUIController positiveTuner1;
+    [SerializeField] private EachTunerEUIController negativeTuner;
 
     [HideInInspector] public RectTransform rt;
 

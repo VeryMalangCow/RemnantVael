@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyShopUIController : ShopUIController
@@ -17,59 +16,59 @@ public class AllyShopUIController : ShopUIController
 
     [Space(10)]
     [Header("=== Profile List EUI")]
-    [FormerlySerializedAs("AllyProfileParentTF")][SerializeField] private Transform allyProfileParentTf;
-    [FormerlySerializedAs("AllyProfileSelectSignRT")][SerializeField] private RectTransform allyProfileSelectSignRt;
-    [FormerlySerializedAs("AllyProfilePickedSignRT")][SerializeField] private RectTransform allyProfilePickedSignRt;
+    [SerializeField] private Transform allyProfileParentTf;
+    [SerializeField] private RectTransform allyProfileSelectSignRt;
+    [SerializeField] private RectTransform allyProfilePickedSignRt;
 
     [Space(10)]
     [Header("=== Profile Detail EUI")]
 
     [Space(5)]
     [Header("-- Detail")]
-    [FormerlySerializedAs("ProfileDetailEUI")][SerializeField] private AllyProfileDetailEUIController profileDetailEui;
-    [FormerlySerializedAs("ProfileDetailTxt")][SerializeField] private TMP_Text profileDetailTxt;
-    [FormerlySerializedAs("ProfileDetailExtraRT")][SerializeField] private RectTransform profileDetailExtraRt;
+    [SerializeField] private AllyProfileDetailEUIController profileDetailEui;
+    [SerializeField] private TMP_Text profileDetailTxt;
+    [SerializeField] private RectTransform profileDetailExtraRt;
 
     [Space(5)]
     [Header("-- Panel")]
-    [FormerlySerializedAs("StatePanelRTList")][SerializeField] private List<RectTransform> statePanelRtList;
-    [FormerlySerializedAs("StatePanelCG")][SerializeField] private CanvasGroup statePanelCg;
+    [SerializeField] private List<RectTransform> statePanelRtList;
+    [SerializeField] private CanvasGroup statePanelCg;
 
     [Space(5)]
     [Header("-- Btn")]
-    [FormerlySerializedAs("StateBtnList")][SerializeField] private List<OwnCGBtnEUIController> stateBtnList;
+    [SerializeField] private List<OwnCGBtnEUIController> stateBtnList;
 
     [Space(5)]
     [Header("-- In State")]
-    [FormerlySerializedAs("StateTitleTxtList")][SerializeField] private List<TMP_Text> stateTitleTxtList;
+    [SerializeField] private List<TMP_Text> stateTitleTxtList;
 
     [Space(2)]
     [Header("* State")]
-    [FormerlySerializedAs("StateScrollPanel")][SerializeField] private ScrollPanelEUIController stateScrollPanel;
-    [FormerlySerializedAs("StateLimitTxt")][SerializeField] private TMP_Text stateLimitTxt;
-    [FormerlySerializedAs("StateEUIList")][SerializeField] private List<AllyProfileStateEUIController> stateEuiList;
+    [SerializeField] private ScrollPanelEUIController stateScrollPanel;
+    [SerializeField] private TMP_Text stateLimitTxt;
+    [SerializeField] private List<AllyProfileStateEUIController> stateEuiList;
 
     [Space(2)]
     [Header("* Tuner")]
-    [FormerlySerializedAs("TunerScrollPanel")][SerializeField] private ScrollPanelEUIController tunerScrollPanel;
-    [FormerlySerializedAs("InStateTunerParentRT")][SerializeField] private RectTransform inStateTunerParentRt;
-    [FormerlySerializedAs("InStateTunerPrefab")][SerializeField] private GameObject inStateTunerPrefab;
+    [SerializeField] private ScrollPanelEUIController tunerScrollPanel;
+    [SerializeField] private RectTransform inStateTunerParentRt;
+    [SerializeField] private GameObject inStateTunerPrefab;
 
     [Space(2)]
     [Header("* Sync")]
-    [FormerlySerializedAs("SyncScrollPanel")][SerializeField] private ScrollPanelEUIController syncScrollPanel;
-    [FormerlySerializedAs("InStateSyncParentRT")][SerializeField] private RectTransform inStateSyncParentRt;
-    [FormerlySerializedAs("InStateSyncPrefab")][SerializeField] private GameObject inStateSyncPrefab;
-    [FormerlySerializedAs("PickedPanelSyncProgressSpriteList")][SerializeField] private List<Sprite> pickedPanelSyncProgressSpriteList;
+    [SerializeField] private ScrollPanelEUIController syncScrollPanel;
+    [SerializeField] private RectTransform inStateSyncParentRt;
+    [SerializeField] private GameObject inStateSyncPrefab;
+    [SerializeField] private List<Sprite> pickedPanelSyncProgressSpriteList;
 
 
     [Space(10)]
     [Header("=== Inner")]
-    [FormerlySerializedAs("ExtraMainColorImgList")][SerializeField] private List<Image> extraMainClrImgList;
-    [FormerlySerializedAs("ExtraMainColorTxtList")][SerializeField] private List<TMP_Text> extraMainClrTxtList;
+    [SerializeField] private List<Image> extraMainClrImgList;
+    [SerializeField] private List<TMP_Text> extraMainClrTxtList;
 
-    [FormerlySerializedAs("ExtraSubColorImgList")][SerializeField] private List<Image> extraSubClrImgList;
-    [FormerlySerializedAs("ExtraSubColorTxtList")][SerializeField] private List<TMP_Text> extraSubClrTxtList;
+    [SerializeField] private List<Image> extraSubClrImgList;
+    [SerializeField] private List<TMP_Text> extraSubClrTxtList;
 
     #endregion
 

@@ -9,12 +9,12 @@ public abstract class ConverterController : SortingObjectController
 
     [Space(10)]
     [Header("=== Grade")]
-    [SerializeField] protected Animator ThisAnimator;
+    [SerializeField] protected Animator at;
 
     // AC
-    [HideInInspector] private EachConverterReso EachConverterReso = null;
+    [HideInInspector] private EachConverterReso eachConverterReso = null;
 
-    [HideInInspector] protected AnimatorOverrideController AOC;
+    [HideInInspector] protected AnimatorOverrideController aoc;
 
     #endregion
 
@@ -30,7 +30,7 @@ public abstract class ConverterController : SortingObjectController
 
     private void Offset_Anim()
     {
-        EachConverterReso = ResourceManager.instance.Get_ConverterReso(id);
+        eachConverterReso = ResourceManager.instance.Get_ConverterReso(id);
     }
 
     #endregion
@@ -39,8 +39,8 @@ public abstract class ConverterController : SortingObjectController
 
     private void Set_ArtVisual()
     {
-        DevTool.Set_Anim(ref AOC, ThisAnimator, EachConverterReso.ac);
-        thisSr.material = EachConverterReso.material;
+        DevTool.Set_Anim(ref aoc, at, eachConverterReso.ac);
+        thisSr.material = eachConverterReso.material;
     }
 
     #endregion

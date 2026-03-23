@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using UnityEngine.Serialization;
 
 public class PlayerHUDController : UIController
 {
@@ -19,125 +18,125 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Tab")]
-    [FormerlySerializedAs("IsTabInteracted")][SerializeField] public ReactiveProperty<bool> isTabInteracted = new ReactiveProperty<bool>();
-    [FormerlySerializedAs("IsTabInputed")][SerializeField] public bool isTabInputed = false;
-    [FormerlySerializedAs("TabInputedMaxTime")][SerializeField] private static float tabInputedMaxTime = 0.25f;
-    [FormerlySerializedAs("TabInputedCurrentTime")][SerializeField] private float tabInputedCurrentTime = 0f;
+    [SerializeField] public ReactiveProperty<bool> isTabInteracted = new ReactiveProperty<bool>();
+    [SerializeField] public bool isTabInputed = false;
+    [SerializeField] private static float tabInputedMaxTime = 0.25f;
+    [SerializeField] private float tabInputedCurrentTime = 0f;
 
     [Header("-- All")]
-    [FormerlySerializedAs("ParentCGList")][SerializeField] private List<CanvasGroup> parentCgList;
+    [SerializeField] private List<CanvasGroup> parentCgList;
 
     [Header("-- Modules")]
-    [FormerlySerializedAs("ModuleListParentRT")][SerializeField] private RectTransform moduleListParentRt;
+    [SerializeField] private RectTransform moduleListParentRt;
 
     [Header("-- Player States")]
-    [FormerlySerializedAs("PlayerStatesCostParentRT")][SerializeField] private RectTransform playerStatesCostParentRt;
-    [FormerlySerializedAs("PlayerStatesTxt")][SerializeField] private TMP_Text playerStatesTxt;
+    [SerializeField] private RectTransform playerStatesCostParentRt;
+    [SerializeField] private TMP_Text playerStatesTxt;
 
     [Header("-- Ally States")]
-    [FormerlySerializedAs("AllyStateParentRT")][SerializeField] private RectTransform allyStateParentRt;
-    [FormerlySerializedAs("AllyHUDList")][SerializeField] private List<RectTransform> allyHudList = new List<RectTransform>();
-    [FormerlySerializedAs("MaxCol")][SerializeField] private readonly static int maxCol = 6;
-    [FormerlySerializedAs("ColInterval")][SerializeField] private readonly static float colInterval = -120;
-    [FormerlySerializedAs("RowInterval")][SerializeField] private readonly static float rowInterval = 240;
+    [SerializeField] private RectTransform allyStateParentRt;
+    [SerializeField] private List<RectTransform> allyHudList = new List<RectTransform>();
+    [SerializeField] private readonly static int maxCol = 6;
+    [SerializeField] private readonly static float colInterval = -120;
+    [SerializeField] private readonly static float rowInterval = 240;
 
     [Header("-- Skill State")]
-    [FormerlySerializedAs("SkillStatesParentRT")][SerializeField] private RectTransform skillStatesParentRt;
-    [FormerlySerializedAs("SkillStatesTxtList")][SerializeField] private List<TMP_Text> skillStatesTxtList;
+    [SerializeField] private RectTransform skillStatesParentRt;
+    [SerializeField] private List<TMP_Text> skillStatesTxtList;
 
     [Space(10)]
     [Header("=== Energy")]
-    [FormerlySerializedAs("EP")][SerializeField] private ProgressBarEUIController epEui;
-    [FormerlySerializedAs("EPInnerImgList")][SerializeField] private List<Image> epInnerImgList;
-    [FormerlySerializedAs("EP_FlowRT")][SerializeField] private RectTransform epFlowRt;
+    [SerializeField] private ProgressBarEUIController epEui;
+    [SerializeField] private List<Image> epInnerImgList;
+    [SerializeField] private RectTransform epFlowRt;
 
     [Space(10)]
     [Header("=== Shield")]
-    [FormerlySerializedAs("ShieldRT")][SerializeField] private RectTransform shieldRt;
-    [FormerlySerializedAs("ShieldTxt")][SerializeField] private TMP_Text shieldTxt;
+    [SerializeField] private RectTransform shieldRt;
+    [SerializeField] private TMP_Text shieldTxt;
 
     [Space(10)]
     [Header("=== Bettery")]
     [Header("-- Current")]
-    [FormerlySerializedAs("CurrentEmptyBC")][SerializeField] public ChargeSpriteEUIController currentEmptyBc;
+    [SerializeField] public ChargeSpriteEUIController currentEmptyBc;
 
     [Header("-- Bettery (Image Amount Class)")]
-    [FormerlySerializedAs("EmptyBC")][SerializeField] private ImgTxtAmountEUIController emptyBc;
-    [FormerlySerializedAs("FullEC")][SerializeField] private ImgTxtAmountEUIController fullEc;
-    [FormerlySerializedAs("ECCostArrowImg")][SerializeField] private Image ecCostArrowImg;
-    [FormerlySerializedAs("ECCostTxt")][SerializeField] private TMP_Text ecCostTxt;
+    [SerializeField] private ImgTxtAmountEUIController emptyBc;
+    [SerializeField] private ImgTxtAmountEUIController fullEc;
+    [SerializeField] private Image ecCostArrowImg;
+    [SerializeField] private TMP_Text ecCostTxt;
 
     [Space(10)]
     [Header("=== Other Item")]
-    [FormerlySerializedAs("Credit_EUI")][SerializeField] private LootableItemEUIController creditEui;
-    [FormerlySerializedAs("Overrider_EUI")][SerializeField] private LootableItemEUIController overriderEui;
-    [FormerlySerializedAs("MS_EUI")][SerializeField] private LootableItemEUIController msEui;
+    [SerializeField] private LootableItemEUIController creditEui;
+    [SerializeField] private LootableItemEUIController overriderEui;
+    [SerializeField] private LootableItemEUIController msEui;
 
     [Space(10)]
     [Header("=== Boost")]
-    [FormerlySerializedAs("BoostRT")][SerializeField] private RectTransform boostRt;
+    [SerializeField] private RectTransform boostRt;
     [HideInInspector] private float defaultBoostRectY;
-    [FormerlySerializedAs("BoostLv")][SerializeField] private TMP_Text boostLv;
-    [FormerlySerializedAs("BoostLightArr")][SerializeField] private GameObject[] boostLightArr;
-    [FormerlySerializedAs("BoostLightWheelArr")][SerializeField] private GameObject[] boostLightWheelArr;
-    [FormerlySerializedAs("BoostInnerList")][SerializeField] List<Image> boostInnerList;
+    [SerializeField] private TMP_Text boostLv;
+    [SerializeField] private GameObject[] boostLightArr;
+    [SerializeField] private GameObject[] boostLightWheelArr;
+    [SerializeField] List<Image> boostInnerList;
 
     [Space(10)]
     [Header("=== Skill")]
-    [FormerlySerializedAs("SkillList")][SerializeField] public List<SkillEUIController> skillList;
+    [SerializeField] public List<SkillEUIController> skillList;
 
     [Space(10)]
     [Header("=== Minimap")]
-    [FormerlySerializedAs("ThisMinimap")][SerializeField] public MinimapEUIController minimapEui;
-    [FormerlySerializedAs("StageIcon")][SerializeField] public Image stageIcon;
+    [SerializeField] public MinimapEUIController minimapEui;
+    [SerializeField] public Image stageIcon;
 
     [Space(10)]
     [Header("=== Map Anno")]
-    [FormerlySerializedAs("StageNameTxt")][SerializeField] private TMP_Text stageNameTxt;
-    [FormerlySerializedAs("StageDescriptionTxt")][SerializeField] private TMP_Text stageDescTxt;
+    [SerializeField] private TMP_Text stageNameTxt;
+    [SerializeField] private TMP_Text stageDescTxt;
 
     [Space(10)]
     [Header("=== Interact")]
-    [FormerlySerializedAs("InteractOnOffTxt")][SerializeField] private TMP_Text interactOnOffTxt;
-    [FormerlySerializedAs("InteractDesctiptionTxt")][SerializeField] private TMP_Text interactDescTxt;
+    [SerializeField] private TMP_Text interactOnOffTxt;
+    [SerializeField] private TMP_Text interactDescTxt;
 
-    [FormerlySerializedAs("InnerImg")][SerializeField] private Image innerImg;
-    [FormerlySerializedAs("UsingInnerImg")][SerializeField] private Image usingInnerImg;
-    [FormerlySerializedAs("UninteractableColor")][SerializeField] private Color uninteractableClr;
+    [SerializeField] private Image innerImg;
+    [SerializeField] private Image usingInnerImg;
+    [SerializeField] private Color uninteractableClr;
 
     [Space(10)]
     [Header("=== Ally")]
-    [FormerlySerializedAs("ST_AllyPresence")][SerializeField] private AllyPresenceEUIController stAllyPresence;
-    [FormerlySerializedAs("UT_AllyPresence")][SerializeField] private AllyPresenceEUIController utAllyPresence;
-    [FormerlySerializedAs("NT_AllyPresence")][SerializeField] private AllyPresenceEUIController ntAllyPresence;
-    [FormerlySerializedAs("AllyReputationImg")][SerializeField] private Image allyReputationImg;
-    [FormerlySerializedAs("AllyReputationTxt")][SerializeField] private TMP_Text allyReputationTxt;
+    [SerializeField] private AllyPresenceEUIController stAllyPresence;
+    [SerializeField] private AllyPresenceEUIController utAllyPresence;
+    [SerializeField] private AllyPresenceEUIController ntAllyPresence;
+    [SerializeField] private Image allyReputationImg;
+    [SerializeField] private TMP_Text allyReputationTxt;
 
     [Space(10)]
     [Header("=== Buff")]
-    [FormerlySerializedAs("BuffParentTF")][SerializeField] private Transform buffParentTf;
-    [FormerlySerializedAs("AllBuffIconUI")][SerializeField] public List<BuffIconEUIController> allBuffIconUi;
-    [FormerlySerializedAs("BuffUI_XInterval")][SerializeField] private float buffUiXInterval = 12;
+    [SerializeField] private Transform buffParentTf;
+    [SerializeField] public List<BuffIconEUIController> allBuffIconUi;
+    [SerializeField] private float buffUiXInterval = 12;
 
     [Space(10)]
     [Header("=== Screen")]
-    [FormerlySerializedAs("HittedScreen")][SerializeField] private Image hittedScreen;
-    [FormerlySerializedAs("HittedInfoPivotTF")][SerializeField] private Transform hittedInfoPivotTf;
-    [FormerlySerializedAs("HittedInfoRT")][SerializeField] private RectTransform hittedInfoRt;
-    [FormerlySerializedAs("HittedDmgTxt")][SerializeField] private TMP_Text hittedDmgTxt;
-    [FormerlySerializedAs("PaneltyAnnoCG")][SerializeField] private CanvasGroup paneltyAnnoCg;
-    [FormerlySerializedAs("PaneltyAnnoNameTxt")][SerializeField] private TMP_Text paneltyAnnoNameTxt;
-    [FormerlySerializedAs("PaneltyAnnoDescTxt")][SerializeField] private TMP_Text paneltyAnnoDescTxt;
+    [SerializeField] private Image hittedScreen;
+    [SerializeField] private Transform hittedInfoPivotTf;
+    [SerializeField] private RectTransform hittedInfoRt;
+    [SerializeField] private TMP_Text hittedDmgTxt;
+    [SerializeField] private CanvasGroup paneltyAnnoCg;
+    [SerializeField] private TMP_Text paneltyAnnoNameTxt;
+    [SerializeField] private TMP_Text paneltyAnnoDescTxt;
 
     [Space(10)]
     [Header("=== Key Item")]
-    [FormerlySerializedAs("KeyItemVFXImg")][SerializeField] private Image keyItemVfxImg;
-    [FormerlySerializedAs("KeyItemImgList")][SerializeField] private List<Image> keyItemImgList;
+    [SerializeField] private Image keyItemVfxImg;
+    [SerializeField] private List<Image> keyItemImgList;
 
     [Space(10)]
     [Header("=== High Lv Item")]
-    [FormerlySerializedAs("HighLvItemRT")][SerializeField] private RectTransform highLvItemRt;
-    [FormerlySerializedAs("HighLvItemAmountTxtList")][SerializeField] private List<TMP_Text> highLvItemAmountTxtList;
+    [SerializeField] private RectTransform highLvItemRt;
+    [SerializeField] private List<TMP_Text> highLvItemAmountTxtList;
 
     #endregion
 

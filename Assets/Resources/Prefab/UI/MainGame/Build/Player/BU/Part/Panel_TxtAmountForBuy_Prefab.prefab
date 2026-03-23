@@ -3869,14 +3869,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b752d96ddc3c23e48895bf63aa7756a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisImgTxtAmountEUI: {fileID: 8928400671168704760}
-  BuyBtn: {fileID: 4726852616877183750}
-  DescTxt: {fileID: 8171936730393243384}
-  CostImg: {fileID: 3842703053704682384}
-  AlwaysPanelBtn: {fileID: 308332468758549718}
-  SkillIconImg: {fileID: 8057136919186570665}
-  SkillNameTxt: {fileID: 465148360581515912}
-  SkillLvTxt: {fileID: 4278975485691168565}
+  imgTxtAmountEui: {fileID: 8928400671168704760}
+  buyBtn: {fileID: 4726852616877183750}
+  descTxt: {fileID: 8171936730393243384}
+  costImg: {fileID: 3842703053704682384}
+  alwaysPanelBtn: {fileID: 308332468758549718}
+  skillIconImg: {fileID: 8057136919186570665}
+  skillNameTxt: {fileID: 465148360581515912}
+  skillLvTxt: {fileID: 4278975485691168565}
   innerImgList:
   - {fileID: 2433760783325641525}
   - {fileID: 846367356903639729}

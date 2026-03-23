@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public abstract class PuzzleUIController : SinglePanelUIController
 {
@@ -14,19 +13,19 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("BaseCountdown")][SerializeField] protected float baseCountdown = 15f;
+    [SerializeField] protected float baseCountdown = 15f;
 
     [Space(10)]
     [Header("=== Ready Panel")]
-    [FormerlySerializedAs("ReadyPanelEUI")][SerializeField] protected PuzzleReadyPanelEUIController readyPanelEui;
+    [SerializeField] protected PuzzleReadyPanelEUIController readyPanelEui;
 
     [Space(10)]
     [Header("=== Left")]
-    [FormerlySerializedAs("TimePanelEUI")][SerializeField] private PuzzleTimePanelEUIController timePanelEui;
+    [SerializeField] private PuzzleTimePanelEUIController timePanelEui;
 
     [Space(10)]
     [Header("=== Right")]
-    [FormerlySerializedAs("UnlockPanelEUI")][SerializeField] private PuzzleUnlockPanelEUIController unlockPanelEui;
+    [SerializeField] private PuzzleUnlockPanelEUIController unlockPanelEui;
 
     #endregion
 

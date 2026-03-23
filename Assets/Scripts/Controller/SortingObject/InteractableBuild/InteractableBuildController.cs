@@ -10,18 +10,18 @@ public class InteractableBuildController : SortingObjectController
 
     [Space(10)]
     [Header("=== Controller")]
-    [SerializeField] protected StateAnimController ThisStateAnim;
+    [SerializeField] protected StateAnimController stateAnim;
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public bool IsOn = false;
-    [SerializeField] protected Animator ThisAnimator;
+    [SerializeField] public bool isOn = false;
+    [SerializeField] protected Animator at;
 
     // Anim
-    [HideInInspector] protected CoupleData<AnimationClip> OnOffAC = null;
-    [HideInInspector] protected CoupleData<AnimationClip> OnOffStateAC = null;
+    [HideInInspector] protected CoupleData<AnimationClip> onOffAc = null;
+    [HideInInspector] protected CoupleData<AnimationClip> onOffStateAc = null;
 
-    [HideInInspector] protected AnimatorOverrideController AOC;
+    [HideInInspector] protected AnimatorOverrideController aoc;
 
     #endregion
 
@@ -29,19 +29,19 @@ public class InteractableBuildController : SortingObjectController
 
     protected virtual void Set_StateAnim()
     {
-        DevTool.Set_Anim(ref AOC, ThisAnimator, OnOffAC.Get_Special(IsOn));
-        ThisStateAnim.Set_Anim(new State_Anim(OnOffStateAC.Get_Special(IsOn), 1f), 1f);
+        DevTool.Set_Anim(ref aoc, at, onOffAc.Get_Special(isOn));
+        stateAnim.Set_Anim(new State_Anim(onOffStateAc.Get_Special(isOn), 1f), 1f);
     }
 
     #endregion
 
     #region Sorting
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
-        ThisStateAnim.sr.sortingOrder = _SortingOrder;
+        stateAnim.sr.sortingOrder = sortingOrder;
     }
 
     #endregion

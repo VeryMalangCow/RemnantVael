@@ -2,14 +2,13 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 public class TunerRerollBtnEUIController : OwnBtnEUIController
 {
     #region Value
 
-    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
-    [FormerlySerializedAs("NeedOverriderAmountTxt")][SerializeField] private TMP_Text needOverriderAmountTxt;
+    [SerializeField] private TMP_Text txt;
+    [SerializeField] private TMP_Text needOverriderAmountTxt;
 
     #endregion
 

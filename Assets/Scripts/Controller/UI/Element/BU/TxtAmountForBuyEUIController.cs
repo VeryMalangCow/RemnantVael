@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
@@ -17,13 +16,13 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     [Space(5)]
     [Header("-- Controller")]
-    [SerializeField] public ImgTxtAmountEUIController ThisImgTxtAmountEUI;
-    [SerializeField] public OwnBtnEUIController BuyBtn;
+    [SerializeField] public ImgTxtAmountEUIController imgTxtAmountEui;
+    [SerializeField] public OwnBtnEUIController buyBtn;
 
     [Space(5)]
     [Header("-- Comp")]
-    [SerializeField] public TMP_Text DescTxt;
-    [SerializeField] public Image CostImg;
+    [SerializeField] public TMP_Text descTxt;
+    [SerializeField] public Image costImg;
 
 
     [Space(10)]
@@ -31,10 +30,10 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     [Space(5)]
     [Header("-- Comp")]
-    [SerializeField] private Button AlwaysPanelBtn;
-    [SerializeField] private Image SkillIconImg;
-    [SerializeField] public TMP_Text SkillNameTxt;
-    [SerializeField] public TMP_Text SkillLvTxt;
+    [SerializeField] private Button alwaysPanelBtn;
+    [SerializeField] private Image skillIconImg;
+    [SerializeField] public TMP_Text skillNameTxt;
+    [SerializeField] public TMP_Text skillLvTxt;
 
 
     [Space(10)]
@@ -42,13 +41,13 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     [Space(5)]
     [Header("-- Inner")]
-    [FormerlySerializedAs("InnerImgList")][SerializeField] public List<Image> innerImgList;
+    [SerializeField] public List<Image> innerImgList;
 
     [Space(5)]
     [Header("-- Size")]
-    [FormerlySerializedAs("MaximumSize")][SerializeField] private float maximumSize = 1350;
-    [FormerlySerializedAs("MinimumSize")][SerializeField] private float minimumSize = 300;
-    [FormerlySerializedAs("SizeDeltaTime")][SerializeField] private float sizeDeltaTime = 0.2f;
+    [SerializeField] private float maximumSize = 1350;
+    [SerializeField] private float minimumSize = 300;
+    [SerializeField] private float sizeDeltaTime = 0.2f;
 
     #endregion
 
@@ -67,15 +66,15 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     {
         rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
         rt.sizeDelta = new Vector2(minimumSize, rt.sizeDelta.y);
-        BuyBtn.Offset();
+        buyBtn.Offset();
     }
 
     public void Offset(BaseUpgradeUIController owner)
     {
         this.Offset();
-        ThisImgTxtAmountEUI.Offset();
+        imgTxtAmountEui.Offset();
 
-        BuyBtn.ownerUIController = owner;
+        buyBtn.ownerUIController = owner;
     }
 
     #endregion
@@ -84,10 +83,10 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     public void Set(int lv, int costValue)
     {
-        ThisImgTxtAmountEUI.Set_Amount(lv, 0.2f);
-        CostImg.sprite = BaseUpgradeManager.instance.costSpriteList[costValue];
+        imgTxtAmountEui.Set_Amount(lv, 0.2f);
+        costImg.sprite = BaseUpgradeManager.instance.costSpriteList[costValue];
 
-        SkillLvTxt.text = "[ LV : <b><#FFFFFF>" + lv + "</color></b> ]";
+        skillLvTxt.text = "[ LV : <b><#FFFFFF>" + lv + "</color></b> ]";
     }
 
 
@@ -113,7 +112,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
         rt.DOSizeDelta(new Vector2(maximumSize, rt.sizeDelta.y), sizeDeltaTime);
 
-        MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(this, SkillNameTxt.text);
+        MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(this, skillNameTxt.text);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -131,10 +130,10 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     public void Set_LanguageTxt(string name, string desc)
     {
-        SkillNameTxt.text = name;
-        DescTxt.text = desc;
-        DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CostImg, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(46);
-        DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(BuyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(47);
+        skillNameTxt.text = name;
+        descTxt.text = desc;
+        DevTool.Get_ComponentTType<TMP_Text>(costImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(costImg, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(46);
+        DevTool.Get_ComponentTType<TMP_Text>(buyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(buyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(47);
     }
 
     #endregion

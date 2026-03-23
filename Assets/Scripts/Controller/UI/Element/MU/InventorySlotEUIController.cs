@@ -2,7 +2,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InventorySlotEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
@@ -14,18 +13,18 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     [Space(10)]
     [Header("=== Partner")]
-    [FormerlySerializedAs("ThisItem")][SerializeField] public InventoryItemEUIController item = null;
+    [SerializeField] public InventoryItemEUIController item = null;
 
     [Space(10)]
     [Header("=== Value")]
-    [FormerlySerializedAs("ThisSizeDelta")][SerializeField] private Vector2 sizeDelta = new Vector2(100, 100);
-    [FormerlySerializedAs("IsCanSelect")][SerializeField] private bool isCanSelect = true;
+    [SerializeField] private Vector2 sizeDelta = new Vector2(100, 100);
+    [SerializeField] private bool isCanSelect = true;
 
     [Space(10)]
     [Header("=== Selected Sign")]
-    [FormerlySerializedAs("SignRT")][SerializeField] private RectTransform signRt;
-    [FormerlySerializedAs("ThisEquipedTxt")][SerializeField] private TMP_Text equipedTxt;
-    [FormerlySerializedAs("ThisForgeSelectedTxt")][SerializeField] private TMP_Text forgeSelectedTxt;
+    [SerializeField] private RectTransform signRt;
+    [SerializeField] private TMP_Text equipedTxt;
+    [SerializeField] private TMP_Text forgeSelectedTxt;
 
     // Only Inventory
     [HideInInspector] public int col = -1;

@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AllyCardUIController : SinglePanelUIController
 {
@@ -15,13 +14,13 @@ public class AllyCardUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== TF")]
-    [FormerlySerializedAs("CardParentTF")][SerializeField] private Transform cardParentTf;
-    [FormerlySerializedAs("CardRerollParentTF")][SerializeField] private Transform cardRerollParentTf;
-    [FormerlySerializedAs("CardBookingFrameImgRT")][SerializeField] private RectTransform cardBookingFrameImgRt;
+    [SerializeField] private Transform cardParentTf;
+    [SerializeField] private Transform cardRerollParentTf;
+    [SerializeField] private RectTransform cardBookingFrameImgRt;
 
     [Space(10)]
     [Header("=== Btn")]
-    [FormerlySerializedAs("SelectBtn")][SerializeField] private OwnBtnEUIController selectBtn;
+    [SerializeField] private OwnBtnEUIController selectBtn;
 
     #endregion
 

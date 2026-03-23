@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SolarSystemController : MonoBehaviour
 {
@@ -11,21 +10,21 @@ public class SolarSystemController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Pivot")]
-    [FormerlySerializedAs("PivotObjectSR")][SerializeField] public SpriteRenderer pivotObjSr;
+    [SerializeField] public SpriteRenderer pivotObjSr;
 
     [Space(10)]
     [Header("=== Satellite")]
     [Header("-- Roll")]
-    [FormerlySerializedAs("DefualtRoll")][SerializeField] private float defualtRoll = -85f;
+    [SerializeField] private float defualtRoll = -85f;
     [HideInInspector] private Transform rollTf;
 
     [Header("-- Pitch")]
-    [FormerlySerializedAs("RotateSpeed")][SerializeField] protected float rotSpeed = 8f;
+    [SerializeField] protected float rotSpeed = 8f;
     [HideInInspector] public Transform pitchTf;
 
     [Header("-- Satellite")]
-    [FormerlySerializedAs("SatelliteSideList")][SerializeField] public List<SatelliteSideController> satelliteSideList;
-    [FormerlySerializedAs("SatelliteCenterList")][SerializeField] public List<SatelliteCenterController> satelliteCenterList;
+    [SerializeField] public List<SatelliteSideController> satelliteSideList;
+    [SerializeField] public List<SatelliteCenterController> satelliteCenterList;
 
     #endregion
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ModuleUpgradeUIController : PlayerShopUIController
@@ -17,20 +16,20 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     [Space(10)]
     [Header("=== Item")]
-    [FormerlySerializedAs("BCTxt")][SerializeField] public TMP_Text bcTxt;
-    [FormerlySerializedAs("ECTxt")][SerializeField] public TMP_Text ecTxt;
-    [FormerlySerializedAs("MSTxt")][SerializeField] public TMP_Text msTxt;
+    [SerializeField] public TMP_Text bcTxt;
+    [SerializeField] public TMP_Text ecTxt;
+    [SerializeField] public TMP_Text msTxt;
 
     [Space(10)]
-    [FormerlySerializedAs("SynergyLvTxtList")][SerializeField] private List<TMP_Text> synergyLvTxtList;
+    [SerializeField] private List<TMP_Text> synergyLvTxtList;
 
     [Space(10)]
     [Header("=== Desc")]
-    [FormerlySerializedAs("ThisDescPanel")][SerializeField] private DescMUEUIController descPanel;
+    [SerializeField] private DescMUEUIController descPanel;
 
     [Space(10)]
     [Header("=== Drag")]
-    [FormerlySerializedAs("DragItemEUI")][SerializeField] private InventoryItemEUIController dragItemEui;
+    [SerializeField] private InventoryItemEUIController dragItemEui;
 
 
     #endregion
@@ -44,33 +43,33 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     [Space(10)]
     [Header("-- In Equip")]
-    [FormerlySerializedAs("Inventory_InEquip")][SerializeField] public InventoryEUIController inventory_InEquip;
-    [FormerlySerializedAs("ToggleBtn_InEquip")][SerializeField] private OwnBtnEUIController toggleBtn_InEquip;
+    [SerializeField] public InventoryEUIController inventory_InEquip;
+    [SerializeField] private OwnBtnEUIController toggleBtn_InEquip;
 
     [Space(5)]
     [Header("* Equip")]
-    [FormerlySerializedAs("EquippedPanelGO")][SerializeField] private GameObject equippedPanelGo;
-    [FormerlySerializedAs("EquippedSlotsParentTF")][SerializeField] private Transform equippedSlotsParentTf;
-    [FormerlySerializedAs("EquippedInnerParentTF")][SerializeField] private Transform equippedInnerParentTf;
+    [SerializeField] private GameObject equippedPanelGo;
+    [SerializeField] private Transform equippedSlotsParentTf;
+    [SerializeField] private Transform equippedInnerParentTf;
 
     [Space(5)]
     [Header("* Synergy")]
-    [FormerlySerializedAs("SynergyPanelGO")][SerializeField] private GameObject synergyPanelGo;
-    [FormerlySerializedAs("SynergyPanelIsExistGO")][SerializeField] private CoupleData<GameObject> synergyPanelIsExistGo;
-    [FormerlySerializedAs("SynergyInnerParentTF")][SerializeField] private Transform synergyInnerParentTf;
-    [FormerlySerializedAs("SynergySlotsParentTF")][SerializeField] private Transform synergySlotsParentTf;
-    [FormerlySerializedAs("SynergyDescsParentTF")][SerializeField] private Transform synergyDescsParentTf;
-    [FormerlySerializedAs("SynergyTierFrames")][SerializeField] public List<Sprite> synergyTierFrames;
+    [SerializeField] private GameObject synergyPanelGo;
+    [SerializeField] private CoupleData<GameObject> synergyPanelIsExistGo;
+    [SerializeField] private Transform synergyInnerParentTf;
+    [SerializeField] private Transform synergySlotsParentTf;
+    [SerializeField] private Transform synergyDescsParentTf;
+    [SerializeField] public List<Sprite> synergyTierFrames;
 
     [Space(5)]
     [Header("* Synergy Desc")]
-    [FormerlySerializedAs("SelectViewImg")][SerializeField] private Image selectViewImg;
-    [FormerlySerializedAs("SelectViewName")][SerializeField] private TMP_Text selectViewName;
-    [FormerlySerializedAs("SelectViewAmalgamation")][SerializeField] private TMP_Text selectViewAmalgamation;
-    [FormerlySerializedAs("SynergyDescLinerParentTF")][SerializeField] private Transform synergyDescLinerParentTf;
-    [FormerlySerializedAs("SynergyDescTextParentTF")][SerializeField] private Transform synergyDescTextParentTf;
-    [FormerlySerializedAs("AmalgamationTxtList")][SerializeField] private List<TMP_Text> amalgamationTxtList;
-    [FormerlySerializedAs("AmalgamationDescTxtList")][SerializeField] public List<TMP_Text> amalgamationDescTxtList;
+    [SerializeField] private Image selectViewImg;
+    [SerializeField] private TMP_Text selectViewName;
+    [SerializeField] private TMP_Text selectViewAmalgamation;
+    [SerializeField] private Transform synergyDescLinerParentTf;
+    [SerializeField] private Transform synergyDescTextParentTf;
+    [SerializeField] private List<TMP_Text> amalgamationTxtList;
+    [SerializeField] public List<TMP_Text> amalgamationDescTxtList;
 
     #endregion
 
@@ -78,30 +77,30 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     [Space(10)]
     [Header("-- In Forge")]
-    [FormerlySerializedAs("Inventory_InForge")][SerializeField] public InventoryEUIController inventory_InForge;
+    [SerializeField] public InventoryEUIController inventory_InForge;
 
-    [FormerlySerializedAs("ForgeInteractPanels")][SerializeField] private List<ForgeInteractPanel> forgeInteractPanels;
-    [FormerlySerializedAs("ForgePanelInnerList")][SerializeField] private List<Image> forgePanelInnerList;
+    [SerializeField] private List<ForgeInteractPanel> forgeInteractPanels;
+    [SerializeField] private List<Image> forgePanelInnerList;
 
     [Space(5)]
-    [FormerlySerializedAs("NoticeTxt")][SerializeField] private TMP_Text noticeTxt;
-    [FormerlySerializedAs("WarningTxt")][SerializeField] private TMP_Text warningTxt;
+    [SerializeField] private TMP_Text noticeTxt;
+    [SerializeField] private TMP_Text warningTxt;
 
     [Space(5)]
     [Header("* Decomposition")]
-    [FormerlySerializedAs("DecompositionSlot")][SerializeField] private InventorySlotEUIController decompositionSlot;
-    [FormerlySerializedAs("Preview_GainMS")][SerializeField] private TMP_Text preview_GainMs;
-    [FormerlySerializedAs("Preview_GainBC")][SerializeField] private TMP_Text preview_GainBc;
+    [SerializeField] private InventorySlotEUIController decompositionSlot;
+    [SerializeField] private TMP_Text preview_GainMs;
+    [SerializeField] private TMP_Text preview_GainBc;
 
     [Space(5)]
     [Header("* Fusion")]
-    [FormerlySerializedAs("FusionSlotList")][SerializeField] private List<InventorySlotEUIController> fusionSlotList;
-    [FormerlySerializedAs("Preview_NeedMS_ForFusion")][SerializeField] private TMP_Text preview_NeedMs_ForFusion;
+    [SerializeField] private List<InventorySlotEUIController> fusionSlotList;
+    [SerializeField] private TMP_Text preview_NeedMs_ForFusion;
 
     [Space(5)]
     [Header("* Make")]
-    [FormerlySerializedAs("Preview_NeedMS_ForMake")][SerializeField] private TMP_Text preview_NeedMs_ForMake;
-    [FormerlySerializedAs("Preview_NeedCB_ForMake")][SerializeField] private TMP_Text preview_NeedCb_ForMake;
+    [SerializeField] private TMP_Text preview_NeedMs_ForMake;
+    [SerializeField] private TMP_Text preview_NeedCb_ForMake;
 
     #endregion
 
@@ -464,7 +463,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         base.SetOn_ThisPanel();
 
         // Dur
-        durEui.Set_Dur(ModuleUpgradeController.UsingShop.CurrentDur);
+        durEui.Set_Dur(ModuleUpgradeController.usingShop.currentDur);
     }
 
     public override void SetOff_ThisPanel()
@@ -483,7 +482,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             currentDraggingItemBtn = null;
         }
 
-        ModuleUpgradeController.UsingShop = null;
+        ModuleUpgradeController.usingShop = null;
     }
 
     public override void Change_ThisPanel(int indexWindow)
@@ -944,7 +943,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         if (Is_Interact_Msg()) return;
 
-        if (currentBtn == null || ModuleUpgradeController.UsingShop == null) return;
+        if (currentBtn == null || ModuleUpgradeController.usingShop == null) return;
 
         if (Is_Interact_TabPanel()) return;
         if (Is_Interact_ForgeTabPanel()) return;
@@ -960,7 +959,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         InputManager.instance.Play_MousePointerClick();
 
-        if (msgEui.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
+        if (msgEui.gameObject.activeSelf || ModuleUpgradeController.usingShop == null) return;
 
         // 아이템이면?
         if (currentItemBtn != null)
@@ -974,7 +973,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (Is_Interact_Msg()) return;
 
-        if (msgEui.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
+        if (msgEui.gameObject.activeSelf || ModuleUpgradeController.usingShop == null) return;
 
         if (currentItemBtn != null)
         {
@@ -1201,7 +1200,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (ModuleItemManager.instance.Is_EmptyDecompositionSlot() ||
             warningCg.gameObject.activeSelf ||
-            ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
+            ModuleUpgradeController.usingShop.currentDur <= 0) return;
 
         CoupleData<int> index = ModuleItemManager.instance.Get_DecompositionIndex();
 
@@ -1212,7 +1211,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         PlayerManager.instance.playerController.Add_CurrentModuleShard(
             ModuleItemManager.Get_MS_ByDecomposition(ModuleItemManager.instance.Get_ModuleState(index)));
 
-        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
+        ModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
 
         // 모듈 아이템 제거
@@ -1229,7 +1228,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (ModuleItemManager.instance.Is_EmptyFusionSlot() ||
             warningCg.gameObject.activeSelf ||
-            ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
+            ModuleUpgradeController.usingShop.currentDur <= 0) return;
 
         List<CoupleData<int>> indexList = ModuleItemManager.instance.Get_FusionIndex();
 
@@ -1237,7 +1236,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         PlayerManager.instance.playerController.Add_CurrentModuleShard(
             -ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.instance.Get_ModuleState(indexList[0])));
 
-        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
+        ModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
         // 보상 획득
         ModuleItemManager.instance.Set_UpRank(indexList[0]);
@@ -1256,12 +1255,12 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Role_Make()
     {
         if (warningCg.gameObject.activeSelf ||
-            ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
+            ModuleUpgradeController.usingShop.currentDur <= 0) return;
 
         // 소모 재화
         PlayerManager.instance.playerController.Add_CurrentModuleShard(-ModuleItemManager.Get_MS_ForMake());
         PlayerManager.instance.playerController.Use_ChargedBettery(ModuleItemManager.Get_CB_ForMake());
-        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
+        ModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
         // 보상 획득
         ModuleItemManager.instance.Gain_ModuleState();

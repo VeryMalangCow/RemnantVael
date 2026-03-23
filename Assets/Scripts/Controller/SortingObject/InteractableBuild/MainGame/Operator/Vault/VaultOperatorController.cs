@@ -9,15 +9,15 @@ public class VaultOperatorController : OperatorController
 
     [Space(10)]
     [Header("=== Build")]
-    [SerializeField] protected VaultController TargetVault;
+    [SerializeField] protected VaultController targetVault;
 
     #endregion
 
     #region Set
 
-    public virtual void Set_TargetBuild(VaultController _TargetVault)
+    public virtual void Set_TargetBuild(VaultController targetVault)
     {
-        TargetVault = _TargetVault;
+        this.targetVault = targetVault;
     }
 
     #endregion
@@ -26,16 +26,16 @@ public class VaultOperatorController : OperatorController
 
     public bool Can_Interact()
     {
-        return !TargetVault.IsBroken;
+        return !targetVault.isBroken;
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
-        _CanInteract = false;
+        canInteract = false;
         return "";
     }
 

@@ -9,7 +9,7 @@ public class PrisonOperatorController : OperatorController
 
     [Space(10)]
     [Header("=== Build")]
-    [SerializeField] protected PrisonController TargetPrison;
+    [SerializeField] protected PrisonController targetPrison;
 
     #endregion
 
@@ -19,12 +19,12 @@ public class PrisonOperatorController : OperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_AllyAC, 1f), 1f);
+        iconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_AllyAC, 1f), 1f);
     }
 
-    public virtual void Set_TargetBuild(PrisonController _TargetPrison)
+    public virtual void Set_TargetBuild(PrisonController targetPrison)
     {
-        TargetPrison = _TargetPrison;
+        this.targetPrison = targetPrison;
     }
 
     #endregion
@@ -33,16 +33,16 @@ public class PrisonOperatorController : OperatorController
 
     public bool Can_Interact()
     {
-        return !TargetPrison.IsOn;
+        return !targetPrison.isOn;
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
-        _CanInteract = false;
+        canInteract = false;
         return "";
     }
 

@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InOrderLockerUIController : PuzzleUIController
@@ -16,17 +15,17 @@ public class InOrderLockerUIController : PuzzleUIController
 
     [Space(10)]
     [Header("=== TF")]
-    [FormerlySerializedAs("AllIOLCellParentTF")][SerializeField] private Transform allIolCellParentTf;
-    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
-    [FormerlySerializedAs("SelectingSignRT")][SerializeField] private RectTransform selectingSignRT;
+    [SerializeField] private Transform allIolCellParentTf;
+    [SerializeField] private Transform innerParentTf;
+    [SerializeField] private RectTransform selectingSignRT;
 
     [Space(10)]
-    [FormerlySerializedAs("AnswerIndexTxt")][SerializeField] private TMP_Text answerIndexTxt;
-    [FormerlySerializedAs("AnswerCurrentSetTxt")][SerializeField] private TMP_Text answerCurrentSetTxt;
+    [SerializeField] private TMP_Text answerIndexTxt;
+    [SerializeField] private TMP_Text answerCurrentSetTxt;
 
     [Space(10)]
     [Header("=== Ready KeyAnno")]
-    [FormerlySerializedAs("SelectInputImg")][SerializeField] private Image selectInputImg;
+    [SerializeField] private Image selectInputImg;
 
     #endregion
 
@@ -57,9 +56,9 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Offset_FirstValue(prison);
 
-        Debug.Log(prison.Rating);
-        cellAmount = 5 + prison.Rating;
-        currentCountdown = baseCountdown + (prison.Rating * 4);
+        Debug.Log(prison.rating);
+        cellAmount = 5 + prison.rating;
+        currentCountdown = baseCountdown + (prison.rating * 4);
     }
 
     public override void Offset()

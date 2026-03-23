@@ -5,8 +5,8 @@ public class VaultRerollOperatorController : VaultOperatorController
     #region Value
 
     // Value
-    [HideInInspector] private int Pay = 5;
-    [HideInInspector] private int UseAmount = 1;
+    [HideInInspector] private int pay = 5;
+    [HideInInspector] private int useAmount = 1;
 
     #endregion
 
@@ -16,7 +16,7 @@ public class VaultRerollOperatorController : VaultOperatorController
     {
         base.Offset();
 
-        PayTxt.text = Get_NeedPay().ToString();
+        payTxt.text = Get_NeedPay().ToString();
     }
 
     #endregion
@@ -25,7 +25,7 @@ public class VaultRerollOperatorController : VaultOperatorController
 
     private int Get_NeedPay()
     {
-        return (Pay * UseAmount);
+        return (pay * useAmount);
     }
 
     #endregion
@@ -36,24 +36,24 @@ public class VaultRerollOperatorController : VaultOperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_RerollAC, 1f), 1f);
+        iconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_RerollAC, 1f), 1f);
     }
 
-    public override void Set_TargetBuild(VaultController _TargetVault)
+    public override void Set_TargetBuild(VaultController targetVault)
     {
-        base.Set_TargetBuild(_TargetVault);
+        base.Set_TargetBuild(targetVault);
 
-        _TargetVault.RerollOper = this;
+        targetVault.rerollOper = this;
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
         //base.Get_InteractName(out bool _CanInteract);
-        _CanInteract = Can_Interact();
+        canInteract = Can_Interact();
         return ResourceManager.instance.Get_StaticWord(57);
     }
 
@@ -61,22 +61,22 @@ public class VaultRerollOperatorController : VaultOperatorController
     {
         base.Play_Interact();
 
-        if (TargetVault == null ||
-            TargetVault.IsBroken ||
+        if (targetVault == null ||
+            targetVault.isBroken ||
             PlayerManager.instance.playerController.currentOverrider.Value < Get_NeedPay()) return;
 
         // 소비 아이템
         PlayerManager.instance.playerController.Add_CurrentOverrider(-Get_NeedPay());
-        UseAmount++;
+        useAmount++;
 
         // 리롤
-        TargetVault.Change_ToOtherVault();
+        targetVault.Change_ToOtherVault();
 
         // Pay
-        PayTxt.text = Get_NeedPay().ToString();
+        payTxt.text = Get_NeedPay().ToString();
 
         // Play
-        TargetVault.Play_Size();
+        targetVault.Play_Size();
 
         // Sound
         SoundManager.instance.Play_2D_SFX_Build("Replacement");

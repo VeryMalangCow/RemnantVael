@@ -1,7 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyNoneSynergySlotEUIController : OwnBtnEUIController
@@ -12,8 +11,8 @@ public class AllyNoneSynergySlotEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Ally Synergy")]
-    [FormerlySerializedAs("ThisFrameRT")][SerializeField] private RectTransform frameRt;
-    [FormerlySerializedAs("ThisSelectImg")][SerializeField] private Image selectImg;
+    [SerializeField] private RectTransform frameRt;
+    [SerializeField] private Image selectImg;
 
     #endregion
 
