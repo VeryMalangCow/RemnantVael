@@ -51,12 +51,12 @@ public abstract class BulletController : MovableDepthController
     {
         base.OnEnable();
 
-        LayerOrderManager.instance.Add_NeedSortObj(this);
+        AddSortingLayer();
     }
 
     protected void OnDisable()
     {
-        LayerOrderManager.instance.Remove_NeedSortObj(this);
+        RemoveSortingLayer();
     }
 
     protected virtual void FixedUpdate()
@@ -158,9 +158,9 @@ public abstract class BulletController : MovableDepthController
 
     #region Sorting Order
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(sortingOrder);
+        base.SetSortingOrder(sortingOrder);
 
         trail.sortingOrder = sortingOrder - 1;
     }

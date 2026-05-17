@@ -129,9 +129,9 @@ public class PrisonController : InteractableBuildController
 
     #region Set
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(sortingOrder);
+        base.SetSortingOrder(sortingOrder);
 
         upsideSr.sortingOrder = sortingOrder - 2;
         extraSg.sortingOrder = sortingOrder + 1;

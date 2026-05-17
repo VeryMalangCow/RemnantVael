@@ -72,14 +72,14 @@ public class FieldUnitAllyController : AllyController
     {
         base.OnEnable();
 
-        LayerOrderManager.instance.Add_NeedSortObj(this);
+        AddSortingLayer();
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
 
-        LayerOrderManager.instance.Remove_NeedSortObj(this);
+        RemoveSortingLayer();
     }
 
     protected override void Update()
@@ -205,7 +205,7 @@ public class FieldUnitAllyController : AllyController
 
     #region Set (Sorting)
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
         sg.sortingOrder = sortingOrder;
 

@@ -111,7 +111,7 @@ public class RoomController : IDController
         {
             if (isUpper)
             {
-                gates[i].Set_SortingOrder(LayerOrderManager.order_BuildUpper);
+                gates[i].SetSortingOrder(LayerOrderManager.order_BuildUpper);
             }
             else
             {

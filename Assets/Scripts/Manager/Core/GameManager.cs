@@ -398,6 +398,32 @@ public class DevTool
         return false;
     }
 
+    public static bool Add_InList<T>(List<T> targetList, T targetValue, out int index)
+    {
+        index = -1;
+        if (!targetList.Contains(targetValue))
+        {
+            targetList.Add(targetValue);
+            index = targetList.Count - 1;
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
+
+    #region Insert
+
+    public static bool Insert_InList<T>(List<T> targetList, T targetValue, int index)
+    {
+        if (!targetList.Contains(targetValue))
+        {
+            targetList.Insert(index, targetValue);
+            return true;
+        }
+        return false;
+    }
+
     #endregion
 
     #region Remove
@@ -412,7 +438,6 @@ public class DevTool
         }
         return false;
     }
-
 
     // 'T 타입' 중복 제거
     public static List<T> Remove_DuplicateInList<T>(List<T> targetList)
@@ -4158,7 +4183,7 @@ public class SatelliteSideController : SatelliteController
 
     public override void Set_SortingOrder()
     {
-        follower.Set_SortingOrder(upperOrder + 
+        follower.SetSortingOrder(upperOrder + 
             (Is_LocalUpper(follower.transform) ? -farFromCenter : farFromCenter));
     }
 
@@ -4177,7 +4202,7 @@ public class SatelliteCenterController : SatelliteController
 
     public override void Set_SortingOrder()
     {
-        follower.Set_SortingOrder(upperOrder);
+        follower.SetSortingOrder(upperOrder);
     }
 
     #endregion

@@ -179,7 +179,7 @@ public class RoomRuleController : MonoBehaviour
     public void Set_SortingStaticObjects()
     {
         if (inRoom_AllObstacle != null && inRoom_AllObstacle.Count > 0)
-            LayerOrderManager.instance.Add_NeedSortObj(inRoom_AllObstacle);
+            LayerOrderManager.instance.AddNeedSortObj(inRoom_AllObstacle);
     }
 
     #endregion

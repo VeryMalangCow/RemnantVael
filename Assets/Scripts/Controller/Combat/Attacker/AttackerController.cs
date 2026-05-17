@@ -43,12 +43,12 @@ public abstract class AttackerController : MovableDepthController
     {
         base.OnEnable();
 
-        LayerOrderManager.instance.Add_NeedSortObj(this);
+        AddSortingLayer();
     }
 
     protected void OnDisable()
     {
-        LayerOrderManager.instance.Remove_NeedSortObj(this);
+        RemoveSortingLayer();
     }
 
     #endregion

@@ -681,12 +681,14 @@ public class StageManager : Singleton<StageManager>
         DevTool.Set_Active(currentAllRoomController, false);
 
         // Layer 초기화
-        LayerOrderManager.instance.Clear_NeedSortObj();
+        LayerOrderManager.instance.ClearNeedSortObj();
 
 
         // 처음 엘베 레이어때문에 추가 하지않음
         if (!isStartStage)
-        { LayerOrderManager.instance.Add_NeedSortObj(PlayerManager.instance.playerController); }
+        { 
+            PlayerManager.instance.playerController.AddSortingLayer();
+        }
         
         currentRoomController.gameObject.SetActive(true);
         currentRoomController.Set_SortingStaticObjects();
@@ -704,8 +706,8 @@ public class StageManager : Singleton<StageManager>
         targetRoom.Play_RoomState();
         Set_NavBake();
 
-        LayerOrderManager.instance.Add_NeedSortObj(EnemyManager.instance.currentEnemyList); 
-        LayerOrderManager.instance.Add_NeedSortObj(AllyManager.instance.allAlly);
+        LayerOrderManager.instance.AddNeedSortObj(EnemyManager.instance.currentEnemyList); 
+        LayerOrderManager.instance.AddNeedSortObj(AllyManager.instance.allAlly);
 
         // Minimap
         MainGameUIManager.instance.playerHUD_UIController.minimapEui.Set_State();

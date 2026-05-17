@@ -32,9 +32,9 @@ public abstract class OperatorController : InteractableBuildController, IInterac
 
     #region Sorting
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(sortingOrder);
+        base.SetSortingOrder(sortingOrder);
         iconStateAnim.sr.sortingOrder = sortingOrder - 1;
 
         paySg.sortingOrder = sortingOrder + 1;

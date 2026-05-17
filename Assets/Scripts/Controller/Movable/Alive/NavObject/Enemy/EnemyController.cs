@@ -596,7 +596,7 @@ public abstract class EnemyController : NavObjectController
 
         // Remove
         DevTool.Remove_InList(EnemyManager.instance.currentEnemyList, this);
-        LayerOrderManager.instance.Remove_NeedSortObj(this);
+        RemoveSortingLayer();
 
         // Check Room State
         StageManager.instance.Play_CompleteKillAll();
@@ -615,7 +615,7 @@ public abstract class EnemyController : NavObjectController
 
     #region Sorting
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
         sg.sortingOrder = sortingOrder;
 

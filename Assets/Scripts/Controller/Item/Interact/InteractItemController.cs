@@ -52,9 +52,9 @@ public abstract class InteractItemController : ItemController, IInteract
         this.gameObject.SetActive(true);
     }
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(sortingOrder);
+        base.SetSortingOrder(sortingOrder);
 
         OutlinerSR.sortingOrder = sortingOrder;
     }

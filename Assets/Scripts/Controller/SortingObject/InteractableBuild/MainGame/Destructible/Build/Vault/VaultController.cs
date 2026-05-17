@@ -42,9 +42,9 @@ public class VaultController : DestructibleBuildController
 
     #region Sorting
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(sortingOrder);
+        base.SetSortingOrder(sortingOrder);
 
         // Vault의 안에 아이콘이 보이는 이미지
         iconStateAnim.sr.sortingOrder = sortingOrder - 1;

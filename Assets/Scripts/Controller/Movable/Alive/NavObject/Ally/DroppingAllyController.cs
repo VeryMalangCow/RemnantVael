@@ -84,7 +84,7 @@ public class DroppingAllyController : NoneUnitAllyController
 
     #region Sort
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     { /* Need Nothing */ }
 
     #endregion

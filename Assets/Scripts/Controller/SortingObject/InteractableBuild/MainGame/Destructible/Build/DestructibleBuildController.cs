@@ -217,9 +217,9 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Sorting
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(sortingOrder);
+        base.SetSortingOrder(sortingOrder);
 
         durSg.sortingOrder = sortingOrder;
     }

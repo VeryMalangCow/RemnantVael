@@ -279,7 +279,7 @@ public class PlayerController : AliveObjectController
 
     #region Sorting
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
         bodySg.sortingOrder = sortingOrder;
 
@@ -332,7 +332,7 @@ public class PlayerController : AliveObjectController
         stateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
         StageManager.instance.isStartStage = false;
-        LayerOrderManager.instance.Add_NeedSortObj(this);
+        AddSortingLayer();
 
         SetOn_Trail();
     }
@@ -1081,7 +1081,7 @@ public class PlayerController : AliveObjectController
 
         EventManager.instance.Set_Input(false);
 
-        LayerOrderManager.instance.Remove_NeedSortObj(this);
+        RemoveSortingLayer();
 
         EnemyManager.instance.SetOff_AllEnemyPattern();
 

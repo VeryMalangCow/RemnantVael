@@ -18,19 +18,19 @@ public class NPCController : MovableObjectController
         base.OnEnable();
 
         DevTool.Add_InList(NPCManager.instance.allNpcs, this);
-        LayerOrderManager.instance.Add_NeedSortObj(this);
+        AddSortingLayer();
     }
 
     private void OnDisable()
     {
-        LayerOrderManager.instance.Remove_NeedSortObj(this);
+        RemoveSortingLayer();
     }
 
     #endregion
 
     #region Sorting
 
-    public override void Set_SortingOrder(int sortingOrder)
+    public override void SetSortingOrder(int sortingOrder)
     {
         // Base
         sg.sortingOrder = sortingOrder;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class DepthController : IDController
 {
@@ -15,11 +16,18 @@ public class DepthController : IDController
 
     public int currentOrder { get; private set; } = int.MinValue;
 
+
+    private float lastY;
+    [SerializeField] private int sortingElementIndex = -1;
+
     #endregion
 
     #region Offset
 
-    protected virtual void Offset() { }
+    protected virtual void Offset()
+    {
+        lastY = transform.position.y;
+    }
    
 
     #endregion
@@ -31,16 +39,66 @@ public class DepthController : IDController
         Offset();
     }
 
+    protected virtual void Update()
+    {
+        HandleCheckSortingDirty();
+    }
+
     #endregion
 
     #region Sprite Renderer
 
-    public virtual void Set_SortingOrder(int sortingOrder)
+    public virtual void SetSortingOrder(int sortingOrder)
     {
         if (currentOrder == sortingOrder) return;
 
         currentOrder = sortingOrder;
         thisSr.sortingOrder = sortingOrder;
+    }
+
+    #endregion
+
+    #region Sort
+
+    public void AddSortingLayer()
+    {
+        if (LayerOrderManager.instance == null)
+            throw new Exception("LayerOrderManager's instance is NULL");
+
+        LayerOrderManager.instance.AddNeedSortObj(this);
+    }
+
+    protected void RemoveSortingLayer()
+    {
+        if (LayerOrderManager.instance == null)
+            throw new Exception("LayerOrderManager's instance is NULL");
+
+        LayerOrderManager.instance.RemoveNeedSortObj(this);
+    }
+
+    public void SetSortIndex(int index)
+    {
+        sortingElementIndex = index;
+    }
+
+    private void HandleCheckSortingDirty()
+    {
+        if (sortingElementIndex == -1)
+            return;
+
+        float currentY = transform.position.y;
+
+        if (Mathf.Abs(currentY - lastY) > 0.0001f) // 미세한 오차 방지
+        {
+            lastY = currentY;
+            Debug.Log(gameObject.name);
+            LayerOrderManager.instance.CheckIsDirty(sortingElementIndex);
+        }
+    }
+
+    public float GetPosY()
+    {
+        return transform.position.y;
     }
 
     #endregion
@@ -77,7 +135,7 @@ public class DepthController : IDController
     {
         if (value <= 0) return;
 
-        int amount = Random.Range(min, max + 1);
+        int amount = UnityEngine.Random.Range(min, max + 1);
 
         for (int i = 0; i < amount; i++) Gen_BS(value);
     }
@@ -97,7 +155,7 @@ public class DepthController : IDController
     {
         if (value <= 0) return;
 
-        int amount = Random.Range(min, max + 1);
+        int amount = UnityEngine.Random.Range(min, max + 1);
 
         for (int i = 0; i < amount; i++) Gen_MS(value);
     }

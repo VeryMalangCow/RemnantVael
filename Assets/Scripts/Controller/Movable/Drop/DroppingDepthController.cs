@@ -43,13 +43,12 @@ public abstract class DroppingDepthController : MovableDepthController
     protected override void OnEnable()
     {
         base.OnEnable();
-        LayerOrderManager.instance.Add_NeedSortObj(this);
+        AddSortingLayer();
     }
 
     protected virtual void OnDisable()
     {
-        LayerOrderManager.instance.Remove_NeedSortObj(this);
-
+        RemoveSortingLayer();
         Init_Data();
     }
 
