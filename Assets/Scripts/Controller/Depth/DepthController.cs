@@ -92,7 +92,7 @@ public class DepthController : IDController
         {
             lastY = currentY;
             Debug.Log(gameObject.name);
-            LayerOrderManager.instance.CheckIsDirty(sortingElementIndex);
+            LayerOrderManager.instance.CheckIsDirty(sortingElementIndex, lastY);
         }
     }
 

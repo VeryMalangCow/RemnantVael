@@ -991,6 +991,11 @@ public class DevTool
 
     #endregion
 
+    #region About Algorism
+
+
+    #endregion
+
     #region About Quaternion
 
     #region Get
