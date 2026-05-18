@@ -305,6 +305,11 @@ public class PlayerController : AliveObjectController
         Set_Tween(rbLower.transform, rb.velocity);
     }
 
+    private void OnDisable()
+    {
+        RemoveSortingLayer();
+    }
+
     #endregion
 
     #region Stage Part Time
@@ -1080,8 +1085,6 @@ public class PlayerController : AliveObjectController
         SoundManager.instance.Play_2D_SFX_Player("Killed");
 
         EventManager.instance.Set_Input(false);
-
-        RemoveSortingLayer();
 
         EnemyManager.instance.SetOff_AllEnemyPattern();
 

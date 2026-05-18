@@ -148,7 +148,9 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // 솔팅에 필요하지않은 Depth를 List에서 제거
     public void RemoveNeedSortObj(DepthController depth)
     {
+
         DevTool.Remove_InList(needSortingObjects, depth);
+
         DevTool.Remove_InList(dirtySortingObjects, depth);
         depth.SetSortIndex(-1);
     }

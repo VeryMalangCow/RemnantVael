@@ -189,6 +189,11 @@ public abstract class EnemyController : NavObjectController
         Play_Movement(Time.fixedDeltaTime);
     }
 
+    private void OnDisable()
+    {
+        RemoveSortingLayer();
+    }
+
     #endregion
 
     #region Movement
@@ -596,7 +601,6 @@ public abstract class EnemyController : NavObjectController
 
         // Remove
         DevTool.Remove_InList(EnemyManager.instance.currentEnemyList, this);
-        RemoveSortingLayer();
 
         // Check Room State
         StageManager.instance.Play_CompleteKillAll();

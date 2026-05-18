@@ -24,6 +24,15 @@ public class DeadParticleController : MovableDepthController
 
     #endregion
 
+    #region Framework
+
+    private void OnDisable()
+    {
+        RemoveSortingLayer();
+    }
+
+    #endregion
+
     #region Set
 
     private void Set_StartState(Sprite sprite, Vector2 shadowSize)
@@ -68,7 +77,6 @@ public class DeadParticleController : MovableDepthController
 
         Play_Disappoint(disappointTime).OnComplete(() =>
             {
-                RemoveSortingLayer();
                 this.gameObject.SetActive(false);
                 PoolingManager.instance.deadParticles.Enqueue(this);
             });
