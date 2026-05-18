@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +39,10 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
    
 
     private bool isDirty = false;
+    private bool isRangeExtended = false;
+
+    private int dirtyStartIndex = int.MaxValue;
+    private int dirtyEndIndex = int.MinValue;
 
     #endregion
 
@@ -92,6 +97,13 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
             }
         }
     }
+    
+    // 시작점, 종료점 판별
+    private void UpdateRange(int index)
+    {
+        if (dirtyStartIndex > index) dirtyStartIndex = index;
+        if (dirtyEndIndex < index) dirtyEndIndex = index;
+    }
 
     // Dirty List에 추가
     private void AddDirty(int index)
@@ -99,12 +111,18 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         DevTool.Add_InList(dirtySortingObjects, needSortingObjects[index]);
         needSortingObjects[index] = new DepthEntry { depth = null };
         isDirty = true;
+
+        UpdateRange(index);
     }
 
     // Dirty List값들을 솔팅
     private void SetSortDirty()
     {
+        int removeCount = dirtySortingObjects.Count;
+
         needSortingObjects.RemoveAll(e => e.isEmpty());
+
+        dirtyEndIndex -= removeCount;
 
         bool isPutIn;
         for (int i = 0; i < dirtySortingObjects.Count; i++)
@@ -116,6 +134,12 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
                 {
                     needSortingObjects.Insert(j, dirtySortingObjects[i]);
                     isPutIn = true;
+
+                    if (j < dirtyStartIndex) dirtyStartIndex = j;
+
+                    if (j <= dirtyEndIndex) dirtyEndIndex++;
+                    else dirtyEndIndex = j;
+
                     break;
                 }
             }
@@ -123,7 +147,15 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
             if (!isPutIn)
             {
                 needSortingObjects.Add(dirtySortingObjects[i]);
+                UpdateRange(needSortingObjects.Count - 1);
             }
+        }
+
+        // 만약 추가 및 제거가 된 상황이라면
+        if (isRangeExtended)
+        {
+            if (dirtyStartIndex == int.MaxValue) dirtyStartIndex = 0;
+            dirtyEndIndex = needSortingObjects.Count - 1;
         }
 
         SetSort(needSortingObjects);
@@ -133,14 +165,23 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     {
         dirtySortingObjects.Clear();
 
-        for (int i = 0; i < objectList.Count; i++)
+        // 혹시 모르는 보정
+        int start = Mathf.Max(0, dirtyStartIndex);
+        int end = Mathf.Min(objectList.Count - 1, dirtyEndIndex);
+
+        for (int i = start; i <= end; i++)
         {
             objectList[i].depth.SetSortingOrder(order_SortingObjTop + (10 * i));
             objectList[i].depth.SetSortIndex(i);
         }
 
         isDirty = false;
+        isRangeExtended = false;
+
+        dirtyStartIndex = int.MaxValue;
+        dirtyEndIndex = int.MinValue;
     }
+
 
     #endregion
 
@@ -156,6 +197,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     {
         DevTool.Add_InList(dirtySortingObjects, new DepthEntry { y = depth.GetPosY(), depth = depth });
         isDirty = true;
+        isRangeExtended = true;
     }
 
     public void AddNeedSortObj<T>(List<T> depths) where T : DepthController
@@ -173,6 +215,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
             {
                 needSortingObjects[i] = new DepthEntry { depth = null };
                 isDirty = true;
+                isRangeExtended = true;
                 break;
             }
         }
