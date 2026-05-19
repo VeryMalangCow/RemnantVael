@@ -65,6 +65,8 @@ public class DepthController : IDController
         if (LayerOrderManager.instance == null)
             throw new Exception("LayerOrderManager's instance is NULL");
 
+        SetSortIndex(-1);
+        Offset();
         LayerOrderManager.instance.AddNeedSortObj(this);
     }
 
@@ -73,6 +75,7 @@ public class DepthController : IDController
         if (LayerOrderManager.instance == null)
             throw new Exception("LayerOrderManager's instance is NULL");
 
+        SetSortIndex(-1);
         LayerOrderManager.instance.RemoveNeedSortObj(this);
     }
 
@@ -88,10 +91,9 @@ public class DepthController : IDController
 
         float currentY = transform.position.y;
 
-        if (Mathf.Abs(currentY - lastY) > 0.0001f) // 미세한 오차 방지
+        if (Mathf.Abs(currentY - lastY) > 0.01f) // 미세한 오차 방지
         {
             lastY = currentY;
-            Debug.Log(gameObject.name);
             LayerOrderManager.instance.CheckIsDirty(sortingElementIndex, lastY);
         }
     }

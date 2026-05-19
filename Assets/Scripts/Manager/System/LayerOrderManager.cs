@@ -10,14 +10,12 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     {
         public float y;
         public DepthController depth;
-
-        public bool isEmpty() { return depth == null; }
+        public bool isRemoved;
 
         public bool Equals(DepthEntry other)
         {
             return depth == other.depth;
         }
-
     }
 
     #endregion
@@ -109,7 +107,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     private void AddDirty(int index)
     {
         DevTool.Add_InList(dirtySortingObjects, needSortingObjects[index]);
-        needSortingObjects[index] = new DepthEntry { depth = null };
+        needSortingObjects[index] = new DepthEntry { isRemoved = true };
         isDirty = true;
 
         UpdateRange(index);
@@ -118,46 +116,46 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // Dirty List값들을 솔팅
     private void SetSortDirty()
     {
-        int removeCount = dirtySortingObjects.Count;
-
-        needSortingObjects.RemoveAll(e => e.isEmpty());
+        int removeCount = needSortingObjects.RemoveAll(e => e.isRemoved == true);
 
         dirtyEndIndex -= removeCount;
 
-        bool isPutIn;
         for (int i = 0; i < dirtySortingObjects.Count; i++)
         {
-            isPutIn = false;
-            for (int j = 0; j < needSortingObjects.Count; j++)
+            DepthEntry targetDepthEntry = dirtySortingObjects[i];
+            targetDepthEntry.y = targetDepthEntry.depth.GetPosY();
+            
+            int low = 0;
+            int high = needSortingObjects.Count - 1;
+            int j = needSortingObjects.Count;
+            int mid;
+
+            while (low <= high)
             {
-                if (dirtySortingObjects[i].y > needSortingObjects[j].y)
+                mid = (low + high) / 2;
+                if (targetDepthEntry.y > needSortingObjects[mid].y)
                 {
-                    needSortingObjects.Insert(j, dirtySortingObjects[i]);
-                    isPutIn = true;
-
-                    if (j < dirtyStartIndex) dirtyStartIndex = j;
-
-                    if (j <= dirtyEndIndex) dirtyEndIndex++;
-                    else dirtyEndIndex = j;
-
-                    break;
+                    j = mid;
+                    high = mid - 1;
+                }
+                else
+                {
+                    low = mid + 1;
                 }
             }
 
-            if (!isPutIn)
-            {
-                needSortingObjects.Add(dirtySortingObjects[i]);
-                UpdateRange(needSortingObjects.Count - 1);
-            }
+            needSortingObjects.Insert(j, targetDepthEntry);
+
+            if (j < dirtyStartIndex) dirtyStartIndex = j;
+            if (j <= dirtyEndIndex) dirtyEndIndex++;
+            else dirtyEndIndex = j;
         }
 
-        // 만약 추가 및 제거가 된 상황이라면
-        if (isRangeExtended)
+        if (isRangeExtended) 
         {
-            if (dirtyStartIndex == int.MaxValue) dirtyStartIndex = 0;
-            dirtyEndIndex = needSortingObjects.Count - 1;
+            dirtyEndIndex = needSortingObjects.Count - 1; 
         }
-
+        
         SetSort(needSortingObjects);
     }
 
@@ -189,7 +187,19 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     public void ClearNeedSortObj()
     {
-        needSortingObjects.Clear();
+        for (int i = 0; i < needSortingObjects.Count; i++)
+        {
+            if (needSortingObjects[i].depth != null)
+                    needSortingObjects[i].depth.SetSortIndex(-1); // 모든 객체의 인덱스 초기화
+        }
+        needSortingObjects.Clear(); 
+        dirtySortingObjects.Clear();
+
+        isDirty = false;
+        isRangeExtended = false;
+
+        dirtyStartIndex = int.MaxValue;
+        dirtyEndIndex = int.MinValue;
     }
 
     // 솔팅이 필요한 Depth를 List에 추가
@@ -213,7 +223,8 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         {
             if (needSortingObjects[i].depth == depth)
             {
-                needSortingObjects[i] = new DepthEntry { depth = null };
+                needSortingObjects[i] = new DepthEntry { isRemoved = true };
+                UpdateRange(i);
                 isDirty = true;
                 isRangeExtended = true;
                 break;
@@ -222,6 +233,12 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
         dirtySortingObjects.RemoveAll(e => e.depth == depth);
         depth.SetSortIndex(-1);
+    }
+
+    // 실제 필요없는 값 List에서 제거
+    private void RemoveAll()
+    {
+
     }
 
     #endregion
