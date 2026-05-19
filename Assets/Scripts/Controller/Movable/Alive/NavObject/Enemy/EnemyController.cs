@@ -171,7 +171,13 @@ public abstract class EnemyController : NavObjectController
 
         Reset_State();
 
+        AddSortingLayer();
         DevTool.Add_InList(EnemyManager.instance.currentEnemyList, this);
+    }
+
+    private void OnDisable()
+    {
+        RemoveSortingLayer();
     }
 
     protected override void Update()
@@ -187,11 +193,6 @@ public abstract class EnemyController : NavObjectController
 
         Update_LookAtTarget();
         Play_Movement(Time.fixedDeltaTime);
-    }
-
-    private void OnDisable()
-    {
-        RemoveSortingLayer();
     }
 
     #endregion

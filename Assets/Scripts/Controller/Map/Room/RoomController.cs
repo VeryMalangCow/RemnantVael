@@ -155,8 +155,6 @@ public class RoomController : IDController
         lowerSrs.AddRange(Get_Sorting_EachGates(inRoom_LowerGates, false));
 
         Set_Sorting(lowerSrs, LayerOrderManager.order_BuildLower);
-
-        roomRule.Set_SortingStaticObjects();
     }
 
     #endregion

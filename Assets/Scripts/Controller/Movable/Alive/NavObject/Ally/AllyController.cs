@@ -240,11 +240,15 @@ public class AllyController : NavObjectController
         Set_AllState();
 
         Start_MainCor();
+
+        AddSortingLayer();
     }
 
     protected virtual void OnDisable()
     {
         Stop_MainCor();
+
+        RemoveSortingLayer();
     }
 
     #endregion

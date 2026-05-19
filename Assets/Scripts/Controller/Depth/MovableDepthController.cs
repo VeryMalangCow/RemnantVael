@@ -3,9 +3,8 @@ public class MovableDepthController : StaticDepthController
 {
     #region Framework
 
-    protected override void Update()
+    protected virtual void Update()
     {
-        base.Update();
         Set_TargetPos();
     }
     

@@ -174,16 +174,6 @@ public class RoomRuleController : MonoBehaviour
 
     #endregion
 
-    #region Sorting
-
-    public void Set_SortingStaticObjects()
-    {
-        if (inRoom_AllObstacle != null && inRoom_AllObstacle.Count > 0)
-            LayerOrderManager.instance.AddNeedSortObj(inRoom_AllObstacle);
-    }
-
-    #endregion
-
     #region KeyCard
 
     public int Get_NeedKeyCardID()

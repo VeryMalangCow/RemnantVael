@@ -15,34 +15,22 @@ public class DepthController : IDController
     [SerializeField] public float targetRange = 0.4f;
 
     public int currentOrder { get; private set; } = int.MinValue;
-
-
-    private float lastY;
-    [SerializeField] private int sortingElementIndex = -1;
+    public int sortingElementIndex { get; private set; } = -1;
 
     #endregion
 
-    #region Offset
-
-    protected virtual void Offset()
-    {
-        lastY = transform.position.y;
-    }
-   
-
-    #endregion
-
-    #region Framework
+    #region MonoBehaviour
 
     protected void Start()
     {
         Offset();
     }
 
-    protected virtual void Update()
-    {
-        HandleCheckSortingDirty();
-    }
+    #endregion
+
+    #region Offset
+
+    protected virtual void Offset() { }
 
     #endregion
 
@@ -53,21 +41,23 @@ public class DepthController : IDController
         if (currentOrder == sortingOrder) return;
 
         currentOrder = sortingOrder;
-        thisSr.sortingOrder = sortingOrder;
+        if (thisSr == null)
+            Debug.Log(gameObject);
+        else
+            thisSr.sortingOrder = sortingOrder;
     }
 
     #endregion
 
     #region Sort
 
-    public void AddSortingLayer()
+    public void AddSortingLayer(bool isMover = true)
     {
         if (LayerOrderManager.instance == null)
             throw new Exception("LayerOrderManager's instance is NULL");
 
         SetSortIndex(-1);
-        Offset();
-        LayerOrderManager.instance.AddNeedSortObj(this);
+        LayerOrderManager.instance.AddNeedSortObj(this, isMover);
     }
 
     protected void RemoveSortingLayer()
@@ -75,27 +65,12 @@ public class DepthController : IDController
         if (LayerOrderManager.instance == null)
             throw new Exception("LayerOrderManager's instance is NULL");
 
-        SetSortIndex(-1);
         LayerOrderManager.instance.RemoveNeedSortObj(this);
     }
 
     public void SetSortIndex(int index)
     {
         sortingElementIndex = index;
-    }
-
-    private void HandleCheckSortingDirty()
-    {
-        if (sortingElementIndex == -1)
-            return;
-
-        float currentY = transform.position.y;
-
-        if (Mathf.Abs(currentY - lastY) > 0.01f) // 미세한 오차 방지
-        {
-            lastY = currentY;
-            LayerOrderManager.instance.CheckIsDirty(sortingElementIndex, lastY);
-        }
     }
 
     public float GetPosY()

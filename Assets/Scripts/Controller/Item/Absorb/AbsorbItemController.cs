@@ -32,10 +32,8 @@ public class AbsorbItemController : ItemController
         if (isSpawnNow) rb.AddForce(DevTool.Get_RandomDir() * absorbStartPower);
     }
 
-    protected override void Update()
+    protected virtual void Update()
     {
-        base.Update();
-
         Set_Absorb(Time.deltaTime);
     }
 

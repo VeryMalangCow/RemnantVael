@@ -26,6 +26,13 @@ public class DeadParticleController : MovableDepthController
 
     #region Framework
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        AddSortingLayer();
+    }
+
     private void OnDisable()
     {
         RemoveSortingLayer();
@@ -40,8 +47,6 @@ public class DeadParticleController : MovableDepthController
         thisSr.sprite = sprite;
         shadowSr.transform.localScale = shadowSize;
         this.gameObject.SetActive(true);
-
-        AddSortingLayer();
     }
 
     #endregion

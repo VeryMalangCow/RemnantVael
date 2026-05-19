@@ -6,7 +6,7 @@ public class SortingObjectController : StaticDepthController
     protected override void OnEnable()
     {
         base.OnEnable();
-        AddSortingLayer();
+        AddSortingLayer(false);
     }
 
     protected virtual void OnDisable()

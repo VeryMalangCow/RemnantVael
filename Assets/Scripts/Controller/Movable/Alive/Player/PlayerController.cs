@@ -350,6 +350,8 @@ public class PlayerController : AliveObjectController
 
         stateAnim.transform.parent.transform.gameObject.SetActive(false);
 
+        RemoveSortingLayer();
+
         SetOff_Trail();
     }
 
@@ -902,7 +904,7 @@ public class PlayerController : AliveObjectController
     {
         if (isUltraMode)
         {
-            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            Debug.Log("울트라 모드");
             return;
         }
 
@@ -929,7 +931,7 @@ public class PlayerController : AliveObjectController
     {
         if (isUltraMode)
         {
-            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            Debug.Log("울트라 모드");
             return;
         }
 
@@ -956,7 +958,7 @@ public class PlayerController : AliveObjectController
     {
         if (isUltraMode)
         {
-            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            Debug.Log("울트라 모드");
             return;
         }
 
@@ -984,7 +986,7 @@ public class PlayerController : AliveObjectController
     {
         if (isUltraMode)
         {
-            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            Debug.Log("울트라 모드");
             return;
         }
 
@@ -1008,7 +1010,7 @@ public class PlayerController : AliveObjectController
     {
         if (isUltraMode)
         {
-            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            Debug.Log("울트라 모드");
             return;
         }
 
@@ -1031,7 +1033,7 @@ public class PlayerController : AliveObjectController
     {
         if (isUltraMode)
         {
-            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            Debug.Log("울트라 모드");
             return;
         }
 
