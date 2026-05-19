@@ -53,15 +53,19 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     #endregion
 
-    #region Sort
+    #region MonoBehaviour
 
     private void HandleSort()
     {
         if (isDirty)
         {
-            SetSortDirty();
+            SortDirty();
         }
     }
+
+    #endregion
+
+    #region Dirty
 
     // 신호가 들어오면 실제로 해당 Depth가 Dirty인지 판별
     public void CheckIsDirty(int index, float newY)
@@ -95,13 +99,6 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
             }
         }
     }
-    
-    // 시작점, 종료점 판별
-    private void UpdateRange(int index)
-    {
-        if (dirtyStartIndex > index) dirtyStartIndex = index;
-        if (dirtyEndIndex < index) dirtyEndIndex = index;
-    }
 
     // Dirty List에 추가
     private void AddDirty(int index)
@@ -114,11 +111,22 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     }
 
     // Dirty List값들을 솔팅
-    private void SetSortDirty()
+    private void SortDirty()
     {
-        int removeCount = needSortingObjects.RemoveAll(e => e.isRemoved == true);
+        if (!isRangeExtended)
+        {
+            int removeCount = 0;
 
-        dirtyEndIndex -= removeCount;
+            for (int i = 0; i < needSortingObjects.Count; i++)
+            {
+                if (needSortingObjects[i].isRemoved && i <= dirtyEndIndex)
+                    removeCount++;
+            }
+
+            dirtyEndIndex -= removeCount;
+        }
+
+        needSortingObjects.RemoveAll(e => e.isRemoved == true);
 
         for (int i = 0; i < dirtySortingObjects.Count; i++)
         {
@@ -156,10 +164,11 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
             dirtyEndIndex = needSortingObjects.Count - 1; 
         }
         
-        SetSort(needSortingObjects);
+        ApplySortingOrder(needSortingObjects);
     }
 
-    private void SetSort(List<DepthEntry> objectList)
+    // 실제 Sorting Order 값 적용
+    private void ApplySortingOrder(List<DepthEntry> objectList)
     {
         dirtySortingObjects.Clear();
 
@@ -180,11 +189,19 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         dirtyEndIndex = int.MinValue;
     }
 
+    // 시작점, 종료점 판별
+    private void UpdateRange(int index)
+    {
+        if (dirtyStartIndex > index) dirtyStartIndex = index;
+        if (dirtyEndIndex < index) dirtyEndIndex = index;
+    }
+
 
     #endregion
 
     #region List
 
+    // 솔팅 오브젝트과 세팅 값 초기화
     public void ClearNeedSortObj()
     {
         for (int i = 0; i < needSortingObjects.Count; i++)
@@ -202,7 +219,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         dirtyEndIndex = int.MinValue;
     }
 
-    // 솔팅이 필요한 Depth를 List에 추가
+    // 솔팅이 필요한 Depth를 List에 추가 (Dirty 리스트에 추가)
     public void AddNeedSortObj(DepthController depth)
     {
         DevTool.Add_InList(dirtySortingObjects, new DepthEntry { y = depth.GetPosY(), depth = depth });
@@ -210,6 +227,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         isRangeExtended = true;
     }
 
+    // (다중)
     public void AddNeedSortObj<T>(List<T> depths) where T : DepthController
     {
         for (int i = 0; i < depths.Count; i++)
