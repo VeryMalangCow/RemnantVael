@@ -113,20 +113,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // Dirty List값들을 솔팅
     private void SortDirty()
     {
-        if (!isRangeExtended)
-        {
-            int removeCount = 0;
-
-            for (int i = 0; i < needSortingObjects.Count; i++)
-            {
-                if (needSortingObjects[i].isRemoved && i <= dirtyEndIndex)
-                    removeCount++;
-            }
-
-            dirtyEndIndex -= removeCount;
-        }
-
-        needSortingObjects.RemoveAll(e => e.isRemoved == true);
+        RemoveAll();
 
         for (int i = 0; i < dirtySortingObjects.Count; i++)
         {
@@ -256,7 +243,34 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // 실제 필요없는 값 List에서 제거
     private void RemoveAll()
     {
+        int size = needSortingObjects.Count;
+        int write = 0;
+        int removedInRange = 0;
+        bool needsIndexFix = !isRangeExtended;
 
+        for (int read = 0; read < size; read++)
+        {
+            if (needSortingObjects[read].isRemoved)
+            {
+                // EndIndex보다 앞에서 지워진 것만 카운트 (그 뒤는 어차피 범위 밖이라 상관없음)
+                if (needsIndexFix && read <= dirtyEndIndex)
+                    removedInRange++;
+                continue;
+            }
+
+            if (read != write)
+                needSortingObjects[write] = needSortingObjects[read];
+
+            write++;
+        }
+
+        if (size != write)
+        {
+            if (needsIndexFix)
+                dirtyEndIndex -= removedInRange; // End만 정확하게 당겨줌
+
+            needSortingObjects.RemoveRange(write, size - write);
+        }
     }
 
     #endregion
