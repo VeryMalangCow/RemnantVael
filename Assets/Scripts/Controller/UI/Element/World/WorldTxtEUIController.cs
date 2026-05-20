@@ -21,7 +21,7 @@ public class WorldTxtEUIController : ElementUIController
 
     private void Start()
     {
-        canvas.sortingOrder = LayerOrderManager.order_DmgTxt;
+        canvas.sortingOrder = SortingOrderManager.order_DmgTxt;
     }
 
     #endregion

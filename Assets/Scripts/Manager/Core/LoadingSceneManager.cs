@@ -114,7 +114,7 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     {
         PlayerManager.instance = null;
         PoolingManager.instance = null;
-        LayerOrderManager.instance = null;
+        SortingOrderManager.instance = null;
         InputManager.instance = null;
         EnemyManager.instance = null;
         BaseUpgradeManager.instance = null;

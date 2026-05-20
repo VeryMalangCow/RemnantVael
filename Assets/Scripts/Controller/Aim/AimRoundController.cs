@@ -43,7 +43,7 @@ public class AimRoundController : StaticDepthController
     private void Offset_Sorting()
     {
         for (int i = 0; i < lineList.Count; i++)
-            DevTool.Get_ComponentTType<SpriteRenderer>(lineList[i].transform.GetChild(0).gameObject).sortingOrder = LayerOrderManager.order_Aim;
+            DevTool.Get_ComponentTType<SpriteRenderer>(lineList[i].transform.GetChild(0).gameObject).sortingOrder = SortingOrderManager.order_Aim;
     }
 
     #endregion

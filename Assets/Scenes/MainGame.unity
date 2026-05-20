@@ -4377,10 +4377,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 591994164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d350df8e727b9448c95d67c0cd05aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 369e1b809aa92cf42a1cfa11fd44c4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needSortingObjects: []
+  sortedObjs: []
+  movableSortedObjs: []
+  requestAddDepths: []
+  requestRemoveDepths: []
 --- !u!1 &602378187
 GameObject:
   m_ObjectHideFlags: 0

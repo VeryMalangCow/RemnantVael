@@ -42,10 +42,10 @@ public class AimController : StaticDepthController
 
     private void Offset_Sorting()
     {
-        centerSR.sortingOrder = LayerOrderManager.order_Aim;
-        aimSR.typeBase.sortingOrder = LayerOrderManager.order_Aim;
-        aimSR.typeSpecial.sortingOrder = LayerOrderManager.order_Aim;
-        for (int i = 0; i < skillAimList.Count; i++) skillAimList[i].sortingOrder = LayerOrderManager.order_Aim;
+        centerSR.sortingOrder = SortingOrderManager.order_Aim;
+        aimSR.typeBase.sortingOrder = SortingOrderManager.order_Aim;
+        aimSR.typeSpecial.sortingOrder = SortingOrderManager.order_Aim;
+        for (int i = 0; i < skillAimList.Count; i++) skillAimList[i].sortingOrder = SortingOrderManager.order_Aim;
     }
 
     #endregion

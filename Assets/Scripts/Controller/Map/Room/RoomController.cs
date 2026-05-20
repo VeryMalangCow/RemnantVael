@@ -111,7 +111,7 @@ public class RoomController : IDController
         {
             if (isUpper)
             {
-                gates[i].SetSortingOrder(LayerOrderManager.order_BuildUpper);
+                gates[i].SetSortingOrder(SortingOrderManager.order_BuildUpper);
             }
             else
             {
@@ -145,7 +145,7 @@ public class RoomController : IDController
         upperSrs.AddRange(Get_Sorting_EachWalls(inRoom_UpperWalls));
         upperSrs.AddRange(Get_Sorting_EachGates(inRoom_UpperGates, true));
 
-        Set_Sorting(upperSrs, LayerOrderManager.order_BuildUpper);
+        Set_Sorting(upperSrs, SortingOrderManager.order_BuildUpper);
 
 
         //Lower
@@ -154,7 +154,7 @@ public class RoomController : IDController
         lowerSrs.AddRange(Get_Sorting_EachWalls(inRoom_LowerWalls));
         lowerSrs.AddRange(Get_Sorting_EachGates(inRoom_LowerGates, false));
 
-        Set_Sorting(lowerSrs, LayerOrderManager.order_BuildLower);
+        Set_Sorting(lowerSrs, SortingOrderManager.order_BuildLower);
     }
 
     #endregion

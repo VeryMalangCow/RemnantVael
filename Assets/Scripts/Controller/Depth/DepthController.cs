@@ -13,9 +13,11 @@ public class DepthController : IDController
     [SerializeField] public GameObject targetObject;
     [SerializeField] public SpriteRenderer thisSr;
     [SerializeField] public float targetRange = 0.4f;
+    [SerializeField] private bool isSortingMover;
 
     public int currentOrder { get; private set; } = int.MinValue;
-    public int sortingElementIndex { get; private set; } = -1;
+    public int sortIndex { get; private set; } = -1;
+
 
     #endregion
 
@@ -51,27 +53,33 @@ public class DepthController : IDController
 
     #region Sort
 
-    public void AddSortingLayer(bool isMover = true)
+    public void SetSortIndex(int index)
     {
-        if (LayerOrderManager.instance == null)
-            throw new Exception("LayerOrderManager's instance is NULL");
+        sortIndex = index;
+    }
 
+    public bool IsSortingMover()
+    {
+        return isSortingMover;
+    }
+
+    public void AddSortingLayer(bool isSortingMover = true)
+    {
+        if (SortingOrderManager.instance == null)
+            throw new Exception("LayerOrderManager's instance is NULL");
+        this.isSortingMover = isSortingMover;
         SetSortIndex(-1);
-        LayerOrderManager.instance.AddNeedSortObj(this, isMover);
+        SortingOrderManager.instance.RequestAddSortObj(this);
     }
 
     protected void RemoveSortingLayer()
     {
-        if (LayerOrderManager.instance == null)
+        if (SortingOrderManager.instance == null)
             throw new Exception("LayerOrderManager's instance is NULL");
 
-        LayerOrderManager.instance.RemoveNeedSortObj(this);
+        SortingOrderManager.instance.RequestRemoveSortObj(this);
     }
 
-    public void SetSortIndex(int index)
-    {
-        sortingElementIndex = index;
-    }
 
     public float GetPosY()
     {
