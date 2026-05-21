@@ -210,7 +210,10 @@ public class SortingOrderManager : Singleton<SortingOrderManager>
     public void RequestAddSortObj(DepthController depth)
     {
         if (requestRemoveDepths.Remove(depth))
+        {
             existRemoveDepth = requestRemoveDepths.Count > 0;
+            return;
+        }
 
         if (!requestAddDepths.Contains(depth))
         {
@@ -244,7 +247,7 @@ public class SortingOrderManager : Singleton<SortingOrderManager>
     private void AddSortObj(DepthController depth)
     {
         float y = depth.GetPosY();
-        int targetIndex = FindInsertIndex(y);
+        int targetIndex = FindInsertIndex(y); // ÀÌÁø Å½»ö
         if (minAddOrRemoveIndex > targetIndex) minAddOrRemoveIndex = targetIndex;
         sortedObjs.Insert(targetIndex, new DepthEntry() 
         { 

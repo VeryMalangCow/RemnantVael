@@ -68,7 +68,7 @@ public class DepthController : IDController
         if (SortingOrderManager.instance == null)
             throw new Exception("LayerOrderManager's instance is NULL");
         this.isSortingMover = isSortingMover;
-        SetSortIndex(-1);
+
         SortingOrderManager.instance.RequestAddSortObj(this);
     }
 
