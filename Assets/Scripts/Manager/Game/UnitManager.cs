@@ -7,13 +7,13 @@ public class UnitManager : Singleton<UnitManager>
 
     #region - Current Unit
 
-    [HideInInspector] private List<BulletController> currentBullets = new List<BulletController>();
+    //[HideInInspector] private List<BulletController> currentBullets = new List<BulletController>();
     [HideInInspector] private List<DroppingBombController> currentBombs = new List<DroppingBombController>();
     [HideInInspector] private List<TotemeController> currentTotemes = new List<TotemeController>();
     [HideInInspector] private List<AttackerController> currentAttackers = new List<AttackerController>();
 
-    public void Add_Unit(BulletController _Unit) => DevTool.Add_InList(currentBullets, _Unit);
-    public void Remove_Unit(BulletController _Unit) => DevTool.Remove_InList(currentBullets, _Unit);
+    //public void Add_Unit(BulletController _Unit) => DevTool.Add_InList(currentBullets, _Unit);
+    //public void Remove_Unit(BulletController _Unit) => DevTool.Remove_InList(currentBullets, _Unit);
 
 
     public void Add_Unit(DroppingBombController _Unit) => DevTool.Add_InList(currentBombs, _Unit);
@@ -29,8 +29,8 @@ public class UnitManager : Singleton<UnitManager>
 
     public void RemoveUnits()
     {
-        for (int i = 0; i < currentBullets.Count; i++)
-            currentBullets[i].RemoveForce_Object();
+        //for (int i = 0; i < currentBullets.Count; i++)
+        //    currentBullets[i].RemoveForce_Object();
 
         for (int i = 0; i < currentBombs.Count; i++)
             currentBombs[i].RemoveForce_Object();
@@ -41,7 +41,7 @@ public class UnitManager : Singleton<UnitManager>
         for (int i = 0; i < currentAttackers.Count; i++)
             currentAttackers[i].RemoveForce_Object();
 
-        currentBullets.Clear();
+        //currentBullets.Clear();
         currentBombs.Clear();
         currentTotemes.Clear();
         currentAttackers.Clear();

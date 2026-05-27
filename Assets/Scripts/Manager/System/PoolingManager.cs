@@ -6,7 +6,7 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Value
 
     [Header("=== Player")]
-    [SerializeField] public TTypePooling<PlayerBulletController> playerBullet;
+    //[SerializeField] public TTypePooling<PlayerBulletController> playerBullet;
     [SerializeField] public TTypePooling<PlayerAttackerController> playerAttackers;
     [SerializeField] public TTypePooling<PlayerExplosionController> playerExplosions;
 
@@ -73,7 +73,7 @@ public class PoolingManager : Singleton<PoolingManager>
     public void Remove_AllQueue()
     {
         // Player
-        playerBullet.queue.Clear();
+        //playerBullet.queue.Clear();
         playerAttackers.queue.Clear();
 
         // Player_00
@@ -201,11 +201,11 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Player
 
     // Player Bullet
-    public PlayerBulletController Get_OP_PlayerBullet()
-        => Get_OP(playerBullet.prefab, playerBullet.queue);
-    
-    public List<PlayerBulletController> Get_OP_PlayerBullet(int amount)
-        => Get_OP_List(playerBullet.prefab, playerBullet.queue, amount);
+    //public PlayerBulletController Get_OP_PlayerBullet()
+    //    => Get_OP(playerBullet.prefab, playerBullet.queue);
+    //
+    //public List<PlayerBulletController> Get_OP_PlayerBullet(int amount)
+    //    => Get_OP_List(playerBullet.prefab, playerBullet.queue, amount);
     
 
 

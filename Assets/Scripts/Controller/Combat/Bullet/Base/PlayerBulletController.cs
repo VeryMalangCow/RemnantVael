@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerBulletController : BulletController
+public class PlayerBulletController : BulletController, IPoolable
 {
     #region Value
 
@@ -25,8 +25,48 @@ public class PlayerBulletController : BulletController
     [SerializeField] private float trailTime;
     [SerializeField] private float trailStartWidth;
 
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+
 
     #endregion
+
+    #region Pool
+    public void PoolOffset()
+    {
+        SetOff_Trail();
+        SetOff_Light();
+
+        Reset_State();
+
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        SetOn_State();
+    }
+
+    public void SetActiveOff()
+    {
+        Remove_Object();
+    }
+
+    #endregion
+
+    protected override void Remove_Object()
+    {
+        if (currentAliveTime <= 0f) return;
+
+        BulletManager.instance.RemovePlayerBullet(this);
+
+        SetOff_Trail();
+        SetOff_Light();
+
+        Reset_State();
+
+        gameObject.SetActive(false);
+    }
 
     #region Light
 
@@ -133,7 +173,7 @@ public class PlayerBulletController : BulletController
         switch (poolingString)
         {
             case "PlayerBullet": // ±âº»Åº
-                PoolingManager.instance.playerBullet.Enqueue(this);
+                //PoolingManager.instance.playerBullet.Enqueue(this);
                 break;
 
             case "MI_000_Bullet": // ¿¡³ÊÁö À¯µµÅº

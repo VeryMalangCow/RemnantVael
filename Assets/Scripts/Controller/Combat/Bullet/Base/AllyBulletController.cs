@@ -28,6 +28,21 @@ public class AllyBulletController : BulletController
 
     #endregion
 
+    protected override void Remove_Object()
+    {
+        if (currentAliveTime <= 0f) return;
+
+        //BulletManager.instance.RemovePlayerBullet(this);
+
+        SetOff_Trail();
+        SetOff_Light();
+
+        Reset_State();
+
+        gameObject.SetActive(false);
+    }
+
+
     #region Trigger
 
     protected override void OnTriggerEnter2D(Collider2D col)

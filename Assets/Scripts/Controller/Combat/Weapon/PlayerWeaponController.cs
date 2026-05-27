@@ -33,6 +33,7 @@ public class PlayerWeaponController : PlayerSolarController
     [Header("=== GunPos")]
     [SerializeField] protected List<Transform> bulletSpawnTfList;
 
+    private List<PlayerBulletController> tempPlayerBullets = new List<PlayerBulletController>(2);
     #endregion
 
     #endregion
@@ -73,7 +74,8 @@ public class PlayerWeaponController : PlayerSolarController
     {
         if (Check_Fire())
         {
-            Play_Fire(PoolingManager.instance.Get_OP_PlayerBullet(bulletSpawnTfList.Count));
+            BulletManager.instance.SpawnPlayerBullets(bulletSpawnTfList.Count, tempPlayerBullets);
+            Play_Fire(tempPlayerBullets);
             PlayerManager.instance.cameraController.Play_ShotAnim(1 / rof.buffedState, player.baseWeapon.baseDamage.buffedState);
             ModuleItemManager.instance.Active_Fire();
         }
@@ -98,7 +100,8 @@ public class PlayerWeaponController : PlayerSolarController
         
         for (int i = 0; i < bulletSpawnTfList.Count; i++)
         {
-            Play_Fire(bulletList[i], DevTool.Get_ComponentTType<DepthController>(bulletSpawnTfList[i].gameObject), randomAngle);
+            if (bulletList[i] != null)
+                Play_Fire(bulletList[i], DevTool.Get_ComponentTType<DepthController>(bulletSpawnTfList[i].gameObject), randomAngle);
         }
 
         InputManager.instance.aimController.Set_ActivingAttack(true);

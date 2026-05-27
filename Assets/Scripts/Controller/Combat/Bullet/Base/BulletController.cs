@@ -59,10 +59,6 @@ public abstract class BulletController : MovableDepthController
         RemoveSortingLayer();
     }
 
-    protected virtual void FixedUpdate()
-    {
-        Play_InAlive(Time.fixedDeltaTime);
-    }
 
     #endregion
 
@@ -105,7 +101,7 @@ public abstract class BulletController : MovableDepthController
         BulletState_Effect? state_Effect,
         float targetRange = 0.4f)
     {
-        UnitManager.instance.Add_Unit(this);
+        //UnitManager.instance.Add_Unit(this);
 
         Set_State_Base(state, targetRange);
         Set_State_PosAndRot(state_PosAndRot);
@@ -114,7 +110,8 @@ public abstract class BulletController : MovableDepthController
         Set_State_Effect(state_Effect);
         Set_State_Extra();
 
-        SetOn_State();
+        rb.simulated = true;
+        //SetOn_State();
     }
 
 
@@ -142,12 +139,11 @@ public abstract class BulletController : MovableDepthController
     public virtual void Set_State_Extra() { }
 
 
-    private void SetOn_State()
+    protected void SetOn_State()
     {
         currentAliveTime = 0;
 
         gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
-        rb.simulated = true;
         gameObject.SetActive(true);
 
         SetOn_Trail();
@@ -174,7 +170,7 @@ public abstract class BulletController : MovableDepthController
 
     }
 
-    private void SetOff_Light()
+    protected void SetOff_Light()
     {
 
     }
@@ -191,7 +187,7 @@ public abstract class BulletController : MovableDepthController
         trail.enabled = true;
     }
 
-    private void SetOff_Trail()
+    protected void SetOff_Trail()
     {
         trail.emitting = false;
         trail.enabled = false;
@@ -203,7 +199,7 @@ public abstract class BulletController : MovableDepthController
 
 
     // 살아있는 경우의 계산
-    protected void Play_InAlive(float fixedDeltaTime)
+    public void PlayInAlive(float fixedDeltaTime)
     {
         currentAliveTime += fixedDeltaTime;
 
@@ -278,26 +274,9 @@ public abstract class BulletController : MovableDepthController
 
     #region Remove
 
+
     // 오브젝트 파괴될 때, 항상 실행
-    private void Remove_Object()
-    {
-        if (currentAliveTime <= 0f) return; 
-
-        UnitManager.instance.Remove_Unit(this);
-
-        RemoveForce_Object();
-    }
-
-    public void RemoveForce_Object()
-    {
-        SetOff_Trail();
-        SetOff_Light();
-
-        PoolingSet();
-        Reset_State();
-
-        this.gameObject.SetActive(false);
-    }
+    protected abstract void Remove_Object();
 
     #endregion
 
