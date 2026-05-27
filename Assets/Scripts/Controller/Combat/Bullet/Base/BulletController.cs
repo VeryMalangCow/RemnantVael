@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public abstract class BulletController : MovableDepthController
+public abstract class BulletController : MovableDepthController, IPoolable
 {
     #region Value
 
@@ -39,7 +39,10 @@ public abstract class BulletController : MovableDepthController
 
     // Alive Time
     [HideInInspector] protected float currentAliveTime = 0;
-    [HideInInspector] private static float baseBulletSpeed = 200f; 
+    [HideInInspector] private static float baseBulletSpeed = 200f;
+
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
 
     #endregion
 
@@ -59,6 +62,41 @@ public abstract class BulletController : MovableDepthController
         RemoveSortingLayer();
     }
 
+
+    #endregion
+
+    #region Pool
+
+    public void PoolOffset()
+    {
+        SetOff_Trail();
+        SetOff_Light();
+
+        Reset_State();
+
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        currentAliveTime = 0;
+
+        gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        gameObject.SetActive(true);
+
+        SetOn_Trail();
+        SetOn_Light();
+    }
+
+    public void SetActiveOff()
+    {
+        SetOff_Trail();
+        SetOff_Light();
+
+        Reset_State();
+
+        gameObject.SetActive(false);
+    }
 
     #endregion
 
@@ -139,17 +177,6 @@ public abstract class BulletController : MovableDepthController
     public virtual void Set_State_Extra() { }
 
 
-    protected void SetOn_State()
-    {
-        currentAliveTime = 0;
-
-        gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
-        gameObject.SetActive(true);
-
-        SetOn_Trail();
-        SetOn_Light();
-    }
-
     #endregion
 
     #region Sorting Order
@@ -203,29 +230,29 @@ public abstract class BulletController : MovableDepthController
     {
         currentAliveTime += fixedDeltaTime;
 
-        if (Is_Alive() && DevTool.Is_Usable(rb))
+        if (IsAlive() && DevTool.Is_Usable(rb))
         {
             if (isGuided)
             { 
                 Play_Guided(fixedDeltaTime); // 유도 기능
             }
-            Play_FlyForward(state.muzzleSpeed, baseBulletSpeed, fixedDeltaTime);
+            PlayFlyForward(state.muzzleSpeed, baseBulletSpeed, fixedDeltaTime);
         }
         else
         {
-            Remove_Object();
+            RemoveObject();
             return;
         }
     }
 
     // 살아있는가? (AliveTime)
-    private bool Is_Alive()
+    private bool IsAlive()
     {
         return currentAliveTime < state.aliveTime;
     }
 
     // 날아가는 기능
-    private void Play_FlyForward(float muzzleSpeed, float staticValue, float fixedDeltaTime)
+    private void PlayFlyForward(float muzzleSpeed, float staticValue, float fixedDeltaTime)
     {
         rb.velocity = ((muzzleSpeed * staticValue * fixedDeltaTime) * this.transform.up);
     }
@@ -276,7 +303,7 @@ public abstract class BulletController : MovableDepthController
 
 
     // 오브젝트 파괴될 때, 항상 실행
-    protected abstract void Remove_Object();
+    protected abstract void RemoveObject();
 
     #endregion
 
@@ -307,7 +334,7 @@ public abstract class BulletController : MovableDepthController
         if (destroyTagList.Contains(tag))
         {
             ExtraEffect();
-            Remove_Object();
+            RemoveObject();
         }
     }
 
@@ -327,12 +354,6 @@ public abstract class BulletController : MovableDepthController
     #region Effect
 
     protected abstract void ExtraEffect();
-
-    #endregion
-
-    #region Pooling
-
-    protected abstract void PoolingSet();
 
     #endregion
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyBulletController : BulletController
+public class EnemyBulletController : BulletController, IPoolable
 {
     #region Value
 
@@ -58,8 +58,8 @@ public class EnemyBulletController : BulletController
     }
 
     #endregion
-
-    protected override void Remove_Object()
+    
+    protected override void RemoveObject()
     {
         if (currentAliveTime <= 0f) return;
 
@@ -101,24 +101,6 @@ public class EnemyBulletController : BulletController
         {
             case "EnemyBullet":
                 UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(targetObject.transform.position, explAmount);
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    #endregion
-
-    #region Pooling
-
-    protected override void PoolingSet()
-    {
-        switch (poolingString)
-        {
-            case "EnemyBullet":
-                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(targetObject.transform.position, explAmount);
-                PoolingManager.instance.enemyBullets.Enqueue(this);
                 break;
 
             default:

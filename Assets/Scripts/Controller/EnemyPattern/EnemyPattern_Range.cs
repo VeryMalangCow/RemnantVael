@@ -155,7 +155,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private void Play_ActualPattern_Each(DepthController depth, Vector2 targetDir)
     {
-        EnemyBulletController bullet = PoolingManager.instance.Get_OP_EnemyBullet();
+        EnemyBulletController bullet = BulletManager.instance.SpawnEnemyBullet();
         bullet.ownEnemy = enemy;
         float targetShadow = depth.targetRange;
         bullet.Set_State(

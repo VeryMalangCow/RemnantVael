@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerBulletController : BulletController, IPoolable
+public class PlayerBulletController : BulletController
 {
     #region Value
 
@@ -25,47 +25,12 @@ public class PlayerBulletController : BulletController, IPoolable
     [SerializeField] private float trailTime;
     [SerializeField] private float trailStartWidth;
 
-    public int PoolIndex { get; set; } = -1;
-    public int ActiveIndex { get; set; } = -1;
-
 
     #endregion
 
-    #region Pool
-    public void PoolOffset()
+    protected override void RemoveObject()
     {
-        SetOff_Trail();
-        SetOff_Light();
-
-        Reset_State();
-
-        gameObject.SetActive(false);
-    }
-
-    public void SetActiveOn()
-    {
-        SetOn_State();
-    }
-
-    public void SetActiveOff()
-    {
-        Remove_Object();
-    }
-
-    #endregion
-
-    protected override void Remove_Object()
-    {
-        if (currentAliveTime <= 0f) return;
-
         BulletManager.instance.RemovePlayerBullet(this);
-
-        SetOff_Trail();
-        SetOff_Light();
-
-        Reset_State();
-
-        gameObject.SetActive(false);
     }
 
     #region Light
@@ -157,31 +122,6 @@ public class PlayerBulletController : BulletController, IPoolable
                 break;
 
             case "MI_001_Bullet": // ¹°¸® À¯µµÅº
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    #endregion
-
-    #region Pooling
-
-    protected override void PoolingSet()
-    {
-        switch (poolingString)
-        {
-            case "PlayerBullet": // ±âº»Åº
-                //PoolingManager.instance.playerBullet.Enqueue(this);
-                break;
-
-            case "MI_000_Bullet": // ¿¡³ÊÁö À¯µµÅº
-                PoolingManager.instance.moduleItem_000_Bullets.Enqueue(this);
-                break;
-
-            case "MI_001_Bullet": // ¹°¸® À¯µµÅº
-                PoolingManager.instance.moduleItem_001_Bullets.Enqueue(this);
                 break;
 
             default:

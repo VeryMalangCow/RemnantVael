@@ -48,7 +48,7 @@ public class MissileSkillController : ActiveSkillController
 
     private void Play_ShotEachMissile()
     {
-        MissileBulletController missile = PoolingManager.instance.Get_OP_Missile();
+        MissileBulletController missile = BulletManager.instance.SpawnPlayerMissile();
 
         if (missile != null)
         {

@@ -18,19 +18,18 @@ public class MissileBulletController : PlayerBulletController
 
     #endregion
 
-    #region Framework
+    #region Pool
 
-    protected override void Update()
+    protected override void RemoveObject()
     {
-        Set_Guide();
-        base.Update();
+        BulletManager.instance.RemovePlayerMissile(this);
     }
 
     #endregion
 
     #region Guided On
 
-    private void Set_Guide()
+    public void SetGuide()
     {
         if (!isGuided)
         {
@@ -90,27 +89,6 @@ public class MissileBulletController : PlayerBulletController
             default:
                 break;
         }
-    }
-
-    #endregion
-
-    #region Pooling
-
-    protected override void PoolingSet()
-    {
-        //base.PoolingSet();
-
-        switch (poolingString)
-        {
-            case "MissileBullet":
-                PoolingManager.instance.missileBullet.Enqueue(this);
-
-                break;
-
-            default:
-                break;
-        }
-
     }
 
     #endregion

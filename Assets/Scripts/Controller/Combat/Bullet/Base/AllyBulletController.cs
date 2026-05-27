@@ -28,7 +28,7 @@ public class AllyBulletController : BulletController
 
     #endregion
 
-    protected override void Remove_Object()
+    protected override void RemoveObject()
     {
         if (currentAliveTime <= 0f) return;
 
@@ -73,15 +73,6 @@ public class AllyBulletController : BulletController
     protected override void ExtraEffect()
     {
 
-    }
-
-    #endregion
-
-    #region Pooling
-
-    protected override void PoolingSet()
-    {
-        PoolingManager.instance.baseAllyBullet.Enqueue(this);
     }
 
     #endregion

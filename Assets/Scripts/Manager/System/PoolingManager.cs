@@ -6,7 +6,6 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Value
 
     [Header("=== Player")]
-    //[SerializeField] public TTypePooling<PlayerBulletController> playerBullet;
     [SerializeField] public TTypePooling<PlayerAttackerController> playerAttackers;
     [SerializeField] public TTypePooling<PlayerExplosionController> playerExplosions;
 
@@ -20,17 +19,12 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<KeycardItemController> keycardItems;
     [SerializeField] public TTypePooling<CoreItemController> coreItems;
 
-    [Header("=== Skill")]
-    [SerializeField] public TTypePooling<MissileBulletController> missileBullet;
-
     [Header("=== Ally")]
-    [SerializeField] public TTypePooling<AllyBulletController> baseAllyBullet;
     [SerializeField] public TTypePooling<AllyDroppingBombController> droppingAllyBullet;
     [SerializeField] public TTypePooling<AllyExplosionController> allyExplosions;
     [SerializeField] public TTypePooling<AllyTotemeController> allyTotemes;
 
     [Header("=== Enemy")]
-    [SerializeField] public TTypePooling<EnemyBulletController> enemyBullets;
     [SerializeField] public TTypePooling<EnemyAttackerController> enemyAttackers;
     [HideInInspector] public List<TTypePooling<NormalEnemyController>> currentStageEnemies;
     [HideInInspector] public List<TTypePooling<EliteEnemyController>> currentStageEliteEnemies;
@@ -73,11 +67,7 @@ public class PoolingManager : Singleton<PoolingManager>
     public void Remove_AllQueue()
     {
         // Player
-        //playerBullet.queue.Clear();
         playerAttackers.queue.Clear();
-
-        // Player_00
-        missileBullet.queue.Clear();
 
         // Item
         joule.queue.Clear();
@@ -88,11 +78,9 @@ public class PoolingManager : Singleton<PoolingManager>
         moduleItems.queue.Clear();
 
         // Ally Attack
-        baseAllyBullet.queue.Clear();
         droppingAllyBullet.queue.Clear();
 
         // Enemy Attack
-        enemyBullets.queue.Clear();
         enemyAttackers.queue.Clear();
 
         // Enemy
@@ -181,9 +169,6 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #region Ally
 
-    public AllyBulletController Get_OP_AllyBullet()
-        => Get_OP(baseAllyBullet.prefab, baseAllyBullet.queue);
-    
     public AllyDroppingBombController Get_OP_DroppingAllyBullet()
         => Get_OP(droppingAllyBullet.prefab, droppingAllyBullet.queue);
     
@@ -199,14 +184,6 @@ public class PoolingManager : Singleton<PoolingManager>
     #endregion
 
     #region Player
-
-    // Player Bullet
-    //public PlayerBulletController Get_OP_PlayerBullet()
-    //    => Get_OP(playerBullet.prefab, playerBullet.queue);
-    //
-    //public List<PlayerBulletController> Get_OP_PlayerBullet(int amount)
-    //    => Get_OP_List(playerBullet.prefab, playerBullet.queue, amount);
-    
 
 
     // Player Attacker
@@ -261,15 +238,6 @@ public class PoolingManager : Singleton<PoolingManager>
     // Core Item
     public CoreItemController Get_OP_CoreItem()
         => Get_OP(coreItems.prefab, coreItems.queue);
-    
-
-    #endregion
-
-    #region Missile
-
-    // Missile
-    public MissileBulletController Get_OP_Missile()
-        => Get_OP(missileBullet.prefab, missileBullet.queue);
     
 
     #endregion
@@ -368,10 +336,6 @@ public class PoolingManager : Singleton<PoolingManager>
         return null;
     }
 
-    // Enemy Bullet
-    public EnemyBulletController Get_OP_EnemyBullet()
-        => Get_OP(enemyBullets.prefab, enemyBullets.queue);
-    
 
     // Enemy Attacker
     public EnemyAttackerController Get_OP_EnemyAttacker()

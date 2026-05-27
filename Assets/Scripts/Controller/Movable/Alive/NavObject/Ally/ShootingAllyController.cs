@@ -103,7 +103,7 @@ public class ShootingAllyController : FieldUnitAllyController
         if (currentRof >= 1)
         {
             currentRof -= 1;
-            Play_Attack(PoolingManager.instance.Get_OP_AllyBullet());
+            Play_Attack(BulletManager.instance.SpawnAllyBullet());
         }
     }
 

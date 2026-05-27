@@ -458,6 +458,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &39542605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39542606}
+  m_Layer: 0
+  m_Name: PlayerBullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &39542606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39542605}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 597209927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &58619605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2550,6 +2581,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5956502316695661957, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
   m_PrefabInstance: {fileID: 395151278}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &404695181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 404695182}
+  m_Layer: 0
+  m_Name: EnemyBullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &404695182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404695181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 597209927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &407583748
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,7 +4474,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 39542606}
+  - {fileID: 1139530812}
+  - {fileID: 404695182}
+  - {fileID: 1475583886}
   m_Father: {fileID: 195290732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &597209928
@@ -4429,7 +4495,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBulletPool:
     prefab: {fileID: -1569825769962121506, guid: e3533e47eb7af7049a0cd38d3c2ddce4, type: 3}
-    parentTf: {fileID: 597209927}
+    parentTf: {fileID: 39542606}
+  playerMissilePool:
+    prefab: {fileID: 7064928795332174905, guid: d05f25d52068dd74988f837decc0268e, type: 3}
+    parentTf: {fileID: 1139530812}
+  enemyBulletPool:
+    prefab: {fileID: 5849802097709883291, guid: baf318852ebf135459cd69f0478fe943, type: 3}
+    parentTf: {fileID: 404695182}
+  allyBulletPool:
+    prefab: {fileID: 8497357679413199526, guid: 74c7e747206f0db4f9cd258361a5a7ae, type: 3}
+    parentTf: {fileID: 1475583886}
 --- !u!1 &602378187
 GameObject:
   m_ObjectHideFlags: 0
@@ -5317,8 +5392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38592ed714f6317439da3bfbd208405e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBullet:
-    prefab: {fileID: 2192280153704162206, guid: e3533e47eb7af7049a0cd38d3c2ddce4, type: 3}
   playerAttackers:
     prefab: {fileID: 2154807210293626544, guid: e9907211ca267024c8887bfe754167b7, type: 3}
   playerExplosions:
@@ -5339,18 +5412,12 @@ MonoBehaviour:
     prefab: {fileID: 8792791415299830887, guid: f8839f6fde1cb794bb8918c78a774ae5, type: 3}
   coreItems:
     prefab: {fileID: 8792791415299830887, guid: 398c1abb62692d74aaaf97ea9f7cc814, type: 3}
-  missileBullet:
-    prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
-  baseAllyBullet:
-    prefab: {fileID: 2192280153704162206, guid: 74c7e747206f0db4f9cd258361a5a7ae, type: 3}
   droppingAllyBullet:
     prefab: {fileID: 2192280153704162206, guid: 13e2d6bacdd29ce4d963435c84ae990c, type: 3}
   allyExplosions:
     prefab: {fileID: 2154807210293626544, guid: cc5f08912ea1231458da9db1522f4d10, type: 3}
   allyTotemes:
     prefab: {fileID: 2192280153704162206, guid: 384d654e20209db47ba14aac6bb038b4, type: 3}
-  enemyBullets:
-    prefab: {fileID: 2192280153704162206, guid: baf318852ebf135459cd69f0478fe943, type: 3}
   enemyAttackers:
     prefab: {fileID: 2154807210293626544, guid: e7453e73f7679b648b2dcca30557ad73, type: 3}
   currentStageEnemies: []
@@ -9327,6 +9394,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132019104}
   m_CullTransparentMesh: 1
+--- !u!1 &1139530811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139530812}
+  m_Layer: 0
+  m_Name: PlayerMissile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1139530812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139530811}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 597209927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1158083930
 GameObject:
   m_ObjectHideFlags: 0
@@ -11638,6 +11736,37 @@ MonoBehaviour:
     buffID: AllyTotisToteme
     baseValue: 0.3
     actualValue: 0
+--- !u!1 &1475583885
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1475583886}
+  m_Layer: 0
+  m_Name: AllyBullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1475583886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475583885}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 597209927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1475998875
 GameObject:
   m_ObjectHideFlags: 0
