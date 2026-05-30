@@ -2,14 +2,18 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using TMPro;
 
 public class MainGameBootstrapperManager : MonoBehaviour
 {
     [SerializeField] private MonoBehaviour[] initializerObjs;
+    [SerializeField] private GameObject initalizeingGo;
+    [SerializeField] private TMP_Text initalizeingTxt; 
 
     private readonly List<IMainGameInitializer> initializers = new List<IMainGameInitializer>();
 
 #if UNITY_EDITOR
+    [Space(20)]
     [SerializeField] private GameObject[] preAwakePersistentSingletons;
 #endif
     private void Awake()
@@ -25,74 +29,32 @@ public class MainGameBootstrapperManager : MonoBehaviour
 
     private IEnumerator InitStart()
     {
+        initalizeingGo.gameObject.SetActive(true);
+
+        // 타입 초기화
         CollectInitializers();
-        SortInitialzers();
+        // 순서 정렬
+        initializers.Sort(CompareOrder);
 
-        int index = 0;
-        while (index < initializers.Count)
+        for (int i = 0; i < initializers.Count; i++)
         {
-            int currentOrder = initializers[index].InitOrder;
+            IMainGameInitializer initializer = initializers[i];
 
-            int startIndex = index;
-            int endIndex = index;
+#if UNITY_EDITOR
+            Debug.Log($"Initializer Start : <color=grey>{initializer}</color>");
+#endif
+            initalizeingTxt.text = initializer.InitPregressText;
+            yield return initializer.Initialize();
 
-            while (endIndex < initializers.Count && initializers[endIndex].InitOrder == currentOrder)
-            {
-                endIndex++;
-            }
-
-            int completedCount = 0;
-            int totalCount = endIndex - startIndex;
-
-            for (int i = startIndex; i < endIndex; i++)
-            {
-                StartCoroutine(RunInitializer(initializers[i], delegate
-                {
-                    completedCount++;
-                }));
-            }
-
-            while (completedCount < totalCount)
-            {
-                yield return null;
-            }
-
-            index = endIndex;
+#if UNITY_EDITOR
+            Debug.Log($"Initializer Complete : <color=green>{initializer}</color>");
+#endif
         }
 
+        initalizeingGo.gameObject.SetActive(false);
         EndInit();
     }
 
-    private IEnumerator RunInitializer(IMainGameInitializer initializer, Action onComplete)
-    {
-        bool hasError = false;
-
-        IEnumerator routine = initializer.Initialize();
-
-        while (true)
-        {
-            bool moveNext = false;
-
-            try
-            {
-                moveNext = routine.MoveNext();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Initializer Failed : " + initializer + " - " + e);
-                hasError = true;
-            }
-
-            if (hasError || !moveNext)
-                break;
-
-            yield return routine.Current;
-        }
-
-        if (onComplete != null) onComplete();
-    }
-    
-    // 타입 초기화
     private void CollectInitializers()
     {
         initializers.Clear();
@@ -125,12 +87,6 @@ public class MainGameBootstrapperManager : MonoBehaviour
         }
     }
 
-    // 순서 정렬
-    private void SortInitialzers()
-    {
-        initializers.Sort(CompareOrder);
-    }
-
     // Order
     private int CompareOrder(IMainGameInitializer a, IMainGameInitializer b)
         => a.InitOrder.CompareTo(b.InitOrder);
@@ -144,5 +100,6 @@ public class MainGameBootstrapperManager : MonoBehaviour
 public interface IMainGameInitializer
 {
     int InitOrder { get; }
+    string InitPregressText { get; }
     IEnumerator Initialize();
 }

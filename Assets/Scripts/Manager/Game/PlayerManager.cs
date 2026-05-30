@@ -11,6 +11,8 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 
     public int InitOrder { get { return initOrder; } }
     [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
 
     [Header("=== TF")]
     [SerializeField] private Transform playerSpawnParentTF;

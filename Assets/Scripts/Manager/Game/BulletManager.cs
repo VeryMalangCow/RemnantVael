@@ -7,6 +7,8 @@ public class BulletManager : Singleton<BulletManager>, IMainGameInitializer
     // Init
     public int InitOrder { get { return initOrder; } }
     [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
 
     // Player's
     [SerializeField] private PoolSystem<PlayerBulletController> playerBulletPool;

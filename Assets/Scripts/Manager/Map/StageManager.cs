@@ -11,10 +11,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #region Value
 
     #region - Inspector
-
     public int InitOrder { get { return initOrder; } }
     [SerializeField] private int initOrder;
-    
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
+
     [Space(20)]
     [Header("<><><><><> Stage Manager")]
 

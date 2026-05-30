@@ -9,9 +9,10 @@ using UnityEngine;
 public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitializer
 {
     #region Value
-
     public int InitOrder { get { return initOrder; } }
     [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
 
     #region - Inspector
 
