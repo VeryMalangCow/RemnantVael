@@ -54,9 +54,9 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     }
 
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
+        base.Offset(camera);
 
         allNscPanelEui = DevTool.Get_ChildList<NSCPanelEUIController>(allNscPanelEuiParentRt);
 

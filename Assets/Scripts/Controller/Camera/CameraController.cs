@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
@@ -39,10 +40,13 @@ public class CameraController : MonoBehaviour
 
     #region Offset
 
-    private void Offset()
+    public void Offset(Transform _targetTf)
     {
+        targetTF = _targetTf;
         Offset_SetVariable();
         Offset_State();
+
+        enabled = true;
     }
 
     private void Offset_SetVariable()
@@ -67,11 +71,6 @@ public class CameraController : MonoBehaviour
     #endregion
 
     #region  Framework
-
-    private void Start()
-    {
-        Offset();
-    }
 
     private void LateUpdate()
     {

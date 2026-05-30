@@ -78,9 +78,9 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     #region Offset
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
+        base.Offset(camera);
 
         Offset_Basic();
         Offset_BUShop();
@@ -141,7 +141,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
             {
                 for (int i = 0; i < DevTool.skillAmount; i++)
                 {
-                    MainGameUIManager.instance.playerHUD_UIController.skillList[i].Set_CostText(
+                    MainGameUIManager.instance.playerHud.skillList[i].Set_CostText(
                         _Value * PlayerManager.instance.playerController.skillWeapon.skillList[i].needEP.Value);
                 }
             });

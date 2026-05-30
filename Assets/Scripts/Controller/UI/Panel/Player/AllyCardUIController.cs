@@ -45,8 +45,9 @@ public class AllyCardUIController : SinglePanelUIController
 
     #region Offset
 
-    public override void Offset() 
+    public override void Offset(Camera camera)
     {
+        base.Offset(camera);
         Offset_Basic(); 
         Set_BaseLanguageTxt();
     }

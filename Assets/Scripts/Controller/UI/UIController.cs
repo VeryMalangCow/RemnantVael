@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    #region Offset
+    protected Canvas canvas;
 
-    public virtual void Offset() { }
-
-    #endregion
-
-    #region Set Txt
+    public virtual void Offset(Camera uiCamera) 
+    {
+        if (TryGetComponent(out Canvas _canvas))
+        {
+            canvas = _canvas;
+            canvas.worldCamera = uiCamera;
+        }
+    }
 
     public virtual void Set_LanguageTxt() { }
 
-    #endregion
 }

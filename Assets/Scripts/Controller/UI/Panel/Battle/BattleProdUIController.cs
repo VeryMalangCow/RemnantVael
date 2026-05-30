@@ -24,9 +24,9 @@ public class BattleProdUIController : UIController
 
     #region BattleProd
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset(); 
+        base.Offset(camera); 
 
         Reset_BattleProd();
     }

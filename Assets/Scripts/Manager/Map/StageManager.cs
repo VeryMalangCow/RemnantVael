@@ -2,15 +2,19 @@ using NavMeshPlus.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 
-public class StageManager : Singleton<StageManager>
+public class StageManager : Singleton<StageManager>, IMainGameInitializer
 {
     #region Value
 
     #region - Inspector
 
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
+    
     [Space(20)]
     [Header("<><><><><> Stage Manager")]
 
@@ -67,6 +71,27 @@ public class StageManager : Singleton<StageManager>
 
     [HideInInspector] private AllPassageMiddleSpriteData passageMiddleSpriteData;
 
+
+    #endregion
+
+    #region Init
+    public IEnumerator Initialize()
+    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+        Offset();
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: SpriteOffset : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+
+        yield return null;
+        // 스테이지 소환
+
+        sw.Restart();
+        Gen_Stage(targetStageID);
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: Generate : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+    }
+
     #endregion
 
     #endregion
@@ -88,7 +113,7 @@ public class StageManager : Singleton<StageManager>
     #endregion
 
     #region Framework
-
+/*
     private void Start()
     {
         Offset();
@@ -96,12 +121,7 @@ public class StageManager : Singleton<StageManager>
         // 스테이지 소환
         Gen_Stage(targetStageID);
     }
-
-    private void OnEnable()
-    {
-        
-    }
-
+*/
     #endregion
 
     #region Generate
@@ -137,12 +157,6 @@ public class StageManager : Singleton<StageManager>
 
         // UI 셋
         Set_StartUI(stageData);
-
-        // 적 객체 오브젝트 풀링 시스템 세팅하기
-        PoolingManager.instance.Offset_EnemiesPooling(
-            stageData.enemyData.stageEnemyList,
-            stageData.enemyData.stageEliteEnemyList,
-            stageData.enemyData.stageBossEnemyList);
 
         // Sound (BGM) 시작
         SoundManager.instance.Play_2D_BGM_Stage(stageData.infoData.stageId);
@@ -649,9 +663,7 @@ public class StageManager : Singleton<StageManager>
 
         currentRoomController = null;
 
-        PoolingManager.instance.Remove_AllQueue();
-
-        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Remove_AllMinimapCell();
+        MainGameUIManager.instance.playerHud.minimapEui.Remove_AllMinimapCell();
     }
 
     private void Remove_PassageStage()
@@ -703,7 +715,7 @@ public class StageManager : Singleton<StageManager>
         AllyManager.instance.Stop_AllAllies_Combat();
 
         // Minimap
-        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Set_State();
+        MainGameUIManager.instance.playerHud.minimapEui.Set_State();
 
         yield return new WaitForSeconds(0.2f);
 
@@ -715,8 +727,8 @@ public class StageManager : Singleton<StageManager>
         //LayerOrderManager.instance.AddNeedSortObj(AllyManager.instance.allAlly);
 
         // Minimap
-        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Set_State();
-        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Play_Effect();
+        MainGameUIManager.instance.playerHud.minimapEui.Set_State();
+        MainGameUIManager.instance.playerHud.minimapEui.Play_Effect();
 
         // Ally
         AllyManager.instance.Start_AllAllies_Combat();
@@ -740,11 +752,11 @@ public class StageManager : Singleton<StageManager>
             currentRoomController.PlaySet_RoomStateComplete();
 
             // 상호작용 UI 변경 (문이나 아이템에 붙어있을 때, 상황을 바꾸어줌)
-            MainGameUIManager.instance.playerHUD_UIController.Set_InteractUI(); 
-            MainGameUIManager.instance.interactAnno_UIController.Set_UI();
+            MainGameUIManager.instance.playerHud.Set_InteractUI(); 
+            MainGameUIManager.instance.interactAnnoUi.Set_UI();
 
             // Minimap
-            MainGameUIManager.instance.playerHUD_UIController.minimapEui.Set_State();
+            MainGameUIManager.instance.playerHud.minimapEui.Set_State();
         }
     }
 
@@ -770,17 +782,17 @@ public class StageManager : Singleton<StageManager>
 
     private void Set_StartUI(StageData stageData)
     {
-        MainGameUIManager.instance.mapIntro_UIController.Play_IntroLabel();
-        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Gen_Minimap();
-        MainGameUIManager.instance.playerHUD_UIController.stageIcon.gameObject.SetActive(true);
-        MainGameUIManager.instance.playerHUD_UIController.stageIcon.sprite = ResourceManager.instance.Get_StageIcon(targetStageID);
-        MainGameUIManager.instance.playerHUD_UIController.Set_StageDescription();
+        MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
+        MainGameUIManager.instance.playerHud.minimapEui.Gen_Minimap();
+        MainGameUIManager.instance.playerHud.stageIcon.gameObject.SetActive(true);
+        MainGameUIManager.instance.playerHud.stageIcon.sprite = ResourceManager.instance.Get_StageIcon(targetStageID);
+        MainGameUIManager.instance.playerHud.Set_StageDescription();
     }
 
     private void Set_StartPassageUI()
     {
-        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Gen_Minimap();
-        MainGameUIManager.instance.playerHUD_UIController.stageIcon.gameObject.SetActive(false);
+        MainGameUIManager.instance.playerHud.minimapEui.Gen_Minimap();
+        MainGameUIManager.instance.playerHud.stageIcon.gameObject.SetActive(false);
     }
 
     #endregion
@@ -945,7 +957,7 @@ public class StageManager : Singleton<StageManager>
             {
                 int index = currentStageData.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
-                { Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
+                { UnityEngine.Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
                 sr.material = currentStageData.mapMaterialClear[index];
             }
         }
@@ -953,7 +965,7 @@ public class StageManager : Singleton<StageManager>
 
     private void Set_MapUnclearSprite(StageData stageData, SpriteRenderer sr, string spriteKey)
     {
-        if (!stageData.mapSpriteReso.mapSprite.ContainsKey(spriteKey)) { Debug.Log(spriteKey); return; }
+        if (!stageData.mapSpriteReso.mapSprite.ContainsKey(spriteKey)) { UnityEngine.Debug.Log(spriteKey); return; }
 
         SpriteMaterial spriteMatrial = stageData.mapSpriteReso.mapSprite[spriteKey];
         sr.sprite = spriteMatrial.sprite;
@@ -962,7 +974,7 @@ public class StageManager : Singleton<StageManager>
 
     private void Set_MapClearSprite(StageData stageData, SpriteRenderer sr, string spriteKey)
     {
-        if (!stageData.mapSpriteReso.mapSprite.ContainsKey(spriteKey)) { Debug.Log(spriteKey); return; }
+        if (!stageData.mapSpriteReso.mapSprite.ContainsKey(spriteKey)) { UnityEngine.Debug.Log(spriteKey); return; }
 
         SpriteMaterial spriteMatrial = stageData.mapSpriteReso.mapSprite[spriteKey];
         sr.sprite = spriteMatrial.sprite;
@@ -994,7 +1006,7 @@ public class StageManager : Singleton<StageManager>
             {
                 int index = currentStageData.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
-                { Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
+                { UnityEngine.Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
                 sr.material = currentStageData.mapMaterialClear[index];
             }
         }
@@ -1155,7 +1167,7 @@ public class StageManager : Singleton<StageManager>
 
             if (randomIndex > 100)
             {
-                Debug.Assert(false, "생성에 문제!");
+                UnityEngine.Debug.Assert(false, "생성에 문제!");
             }
 
             // 안된다면 다시 시작
@@ -1376,7 +1388,7 @@ public class StageManager : Singleton<StageManager>
     
     public void Play_GoInBossRoom(GateController gate, EliteEnemyController enemy)
     {
-        MainGameUIManager.instance.battleProd_UIController.Play_BattleOnProd(
+        MainGameUIManager.instance.battleProdUi.Play_BattleOnProd(
             PlayerManager.instance.playerController, enemy, out float durTime);
 
         StartCoroutine(Play_GoInBattleRoom_Cor(gate, durTime));
@@ -1384,7 +1396,7 @@ public class StageManager : Singleton<StageManager>
 
     public void Play_GoInBossRoom(GateController gate, BossEnemyController enemy)
     {
-        MainGameUIManager.instance.battleProd_UIController.Play_BattleOnProd(
+        MainGameUIManager.instance.battleProdUi.Play_BattleOnProd(
             PlayerManager.instance.playerController, enemy, out float durTime);
 
         StartCoroutine(Play_GoInBattleRoom_Cor(gate, durTime));
@@ -1397,7 +1409,7 @@ public class StageManager : Singleton<StageManager>
         yield return new WaitForSeconds(durTime);
 
         gate.EnterGate();
-        MainGameUIManager.instance.battleProd_UIController.Play_BattleOffProd(out float outDurTime);
+        MainGameUIManager.instance.battleProdUi.Play_BattleOffProd(out float outDurTime);
 
         yield return new WaitForSeconds(outDurTime);
 

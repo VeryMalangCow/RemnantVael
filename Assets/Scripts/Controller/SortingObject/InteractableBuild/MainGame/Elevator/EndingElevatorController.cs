@@ -68,7 +68,7 @@ public class EndingElevatorController : ElevatorController, IInteract
         thisSr.sortingOrder = 3000;
 
         // Intetactable Anno Panel
-        MainGameUIManager.instance.interactAnno_UIController.Set_VisualCG(false);
+        MainGameUIManager.instance.interactAnnoUi.Set_VisualCG(false);
 
         // Sound
         SoundManager.instance.Set_MasterVolume(1f, 0f, 2.5f);

@@ -1,8 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletManager : Singleton<BulletManager>
+public class BulletManager : Singleton<BulletManager>, IMainGameInitializer
 {
+    // Init
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
+
     // Player's
     [SerializeField] private PoolSystem<PlayerBulletController> playerBulletPool;
     [SerializeField] private PoolSystem<MissileBulletController> playerMissilePool;
@@ -13,17 +18,16 @@ public class BulletManager : Singleton<BulletManager>
     // Ally's
     [SerializeField] private PoolSystem<AllyBulletController> allyBulletPool;
 
-    // Mono
-    protected override void Awake()
+
+    // Init
+    public IEnumerator Initialize()
     {
-        base.Awake();
+        yield return playerBulletPool.InitAsync(256, 8f);
+        yield return playerMissilePool.InitAsync(32, 8f);
+        yield return enemyBulletPool.InitAsync(256, 8f);
+        yield return allyBulletPool.InitAsync(256, 8f);
 
-        playerBulletPool.Init(256);
-        playerMissilePool.Init(32);
-
-        enemyBulletPool.Init(256);
-
-        allyBulletPool.Init(256);
+        enabled = true;
     }
 
     // Centralized Update

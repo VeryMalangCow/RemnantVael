@@ -90,8 +90,7 @@ public class EliteEnemyController : EnemyController
     protected override void Set_Die_Extra()
     {
         EnemyManager.instance.Remove_EliteEnemy(this);
-
-        PoolingManager.instance.Set_EnqueueEliteEnemy(this);
+        EnemyManager.instance.RemoveEliteEnemy(this, Get_ID());
 
         AllyRequestManager.instance.Play_KillEliteEnemy();
     }

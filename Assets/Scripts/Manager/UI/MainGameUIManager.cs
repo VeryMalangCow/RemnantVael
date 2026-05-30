@@ -1,11 +1,17 @@
 using DG.Tweening;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
-public class MainGameUIManager : Singleton<MainGameUIManager>
+public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitializer
 {
     #region Value
+
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
 
     #region - Inspector
 
@@ -30,33 +36,34 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     #region - Hide
 
     // Controller
-    [HideInInspector] public PlayerHUDController playerHUD_UIController;
 
-    [HideInInspector] public BaseUpgradeUIController baseUpgrade_UIController;
-    [HideInInspector] public ModuleUpgradeUIController moduleUpgrade_UIController;
+    [HideInInspector] public PlayerHUDController playerHud;
 
-    [HideInInspector] public AllyBaseUpgradeUIController allyBaseUpgrade_UIController;
-    [HideInInspector] public AllyModuleUpgradeUIController allyModuleUpgrade_UIController;
+    [HideInInspector] public BaseUpgradeUIController baseUpgradeUi;
+    [HideInInspector] public ModuleUpgradeUIController moduleUpgradeUi;
 
-    [HideInInspector] public OutMainGameUIController outMainGame_UIController;
-    [HideInInspector] public InteractAnnoUIController interactAnno_UIController;
-    [HideInInspector] public MapIntroUIController mapIntro_UIController;
+    [HideInInspector] public AllyBaseUpgradeUIController allyBaseUpgradeUi;
+    [HideInInspector] public AllyModuleUpgradeUIController allyModuleUpgradeUi;
 
-    [HideInInspector] public AllyCardUIController allyCard_UIController;
+    [HideInInspector] public OutMainGameUIController outMainGameUi;
+    [HideInInspector] public InteractAnnoUIController interactAnnoUi;
+    [HideInInspector] public MapIntroUIController mapIntroUi;
 
-    [HideInInspector] public BoxLineConnectorUIController boxLineConnector_UIController;
-    [HideInInspector] public NumShapeColorPasswordUIController numShapeColorPassword_UIController;
-    [HideInInspector] public InOrderLockerUIController inOrderLocker_UIController;
+    [HideInInspector] public AllyCardUIController allyCardUi;
 
-    [HideInInspector] public PremiumCreditCvtUIController premiumCreditCvt_UIController;
-    [HideInInspector] public ProtoCoreCvtUIController protoCoreCvt_UIController;
-    [HideInInspector] public EtherCoreCvtUIController etherCoreCvt_UIController;
-    [HideInInspector] public OriginCoreCvtUIController originCoreCvt_UIController;
+    [HideInInspector] public BoxLineConnectorUIController boxLineConnectorUi;
+    [HideInInspector] public NumShapeColorPasswordUIController numShapeColorPasswordUi;
+    [HideInInspector] public InOrderLockerUIController inOrderLockerUi;
 
-    [HideInInspector] public BattleProdUIController battleProd_UIController;
+    [HideInInspector] public PremiumCreditCvtUIController premiumCreditCvtUi;
+    [HideInInspector] public ProtoCoreCvtUIController protoCoreCvtUi;
+    [HideInInspector] public EtherCoreCvtUIController etherCoreCvtUi;
+    [HideInInspector] public OriginCoreCvtUIController originCoreCvtUi;
+
+    [HideInInspector] public BattleProdUIController battleProdUi;
 
     // Current
-    [HideInInspector] public static UIController currentOpening_UIController;
+    [HideInInspector] public static UIController currentOpeningUi;
 
     // Production
     [HideInInspector] private CanvasGroup screenCG;
@@ -68,101 +75,85 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #endregion
 
-    #region Offset
-
-    private void Offset()
+    // Init
+    public IEnumerator Initialize()
     {
         screenCG = DevTool.Get_ComponentTType(screenCanvas.gameObject, out CanvasGroup cg) ? cg : null;
+        screenCG.alpha = 1;
         loadingIconCG = DevTool.Get_ComponentTType(loadingIconCanvas.gameObject, out CanvasGroup iconCg) ? iconCg : null;
+        loadingIconCG.alpha = 1;
         loadingIconRT = DevTool.Get_ComponentTType(loadingIconCanvas.gameObject.transform.GetChild(0).gameObject, out RectTransform iconRt) ? iconRt : null;
-
-        saveDataCG.gameObject.SetActive(false);
-
         cogwheelTween = loadingIconRT
             .DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
 
-        playerHUD_UIController
-            = Gen_UI<PlayerHUDController>(ResourceManager.instance.playerHUD_CanvasPrefab, true);
+        saveDataCG.gameObject.SetActive(false);
 
-        outMainGame_UIController
-            = Gen_UI<OutMainGameUIController>(ResourceManager.instance.outMainGame_CanvasPrefab, false);
+        yield return null;
 
-        baseUpgrade_UIController
-            = Gen_UI<BaseUpgradeUIController>(ResourceManager.instance.baseUpgrade_CanvasPrefab, false);
-        moduleUpgrade_UIController
-            = Gen_UI<ModuleUpgradeUIController>(ResourceManager.instance.moduleUpgrade_CanvasPrefab, false);
+        var reso = ResourceManager.instance;
 
-        allyBaseUpgrade_UIController
-            = Gen_UI<AllyBaseUpgradeUIController>(ResourceManager.instance.allyBaseUpgrade_CanvasPrefab, false);
-        allyModuleUpgrade_UIController
-            = Gen_UI<AllyModuleUpgradeUIController>(ResourceManager.instance.allyModuleUpgrade_CanvasPrefab, false);
+        yield return InitAsync(reso.playerHUD_CanvasPrefab, true, delegate(PlayerHUDController ui) { playerHud = ui; });
+        yield return InitAsync(reso.outMainGame_CanvasPrefab, false, delegate (OutMainGameUIController ui) { outMainGameUi = ui; });
 
-        interactAnno_UIController
-            = Gen_UI<InteractAnnoUIController>(ResourceManager.instance.interactAnno_CanvasPrefab, false);
+        yield return InitAsync(reso.baseUpgrade_CanvasPrefab, false, delegate (BaseUpgradeUIController ui) { baseUpgradeUi = ui; });
+        yield return InitAsync(reso.moduleUpgrade_CanvasPrefab, false, delegate (ModuleUpgradeUIController ui) { moduleUpgradeUi = ui; });
 
-        mapIntro_UIController
-            = Gen_UI<MapIntroUIController>(ResourceManager.instance.mapIntro_CanvasPrefab, false);
+        yield return InitAsync(reso.allyBaseUpgrade_CanvasPrefab, false, delegate (AllyBaseUpgradeUIController ui) { allyBaseUpgradeUi = ui; });
+        yield return InitAsync(reso.allyModuleUpgrade_CanvasPrefab, false, delegate (AllyModuleUpgradeUIController ui) { allyModuleUpgradeUi = ui; });
 
-        allyCard_UIController
-            = Gen_UI<AllyCardUIController>(ResourceManager.instance.allyCard_CanvasPrefab, false);
+        yield return InitAsync(reso.interactAnno_CanvasPrefab, false, delegate (InteractAnnoUIController ui) { interactAnnoUi = ui; });
+        yield return InitAsync(reso.mapIntro_CanvasPrefab, false, delegate (MapIntroUIController ui) { mapIntroUi = ui; });
+        yield return InitAsync(reso.allyCard_CanvasPrefab, false, delegate (AllyCardUIController ui) { allyCardUi = ui; });
 
-        boxLineConnector_UIController
-            = Gen_UI<BoxLineConnectorUIController>(ResourceManager.instance.puzzle_BoxLineConnector_CanvasPrefab, false);
-        numShapeColorPassword_UIController
-            = Gen_UI<NumShapeColorPasswordUIController>(ResourceManager.instance.puzzle_NumShapeColorPassword_CanvasPrefab, false);
-        inOrderLocker_UIController
-            = Gen_UI<InOrderLockerUIController>(ResourceManager.instance.puzzle_InOrderLocker_CanvasPrefab, false);
+        yield return InitAsync(reso.puzzle_BoxLineConnector_CanvasPrefab, false, delegate (BoxLineConnectorUIController ui) { boxLineConnectorUi = ui; });
+        yield return InitAsync(reso.puzzle_NumShapeColorPassword_CanvasPrefab, false, delegate (NumShapeColorPasswordUIController ui) { numShapeColorPasswordUi = ui; });
+        yield return InitAsync(reso.puzzle_InOrderLocker_CanvasPrefab, false, delegate (InOrderLockerUIController ui) { inOrderLockerUi = ui; });
 
-        premiumCreditCvt_UIController
-            = Gen_UI<PremiumCreditCvtUIController>(ResourceManager.instance.cvt_PremiumCredit_CanvasPrefab, false);
-        protoCoreCvt_UIController
-            = Gen_UI<ProtoCoreCvtUIController>(ResourceManager.instance.cvt_ProtoCore_CanvasPrefab, false);
-        etherCoreCvt_UIController
-            = Gen_UI<EtherCoreCvtUIController>(ResourceManager.instance.cvt_EtherCore_CanvasPrefab, false);
-        originCoreCvt_UIController
-            = Gen_UI<OriginCoreCvtUIController>(ResourceManager.instance.cvt_OriginCore_CanvasPrefab, false);
+        yield return InitAsync(reso.cvt_PremiumCredit_CanvasPrefab, false, delegate (PremiumCreditCvtUIController ui) { premiumCreditCvtUi = ui; });
+        yield return InitAsync(reso.cvt_ProtoCore_CanvasPrefab, false, delegate (ProtoCoreCvtUIController ui) { protoCoreCvtUi = ui; });
+        yield return InitAsync(reso.cvt_EtherCore_CanvasPrefab, false, delegate (EtherCoreCvtUIController ui) { etherCoreCvtUi = ui; });
+        yield return InitAsync(reso.cvt_OriginCore_CanvasPrefab, false, delegate (OriginCoreCvtUIController ui) { originCoreCvtUi = ui; });
 
-        battleProd_UIController
-            = Gen_UI<BattleProdUIController>(ResourceManager.instance.battleProd_CanvasPrefab, false);
+        yield return InitAsync(reso.battleProd_CanvasPrefab, false, delegate (BattleProdUIController ui) { battleProdUi = ui; });
 
-        Sequence startSeq = DOTween.Sequence();
-
-        Play_FadeOut(fadeOutTime);
-        Play_OffLoadingIcon(fadeOutTime);
-        screenCG.alpha = 1f;
-    }
-
-
-    #endregion
-
-    #region Framework
-
-    private void Start()
-    {
-        Offset();
         GameManager.instance.Set_BaseOption();
+        yield return null;
+
+        PlayerManager.instance.playerController.TestStart();
+        PlayerManager.instance.playerController.skillWeapon.TestStart();
+
     }
 
-    #endregion
-
-    #region Gen
-
-    private T Gen_UI<T>(GameObject uiGo, bool onOff)
+    private IEnumerator InitAsync<T>(GameObject uiGo, bool onOff, Action<T> action) where T : UIController
     {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
         GameObject uigo = Instantiate(uiGo, uiParent);
+        sw.Stop();
+        UnityEngine.Debug.Log($"MainGameUIManager : Generate : {uigo.name} : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
         uigo.gameObject.SetActive(onOff);
-        if (DevTool.Get_ComponentTType(uigo, out UIController uiController) &&
-            DevTool.Get_ComponentTType(uigo, out Canvas uiCanvas))
-        {
-            uiController.Offset();
-            uiCanvas.worldCamera = uiCamera;
-        }
+        yield return null;
 
-        return DevTool.Get_ComponentTType(uigo, out T tType) ? tType : default;
+        if (uiGo != null && DevTool.Get_ComponentTType(uigo, out UIController uiController))
+        {
+            uiController.Offset(uiCamera);
+            T tComp = uiController as T;
+            if (action != null && tComp != null) action(tComp);
+        }
+        yield return null;
     }
+
+    #region Offset
+
+    public void EndProd()
+    {
+        Play_FadeOut(fadeOutTime);
+        Play_OffLoadingIcon(fadeOutTime);
+    }
+
 
     #endregion
 
@@ -170,34 +161,34 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     public void Set_LanguageTxt()
     {
-        outMainGame_UIController.Set_LanguageTxt();
+        outMainGameUi.Set_LanguageTxt();
 
-        mapIntro_UIController.Set_LanguageTxt();
-        playerHUD_UIController.Set_LanguageTxt();
-        interactAnno_UIController.Set_LanguageTxt();
+        mapIntroUi.Set_LanguageTxt();
+        playerHud.Set_LanguageTxt();
+        interactAnnoUi.Set_LanguageTxt();
 
-        baseUpgrade_UIController.Set_LanguageTxt();
-        moduleUpgrade_UIController.Set_LanguageTxt();
+        baseUpgradeUi.Set_LanguageTxt();
+        moduleUpgradeUi.Set_LanguageTxt();
         ModuleItemManager.instance.Set_DataLanguage();
 
-        allyBaseUpgrade_UIController.Set_LanguageTxt();
-        allyModuleUpgrade_UIController.Set_LanguageTxt();
+        allyBaseUpgradeUi.Set_LanguageTxt();
+        allyModuleUpgradeUi.Set_LanguageTxt();
 
-        allyCard_UIController.Set_LanguageTxt();
+        allyCardUi.Set_LanguageTxt();
     }
 
     public void Set_Color()
     {
-        outMainGame_UIController.Offset_ColorComp();
+        outMainGameUi.Offset_ColorComp();
 
-        playerHUD_UIController.Offset_ColorComp();
-        interactAnno_UIController.Offset_ColorComp();
+        playerHud.Offset_ColorComp();
+        interactAnnoUi.Offset_ColorComp();
 
-        baseUpgrade_UIController.Offset_ColorComp();
-        moduleUpgrade_UIController.Offset_ColorComp();
+        baseUpgradeUi.Offset_ColorComp();
+        moduleUpgradeUi.Offset_ColorComp();
 
-        allyBaseUpgrade_UIController.Offset_ColorComp();
-        allyModuleUpgrade_UIController.Offset_ColorComp();
+        allyBaseUpgradeUi.Offset_ColorComp();
+        allyModuleUpgradeUi.Offset_ColorComp();
     }
 
     #endregion
@@ -211,12 +202,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         screenCanvas.gameObject.SetActive(true);
 
         seq.Append(screenCG.DOFade(0f, durTime));
-        seq.Join(playerHUD_UIController.cg.DOFade(1f, durTime));
+        seq.Join(playerHud.cg.DOFade(1f, durTime));
 
         seq.OnStart(() =>
         {
             screenCG.alpha = 1f;
-            playerHUD_UIController.cg.alpha = 0f;
+            playerHud.cg.alpha = 0f;
 
         })
         .OnComplete(() =>
@@ -234,12 +225,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         screenCanvas.gameObject.SetActive(true);
 
         seq.Append(screenCG.DOFade(1f, durTime));
-        seq.Join(playerHUD_UIController.cg.DOFade(0f, durTime));
+        seq.Join(playerHud.cg.DOFade(0f, durTime));
 
         seq.OnStart(() =>
         {
             screenCG.alpha = 0f;
-            playerHUD_UIController.cg.alpha = 1f;
+            playerHud.cg.alpha = 1f;
         })
         .OnComplete(() =>
         {
@@ -325,7 +316,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     public void Play_DeadProd()
     {
-        Debug.Log("Á×À½");
+        UnityEngine.Debug.Log("Á×À½");
         StartCoroutine(Play_DeadProd_Cor());
     }
 
@@ -350,7 +341,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     public void Play_EndGameProd()
     {
-        Debug.Log("Á¾·á");
+        UnityEngine.Debug.Log("Á¾·á");
         StartCoroutine(Play_EndGameProd_Cor());
     }
 

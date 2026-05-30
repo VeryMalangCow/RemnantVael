@@ -177,8 +177,8 @@ public class GateController : StaticDepthController, IInteract
                     parterGate.needKeyCardId = -1;
                     Set_Open();
 
-                    MainGameUIManager.instance.playerHUD_UIController.Set_InteractUI(); 
-                    MainGameUIManager.instance.interactAnno_UIController.Set_UI();
+                    MainGameUIManager.instance.playerHud.Set_InteractUI(); 
+                    MainGameUIManager.instance.interactAnnoUi.Set_UI();
                 }
             }
             else
@@ -212,7 +212,7 @@ public class GateController : StaticDepthController, IInteract
         PlayerManager.instance.playerController.gameObject.transform.position = parterGate.Get_WarpPoint();
         StageManager.instance.Play_CurrentRoom(parterGate.thisRoom);
 
-        PlayerHUDController hud = MainGameUIManager.instance.playerHUD_UIController;
+        PlayerHUDController hud = MainGameUIManager.instance.playerHud;
         if (hud.isTabInteracted.Value) hud.minimapEui.Reset_BookRoom();
     }
 

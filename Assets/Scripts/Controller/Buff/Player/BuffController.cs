@@ -184,14 +184,14 @@ public class BuffController : IDController
         thisBuffEUI.Offset();
         thisBuffEUI.shadowImg.fillAmount = 0;
 
-        DevTool.Add_InList(MainGameUIManager.instance.playerHUD_UIController.allBuffIconUi, thisBuffEUI);
+        DevTool.Add_InList(MainGameUIManager.instance.playerHud.allBuffIconUi, thisBuffEUI);
 
         thisBuffEUI.gameObject.SetActive(true);
     }
 
     private void Remove_BuffUI()
     {
-        DevTool.Remove_InList(MainGameUIManager.instance.playerHUD_UIController.allBuffIconUi, thisBuffEUI);
+        DevTool.Remove_InList(MainGameUIManager.instance.playerHud.allBuffIconUi, thisBuffEUI);
 
         thisBuffEUI.gameObject.SetActive(false);
         PoolingManager.instance.buffIcons.Enqueue(thisBuffEUI);
@@ -216,7 +216,7 @@ public class BuffController : IDController
             Gain_BuffUI();
         }
 
-        MainGameUIManager.instance.playerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.instance.playerHud.Set_BuffPosUI();
         thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         enabled = true;
@@ -241,7 +241,7 @@ public class BuffController : IDController
             Gain_BuffUI();
         }
 
-        MainGameUIManager.instance.playerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.instance.playerHud.Set_BuffPosUI();
         thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         enabled = true;
@@ -262,7 +262,7 @@ public class BuffController : IDController
         }
 
         // UI
-        MainGameUIManager.instance.playerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.instance.playerHud.Set_BuffPosUI();
         thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         //
@@ -282,7 +282,7 @@ public class BuffController : IDController
             Remove_BuffUI();
         }
 
-        MainGameUIManager.instance.playerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.instance.playerHud.Set_BuffPosUI();
 
         enabled = false; 
     }

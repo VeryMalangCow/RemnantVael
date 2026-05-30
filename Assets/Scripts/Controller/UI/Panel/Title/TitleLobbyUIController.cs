@@ -177,9 +177,9 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     #region Offset
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
+        base.Offset(camera);
 
         DevTool.Get_ComponentTType<Canvas>(gameObject).planeDistance = 10;
 

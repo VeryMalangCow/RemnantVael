@@ -43,9 +43,9 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     #region Offset
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
+        base.Offset(camera);
 
         Offset_Basic();
         Offset_ColorComp();

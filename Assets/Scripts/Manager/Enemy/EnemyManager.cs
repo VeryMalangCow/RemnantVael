@@ -1,9 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : Singleton<EnemyManager>
+public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
 {
     #region Value
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
 
     #region - Inspector
 
@@ -34,6 +37,15 @@ public class EnemyManager : Singleton<EnemyManager>
     [SerializeField] public AnimationClip hittedAC_1;
     [SerializeField] public AnimationClip hittedAC_2;
 
+    [Space(10)]
+    [Header("=== Pool")]
+    [SerializeField] private Transform normalEnemyParentTf;
+    [SerializeField] private Transform eliteEnemyParentTf;
+    [SerializeField] private Transform bossEnemyParentTf;
+    [SerializeField] private List<PoolSystem<NormalEnemyController>> normalEnemyPools;
+    [SerializeField] private List<PoolSystem<EliteEnemyController>> eliteEnemyPools;
+    [SerializeField] private List<PoolSystem<BossEnemyController>> bossEnemyPools;
+
     #endregion
 
     #region - Hide
@@ -46,6 +58,88 @@ public class EnemyManager : Singleton<EnemyManager>
     [HideInInspector] private BossEnemyController currentBossEnemy = null;
 
     #endregion
+
+    #endregion
+
+    #region Init
+
+    public IEnumerator Initialize()
+    {
+        for (int i = 0; i < normalEnemyPools.Count; i++)
+            yield return normalEnemyPools[i].InitAsync(normalEnemyParentTf, 16, 8f);
+        for (int i = 0; i < eliteEnemyPools.Count; i++)
+            yield return eliteEnemyPools[i].InitAsync(eliteEnemyParentTf, 4, 8f);
+        for (int i = 0; i < bossEnemyPools.Count; i++)
+            yield return bossEnemyPools[i].InitAsync(bossEnemyParentTf, 2, 8f);
+
+        yield return null;
+    }
+
+    #endregion
+
+    #region Spawn & Remove
+
+    // Normal
+    // Spawn
+    public NormalEnemyController SpawnNormalEnemy(int enemyId)
+        => normalEnemyPools[enemyId].Dequeue();
+    // Remove
+    public void RemoveNormalEnemy(NormalEnemyController enemy, int enemyId)
+       => normalEnemyPools[enemyId].Enqueue(enemy);
+
+    // Elite
+    // Spawn
+    public EliteEnemyController SpawnEliteEnemy(int enemyId)
+        => eliteEnemyPools[enemyId].Dequeue();
+    // Remove
+    public void RemoveEliteEnemy(EliteEnemyController enemy, int enemyId)
+       => eliteEnemyPools[enemyId].Enqueue(enemy);
+
+    // Boss
+    // Spawn
+    public BossEnemyController SpawnBossEnemy(int enemyId)
+        => bossEnemyPools[enemyId].Dequeue();
+    // Remove
+    public void RemoveBossEnemy(BossEnemyController enemy, int enemyId)
+       => bossEnemyPools[enemyId].Enqueue(enemy);
+
+
+    public EnemyController SpawnEnemy(eEnemy type, int enemyId)
+    {
+        if (type == eEnemy.Normal)
+        {
+            return SpawnNormalEnemy(enemyId);
+        }
+        else if (type == eEnemy.Elite)
+        {
+            return SpawnEliteEnemy(enemyId);
+        }
+        else if (type == eEnemy.Boss)
+        {
+            return SpawnBossEnemy(enemyId);
+        }
+
+        return null;
+    }
+
+    public void RemoveEnemy(EnemyController enemy, eEnemy type, int enemyId)
+    {
+        if (type == eEnemy.Normal)
+        {
+            NormalEnemyController normalEnemy = enemy as NormalEnemyController;
+            if (normalEnemy != null) RemoveNormalEnemy(normalEnemy, enemyId);
+        }
+        else if (type == eEnemy.Elite)
+        {
+            EliteEnemyController eliteEnemy = enemy as EliteEnemyController;
+            if (eliteEnemy != null) RemoveEliteEnemy(eliteEnemy, enemyId);
+        }
+        else if (type == eEnemy.Boss)
+        {
+            BossEnemyController bossEnemy = enemy as BossEnemyController;
+            if (bossEnemy != null) RemoveBossEnemy(bossEnemy, enemyId);
+        }
+    }
 
     #endregion
 
@@ -106,22 +200,6 @@ public class EnemyManager : Singleton<EnemyManager>
     }
 
 
-
-    #endregion
-
-    #region Remove (AllEnemy)
-
-    public void Remove_PoolingAllEnemy()
-    {
-        int amount = poolingAllEnemyList.Count;
-        for (int i = amount - 1; i >= 0; i--)
-        {
-            Destroy(poolingAllEnemyList[i].gameObject);
-            poolingAllEnemyList.RemoveAt(i);
-        }
-
-        poolingAllEnemyList.Clear();
-    }
 
     #endregion
 

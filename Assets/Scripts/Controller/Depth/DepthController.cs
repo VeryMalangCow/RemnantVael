@@ -66,7 +66,10 @@ public class DepthController : IDController
     public void AddSortingLayer(bool isSortingMover = true)
     {
         if (SortingOrderManager.instance == null)
-            throw new Exception("LayerOrderManager's instance is NULL");
+        {
+            Debug.LogWarning("LayerOrderManager's instance is NULL : Try Add");
+            return;
+        }
         this.isSortingMover = isSortingMover;
 
         SortingOrderManager.instance.RequestAddSortObj(this);
@@ -75,7 +78,10 @@ public class DepthController : IDController
     protected void RemoveSortingLayer()
     {
         if (SortingOrderManager.instance == null)
-            throw new Exception("LayerOrderManager's instance is NULL");
+        {
+            Debug.LogWarning("LayerOrderManager's instance is NULL : Try Remove");
+            return;
+        }
 
         SortingOrderManager.instance.RequestRemoveSortObj(this);
     }

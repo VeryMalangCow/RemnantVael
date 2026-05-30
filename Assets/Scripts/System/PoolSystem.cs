@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using System.Diagnostics;
 
 [System.Serializable]
 public class PoolSystem<T> where T : MonoBehaviour, IPoolable
@@ -11,22 +13,78 @@ public class PoolSystem<T> where T : MonoBehaviour, IPoolable
     private Stack<int> freeIndices;
     public List<int> activeIndices { get; private set; }
 
-    public void Init(int size)
+    // 코루틴 기반 순차 생성 (초기화 스파이크 방지 -> 초기에만 실행될 것)
+    public IEnumerator InitAsync(Transform _parentTf, int size, float maxMsPerFrame = 1f)
+    {
+        parentTf = _parentTf;
+        yield return InitAsync(size, maxMsPerFrame);
+    }
+
+    public IEnumerator InitAsync(int size, float maxMsPerFrame = 1f)
     {
         objs = new T[size];
         freeIndices = new Stack<int>(size);
         activeIndices = new List<int>(size);
 
+#if UNITY_EDITOR
+        List<int> createAmount = new List<int>();
+        int allFrame = 0;
+        int createdThisFrame = 0;
+#endif
+
+        Stopwatch sw = Stopwatch.StartNew();
+
         for (int i = 0; i < size; i++)
         {
-            T obj = Object.Instantiate(prefab, parentTf);
-            obj.PoolOffset();
-            obj.PoolIndex = i;
-            obj.ActiveIndex = -1;
+            CreatePoolObjs(i);
 
-            objs[i] = obj;
-            freeIndices.Push(i);
+#if UNITY_EDITOR
+            createdThisFrame++;
+#endif
+            if (sw.Elapsed.TotalMilliseconds >= maxMsPerFrame)
+            {
+#if UNITY_EDITOR
+                createAmount.Add(createdThisFrame);
+                createdThisFrame = 0;
+                allFrame++;
+#endif
+                yield return null;
+                sw.Restart();
+            }
         }
+
+#if UNITY_EDITOR
+        if (createdThisFrame > 0)
+        {
+            createAmount.Add(createdThisFrame);
+            allFrame++;
+        }
+
+        string s =
+            $"PoolSystem : Create : <color=orange>{typeof(T).Name}</color>" +
+            $"\nTotal Amount -> <color=red>{size}</color>" +
+            $"\nFrame -> <color=red>{allFrame}</color>" +
+            $"\nLimitMs -> <color=red>{maxMsPerFrame}</color>\n";
+
+        for (int i = 0; i < createAmount.Count; i++)
+        {
+            s += $"<color=yellow>{createAmount[i]}</color> / ";
+        }
+
+        UnityEngine.Debug.Log(s);
+#endif
+        yield return null;
+    }
+
+    private void CreatePoolObjs(int index)
+    {
+        T obj = Object.Instantiate(prefab, parentTf);
+        obj.PoolOffset();
+        obj.PoolIndex = index;
+        obj.ActiveIndex = -1;
+
+        objs[index] = obj;
+        freeIndices.Push(index);
     }
 
     // 사용 가능한 Free 추가

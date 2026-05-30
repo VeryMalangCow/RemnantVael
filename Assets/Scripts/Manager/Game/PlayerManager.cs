@@ -1,11 +1,16 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
-public class PlayerManager : Singleton<PlayerManager>
+public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 {
     #region Value
 
     #region - Inspector
+
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
 
     [Header("=== TF")]
     [SerializeField] private Transform playerSpawnParentTF;
@@ -29,31 +34,37 @@ public class PlayerManager : Singleton<PlayerManager>
 
     [HideInInspector] private Dictionary<int, int> havingKeycardDict = new Dictionary<int, int>();
 
-    #endregion
 
     #endregion
 
-    #region Framework
+    #endregion
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
+    #region Init
 
-    private void Start()
+    public IEnumerator Initialize()
     {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
         Gen_Player(out AimController aim, out AimRoundController aimRound);
+        sw.Stop();
+        UnityEngine.Debug.Log($"PlayerManager: Generate : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
 
+        sw.Restart();
         playerPing = DevTool.Get_ComponentTType<PingController>(Gen_PlayerTargetEnemyGO());
         SetOff_PingEnemy();
 
         InputManager.instance.aimController = aim;
         InputManager.instance.aimRoundController = aimRound;
 
-        cameraController.targetTF = playerController.gameObject.transform;
+        cameraController.Offset(playerController.gameObject.transform);
         BaseUpgradeManager.instance.Offset(playerController);
 
         Offset_KeyCard();
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"PlayerManager: DataOffset : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
     }
 
     #endregion
@@ -151,8 +162,8 @@ public class PlayerManager : Singleton<PlayerManager>
         if (havingKeycardDict.ContainsKey(keyCardID))
         {
             havingKeycardDict[keyCardID] += amount;
-            MainGameUIManager.instance.playerHUD_UIController.Set_KeyItem(havingKeycardDict);
-            MainGameUIManager.instance.playerHUD_UIController.Effect_KeyIcon(keyCardID);
+            MainGameUIManager.instance.playerHud.Set_KeyItem(havingKeycardDict);
+            MainGameUIManager.instance.playerHud.Effect_KeyIcon(keyCardID);
         }
     }
 
@@ -161,7 +172,7 @@ public class PlayerManager : Singleton<PlayerManager>
         if (havingKeycardDict.ContainsKey(keyCardID))
         {
             havingKeycardDict[keyCardID] -= amount;
-            MainGameUIManager.instance.playerHUD_UIController.Set_KeyItem(havingKeycardDict);
+            MainGameUIManager.instance.playerHud.Set_KeyItem(havingKeycardDict);
             SoundManager.instance.Play_2D_SFX_Build("UseKeycard");
         }
     }
@@ -170,6 +181,5 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         return havingKeycardDict.ContainsKey(keyCardID) && havingKeycardDict[keyCardID] > 0;
     }
-
     #endregion
 }

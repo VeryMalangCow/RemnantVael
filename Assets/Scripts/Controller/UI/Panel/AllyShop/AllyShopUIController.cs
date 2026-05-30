@@ -117,9 +117,9 @@ public class AllyShopUIController : ShopUIController
 
     #region Offset
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
+        base.Offset(camera);
 
         Offset_Comp();
         Offset_ColorComp();

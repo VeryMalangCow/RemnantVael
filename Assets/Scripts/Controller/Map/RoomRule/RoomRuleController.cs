@@ -158,9 +158,7 @@ public class RoomRuleController : MonoBehaviour
         {
             Vector2 spawnPos = inRoom_AllEnemySpawn[i].transform.position;
 
-            EnemyController enemy = PoolingManager.instance.Get_OP_Enemy(
-                inRoom_AllEnemySpawn[i].Get_EnemyType(),
-                inRoom_AllEnemySpawn[i].Get_SpawnID());
+            EnemyController enemy = EnemyManager.instance.SpawnEnemy(inRoom_AllEnemySpawn[i].Get_EnemyType(), inRoom_AllEnemySpawn[i].Get_SpawnID());
 
             enemy.transform.position = spawnPos;
             enemy.gameObject.SetActive(true);

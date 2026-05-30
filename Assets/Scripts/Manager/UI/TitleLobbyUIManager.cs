@@ -63,11 +63,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
         uigo.gameObject.SetActive(onOff);
         if (uigo.TryGetComponent(out UIController ui))
         {
-            ui.Offset();
-        }
-        if (uigo.TryGetComponent(out Canvas canvas))
-        {
-            canvas.worldCamera = uiCamera;
+            ui.Offset(uiCamera);
         }
 
         if (uigo.TryGetComponent(out T spawnUI))

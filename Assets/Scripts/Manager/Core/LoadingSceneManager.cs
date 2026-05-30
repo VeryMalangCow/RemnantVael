@@ -36,6 +36,8 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
         cogwheelSeq = Get_CogSeq(1f);
         cogwheelSeq.Pause();
+
+        Debug.Log("LoadingSceneManager : Offset Complete");
     }
 
     #endregion

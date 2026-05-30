@@ -33,17 +33,6 @@ public class GameManager : PersistentSingleton<GameManager>
 
     #endregion
 
-    #region Framework
-
-    protected override void Awake()
-    {
-        //Singleton
-        base.Awake();
-        
-    }
-
-    #endregion
-
     #region Option
 
     public void Set_BaseOption()
@@ -2462,7 +2451,7 @@ public class BUShopData<T>
         upgradeEUI.buyBtn.btn.interactable = DevTool.buMaxLevel <= state.currentLevel.Value ? false : true;
 
         // Desc
-        MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(upgradeEUI, upgradeEUI.skillNameTxt.text);
+        MainGameUIManager.instance.baseUpgradeUi.SetOn_Desc(upgradeEUI, upgradeEUI.skillNameTxt.text);
     }
 
     #endregion

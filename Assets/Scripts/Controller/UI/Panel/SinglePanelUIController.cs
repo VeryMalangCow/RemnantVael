@@ -39,7 +39,7 @@ public class SinglePanelUIController : UIController
     public virtual void SetOn_ThisPanel()
     {
         // Basic
-        MainGameUIManager.currentOpening_UIController = this;
+        MainGameUIManager.currentOpeningUi = this;
         this.gameObject.SetActive(true);
 
         // Aim & Mouse
@@ -50,15 +50,15 @@ public class SinglePanelUIController : UIController
         InputManager.instance.inputMoveDir = Vector2.zero;
 
         // Tab Input
-        MainGameUIManager.instance.playerHUD_UIController.isTabInputed = false;
-        MainGameUIManager.instance.playerHUD_UIController.SetOff_TabInteract();
+        MainGameUIManager.instance.playerHud.isTabInputed = false;
+        MainGameUIManager.instance.playerHud.SetOff_TabInteract();
 
     }
 
     public virtual void SetOff_ThisPanel()
     {
         // Basic
-        MainGameUIManager.currentOpening_UIController = null;
+        MainGameUIManager.currentOpeningUi = null;
         this.gameObject.SetActive(false);
 
         // Aim & Mouse

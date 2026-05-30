@@ -179,6 +179,7 @@ MonoBehaviour:
   targetObject: {fileID: 6973917010919293386}
   thisSr: {fileID: 1426022462572893245}
   targetRange: 0.25
+  isSortingMover: 0
 --- !u!1 &692596776873705451
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +229,7 @@ MonoBehaviour:
   targetObject: {fileID: 18008044557870850}
   thisSr: {fileID: 3148743442653112249}
   targetRange: 0.25
+  isSortingMover: 0
 --- !u!1 &992881605787406489
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +392,7 @@ MonoBehaviour:
   targetObject: {fileID: 7217206221402160431}
   thisSr: {fileID: 2638774432652660132}
   targetRange: 0.6
+  isSortingMover: 0
 --- !u!1 &1872588505725304037
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +744,7 @@ MonoBehaviour:
   targetObject: {fileID: 9139456362501203251}
   thisSr: {fileID: 5295122454342582576}
   targetRange: 0.6
+  isSortingMover: 0
 --- !u!1 &2647858769255449446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,7 +1433,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4198602341166417750}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36df25554e390c049aa62c83fc0d5f08, type: 3}
   m_Name: 
@@ -1535,7 +1539,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4593839933363528314}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1acec3c962cc484a8bd2107ccbedbe0, type: 3}
   m_Name: 
@@ -1544,6 +1548,7 @@ MonoBehaviour:
   targetObject: {fileID: 2615476070570729077}
   thisSr: {fileID: 8514484191356774825}
   targetRange: 0.6
+  isSortingMover: 0
   rb: {fileID: 334434472153228344}
   accelerationSpeed: 12
   isDead: 0
@@ -2825,6 +2830,7 @@ MonoBehaviour:
   targetObject: {fileID: 5722075644800418991}
   thisSr: {fileID: 4006282422904298947}
   targetRange: 0.9
+  isSortingMover: 0
 --- !u!1 &6484939682931794323
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,6 +3185,7 @@ MonoBehaviour:
   targetObject: {fileID: 2647858769255449446}
   thisSr: {fileID: 7701436176763635119}
   targetRange: 0.9
+  isSortingMover: 0
 --- !u!1 &6746785677767732501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,6 +3776,7 @@ MonoBehaviour:
   targetObject: {fileID: 8042671370266242278}
   thisSr: {fileID: 8580305544851392310}
   targetRange: 0.35
+  isSortingMover: 0
 --- !u!1 &7217206221402160431
 GameObject:
   m_ObjectHideFlags: 0

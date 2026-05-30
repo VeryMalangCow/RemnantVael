@@ -11,7 +11,7 @@ public class ProtoCoreCvtController : ConverterController, IInteract
 
     public void Play_Interact()
     {
-        MainGameUIManager.instance.protoCoreCvt_UIController.SetOn_ThisPanel();
+        MainGameUIManager.instance.protoCoreCvtUi.SetOn_ThisPanel();
     }
 
     #endregion

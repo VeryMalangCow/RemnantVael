@@ -45,7 +45,7 @@ public class SynergySlotEUIController : OwnBtnEUIController
 
         int rank = ModuleItemManager.instance.Get_SynchronyRank(amalgamation);
         tierImg.gameObject.SetActive(rank != 0);
-        tierImg.sprite = MainGameUIManager.instance.moduleUpgrade_UIController.synergyTierFrames[rank];
+        tierImg.sprite = MainGameUIManager.instance.moduleUpgradeUi.synergyTierFrames[rank];
     }
 
     #endregion

@@ -195,10 +195,10 @@ public class PlayerHUDController : UIController
 
     #region Offset
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
-        
+        base.Offset(camera);
+
         Offset_Basic();
         Offset_RectPosData();
         Offset_Subscribe();

@@ -4,7 +4,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public abstract class EnemyController : NavObjectController
+public abstract class EnemyController : NavObjectController, IPoolable
 {
     #region Value
 
@@ -88,8 +88,30 @@ public abstract class EnemyController : NavObjectController
     // Á×À½
     [HideInInspector] private eDamageType dieStateType;
 
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
 
     #endregion
+    #endregion
+
+    #region Pool
+
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        Reset_State();
+        DevTool.Add_InList(EnemyManager.instance.currentEnemyList, this);
+        gameObject.SetActive(true);
+    }
+
+    public void SetActiveOff()
+    {
+        gameObject.SetActive(false);
+    }
 
     #endregion
 
@@ -169,10 +191,7 @@ public abstract class EnemyController : NavObjectController
     {
         base.OnEnable();
 
-        Reset_State();
-
         AddSortingLayer();
-        DevTool.Add_InList(EnemyManager.instance.currentEnemyList, this);
     }
 
     private void OnDisable()
@@ -184,22 +203,22 @@ public abstract class EnemyController : NavObjectController
     {
         base.Update();
 
-        Caculate_Charge(Time.deltaTime);
+        HandleChargeSkill(Time.deltaTime);
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        Update_LookAtTarget();
-        Play_Movement(Time.fixedDeltaTime);
+        HandleLookAtTarget();
+        HandleMovement(Time.fixedDeltaTime);
     }
 
     #endregion
 
     #region Movement
 
-    private void Play_Movement(float deltaTime)
+    private void HandleMovement(float deltaTime)
     {
         Play_Walk(moveAtDir, moveSpeed, deltaTime);
     }
@@ -208,7 +227,7 @@ public abstract class EnemyController : NavObjectController
 
     #region Energy
 
-    private void Caculate_Charge(float deltaTime)
+    private void HandleChargeSkill(float deltaTime)
     {
         if (isDischarge) // ¹æÀü È¸º¹ µô·¹ÀÌ
         {
@@ -280,7 +299,7 @@ public abstract class EnemyController : NavObjectController
 
     #region Look
 
-    private void Update_LookAtTarget()
+    private void HandleLookAtTarget()
     {
         if (isDead) return;
 
@@ -742,6 +761,7 @@ public abstract class EnemyController : NavObjectController
     {
         return audioQueueSet.Get_T();
     }
+
 
     #endregion
 }

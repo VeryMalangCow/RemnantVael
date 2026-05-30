@@ -42,6 +42,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         base.Awake();
 
         Load_JsonData();
+        Debug.Log("SaveDataManager : Offset Complete");
     }
 
     #endregion
@@ -252,7 +253,7 @@ public class JsonData
         if (itemData.Count > id)
         {
             itemData[id].amount += amount;
-            MainGameUIManager.instance.playerHUD_UIController.Init_HighLvItemUI();
+            MainGameUIManager.instance.playerHud.Init_HighLvItemUI();
         }
     }
 
@@ -270,7 +271,7 @@ public class JsonData
         if (itemData.Count > id)
         {
             itemData[id].amount -= amount;
-            MainGameUIManager.instance.playerHUD_UIController.Init_HighLvItemUI();
+            MainGameUIManager.instance.playerHud.Init_HighLvItemUI();
         }
     }
 

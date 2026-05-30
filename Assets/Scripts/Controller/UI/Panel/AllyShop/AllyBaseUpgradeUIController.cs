@@ -69,9 +69,9 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     #region Offset
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
+        base.Offset(camera);
 
         Offset_TunerSet();
         Offset_Subscribe();

@@ -52,6 +52,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
         base.Awake();
 
         Offset();
+        Debug.Log("SoundManager : Offset Complete");
     }
 
     #endregion

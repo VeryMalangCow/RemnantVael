@@ -38,7 +38,7 @@ public class StartingElevatorController : ElevatorController
         EventManager.instance.Set_BlackUpDownCover(false);
 
         // Intetactable Anno Panel
-        MainGameUIManager.instance.interactAnno_UIController.Set_VisualCG(true);
+        MainGameUIManager.instance.interactAnnoUi.Set_VisualCG(true);
 
         if (StageManager.instance.targetStageID == 1)
         {

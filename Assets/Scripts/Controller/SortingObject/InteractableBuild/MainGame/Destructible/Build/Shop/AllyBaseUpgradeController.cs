@@ -69,7 +69,7 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
         {
             usingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.instance.allyBaseUpgrade_UIController.SetOn_ThisPanel();
+            MainGameUIManager.instance.allyBaseUpgradeUi.SetOn_ThisPanel();
         }
         else if (Can_ShopPowerOn())
         {
@@ -92,15 +92,15 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(spawnItem, soundOn);
 
-        MainGameUIManager.instance.allyBaseUpgrade_UIController.durEui.Set_Dur(currentDur);
+        MainGameUIManager.instance.allyBaseUpgradeUi.durEui.Set_Dur(currentDur);
     }
 
     protected override void Play_NowBreak(bool spawnItem)
     {
         base.Play_NowBreak(spawnItem);
 
-        if (MainGameUIManager.instance.allyBaseUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.instance.allyBaseUpgrade_UIController.msgEui.Play_On(isBrokenAnno, 0.5f);
+        if (MainGameUIManager.instance.allyBaseUpgradeUi.gameObject.activeSelf)
+            MainGameUIManager.instance.allyBaseUpgradeUi.msgEui.Play_On(isBrokenAnno, 0.5f);
     }
 
     #endregion

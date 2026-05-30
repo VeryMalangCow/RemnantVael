@@ -62,7 +62,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         {
             usingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.instance.moduleUpgrade_UIController.SetOn_ThisPanel();
+            MainGameUIManager.instance.moduleUpgradeUi.SetOn_ThisPanel();
         }
         else if (Can_ShopPowerOn())
         {
@@ -85,15 +85,15 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(spawnItem, soundOn);
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.durEui.Set_Dur(currentDur);
+        MainGameUIManager.instance.moduleUpgradeUi.durEui.Set_Dur(currentDur);
     }
 
     protected override void Play_NowBreak(bool spawnItem)
     {
         base.Play_NowBreak(spawnItem);
 
-        if (MainGameUIManager.instance.moduleUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.instance.moduleUpgrade_UIController.msgEui.Play_On(isBrokenAnno, 0.5f);
+        if (MainGameUIManager.instance.moduleUpgradeUi.gameObject.activeSelf)
+            MainGameUIManager.instance.moduleUpgradeUi.msgEui.Play_On(isBrokenAnno, 0.5f);
     }
 
     #endregion

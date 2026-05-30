@@ -39,9 +39,9 @@ public class ShopUIController : PanelUIController
 
     #region Offset
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
+        base.Offset(camera);
 
         Offset_Basic();
         Offset_ExtraColorComp();

@@ -480,8 +480,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         allModuleData[index0.typeBase][index0.typeSpecial] = moduleState1;
         allModuleData[index1.typeBase][index1.typeSpecial] = moduleState0;
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -496,7 +496,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         equippedIndex[equipedIndex] = interactIndex;
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_EquipedUI(allModuleData, equippedIndex);
         
         Reset_Interface();
         AllyManager.instance.Set_AllAlliesSync();
@@ -506,7 +506,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         equippedIndex[equipedIndex] = new CoupleData<int>(-1, -1);
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_EquipedUI(allModuleData, equippedIndex);
 
         Reset_Interface(); 
         AllyManager.instance.Set_AllAlliesSync();
@@ -518,8 +518,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         equippedIndex[listIndex0] = new CoupleData<int>(equippedIndex[listIndex1]);
         equippedIndex[listIndex1] = new CoupleData<int>(temp);
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -546,13 +546,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public void Set_FusionSlot(int index, CoupleData<int> interactIndex)
     {
         fusionIndex[index] = interactIndex;
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_FusionUI(allModuleData, fusionIndex);
     }
 
     public void Set_UnFusionSlot(int index)
     {
         fusionIndex[index] = new CoupleData<int>(-1, -1);
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_FusionUI(allModuleData, fusionIndex);
     }
     public void Set_UnFusionSlotAll()
     {
@@ -565,8 +565,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         fusionIndex[listIndex0] = new CoupleData<int>(fusionIndex[listIndex1]);
         fusionIndex[listIndex1] = new CoupleData<int>(temp);
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_FusionUI(allModuleData, fusionIndex);
         Reset_Interface();
     }
 
@@ -716,7 +716,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public void Set_UpRank(CoupleData<int> index)
     {
         allModuleData[index.typeBase][index.typeSpecial].thisItemData.rank++;
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_InventoryUI(allModuleData);
         Reset_Interface();
     }
 
@@ -734,8 +734,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         allModuleData[index.typeBase][index.typeSpecial] = null;
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData); 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_InventoryUI(allModuleData); 
+        MainGameUIManager.instance.moduleUpgradeUi.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -752,8 +752,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             allModuleData[indexList[i].typeBase][indexList[i].typeSpecial] = null;
         }
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -779,7 +779,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         allModuleData[index.typeBase][index.typeSpecial] = newModuleState;
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_InventoryUI(allModuleData);
     }
 
     // æ∆¿Ã≈€¿ª ∑£¥˝«œ∞‘ »πµÊ
@@ -933,8 +933,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             }
         }
 
-        if (MainGameUIManager.instance.moduleUpgrade_UIController != null)
-            MainGameUIManager.instance.moduleUpgrade_UIController.Set_SynergySlots(mainChipAmalgamationDict);
+        if (MainGameUIManager.instance.moduleUpgradeUi != null)
+            MainGameUIManager.instance.moduleUpgradeUi.Set_SynergySlots(mainChipAmalgamationDict);
 
         currentAllMainChipState = Get_CurrentMainChipState();
     }
@@ -960,7 +960,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         Set_ItemDataLanguage();
         Set_MainChipDataLanguage();
 
-        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgradeUi.Set_EquipedUI(allModuleData, equippedIndex);
     }
 
     private void Set_ItemDataLanguage()

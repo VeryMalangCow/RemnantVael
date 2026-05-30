@@ -17,16 +17,11 @@ public class NormalEnemyController : EnemyController
 
     #endregion
 
-    #region Pattern
-
-
-    #endregion
-
     #region Die
 
     protected override void Set_Die_Extra()
     {
-        PoolingManager.instance.Set_EnqueueEnemy(this);
+        EnemyManager.instance.RemoveNormalEnemy(this, Get_ID());
 
         AllyRequestManager.instance.Play_KillNormalEnemy();
     }

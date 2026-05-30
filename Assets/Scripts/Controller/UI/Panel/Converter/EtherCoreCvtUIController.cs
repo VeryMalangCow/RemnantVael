@@ -31,9 +31,9 @@ public class EtherCoreCvtUIController : ConverterUIController
 
     #region Offset
 
-    public override void Offset()
+    public override void Offset(Camera camera)
     {
-        base.Offset();
+        base.Offset(camera);
 
         Offset_EUI();
         Offset_Subscribe();

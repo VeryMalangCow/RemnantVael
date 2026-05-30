@@ -177,14 +177,14 @@ public class PlayerController : AliveObjectController
 
     #region Offset
 
-    protected override void Offset()
+    public void TestStart()
     {
-        base.Offset();
-
         Offset_FirstSetting();
         Offset_Subscribe();
         Offset_Controller();
         Offset_Reputation();
+
+        enabled = true;
     }
 
     private void Offset_FirstSetting()
@@ -243,14 +243,14 @@ public class PlayerController : AliveObjectController
         currentInteractable
             .Subscribe(interact =>
             {
-                MainGameUIManager.instance.playerHUD_UIController.Set_InteractUI();
-                MainGameUIManager.instance.interactAnno_UIController.Set_UI();
+                MainGameUIManager.instance.playerHud.Set_InteractUI();
+                MainGameUIManager.instance.interactAnnoUi.Set_UI();
                 Set_MoveDir();
             });
         currentSP
             .Subscribe(value =>
             {
-                MainGameUIManager.instance.playerHUD_UIController.Set_ShieldGage(value);
+                MainGameUIManager.instance.playerHud.Set_ShieldGage(value);
             });
     }
 
@@ -268,7 +268,7 @@ public class PlayerController : AliveObjectController
     {
         reputation.Subscribe(value =>
             {
-                MainGameUIManager.instance.playerHUD_UIController.Set_AllyReputation(value);
+                MainGameUIManager.instance.playerHud.Set_AllyReputation(value);
             });
 
         reputation.Value = 1f;
@@ -301,7 +301,7 @@ public class PlayerController : AliveObjectController
 
     private void LateUpdate()
     {
-        MainGameUIManager.instance.interactAnno_UIController.Set_PosIfNot(currentInteractable.Value);
+        MainGameUIManager.instance.interactAnnoUi.Set_PosIfNot(currentInteractable.Value);
         Set_Tween(rbLower.transform, rb.velocity);
     }
 
@@ -448,7 +448,7 @@ public class PlayerController : AliveObjectController
 
     private void Add_CurrentBettery()
     {
-        MainGameUIManager.instance.playerHUD_UIController.currentEmptyBc.Set_Complete(
+        MainGameUIManager.instance.playerHud.currentEmptyBc.Set_Complete(
             fadeInTime: 0.3f,
             stayTime: 0.1f, 
             fadeOutTime: 0.5f);
@@ -626,7 +626,7 @@ public class PlayerController : AliveObjectController
 
         if (!skillWeapon.skillList[index].Can_Active())
         {
-            MainGameUIManager.instance.playerHUD_UIController.skillList[index].Play_ErrorUI();
+            MainGameUIManager.instance.playerHud.skillList[index].Play_ErrorUI();
             return;
         }
 
@@ -660,7 +660,7 @@ public class PlayerController : AliveObjectController
 
         currentInteractable.Value.Play_Interact();
         
-        MainGameUIManager.instance.playerHUD_UIController.Play_UseInteractUI();
+        MainGameUIManager.instance.playerHud.Play_UseInteractUI();
     }
 
     #endregion
@@ -1041,8 +1041,8 @@ public class PlayerController : AliveObjectController
 
         if (showHUDEffect)
         {
-            MainGameUIManager.instance.playerHUD_UIController.Play_HittedPlayScreen(dmgValue, 0.1f);
-            MainGameUIManager.instance.playerHUD_UIController.Play_HittedPlayInfo(dmgValue, invincibleTime);
+            MainGameUIManager.instance.playerHud.Play_HittedPlayScreen(dmgValue, 0.1f);
+            MainGameUIManager.instance.playerHud.Play_HittedPlayInfo(dmgValue, invincibleTime);
         }
 
         if (hittedDir != Vector2.zero)
@@ -1122,7 +1122,7 @@ public class PlayerController : AliveObjectController
     {
         PlayerManager.instance.cameraController.Play_AvoidAnim(invincibleTime);
         UnitManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, targetObject.transform.position);
-        MainGameUIManager.instance.playerHUD_UIController.Play_AvoidPlayInfo(invincibleTime);
+        MainGameUIManager.instance.playerHud.Play_AvoidPlayInfo(invincibleTime);
     }
     
     // 회피하지 못함 => 무적
@@ -1158,7 +1158,7 @@ public class PlayerController : AliveObjectController
 
         Take_Damaged(Get_CurrentEP().Value * 0.2f, Vector2.zero, false);
 
-        MainGameUIManager.instance.playerHUD_UIController.Play_PrisonPanelty();
+        MainGameUIManager.instance.playerHud.Play_PrisonPanelty();
     }
 
     #endregion
@@ -1174,8 +1174,8 @@ public class PlayerController : AliveObjectController
         {
             needStrikeTeamPresence.Value += needIntervalPresence;
 
-            MainGameUIManager.instance.allyCard_UIController.typeIndex = 0;
-            MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
+            MainGameUIManager.instance.allyCardUi.typeIndex = 0;
+            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
         }
     }
 
@@ -1188,8 +1188,8 @@ public class PlayerController : AliveObjectController
         {
             needUplinkTeamPresence.Value += needIntervalPresence;
 
-            MainGameUIManager.instance.allyCard_UIController.typeIndex = 1;
-            MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
+            MainGameUIManager.instance.allyCardUi.typeIndex = 1;
+            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
         }
     }
 
@@ -1202,8 +1202,8 @@ public class PlayerController : AliveObjectController
         {
             needNeoTeamPresence.Value += needIntervalPresence;
 
-            MainGameUIManager.instance.allyCard_UIController.typeIndex = 2;
-            MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
+            MainGameUIManager.instance.allyCardUi.typeIndex = 2;
+            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
         }
     }
 

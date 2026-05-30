@@ -65,7 +65,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
-
     #region Framework
 
     protected override void Awake()
@@ -74,6 +73,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         base.Awake();
 
         Offset();
+        Debug.Log("ResouceManager : Offset Complete");
     }
 
     private void Start()
@@ -151,7 +151,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Anim_Core();
     }
 
-    private void Offset()
+    public void Offset()
     {
         Offset_Other();
         Offset_CSV();
