@@ -2,15 +2,22 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class EventManager : Singleton<EventManager>
+public class EventManager : Singleton<EventManager>, IMainGameInitializer
 {
     #region Value
+
+    // Init
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
 
     [Space(20)]
     [Header("<><><><><> Event")]
@@ -61,28 +68,16 @@ public class EventManager : Singleton<EventManager>
 
     #endregion
 
-    #region Framework
-
-    protected override void Awake()
+    #region Init
+    public IEnumerator Initialize()
     {
-        //Singleton
-        base.Awake(); 
-
-        Offset();
-    }
-
-    private void Start()
-    {
-        TryStart_Event(0);
-    }
-
-    #endregion
-
-    #region Offset
-
-    private void Offset()
-    {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
         imgQueueSet.Offset();
+        sw.Stop();
+        UnityEngine.Debug.Log($"EventManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+
+        yield return null;
     }
 
     #endregion
@@ -176,7 +171,7 @@ public class EventManager : Singleton<EventManager>
     {
         if (isPlayingEvent) return;
 
-        Debug.Log("Input " + (onOff ? "On" : "Off"));
+        UnityEngine.Debug.Log("Input " + (onOff ? "On" : "Off"));
         if (onOff)
         {
             InputManager.instance.SetOnOff_InputAction(StageManager.instance.targetStageID, true);
@@ -270,7 +265,7 @@ public class EventManager : Singleton<EventManager>
                 {
                     Vector2 npcPos = npc.transform.position;
                     targetPos += npcPos;
-                    Debug.Log(targetPos);
+                    UnityEngine.Debug.Log(targetPos);
                 }
             }
             else // 다른 목표가 있다면

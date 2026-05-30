@@ -49,7 +49,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         sw.Start();
         Gen_Player(out AimController aim, out AimRoundController aimRound);
         sw.Stop();
-        UnityEngine.Debug.Log($"PlayerManager: Generate : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"PlayerManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
 
         sw.Restart();
@@ -60,12 +60,11 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         InputManager.instance.aimRoundController = aimRound;
 
         cameraController.Offset(playerController.gameObject.transform);
-        BaseUpgradeManager.instance.Offset(playerController);
 
         Offset_KeyCard();
 
         sw.Stop();
-        UnityEngine.Debug.Log($"PlayerManager: DataOffset : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"PlayerManager: <color=orange>DataOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
     }
 

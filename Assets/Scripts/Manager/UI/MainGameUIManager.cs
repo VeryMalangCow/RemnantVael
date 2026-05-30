@@ -77,20 +77,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
     #endregion
 
     // Init
+
     public IEnumerator Initialize()
     {
-        screenCG = DevTool.Get_ComponentTType(screenCanvas.gameObject, out CanvasGroup cg) ? cg : null;
-        screenCG.alpha = 1;
-        loadingIconCG = DevTool.Get_ComponentTType(loadingIconCanvas.gameObject, out CanvasGroup iconCg) ? iconCg : null;
-        loadingIconCG.alpha = 1;
-        loadingIconRT = DevTool.Get_ComponentTType(loadingIconCanvas.gameObject.transform.GetChild(0).gameObject, out RectTransform iconRt) ? iconRt : null;
-        cogwheelTween = loadingIconRT
-            .DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
-            .SetEase(Ease.Linear)
-            .SetLoops(-1, LoopType.Restart);
-
-        saveDataCG.gameObject.SetActive(false);
-
         yield return null;
 
         var reso = ResourceManager.instance;
@@ -133,7 +122,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         sw.Start();
         GameObject uigo = Instantiate(uiGo, uiParent);
         sw.Stop();
-        UnityEngine.Debug.Log($"MainGameUIManager : Generate : {uigo.name} : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"MainGameUIManager : <color=orange>Generate</color> : {uigo.name} : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
         uigo.gameObject.SetActive(onOff);
         yield return null;
@@ -149,10 +138,27 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
     #region Offset
 
+    public void StartProd()
+    {
+        screenCG = DevTool.Get_ComponentTType(screenCanvas.gameObject, out CanvasGroup cg) ? cg : null;
+        screenCG.alpha = 1;
+        loadingIconCG = DevTool.Get_ComponentTType(loadingIconCanvas.gameObject, out CanvasGroup iconCg) ? iconCg : null;
+        loadingIconCG.alpha = 1;
+        loadingIconRT = DevTool.Get_ComponentTType(loadingIconCanvas.gameObject.transform.GetChild(0).gameObject, out RectTransform iconRt) ? iconRt : null;
+        cogwheelTween = loadingIconRT
+            .DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+            .SetEase(Ease.Linear)
+            .SetLoops(-1, LoopType.Restart);
+
+        saveDataCG.gameObject.SetActive(false);
+    }
+
     public void EndProd()
     {
         Play_FadeOut(fadeOutTime);
-        Play_OffLoadingIcon(fadeOutTime);
+        Play_OffLoadingIcon(fadeOutTime); 
+
+        EventManager.instance.TryStart_Event(0);
     }
 
 

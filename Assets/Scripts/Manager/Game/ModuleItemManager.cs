@@ -1,9 +1,17 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
-public class ModuleItemManager : Singleton<ModuleItemManager>
+public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitializer
 {
     #region Value
+
+    // Init
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
 
     #region - Inspector
 
@@ -63,10 +71,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #endregion
 
-    #region Offset
+    #region Init
 
-    private void Offset()
+    public IEnumerator Initialize()
     {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
         itemDataArr = ResourceManager.instance.Get_ItemDataArr();
         mainChipDataArr = ResourceManager.instance.Get_MainChipDataArr();
 
@@ -84,6 +95,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         fusionIndex = new CoupleData<int>[fusionAmount];
         for (int i = 0; i < fusionAmount; i++)
             fusionIndex[i] = new CoupleData<int>(-1, -1);
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"ModuleUpgradeManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
     }
 
     #endregion
@@ -175,22 +190,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         else if (synchoronyState is IWhenSync_GetCorrosion iGetCorrosion) DevTool.Add_InList(iWhenSync_GetCorrosionList, iGetCorrosion);
     }
 
-
-    #endregion
-
-    #region Framework
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-    }
-
-    private void Start()
-    {
-
-        Offset();
-    }
 
     #endregion
 

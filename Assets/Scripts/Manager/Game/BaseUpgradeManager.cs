@@ -1,8 +1,17 @@
+using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
-public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
+public class BaseUpgradeManager : Singleton<BaseUpgradeManager>, IMainGameInitializer
 {
     #region Value
+
+    // Init
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
+
 
     [Space(10)]
     [Header("=== Data")]
@@ -38,10 +47,14 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 
     #endregion
 
-    #region Offset
-
-    public void Offset(PlayerController player)
+    #region Init
+    public IEnumerator Initialize()
     {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+
+        PlayerController player = PlayerManager.instance.playerController;
+
         baseDamage_BUData.Offset(player.baseWeapon.baseDamage);
         baseROF_BUData.Offset(player.baseWeapon.rof);
         baseCC_BUData.Offset(player.baseWeapon.cc);
@@ -66,6 +79,10 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
             skill_BUDataList[i].skill_Power_BUData.Offset(player.skillWeapon.skillList[i].power);
             skill_BUDataList[i].skill_Tier_BUData.Offset(player.skillWeapon.skillList[i].tier);
         }
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"BaseUpgradeManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
     }
 
     #endregion

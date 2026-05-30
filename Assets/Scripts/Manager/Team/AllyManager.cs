@@ -1,9 +1,17 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
-public class AllyManager : Singleton<AllyManager>
+public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 {
     #region Value
+
+    // Init
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
 
     #region - Inspector
 
@@ -69,11 +77,14 @@ public class AllyManager : Singleton<AllyManager>
 
     #endregion
 
-    #region Offset
+    #region Init
 
-    private void Offset()
+    public IEnumerator Initialize()
     {
+        Stopwatch sw = new Stopwatch();
+
         // Card Data
+        sw.Start();
         st_allAllyCardData = ResourceManager.instance.Get_StrikeTeam_AllAllyCardData();
         ut_allAllyCardData = ResourceManager.instance.Get_UplinkTeam_AllAllyCardData();
         nt_allAllyCardData = ResourceManager.instance.Get_NeoTeam_AllAllyCardData();
@@ -108,16 +119,10 @@ public class AllyManager : Singleton<AllyManager>
         tunerTypeMultipleValueDict = new Dictionary<string, float>();
         for (int i = 0; i < stateTypeList.Count; i++)
             tunerTypeMultipleValueDict.Add(stateTypeList[i], tunerMultipleValueByType[i]);
-    }
 
-
-    #endregion
-
-    #region Framework
-
-    private void Start()
-    {
-        Offset();
+        sw.Stop();
+        UnityEngine.Debug.Log($"AllyManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
     }
 
     #endregion

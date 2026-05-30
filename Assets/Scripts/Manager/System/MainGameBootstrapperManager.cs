@@ -18,17 +18,22 @@ public class MainGameBootstrapperManager : MonoBehaviour
 #endif
     private void Awake()
     {
-#if UNITY_EDITOR
-        for (int i = 0; i < preAwakePersistentSingletons.Length; i++)
-            preAwakePersistentSingletons[i].gameObject.SetActive(true);
-
-        Debug.Log("<color=orange>PreAwakeManagers : All Offset Complete</color>");
-#endif
         StartCoroutine(InitStart());
     }
 
     private IEnumerator InitStart()
     {
+        yield return null;
+
+        StartInit();
+
+#if UNITY_EDITOR
+        for (int i = 0; i < preAwakePersistentSingletons.Length; i++)
+            preAwakePersistentSingletons[i].gameObject.SetActive(true);
+
+        Debug.Log("<color=orange>PreAwakeManagers : All Offset Complete</color>");
+        yield return new WaitForSeconds(2);
+#endif
         initalizeingGo.gameObject.SetActive(true);
 
         // 타입 초기화
@@ -91,6 +96,10 @@ public class MainGameBootstrapperManager : MonoBehaviour
     private int CompareOrder(IMainGameInitializer a, IMainGameInitializer b)
         => a.InitOrder.CompareTo(b.InitOrder);
     
+    private void StartInit()
+    {
+        MainGameUIManager.instance.StartProd();
+    }
     private void EndInit()
     {
         MainGameUIManager.instance.EndProd();

@@ -584,6 +584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f67548f393cb0045a855ec532eae141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initOrder: 10
+  initPregressText: EventSystem Setting...
   isPlayingEvent: 0
   blackUpsideRT: {fileID: 1901464145}
   blackDownsideRT: {fileID: 1762883270}
@@ -1498,23 +1500,23 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 591994165}
-  - {fileID: 361561067}
-  - {fileID: 1939506647}
   - {fileID: 1705144066}
   - {fileID: 1430576402}
-  - {fileID: 355347629}
-  - {fileID: 1603310160}
-  - {fileID: 73963933}
   - {fileID: 591762694}
   - {fileID: 685438113}
   - {fileID: 976776174}
   - {fileID: 1684128998}
   - {fileID: 1167561704}
+  - {fileID: 1603310160}
+  - {fileID: 355347629}
+  - {fileID: 1358159541}
+  - {fileID: 597209927}
+  - {fileID: 361561067}
+  - {fileID: 1939506647}
   - {fileID: 407687441}
   - {fileID: 713790309}
   - {fileID: 1272179089}
-  - {fileID: 597209927}
-  - {fileID: 1358159541}
+  - {fileID: 73963933}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &217165030
@@ -2121,6 +2123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c6e61de8c43ab47b554571f2608e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initOrder: 2
+  initPregressText: Ally Setting...
   tunerTypeIcon:
   - {fileID: -1080434544, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: -1374723442, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
@@ -2265,6 +2269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a6b9fe43dffb0458cac4901d44dbb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initOrder: 5
+  initPregressText: Upgrade-Base Setting...
   baseDamage_BUData:
     levelDataList: []
   baseROF_BUData:
@@ -2933,7 +2939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0100c9a09e44ce646bd5128c8b3b7804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 1
+  initOrder: 7
   initPregressText: UI Generating...
   uiCamera: {fileID: 1810588474}
   uiParent: {fileID: 79631295}
@@ -5745,7 +5751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc39c8ccec7eb1c4ca6af096da088da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 2
+  initOrder: 8
   initPregressText: Stage Resource Setting...
   thisNav: {fileID: 535791893}
   mapParentTF: {fileID: 1948256983}
@@ -10673,7 +10679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7466c5d07359ee74ea0bb6dad9d02622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 3
+  initOrder: 9
   initPregressText: Input Setting...
   mousePointerRT: {fileID: 1808296828}
   endBufferedInputTime: 0.5
@@ -11129,7 +11135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023df64ef2566784ab5037cab121ab43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 5
+  initOrder: 3
   initPregressText: Enemy Generating...
   enemySmokeMaterial: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
   flameIcon: {fileID: -538057842, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
@@ -13548,6 +13554,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda2f3c4c8e8cfa4c87c7d8dc7f8301b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initOrder: 1
+  initPregressText: Npc Setting...
   allNpcs: []
 --- !u!1 &1603938533
 GameObject:
@@ -14263,11 +14271,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initializerObjs:
   - {fileID: 1167561705}
+  - {fileID: 1603310161}
+  - {fileID: 355347630}
+  - {fileID: 1358159542}
+  - {fileID: 597209928}
+  - {fileID: 361561068}
+  - {fileID: 1939506648}
   - {fileID: 407687442}
   - {fileID: 713790310}
   - {fileID: 1272179090}
-  - {fileID: 597209928}
-  - {fileID: 1358159542}
+  - {fileID: 73963932}
   initalizeingGo: {fileID: 173012564}
   initalizeingTxt: {fileID: 839987172}
   preAwakePersistentSingletons:
@@ -16437,6 +16450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8641267fcbb6cd48a4f143288053176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initOrder: 6
+  initPregressText: Upgrade-Module Setting...
   itemDataArr: []
 --- !u!114 &1939506649
 MonoBehaviour:

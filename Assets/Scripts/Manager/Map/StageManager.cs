@@ -82,7 +82,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         sw.Start();
         Offset();
         sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: SpriteOffset : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"StageManager: <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
         yield return null;
         // 스테이지 소환
@@ -90,7 +90,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         sw.Restart();
         Gen_Stage(targetStageID);
         sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: Generate : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"StageManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
     }
 
     #endregion

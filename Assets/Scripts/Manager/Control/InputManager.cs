@@ -65,7 +65,7 @@ public class InputManager : Singleton<InputManager>, IMainGameInitializer
         sw.Start();
         Set_AllPointer(false);
         sw.Stop();
-        UnityEngine.Debug.Log($"InputManager : Pointer(Mouse) : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"InputManager : <color=orange>Pointer(Mouse)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
 
         enabled = true;
