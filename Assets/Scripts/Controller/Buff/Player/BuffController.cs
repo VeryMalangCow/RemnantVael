@@ -180,7 +180,7 @@ public class BuffController : IDController
 
     private void Gain_BuffUI()
     {
-        thisBuffEUI = PoolingManager.instance.Get_OP_BuffUI();
+        thisBuffEUI = VFXManager.instance.SpawnBuffIcon();
         thisBuffEUI.Offset();
         thisBuffEUI.shadowImg.fillAmount = 0;
 
@@ -194,7 +194,7 @@ public class BuffController : IDController
         DevTool.Remove_InList(MainGameUIManager.instance.playerHud.allBuffIconUi, thisBuffEUI);
 
         thisBuffEUI.gameObject.SetActive(false);
-        PoolingManager.instance.buffIcons.Enqueue(thisBuffEUI);
+        VFXManager.instance.RemoveBuffIcon(thisBuffEUI);
         thisBuffEUI = null;
     }
 

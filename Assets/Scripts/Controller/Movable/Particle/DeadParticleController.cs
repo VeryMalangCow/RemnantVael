@@ -2,9 +2,10 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-public class DeadParticleController : MovableDepthController
+public class DeadParticleController : MovableDepthController, IPoolable
 {
     #region Value
+
 
     #region - Inspector
 
@@ -17,8 +18,25 @@ public class DeadParticleController : MovableDepthController
 
     #endregion
 
-    #region - Hide
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
 
+    #region Pool
+
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void SetActiveOff()
+    {
+        gameObject.SetActive(false);
+    }
 
     #endregion
 
@@ -83,7 +101,7 @@ public class DeadParticleController : MovableDepthController
         Play_Disappoint(disappointTime).OnComplete(() =>
             {
                 this.gameObject.SetActive(false);
-                PoolingManager.instance.deadParticles.Enqueue(this);
+                VFXManager.instance.RemoveDeadParticle(this);
             });
     }
 

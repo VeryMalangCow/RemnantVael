@@ -122,12 +122,12 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // 유도탄 발사
     private void Activity_MI_000(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(rank, eDamageType.Energy, PoolingManager.instance.moduleItem_000_Bullets);
+        Activity_Derivative(rank, eDamageType.Energy);
     }
 
     private void Activity_MI_001(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(rank, eDamageType.Physics, PoolingManager.instance.moduleItem_001_Bullets);
+        Activity_Derivative(rank, eDamageType.Physics);
     }
 
     #endregion
@@ -220,7 +220,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Unique (MI)
 
     // 데미지 타입을 통해서, 유도탄을 발사하는 함수
-    private void Activity_Derivative(int rank, eDamageType dmgType, TTypePooling<PlayerBulletController> bullet)
+    private void Activity_Derivative(int rank, eDamageType dmgType)
     {
         // 편의성
         PlayerController PC = PlayerManager.instance.playerController;
@@ -232,7 +232,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             // 데미지 계산
             float dmg = rank * PCWeapon.baseDamage.actualState.Value;
 
-            PlayerBulletController pbc = PoolingManager.instance.Get_OP(bullet);
+            PlayerBulletController pbc = BulletManager.instance.SpawnModule000Bullet();
             Vector2 dir = DevTool.Get_MinFireDir(PC.transform.position);
 
             // 스폰 탄 스탯

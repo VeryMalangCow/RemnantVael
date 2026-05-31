@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
 
-public abstract class TotemeController : DroppingDepthController
+public abstract class TotemeController : DroppingDepthController, IPoolable
 {
     #region Value
 
@@ -42,13 +42,37 @@ public abstract class TotemeController : DroppingDepthController
     [HideInInspector] private bool isActivating = false;
     [HideInInspector] private static readonly Vector2 buffColBaseSize = new Vector2(2, 1);
     [HideInInspector] private static readonly int pointAmountPerSize = 15;
-    [HideInInspector] private List<SpriteRenderer> buffPointList = new List<SpriteRenderer>();
+    [HideInInspector] private List<PoolableSpriteRenderer> buffSpoterList = new List<PoolableSpriteRenderer>();
 
     // Buff
     [HideInInspector] private bool inAreaPlayer = false;
     [HideInInspector] private List<AllyController> inAreaAllies = null;
+    #endregion
 
     #endregion
+
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+    
+    #region Pool
+    
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        gameObject.SetActive(true);
+    }
+
+    public void SetActiveOff()
+    {
+        Reset_State();
+
+        gameObject.SetActive(false);
+    }
 
     #endregion
 
@@ -107,8 +131,6 @@ public abstract class TotemeController : DroppingDepthController
         BulletState_PosAndRot state_PosAndRot,
         BulletState_Size state_Size)
     {
-        UnitManager.instance.Add_Unit(this);
-
         base.Set_State_Base(null, droppingTime, topYPos, bottomYPos);
 
         Set_State_PosAndRot(state_PosAndRot);
@@ -141,14 +163,15 @@ public abstract class TotemeController : DroppingDepthController
         int amount = (int)(areaSize.x * pointAmountPerSize);
 
         List<Vector2> pointPosList = Get_PointPosList(targetArea, amount);
-        buffPointList = PoolingManager.instance.Get_OP_AreaPointSRList(amount);
+
+        VFXManager.instance.SpawnAreaSpoters(amount, buffSpoterList);
 
         for (int i = 0; i < amount; i++)
         {
-            buffPointList[i].color = clr;
-            buffPointList[i].transform.SetParent(buffPointParentTf, false); // ·ÎÄÃ ÁÂÇ¥ À¯Áö
-            buffPointList[i].transform.localPosition = pointPosList[i]; // ·ÎÄÃ ÁÂÇ¥·Î ¼³Á¤
-            buffPointList[i].gameObject.SetActive(true);
+            buffSpoterList[i].spriteRenderer.color = clr;
+            buffSpoterList[i].transform.SetParent(buffPointParentTf, false); // ·ÎÄÃ ÁÂÇ¥ À¯Áö
+            buffSpoterList[i].transform.localPosition = pointPosList[i]; // ·ÎÄÃ ÁÂÇ¥·Î ¼³Á¤
+            buffSpoterList[i].gameObject.SetActive(true);
         }
     }
 
@@ -186,7 +209,10 @@ public abstract class TotemeController : DroppingDepthController
         if (gameObject.activeSelf)
             StartCoroutine(this.Play_BuffArea_Cor());
         else
-            Remove_Object();
+        {
+            RemoveAct();
+            RemoveObject();
+        }
     }
 
     private IEnumerator Play_BuffArea_Cor()
@@ -199,7 +225,8 @@ public abstract class TotemeController : DroppingDepthController
         Active_FadeOut();
         yield return new WaitForSeconds(1f);
 
-        Remove_Object();
+        RemoveAct();
+        RemoveObject();
     }
 
     private void Active_StartSetting()
@@ -332,43 +359,28 @@ public abstract class TotemeController : DroppingDepthController
 
     #endregion
 
-    #region Pooling
-
-    protected abstract void PoolingSet();
-
-    #endregion
-
     #region Remove
 
-    private void Remove_Object()
-    {
-        UnitManager.instance.Remove_Unit(this);
-
-        RemoveForce_Object();
-    }
-
-    public void RemoveForce_Object()
+    private void RemoveAct()
     {
         StopCoroutine(this.Play_BuffArea_Cor());
 
-        Reset_State();
         SetOff_BuffPoint();
         TimerManager.instance.Remove_Toteme(this);
 
-        PoolingSet();
-
-        this.gameObject.SetActive(false);
     }
+
+    protected abstract void RemoveObject();
 
     private void SetOff_BuffPoint()
     {
-        if (buffPointList == null) return;
-        for (int i = 0; i < buffPointList.Count; i++)
+        if (buffSpoterList == null) return;
+        for (int i = 0; i < buffSpoterList.Count; i++)
         {
-            buffPointList[i].gameObject.SetActive(false);
-            PoolingManager.instance.areaPointSRs.Enqueue(buffPointList[i]);
+            buffSpoterList[i].gameObject.SetActive(false);
+            VFXManager.instance.RemoveAreaSpoter(buffSpoterList[i]);
         }
-        buffPointList = null;
+        buffSpoterList = null;
     }
 
     #endregion

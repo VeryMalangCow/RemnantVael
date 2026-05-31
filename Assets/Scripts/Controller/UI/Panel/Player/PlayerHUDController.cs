@@ -132,6 +132,7 @@ public class PlayerHUDController : UIController
     [Header("=== Key Item")]
     [SerializeField] private Image keyItemVfxImg;
     [SerializeField] private List<Image> keyItemImgList;
+    [SerializeField] private List<TMP_Text> keyItemAmountTxtList;
 
     [Space(10)]
     [Header("=== High Lv Item")]
@@ -184,7 +185,6 @@ public class PlayerHUDController : UIController
     [HideInInspector] private static float offsetXPos;
 
     // KeyItem
-    [HideInInspector] private List<TMP_Text> keyItemAmountTxtList;
 
     // High Lv Item
     [HideInInspector] private float defaultHighLvItemRectX;
@@ -426,10 +426,8 @@ public class PlayerHUDController : UIController
         paneltyAnnoCg.gameObject.SetActive(false);
 
         // Key
-        keyItemAmountTxtList = new List<TMP_Text>();
         for (int i = 0; i < keyItemImgList.Count; i++)
         {
-            keyItemAmountTxtList.Add(DevTool.Get_ComponentTType<TMP_Text>(keyItemImgList[i].gameObject.transform.GetChild(0).gameObject));
             keyItemImgList[i].gameObject.SetActive(false);
         }
 

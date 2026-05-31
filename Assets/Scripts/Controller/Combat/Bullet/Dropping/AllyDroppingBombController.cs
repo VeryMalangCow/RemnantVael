@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class AllyDroppingBombController : DroppingBombController
 {
-    #region Pooling
-
-    protected override void PoolingSet()
+    #region Pool
+    protected override void RemoveObject()
     {
-        PoolingManager.instance.droppingAllyBullet.Enqueue(this);
+        BulletManager.instance.RemoveAllyDroppingBomb(this);
     }
 
     #endregion
@@ -21,7 +20,7 @@ public class AllyDroppingBombController : DroppingBombController
 
     private void Play_ExplosionAttack()
     {
-        AllyExplosionController aec = PoolingManager.instance.Get_OP_AllyExplosion();
+        AllyExplosionController aec = ExplosionManager.instance.SpawnAllyExplosion();
         aec.Set_State(
             Get_ExlposionState(),
             ac: ResourceManager.instance.explosionAC,

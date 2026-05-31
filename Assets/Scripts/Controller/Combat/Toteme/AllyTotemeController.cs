@@ -1,11 +1,8 @@
 
 public class AllyTotemeController : TotemeController
 {
-
-    protected override void PoolingSet()
+    protected override void RemoveObject()
     {
-        PoolingManager.instance.allyTotemes.Enqueue(this);
+        AllyManager.instance.RemoveAllyToteme(this);
     }
-
-
 }

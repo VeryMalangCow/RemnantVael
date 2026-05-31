@@ -63,7 +63,7 @@ public class JouleController : RangeAbsorbItemController
         isSpawnNow = false;
 
         PlayerManager.instance.playerController.Add_CurrentEP(energyValue);
-        PoolingManager.instance.joule.Enqueue(this);
+        DropItemManager.instance.RemoveJoule(this);
     }
 
     #endregion

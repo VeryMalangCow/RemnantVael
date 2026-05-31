@@ -28,7 +28,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
     {
         base.Shot();
 
-        Fire_Toteme(PoolingManager.instance.Get_OP_AllyToteme(), Get_RandomNavPos(PlayerManager.instance.playerController.transform.position, 5f));
+        Fire_Toteme(AllyManager.instance.SpawnAllyToteme(), Get_RandomNavPos(PlayerManager.instance.playerController.transform.position, 5f));
 
         Debug.Log(_name[1] + ": Toteme");
     }

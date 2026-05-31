@@ -127,7 +127,7 @@ public abstract class AliveObjectController : MovableObjectController
     {
         for (int i = 0; i < brokenParticleData.Count; i++)
         {
-            DeadParticleController particle = PoolingManager.instance.Get_OP_DeadParticle();
+            DeadParticleController particle = VFXManager.instance.SpawnDeadParticle();
             particle.transform.SetParent(StageManager.instance.currentRoomController.transform);
 
             particle.Play_DeadParticle(

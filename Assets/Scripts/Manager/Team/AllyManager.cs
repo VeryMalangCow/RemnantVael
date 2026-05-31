@@ -75,12 +75,16 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 
     #endregion
 
+    [SerializeField] private PoolSystem<AllyTotemeController> allyTotemePool;
+
     #endregion
 
     #region Init
 
     public IEnumerator Initialize()
     {
+        yield return allyTotemePool.InitAsync(16, 8f);
+
         Stopwatch sw = new Stopwatch();
 
         // Card Data
@@ -124,6 +128,13 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
         UnityEngine.Debug.Log($"AllyManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
     }
+
+    #endregion
+
+    #region Pool
+
+    public AllyTotemeController SpawnAllyToteme() => allyTotemePool.Dequeue();
+    public void RemoveAllyToteme(AllyTotemeController item) => allyTotemePool.Enqueue(item);
 
     #endregion
 

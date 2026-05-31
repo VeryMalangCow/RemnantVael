@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class DroppingBombController : DroppingDepthController
+public abstract class DroppingBombController : DroppingDepthController, IPoolable
 {
     #region Value
 
@@ -17,6 +17,30 @@ public abstract class DroppingBombController : DroppingDepthController
     // 스탯을 Drop형으로 바꾸던 아니면, 스탯을 추가하던 하셈
 
     #endregion
+
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+
+    #endregion
+
+    #region Pool
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        gameObject.SetActive(true);
+    }
+
+    public void SetActiveOff()
+    {
+        Reset_State();
+
+        gameObject.SetActive(false);
+    }
 
     #endregion
 
@@ -51,8 +75,6 @@ public abstract class DroppingBombController : DroppingDepthController
         BulletState_PosAndRot state_PosAndRot,
         BulletState_Size state_Size)
     {
-        UnitManager.instance.Add_Unit(this);
-
         Set_State_Base(state, droppingTime, topYPos, bottomYPos);
 
         Set_State_PosAndRot(state_PosAndRot);
@@ -100,12 +122,13 @@ public abstract class DroppingBombController : DroppingDepthController
 
     protected override void Active()
     {
+        SetOff_Trail();
         Gen_Explosion();
-
-        Remove_Object();
     }
 
     protected abstract void Gen_Explosion();
+
+    protected abstract void RemoveObject();
 
     #endregion
 
@@ -135,36 +158,6 @@ public abstract class DroppingBombController : DroppingDepthController
         trail.emitting = false;
         trail.enabled = false;
     }
-
-    #endregion
-
-    #region Remove
-
-
-    // 오브젝트 파괴될 때, 항상 실행
-    private void Remove_Object()
-    {
-        UnitManager.instance.Remove_Unit(this);
-
-        RemoveForce_Object();
-    }
-
-    public void RemoveForce_Object()
-    {
-        SetOff_Trail();
-
-        Reset_State();
-        PoolingSet();
-
-        this.gameObject.SetActive(false);
-    }
-
-    #endregion
-
-    #region Pooling
-
-    // 오브젝트 풀링 시스템과 추가 효과 등을 추상
-    protected abstract void PoolingSet();
 
     #endregion
 }

@@ -97,7 +97,7 @@ public class MissileBulletController : PlayerBulletController
 
     private void Play_ExplosionAttack()
     {
-        PlayerExplosionController pec = PoolingManager.instance.Get_OP_PlayerExplosion();
+        PlayerExplosionController pec = ExplosionManager.instance.SpawnPlayerExplosion();
         pec.Set_State(
             Get_ExlposionState(),
             ac: ResourceManager.instance.explosionAC,

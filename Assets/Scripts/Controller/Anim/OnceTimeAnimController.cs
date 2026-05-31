@@ -1,12 +1,34 @@
 using UnityEngine;
 
-public class OnceTimeAnimController : MonoBehaviour
+public class OnceTimeAnimController : MonoBehaviour, IPoolable
 {
     #region Value
 
     [SerializeField] private Animator thisAnimator;
     [SerializeField] private SpriteRenderer thisSpriteRenderer;
     [HideInInspector] private AnimatorOverrideController aoc;
+
+    #endregion
+
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+
+    #region Pool
+
+    public void PoolOffset()
+    {
+
+    }
+
+    public void SetActiveOn()
+    {
+
+    }
+
+    public void SetActiveOff()
+    {
+
+    }
 
     #endregion
 
@@ -56,7 +78,7 @@ public class OnceTimeAnimController : MonoBehaviour
 
         this.gameObject.SetActive(false);
 
-        PoolingManager.instance.onlyOnceAnimators.Enqueue(this);
+        VFXManager.instance.RemoveOnlyOnceAnim(this);
     }
 
     #endregion

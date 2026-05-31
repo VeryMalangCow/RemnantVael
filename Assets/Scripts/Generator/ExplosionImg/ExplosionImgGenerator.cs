@@ -74,9 +74,10 @@ public class ExplosionImgGenerator : MonoBehaviour
     // 하나의 이펙트 이미지를 생성
     private Sequence Gen_EachExplImg(Vector2 spawnPos, ExplState_Sprite spriteState, ExplState_MoveAndScale firstState, ExplState_MoveAndScale secondState)
     {
-        SpriteRenderer sr = PoolingManager.instance.Get_OP_ExplosionImg();
+        PoolableSpriteRenderer poolableSr = VFXManager.instance.SpawnExplosionImg();
+        SpriteRenderer sr = poolableSr.spriteRenderer;
         sr.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
-        return Play_ExplImg(sr, spawnPos, spriteState, firstState, secondState);
+        return Play_ExplImg(poolableSr, spawnPos, spriteState, firstState, secondState);
     }
 
     #endregion
@@ -84,8 +85,9 @@ public class ExplosionImgGenerator : MonoBehaviour
     #region Tween
 
     // 전체적인 움직임을 표현하는 
-    private Sequence Play_ExplImg(SpriteRenderer sr, Vector2 spawnPos, ExplState_Sprite spriteState, ExplState_MoveAndScale firstState, ExplState_MoveAndScale secondState)
+    private Sequence Play_ExplImg(PoolableSpriteRenderer poolableSr, Vector2 spawnPos, ExplState_Sprite spriteState, ExplState_MoveAndScale firstState, ExplState_MoveAndScale secondState)
     {
+        SpriteRenderer sr = poolableSr.spriteRenderer;
         DevTool.Set_CompleteTween(sr.gameObject);
 
         Sequence Seq = DOTween.Sequence();
@@ -93,7 +95,7 @@ public class ExplosionImgGenerator : MonoBehaviour
         Seq.Append(Play_ExplImg_MoveScale(sr, spawnPos, firstState));
         Seq.Append(Play_ExplImg_MoveScaleFadeOut(sr, spawnPos, secondState));
         Seq.OnStart(() => { SetOn_SR(sr, spawnPos, spriteState); });
-        Seq.OnComplete(() => { SetOff_SR(sr); });
+        Seq.OnComplete(() => { SetOff_SR(poolableSr); });
         return Seq;
     }
 
@@ -136,11 +138,11 @@ public class ExplosionImgGenerator : MonoBehaviour
         sr.gameObject.SetActive(true);
     }
 
-    protected virtual void SetOff_SR(SpriteRenderer sr)
+    protected virtual void SetOff_SR(PoolableSpriteRenderer sr)
     {
         sr.gameObject.SetActive(false);
 
-        PoolingManager.instance.explosionImgs.Enqueue(sr);
+        VFXManager.instance.RemoveExplosionImg(sr);
     }
 
     #endregion

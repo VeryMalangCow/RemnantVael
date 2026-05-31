@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public abstract class ExplosionController : StaticDepthController
+public abstract class ExplosionController : StaticDepthController, IPoolable
 {
     #region Value
 
@@ -39,7 +39,32 @@ public abstract class ExplosionController : StaticDepthController
     [HideInInspector] public static readonly float animSpeed = 2f;
     [HideInInspector] public static readonly float jugeTime = 0.5f;
 
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+
     #endregion
+
+    #endregion
+
+    #region Pool
+
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        gameObject.SetActive(true);
+
+    }
+
+    public void SetActiveOff()
+    {
+        Reset_State();
+        gameObject.SetActive(false);
+    }
 
     #endregion
 
@@ -129,7 +154,7 @@ public abstract class ExplosionController : StaticDepthController
         DOTween.To(() => light2d.intensity, x => light2d.intensity = x, 0f, jugeTime * 0.2f);
         yield return new WaitForSeconds(jugeTime * 0.8f);
 
-        Remove_Object();
+        RemoveObject();
     }
 
 
@@ -168,14 +193,7 @@ public abstract class ExplosionController : StaticDepthController
 
     #region Remove
 
-    protected abstract void Remove_Condition();
-
-    public virtual void Remove_Object()
-    {
-        Remove_Condition();
-        Reset_State();
-        this.gameObject.SetActive(false);
-    }
+    public abstract void RemoveObject();
 
     #endregion
 }

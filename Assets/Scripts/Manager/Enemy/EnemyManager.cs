@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
-{
-    #region Value    
+{  
     public int InitOrder { get { return initOrder; } }
     [SerializeField] private int initOrder;
     public string InitPregressText { get { return initPregressText; } }
     [SerializeField] private string initPregressText;
-
-    #region - Inspector
 
     [Space(10)]
     [Header("=== Materal")]
@@ -48,10 +45,6 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     [SerializeField] private List<PoolSystem<EliteEnemyController>> eliteEnemyPools;
     [SerializeField] private List<PoolSystem<BossEnemyController>> bossEnemyPools;
 
-    #endregion
-
-    #region - Hide
-
     // Current
     [HideInInspector] public List<EnemyController> currentEnemyList = new List<EnemyController>();
     [HideInInspector] public List<EnemyController> poolingAllEnemyList = new List<EnemyController>();
@@ -59,11 +52,6 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     [HideInInspector] private List<EliteEnemyController> currentEliteEnemyList = new List<EliteEnemyController>();
     [HideInInspector] private BossEnemyController currentBossEnemy = null;
 
-    #endregion
-
-    #endregion
-
-    #region Init
 
     public IEnumerator Initialize()
     {
@@ -75,35 +63,80 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
             yield return bossEnemyPools[i].InitAsync(bossEnemyParentTf, 2, 8f);
 
         yield return null;
+
+        enabled = true;
     }
 
-    #endregion
+    private void Update()
+    {
+        HandleChargeSkill();
+    }
+
+    private void HandleChargeSkill()
+    {
+        float dt = Time.deltaTime;
+        for (int i = 0; i < normalEnemyPools.Count; i++)
+            HandleChargeSkill(normalEnemyPools[i], dt);
+        for (int i = 0; i < eliteEnemyPools.Count; i++)
+            HandleChargeSkill(eliteEnemyPools[i], dt);
+        for (int i = 0; i < bossEnemyPools.Count; i++)
+            HandleChargeSkill(bossEnemyPools[i], dt);
+    }
+
+    private void HandleChargeSkill<T>(PoolSystem<T> pool, float dt) where T : EnemyController
+    {
+        var objs = pool.objs;
+        var activeIndices = pool.activeIndices;
+
+        for (int i = activeIndices.Count - 1; i >= 0; i--)
+        {
+            objs[activeIndices[i]].HandleChargeSkill(dt);
+            objs[activeIndices[i]].HandleLookAtTarget();
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
+        float fdt = Time.fixedDeltaTime;
+
+        for (int i = 0; i < normalEnemyPools.Count; i++)
+            HandleMovement(normalEnemyPools[i], fdt);
+        for (int i = 0; i < eliteEnemyPools.Count; i++)
+            HandleMovement(eliteEnemyPools[i], fdt);
+        for (int i = 0; i < bossEnemyPools.Count; i++)
+            HandleMovement(bossEnemyPools[i], fdt);
+    }
+
+    private void HandleMovement<T>(PoolSystem<T> pool, float fdt) where T : EnemyController
+    {
+        var objs = pool.objs;
+        var activeIndices = pool.activeIndices;
+
+        for (int i = activeIndices.Count - 1; i >= 0; i--)
+        {
+            objs[activeIndices[i]].HandleMovement(fdt);
+        }
+    }
 
     #region Spawn & Remove
 
     // Normal
-    // Spawn
-    public NormalEnemyController SpawnNormalEnemy(int enemyId)
-        => normalEnemyPools[enemyId].Dequeue();
-    // Remove
-    public void RemoveNormalEnemy(NormalEnemyController enemy, int enemyId)
-       => normalEnemyPools[enemyId].Enqueue(enemy);
+    public NormalEnemyController SpawnNormalEnemy(int enemyId) => normalEnemyPools[enemyId].Dequeue();
+    public void RemoveNormalEnemy(NormalEnemyController enemy, int enemyId) => normalEnemyPools[enemyId].Enqueue(enemy);
 
     // Elite
-    // Spawn
-    public EliteEnemyController SpawnEliteEnemy(int enemyId)
-        => eliteEnemyPools[enemyId].Dequeue();
-    // Remove
-    public void RemoveEliteEnemy(EliteEnemyController enemy, int enemyId)
-       => eliteEnemyPools[enemyId].Enqueue(enemy);
+    public EliteEnemyController SpawnEliteEnemy(int enemyId) => eliteEnemyPools[enemyId].Dequeue();
+    public void RemoveEliteEnemy(EliteEnemyController enemy, int enemyId) => eliteEnemyPools[enemyId].Enqueue(enemy);
 
     // Boss
-    // Spawn
-    public BossEnemyController SpawnBossEnemy(int enemyId)
-        => bossEnemyPools[enemyId].Dequeue();
-    // Remove
-    public void RemoveBossEnemy(BossEnemyController enemy, int enemyId)
-       => bossEnemyPools[enemyId].Enqueue(enemy);
+    public BossEnemyController SpawnBossEnemy(int enemyId) => bossEnemyPools[enemyId].Dequeue();
+    public void RemoveBossEnemy(BossEnemyController enemy, int enemyId) => bossEnemyPools[enemyId].Enqueue(enemy);
 
 
     public EnemyController SpawnEnemy(eEnemy type, int enemyId)

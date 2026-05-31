@@ -3,7 +3,7 @@ using LeTai.TrueShadow;
 using TMPro;
 using UnityEngine;
 
-public class WorldTxtEUIController : ElementUIController
+public class WorldTxtEUIController : ElementUIController, IPoolable
 {
     #region Value
 
@@ -14,6 +14,28 @@ public class WorldTxtEUIController : ElementUIController
     [HideInInspector] private static readonly float normalSize = 18;
     [HideInInspector] private static readonly float criticalSize = 26;
     [HideInInspector] private static readonly float dischargeSize = 22;
+
+    #endregion
+
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+
+
+    #region Pool
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void SetActiveOff()
+    {
+        gameObject.SetActive(false);
+    }
 
     #endregion
 
@@ -76,7 +98,7 @@ public class WorldTxtEUIController : ElementUIController
             .OnComplete(() =>
             {
                 this.gameObject.SetActive(false);
-                PoolingManager.instance.dmgTxtCanvases.Enqueue(this);
+                VFXManager.instance.RemoveDmgTxtCanvas(this);
             });
 
         return totalSeq;

@@ -10,6 +10,15 @@ public class EnemyAttackerController : AttackerController
 
     #endregion
 
+    #region Pooling
+
+    public override void RemoveObject()
+    {
+        AttackerManager.instance.RemoveEnemyAttacker(this);
+    }
+
+    #endregion
+
     #region Set State
 
     // 적의 판정은 조금 줄이도록하는 편법 사용
@@ -25,14 +34,6 @@ public class EnemyAttackerController : AttackerController
 
     #endregion
 
-    #region Pooling
-
-    protected override void PoolingSet()
-    {
-        PoolingManager.instance.enemyAttackers.Enqueue(this);
-    }
-
-    #endregion
 
     #region Trigger
 

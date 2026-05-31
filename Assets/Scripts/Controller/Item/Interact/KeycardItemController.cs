@@ -35,7 +35,7 @@ public class KeycardItemController : InteractItemController
         base.Play_Interact();
 
         PlayerManager.instance.Gain_KeyCard(id);
-        PoolingManager.instance.keycardItems.Enqueue(this);
+        DropItemManager.instance.RemoveKeycard(this);
     }
 
     #endregion

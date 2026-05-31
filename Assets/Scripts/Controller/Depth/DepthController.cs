@@ -116,9 +116,8 @@ public class DepthController : IDController
     {
         if (value <= 0) return;
 
-        PoolingManager.instance.Get_OP_BetteryShard().Set_State(
-            spawnPos: gameObject.transform.position, 
-            value);
+        DropItemManager.instance.SpawnBetteryShard()
+            .Set_State(spawnPos: gameObject.transform.position, value);
     }
 
     // Bettery Shard: Random
@@ -135,10 +134,8 @@ public class DepthController : IDController
     protected void Gen_MS(int value)
     {
         if (value <= 0) return;
-
-        PoolingManager.instance.Get_OP_ModuleShard().Set_State(
-            spawnPos: gameObject.transform.position, 
-            value);
+        DropItemManager.instance.SpawnModuleShard()
+            .Set_State(spawnPos: gameObject.transform.position, value);
     }
 
     // Module Shard: Random
@@ -155,36 +152,30 @@ public class DepthController : IDController
     protected void Gen_J(float value)
     {
         if (value <= 0) return;
-
-        PoolingManager.instance.Get_OP_Joule().Set_State(
-            spawnPos: gameObject.transform.position, 
-            value);
+        DropItemManager.instance.SpawnJoule()
+            .Set_State(spawnPos: gameObject.transform.position, value);
     }
 
     // Overrider
     protected void Gen_Overrider(int value)
     {
         if (value <= 0) return;
-
-        PoolingManager.instance.Get_OP_Overrider().Set_State(
-            spawnPos: gameObject.transform.position,
-            value);
+        DropItemManager.instance.SpawnOverrider()
+            .Set_State(spawnPos: gameObject.transform.position, value);
     }
 
     // Credit
     protected void Gen_Credit(int value)
     {
         if (value <= 0) return;
-
-        PoolingManager.instance.Get_OP_Credit().Set_State(
-            spawnPos: gameObject.transform.position,
-            value);
+        DropItemManager.instance.SpawnCredit()
+            .Set_State(spawnPos: gameObject.transform.position, value);
     }
 
     // Module Item
     protected void Gen_ModuleItem(int rank)
     {
-        ModuleItemController module = PoolingManager.instance.Get_OP_ModuleItem();
+        ModuleItemController module = DropItemManager.instance.SpawnModule();
         module.transform.SetParent(StageManager.instance.currentRoomController.transform);
         module.Set_State(this.transform.position);
         module.Set_RankState(rank);
@@ -193,7 +184,7 @@ public class DepthController : IDController
     // Keycard Item
     protected void Gen_KeycardItem(int id)
     {
-        KeycardItemController keycard = PoolingManager.instance.Get_OP_KeycardItem();
+        KeycardItemController keycard = DropItemManager.instance.SpawnKeycard();
         keycard.transform.SetParent(StageManager.instance.currentRoomController.transform);
         keycard.Set_State(this.transform.position);
         keycard.Set_TypeState(id);
@@ -202,7 +193,7 @@ public class DepthController : IDController
     // Core Item
     protected void Gen_CoreItem(int id)
     {
-        CoreItemController core = PoolingManager.instance.Get_OP_CoreItem();
+        CoreItemController core = DropItemManager.instance.SpawnCore();
         core.transform.SetParent(StageManager.instance.currentRoomController.transform);
         core.Set_State(this.transform.position);
         core.Set_TypeState(id);

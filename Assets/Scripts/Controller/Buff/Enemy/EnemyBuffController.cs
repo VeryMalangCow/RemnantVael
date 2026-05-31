@@ -304,7 +304,7 @@ public class EnemyBuffController : MonoBehaviour
 
     private void Play_ExplosionAttack(eDamageType dmgType, float dmg, int statusIndex)
     {
-        PlayerExplosionController pec = PoolingManager.instance.Get_OP_PlayerExplosion();
+        PlayerExplosionController pec = ExplosionManager.instance.SpawnPlayerExplosion();
         pec.Add_HittedObjectList(enemy);
         pec.Set_State(
             Get_ExlposionState(dmgType, dmg, statusIndex),

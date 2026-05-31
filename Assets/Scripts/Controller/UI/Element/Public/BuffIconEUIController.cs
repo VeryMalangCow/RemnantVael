@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuffIconEUIController : ElementUIController
+public class BuffIconEUIController : ElementUIController, IPoolable
 {
     #region Value
 
@@ -19,6 +19,27 @@ public class BuffIconEUIController : ElementUIController
     [SerializeField] private TMP_Text txt;
 
     [HideInInspector] public RectTransform rt;
+
+    #endregion
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+
+
+    #region Pool
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void SetActiveOff()
+    {
+        gameObject.SetActive(false);
+    }
 
     #endregion
 

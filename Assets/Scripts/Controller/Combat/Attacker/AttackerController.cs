@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public abstract class AttackerController : MovableDepthController
+public abstract class AttackerController : MovableDepthController, IPoolable
 {
     #region Value
 
@@ -33,7 +33,32 @@ public abstract class AttackerController : MovableDepthController
     [HideInInspector] protected Collider2D col;
     [HideInInspector] private AnimatorOverrideController aoc;
 
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+
     #endregion
+
+    #endregion
+
+    #region Pool
+
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        gameObject.SetActive(true);
+    }
+
+    public void SetActiveOff()
+    {
+        Reset_State();
+
+        gameObject.SetActive(false);
+    }
 
     #endregion
 
@@ -60,7 +85,6 @@ public abstract class AttackerController : MovableDepthController
         attackerState.Reset_State();
 
         Reset_BaseAttacker();
-        Reset_Other();
     }
 
     private void Reset_BaseAttacker()
@@ -77,11 +101,6 @@ public abstract class AttackerController : MovableDepthController
         hittedObjList = new HashSet<StaticDepthController>();
     }
 
-    protected virtual void Reset_Other()
-    {
-
-    }
-
     #endregion
 
     #region State
@@ -96,8 +115,6 @@ public abstract class AttackerController : MovableDepthController
         Transform parent = null,
         bool isLocal = false) where T : Collider2D
     {
-        UnitManager.instance.Add_Unit(this);
-
         Sequence seq = DOTween.Sequence();
 
         Set_State_Base(state, targetRange);
@@ -191,7 +208,7 @@ public abstract class AttackerController : MovableDepthController
 
         totalSeq.OnComplete(() =>
         {
-            Remove_Object();
+            RemoveObject();
         });
     }
 
@@ -220,27 +237,9 @@ public abstract class AttackerController : MovableDepthController
 
     #endregion
 
-    #region Pooling
-
-    protected abstract void PoolingSet();
-
-    #endregion
-
     #region Remove
 
-    public virtual void Remove_Object()
-    {
-        UnitManager.instance.Add_Unit(this);
-
-        RemoveForce_Object();
-    }
-
-    public void RemoveForce_Object()
-    {
-        Reset_State();
-        PoolingSet();
-        this.gameObject.SetActive(false);
-    }
+    public abstract void RemoveObject();
 
     #endregion
 

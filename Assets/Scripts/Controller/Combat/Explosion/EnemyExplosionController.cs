@@ -12,9 +12,9 @@ public class EnemyExplosionController : ExplosionController
 
     #region Remove
 
-    protected override void Remove_Condition()
+    public override void RemoveObject()
     {
-        PoolingManager.instance.enemyExplosions.Enqueue(this);
+        ExplosionManager.instance.RemoveEnemyExplosion(this);
     }
 
     #endregion

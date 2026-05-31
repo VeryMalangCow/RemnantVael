@@ -19,6 +19,11 @@ public class BulletManager : Singleton<BulletManager>, IMainGameInitializer
 
     // Ally's
     [SerializeField] private PoolSystem<AllyBulletController> allyBulletPool;
+    [SerializeField] private PoolSystem<AllyDroppingBombController> allyDroppingBombPool;
+
+    // Module
+    [SerializeField] private PoolSystem<PlayerBulletController> module000BulletPool;
+    [SerializeField] private PoolSystem<PlayerBulletController> module001BulletPool;
 
 
     // Init
@@ -26,8 +31,14 @@ public class BulletManager : Singleton<BulletManager>, IMainGameInitializer
     {
         yield return playerBulletPool.InitAsync(256, 8f);
         yield return playerMissilePool.InitAsync(32, 8f);
+
         yield return enemyBulletPool.InitAsync(256, 8f);
+
         yield return allyBulletPool.InitAsync(256, 8f);
+        yield return allyDroppingBombPool.InitAsync(128, 8f);
+
+        yield return module000BulletPool.InitAsync(128, 8f);
+        yield return module001BulletPool.InitAsync(128, 8f);
 
         enabled = true;
     }
@@ -69,53 +80,40 @@ public class BulletManager : Singleton<BulletManager>, IMainGameInitializer
 
     #region Player Bullet
 
-    // Spawn
-    public PlayerBulletController SpawnPlayerBullet()
-        => playerBulletPool.Dequeue();
-    
-    // Spawn Many
-    public void SpawnPlayerBullets(int amount, List<PlayerBulletController> list)
-        => playerBulletPool.DequeueMany(amount, list);
-    
-    // Remove
-    public void RemovePlayerBullet(PlayerBulletController bullet)
-       => playerBulletPool.Enqueue(bullet);
+    public PlayerBulletController SpawnPlayerBullet() => playerBulletPool.Dequeue();
+    public void SpawnPlayerBullets(int amount, List<PlayerBulletController> list) => playerBulletPool.DequeueMany(amount, list);
+    public void RemovePlayerBullet(PlayerBulletController bullet) => playerBulletPool.Enqueue(bullet);
     
     #endregion
 
     #region Player Missile
 
-    // Spawn
-    public MissileBulletController SpawnPlayerMissile()
-        => playerMissilePool.Dequeue();
-    
-    // Remove
-    public void RemovePlayerMissile(MissileBulletController bullet)
-        => playerMissilePool.Enqueue(bullet);
+    public MissileBulletController SpawnPlayerMissile() => playerMissilePool.Dequeue();
+    public void RemovePlayerMissile(MissileBulletController bullet) => playerMissilePool.Enqueue(bullet);
     
     #endregion
 
     #region Enemy Bullet
 
-    // Spawn
-    public EnemyBulletController SpawnEnemyBullet()
-        => enemyBulletPool.Dequeue();
-    
-    // Remove
-    public void RemoveEnemyBullet(EnemyBulletController bullet)
-        => enemyBulletPool.Enqueue(bullet);
+    public EnemyBulletController SpawnEnemyBullet() => enemyBulletPool.Dequeue();
+    public void RemoveEnemyBullet(EnemyBulletController bullet) => enemyBulletPool.Enqueue(bullet);
 
     #endregion
 
     #region ally Bullet
 
-    // Spawn
-    public AllyBulletController SpawnAllyBullet()
-        => allyBulletPool.Dequeue();
+    public AllyBulletController SpawnAllyBullet() => allyBulletPool.Dequeue();
+    public void RemoveAllyBullet(AllyBulletController bullet) => allyBulletPool.Enqueue(bullet);
 
-    // Remove
-    public void RemoveAllyBullet(AllyBulletController bullet)
-        => allyBulletPool.Enqueue(bullet);
+    public AllyDroppingBombController SpawnAllyDroppingBomb() => allyDroppingBombPool.Dequeue();
+    public void RemoveAllyDroppingBomb(AllyDroppingBombController bullet) => allyDroppingBombPool.Enqueue(bullet);
+
+    #endregion
+
+    #region Module
+
+    public PlayerBulletController SpawnModule000Bullet() => module000BulletPool.Dequeue();
+    public void RemoveModule000Bullet(PlayerBulletController bullet) => module000BulletPool.Enqueue(bullet);
 
     #endregion
 }

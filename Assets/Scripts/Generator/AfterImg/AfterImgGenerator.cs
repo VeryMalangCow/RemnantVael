@@ -64,22 +64,23 @@ public class AfterImgGenerator : MonoBehaviour
     // Each Gen Img
     private void Gen_Img(SpriteRenderer sr, Color clr)
     {
-        SpriteRenderer SR = PoolingManager.instance.Get_OP_AfterImg();
-        SR.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        PoolableSpriteRenderer poolableSr = VFXManager.instance.SpawnAfterImg();
+        SpriteRenderer afterSr = poolableSr.spriteRenderer;
+        afterSr.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
 
-        SR.sprite = sr.sprite;
-        SR.sortingOrder = sr.sortingOrder - 1;
+        afterSr.sprite = sr.sprite;
+        afterSr.sortingOrder = sr.sortingOrder - 1;
         Color _clr = clr;
         _clr.a = Mathf.Clamp(imageAlpha, 0f, 1f);
-        SR.color = _clr;
-        SR.gameObject.transform.position = sr.transform.position;
-        SR.gameObject.transform.localScale = sr.transform.lossyScale;
-        SR.gameObject.SetActive(true);
-        SR.DOFade(0f, stayDur)
+        afterSr.color = _clr;
+        afterSr.gameObject.transform.position = sr.transform.position;
+        afterSr.gameObject.transform.localScale = sr.transform.lossyScale;
+        afterSr.gameObject.SetActive(true);
+        afterSr.DOFade(0f, stayDur)
             .OnComplete(() => 
             {
-                SR.gameObject.SetActive(false);
-                PoolingManager.instance.afterImgs.Enqueue(SR);
+                afterSr.gameObject.SetActive(false); 
+                VFXManager.instance.RemoveAfterImg(poolableSr);
             });
         
     }

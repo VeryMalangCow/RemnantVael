@@ -148,7 +148,7 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     private void Play_ActualPattern_Each(DepthController depth, Vector2 targetDir)
     {
-        EnemyAttackerController attacker = PoolingManager.instance.Get_OP_EnemyAttacker();
+        EnemyAttackerController attacker = AttackerManager.instance.SpawnEnemyAttacker();
         attacker.enemy = enemy;
         float targetShadow = depth.targetRange;
 

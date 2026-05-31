@@ -45,7 +45,7 @@ public class CoreItemController : InteractItemController
         base.Play_Interact();
 
         SaveDataManager.instance.jsonData.Gain_Item(id, 1);
-        PoolingManager.instance.coreItems.Enqueue(this);
+        DropItemManager.instance.RemoveCore(this);
     }
 
     #endregion

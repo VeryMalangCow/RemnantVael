@@ -115,7 +115,6 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     private void Set_TitleLobby_InstanceNull()
     {
         PlayerManager.instance = null;
-        PoolingManager.instance = null;
         SortingOrderManager.instance = null;
         InputManager.instance = null;
         EnemyManager.instance = null;

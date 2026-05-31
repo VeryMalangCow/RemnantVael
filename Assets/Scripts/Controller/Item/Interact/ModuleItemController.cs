@@ -42,7 +42,7 @@ public class ModuleItemController : InteractItemController
         base.Play_Interact();
 
         ModuleItemManager.instance.Gain_ModuleState(itemDataField);
-        PoolingManager.instance.moduleItems.Enqueue(this);
+        DropItemManager.instance.RemoveModule(this);
     }
 
     #endregion

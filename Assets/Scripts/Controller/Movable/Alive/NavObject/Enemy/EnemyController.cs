@@ -199,35 +199,20 @@ public abstract class EnemyController : NavObjectController, IPoolable
         RemoveSortingLayer();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-
-        HandleChargeSkill(Time.deltaTime);
-    }
-
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        HandleLookAtTarget();
-        HandleMovement(Time.fixedDeltaTime);
-    }
-
     #endregion
 
     #region Movement
 
-    private void HandleMovement(float deltaTime)
+    public void HandleMovement(float fdt)
     {
-        Play_Walk(moveAtDir, moveSpeed, deltaTime);
+        Play_Walk(moveAtDir, moveSpeed, fdt);
     }
 
     #endregion
 
     #region Energy
 
-    private void HandleChargeSkill(float deltaTime)
+    public void HandleChargeSkill(float deltaTime)
     {
         if (isDischarge) // 방전 회복 딜레이
         {
@@ -299,7 +284,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     #region Look
 
-    private void HandleLookAtTarget()
+    public void HandleLookAtTarget()
     {
         if (isDead) return;
 
@@ -521,7 +506,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
                 Set_CurrentSP_Zero();
             }
 
-            PoolingManager.instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
+            VFXManager.instance.SpawnDmgTxtCanvas().Offset_ByShieldDmg(
                     (Vector2)targetObject.transform.position + new Vector2(uiX, 0.2f),
                     uiTxt, isCritical);
         }
@@ -546,7 +531,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     private void Take_Damaged_Physics(float dmgValue, bool isCritical)
     {
         // UI
-        PoolingManager.instance.Get_OP_DmgTxt().Offset_ByPhysicDmg(
+        VFXManager.instance.SpawnDmgTxtCanvas().Offset_ByPhysicDmg(
             (Vector2)targetObject.transform.position + new Vector2(-0.2f, 0.2f),
             dmgValue, isCritical);
 
@@ -557,7 +542,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     private void Take_Damaged_Energy(float dmgValue, bool isCritical)
     {
         // UI
-        PoolingManager.instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
+        VFXManager.instance.SpawnDmgTxtCanvas().Offset_ByEnergyDmg(
             (Vector2)targetObject.transform.position + new Vector2(-0.2f, 0.2f),
             dmgValue, isCritical);
 

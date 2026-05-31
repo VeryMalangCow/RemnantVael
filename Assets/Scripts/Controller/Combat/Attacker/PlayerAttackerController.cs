@@ -4,9 +4,9 @@ public class PlayerAttackerController : AttackerController
 {
     #region Pooling
 
-    protected override void PoolingSet()
+    public override void RemoveObject()
     {
-        PoolingManager.instance.playerAttackers.Enqueue(this);
+        AttackerManager.instance.RemovePlayerAttacker(this);
     }
 
     #endregion

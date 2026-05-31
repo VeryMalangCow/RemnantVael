@@ -24,7 +24,7 @@ public class DroppingAttackAllyController : DroppingAllyController
         base.Shot();
         if (EnemyManager.instance.currentEnemyList.Count > 0)
         {
-            Fire_Bullet(PoolingManager.instance.Get_OP_DroppingAllyBullet(), Get_TargetEnemy().transform.position);
+            Fire_Bullet(BulletManager.instance.SpawnAllyDroppingBomb(), Get_TargetEnemy().transform.position);
         }
         Debug.Log(_name[1] + ": Bomb Attack");
     }
