@@ -124,8 +124,6 @@ public abstract class EnemyController : NavObjectController, IPoolable
         Offset_FirstSetting();
         Offset_Subscribe();
         Offset_Controller();
-
-        EnemyManager.instance.poolingAllEnemyList.Add(this);
     }
 
     private void Offset_FirstSetting()
@@ -563,7 +561,8 @@ public abstract class EnemyController : NavObjectController, IPoolable
         Set_Die_GenItem();
         Set_Die_Effect();
         Set_Die_Data();
-        Set_Die_Extra();
+
+        EnemyManager.instance.RemoveEnemy(this, enemyType, Get_ID());
     }
 
     protected virtual void Set_Die_GenItem()
@@ -594,8 +593,8 @@ public abstract class EnemyController : NavObjectController, IPoolable
     {
         // Effect
         PlayerManager.instance.cameraController.Play_KillAnim(dur: 0.2f);
-        UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(targetObject.transform.position);
-        UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy(targetObject.transform.position);
+        VFXManager.instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(targetObject.transform.position);
+        VFXManager.instance.enemy_ExplImgGenerator.Expl_Enemy(targetObject.transform.position);
     }
 
     private void Set_Die_Data()
@@ -613,12 +612,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
         // Ping
         if (PlayerManager.instance.Is_PingedEnemy(this))
             PlayerManager.instance.SetOff_PingEnemy();
-
-        // Set
-        this.gameObject.SetActive(false);
     }
-
-    protected abstract void Set_Die_Extra();
 
     #endregion
 

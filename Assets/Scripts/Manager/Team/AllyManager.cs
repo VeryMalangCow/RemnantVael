@@ -77,6 +77,9 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 
     [SerializeField] private PoolSystem<AllyTotemeController> allyTotemePool;
 
+    private AlwaysCooltimeData totemeTimer = new AlwaysCooltimeData(1f);
+    private List<TotemeController> allTotemeList = new List<TotemeController>(32);
+
     #endregion
 
     #region Init
@@ -135,6 +138,41 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 
     public AllyTotemeController SpawnAllyToteme() => allyTotemePool.Dequeue();
     public void RemoveAllyToteme(AllyTotemeController item) => allyTotemePool.Enqueue(item);
+
+    #endregion
+
+    #region Mono
+
+    private void Update()
+    {
+        float dt = Time.deltaTime;
+        Caculate_TotemeTimer(dt);
+    }
+
+    #endregion
+
+    #region Timer
+
+    private void Caculate_TotemeTimer(float dt)
+    {
+        if (totemeTimer.Is_Full(dt))
+        {
+            for (int i = 0; i < allTotemeList.Count; i++)
+            {
+                allTotemeList[i].Active_Buff();
+            }
+        }
+    }
+
+    public void Add_Toteme(TotemeController toteme)
+    {
+        DevTool.Add_InList(allTotemeList, toteme);
+    }
+
+    public void Remove_Toteme(TotemeController toteme)
+    {
+        DevTool.Remove_InList(allTotemeList, toteme);
+    }
 
     #endregion
 

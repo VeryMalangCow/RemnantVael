@@ -902,7 +902,7 @@ public class PlayerController : AliveObjectController
     // 타격: 총알
     public void Try_Hitted(EnemyBulletController bullet)
     {
-        if (isUltraMode)
+        if (TestThings.isUltraMode)
         {
             Debug.Log("울트라 모드");
             return;
@@ -929,7 +929,7 @@ public class PlayerController : AliveObjectController
     // 타격: 어택커
     public void Try_Hitted(EnemyAttackerController attacker)
     {
-        if (isUltraMode)
+        if (TestThings.isUltraMode)
         {
             Debug.Log("울트라 모드");
             return;
@@ -956,7 +956,7 @@ public class PlayerController : AliveObjectController
     // 타격: 어택커
     public void Try_Hitted(EnemyExplosionController explosion)
     {
-        if (isUltraMode)
+        if (TestThings.isUltraMode)
         {
             Debug.Log("울트라 모드");
             return;
@@ -984,7 +984,7 @@ public class PlayerController : AliveObjectController
     // 타격: 건물어택커
     public void Try_Hitted(TrapObjectController attacker)
     {
-        if (isUltraMode)
+        if (TestThings.isUltraMode)
         {
             Debug.Log("울트라 모드");
             return;
@@ -1008,7 +1008,7 @@ public class PlayerController : AliveObjectController
     // 데미지 계산
     private void Take_Damaged(float dmgValue, Vector2 hittedDir, KnockbackState kbState)
     {
-        if (isUltraMode)
+        if (TestThings.isUltraMode)
         {
             Debug.Log("울트라 모드");
             return;
@@ -1031,7 +1031,7 @@ public class PlayerController : AliveObjectController
     // 오직 데미지만 계산 (넉백, 애니메이션 등 설정)
     public void Take_Damaged(float dmgValue, Vector2 hittedDir, bool showHUDEffect = true)
     {
-        if (isUltraMode)
+        if (TestThings.isUltraMode)
         {
             Debug.Log("울트라 모드");
             return;
@@ -1121,7 +1121,7 @@ public class PlayerController : AliveObjectController
     private void Play_Avoid()
     {
         PlayerManager.instance.cameraController.Play_AvoidAnim(invincibleTime);
-        UnitManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, targetObject.transform.position);
+        VFXManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, targetObject.transform.position);
         MainGameUIManager.instance.playerHud.Play_AvoidPlayInfo(invincibleTime);
     }
     
@@ -1261,53 +1261,4 @@ public class PlayerController : AliveObjectController
     }
 
     #endregion
-
-    private static bool isUltraMode = false;
-
-    protected override void Update()
-    {
-        base.Update();
-
-        if (Input.GetKeyDown(KeyCode.Alpha4) && StageManager.instance.targetStageID != 99)
-        {
-            /*
-            BaseWeapon.BaseDamage.BuffedState = 300f;
-            BaseWeapon.AccuracyRate.ActualState.Value = 100f;
-            WalkSpeed.ActualState.Value = 15f;
-            */
-
-            currentChargedBettery.Value = 9999;
-            currentCredit.Value = 9999;
-            currentOverrider.Value = 9999;
-            currentModuleShard.Value = 9999;
-
-            strikeTeamPresence.Value = 100;
-            uplinkTeamPresence.Value = 100;
-            neoTeamPresence.Value = 100;
-
-            PlayerManager.instance.Gain_KeyCard(0, 99);
-            PlayerManager.instance.Gain_KeyCard(1, 99);
-            PlayerManager.instance.Gain_KeyCard(2, 99);
-            PlayerManager.instance.Gain_KeyCard(3, 99);
-            PlayerManager.instance.Gain_KeyCard(4, 99);
-
-            Debug.Log("Alpha4: Get Many Goods");
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && StageManager.instance.targetStageID != 99)
-        {
-            UnitManager.instance.Test_Cor();
-
-            Debug.Log("Alpha5: Spawn Builds");
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha6) && StageManager.instance.targetStageID != 99)
-        {
-            isUltraMode = !isUltraMode;
-            UnitManager.instance.Set_UltraModeGO(isUltraMode);
-
-            Debug.Log("Alpha6: Ultra Mode " + isUltraMode);
-        }
-    }
-
 }

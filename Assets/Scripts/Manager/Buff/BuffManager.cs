@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
-public class BuffManager : Singleton<BuffManager>
+public class BuffManager : Singleton<BuffManager>, IMainGameInitializer
 {
     #region Value
 
@@ -15,18 +17,30 @@ public class BuffManager : Singleton<BuffManager>
     // Init
     [HideInInspector] private Dictionary<int, BuffController> allWhenSyncSetDict = new Dictionary<int, BuffController>();
 
+    // Init
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
+
     #endregion
 
-    #region Framework
+    #region Init
 
-    protected override void Awake()
+    // Init
+    public IEnumerator Initialize()
     {
-        base.Awake();
-
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
         Offset();
-    }
+        sw.Stop();
+        UnityEngine.Debug.Log($"BuffManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
+        yield return null;
+    }
+    
     #endregion
+
 
     #region Offset
 

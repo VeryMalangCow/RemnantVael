@@ -1892,9 +1892,9 @@ public class AlwaysCooltimeData : CooltimeData
 
     public AlwaysCooltimeData(float max, float current = 0f) : base(max, current) { }
 
-    public bool Is_Full(float deltaTime)
+    public bool Is_Full(float dt)
     {
-        current += deltaTime;
+        current += dt;
 
         if (current >= max)
         {

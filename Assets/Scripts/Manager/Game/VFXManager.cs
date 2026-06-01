@@ -19,14 +19,20 @@ public class VFXManager : Singleton<VFXManager>, IMainGameInitializer
     [SerializeField] private PoolSystem<WorldTxtEUIController> dmgTxtPool;
     [SerializeField] private PoolSystem<BuffIconEUIController> buffIconPool;
 
+    [Space(10)]
+    [SerializeField] public PlayerExplImgGenerator player_ExplImgGenerator;
+    [SerializeField] public BuildExplImgGenerator build_ExplImgGenerator;
+    [SerializeField] public EnemyExplImgGenerator enemy_ExplImgGenerator;
+    [SerializeField] public OnceTimeAnimGenerator onceTime_AnimGenerator;
+
     // Init
     public IEnumerator Initialize()
     {
         yield return deadParticlePool.InitAsync(64, 8f);
-        yield return afterImgPool.InitAsync(64, 8f);
-        yield return explosionImgPool.InitAsync(128, 8f);
-        yield return onlyOnceAnimatorPool.InitAsync(32, 8f);
-        yield return areaSpoterPool.InitAsync(64, 8f);
+        yield return afterImgPool.InitAsync(256, 8f);
+        yield return explosionImgPool.InitAsync(256, 8f);
+        yield return onlyOnceAnimatorPool.InitAsync(64, 8f);
+        yield return areaSpoterPool.InitAsync(256, 8f);
 
         yield return dmgTxtPool.InitAsync(32, 8f);
         yield return buffIconPool.InitAsync(32, 8f);

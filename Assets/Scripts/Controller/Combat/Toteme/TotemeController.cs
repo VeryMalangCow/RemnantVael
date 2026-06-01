@@ -231,7 +231,7 @@ public abstract class TotemeController : DroppingDepthController, IPoolable
 
     private void Active_StartSetting()
     {
-        TimerManager.instance.Add_Toteme(this);
+        AllyManager.instance.Add_Toteme(this);
         inAreaAllies = new List<AllyController>();
 
         isActivating = true;
@@ -366,7 +366,7 @@ public abstract class TotemeController : DroppingDepthController, IPoolable
         StopCoroutine(this.Play_BuffArea_Cor());
 
         SetOff_BuffPoint();
-        TimerManager.instance.Remove_Toteme(this);
+        AllyManager.instance.Remove_Toteme(this);
 
     }
 

@@ -38,16 +38,15 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
 
     [Space(10)]
     [Header("=== Pool")]
-    [SerializeField] private Transform normalEnemyParentTf;
-    [SerializeField] private Transform eliteEnemyParentTf;
-    [SerializeField] private Transform bossEnemyParentTf;
     [SerializeField] private List<PoolSystem<NormalEnemyController>> normalEnemyPools;
+    [SerializeField] private Transform normalEnemyParentTf;
     [SerializeField] private List<PoolSystem<EliteEnemyController>> eliteEnemyPools;
+    [SerializeField] private Transform eliteEnemyParentTf;
     [SerializeField] private List<PoolSystem<BossEnemyController>> bossEnemyPools;
+    [SerializeField] private Transform bossEnemyParentTf;
 
     // Current
     [HideInInspector] public List<EnemyController> currentEnemyList = new List<EnemyController>();
-    [HideInInspector] public List<EnemyController> poolingAllEnemyList = new List<EnemyController>();
 
     [HideInInspector] private List<EliteEnemyController> currentEliteEnemyList = new List<EliteEnemyController>();
     [HideInInspector] private BossEnemyController currentBossEnemy = null;
@@ -143,14 +142,17 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     {
         if (type == eEnemy.Normal)
         {
+            Debug.Log($"color<red>EnemyDequeue : {type} : {enemyId}");
             return SpawnNormalEnemy(enemyId);
         }
         else if (type == eEnemy.Elite)
         {
+            Debug.Log($"color<red>EnemyDequeue : {type} : {enemyId}");
             return SpawnEliteEnemy(enemyId);
         }
         else if (type == eEnemy.Boss)
         {
+            Debug.Log($"color<red>EnemyDequeue : {type} : {enemyId}");
             return SpawnBossEnemy(enemyId);
         }
 
@@ -161,16 +163,19 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     {
         if (type == eEnemy.Normal)
         {
+            Debug.Log($"color<red>EnemyEnqueue : {type} : {enemyId}");
             NormalEnemyController normalEnemy = enemy as NormalEnemyController;
             if (normalEnemy != null) RemoveNormalEnemy(normalEnemy, enemyId);
         }
         else if (type == eEnemy.Elite)
         {
+            Debug.Log($"color<red>EnemyEnqueue : {type} : {enemyId}");
             EliteEnemyController eliteEnemy = enemy as EliteEnemyController;
             if (eliteEnemy != null) RemoveEliteEnemy(eliteEnemy, enemyId);
         }
         else if (type == eEnemy.Boss)
         {
+            Debug.Log($"color<red>EnemyEnqueue : {type} : {enemyId}");
             BossEnemyController bossEnemy = enemy as BossEnemyController;
             if (bossEnemy != null) RemoveBossEnemy(bossEnemy, enemyId);
         }

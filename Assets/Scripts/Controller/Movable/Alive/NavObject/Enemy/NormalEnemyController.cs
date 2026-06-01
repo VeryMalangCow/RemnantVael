@@ -19,10 +19,9 @@ public class NormalEnemyController : EnemyController
 
     #region Die
 
-    protected override void Set_Die_Extra()
+    protected override void Set_Die()
     {
-        EnemyManager.instance.RemoveNormalEnemy(this, Get_ID());
-
+        base.Set_Die();
         AllyRequestManager.instance.Play_KillNormalEnemy();
     }
 

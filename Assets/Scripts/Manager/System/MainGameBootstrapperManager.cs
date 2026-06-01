@@ -32,7 +32,7 @@ public class MainGameBootstrapperManager : MonoBehaviour
             preAwakePersistentSingletons[i].gameObject.SetActive(true);
 
         Debug.Log("<color=orange>PreAwakeManagers : All Offset Complete</color>");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 #endif
         initalizeingGo.gameObject.SetActive(true);
 

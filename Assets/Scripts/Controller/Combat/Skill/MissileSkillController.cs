@@ -68,7 +68,7 @@ public class MissileSkillController : ActiveSkillController
                 depthController.targetRange);
 
             // Effect Explosion -> Physics DMG
-            UnitManager.instance.player_ExplImgGenerator.Expl_Player_Skill0(
+            VFXManager.instance.player_ExplImgGenerator.Expl_Player_Skill0(
                 playerController.Get_ID(),
                 (Vector2)depthController.targetObject.gameObject.transform.position + (dir * 0.1f),
                 dir,

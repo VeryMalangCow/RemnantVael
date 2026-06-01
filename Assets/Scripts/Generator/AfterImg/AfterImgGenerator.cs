@@ -65,24 +65,24 @@ public class AfterImgGenerator : MonoBehaviour
     private void Gen_Img(SpriteRenderer sr, Color clr)
     {
         PoolableSpriteRenderer poolableSr = VFXManager.instance.SpawnAfterImg();
+        if (poolableSr == null)
+        {
+            Debug.Log("<color=red>poolableSr is NULL</color>");
+            return;
+        }
         SpriteRenderer afterSr = poolableSr.spriteRenderer;
         afterSr.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
 
         afterSr.sprite = sr.sprite;
         afterSr.sortingOrder = sr.sortingOrder - 1;
-        Color _clr = clr;
-        _clr.a = Mathf.Clamp(imageAlpha, 0f, 1f);
-        afterSr.color = _clr;
+        afterSr.color = clr;
         afterSr.gameObject.transform.position = sr.transform.position;
         afterSr.gameObject.transform.localScale = sr.transform.lossyScale;
-        afterSr.gameObject.SetActive(true);
         afterSr.DOFade(0f, stayDur)
             .OnComplete(() => 
             {
-                afterSr.gameObject.SetActive(false); 
                 VFXManager.instance.RemoveAfterImg(poolableSr);
             });
-        
     }
 
     private void Gen_Img(Color clr)

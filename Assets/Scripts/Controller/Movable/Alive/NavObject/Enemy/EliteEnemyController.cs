@@ -86,14 +86,13 @@ public class EliteEnemyController : EnemyController
             Gen_CoreItem(coreDropItemPercent.coreItemID);
         }
     }
-
-    protected override void Set_Die_Extra()
+    protected override void Set_Die()
     {
+        base.Set_Die();
         EnemyManager.instance.Remove_EliteEnemy(this);
-        EnemyManager.instance.RemoveEliteEnemy(this, Get_ID());
-
         AllyRequestManager.instance.Play_KillEliteEnemy();
     }
+
 
     #endregion
 }

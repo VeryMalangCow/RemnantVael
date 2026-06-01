@@ -104,6 +104,7 @@ public abstract class AliveObjectController : MovableObjectController
     {
         if (life <= 0)
         {
+            if (isDead) return;
             isDead = true;
             Set_Die();
         }

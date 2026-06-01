@@ -7,8 +7,6 @@ public class AllyHUDController : MonoBehaviour
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> HUD")]
 
@@ -27,13 +25,6 @@ public class AllyHUDController : MonoBehaviour
     [Space(10)]
     [Header("=== Name")]
     [SerializeField] private TMP_Text nameTxt;
-
-    #endregion
-
-    #region - Hide
-
-
-    #endregion
 
     #endregion
 

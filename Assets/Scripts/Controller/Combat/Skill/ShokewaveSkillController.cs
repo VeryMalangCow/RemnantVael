@@ -53,7 +53,7 @@ public class ShockwaveSkillController : ActiveSkillController
             depthController.targetRange);
 
         // Æø¹ß
-        UnitManager.instance.player_ExplImgGenerator.Expl_Player_Skill1(
+        VFXManager.instance.player_ExplImgGenerator.Expl_Player_Skill1(
             playerController.Get_ID(), 
             (Vector2)depthController.targetObject.gameObject.transform.position);
 

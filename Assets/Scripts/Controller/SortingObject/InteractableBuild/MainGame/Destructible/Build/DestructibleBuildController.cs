@@ -96,7 +96,7 @@ public class DestructibleBuildController : InteractableBuildController
         transform.DOShakePosition(0.8f, 0.25f, 20, 90, false, true);
 
         isBroken = true;
-        UnitManager.instance.build_ExplImgGenerator.Expl_Build(targetObject.gameObject.transform.position);
+        VFXManager.instance.build_ExplImgGenerator.Expl_Build(targetObject.gameObject.transform.position);
         Set_StateAnim();
 
         if (spawnItem)

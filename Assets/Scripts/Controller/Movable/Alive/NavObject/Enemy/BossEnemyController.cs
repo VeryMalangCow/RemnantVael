@@ -165,14 +165,12 @@ public class BossEnemyController : EnemyController
         }
     }
 
-    protected override void Set_Die_Extra()
+    protected override void Set_Die()
     {
+        base.Set_Die();
         EnemyManager.instance.SetOff_BossEnemy();
-        EnemyManager.instance.RemoveBossEnemy(this, Get_ID());
-
         AllyRequestManager.instance.Play_KillEliteEnemy();
     }
-
 
     #endregion
 }

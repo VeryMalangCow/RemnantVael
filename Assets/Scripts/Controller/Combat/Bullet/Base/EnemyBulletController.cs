@@ -100,7 +100,7 @@ public class EnemyBulletController : BulletController, IPoolable
         switch (poolingString)
         {
             case "EnemyBullet":
-                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(targetObject.transform.position, explAmount);
+                VFXManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(targetObject.transform.position, explAmount);
                 break;
 
             default:

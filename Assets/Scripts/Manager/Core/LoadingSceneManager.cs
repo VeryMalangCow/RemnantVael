@@ -121,13 +121,11 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
         BaseUpgradeManager.instance = null;
         ModuleItemManager.instance = null;
         MainGameUIManager.instance = null;
-        UnitManager.instance = null;
         StageManager.instance = null;
         BuffManager.instance = null;
         AllyManager.instance = null;
         NPCManager.instance = null;
         EventManager.instance = null;
-        TimerManager.instance = null;
     }
 
     #endregion

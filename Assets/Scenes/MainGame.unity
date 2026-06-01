@@ -693,7 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f67548f393cb0045a855ec532eae141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 15
+  initOrder: 16
   initPregressText: Event Setting...
   isPlayingEvent: 0
   blackUpsideRT: {fileID: 1901464145}
@@ -1607,10 +1607,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2100693807}
   - {fileID: 591994165}
   - {fileID: 1705144066}
-  - {fileID: 1430576402}
-  - {fileID: 591762694}
   - {fileID: 976776174}
   - {fileID: 590781861}
   - {fileID: 1684128998}
@@ -1624,6 +1623,7 @@ Transform:
   - {fileID: 56943628}
   - {fileID: 1861637378}
   - {fileID: 1352209605}
+  - {fileID: 1430576402}
   - {fileID: 361561067}
   - {fileID: 1939506647}
   - {fileID: 407687441}
@@ -2479,7 +2479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a6b9fe43dffb0458cac4901d44dbb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 10
+  initOrder: 11
   initPregressText: Upgrade-Base Setting...
   baseDamage_BUData:
     levelDataList: []
@@ -3180,7 +3180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0100c9a09e44ce646bd5128c8b3b7804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 12
+  initOrder: 13
   initPregressText: User Interface Setting...
   uiCamera: {fileID: 1810588474}
   uiParent: {fileID: 79631295}
@@ -4842,50 +4842,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 195290732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &591762693
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 591762694}
-  - component: {fileID: 591762695}
-  m_Layer: 0
-  m_Name: TimerManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &591762694
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591762693}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 195290732}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &591762695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591762693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea9b6a90ce525c64fb4eee9a3201c5bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &591994164
 GameObject:
   m_ObjectHideFlags: 0
@@ -6060,7 +6016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc39c8ccec7eb1c4ca6af096da088da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 13
+  initOrder: 14
   initPregressText: Stage & Map Setting...
   thisNav: {fileID: 535791893}
   mapParentTF: {fileID: 1948256983}
@@ -11228,7 +11184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7466c5d07359ee74ea0bb6dad9d02622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 14
+  initOrder: 15
   initPregressText: Input Setting...
   mousePointerRT: {fileID: 1808296828}
   endBufferedInputTime: 0.5
@@ -11762,11 +11718,8 @@ MonoBehaviour:
   hittedAC_0: {fileID: 7400000, guid: 6af0f636d94b34f41822b97c0843c8ca, type: 2}
   hittedAC_1: {fileID: 7400000, guid: c871472990cbec34cb198596439ad843, type: 2}
   hittedAC_2: {fileID: 7400000, guid: ad2333be6b080184da375f3e13c7316e, type: 2}
-  normalEnemyParentTf: {fileID: 1149777724}
-  eliteEnemyParentTf: {fileID: 2075431383}
-  bossEnemyParentTf: {fileID: 217165031}
   normalEnemyPools:
-  - prefab: {fileID: 848216773187047800, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
+  - prefab: {fileID: 848216773187047800, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
     parentTf: {fileID: 0}
   - prefab: {fileID: 848216773187047800, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
     parentTf: {fileID: 0}
@@ -11774,6 +11727,7 @@ MonoBehaviour:
     parentTf: {fileID: 0}
   - prefab: {fileID: 848216773187047800, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
     parentTf: {fileID: 0}
+  normalEnemyParentTf: {fileID: 1149777724}
   eliteEnemyPools:
   - prefab: {fileID: 2232013880238854159, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
     parentTf: {fileID: 0}
@@ -11781,11 +11735,12 @@ MonoBehaviour:
     parentTf: {fileID: 0}
   - prefab: {fileID: 2232013880238854159, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
     parentTf: {fileID: 0}
+  eliteEnemyParentTf: {fileID: 2075431383}
   bossEnemyPools:
   - prefab: {fileID: 1586031869316449163, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
     parentTf: {fileID: 0}
+  bossEnemyParentTf: {fileID: 217165031}
   currentEnemyList: []
-  poolingAllEnemyList: []
 --- !u!1 &1367558787
 GameObject:
   m_ObjectHideFlags: 0
@@ -12426,6 +12381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0391b7c63781a314ca7857a554576d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initOrder: 10
+  initPregressText: Buff Setting...
 --- !u!114 &1430576405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15014,6 +14971,7 @@ MonoBehaviour:
   - {fileID: 575220760}
   - {fileID: 56943629}
   - {fileID: 1861637379}
+  - {fileID: 1430576404}
   - {fileID: 361561068}
   - {fileID: 1939506648}
   - {fileID: 407687442}
@@ -15291,7 +15249,7 @@ GameObject:
   - component: {fileID: 1705144066}
   - component: {fileID: 1705144067}
   m_Layer: 0
-  m_Name: UnitManager
+  m_Name: TestThings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15324,10 +15282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef74f5adbc6cf64f97153cd67a1719c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_ExplImgGenerator: {fileID: 1603938535}
-  build_ExplImgGenerator: {fileID: 4532320}
-  enemy_ExplImgGenerator: {fileID: 1129606755}
-  onceTime_AnimGenerator: {fileID: 2002655550}
   testGO:
   - {fileID: 1168812488}
   ultraModeGO: {fileID: 2137241682}
@@ -16658,6 +16612,10 @@ MonoBehaviour:
   buffIconPool:
     prefab: {fileID: 4834645357022945155, guid: 74a854358c0cdac428b8364fc40498bb, type: 3}
     parentTf: {fileID: 1316504363}
+  player_ExplImgGenerator: {fileID: 1603938535}
+  build_ExplImgGenerator: {fileID: 4532320}
+  enemy_ExplImgGenerator: {fileID: 1129606755}
+  onceTime_AnimGenerator: {fileID: 2002655550}
 --- !u!1001 &1872251674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17294,7 +17252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8641267fcbb6cd48a4f143288053176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initOrder: 11
+  initOrder: 12
   initPregressText: Upgrade-Module Setting...
   itemDataArr: []
 --- !u!114 &1939506649
@@ -18894,6 +18852,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &2100693806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2100693807}
+  m_Layer: 0
+  m_Name: ----------System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2100693807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100693806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 195290732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2105465134
 GameObject:
   m_ObjectHideFlags: 0

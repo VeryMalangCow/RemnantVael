@@ -90,8 +90,32 @@ public class PoolSystem<T> where T : MonoBehaviour, IPoolable
     // 사용 가능한 Free 추가
     public void Enqueue(T obj)
     {
-        if (obj == null || obj.ActiveIndex < 0)
+        if (obj == null)
             return;
+
+        if (obj.ActiveIndex < 0)
+            return;
+
+        if (activeIndices.Count <= 0)
+        {
+            UnityEngine.Debug.LogWarning($"Enqueue 실패: activeIndices가 비어있음. obj: {obj.name}, PoolIndex: {obj.PoolIndex}, ActiveIndex: {obj.ActiveIndex}");
+            obj.ActiveIndex = -1;
+            return;
+        }
+
+        if (obj.ActiveIndex >= activeIndices.Count)
+        {
+            UnityEngine.Debug.LogWarning($"Enqueue 실패: ActiveIndex 범위 초과. obj: {obj.name}, PoolIndex: {obj.PoolIndex}, ActiveIndex: {obj.ActiveIndex}, activeCount: {activeIndices.Count}");
+            obj.ActiveIndex = -1;
+            return;
+        }
+
+        if (activeIndices[obj.ActiveIndex] != obj.PoolIndex)
+        {
+            UnityEngine.Debug.LogWarning($"Enqueue 실패: ActiveIndex 불일치. obj: {obj.name}, PoolIndex: {obj.PoolIndex}, ActiveIndex: {obj.ActiveIndex}, activeIndices[ActiveIndex]: {activeIndices[obj.ActiveIndex]}");
+            obj.ActiveIndex = -1;
+            return;
+        }
 
         // 바꾸어줄 Index들
         int activeIdx = obj.ActiveIndex;

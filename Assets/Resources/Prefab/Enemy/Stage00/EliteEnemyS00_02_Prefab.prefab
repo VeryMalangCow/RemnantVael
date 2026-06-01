@@ -59,6 +59,7 @@ MonoBehaviour:
   targetObject: {fileID: 8603897730151291316}
   thisSr: {fileID: 7051792676472209556}
   targetRange: 0.88
+  isSortingMover: 0
   rb: {fileID: 7671391899007426867}
   accelerationSpeed: 12
   isDead: 0
@@ -84,7 +85,7 @@ MonoBehaviour:
   particleThrowDis: 1.5
   sg: {fileID: 8138059332026427226}
   buff: {fileID: 5694203857495159564}
-  enemyType: 0
+  enemyType: 1
   maxHP: 600
   maxEP: 200
   chargeEPSpeed: 50
@@ -1717,6 +1718,7 @@ MonoBehaviour:
   targetObject: {fileID: 687731229416158342}
   thisSr: {fileID: 7766270403977179890}
   targetRange: 0.75
+  isSortingMover: 0
 --- !u!1 &3517356116228175216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,6 +1827,7 @@ MonoBehaviour:
   targetObject: {fileID: 631893965774025182}
   thisSr: {fileID: 675874419782287943}
   targetRange: 0.61
+  isSortingMover: 0
 --- !u!1 &3872917863215022490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,6 +1939,7 @@ MonoBehaviour:
   targetObject: {fileID: 3111001099701591701}
   thisSr: {fileID: 3425588025455670778}
   targetRange: 0.1
+  isSortingMover: 0
 --- !u!1 &4945176109765886825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,6 +2140,7 @@ MonoBehaviour:
   targetObject: {fileID: 5916107178346211137}
   thisSr: {fileID: 6198395690066680164}
   targetRange: 0.75
+  isSortingMover: 0
 --- !u!1 &5169463660413909597
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,6 +2190,7 @@ MonoBehaviour:
   targetObject: {fileID: 3042335153966302920}
   thisSr: {fileID: 578491963958939310}
   targetRange: 0.75
+  isSortingMover: 0
 --- !u!1 &5179608740825470448
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,6 +2240,7 @@ MonoBehaviour:
   targetObject: {fileID: 2706265280678367424}
   thisSr: {fileID: 6441490978534196886}
   targetRange: 0.1
+  isSortingMover: 0
 --- !u!1 &5365890932916873587
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,6 +3086,7 @@ MonoBehaviour:
   targetObject: {fileID: 1588467568735163552}
   thisSr: {fileID: 8785206568771472477}
   targetRange: 0.75
+  isSortingMover: 0
 --- !u!1 &7449881974328303742
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,6 +3447,7 @@ MonoBehaviour:
   targetObject: {fileID: 2166282305174994895}
   thisSr: {fileID: 213649135197932119}
   targetRange: 0.48
+  isSortingMover: 0
 --- !u!1 &8981286601951011122
 GameObject:
   m_ObjectHideFlags: 0
@@ -3616,6 +3625,7 @@ MonoBehaviour:
   targetObject: {fileID: 5808326293010652495}
   thisSr: {fileID: 1803686417133539639}
   targetRange: 0.75
+  isSortingMover: 0
 --- !u!1 &9192794239719265471
 GameObject:
   m_ObjectHideFlags: 0
