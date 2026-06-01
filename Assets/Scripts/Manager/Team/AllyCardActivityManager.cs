@@ -109,15 +109,15 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void ST_CardActivity_000()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Grunt"));
+        AllyManager.instance.SpawnGruntAlly();
     }
     private void ST_CardActivity_001()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Grunt"));
+        AllyManager.instance.SpawnGruntAlly();
     }
     private void ST_CardActivity_002()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Grunt"));
+        AllyManager.instance.SpawnGruntAlly();
     }
 
     #endregion
@@ -343,15 +343,15 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void ST_CardActivity_038()
     {
-        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Booma"));
+        AllyManager.instance.SpawnBoomaAlly();
     }
     private void ST_CardActivity_039()
     {
-        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Booma"));
+        AllyManager.instance.SpawnBoomaAlly();
     }
     private void ST_CardActivity_040()
     {
-        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Booma"));
+        AllyManager.instance.SpawnBoomaAlly();
     }
 
     #endregion
@@ -364,11 +364,11 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_000()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Ignis"));
+        AllyManager.instance.SpawnIgnisAlly();
     }
     private void UT_CardActivity_001()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Ignis"));
+        AllyManager.instance.SpawnIgnisAlly();
     }
 
     #endregion
@@ -377,12 +377,12 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_002()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Glacia"));
+        AllyManager.instance.SpawnGlaciaAlly();
     }
 
     private void UT_CardActivity_003()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Glacia"));
+        AllyManager.instance.SpawnGlaciaAlly();
     }
 
     #endregion
@@ -391,12 +391,12 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_004()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Volt"));
+        AllyManager.instance.SpawnVoltAlly();
     }
 
     private void UT_CardActivity_005()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Volt"));
+        AllyManager.instance.SpawnVoltAlly();
     }
 
     #endregion
@@ -405,26 +405,26 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_006()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Tox"));
+        AllyManager.instance.SpawnToxAlly();
     }
 
     private void UT_CardActivity_007()
     {
-        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Tox"));
+        AllyManager.instance.SpawnToxAlly();
     }
 
     #endregion
 
-    #region (008~009) Spawn < >
+    #region (008~009) Spawn < Totis >
 
     private void UT_CardActivity_008()
     {
-        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Totis"));
+        AllyManager.instance.SpawnTotisAlly();
     }
 
     private void UT_CardActivity_009()
     {
-        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Totis"));
+        AllyManager.instance.SpawnTotisAlly();
     }
 
     #endregion
@@ -465,18 +465,4 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #endregion
 
-
-    #region Unique
-
-    // Ally »ý¼º
-    private void SpawnAlly(GameObject allyPrefab)
-    {
-        AllyController ally = DevTool.Get_ComponentTType<AllyController>(
-            Instantiate(allyPrefab, allyParentTF));
-
-        ally.Set_SpawnFirst();
-    }
-
-
-    #endregion
 }

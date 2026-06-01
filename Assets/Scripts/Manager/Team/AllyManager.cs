@@ -75,6 +75,18 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 
     #endregion
 
+
+    [SerializeField] private PoolSystem<ShootingAllyController> gruntAllyPool;
+    [SerializeField] private PoolSystem<ShootingAllyController> ignisAllyPool;
+    [SerializeField] private PoolSystem<ShootingAllyController> glaciaAllyPool;
+    [SerializeField] private PoolSystem<ShootingAllyController> voltAllyPool;
+    [SerializeField] private PoolSystem<ShootingAllyController> toxAllyPool;
+    [SerializeField] private Transform fieldAllyParentTf;
+
+    [SerializeField] private PoolSystem<DroppingAttackAllyController> boomaAllyPool;
+    [SerializeField] private PoolSystem<DroppingTotemeAllyController> totisAllyPool;
+    [SerializeField] private Transform noneAllyParentTf;
+
     [SerializeField] private PoolSystem<AllyTotemeController> allyTotemePool;
 
     private AlwaysCooltimeData totemeTimer = new AlwaysCooltimeData(1f);
@@ -86,6 +98,15 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 
     public IEnumerator Initialize()
     {
+        yield return gruntAllyPool.InitAsync(fieldAllyParentTf, 8, 8f);
+        yield return ignisAllyPool.InitAsync(fieldAllyParentTf, 4, 8f);
+        yield return glaciaAllyPool.InitAsync(fieldAllyParentTf, 4, 8f);
+        yield return voltAllyPool.InitAsync(fieldAllyParentTf, 4, 8f);
+        yield return toxAllyPool.InitAsync(fieldAllyParentTf, 4, 8f);
+
+        yield return boomaAllyPool.InitAsync(noneAllyParentTf, 4, 8f);
+        yield return totisAllyPool.InitAsync(noneAllyParentTf, 4, 8f);
+
         yield return allyTotemePool.InitAsync(16, 8f);
 
         Stopwatch sw = new Stopwatch();
@@ -130,49 +151,102 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
         sw.Stop();
         UnityEngine.Debug.Log($"AllyManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
+
+        enabled = true;
     }
 
     #endregion
 
-    #region Pool
 
-    public AllyTotemeController SpawnAllyToteme() => allyTotemePool.Dequeue();
-    public void RemoveAllyToteme(AllyTotemeController item) => allyTotemePool.Enqueue(item);
-
-    #endregion
-
-    #region Mono
-
+    // Centralized Update
     private void Update()
     {
         float dt = Time.deltaTime;
-        Caculate_TotemeTimer(dt);
+
+        HandleAlly_Shooting(gruntAllyPool, dt);
+        HandleAlly_Shooting(ignisAllyPool, dt);
+        HandleAlly_Shooting(glaciaAllyPool, dt);
+        HandleAlly_Shooting(voltAllyPool, dt);
+        HandleAlly_Shooting(toxAllyPool, dt);
+
+        HandleAlly_AttackCharging(boomaAllyPool, dt);
+        HandleAlly_AttackCharging(totisAllyPool, dt);
+
+        HandleToteme_TotemeTimer(dt); 
     }
 
-    #endregion
+    private void HandleAlly_Shooting<T>(PoolSystem<T> pool, float dt) where T : ShootingAllyController
+    {
+        var objs = pool.objs;
+        var activeIndices = pool.activeIndices;
 
-    #region Timer
+        for (int i = activeIndices.Count - 1; i >= 0; i--)
+            objs[activeIndices[i]].HandleState(dt);
+    }
 
-    private void Caculate_TotemeTimer(float dt)
+    private void HandleAlly_AttackCharging<T>(PoolSystem<T> pool, float dt) where T : DroppingAllyController
+    {
+        var objs = pool.objs;
+        var activeIndices = pool.activeIndices;
+
+        for (int i = activeIndices.Count - 1; i >= 0; i--)
+            objs[activeIndices[i]].HandleAttackCharge(dt);
+    }
+
+    private void HandleToteme_TotemeTimer(float dt)
     {
         if (totemeTimer.Is_Full(dt))
-        {
             for (int i = 0; i < allTotemeList.Count; i++)
-            {
                 allTotemeList[i].Active_Buff();
-            }
-        }
     }
 
-    public void Add_Toteme(TotemeController toteme)
+
+   
+
+    // Centralized FixedUpdate
+    private void FixedUpdate()
     {
-        DevTool.Add_InList(allTotemeList, toteme);
+        float fdt = Time.fixedDeltaTime;
+
+        HandleFieldAlly_Movement(gruntAllyPool, fdt);
+        HandleFieldAlly_Movement(ignisAllyPool, fdt);
+        HandleFieldAlly_Movement(glaciaAllyPool, fdt);
+        HandleFieldAlly_Movement(voltAllyPool, fdt);
+        HandleFieldAlly_Movement(toxAllyPool, fdt);
     }
 
-    public void Remove_Toteme(TotemeController toteme)
+    private void HandleFieldAlly_Movement<T>(PoolSystem<T> pool, float fdt) where T : FieldUnitAllyController
     {
-        DevTool.Remove_InList(allTotemeList, toteme);
+        var objs = pool.objs;
+        var activeIndices = pool.activeIndices;
+
+        for (int i = activeIndices.Count - 1; i >= 0; i--)
+            objs[activeIndices[i]].HandleMovement(fdt);
     }
+
+
+    #region Pool
+
+    // Ally
+    public void SpawnGruntAlly() => gruntAllyPool.Dequeue();
+    public void SpawnIgnisAlly() => ignisAllyPool.Dequeue();
+    public void SpawnGlaciaAlly() => glaciaAllyPool.Dequeue();
+    public void SpawnVoltAlly() => voltAllyPool.Dequeue();
+    public void SpawnToxAlly() => toxAllyPool.Dequeue();
+
+
+    public void SpawnBoomaAlly() => boomaAllyPool.Dequeue();
+    public void SpawnTotisAlly() => totisAllyPool.Dequeue();
+
+
+
+    // Toteme
+    public void Add_Toteme(TotemeController toteme) => DevTool.Add_InList(allTotemeList, toteme);
+    public void Remove_Toteme(TotemeController toteme) => DevTool.Remove_InList(allTotemeList, toteme);
+    
+
+    public AllyTotemeController SpawnAllyToteme() => allyTotemePool.Dequeue();
+    public void RemoveAllyToteme(AllyTotemeController item) => allyTotemePool.Enqueue(item);
 
     #endregion
 

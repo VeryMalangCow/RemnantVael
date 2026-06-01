@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class CreditController : RangeAbsorbItemController
+public class CreditController : AbsorbItemController
 {
     #region Value
 
@@ -58,8 +58,6 @@ public class CreditController : RangeAbsorbItemController
     protected override void Gain_Item()
     {
         base.Gain_Item();
-
-        isSpawnNow = false;
 
         PlayerManager.instance.playerController.Add_CurrentCredit(gainAmount); 
         DropItemManager.instance.RemoveCredit(this);

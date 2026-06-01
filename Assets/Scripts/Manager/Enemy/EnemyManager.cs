@@ -66,6 +66,7 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
         enabled = true;
     }
 
+    // Centralized Update
     private void Update()
     {
         HandleChargeSkill();
@@ -95,6 +96,7 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     }
 
 
+    // Centralized FixedUpdate
     private void FixedUpdate()
     {
         HandleMovement();
@@ -180,6 +182,13 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
             if (bossEnemy != null) RemoveBossEnemy(bossEnemy, enemyId);
         }
     }
+
+    #endregion
+
+    #region Prod
+
+    public Sprite GetEliteProdSprite(int id) => eliteEnemyPools[id].Prefab.battleProdSprite;
+    public Sprite GetBossProdSprite(int id) => bossEnemyPools[id].Prefab.battleProdSprite;
 
     #endregion
 

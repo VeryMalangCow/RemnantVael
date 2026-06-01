@@ -39,33 +39,17 @@ public class BattleProdUIController : UIController
         battleProd_EnemyRt.anchoredPosition = new Vector2(100, -150);
     }
 
-    public void Play_BattleOnProd(PlayerController player, EliteEnemyController enemy, out float durTime)
+    public void Play_BattleOnProd(Sprite enemyImg, string enemyName, out float durTime)
     {
+        PlayerController player = PlayerManager.instance.playerController;
+        Sprite playerSprite = player.battleProdSprite;
+        string playerName = ResourceManager.instance.Get_PlayerName(player.GetNameID);
+
         SoundManager.instance.Play_2D_SFX_UI("StartBattleProd");
-        Play_BattleOnProd(
-            player.battleProdSprite, 
-            enemy.battleProdSprite, 
-            ResourceManager.instance.Get_PlayerName(player.GetNameID),
-            ResourceManager.instance.Get_EnemyName(enemy.GetNameID),
-            out durTime);
-    }
 
-    public void Play_BattleOnProd(PlayerController player, BossEnemyController enemy, out float durTime)
-    {
-        SoundManager.instance.Play_2D_SFX_UI("StartBossBattleProd");
-        Play_BattleOnProd(
-            player.battleProdSprite,
-            enemy.battleProdSprite,
-            ResourceManager.instance.Get_PlayerName(player.GetNameID),
-            ResourceManager.instance.Get_EnemyName(enemy.GetNameID),
-            out durTime);
-    }
-
-    private void Play_BattleOnProd(Sprite playerImg, Sprite enemyImg, string playerName, string enemyName, out float durTime)
-    {
         battleProd_Cg.gameObject.SetActive(true);
 
-        battleProd_PlayerImg.sprite = playerImg;
+        battleProd_PlayerImg.sprite = playerSprite;
         battleProd_PlayerImg.SetNativeSize();
         battleProd_PlayerNameTxt.text = playerName;
 

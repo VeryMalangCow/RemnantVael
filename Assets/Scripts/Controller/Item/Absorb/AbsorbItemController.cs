@@ -10,31 +10,52 @@ public class AbsorbItemController : ItemController
 
     [Space(10)]
     [Header("=== Target")]
-    [SerializeField] GameObject targetGo;
+    [SerializeField] Transform targetGo;
 
     [Space(10)]
     [Header("=== Absorb")]
+    [SerializeField] private float absorbRange = 1f;
+
     [SerializeField] protected bool isAbsorbing = false;
     [SerializeField] private float absorbStartPower = 300f;
     [SerializeField] private float absorbPower = 5f;
     [SerializeField] private float rotPower = 10f;
 
-    // Limit OnEnable
-    [HideInInspector] protected bool isSpawnNow = false;
 
     #endregion
 
-    #region Framework
+    #region Pool
 
-    protected override void OnEnable()
+    public override void PoolOffset()
     {
-        base.OnEnable();
-        if (isSpawnNow) rb.AddForce(DevTool.Get_RandomDir() * absorbStartPower);
+        base.PoolOffset();
+        targetGo = PlayerManager.instance.playerController.gameObject.transform;
     }
 
-    protected virtual void Update()
+    #endregion
+
+    #region Absorb
+
+    public virtual void HandleAbsorb(float dt)
     {
-        Set_Absorb(Time.deltaTime);
+        if (isAbsorbing)
+        {
+            rb.velocity = Get_AbsorbDir(dt) * Get_AbsorbPower();
+        }
+        else
+        {
+            if (!isEndSpread)
+            {
+                HandleSpread(dt);
+            }
+            else
+            {
+                rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, 10 * Time.deltaTime);
+            }
+
+            isAbsorbing =
+                Vector2.Distance(targetGo.position, transform.position) <= absorbRange;
+        }
     }
 
     #endregion
@@ -45,9 +66,7 @@ public class AbsorbItemController : ItemController
     {
         base.Set_State(spawnPos);
 
-        targetGo = PlayerManager.instance.playerController.gameObject;
         isAbsorbing = false;
-
         transform.SetParent(StageManager.instance.currentRoomController.transform);
     }
 
@@ -55,25 +74,12 @@ public class AbsorbItemController : ItemController
 
     #region Absorb
 
-    private void Set_Absorb(float deltaTime)
-    {
-        if (isAbsorbing)
-        {
-            rb.velocity = Get_AbsorbDir(deltaTime) * Get_AbsorbPower();
-        }
-        else
-        {
-            rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, 10 * Time.deltaTime);
-        }
-    }
-
     private Vector2 Get_AbsorbDir(float deltaTime)
     {
         Vector2 fromDir = rb.velocity.normalized;
         Vector2 toDir = (Vector2)(targetGo.transform.position - this.transform.position).normalized;
 
         return  Vector2.Lerp(fromDir, toDir, rotPower * deltaTime).normalized;
-        
     }
 
     private float Get_AbsorbPower()

@@ -130,8 +130,6 @@ public abstract class ExplosionController : StaticDepthController, IPoolable
 
     private void SetOn_State()
     {
-        this.gameObject.SetActive(true);
-
         SoundManager.instance.Play_2D_SFX_Combat(_as, "Explosion");
 
         if (state.isFire) SoundManager.instance.Play_2D_SFX_Status("Fire");

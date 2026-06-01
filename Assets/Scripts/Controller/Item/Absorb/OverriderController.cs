@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class OverriderController : RangeAbsorbItemController
+public class OverriderController : AbsorbItemController
 {
     #region Value
 
@@ -58,8 +58,6 @@ public class OverriderController : RangeAbsorbItemController
     protected override void Gain_Item()
     {
         base.Gain_Item();
-
-        isSpawnNow = false;
 
         PlayerManager.instance.playerController.Add_CurrentOverrider(gainAmount);
         DropItemManager.instance.RemoveOverrider(this);

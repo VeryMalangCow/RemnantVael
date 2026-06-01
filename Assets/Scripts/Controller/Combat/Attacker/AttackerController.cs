@@ -118,13 +118,16 @@ public abstract class AttackerController : MovableDepthController, IPoolable
         Sequence seq = DOTween.Sequence();
 
         Set_State_Base(state, targetRange);
-        Set_State_Juge<T>(state_Juge);
+        Set_State_Juge(state_Juge);
         Set_State_Anim(state_Anim);
         Set_State_StartTF(state_StartTF, parent, isLocal);
         seq.Join(Set_State_EndTF(state_EndTF, isLocal));
         Set_State_Extra();
 
-        SetOn_State(seq);
+        seq.OnComplete(() =>
+        {
+            RemoveObject();
+        });
 
         return seq;
     }
@@ -199,18 +202,6 @@ public abstract class AttackerController : MovableDepthController, IPoolable
     }
 
     public virtual void Set_State_Extra() { }
-
-
-    private void SetOn_State(Sequence totalSeq)
-    {
-        this.gameObject.SetActive(true);
-        //this.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
-
-        totalSeq.OnComplete(() =>
-        {
-            RemoveObject();
-        });
-    }
 
     #endregion
 

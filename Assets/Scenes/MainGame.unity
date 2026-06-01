@@ -567,7 +567,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56943627}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d12619ee7d58bc24087fbc8dc70cfad9, type: 3}
   m_Name: 
@@ -1632,6 +1632,37 @@ Transform:
   - {fileID: 73963933}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &199104013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 199104014}
+  m_Layer: 0
+  m_Name: Field
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &199104014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199104013}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 355347629}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &217165030
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,6 +2347,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 422381123}
+  - {fileID: 199104014}
+  - {fileID: 1130980412}
   m_Father: {fileID: 195290732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &355347630
@@ -2325,7 +2358,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355347628}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85c6e61de8c43ab47b554571f2608e7f, type: 3}
   m_Name: 
@@ -2343,6 +2376,29 @@ MonoBehaviour:
   - {fileID: -625728284, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: 768085294, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   allAlly: []
+  gruntAllyPool:
+    prefab: {fileID: -7677951490283658699, guid: 5fac2ad5d44bbd0468b77a8561582ea5, type: 3}
+    parentTf: {fileID: 0}
+  ignisAllyPool:
+    prefab: {fileID: -7677951490283658699, guid: ba05112f05b88624da3eb5982f76e651, type: 3}
+    parentTf: {fileID: 0}
+  glaciaAllyPool:
+    prefab: {fileID: -7677951490283658699, guid: 09068d228bbbc714dba3ccd6157a34ce, type: 3}
+    parentTf: {fileID: 0}
+  voltAllyPool:
+    prefab: {fileID: -7677951490283658699, guid: 1cd7bfcc859c4a34db5397ddd31a9935, type: 3}
+    parentTf: {fileID: 0}
+  toxAllyPool:
+    prefab: {fileID: -7677951490283658699, guid: 33c23ba1499697941a469f037cbe406b, type: 3}
+    parentTf: {fileID: 0}
+  fieldAllyParentTf: {fileID: 199104014}
+  boomaAllyPool:
+    prefab: {fileID: 2867884557267293872, guid: cd6b12a404bf0a34cbdfcd7fcda50add, type: 3}
+    parentTf: {fileID: 0}
+  totisAllyPool:
+    prefab: {fileID: 5341792125008242447, guid: b24605b014acef34ca6bd4a5a5af12f2, type: 3}
+    parentTf: {fileID: 0}
+  noneAllyParentTf: {fileID: 1130980412}
   allyTotemePool:
     prefab: {fileID: 1527876159234004793, guid: 384d654e20209db47ba14aac6bb038b4, type: 3}
     parentTf: {fileID: 422381123}
@@ -6033,10 +6089,6 @@ MonoBehaviour:
       shopRoom: []
       allyShopRoom: []
       prisonRoom: []
-    enemyData:
-      stageEnemyList: []
-      stageEliteEnemyList: []
-      stageBossEnemyList: []
     mapMaterialUnclear:
     - {fileID: 2100000, guid: 8f88455681ebf204ab1bec4124f2e8a5, type: 2}
     - {fileID: 2100000, guid: d00759d6f63313746a8d499ed6169b9f, type: 2}
@@ -6108,18 +6160,6 @@ MonoBehaviour:
       - id: 0
         ruleId: 0
         typeId: 2
-    enemyData:
-      stageEnemyList:
-      - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
-      - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
-      - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
-      - {fileID: 272305898077013730, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
-      stageEliteEnemyList:
-      - {fileID: 272305898077013730, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
-      - {fileID: 272305898077013730, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
-      - {fileID: 272305898077013730, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
-      stageBossEnemyList:
-      - {fileID: 272305898077013730, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
     mapMaterialUnclear:
     - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
     - {fileID: 2100000, guid: 519ca4ba8ee8cd146a55966a26e1ea8c, type: 2}
@@ -6190,18 +6230,6 @@ MonoBehaviour:
       - id: 0
         ruleId: 0
         typeId: 2
-    enemyData:
-      stageEnemyList:
-      - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
-      - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
-      - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
-      - {fileID: 272305898077013730, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
-      stageEliteEnemyList:
-      - {fileID: 272305898077013730, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
-      - {fileID: 272305898077013730, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
-      - {fileID: 272305898077013730, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
-      stageBossEnemyList:
-      - {fileID: 272305898077013730, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
     mapMaterialUnclear:
     - {fileID: 2100000, guid: 8b689d8c19f30334a98c2f0d67d608c5, type: 2}
     - {fileID: 2100000, guid: deb9be69c28c64944b4e86b3c81e6b83, type: 2}
@@ -10092,6 +10120,37 @@ MonoBehaviour:
   - {fileID: -1434397230, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -571110442, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: 1982620110, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+--- !u!1 &1130980411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1130980412}
+  m_Layer: 0
+  m_Name: None
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1130980412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130980411}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 355347629}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132019104
 GameObject:
   m_ObjectHideFlags: 0

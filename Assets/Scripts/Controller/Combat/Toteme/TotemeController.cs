@@ -377,7 +377,6 @@ public abstract class TotemeController : DroppingDepthController, IPoolable
         if (buffSpoterList == null) return;
         for (int i = 0; i < buffSpoterList.Count; i++)
         {
-            buffSpoterList[i].gameObject.SetActive(false);
             VFXManager.instance.RemoveAreaSpoter(buffSpoterList[i]);
         }
         buffSpoterList = null;

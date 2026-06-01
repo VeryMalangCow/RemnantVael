@@ -130,7 +130,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_Prefab()
     {
-        Offset_Prefab_Ally();
         Offset_Prefab_ModuleItem();
         Offset_Prefab_Map();
         Offset_Prefab_Build(); 
@@ -1403,41 +1402,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public Sprite Get_UTPrisonIcon(bool isBase) => uplinkTeamIcon.Get_Base(isBase);
     public Sprite Get_NTPrisonIcon(bool isBase) => neoTeamIcon.Get_Base(isBase);
 
-
-    #endregion
-    #region Ally (Prefab)
-
-    // Value
-    [HideInInspector] private Dictionary<string, GameObject> allyFieldUnit_PrefabDict;
-    [HideInInspector] private Dictionary<string, GameObject> allyNoneUnit_PrefabDict;
-
-    // Offset
-    private void Offset_Prefab_Ally()
-    {
-        string path = "Prefab/Ally/";
-
-        string fieldUnitPath = path + "FieldUnit/";
-        allyFieldUnit_PrefabDict = new Dictionary<string, GameObject>
-        {
-            { "Grunt", GetAsset<GameObject>(fieldUnitPath, "GruntAlly_Prefab") },
-
-            { "Ignis", GetAsset<GameObject>(fieldUnitPath, "IgnisAlly_Prefab") },
-            { "Glacia", GetAsset<GameObject>(fieldUnitPath, "GlaciaAlly_Prefab") },
-            { "Volt", GetAsset<GameObject>(fieldUnitPath, "VoltAlly_Prefab") },
-            { "Tox", GetAsset<GameObject>(fieldUnitPath, "ToxAlly_Prefab") }
-        };
-
-        string noneUnitPath = path + "NoneUnit/";
-        allyNoneUnit_PrefabDict = new Dictionary<string, GameObject>
-        {
-            { "Booma", GetAsset<GameObject>(noneUnitPath, "BoomaAlly_Prefab") },
-            { "Totis", GetAsset<GameObject>(noneUnitPath, "TotisAlly_Prefab") }
-        };
-    }
-
-    // Get
-    public GameObject Get_FieldUnitAlly(string name) => allyFieldUnit_PrefabDict[name];
-    public GameObject Get_NoneUnitAlly(string name) => allyNoneUnit_PrefabDict[name];
 
     #endregion
 

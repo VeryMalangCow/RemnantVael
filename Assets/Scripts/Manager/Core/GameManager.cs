@@ -70,7 +70,7 @@ public class GameManager : PersistentSingleton<GameManager>
         SaveDataManager.instance.jsonData.optionData.fps = mode;
 
         int fps = Convert.ToInt32(GameManager.fps.ToString().Replace("f", "")); 
-        Application.targetFrameRate = fps;
+        Application.targetFrameRate = -1/*fps*/;
     }
 
     #endregion
@@ -4247,10 +4247,6 @@ public class StageData
     public StageRoom roomData;
 
     [Space(5)]
-    public StageEnemy enemyData;
-
-
-    [Space(5)]
     public List<Material> mapMaterialUnclear;
     public List<Material> mapMaterialClear;
     public List<StageDoorAnim> mapDoorAnim;
@@ -4331,17 +4327,6 @@ public class GenPrisonRoomData : GenSpecialRoomData
 
 #endregion
 
-#region Class : Stage : Enemy
-
-[System.Serializable]
-public class StageEnemy
-{
-    public List<GameObject> stageEnemyList;
-    public List<GameObject> stageEliteEnemyList;
-    public List<GameObject> stageBossEnemyList;
-}
-
-#endregion
 
 #region Class : Stage : NextIndex
 

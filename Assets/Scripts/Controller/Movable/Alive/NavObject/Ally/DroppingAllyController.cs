@@ -30,24 +30,12 @@ public class DroppingAllyController : NoneUnitAllyController
 
     #endregion
 
-    #region Framework
-
-    protected override void Update()
-    {
-        base.Update();
-
-        Caculate_AttackCharge(Time.deltaTime);
-    }
-
-
-    #endregion
-
     #region Caculate
-    private void Caculate_AttackCharge(float deltaTime)
+    public void HandleAttackCharge(float dt)
     {
         if (currentChargeTime < 1)
         {
-            currentChargeTime += actualAllyState.rof.value * deltaTime;
+            currentChargeTime += actualAllyState.rof.value * dt;
         }
 
         if (Can_Shot())

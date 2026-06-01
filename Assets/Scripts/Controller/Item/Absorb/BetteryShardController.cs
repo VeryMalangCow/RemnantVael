@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class BetteryShardController : RangeAbsorbItemController
+public class BetteryShardController : AbsorbItemController
 {
     #region Value
 
@@ -47,8 +47,6 @@ public class BetteryShardController : RangeAbsorbItemController
 
         betteryValue = value;
         amountTxt.text = $"(<size=150%>{value}</size>)";
-
-        gameObject.SetActive(true);
     }
 
     #endregion
@@ -58,8 +56,6 @@ public class BetteryShardController : RangeAbsorbItemController
     protected override void Gain_Item()
     {
         base.Gain_Item();
-
-        isSpawnNow = false;
 
         PlayerManager.instance.playerController.Add_CurrentBetteryShard(betteryValue);
         DropItemManager.instance.RemoveBetteryShard(this);

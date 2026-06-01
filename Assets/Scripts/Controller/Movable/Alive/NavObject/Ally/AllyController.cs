@@ -4,9 +4,10 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 
-public class AllyController : NavObjectController
+public class AllyController : NavObjectController, IPoolable
 {
     #region Value
+
 
     #region - Inspector
 
@@ -100,7 +101,31 @@ public class AllyController : NavObjectController
     // Ally Request
     [HideInInspector] private AllyRequest request = null;
 
+    // Pool
+    public int PoolIndex { get; set; } = -1;
+    public int ActiveIndex { get; set; } = -1;
+
     #endregion
+
+    #endregion
+
+    #region Pool
+
+    public void PoolOffset()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetActiveOn()
+    {
+        Set_SpawnFirst();
+        gameObject.SetActive(true);
+    }
+
+    public void SetActiveOff()
+    {
+        gameObject.SetActive(false);
+    }
 
     #endregion
 

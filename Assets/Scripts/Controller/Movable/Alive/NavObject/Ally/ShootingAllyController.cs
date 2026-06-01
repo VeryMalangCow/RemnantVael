@@ -47,13 +47,12 @@ public class ShootingAllyController : FieldUnitAllyController
 
     #endregion
 
-    #region Framework
+    #region Handle
 
-    protected override void Update()
+    public void HandleState(float dt)
     {
-        base.Update();
-
-        Set_CaculateAttack(Time.deltaTime);
+        HandleRandomPos(dt);
+        HandleShooting(dt);
     }
 
     #endregion
@@ -91,7 +90,7 @@ public class ShootingAllyController : FieldUnitAllyController
         }
     }
 
-    private void Set_CaculateAttack(float deltaTime)
+    private void HandleShooting(float deltaTime)
     {
         if (currentRof < 1)
         {

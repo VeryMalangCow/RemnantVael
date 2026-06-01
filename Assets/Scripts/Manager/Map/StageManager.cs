@@ -1386,19 +1386,23 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #endregion
 
     #region Play (Boss Gate)
-    
-    public void Play_GoInBossRoom(GateController gate, EliteEnemyController enemy)
+
+    public void Play_GoInEliteRoom(GateController gate, int id)
     {
         MainGameUIManager.instance.battleProdUi.Play_BattleOnProd(
-            PlayerManager.instance.playerController, enemy, out float durTime);
+            EnemyManager.instance.GetEliteProdSprite(id), 
+            ResourceManager.instance.Get_EnemyName(id), 
+            out float durTime);
 
         StartCoroutine(Play_GoInBattleRoom_Cor(gate, durTime));
     }
 
-    public void Play_GoInBossRoom(GateController gate, BossEnemyController enemy)
+    public void Play_GoInBossRoom(GateController gate, int id)
     {
         MainGameUIManager.instance.battleProdUi.Play_BattleOnProd(
-            PlayerManager.instance.playerController, enemy, out float durTime);
+            EnemyManager.instance.GetEliteProdSprite(id),
+            ResourceManager.instance.Get_EnemyName(id), 
+            out float durTime);
 
         StartCoroutine(Play_GoInBattleRoom_Cor(gate, durTime));
     }

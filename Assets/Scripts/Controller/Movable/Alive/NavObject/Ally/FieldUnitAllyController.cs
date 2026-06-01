@@ -82,29 +82,15 @@ public class FieldUnitAllyController : AllyController
         RemoveSortingLayer();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-
-        Caculate_RandomPos(Time.deltaTime);
-    }
-
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        Play_Movement(Time.fixedDeltaTime);
-    }
-
     #endregion
 
     #region Random Pos
 
-    private void Caculate_RandomPos(float deltaTime)
+    protected void HandleRandomPos(float dt)
     {
         if (randomPosDelay > currentRandomPosDelay)
         {
-            currentRandomPosDelay += deltaTime;
+            currentRandomPosDelay += dt;
         }
         else
         {
@@ -135,9 +121,9 @@ public class FieldUnitAllyController : AllyController
 
     #region Movement
 
-    private void Play_Movement(float deltaTime)
+    public void HandleMovement(float fdt)
     {
-        Play_Walk(moveAtDir, actualAllyState.movementSpeed.value, deltaTime);
+        Play_Walk(moveAtDir, actualAllyState.movementSpeed.value, fdt);
     }
 
     #endregion

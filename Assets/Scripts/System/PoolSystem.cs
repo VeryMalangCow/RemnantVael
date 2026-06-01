@@ -7,6 +7,7 @@ using System.Diagnostics;
 public class PoolSystem<T> where T : MonoBehaviour, IPoolable
 {
     [SerializeField] private T prefab;
+    public T Prefab { get { return prefab; } }
     [SerializeField] private Transform parentTf;
 
     public T[] objs { get; private set; }

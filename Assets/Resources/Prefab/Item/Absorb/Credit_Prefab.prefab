@@ -641,13 +641,16 @@ MonoBehaviour:
   targetObject: {fileID: 3954661232278796110}
   thisSr: {fileID: 839110263954315657}
   targetRange: 0.4
+  isSortingMover: 0
   rb: {fileID: 2744110499918854217}
+  spreadPower: 6
+  decSpreadPowerSpeed: 30
   targetGo: {fileID: 0}
+  absorbRange: 3
   isAbsorbing: 0
   absorbStartPower: 300
   absorbPower: 5
-  rotPower: 10
-  absorbRange: 1
+  rotPower: 25
   gainAmount: 1
   amountTxt: {fileID: 7210333919291755151}
 --- !u!50 &2744110499918854217

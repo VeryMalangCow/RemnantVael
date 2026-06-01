@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class JouleController : RangeAbsorbItemController
+public class JouleController : AbsorbItemController
 {
     #region Value
 
@@ -59,8 +59,6 @@ public class JouleController : RangeAbsorbItemController
     protected override void Gain_Item()
     {
         base.Gain_Item();
-
-        isSpawnNow = false;
 
         PlayerManager.instance.playerController.Add_CurrentEP(energyValue);
         DropItemManager.instance.RemoveJoule(this);

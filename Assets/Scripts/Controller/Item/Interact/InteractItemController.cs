@@ -10,10 +10,6 @@ public abstract class InteractItemController : ItemController, IInteract
 
     [Space(10)]
     [Header("=== Physics")]
-    [SerializeField] private float spreadPower = 10f;
-    [SerializeField] private float decSpreadPowerSpeed = 1f;
-    [SerializeField] protected float currentSpreadPower = 0f;
-    [SerializeField] protected Vector2 settedSpreadDir;
     private Sequence upDownSeq = null;
 
 
@@ -44,28 +40,18 @@ public abstract class InteractItemController : ItemController, IInteract
         base.Set_State(spawnPos);
 
         // Anim
-        currentSpreadPower = spreadPower;
-        settedSpreadDir = DevTool.Get_RandomDir();
         Start_Tween();
-
-        // Set
-        this.gameObject.SetActive(true);
     }
+
+    #endregion
+
+    #region Sorting Order
 
     public override void SetSortingOrder(int sortingOrder)
     {
         base.SetSortingOrder(sortingOrder);
 
         OutlinerSR.sortingOrder = sortingOrder;
-    }
-
-    #endregion
-
-    #region Framework
-
-    protected void LateUpdate()
-    {
-        Play_Spread(currentSpreadPower);
     }
 
     #endregion
@@ -91,20 +77,6 @@ public abstract class InteractItemController : ItemController, IInteract
     {
         DOTween.Kill(upDownSeq);
         upDownSeq = null;
-    }
-
-    private void Play_Spread(float spreadPower)
-    {
-        if (currentSpreadPower > 0f)
-        {
-            currentSpreadPower -= decSpreadPowerSpeed * Time.deltaTime;
-            rb.velocity = settedSpreadDir * spreadPower;
-        }
-        else if (currentSpreadPower != 0f)
-        {
-            currentSpreadPower = 0f;
-            rb.velocity = Vector2.zero;
-        }
     }
 
     #endregion

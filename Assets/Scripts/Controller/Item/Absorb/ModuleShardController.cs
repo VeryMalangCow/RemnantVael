@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ModuleShardController : RangeAbsorbItemController
+public class ModuleShardController : AbsorbItemController
 {
     #region Value
 
@@ -58,8 +58,6 @@ public class ModuleShardController : RangeAbsorbItemController
     protected override void Gain_Item()
     {
         base.Gain_Item();
-
-        isSpawnNow = false;
 
         PlayerManager.instance.playerController.Add_CurrentModuleShard(moduleValue);
         DropItemManager.instance.RemoveModuleShard(this);
