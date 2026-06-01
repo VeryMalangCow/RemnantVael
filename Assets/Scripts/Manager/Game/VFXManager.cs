@@ -38,6 +38,24 @@ public class VFXManager : Singleton<VFXManager>, IMainGameInitializer
         yield return buffIconPool.InitAsync(32, 8f);
 
         yield return null;
+
+        enabled = true;
+    }
+
+    // Centralized Update
+    private void Update()
+    {
+        HandleCheckingAnimEnd();
+    }
+
+    private void HandleCheckingAnimEnd()
+    {
+        var pool = onlyOnceAnimatorPool;
+        var objs = pool.objs;
+        var activeIndices = pool.activeIndices;
+
+        for (int i = activeIndices.Count - 1; i >= 0; i--)
+            objs[activeIndices[i]].HandleCheckingEndAnim();
     }
 
 

@@ -64,7 +64,6 @@ public class DeadParticleController : MovableDepthController, IPoolable
     {
         thisSr.sprite = sprite;
         shadowSr.transform.localScale = shadowSize;
-        this.gameObject.SetActive(true);
     }
 
     #endregion
@@ -100,7 +99,6 @@ public class DeadParticleController : MovableDepthController, IPoolable
 
         Play_Disappoint(disappointTime).OnComplete(() =>
             {
-                this.gameObject.SetActive(false);
                 VFXManager.instance.RemoveDeadParticle(this);
             });
     }

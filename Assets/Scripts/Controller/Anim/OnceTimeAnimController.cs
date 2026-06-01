@@ -17,33 +17,24 @@ public class OnceTimeAnimController : MonoBehaviour, IPoolable
 
     public void PoolOffset()
     {
-
+        gameObject.SetActive(false);
     }
 
     public void SetActiveOn()
     {
-
+        gameObject.SetActive(true);
     }
 
     public void SetActiveOff()
     {
-
-    }
-
-    #endregion
-
-    #region Framework
-
-    private void Update()
-    {
-        Update_CheckingEndAnim();
+        gameObject.SetActive(false);
     }
 
     #endregion
 
     #region Update
 
-    private void Update_CheckingEndAnim()
+    public void HandleCheckingEndAnim()
     {
         if (DevTool.Is_AnimIsDone(thisAnimator))
         {
@@ -66,8 +57,6 @@ public class OnceTimeAnimController : MonoBehaviour, IPoolable
         DevTool.Set_TF_FromStruct(gameObject.transform, structTf);
         DevTool.Set_MatAndClr_FromStruct(thisSpriteRenderer, spriteExtra);
         DevTool.Set_Anim(ref aoc, thisAnimator, stateAnim.ac);
-
-        this.gameObject.SetActive(true);
     }
 
     private void End_Anim()
@@ -75,8 +64,6 @@ public class OnceTimeAnimController : MonoBehaviour, IPoolable
         aoc = null;
         thisAnimator.speed = 0f;
         thisAnimator.enabled = false;
-
-        this.gameObject.SetActive(false);
 
         VFXManager.instance.RemoveOnlyOnceAnim(this);
     }
