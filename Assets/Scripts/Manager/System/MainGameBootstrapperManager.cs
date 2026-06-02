@@ -25,7 +25,7 @@ public class MainGameBootstrapperManager : MonoBehaviour
     {
         yield return null;
 
-        StartInit();
+        StartProdInit();
 
 #if UNITY_EDITOR
         for (int i = 0; i < preAwakePersistentSingletons.Length; i++)
@@ -45,19 +45,16 @@ public class MainGameBootstrapperManager : MonoBehaviour
         {
             IMainGameInitializer initializer = initializers[i];
 
-#if UNITY_EDITOR
             Debug.Log($"Initializer Start : <color=grey>{initializer}</color>");
-#endif
+
             initalizeingTxt.text = initializer.InitPregressText;
             yield return initializer.Initialize();
 
-#if UNITY_EDITOR
             Debug.Log($"Initializer Complete : <color=green>{initializer}</color>");
-#endif
         }
 
         initalizeingGo.gameObject.SetActive(false);
-        EndInit();
+        EndProdInit();
     }
 
     private void CollectInitializers()
@@ -96,11 +93,11 @@ public class MainGameBootstrapperManager : MonoBehaviour
     private int CompareOrder(IMainGameInitializer a, IMainGameInitializer b)
         => a.InitOrder.CompareTo(b.InitOrder);
     
-    private void StartInit()
+    private void StartProdInit()
     {
         MainGameUIManager.instance.StartProd();
     }
-    private void EndInit()
+    private void EndProdInit()
     {
         MainGameUIManager.instance.EndProd();
     }
