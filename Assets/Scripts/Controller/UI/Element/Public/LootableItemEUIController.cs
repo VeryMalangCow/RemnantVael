@@ -21,8 +21,8 @@ public class LootableItemEUIController : ElementUIController
 
     public override void Offset()
     {
-        DevTool.Set_Color(PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false), amountTxt);
-        DevTool.Set_Color(PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true), innerImg);
+        DevTool.SetColor(PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false), amountTxt);
+        DevTool.SetColor(PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true), innerImg);
     }
 
     #endregion
@@ -33,8 +33,8 @@ public class LootableItemEUIController : ElementUIController
     {
         amountTxt.text = amount.ToString();
 
-        DevTool.Set_KillTween(rt);
-        DevTool.Set_KillTween(innerImg);
+        DevTool.SetKillTween(rt);
+        DevTool.SetKillTween(innerImg);
 
         DevTool.Play_ScalePulse(rt, 1.4f);
         DevTool.Play_FadePulse(innerImg, 1f, 0.25f);

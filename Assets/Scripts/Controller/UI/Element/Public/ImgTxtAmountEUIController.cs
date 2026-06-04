@@ -151,7 +151,7 @@ public class ImgTxtAmountEUIController : ElementUIController
     {
         if (innerImg == null) return;
 
-        DevTool.Set_KillTween(innerImg);
+        DevTool.SetKillTween(innerImg);
 
         innerImg.DOFade(1f, 0.2f)
             .OnComplete(() => { innerImg.DOFade(0.25f, 0.2f); });

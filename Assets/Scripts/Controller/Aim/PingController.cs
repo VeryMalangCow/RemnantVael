@@ -61,8 +61,8 @@ public class PingController : MonoBehaviour
 
         transform.SetAsLastSibling();
 
-        DevTool.Set_KillTween(pingFrameSr.color);
-        DevTool.Set_KillTween(pingFrameSr.size);
+        DevTool.SetKillTween(pingFrameSr.color);
+        DevTool.SetKillTween(pingFrameSr.size);
 
         transform.localPosition = Vector2.zero;
         pingFrameSr.color = new Color(1, 1, 1, 0);

@@ -17,7 +17,6 @@ public class AbsorbItemController : ItemController
     [SerializeField] private float absorbRange = 1f;
 
     [SerializeField] protected bool isAbsorbing = false;
-    [SerializeField] private float absorbStartPower = 300f;
     [SerializeField] private float absorbPower = 5f;
     [SerializeField] private float rotPower = 10f;
 

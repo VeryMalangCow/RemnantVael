@@ -236,7 +236,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
             allTitleSmokeEui[i].Stop_VFX();
 
         for (int i = 0; i < couldTween.Count; i++)
-            DevTool.Set_KillTween(couldTween[i]);
+            DevTool.SetKillTween(couldTween[i]);
 
         couldTween = null;
     }
@@ -444,7 +444,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         if (currentBtn != null && (currentBtn == startBtn || currentBtn == optionBtn || currentBtn == quitBtn))
         {
-            DevTool.Set_KillTween(selectedRt);
+            DevTool.SetKillTween(selectedRt);
             selectedRt.DOAnchorPosY(currentBtn.rt.anchoredPosition.y, 0.2f);
         }
 

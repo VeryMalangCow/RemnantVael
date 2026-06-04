@@ -83,8 +83,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         yield return null;
 
         var reso = ResourceManager.instance;
+        PlayerController player = PlayerManager.instance.playerController;
+        Color mainClr = player.Get_CorrectColor(eDamageType.Energy, false);
+        Color subClr = player.Get_CorrectColor(eDamageType.Energy, true);
 
         yield return InitAsync(reso.playerHUD_CanvasPrefab, true, delegate(PlayerHUDController ui) { playerHud = ui; });
+        yield return playerHud.Init(mainClr, subClr);
         yield return InitAsync(reso.outMainGame_CanvasPrefab, false, delegate (OutMainGameUIController ui) { outMainGameUi = ui; });
 
         yield return InitAsync(reso.baseUpgrade_CanvasPrefab, false, delegate (BaseUpgradeUIController ui) { baseUpgradeUi = ui; });

@@ -180,7 +180,7 @@ public class InputManager : Singleton<InputManager>, IMainGameInitializer
 
     public void Play_MousePointerClick()
     {
-        DevTool.Set_KillTween(mousePointerRT);
+        DevTool.SetKillTween(mousePointerRT);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(mousePointerRT.DOScale(1.4f, 0.05f));

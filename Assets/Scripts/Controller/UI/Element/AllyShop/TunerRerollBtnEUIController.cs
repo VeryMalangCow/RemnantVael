@@ -29,7 +29,7 @@ public class TunerRerollBtnEUIController : OwnBtnEUIController
 
         base.OnPointerEnter(eventData);
 
-        DevTool.Set_KillTween(rt);
+        DevTool.SetKillTween(rt);
         rt.DOScale(1.05f, 0.05f);
     }
 
@@ -39,7 +39,7 @@ public class TunerRerollBtnEUIController : OwnBtnEUIController
 
         base.OnPointerExit(eventData);
 
-        DevTool.Set_KillTween(rt);
+        DevTool.SetKillTween(rt);
         rt.DOScale(1f, 0.05f);
     }
 

@@ -55,14 +55,14 @@ public class SkillEUIController : ElementUIController
 
     public void Play_StartInnerUI()
     {
-        DevTool.Set_KillTween(skillInnerImg);
+        DevTool.SetKillTween(skillInnerImg);
 
         skillInnerImg.DOFade(1f, 0.2f);
     }
 
     public void Play_EndInnerUI()
     {
-        DevTool.Set_KillTween(skillInnerImg);
+        DevTool.SetKillTween(skillInnerImg);
 
         skillInnerImg.DOFade(0.25f, 0.2f);
     }

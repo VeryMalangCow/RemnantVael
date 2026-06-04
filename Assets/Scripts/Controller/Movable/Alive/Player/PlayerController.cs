@@ -10,6 +10,10 @@ public class PlayerController : AliveObjectController
 {
     #region Value
 
+    // current/max
+    public event Action<float, float> OnEpChanged;
+    public event Action<float, float> OnMaxEpChanged;
+
     #region - Inspector
 
     [Space(20)]
@@ -103,9 +107,6 @@ public class PlayerController : AliveObjectController
 
     // Invincible
     [HideInInspector] private bool isInvincible = false;
-
-    // Point
-    [HideInInspector] public ReactiveProperty<float> Get_CurrentEP() => currentEP;
 
     // Movement
     [HideInInspector] public eMovementState movementState = eMovementState.IdleOrWalk;
@@ -247,11 +248,7 @@ public class PlayerController : AliveObjectController
                 MainGameUIManager.instance.interactAnnoUi.Set_UI();
                 Set_MoveDir();
             });
-        currentSP
-            .Subscribe(value =>
-            {
-                MainGameUIManager.instance.playerHud.Set_ShieldGage(value);
-            });
+
     }
 
     private void Offset_Controller()
@@ -409,13 +406,23 @@ public class PlayerController : AliveObjectController
     #region Energy Point
 
     // 에너지 획득
-    public void Add_CurrentEP(float addValue)
+    public void AddCurrentEp(float addValue)
     {
-        Add_CurrentEP(addValue, maxEP.actualState.Value);
-        Check_IsDead(currentEP.Value);
+        float maxHp = maxEP.actualState.Value;
+        AddCurrentEp(addValue, maxHp);
+        OnEpChanged?.Invoke(currentEp, maxHp); 
+
+        CheckIsDead(currentEp);
     }
 
-    public float Get_PercentEP(float percent)
+    public void FullEp()
+    {
+        float maxHp = maxEP.actualState.Value;
+        SetCurrentEp(maxHp);
+        OnEpChanged?.Invoke(currentEp, maxHp);
+    }
+
+    public float GetPercentEP(float percent)
     {
         return DevTool.Get_Percent(percent, maxEP.actualState.Value);
     }
@@ -473,7 +480,7 @@ public class PlayerController : AliveObjectController
     // 충전 배터리 생성
     private void Make_ChargedBettery()
     {
-        this.currentEP.Value -= needEP_ForMakeEC;
+        AddCurrentEp(-needEP_ForMakeEC, maxEP.actualState.Value);
         currentBettery.Value--;
         currentChargedBettery.Value++;
     }
@@ -520,7 +527,7 @@ public class PlayerController : AliveObjectController
         {
             InputManager.instance.isPlayingBuffered = true;
             afterImgGenerator.Start_Gen(0.7f, 0.03f, 0.5f);
-            Add_CurrentEP(-dash.Get_ActualNeedEP());
+            AddCurrentEp(-dash.Get_ActualNeedEP());
             movementState = eMovementState.Dash;
         }
     }
@@ -599,7 +606,7 @@ public class PlayerController : AliveObjectController
     public void Try_ChargeBettery()
     {
         if (!Can_Change() ||
-            needEP_ForMakeEC >= this.currentEP.Value ||
+            needEP_ForMakeEC >= this.currentEp ||
             currentBettery.Value <= 0) 
         { return; }
 
@@ -1072,7 +1079,7 @@ public class PlayerController : AliveObjectController
             }
         }
         currentSP.Value = Get_TotalShield();
-        Add_CurrentEP(-dmgValue);
+        AddCurrentEp(-dmgValue);
     }
 
     #endregion
@@ -1156,7 +1163,7 @@ public class PlayerController : AliveObjectController
         Add_CurrentOverrider(-(int)(currentOverrider.Value * 0.2f));
         Add_CurrentModuleShard(-(int)(currentModuleShard.Value * 0.2f));
 
-        Take_Damaged(Get_CurrentEP().Value * 0.2f, Vector2.zero, false);
+        Take_Damaged(currentEp * 0.2f, Vector2.zero, false);
 
         MainGameUIManager.instance.playerHud.Play_PrisonPanelty();
     }

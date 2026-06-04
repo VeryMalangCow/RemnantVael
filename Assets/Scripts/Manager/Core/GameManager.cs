@@ -11,6 +11,7 @@ using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -1173,7 +1174,7 @@ public class DevTool
 
     #region Set
 
-    public static void Set_KillTween<T>(T _Comp)
+    public static void SetKillTween<T>(T _Comp)
     {
         if (_Comp != null && DOTween.IsTweening(_Comp))
         { DOTween.Kill(_Comp); }
@@ -1508,6 +1509,24 @@ public class DevTool
 
     #region Color
 
+    public static void SetColorImgs(Color clr, Image[] imgs)
+    {
+        for (int i = 0; i < imgs.Length; i++)
+            imgs[i].color = new Color(clr.r, clr.g, clr.b, imgs[i].color.a);
+    }
+    public static void SetColorTmps(Color clr, TMP_Text[] tmps)
+    {
+        for (int i = 0; i < tmps.Length; i++)
+            tmps[i].color = new Color(clr.r, clr.g, clr.b, tmps[i].color.a);
+    }
+
+
+
+
+
+
+
+
     public static void Set_Color<T>(Color clr, List<T> targetList) where T : Component
     {
         for (int i = 0; i < targetList.Count; i++)
@@ -1515,11 +1534,11 @@ public class DevTool
             switch (targetList[i]) 
             {
                 case TMP_Text tmp:
-                    Set_Color(clr, tmp);
+                    SetColor(clr, tmp);
                     break;
 
                 case Image img:
-                    Set_Color(clr, img);
+                    SetColor(clr, img);
                     break;
 
 
@@ -1529,13 +1548,14 @@ public class DevTool
         }
     }
 
-    public static void Set_Color(Color clr, TMP_Text comp)
+
+    public static void SetColor(Color clr, TMP_Text comp)
     {
         if (comp == null) return;
         comp.color = new Color(clr.r, clr.g, clr.b, comp.color.a);
     }
 
-    public static void Set_Color(Color clr, Image comp)
+    public static void SetColor(Color clr, Image comp)
     {
         if (comp == null) return;
         comp.color = new Color(clr.r, clr.g, clr.b, comp.color.a);
@@ -4993,7 +5013,7 @@ public abstract class AllyRequest
 
     private static void Gain_Reward_BC(int rank) { PlayerManager.instance.playerController.Add_CurrentBettery(Get_BookReward_BC(rank)); }
     private static void Gain_Reward_Credit(int rank) { PlayerManager.instance.playerController.Add_CurrentCredit(Get_BookReward_Credit(rank)); }
-    private static void Gain_Reward_EP(int rank) { PlayerManager.instance.playerController.Add_CurrentEP(Get_BookReward_EP(rank)); }
+    private static void Gain_Reward_EP(int rank) { PlayerManager.instance.playerController.AddCurrentEp(Get_BookReward_EP(rank)); }
 
     private static int Get_BookReward_BC(int rank) { return rank + 1; }
     private static int Get_BookReward_Credit(int rank) { return (rank + 1) * 3; }

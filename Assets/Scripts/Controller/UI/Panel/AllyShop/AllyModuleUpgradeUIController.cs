@@ -612,7 +612,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         buyBtnEui.cg.alpha = can ? 1f : 0.5f;
         canBuyArrowGO.gameObject.SetActive(can);
 
-        DevTool.Set_KillTween(moduleDetailExtraRt);
+        DevTool.SetKillTween(moduleDetailExtraRt);
         moduleDetailExtraRt.DOSizeDelta(can ? ModuleDetailExtraRTOpen : new Vector2(ModuleDetailExtraRTOpen.x, 0), 0.2f);
 
         needChargedBettery = can ? goods : 0;

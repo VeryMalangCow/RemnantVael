@@ -192,13 +192,13 @@ public class AllyCardUIController : SinglePanelUIController
         {
             if (selectingCard != null)
             {
-                DevTool.Set_KillTween(selectingCard.gameObject.transform);
+                DevTool.SetKillTween(selectingCard.gameObject.transform);
                 selectingCard.gameObject.transform.DOScale(1f, 0.1f);
             }
 
             selectingCard = allyCard;
 
-            DevTool.Set_KillTween(selectingCard.gameObject.transform);
+            DevTool.SetKillTween(selectingCard.gameObject.transform);
             selectingCard.gameObject.transform.DOScale(1.05f, 0.1f);
         }
     }
@@ -225,7 +225,7 @@ public class AllyCardUIController : SinglePanelUIController
 
     private void Play_BookingRT()
     {
-        DevTool.Set_KillTween(cardBookingFrameImgRt);
+        DevTool.SetKillTween(cardBookingFrameImgRt);
 
         Sequence seq = DOTween.Sequence();
 

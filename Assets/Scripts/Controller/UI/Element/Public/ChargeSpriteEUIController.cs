@@ -44,7 +44,7 @@ public class ChargeSpriteEUIController : ElementUIController
     {
         img.sprite = lvSpr[lv];
 
-        DevTool.Set_KillTween(lightInner);
+        DevTool.SetKillTween(lightInner);
 
         lightInner.DOFade(1f, 0.2f)
             .OnComplete(() => { lightInner.DOFade(0.25f, 0.2f); });

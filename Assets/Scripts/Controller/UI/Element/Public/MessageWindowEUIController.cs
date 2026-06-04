@@ -38,7 +38,7 @@ public class MessageWindowEUIController : ElementUIController
         cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
 
         DevTool.Set_Color(innerClr, DevTool.Get_ChildList<Image>(innerParentTf));
-        DevTool.Set_Color(txtClr, txt);
+        DevTool.SetColor(txtClr, txt);
 
         activingHeight = rt.rect.height;
 
@@ -58,9 +58,9 @@ public class MessageWindowEUIController : ElementUIController
     {
         if (rt == null) return;
 
-        DevTool.Set_KillTween(rt);
-        DevTool.Set_KillTween(cg);
-        DevTool.Set_KillTween(txt);
+        DevTool.SetKillTween(rt);
+        DevTool.SetKillTween(cg);
+        DevTool.SetKillTween(txt);
 
         rt.sizeDelta = new Vector2(rt.rect.width, 0f);
         cg.alpha = 0f;

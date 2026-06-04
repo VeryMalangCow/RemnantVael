@@ -145,7 +145,7 @@ public class AllyController : NavObjectController, IPoolable
     private void Offset_Base()
     {
         currentHP.Value = maxHP;
-        currentEP.Value = 0;
+        SetCurrentEp(0f);
 
         player = PlayerManager.instance.playerController;
 
@@ -207,46 +207,46 @@ public class AllyController : NavObjectController, IPoolable
     {
         hud.Offset();
 
-        hud.stateUi.spProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
-        hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
-        hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+        hud.stateUi.spProgressBar.SetFillImgSmooth(currentSP.Value, maxHP);
+        hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
+        hud.stateUi.epProgressBar.SetFillImgSmooth(currentEp, maxEP);
 
         currentSP
             .Subscribe(_CurrentSP =>
             {
-                hud.stateUi.spProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
+                hud.stateUi.spProgressBar.SetFillImgSmooth(currentSP.Value, maxHP);
 
                 if (currentSP.Value <= 0)
                 {
                     currentSP.Value = 0;
-                    hud.stateUi.spProgressBar.Set_NoNum();
-                    hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
-                    hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+                    hud.stateUi.spProgressBar.SetNoNum();
+                    hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
+                    hud.stateUi.epProgressBar.SetFillImgSmooth(currentEp, maxEP);
                 }
                 else
                 {
-                    hud.stateUi.hpProgressBar.Set_NoNum();
-                    hud.stateUi.epProgressBar.Set_NoNum();
+                    hud.stateUi.hpProgressBar.SetNoNum();
+                    hud.stateUi.epProgressBar.SetNoNum();
                 }
             });
 
         currentHP
             .Subscribe(_CurrentHP =>
             {
-                hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+                hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
 
                 if (currentSP.Value > 0)
-                { hud.stateUi.hpProgressBar.Set_NoNum(); }
+                { hud.stateUi.hpProgressBar.SetNoNum(); }
             });
 
-        currentEP
-            .Subscribe(_CurrentEP =>
-            {
-                hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
-
-                if (currentSP.Value > 0)
-                { hud.stateUi.epProgressBar.Set_NoNum(); }
-            });
+        //currentEp
+        //    .Subscribe(_CurrentEP =>
+        //    {
+        //        hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+        //
+        //        if (currentSP.Value > 0)
+        //        { hud.stateUi.epProgressBar.Set_NoNum(); }
+        //    });
     }
 
     #endregion
@@ -667,12 +667,12 @@ public class AllyController : NavObjectController, IPoolable
 
     public void Gain_Trust(float value)
     {
-        Add_CurrentEP(value, maxEP);
+        AddCurrentEp(value, maxEP);
     }
 
     public void Reduce_Trust(float value)
     {
-        Add_CurrentEP(-value, maxEP);
+        AddCurrentEp(-value, maxEP);
     }
 
 

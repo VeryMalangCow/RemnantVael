@@ -182,7 +182,7 @@ public class MinimapEUIController : ElementUIController
     {
         if (DevTool.Get_ComponentTType(mme.gameObject, out RectTransform rt))
         {
-            DevTool.Set_KillTween(parentRt);
+            DevTool.SetKillTween(parentRt);
 
             parentRt.DOAnchorPos(-rt.anchoredPosition, durTime);
         }
@@ -201,7 +201,7 @@ public class MinimapEUIController : ElementUIController
     public void Play_Effect()
     {
         // È¿°ú
-        DevTool.Set_KillTween(innerImg);
+        DevTool.SetKillTween(innerImg);
 
         innerImg.DOFade(1f, 0.2f)
             .OnComplete(() =>

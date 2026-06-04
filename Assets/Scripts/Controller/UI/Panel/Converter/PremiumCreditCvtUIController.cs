@@ -49,13 +49,14 @@ public class PremiumCreditCvtUIController : ConverterUIController
             .Subscribe(_Value =>
             {
                 cCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
-            }); 
-        
-        PlayerManager.instance.playerController.Get_CurrentEP()
-            .Subscribe(_Value =>
-            {
-                epCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
             });
+
+        Debug.Log("PremiumCreditCvtUI: SUB");
+        //PlayerManager.instance.playerController.Get_CurrentEP()
+        //    .Subscribe(_Value =>
+        //    {
+        //        epCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
+        //    });
     }
 
     #endregion
@@ -112,7 +113,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
             Get_Acquisitable_Credit(pc.currentCredit.Value);
 
         int currentPossibilityEP =
-            Get_Acquisitable_EP(pc.Get_CurrentEP().Value - need_EP);
+            Get_Acquisitable_EP(pc.currentEp - need_EP);
 
         int result = currentPossibilityCredit < currentPossibilityEP ? currentPossibilityCredit : currentPossibilityEP;
         Set_AcquBookAmount(result);
@@ -134,7 +135,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
         float needEP = acquisitionBookAmount * need_EP;
         epCvtMaterialEui.Set_NecessaryAmountTxt(needEP.ToString());
-        bool canCvtByEP = needEP <= (pc.Get_CurrentEP().Value - need_EP);
+        bool canCvtByEP = needEP <= (pc.currentEp - need_EP);
         epCvtMaterialEui.Set_Condition(canCvtByEP);
 
         canConvert = canCvtByCredit && canCvtByEP;
@@ -152,7 +153,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
         // Lost
         PlayerController pc = PlayerManager.instance.playerController;
         pc.Add_CurrentCredit(-(acquisitionBookAmount * need_Credit));
-        pc.Add_CurrentEP(-(acquisitionBookAmount * need_EP));
+        pc.AddCurrentEp(-(acquisitionBookAmount * need_EP));
 
         Set_AcquAmount(acquisitionItemId);
         Set_AcquBookAmount(acquisitionBookAmount);

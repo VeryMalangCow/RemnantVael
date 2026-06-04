@@ -51,8 +51,8 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
 
     public void Set_AllStart(bool canSuccess)
     {
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, failureTxt);
-        DevTool.Set_Color(ResourceManager.instance.unlockedClr, successTxt);
+        DevTool.SetColor(ResourceManager.instance.lockedClr, failureTxt);
+        DevTool.SetColor(ResourceManager.instance.unlockedClr, successTxt);
 
         tryUnlockTxt.text = ResourceManager.instance.Get_StaticWord(85);
         inputTxt.text = ResourceManager.instance.Get_StaticWord(88);
@@ -73,21 +73,21 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
 
     private void Set_SuccessPanel(bool canSuccess, float durTime)
     {
-        DevTool.Set_KillTween(successCg);
+        DevTool.SetKillTween(successCg);
 
         successCg.DOFade(canSuccess ? 1f : 0.3f, durTime);
     }
 
     private void Set_FailurePanel(bool canSuccess, float durTime)
     {
-        DevTool.Set_KillTween(failureCg);
+        DevTool.SetKillTween(failureCg);
 
         failureCg.DOFade(canSuccess ? 0.3f : 1f, durTime);
     }
 
     private void Set_Roller(bool canSuccess, float durTime)
     {
-        DevTool.Set_KillTween(rollingRt);
+        DevTool.SetKillTween(rollingRt);
 
         float targetAngle = canSuccess ? 0 : 180;
         Quaternion endQuatValue = Quaternion.Euler(0f, 0f, targetAngle);

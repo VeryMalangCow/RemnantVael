@@ -168,7 +168,7 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     public void Play_Seq(float durTime)
     {
-        DevTool.Set_KillTween(frameBackInnerList[1]);
+        DevTool.SetKillTween(frameBackInnerList[1]);
 
         Sequence seq = DOTween.Sequence();
 

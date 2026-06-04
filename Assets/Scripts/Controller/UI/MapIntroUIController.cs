@@ -43,7 +43,7 @@ public class MapIntroUIController : UIController
 
     private Sequence Play_Label(float downTime, float stayTime, float upTime)
     {
-        DevTool.Set_KillTween(movingRt);
+        DevTool.SetKillTween(movingRt);
         Sequence seq = DOTween.Sequence();
 
         seq.Append(movingRt.DOAnchorPos(new Vector2(0, -movingRt.rect.height), downTime).SetEase(Ease.OutCubic));

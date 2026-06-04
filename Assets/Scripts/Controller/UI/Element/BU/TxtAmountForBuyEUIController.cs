@@ -108,7 +108,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        DevTool.Set_KillTween(rt);
+        DevTool.SetKillTween(rt);
 
         rt.DOSizeDelta(new Vector2(maximumSize, rt.sizeDelta.y), sizeDeltaTime);
 
@@ -117,7 +117,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        DevTool.Set_KillTween(rt);
+        DevTool.SetKillTween(rt);
 
         rt.DOSizeDelta(new Vector2(minimumSize, rt.sizeDelta.y), sizeDeltaTime);
 

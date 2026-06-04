@@ -138,7 +138,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
         
         // Inner 
         for (int i = 0; i < innerList.Count; i++)
-            DevTool.Set_Color(clr, innerList[i]);
+            DevTool.SetColor(clr, innerList[i]);
     }
 
     private void Set_AllDefault()
@@ -226,7 +226,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     }
     private void Play_SelectingRT()
     {
-        DevTool.Set_KillTween(selectingSignRt);
+        DevTool.SetKillTween(selectingSignRt);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(selectingSignRt.DOScale(1.05f, 0.1f));

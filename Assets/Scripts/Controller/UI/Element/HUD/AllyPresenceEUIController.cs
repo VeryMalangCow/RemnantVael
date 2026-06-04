@@ -44,7 +44,7 @@ public class AllyPresenceEUIController : ElementUIController
         DevTool.Set_AlphaColor(presenceValueTxt, a);
         DevTool.Set_AlphaColor(presenceLangTxt, a);
 
-        DevTool.Set_KillTween(innerImg);
+        DevTool.SetKillTween(innerImg);
         DevTool.Play_FadePulse(innerImg, 1f, 0.25f);
 
         Play_CapOpen_CanLvUp(canLvUp);
@@ -53,7 +53,7 @@ public class AllyPresenceEUIController : ElementUIController
 
     private void Play_CapOpen_CanLvUp(bool can)
     {
-        DevTool.Set_KillTween(capRt);
+        DevTool.SetKillTween(capRt);
 
         capRt.DOSizeDelta(new Vector2(capRt.rect.width, can ? capOpenY_InputGuide : capCloseY), 0.5f);
     }

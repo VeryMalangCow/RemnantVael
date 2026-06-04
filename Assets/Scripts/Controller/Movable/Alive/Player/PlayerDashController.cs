@@ -170,7 +170,7 @@ public class PlayerDashController : MonoBehaviour
 
     public bool Is_EnoughEP()
     {
-        return Get_ActualNeedEP() <= playerController.Get_CurrentEP().Value;
+        return Get_ActualNeedEP() <= playerController.currentEp;
     }
 
     public float Get_ActualNeedEP()

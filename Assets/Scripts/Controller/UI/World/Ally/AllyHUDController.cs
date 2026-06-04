@@ -64,7 +64,7 @@ public class AllyHUDController : MonoBehaviour
 
     public void Play_IconRT()
     {
-        DevTool.Set_KillTween(iconRt);
+        DevTool.SetKillTween(iconRt);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(iconRt.DOScale(1.25f, 0.1f));

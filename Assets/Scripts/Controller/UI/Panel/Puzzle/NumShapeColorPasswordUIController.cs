@@ -154,7 +154,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     private void Play_SelectingRT()
     {
-        DevTool.Set_KillTween(selectingSignRt);
+        DevTool.SetKillTween(selectingSignRt);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(selectingSignRt.DOScale(1.05f, 0.1f));

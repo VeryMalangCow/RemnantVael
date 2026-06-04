@@ -68,7 +68,7 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
 
     private void Set_SelectedThis(float height, float durTime = 0.2f)
     {
-        DevTool.Set_KillTween(rt);
+        DevTool.SetKillTween(rt);
 
         rt.DOSizeDelta(new Vector2(rt.rect.width, height), durTime);
     }

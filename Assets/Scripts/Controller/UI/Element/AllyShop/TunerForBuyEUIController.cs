@@ -82,7 +82,7 @@ public class TunerForBuyEUIController : OwnBtnEUIController
 
     public Sequence Play_Scale(float size, float durTime = 0.05f)
     {
-        DevTool.Set_KillTween(rt);
+        DevTool.SetKillTween(rt);
 
         Sequence seq = DOTween.Sequence();
 

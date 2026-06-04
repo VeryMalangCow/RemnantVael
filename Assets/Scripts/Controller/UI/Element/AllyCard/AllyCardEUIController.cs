@@ -107,8 +107,8 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_PanelAnim(float durTime)
     {
-        DevTool.Set_KillTween(panelCg);
-        DevTool.Set_KillTween(panelRt);
+        DevTool.SetKillTween(panelCg);
+        DevTool.SetKillTween(panelRt);
 
         panelCg.alpha = 0;
         panelCg.DOFade(1f, durTime);

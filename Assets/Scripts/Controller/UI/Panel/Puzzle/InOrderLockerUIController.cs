@@ -167,7 +167,7 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         for (int i = 0; i < innerImgList.Count; i++)
         {
-            DevTool.Set_Color(clr, innerImgList[i]);
+            DevTool.SetColor(clr, innerImgList[i]);
         }
         for (int i = 0; i < allIolCell.Count; i++)
         {
@@ -267,7 +267,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
     private void Play_SelectingRT()
     {
-        DevTool.Set_KillTween(selectingSignRT);
+        DevTool.SetKillTween(selectingSignRT);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(selectingSignRT.DOScale(1.05f, 0.1f));

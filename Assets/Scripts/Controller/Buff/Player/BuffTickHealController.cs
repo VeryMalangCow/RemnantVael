@@ -28,7 +28,7 @@ public class BuffTickHealController : BuffController
 
     public override void Reduct_Buff()
     {
-        PlayerManager.instance.playerController.Add_CurrentEP(Get_HealValue());
+        PlayerManager.instance.playerController.AddCurrentEp(Get_HealValue());
 
         base.Reduct_Buff();
     }
@@ -54,7 +54,7 @@ public class BuffTickHealController : BuffController
         { value += constPoint; }
 
         if (maxHpPercent != 0)
-        { value += PlayerManager.instance.playerController.Get_PercentEP(maxHpPercent); }
+        { value += PlayerManager.instance.playerController.GetPercentEP(maxHpPercent); }
 
 
         return value;

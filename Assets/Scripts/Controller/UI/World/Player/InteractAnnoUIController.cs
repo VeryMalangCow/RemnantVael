@@ -49,7 +49,7 @@ public class InteractAnnoUIController : UIController
 
     public void Set_VisualCG(bool onOff, float durTime = 0.3f)
     {
-        DevTool.Set_KillTween(visualCg);
+        DevTool.SetKillTween(visualCg);
 
         visualCg.DOFade(onOff ? 1f : 0f, durTime);
     }

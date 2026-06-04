@@ -58,7 +58,7 @@ public class DurablityEUIController : ElementUIController
             fillImgList.Add(img);
         }
 
-        DevTool.Set_Color(brokenTxtClr, brokenTxt);
+        DevTool.SetColor(brokenTxtClr, brokenTxt);
     }
 
     #endregion

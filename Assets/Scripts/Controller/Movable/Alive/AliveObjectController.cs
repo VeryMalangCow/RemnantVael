@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using UniRx;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public abstract class AliveObjectController : MovableObjectController
 {
     #region Value
 
+
     [Space(20)]
     [Header("<><><><><> Alive")]
+
 
     [Space(10)]
     [Header("=== Dead")]
@@ -18,7 +21,8 @@ public abstract class AliveObjectController : MovableObjectController
     [Header("=== Point")]
     [SerializeField] protected ReactiveProperty<float> currentSP = new();
     [SerializeField] protected ReactiveProperty<float> currentHP = new();
-    [SerializeField] protected ReactiveProperty<float> currentEP = new();
+    //[SerializeField] protected ReactiveProperty<float> currentEP = new();
+    public float currentEp { get; private set; } = 0f;
 
     [Space(10)]
     [Header("=== Dead Particle")]
@@ -27,6 +31,17 @@ public abstract class AliveObjectController : MovableObjectController
 
     #endregion
 
+    public void SetCurrentEp(float value)
+        => currentEp = value;
+    
+    protected void AddCurrentEp(float addValue, float max)
+        => currentEp = Math.Clamp(currentEp + addValue, 0, max);
+    
+    protected void AddPercentEp(float percent, float max)
+        => currentEp = Math.Clamp(currentEp + DevTool.Get_Percent(percent, max), 0, max);
+    
+
+   
     #region Add Point (Percent)
 
     // Shield
@@ -40,16 +55,14 @@ public abstract class AliveObjectController : MovableObjectController
         Add_PercentPoint(ref currentHP, percent, max);
     }
     // Energy
-    protected void Add_PercentEP(float percent, float max)
-    {
-        Add_PercentPoint(ref currentEP, percent, max);
-    }
+   
 
     // Point
     private void Add_PercentPoint(ref ReactiveProperty<float> refValue, float percent, float max)
     {
         refValue.Value = Math.Min(refValue.Value + DevTool.Get_Percent(percent, max), max);
     }
+
 
     #endregion
 
@@ -67,11 +80,6 @@ public abstract class AliveObjectController : MovableObjectController
         Add_CurrentPoint(ref currentHP, addValue, max);
     }
 
-    // Energy
-    protected void Add_CurrentEP(float addValue, float max)
-    {
-        Add_CurrentPoint(ref currentEP, addValue, max);
-    }
 
 
     // Point
@@ -100,7 +108,7 @@ public abstract class AliveObjectController : MovableObjectController
     #region Dead
 
     // Is Dead?
-    protected virtual void Check_IsDead(float life)
+    protected virtual void CheckIsDead(float life)
     {
         if (life <= 0)
         {

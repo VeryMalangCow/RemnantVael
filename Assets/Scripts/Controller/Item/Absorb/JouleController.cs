@@ -60,7 +60,7 @@ public class JouleController : AbsorbItemController
     {
         base.Gain_Item();
 
-        PlayerManager.instance.playerController.Add_CurrentEP(energyValue);
+        PlayerManager.instance.playerController.AddCurrentEp(energyValue);
         DropItemManager.instance.RemoveJoule(this);
     }
 

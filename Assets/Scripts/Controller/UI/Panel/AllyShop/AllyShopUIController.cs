@@ -303,7 +303,7 @@ public class AllyShopUIController : ShopUIController
         allyProfileSelectSignRt.SetParent(currentSelectProfileEui.transform);
         allyProfileSelectSignRt.SetAsLastSibling();
 
-        DevTool.Set_KillTween(allyProfileSelectSignRt);
+        DevTool.SetKillTween(allyProfileSelectSignRt);
         allyProfileSelectSignRt.DOAnchorPos(Vector2.zero, 0.05f);
     }
 
@@ -325,11 +325,11 @@ public class AllyShopUIController : ShopUIController
         allyProfilePickedSignRt.SetAsLastSibling();
         allyProfilePickedSignRt.anchoredPosition = Vector2.zero;
 
-        DevTool.Set_KillTween(allyProfilePickedSignRt);
+        DevTool.SetKillTween(allyProfilePickedSignRt);
         allyProfilePickedSignRt.transform.localScale = Vector2.one * 1.2f;
         allyProfilePickedSignRt.transform.DOScale(Vector2.one, 0.15f);
 
-        DevTool.Set_KillTween(allyProfilePickedSignCg);
+        DevTool.SetKillTween(allyProfilePickedSignCg);
         allyProfilePickedSignCg.alpha = 0f;
         allyProfilePickedSignCg.DOFade(1f, 0.2f);
 
@@ -427,7 +427,7 @@ public class AllyShopUIController : ShopUIController
 
     private Sequence Play_ProfileExtraY(float y, float durTime = 0f)
     {
-        DevTool.Set_KillTween(profileDetailExtraRt);
+        DevTool.SetKillTween(profileDetailExtraRt);
 
         Sequence seq = DOTween.Sequence();
 
@@ -664,8 +664,8 @@ public class AllyShopUIController : ShopUIController
     {
         RectTransform rt = DevTool.Get_ComponentTType<RectTransform>(txt.gameObject);
 
-        DevTool.Set_KillTween(txt);
-        DevTool.Set_KillTween(rt);
+        DevTool.SetKillTween(txt);
+        DevTool.SetKillTween(rt);
 
         txt.text = $"-{pay}";
         DevTool.Set_AlphaColor(txt, 1f);

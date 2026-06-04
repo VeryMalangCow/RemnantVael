@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EventManager : Singleton<EventManager>, IMainGameInitializer

@@ -6,15 +6,31 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Collections;
 
 public class PlayerHUDController : UIController
 {
+    // Value
+    [Space(20)]
+    [Header("<><><><><> Player HUD")]
+
+    [SerializeField] private PlayerEpView epView;
+    public PlayerEpView EpView { get { return epView; } }
+
+    public IEnumerator Init(Color mainClr, Color subClr)
+    {
+        yield return EpView.Init(mainClr, subClr);
+    }
+
+
     #region Value
 
     #region - Inspector
 
-    [Space(20)]
-    [Header("<><><><><> Player HUD")]
+
+    [Space(10)]
+    [Header("=== Energy")]
+
 
     [Space(10)]
     [Header("=== Tab")]
@@ -44,16 +60,7 @@ public class PlayerHUDController : UIController
     [SerializeField] private RectTransform skillStatesParentRt;
     [SerializeField] private List<TMP_Text> skillStatesTxtList;
 
-    [Space(10)]
-    [Header("=== Energy")]
-    [SerializeField] private ProgressBarEUIController epEui;
-    [SerializeField] private List<Image> epInnerImgList;
-    [SerializeField] private RectTransform epFlowRt;
 
-    [Space(10)]
-    [Header("=== Shield")]
-    [SerializeField] private RectTransform shieldRt;
-    [SerializeField] private TMP_Text shieldTxt;
 
     [Space(10)]
     [Header("=== Bettery")]
@@ -216,7 +223,6 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < allAllyPresence.Count; i++)
             allAllyPresence[i].Offset();
         
-        epEui.Offset();
         currentEmptyBc.Offset();
         emptyBc.Offset();
         fullEc.Offset();
@@ -280,26 +286,6 @@ public class PlayerHUDController : UIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.maxEP.actualState
-            .Subscribe(maxEp =>
-            {
-                epEui.Set_MaxFillRT(maxEp * 3);
-
-                epEui.Set_FillImgSmooth(
-                    PlayerManager.instance.playerController.Get_CurrentEP().Value,
-                    PlayerManager.instance.playerController.maxEP.actualState.Value);
-            })
-            .AddTo(gameObject);
-
-        PlayerManager.instance.playerController.Get_CurrentEP()
-            .Subscribe(_currentEp =>
-            {
-                epEui.Set_FillImgSmooth(
-                    PlayerManager.instance.playerController.Get_CurrentEP().Value,
-                    PlayerManager.instance.playerController.maxEP.actualState.Value);
-            })
-            .AddTo(gameObject);
-
         PlayerManager.instance.playerController.currentBetteryShard
             .Subscribe(_currentBs =>
             {
@@ -402,11 +388,6 @@ public class PlayerHUDController : UIController
 
     private void Offset_Img()
     {
-        // EP 지나가는 효과 이미지
-        epFlowRt.DOAnchorPos(new Vector2(1920, 0), 2f, false)
-            .SetEase(Ease.Linear)
-            .SetLoops(-1, LoopType.Restart);
-
         // 스킬 이미지
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
@@ -419,9 +400,9 @@ public class PlayerHUDController : UIController
         msEui.Offset();
 
         paneltyAnnoCg.alpha = 0f;
-        DevTool.Set_Color(uninteractableClr, paneltyAnnoNameTxt);
+        DevTool.SetColor(uninteractableClr, paneltyAnnoNameTxt);
         paneltyAnnoNameTxt.text = "";
-        DevTool.Set_Color(uninteractableClr, paneltyAnnoDescTxt);
+        DevTool.SetColor(uninteractableClr, paneltyAnnoDescTxt);
         paneltyAnnoDescTxt.text = "";
         paneltyAnnoCg.gameObject.SetActive(false);
 
@@ -570,8 +551,8 @@ public class PlayerHUDController : UIController
 
     private void Set_InteractFade(float alpha, float durTime)
     {
-        DevTool.Set_KillTween(interactOnOffTxt);
-        DevTool.Set_KillTween(interactDescTxt);
+        DevTool.SetKillTween(interactOnOffTxt);
+        DevTool.SetKillTween(interactDescTxt);
 
         interactOnOffTxt.DOFade(alpha, durTime);
         interactDescTxt.DOFade(alpha, durTime);
@@ -671,18 +652,6 @@ public class PlayerHUDController : UIController
 
     #endregion
 
-    #region Shield
-
-    public void Set_ShieldGage(float totalShield)
-    {
-        DevTool.Set_KillTween(shieldRt);
-
-        shieldRt.DOSizeDelta(new Vector2(Get_ShieldGageX(totalShield), shieldRt.sizeDelta.y), 1f);
-        shieldTxt.text = "<size=75%>( </size>" + Mathf.Round(totalShield).ToString() + "<size=75%> )</size>";
-    }
-
-    #endregion
-
     #region Boost
 
     private void Set_TextOfBoost(int currentLv)
@@ -748,7 +717,7 @@ public class PlayerHUDController : UIController
     // 피격 시 효과
     public void Play_HittedPlayScreen(float dmg, float durTime)
     {
-        DevTool.Set_KillTween(hittedScreen);
+        DevTool.SetKillTween(hittedScreen);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(hittedScreen.DOFade((Math.Min(100, dmg) * 0.01f), durTime));
@@ -779,7 +748,7 @@ public class PlayerHUDController : UIController
     {
         hittedInfoPivotTf.rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-5f, 5f));
 
-        DevTool.Set_KillTween(hittedInfoRt);
+        DevTool.SetKillTween(hittedInfoRt);
 
         Sequence seq = DOTween.Sequence();
 
@@ -800,7 +769,7 @@ public class PlayerHUDController : UIController
         {
             if (DevTool.Get_ComponentTType(arr[i].gameObject, out Image img))
             {
-                DevTool.Set_KillTween(img);
+                DevTool.SetKillTween(img);
 
                 if (i < currentLv) img.DOFade(1f, 0.2f);
                 else img.DOFade(0f, 0.2f);
@@ -816,7 +785,7 @@ public class PlayerHUDController : UIController
             if (DevTool.Get_ComponentTType(arr[i].gameObject, out RectTransform rt))
             {
                 if (i < currentLv) Play_EachRollBoost(rt, i);
-                else DevTool.Set_KillTween(rt);
+                else DevTool.SetKillTween(rt);
             }
         }
     }
@@ -874,7 +843,7 @@ public class PlayerHUDController : UIController
     {
         isActingInteractUi = true;
 
-        DevTool.Set_KillTween(usingInnerImg);
+        DevTool.SetKillTween(usingInnerImg);
 
         usingInnerImg.DOFade(1f, 0.2f)
             .OnComplete(() =>
@@ -897,11 +866,6 @@ public class PlayerHUDController : UIController
     {
         List<Component> result = new List<Component>
         {
-            // EP 게이지
-            DevTool.Get_ComponentTType<Image>(epEui.afterImg.gameObject.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<Image>(epEui.actualImg.gameObject.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<Image>(epEui.actualImgLiner.gameObject),
-
             // 부스트
             boostLv,
 
@@ -954,9 +918,6 @@ public class PlayerHUDController : UIController
             innerImg, usingInnerImg
         };
 
-        // EP 게이지 Inner
-        subClrCompList.AddRange(epInnerImgList);
-
         // 부스트 Inner
         subClrCompList.AddRange(boostInnerList);
 
@@ -971,10 +932,6 @@ public class PlayerHUDController : UIController
         return result;
     }
 
-    private float Get_ShieldGageX(float shieldValue)
-    {
-        return 8 + (shieldValue * 3);
-    }
 
     // Tab 플레이어 스탯의 엘레먼트
     private List<string> Get_PlayerStateStrings(PlayerController player, PlayerWeaponController weapon)
@@ -1069,7 +1026,7 @@ public class PlayerHUDController : UIController
                 if (keyItemVfxImg.TryGetComponent(out RectTransform vfxRt) &&
                     keyItemImgList[i].TryGetComponent(out RectTransform imgRt))
                 {
-                    DevTool.Set_KillTween(vfxRt);
+                    DevTool.SetKillTween(vfxRt);
                     vfxRt.anchoredPosition = imgRt.anchoredPosition;
                     vfxRt.rotation = Quaternion.identity;
                     vfxRt.DORotate(Vector3.forward * 360, 1f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
@@ -1077,7 +1034,7 @@ public class PlayerHUDController : UIController
                     vfxRt.transform.localScale = Vector3.one;
                     vfxRt.DOScale(0.5f, 1f);
                 }
-                DevTool.Set_KillTween(keyItemVfxImg);
+                DevTool.SetKillTween(keyItemVfxImg);
                 keyItemVfxImg.color = new Color(1, 1, 1, 0.7f);
                 keyItemVfxImg.DOFade(0f, 1f);
             }

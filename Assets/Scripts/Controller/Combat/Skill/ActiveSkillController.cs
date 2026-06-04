@@ -103,7 +103,7 @@ public class ActiveSkillController : MonoBehaviour
     public bool Can_Active()
     {
         return currentChargeAmount > 0 &&
-            (PlayerManager.instance.playerController.Get_CurrentEP().Value > needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState.Value) &&
+            (PlayerManager.instance.playerController.currentEp > needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState.Value) &&
             playerController.movementState == eMovementState.IdleOrWalk;
     }
 
@@ -111,7 +111,7 @@ public class ActiveSkillController : MonoBehaviour
     {
         // Consume
         currentChargeAmount--;
-        playerController.Add_CurrentEP(
+        playerController.AddCurrentEp(
             -(needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState.Value));
 
         AllyRequestManager.instance.Play_UsingSkill();

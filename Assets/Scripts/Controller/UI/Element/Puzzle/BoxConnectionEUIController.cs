@@ -47,7 +47,7 @@ public class BoxConnectionEUIController : ElementUIController
 
     public void Set_InnerColor(Color clr)
     {
-        DevTool.Set_Color(clr, innerImg);
+        DevTool.SetColor(clr, innerImg);
     }
     #endregion
 }

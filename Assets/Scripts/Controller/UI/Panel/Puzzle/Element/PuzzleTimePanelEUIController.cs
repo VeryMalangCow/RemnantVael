@@ -48,12 +48,12 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     public void Set_AllStart(float currentCountdown, string secondString)
     {
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, failureAnnoTxt);
-        DevTool.Set_Color(ResourceManager.instance.unlockedClr, successAnnoTxt);
+        DevTool.SetColor(ResourceManager.instance.lockedClr, failureAnnoTxt);
+        DevTool.SetColor(ResourceManager.instance.unlockedClr, successAnnoTxt);
 
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, countdownPaneltyTxt);
+        DevTool.SetColor(ResourceManager.instance.lockedClr, countdownPaneltyTxt);
 
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, countdownTxt);
+        DevTool.SetColor(ResourceManager.instance.lockedClr, countdownTxt);
         DevTool.Set_AlphaColor(countdownPaneltyTxt, 0f);
 
         unlockAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(28).Replace("\\n", "\n");
@@ -73,8 +73,8 @@ public class PuzzleTimePanelEUIController : ElementUIController
     {
         countdownPaneltyTxt.text = $"{paneltyTime.ToString("0.0")}{secondString}";
 
-        DevTool.Set_KillTween(countdownPaneltyRt);
-        DevTool.Set_KillTween(countdownPaneltyTxt);
+        DevTool.SetKillTween(countdownPaneltyRt);
+        DevTool.SetKillTween(countdownPaneltyTxt);
 
         countdownPaneltyRt.localScale = Vector2.one;
         DevTool.Set_AlphaColor(countdownPaneltyTxt, 1f);
@@ -102,8 +102,8 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     private void Play_ExtraAnno(RectTransform rt, TMP_Text tmp, float onDurTime, float offDurTime, float intervalTime = 0.5f)
     {
-        DevTool.Set_KillTween(rt);
-        DevTool.Set_KillTween(tmp);
+        DevTool.SetKillTween(rt);
+        DevTool.SetKillTween(tmp);
 
         Sequence ExtraAnnoSeq = DOTween.Sequence();
 

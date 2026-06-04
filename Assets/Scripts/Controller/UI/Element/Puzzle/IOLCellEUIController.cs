@@ -156,7 +156,7 @@ public class IOLCellEUIController : OwnBtnEUIController
     public void Set_Color(Color clr)
     {
         for (int i = 0; i < innerImgList.Count; i++)
-            DevTool.Set_Color(clr, innerImgList[i]);
+            DevTool.SetColor(clr, innerImgList[i]);
     }
 
     #endregion

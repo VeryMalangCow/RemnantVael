@@ -50,7 +50,7 @@ public class InteractableBuildController : SortingObjectController
 
     public void Play_Size()
     {
-        DevTool.Set_KillTween(gameObject.transform.localScale);
+        DevTool.SetKillTween(gameObject.transform.localScale);
 
         gameObject.transform.localScale = Vector2.one;
 

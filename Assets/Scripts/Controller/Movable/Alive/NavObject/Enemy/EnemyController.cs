@@ -136,14 +136,14 @@ public abstract class EnemyController : NavObjectController, IPoolable
         currentSP
             .Subscribe(_currentSP =>
             {
-                hud.stateUi.spProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
+                hud.stateUi.spProgressBar.SetFillImgSmooth(currentSP.Value, maxHP);
 
                 if (currentSP.Value <= 0)
                 {
                     currentSP.Value = 0;
-                    hud.stateUi.spProgressBar.Set_NoNum();
-                    hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
-                    hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+                    hud.stateUi.spProgressBar.SetNoNum();
+                    hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
+                    hud.stateUi.epProgressBar.SetFillImgSmooth(currentEp, maxEP);
 
                     if (buff.shieldBuff.isOn)
                     { buff.shieldBuff.Remove_AllStack(); }
@@ -151,28 +151,28 @@ public abstract class EnemyController : NavObjectController, IPoolable
                 }
                 else
                 {
-                    hud.stateUi.hpProgressBar.Set_NoNum();
-                    hud.stateUi.epProgressBar.Set_NoNum();
+                    hud.stateUi.hpProgressBar.SetNoNum();
+                    hud.stateUi.epProgressBar.SetNoNum();
                 }
             });
 
         currentHP
             .Subscribe(_currentHP =>
             {
-                hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+                hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
 
                 if (currentSP.Value > 0)
-                { hud.stateUi.hpProgressBar.Set_NoNum(); }
+                { hud.stateUi.hpProgressBar.SetNoNum(); }
             });
 
-        currentEP
-            .Subscribe(_currentEP =>
-            {
-                hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
-
-                if (currentSP.Value > 0)
-                { hud.stateUi.epProgressBar.Set_NoNum(); }
-            });
+        //currentEP
+        //    .Subscribe(_currentEP =>
+        //    {
+        //        hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+        //
+        //        if (currentSP.Value > 0)
+        //        { hud.stateUi.epProgressBar.Set_NoNum(); }
+        //    });
     }
 
     private void Offset_Controller()
@@ -236,8 +236,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     {
         isDischarge = true;
         dischargeDelayCurrentTime = 0f;
-        currentEP.Value = 0f;
-
+        SetCurrentEp(0f);
         isFullCharge = false;
         isPlayingSpecialPattern = false;
 
@@ -265,7 +264,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
         currentHP.Value = maxHP;
 
         // Energy
-        currentEP.Value = 0;
+        SetCurrentEp(0f);
 
         // Discharge
         Reset_ChargeState();
@@ -314,24 +313,24 @@ public abstract class EnemyController : NavObjectController, IPoolable
     private void Add_CurrentHP(float addValue)
     { 
         Add_CurrentHP(addValue, maxHP);
-        Check_IsDead(currentHP.Value);
+        CheckIsDead(currentHP.Value);
     }
 
     private void Add_CurrentEP(float addValue)
     {
         if (isFullCharge) return;
 
-        Add_CurrentEP(addValue, maxEP);
+        AddCurrentEp(addValue, maxEP);
 
         // 방전
-        if (currentEP.Value <= 0)
+        if (currentEp <= 0)
         {
             isDischarge = true;
             dischargeDelayCurrentTime = 0f;
         }
 
         // 풀 충전
-        if (currentEP.Value >= maxEP)
+        if (currentEp >= maxEP)
         {
             isFullCharge = true;
             hud.Set_Charged(isFullCharge);

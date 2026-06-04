@@ -169,7 +169,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         if (!AllyBaseUpgradeController.usingShop.isBroken)
         {
-            DevTool.Set_KillTween(tunerDetailExtraRt);
+            DevTool.SetKillTween(tunerDetailExtraRt);
             tunerDetailExtraRt.DOSizeDelta(onOff ? tunerDetailExtraRTOpen : new Vector2(tunerDetailExtraRTOpen.x, 0), 0.2f);
         }
     }

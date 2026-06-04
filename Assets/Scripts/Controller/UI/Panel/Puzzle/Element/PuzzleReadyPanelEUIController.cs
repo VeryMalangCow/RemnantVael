@@ -90,14 +90,14 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         readyKeyAnnoRt.localScale = Vector2.one;
 
         // Rule (Left)
-        DevTool.Set_Color(ResourceManager.instance.unlockedClr, ruleTxt);
-        DevTool.Set_Color(ResourceManager.instance.unlockedClr, ruleDescTxt);
+        DevTool.SetColor(ResourceManager.instance.unlockedClr, ruleTxt);
+        DevTool.SetColor(ResourceManager.instance.unlockedClr, ruleDescTxt);
 
         ruleTxt.text = $"< {ResourceManager.instance.Get_StaticWord(94)} >";
 
         // Warning (Right)
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, warningTxt);
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, warningDescTxt);
+        DevTool.SetColor(ResourceManager.instance.lockedClr, warningTxt);
+        DevTool.SetColor(ResourceManager.instance.lockedClr, warningDescTxt);
 
         warningTxt.text = $"< {ResourceManager.instance.Get_StaticWord(93)} >";
         warningDescTxt.text = ResourceManager.instance.Get_StaticDesc(32).Replace("\\n", "\n");
