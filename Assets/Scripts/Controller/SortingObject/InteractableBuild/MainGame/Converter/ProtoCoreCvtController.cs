@@ -9,7 +9,7 @@ public class ProtoCoreCvtController : ConverterController, IInteract
         return $"{ResourceManager.instance.Get_StaticWord(118)}\n{ResourceManager.instance.Get_StaticWord(125)}";
     }
 
-    public void Play_Interact()
+    public void PlayInteract()
     {
         MainGameUIManager.instance.protoCoreCvtUi.SetOn_ThisPanel();
     }

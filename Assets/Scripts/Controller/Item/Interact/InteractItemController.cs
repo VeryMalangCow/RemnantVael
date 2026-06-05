@@ -85,7 +85,7 @@ public abstract class InteractItemController : ItemController, IInteract
 
     public abstract string Get_InteractName(out bool canInteract);
 
-    public virtual void Play_Interact()
+    public virtual void PlayInteract()
     {
         PlayerManager.instance.playerController.currentInteractable.Value = null;
         currentSpreadPower = 0f;

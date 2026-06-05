@@ -8,9 +8,9 @@ public class PlayerAimRoundPresenter : MonoBehaviour, IPresentable
     public void Init(PresenterOwnerData ownerData, PresenterUIData uiData)
     {
         weapon = ownerData.player.baseWeapon;
-        aimRound = InputManager.instance.aimRoundController;
+        aimRound = uiData.aimRound;
         SubscribeOn();
-        Debug.Log("<color=orange>Player Aim Round Presenter Set</color>");
+        Debug.Log("<color=orange>Aim Round Presenter Set</color>");
     }
 
     public void SubscribeOn()

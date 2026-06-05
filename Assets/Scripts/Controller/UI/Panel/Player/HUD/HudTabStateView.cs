@@ -5,7 +5,7 @@ using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
-public class PlayerTabStateView : MonoBehaviour
+public class HudTabStateView : MonoBehaviour
 {
     [Space(10)]
     [Header("=== Tab States")]
@@ -17,12 +17,12 @@ public class PlayerTabStateView : MonoBehaviour
 
     [Space(10)]
     [Header("=== Visual")]
-    [SerializeField] private TMP_Text[] mainClrTxts;
+    [SerializeField] private TMP_Text[] mainClrTmps;
 
     private Tween tabTween;
 
     // Init
-    public IEnumerator Init(Color mainClr, Color subClr)
+    public IEnumerator Init(Color mainClr)
     {
         Stopwatch sw = Stopwatch.StartNew();
 
@@ -34,14 +34,14 @@ public class PlayerTabStateView : MonoBehaviour
         ColorInit(mainClr);
 
         sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>TabState View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"Player HUD : <color=orange>Tab State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
     }
 
     private void ColorInit(Color mainClr)
     {
-        DevTool.SetColorTmps(mainClr, mainClrTxts);
-        mainClrTxts = null;
+        DevTool.SetColorTmps(mainClr, mainClrTmps);
+        mainClrTmps = null;
     }
 
     public void TabOn(float durTime)
@@ -56,9 +56,8 @@ public class PlayerTabStateView : MonoBehaviour
         tabTween = playerStatesCostParentRt.DOAnchorPosX(defaultPlayerStatesRectX, durTime);
     }
 
-    public void ResetTab()
+    public void ResetTab(PlayerController player)
     {
-        PlayerController player = PlayerManager.instance.playerController;
         playerStatesTxt.text = GetPlayerStateTxt(player);
     }
 

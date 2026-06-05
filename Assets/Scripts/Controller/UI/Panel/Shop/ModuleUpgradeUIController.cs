@@ -365,22 +365,21 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     private void Offset_Subscribe()
     {
-        // BC // EC
-        PlayerManager.instance.playerController.currentBettery
-            .Subscribe(value =>
-            {
-                bcTxt.text = value.ToString();
-            });
-        PlayerManager.instance.playerController.currentChargedBettery
-            .Subscribe(value =>
-            {
-                ecTxt.text = value.ToString();
-            });
         PlayerManager.instance.playerController.currentModuleShard
             .Subscribe(value =>
             {
                 msTxt.text = value.ToString();
             });
+    }
+
+    public void SetEmptyBettery(int value)
+    {
+        bcTxt.text = value.ToString();
+    }
+
+    public void SetChargedBettery(int value)
+    {
+        ecTxt.text = value.ToString();
     }
 
     #endregion
@@ -718,7 +717,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             return;
         }
         else if (PlayerManager.instance.playerController.currentModuleShard.Value < ModuleItemManager.Get_MS_ForMake() ||
-            !PlayerManager.instance.playerController.Is_EnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
+            !PlayerManager.instance.playerController.IsEnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
         {
             Set_Warning(true, warning_NotEnoughItem);
             return;
@@ -1205,10 +1204,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         CoupleData<int> index = ModuleItemManager.instance.Get_DecompositionIndex();
 
         // º¸»ó È¹µæ
-        PlayerManager.instance.playerController.Add_CurrentBettery(
+        PlayerManager.instance.playerController.GainEmptyBettery(
             ModuleItemManager.Get_BC_ByDescomposition(ModuleItemManager.instance.Get_ModuleState(index)));
 
-        PlayerManager.instance.playerController.Add_CurrentModuleShard(
+        PlayerManager.instance.playerController.GainModuleShard(
             ModuleItemManager.Get_MS_ByDecomposition(ModuleItemManager.instance.Get_ModuleState(index)));
 
         ModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
@@ -1233,8 +1232,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         List<CoupleData<int>> indexList = ModuleItemManager.instance.Get_FusionIndex();
 
         // ¼Ò¸ð ÀçÈ­
-        PlayerManager.instance.playerController.Add_CurrentModuleShard(
-            -ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.instance.Get_ModuleState(indexList[0])));
+        PlayerManager.instance.playerController.UseModuleShard(
+            ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.instance.Get_ModuleState(indexList[0])));
 
         ModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
@@ -1258,8 +1257,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             ModuleUpgradeController.usingShop.currentDur <= 0) return;
 
         // ¼Ò¸ð ÀçÈ­
-        PlayerManager.instance.playerController.Add_CurrentModuleShard(-ModuleItemManager.Get_MS_ForMake());
-        PlayerManager.instance.playerController.Use_ChargedBettery(ModuleItemManager.Get_CB_ForMake());
+        PlayerManager.instance.playerController.UseModuleShard(ModuleItemManager.Get_MS_ForMake());
+        PlayerManager.instance.playerController.UseChargedBettery(ModuleItemManager.Get_CB_ForMake());
         ModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
         // º¸»ó È¹µæ

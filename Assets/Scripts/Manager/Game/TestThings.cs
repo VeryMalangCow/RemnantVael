@@ -35,7 +35,7 @@ public class TestThings : MonoBehaviour
             WalkSpeed.ActualState.Value = 15f;
             */
 
-            player.currentChargedBettery.Value = 9999;
+            player.GainChargedBettery(9999);
             player.currentCredit.Value = 9999;
             player.currentOverrider.Value = 9999;
             player.currentModuleShard.Value = 9999;

@@ -55,11 +55,11 @@ public class CreditController : AbsorbItemController
 
     #region Get Item
 
-    protected override void Gain_Item()
+    protected override void GainItem()
     {
-        base.Gain_Item();
+        base.GainItem();
 
-        PlayerManager.instance.playerController.Add_CurrentCredit(gainAmount); 
+        PlayerManager.instance.playerController.GainCredit(gainAmount); 
         DropItemManager.instance.RemoveCredit(this);
     }
 

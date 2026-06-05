@@ -48,12 +48,6 @@ public class EtherCoreCvtUIController : ConverterUIController
 
     public void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.currentChargedBettery
-            .Subscribe(_Value =>
-            {
-                cbCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
-            });
-
         PlayerManager.instance.playerController.currentCredit
             .Subscribe(_Value =>
             {
@@ -62,6 +56,11 @@ public class EtherCoreCvtUIController : ConverterUIController
     }
 
     #endregion
+
+    public void SetChargedBettery(int value)
+    {
+        cbCvtMaterialEui.Set_PossessionAmountTxt(value.ToString());
+    }
 
     #region Language
 
@@ -126,7 +125,7 @@ public class EtherCoreCvtUIController : ConverterUIController
             Get_Acquisitable_Credit(pc.currentCredit.Value);
 
         int currentPossibilityCB =
-            Get_Acquisitable_ChargedBettery(pc.currentChargedBettery.Value);
+            Get_Acquisitable_ChargedBettery(pc.chargedBettery);
 
         int currentPossibilityProtoC =
             Get_Acquisitable_ProtoC(SaveDataManager.instance.jsonData.Get_ItemAmount(1));
@@ -153,7 +152,7 @@ public class EtherCoreCvtUIController : ConverterUIController
 
         float needCB = acquisitionBookAmount * need_ChargedBettery;
         cbCvtMaterialEui.Set_NecessaryAmountTxt(needCB.ToString());
-        bool canCvtByCB = needCB <= (pc.currentChargedBettery.Value);
+        bool canCvtByCB = needCB <= pc.chargedBettery;
         cbCvtMaterialEui.Set_Condition(canCvtByCB);
 
         float needProtoC = acquisitionBookAmount * need_ProtoC;
@@ -182,8 +181,8 @@ public class EtherCoreCvtUIController : ConverterUIController
 
         // Lost
         PlayerController pc = PlayerManager.instance.playerController;
-        pc.Add_CurrentCredit(-(acquisitionBookAmount * need_Credit));
-        pc.Use_ChargedBettery(acquisitionBookAmount * need_ChargedBettery);
+        pc.GainCredit(-(acquisitionBookAmount * need_Credit));
+        pc.UseChargedBettery(acquisitionBookAmount * need_ChargedBettery);
         SaveDataManager.instance.jsonData.Use_Item(1, acquisitionBookAmount * need_ProtoC);
 
         Set_AcquAmount_Core();

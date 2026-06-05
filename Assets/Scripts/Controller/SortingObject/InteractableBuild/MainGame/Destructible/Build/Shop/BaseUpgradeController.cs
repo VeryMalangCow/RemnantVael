@@ -47,7 +47,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
         return ResourceManager.instance.Get_StaticWord(97);
     }
 
-    public void Play_Interact()
+    public void PlayInteract()
     {
         if (isBroken) return; 
 
@@ -65,16 +65,16 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
         }
         else if (Can_ShopPowerOn())
         {
-            PlayerManager.instance.playerController.currentChargedBettery.Value--;
+
+            PlayerManager.instance.playerController.UseChargedBettery(1);
             isOn = true;
             SoundManager.instance.Play_2D_SFX_Build("PowerOn");
         }
     }
 
     private bool Can_ShopPowerOn()
-    {
-        return !isOn && PlayerManager.instance.playerController.currentChargedBettery.Value > 0;
-    }
+        => !isOn && PlayerManager.instance.playerController.chargedBettery > 0;
+    
 
     #endregion
 

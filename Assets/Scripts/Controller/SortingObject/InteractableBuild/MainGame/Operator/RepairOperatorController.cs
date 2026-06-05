@@ -71,7 +71,7 @@ public class RepairOperatorController : OperatorController
         return ResourceManager.instance.Get_StaticWord(56);
     }
 
-    public override void Play_Interact()
+    public override void PlayInteract()
     {
         if (targetBuild == null ||
             targetBuild.Is_MaxDur() ||
@@ -79,7 +79,7 @@ public class RepairOperatorController : OperatorController
             PlayerManager.instance.playerController.currentCredit.Value < Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.instance.playerController.Add_CurrentCredit(-Get_NeedPay());
+        PlayerManager.instance.playerController.GainCredit(-Get_NeedPay());
         useAmount++;
 
         // 내구도 회복

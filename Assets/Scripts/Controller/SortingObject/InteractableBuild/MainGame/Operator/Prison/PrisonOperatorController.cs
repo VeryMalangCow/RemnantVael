@@ -46,7 +46,7 @@ public class PrisonOperatorController : OperatorController
         return "";
     }
 
-    public override void Play_Interact()
+    public override void PlayInteract()
     {
         
     }

@@ -165,19 +165,19 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     {
         if (type == eEnemy.Normal)
         {
-            Debug.Log($"color<red>EnemyEnqueue : {type} : {enemyId}");
+            Debug.Log($"<color=red>EnemyEnqueue</color> : {type} : {enemyId}");
             NormalEnemyController normalEnemy = enemy as NormalEnemyController;
             if (normalEnemy != null) RemoveNormalEnemy(normalEnemy, enemyId);
         }
         else if (type == eEnemy.Elite)
         {
-            Debug.Log($"color<red>EnemyEnqueue : {type} : {enemyId}");
+            Debug.Log($"<color=red>EnemyEnqueue</color> : {type} : {enemyId}");
             EliteEnemyController eliteEnemy = enemy as EliteEnemyController;
             if (eliteEnemy != null) RemoveEliteEnemy(eliteEnemy, enemyId);
         }
         else if (type == eEnemy.Boss)
         {
-            Debug.Log($"color<red>EnemyEnqueue : {type} : {enemyId}");
+            Debug.Log($"<color=red>EnemyEnqueue</color> : {type} : {enemyId}");
             BossEnemyController bossEnemy = enemy as BossEnemyController;
             if (bossEnemy != null) RemoveBossEnemy(bossEnemy, enemyId);
         }

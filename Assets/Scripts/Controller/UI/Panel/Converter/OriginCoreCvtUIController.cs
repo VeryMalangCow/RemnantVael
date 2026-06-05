@@ -1,6 +1,7 @@
 using System.Collections;
 using UniRx;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class OriginCoreCvtUIController : ConverterUIController
 {
@@ -48,12 +49,6 @@ public class OriginCoreCvtUIController : ConverterUIController
 
     public void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.currentChargedBettery
-            .Subscribe(_Value =>
-            {
-                cbCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
-            });
-
         PlayerManager.instance.playerController.currentCredit
             .Subscribe(_Value =>
             {
@@ -62,6 +57,11 @@ public class OriginCoreCvtUIController : ConverterUIController
     }
 
     #endregion
+
+    public void SetChargedBettery(int value)
+    {
+        cbCvtMaterialEui.Set_PossessionAmountTxt(value.ToString());
+    }
 
     #region Language
 
@@ -126,7 +126,7 @@ public class OriginCoreCvtUIController : ConverterUIController
             Get_Acquisitable_Credit(pc.currentCredit.Value);
 
         int currentPossibilityCB =
-            Get_Acquisitable_ChargedBettery(pc.currentChargedBettery.Value);
+            Get_Acquisitable_ChargedBettery(pc.chargedBettery);
 
         int currentPossibilityEtherC =
             Get_Acquisitable_EtherC(SaveDataManager.instance.jsonData.Get_ItemAmount(2));
@@ -153,7 +153,7 @@ public class OriginCoreCvtUIController : ConverterUIController
 
         float needCB = acquisitionBookAmount * need_ChargedBettery;
         cbCvtMaterialEui.Set_NecessaryAmountTxt(needCB.ToString());
-        bool canCvtByCB = needCB <= (pc.currentChargedBettery.Value);
+        bool canCvtByCB = needCB <= (pc.chargedBettery);
         cbCvtMaterialEui.Set_Condition(canCvtByCB);
 
         float needEtherC = acquisitionBookAmount * need_EtherC;
@@ -182,8 +182,8 @@ public class OriginCoreCvtUIController : ConverterUIController
 
         // Lost
         PlayerController pc = PlayerManager.instance.playerController;
-        pc.Add_CurrentCredit(-(acquisitionBookAmount * need_Credit));
-        pc.Use_ChargedBettery(acquisitionBookAmount * need_ChargedBettery);
+        pc.GainCredit(-(acquisitionBookAmount * need_Credit));
+        pc.UseChargedBettery(acquisitionBookAmount * need_ChargedBettery);
         SaveDataManager.instance.jsonData.Use_Item(2, acquisitionBookAmount * need_EtherC);
 
         Set_AcquAmount_Core();

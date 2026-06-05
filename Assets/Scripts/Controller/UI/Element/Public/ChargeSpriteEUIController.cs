@@ -32,7 +32,7 @@ public class ChargeSpriteEUIController : ElementUIController
     {
         completeRt = DevTool.Get_ComponentTType(completeImg.gameObject, out RectTransform rt) ? rt : null;
 
-        Change_Sprite(0);
+        ChangeSprite(0);
         completeImg.gameObject.SetActive(false);
     }
 
@@ -40,7 +40,7 @@ public class ChargeSpriteEUIController : ElementUIController
 
     #region Unique
 
-    public void Change_Sprite(int lv)
+    public void ChangeSprite(int lv)
     {
         img.sprite = lvSpr[lv];
 

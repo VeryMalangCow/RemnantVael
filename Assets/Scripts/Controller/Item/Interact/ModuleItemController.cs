@@ -37,9 +37,9 @@ public class ModuleItemController : InteractItemController
         return ResourceManager.instance.Get_StaticWord(0);
     }
 
-    public override void Play_Interact()
+    public override void PlayInteract()
     {
-        base.Play_Interact();
+        base.PlayInteract();
 
         ModuleItemManager.instance.Gain_ModuleState(itemDataField);
         DropItemManager.instance.RemoveModule(this);

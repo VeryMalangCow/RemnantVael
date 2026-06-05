@@ -48,9 +48,9 @@ public class PrisonPayOperatorController : PrisonOperatorController
         return ResourceManager.instance.Get_StaticWord(60);
     }
 
-    public override void Play_Interact()
+    public override void PlayInteract()
     {
-        base.Play_Interact();
+        base.PlayInteract();
 
         if (targetPrison == null ||
             targetPrison.isOn ||

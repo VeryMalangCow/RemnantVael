@@ -3,20 +3,21 @@ using UnityEngine;
 public class PlayerEpPresenter : MonoBehaviour, IPresentable
 {
     private PlayerController player;
-    private PlayerEpView view;
+    private HudEpView view;
 
     public void Init(PresenterOwnerData ownerData, PresenterUIData uiData)
     {
         player = ownerData.player;
         view = uiData.hud.EpView;
         SubscribeOn();
-        Debug.Log("<color=orange>Player Ep Presenter Set</color>");
+        Debug.Log("<color=orange>Ep Presenter Set</color>");
     }
 
     public void SubscribeOn()
     {
         player.OnEpChanged += view.SetEnergyGauge;
         player.OnMaxEpChanged += view.SetMaxEnergeGauge;
+        player.SetMaxEp();
         player.FullEp();
     }
 

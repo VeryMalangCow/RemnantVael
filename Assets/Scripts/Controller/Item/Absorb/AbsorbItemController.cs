@@ -90,7 +90,7 @@ public class AbsorbItemController : ItemController
 
     #region Get Item
 
-    protected virtual void Gain_Item()
+    protected virtual void GainItem()
     {
         SoundManager.instance.Play_2D_SFX_Item_Random(PlayerManager.instance.playerController.Get_AS(), "Absorb", 2);
 
@@ -105,7 +105,7 @@ public class AbsorbItemController : ItemController
     {
         if (col.tag == "Player")
         {
-            Gain_Item();
+            GainItem();
         }
     }
 

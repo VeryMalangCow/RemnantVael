@@ -10,9 +10,23 @@ public class PlayerController : AliveObjectController
 {
     #region Value
 
-    // current/max
     public event Action<float, float> OnEpChanged;
     public event Action<float, float> OnMaxEpChanged;
+
+    [HideInInspector] public int betteryShard { get; private set; } = 0;
+    public event Action<int> OnBetteryShardChanged;
+    [HideInInspector] public int emptyBettery { get; private set; } = 0;
+    public event Action<int> OnEmptyBetteryChanged;
+    [HideInInspector] public int chargedBettery { get; private set; } = 0;
+    public event Action<int> OnChargedBetteryChanged;
+
+
+    [HideInInspector] public ReactiveProperty<int> currentModuleShard = new();
+    public event Action<int> OnModuleShardChanged;
+    [HideInInspector] public ReactiveProperty<int> currentOverrider = new();
+    public event Action<int> OnOverriderChanged;
+    [HideInInspector] public ReactiveProperty<int> currentCredit = new();
+    public event Action<int> OnCreditChanged;
 
     #region - Inspector
 
@@ -30,8 +44,6 @@ public class PlayerController : AliveObjectController
     [SerializeField] public SkillWeaponController skillWeapon;
     [SerializeField] public PlayerDashController dash;
     [SerializeField] public RigidbodyAnimSolarController rbLower;
-
-    [Space(5)]
     [SerializeField] public AfterImgGenerator afterImgGenerator;
 
     [Space(10)]
@@ -124,15 +136,6 @@ public class PlayerController : AliveObjectController
     [SerializeField] public List<GameObject> currentInteractableGoList = new List<GameObject>();
     [HideInInspector] public ReactiveProperty<IInteract> currentInteractable = new();
 
-    // Item
-    [HideInInspector] public ReactiveProperty<int> currentBetteryShard = new();
-    [HideInInspector] public ReactiveProperty<int> currentBettery = new();
-    [HideInInspector] public ReactiveProperty<int> currentChargedBettery = new();
-    [HideInInspector] public ReactiveProperty<int> currentModuleShard = new();
-    [HideInInspector] public ReactiveProperty<int> currentOverrider = new();
-    [HideInInspector] public ReactiveProperty<int> currentCredit = new();
-
-    // Ally
 
     // Ally Presence
     [HideInInspector] public ReactiveProperty<int> strikeTeamPresence = new();
@@ -174,7 +177,6 @@ public class PlayerController : AliveObjectController
     #endregion
 
     #endregion
-
 
     #region Offset
 
@@ -224,7 +226,7 @@ public class PlayerController : AliveObjectController
         ResourceManager.instance.unlockedClr = Get_CorrectColor(eDamageType.Energy, false);
 
         // Item
-        currentChargedBettery.Value = 0;
+        chargedBettery = 0;
         currentCredit.Value = 0;
         currentOverrider.Value = 0;
         currentModuleShard.Value = 0;
@@ -273,19 +275,7 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Sorting
-
-    public override void SetSortingOrder(int sortingOrder)
-    {
-        bodySg.sortingOrder = sortingOrder;
-
-        trail.sortingOrder = sortingOrder - 1;
-        // base.Set_SortingOrder(_SortingOrder);
-    }
-
-    #endregion
-
-    #region Framework
+    #region Mono
 
     protected override void FixedUpdate()
     {
@@ -304,6 +294,18 @@ public class PlayerController : AliveObjectController
     private void OnDisable()
     {
         RemoveSortingLayer();
+    }
+
+    #endregion
+
+    #region Sorting
+
+    public override void SetSortingOrder(int sortingOrder)
+    {
+        bodySg.sortingOrder = sortingOrder;
+
+        trail.sortingOrder = sortingOrder - 1;
+        // base.Set_SortingOrder(_SortingOrder);
     }
 
     #endregion
@@ -402,7 +404,7 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Energy Point
+    #region Current EP
 
     // ¿¡³ÊÁö È¹µæ
     public void AddCurrentEp(float addValue)
@@ -428,73 +430,148 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Item
+    #region Max EP
 
-    // ¹èÅÍ¸® Á¶°¢ È¹µæ
-    public void Add_CurrentBetteryShard(int addValue)
+    public void SetMaxEp()
     {
-        currentBetteryShard.Value = Mathf.Max(currentBetteryShard.Value + addValue, 0);
-        if (currentBetteryShard.Value >= needBS_ForMakeBC)
+        OnMaxEpChanged?.Invoke(currentEp, maxEP.actualState);
+    }
+
+    #endregion
+
+    #region Item - Bettery
+
+    // Bettery Shard
+    public void GainBetteryShard(int gainValue)
+    {
+        betteryShard = Mathf.Max(betteryShard + gainValue, 0);
+
+        if (betteryShard >= needBS_ForMakeBC)
         {
-            Add_CurrentBettery();
+            MainGameUIManager.instance.playerHud.BetteryShardView.currentEmptyBc.Set_Complete(
+            fadeInTime: 0.3f,
+            stayTime: 0.1f,
+            fadeOutTime: 0.5f);
+
+            int BSAmount = betteryShard / needBS_ForMakeBC;
+            betteryShard -= needBS_ForMakeBC * BSAmount;
+            GainEmptyBettery(BSAmount);
+        }
+        else
+        {
+            SetBetteryShardUI();
         }
     }
 
-    // ¸ðµâ Á¶°¢ È¹µæ
-    public void Add_CurrentModuleShard(int addValue)
+    public void SetBetteryShardUI()
     {
-        currentModuleShard.Value = Mathf.Max(currentModuleShard.Value + addValue, 0);
+        OnBetteryShardChanged?.Invoke(betteryShard);
     }
 
-    // ¹èÅÍ¸® È¹µæ
-    public void Add_CurrentBettery(int addValue)
+    // Empty Bettery
+    public void GainEmptyBettery(int gainValue)
     {
-        currentBettery.Value = Mathf.Max(currentBettery.Value + addValue, 0);
+        emptyBettery = Mathf.Min(emptyBettery + gainValue, 9999); 
+        SetEmptyBetteryUI();
     }
 
-    private void Add_CurrentBettery()
+    public void UseEmptyBettery(int useValue)
     {
-        MainGameUIManager.instance.playerHud.currentEmptyBc.Set_Complete(
-            fadeInTime: 0.3f,
-            stayTime: 0.1f, 
-            fadeOutTime: 0.5f);
-
-        int BSAmount = currentBetteryShard.Value / needBS_ForMakeBC;
-        currentBetteryShard.Value -= needBS_ForMakeBC * BSAmount;
-        currentBettery.Value += BSAmount;
+        emptyBettery = Mathf.Max(emptyBettery - useValue, 0); 
+        SetEmptyBetteryUI();
     }
 
-    // ¿À¹ö¶óÀÌ´õ È¹µæ
-    public void Add_CurrentOverrider(int addValue)
+    public void SetEmptyBetteryUI()
     {
-        currentOverrider.Value = Mathf.Max(currentOverrider.Value + addValue, 0);
+        OnEmptyBetteryChanged?.Invoke(emptyBettery);
     }
 
-    // Å©·¹µ÷ È¹µæ
-    public void Add_CurrentCredit(int addValue)
+    // Charged Bettery
+    public void GainChargedBettery(int gainValue)
     {
-        currentCredit.Value = Mathf.Max(currentCredit.Value + addValue, 0);
+        chargedBettery = Mathf.Min(chargedBettery + gainValue, 9999);
+        SetChargedBetteryUI();
     }
 
-    // ÃæÀü ¹èÅÍ¸® »ý¼º
-    private void Make_ChargedBettery()
+    public void UseChargedBettery(int useValue)
+    {
+        chargedBettery = Math.Max(chargedBettery - useValue, 0); 
+        SetChargedBetteryUI();
+    }
+
+    public void SetChargedBetteryUI()
+    {
+        OnChargedBetteryChanged?.Invoke(chargedBettery);
+    }
+
+    // Charge
+    public bool IsEnoughChargedBettery(int needAmount)
+        => chargedBettery >= needAmount;
+    
+    private void MakeChargedBettery()
     {
         AddCurrentEp(-needEP_ForMakeEC, maxEP.actualState);
-        currentBettery.Value--;
-        currentChargedBettery.Value++;
+        UseEmptyBettery(1);
+        GainChargedBettery(1);
     }
 
-    // ÃæÀü ¹èÅÍ¸® ÃæºÐÇÑ°¡
-    public bool Is_EnoughChargedBettery(int needAmount)
+    #endregion
+
+    #region Item
+
+    // Credit
+    public void GainCredit(int gainValue)
     {
-        return currentChargedBettery.Value >= needAmount ? true : false;
+        currentCredit.Value = Mathf.Min(currentCredit.Value + gainValue, 9999);
+        SetCreditUI();
+    }
+    public void UseCredit(int useValue)
+    {
+        currentCredit.Value = Mathf.Max(currentCredit.Value - useValue, 0);
+        SetCreditUI();
     }
 
-    // ¿¡³ÊÁö ¼¿À» ¼Òºñ
-    public void Use_ChargedBettery(int useAmount)
+    public void SetCreditUI()
     {
-        currentChargedBettery.Value = Math.Max(currentChargedBettery.Value - useAmount, 0);
+        OnCreditChanged?.Invoke(currentCredit.Value);
     }
+
+    // Overrider
+    public void GainOverrider(int gainValue)
+    {
+        currentOverrider.Value = Mathf.Min(currentOverrider.Value + gainValue, 9999);
+        SetOverriderUI();
+    }
+
+    public void UseOverrider(int useValue)
+    {
+        currentOverrider.Value = Mathf.Min(currentOverrider.Value - useValue, 0);
+        SetOverriderUI();
+    }
+
+    public void SetOverriderUI()
+    {
+        OnOverriderChanged?.Invoke(currentOverrider.Value);
+    }
+
+    // Module Shard
+    public void GainModuleShard(int gainValue)
+    {
+        currentModuleShard.Value = Mathf.Min(currentModuleShard.Value + gainValue, 9999);
+        SetModuleShardUI();
+    }
+    public void UseModuleShard(int useValue)
+    {
+        currentModuleShard.Value = Mathf.Min(currentModuleShard.Value - useValue, 0);
+        SetModuleShardUI();
+    }
+
+    public void SetModuleShardUI()
+    {
+        OnModuleShardChanged?.Invoke(currentModuleShard.Value);
+    }
+
+
 
     #endregion
 
@@ -606,10 +683,10 @@ public class PlayerController : AliveObjectController
     {
         if (!Can_Change() ||
             needEP_ForMakeEC >= this.currentEp ||
-            currentBettery.Value <= 0) 
+            emptyBettery <= 0) 
         { return; }
 
-        reservationDele = Make_ChargedBettery;
+        reservationDele = MakeChargedBettery;
 
         Start_Casting(chargeBetteryInterval);
     }
@@ -632,7 +709,7 @@ public class PlayerController : AliveObjectController
 
         if (!skillWeapon.skillList[index].Can_Active())
         {
-            MainGameUIManager.instance.playerHud.skillList[index].Play_ErrorUI();
+            MainGameUIManager.instance.playerHud.SkillView.skillList[index].Play_ErrorUI();
             return;
         }
 
@@ -664,7 +741,7 @@ public class PlayerController : AliveObjectController
             currentInteractable.Value == null)
         { return; }
 
-        currentInteractable.Value.Play_Interact();
+        currentInteractable.Value.PlayInteract();
         
         MainGameUIManager.instance.playerHud.Play_UseInteractUI();
     }
@@ -1158,9 +1235,9 @@ public class PlayerController : AliveObjectController
 
     public void Set_PrisonPanelty()
     {
-        Add_CurrentCredit(-(int)(currentCredit.Value * 0.2f));
-        Add_CurrentOverrider(-(int)(currentOverrider.Value * 0.2f));
-        Add_CurrentModuleShard(-(int)(currentModuleShard.Value * 0.2f));
+        UseCredit((int)(currentCredit.Value * 0.2f));
+        UseOverrider((int)(currentOverrider.Value * 0.2f));
+        UseModuleShard((int)(currentModuleShard.Value * 0.2f));
 
         Take_Damaged(currentEp * 0.2f, Vector2.zero, false);
 

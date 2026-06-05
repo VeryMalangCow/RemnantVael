@@ -55,11 +55,11 @@ public class ModuleShardController : AbsorbItemController
 
     #region Get Item
 
-    protected override void Gain_Item()
+    protected override void GainItem()
     {
-        base.Gain_Item();
+        base.GainItem();
 
-        PlayerManager.instance.playerController.Add_CurrentModuleShard(moduleValue);
+        PlayerManager.instance.playerController.GainModuleShard(moduleValue);
         DropItemManager.instance.RemoveModuleShard(this);
     }
 

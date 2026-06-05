@@ -158,7 +158,7 @@ public class GateController : StaticDepthController, IInteract
         }
     }
 
-    public void Play_Interact()
+    public void PlayInteract()
     {
         if (isOpen && parterGate != null)
         {

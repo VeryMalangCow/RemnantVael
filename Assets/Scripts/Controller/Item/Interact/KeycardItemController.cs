@@ -30,9 +30,9 @@ public class KeycardItemController : InteractItemController
         return ResourceManager.instance.Get_StaticWord(117);
     }
 
-    public override void Play_Interact()
+    public override void PlayInteract()
     {
-        base.Play_Interact();
+        base.PlayInteract();
 
         PlayerManager.instance.Gain_KeyCard(id);
         DropItemManager.instance.RemoveKeycard(this);

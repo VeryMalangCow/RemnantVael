@@ -5,7 +5,7 @@ using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
-public class PlayerTabModuleView : MonoBehaviour
+public class HudTabModuleView : MonoBehaviour
 {
     [Space(10)]
     [Header("=== Tab States")]
@@ -14,14 +14,10 @@ public class PlayerTabModuleView : MonoBehaviour
     private float defaultModuleRectX;
     [HideInInspector] public List<InventorySlotEUIController> moduleSlots = new List<InventorySlotEUIController>();
     
-    [Space(10)]
-    [Header("=== Visual")]
-    //[SerializeField] private TMP_Text[] mainClrTxts;
-
     private Tween tabTween;
 
     // Init
-    public IEnumerator Init(Color mainClr, Color subClr)
+    public IEnumerator Init()
     {
         Stopwatch sw = Stopwatch.StartNew();
 
@@ -37,18 +33,10 @@ public class PlayerTabModuleView : MonoBehaviour
             moduleSlots[i].Set_EquipedTxt(true, i);
         }
 
-        //ColorInit(mainClr, subClr);
-
         sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>TabModule View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"Player HUD : <color=orange>Tab Module View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
     }
-
-/*    private void ColorInit(Color mainClr, Color subClr)
-    {
-        DevTool.SetColorTmps(mainClr, mainClrTxts);
-        mainClrTxts = null;
-    }*/
 
     public void TabOn(float durTime)
     {

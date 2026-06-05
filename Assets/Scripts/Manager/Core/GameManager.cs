@@ -2440,7 +2440,7 @@ public class BUShopData<T>
 
     private bool Can_Buy()
     {
-        return PlayerManager.instance.playerController.Is_EnoughChargedBettery(levelData.levelDataList[state.currentLevel.Value].needEC_ForUpgrade) &&
+        return PlayerManager.instance.playerController.IsEnoughChargedBettery(levelData.levelDataList[state.currentLevel.Value].needEC_ForUpgrade) &&
             BaseUpgradeController.usingShop != null &&
             BaseUpgradeController.usingShop.currentDur > 0;
     }
@@ -2455,7 +2455,7 @@ public class BUShopData<T>
             BaseUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
             // Cost
-            PlayerManager.instance.playerController.Use_ChargedBettery(levelData.levelDataList[state.currentLevel.Value].needEC_ForUpgrade);
+            PlayerManager.instance.playerController.UseChargedBettery(levelData.levelDataList[state.currentLevel.Value].needEC_ForUpgrade);
 
             Set_LevelUp();
 
@@ -5021,8 +5021,8 @@ public abstract class AllyRequest
         { "EP", new Func<int, int>(Get_BookReward_EP) }
     };
 
-    private static void Gain_Reward_BC(int rank) { PlayerManager.instance.playerController.Add_CurrentBettery(Get_BookReward_BC(rank)); }
-    private static void Gain_Reward_Credit(int rank) { PlayerManager.instance.playerController.Add_CurrentCredit(Get_BookReward_Credit(rank)); }
+    private static void Gain_Reward_BC(int rank) { PlayerManager.instance.playerController.GainEmptyBettery(Get_BookReward_BC(rank)); }
+    private static void Gain_Reward_Credit(int rank) { PlayerManager.instance.playerController.GainCredit(Get_BookReward_Credit(rank)); }
     private static void Gain_Reward_EP(int rank) { PlayerManager.instance.playerController.AddCurrentEp(Get_BookReward_EP(rank)); }
 
     private static int Get_BookReward_BC(int rank) { return rank + 1; }
@@ -5930,7 +5930,7 @@ public struct ExplState
 
 public interface IInteract
 {
-    public void Play_Interact();
+    public void PlayInteract();
 
     public string Get_InteractName(out bool canInteract);
 }

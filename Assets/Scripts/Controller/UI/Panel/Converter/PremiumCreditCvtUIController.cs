@@ -152,7 +152,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
         // Lost
         PlayerController pc = PlayerManager.instance.playerController;
-        pc.Add_CurrentCredit(-(acquisitionBookAmount * need_Credit));
+        pc.GainCredit(-(acquisitionBookAmount * need_Credit));
         pc.AddCurrentEp(-(acquisitionBookAmount * need_EP));
 
         Set_AcquAmount(acquisitionItemId);

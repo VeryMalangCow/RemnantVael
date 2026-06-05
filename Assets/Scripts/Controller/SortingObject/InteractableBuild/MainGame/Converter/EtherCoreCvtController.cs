@@ -9,7 +9,7 @@ public class EtherCoreCvtController : ConverterController, IInteract
         return $"{ResourceManager.instance.Get_StaticWord(119)}\n{ResourceManager.instance.Get_StaticWord(125)}";
     }
 
-    public void Play_Interact()
+    public void PlayInteract()
     {
         MainGameUIManager.instance.etherCoreCvtUi.SetOn_ThisPanel();
     }

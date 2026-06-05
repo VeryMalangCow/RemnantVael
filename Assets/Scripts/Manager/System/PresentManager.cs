@@ -27,10 +27,28 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
 
         // 오너들의 데이터 Init
         ownerDataset = new PresenterOwnerData();
+        uiDataset = new PresenterUIData();
+
+        // Owner
         ownerDataset.player = PlayerManager.instance.playerController;
 
-        uiDataset = new PresenterUIData();
-        uiDataset.hud = MainGameUIManager.instance.playerHud;
+
+        // UI
+        MainGameUIManager uiSet = MainGameUIManager.instance;
+
+        uiDataset.hud = uiSet.playerHud;
+
+        uiDataset.baseUpgrade = uiSet.baseUpgradeUi;
+        uiDataset.moduleUpgrade = uiSet.moduleUpgradeUi;
+
+        uiDataset.allyBaseUpgrade = uiSet.allyBaseUpgradeUi;
+        uiDataset.allyModuleUpgrade = uiSet.allyModuleUpgradeUi;
+
+        uiDataset.protoCoreCvt = uiSet.protoCoreCvtUi;
+        uiDataset.etherCoreCvt = uiSet.etherCoreCvtUi;
+        uiDataset.originCoreCvt = uiSet.originCoreCvtUi;
+
+        uiDataset.aimRound = InputManager.instance.aimRoundController;
 
         CollectPresenters();
 
@@ -67,6 +85,17 @@ public class PresenterUIData
 {
     public PlayerHUDController hud;
     public AimRoundController aimRound;
+
+    public BaseUpgradeUIController baseUpgrade;
+    public ModuleUpgradeUIController moduleUpgrade;
+
+    public AllyBaseUpgradeUIController allyBaseUpgrade;
+    public AllyModuleUpgradeUIController allyModuleUpgrade;
+    
+    public ProtoCoreCvtUIController protoCoreCvt;
+    public EtherCoreCvtUIController etherCoreCvt;
+    public OriginCoreCvtUIController originCoreCvt;
+
 }
 
 public interface IPresentable

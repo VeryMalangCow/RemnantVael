@@ -40,9 +40,9 @@ public class CoreItemController : InteractItemController
         }
     }
 
-    public override void Play_Interact()
+    public override void PlayInteract()
     {
-        base.Play_Interact();
+        base.PlayInteract();
 
         SaveDataManager.instance.jsonData.Gain_Item(id, 1);
         DropItemManager.instance.RemoveCore(this);

@@ -288,7 +288,7 @@ public class MinimapEUIController : ElementUIController
         if (interactingBookGate != null && 
             StageManager.instance.currentRoomController != interactingBookGate.parterGate.thisRoom)
         {
-            interactingBookGate.Play_Interact();
+            interactingBookGate.PlayInteract();
         }
     }
 

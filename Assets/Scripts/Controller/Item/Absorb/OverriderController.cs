@@ -55,11 +55,11 @@ public class OverriderController : AbsorbItemController
 
     #region Get Item
 
-    protected override void Gain_Item()
+    protected override void GainItem()
     {
-        base.Gain_Item();
+        base.GainItem();
 
-        PlayerManager.instance.playerController.Add_CurrentOverrider(gainAmount);
+        PlayerManager.instance.playerController.GainOverrider(gainAmount);
         DropItemManager.instance.RemoveOverrider(this);
     }
 

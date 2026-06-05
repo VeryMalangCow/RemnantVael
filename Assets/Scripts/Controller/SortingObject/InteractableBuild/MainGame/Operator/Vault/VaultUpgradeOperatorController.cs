@@ -59,9 +59,9 @@ public class VaultUpgradeOperatorController : VaultOperatorController
         return ResourceManager.instance.Get_StaticWord(58);
     }
 
-    public override void Play_Interact()
+    public override void PlayInteract()
     {
-        base.Play_Interact();
+        base.PlayInteract();
 
         if (targetVault == null ||
             targetVault.Is_MaxGrade() || 

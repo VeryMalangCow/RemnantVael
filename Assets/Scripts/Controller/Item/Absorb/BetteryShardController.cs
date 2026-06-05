@@ -53,11 +53,11 @@ public class BetteryShardController : AbsorbItemController
 
     #region Get Item
 
-    protected override void Gain_Item()
+    protected override void GainItem()
     {
-        base.Gain_Item();
+        base.GainItem();
 
-        PlayerManager.instance.playerController.Add_CurrentBetteryShard(betteryValue);
+        PlayerManager.instance.playerController.GainBetteryShard(betteryValue);
         DropItemManager.instance.RemoveBetteryShard(this);
     }
 

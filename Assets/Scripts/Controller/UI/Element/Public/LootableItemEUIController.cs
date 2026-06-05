@@ -29,7 +29,7 @@ public class LootableItemEUIController : ElementUIController
 
     #region Tween
 
-    public void Play_Amount(int amount)
+    public void PlayAmount(int amount)
     {
         amountTxt.text = amount.ToString();
 

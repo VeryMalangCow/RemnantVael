@@ -5,6 +5,7 @@ using UniRx;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AllyModuleUpgradeUIController : AllyShopUIController
 {
@@ -141,7 +142,6 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         base.Offset(camera);
 
         Offset_EUI();
-        Offset_Subscribe();
 
         Set_LanguageTxt();
     }
@@ -203,13 +203,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         noneSyneBuyBtn.Offset();
     }
 
-    private void Offset_Subscribe()
+    public void SetChargedBettery(int value)
     {
-        PlayerManager.instance.playerController.currentChargedBettery
-            .Subscribe(_Value =>
-            {
-                Set_ChargedBetteryUI(_Value, needChargedBettery);
-            });
+        Set_ChargedBetteryUI(value, needChargedBettery);
     }
 
     #endregion
@@ -616,7 +612,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         moduleDetailExtraRt.DOSizeDelta(can ? ModuleDetailExtraRTOpen : new Vector2(ModuleDetailExtraRTOpen.x, 0), 0.2f);
 
         needChargedBettery = can ? goods : 0;
-        Set_ChargedBetteryUI(PlayerManager.instance.playerController.currentChargedBettery.Value, needChargedBettery);
+        Set_ChargedBetteryUI(PlayerManager.instance.playerController.chargedBettery, needChargedBettery);
     }
 
     private bool Can_Buy(out int goods)
@@ -637,7 +633,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         return !AllyModuleUpgradeController.usingShop.isBroken &&
             isExist && 
-            PlayerManager.instance.playerController.currentChargedBettery.Value >= goods &&
+            PlayerManager.instance.playerController.chargedBettery >= goods &&
             currentPickedProfileEui != null &&
             pickedModulePanel_AllyGo.activeSelf;
     }
@@ -645,7 +641,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Buy()
     {
         // ตฅภฬลอ
-        PlayerManager.instance.playerController.currentChargedBettery.Value -= needChargedBettery;
+        PlayerManager.instance.playerController.UseChargedBettery(needChargedBettery);
         ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(pickedItemEui.slot).originalIndex);
 
         currentPickedAlly.Add_Sync(Get_PickedSyncList());

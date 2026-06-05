@@ -56,9 +56,9 @@ public class JouleController : AbsorbItemController
 
     #region Get Item
 
-    protected override void Gain_Item()
+    protected override void GainItem()
     {
-        base.Gain_Item();
+        base.GainItem();
 
         PlayerManager.instance.playerController.AddCurrentEp(energyValue);
         DropItemManager.instance.RemoveJoule(this);

@@ -14,21 +14,44 @@ public class PlayerHUDController : UIController
     [Space(20)]
     [Header("<><><><><> Player HUD")]
 
-    [SerializeField] private PlayerEpView epView;
-    public PlayerEpView EpView { get { return epView; } }
-
-    [SerializeField] private PlayerTabStateView tabStateView;
-    [SerializeField] private PlayerTabModuleView tabModuleView;
-    public PlayerTabModuleView TabModuleView { get { return tabModuleView; } }
-
+    [Space(10)]
+    [Header("=== View")]
+    [SerializeField] private HudEpView epView;
+    [SerializeField] private HudTabStateView tabStateView;
+    [SerializeField] private HudTabModuleView tabModuleView;
+    [SerializeField] private HudSkillView skillView;
     [SerializeField] private HudAllyStateView allyStateView;
+    [SerializeField] private HudBetteryShardView betteryShardView;
+    [SerializeField] private HudBetteriesView betteriesView;
+    [SerializeField] private HudLootableItemsView lootableItemsView;
+
+    public HudEpView EpView { get { return epView; } }
+    public HudTabStateView TabStateView { get { return TabStateView; } }
+    public HudTabModuleView TabModuleView { get { return tabModuleView; } }
+    public HudSkillView SkillView { get { return skillView; } }
+    public HudAllyStateView AllyStateView { get { return allyStateView; } }
+    public HudBetteryShardView BetteryShardView { get { return betteryShardView; } }
+    public HudBetteriesView BetteriesView { get { return betteriesView; } }
+    public HudLootableItemsView LootableItemsView { get { return lootableItemsView; } }
+
+
+    [Space(10)]
+    [Header("=== Comp")]
+    [SerializeField] public CanvasGroup cg;
 
 
     public IEnumerator Init(Color mainClr, Color subClr)
     {
+        PlayerController player = PlayerManager.instance.playerController;
+        
         yield return EpView.Init(mainClr, subClr);
-        yield return tabStateView.Init(mainClr, subClr);
-        yield return tabModuleView.Init(mainClr, subClr);
+        yield return tabStateView.Init(mainClr);
+        yield return tabModuleView.Init();
+        yield return allyStateView.Init();
+        yield return skillView.Init(player.skillWeapon, mainClr, subClr);
+        yield return betteryShardView.Init(subClr);
+        yield return BetteriesView.Init(player, mainClr, subClr);
+        yield return LootableItemsView.Init();
     }
 
 
@@ -38,45 +61,11 @@ public class PlayerHUDController : UIController
 
 
     [Space(10)]
-    [Header("=== Energy")]
-
-
-    [Space(10)]
     [Header("=== Tab")]
     [SerializeField] public ReactiveProperty<bool> isTabInteracted = new ReactiveProperty<bool>();
     [SerializeField] public bool isTabInputed = false;
     [SerializeField] private static float tabInputedMaxTime = 0.25f;
     [SerializeField] private float tabInputedCurrentTime = 0f;
-
-    [Header("-- Ally States")]
-    [SerializeField] private RectTransform allyStateParentRt;
-    [SerializeField] private List<RectTransform> allyHudList = new List<RectTransform>();
-    [SerializeField] private readonly static int maxCol = 6;
-    [SerializeField] private readonly static float colInterval = -120;
-    [SerializeField] private readonly static float rowInterval = 240;
-
-    [Header("-- Skill State")]
-    [SerializeField] private RectTransform skillStatesParentRt;
-    [SerializeField] private List<TMP_Text> skillStatesTxtList;
-
-
-
-    [Space(10)]
-    [Header("=== Bettery")]
-    [Header("-- Current")]
-    [SerializeField] public ChargeSpriteEUIController currentEmptyBc;
-
-    [Header("-- Bettery (Image Amount Class)")]
-    [SerializeField] private ImgTxtAmountEUIController emptyBc;
-    [SerializeField] private ImgTxtAmountEUIController fullEc;
-    [SerializeField] private Image ecCostArrowImg;
-    [SerializeField] private TMP_Text ecCostTxt;
-
-    [Space(10)]
-    [Header("=== Other Item")]
-    [SerializeField] private LootableItemEUIController creditEui;
-    [SerializeField] private LootableItemEUIController overriderEui;
-    [SerializeField] private LootableItemEUIController msEui;
 
     [Space(10)]
     [Header("=== Boost")]
@@ -86,10 +75,6 @@ public class PlayerHUDController : UIController
     [SerializeField] private GameObject[] boostLightArr;
     [SerializeField] private GameObject[] boostLightWheelArr;
     [SerializeField] List<Image> boostInnerList;
-
-    [Space(10)]
-    [Header("=== Skill")]
-    [SerializeField] public List<SkillEUIController> skillList;
 
     [Space(10)]
     [Header("=== Minimap")]
@@ -154,17 +139,13 @@ public class PlayerHUDController : UIController
     [HideInInspector] private static string interactDisableString;
     [HideInInspector] private static string interacInoperableString;
     [HideInInspector] private static string interactNoneString;
-    [HideInInspector] private List<string> skillStatesStringList = new List<string>();
 
     // Comp
-    [HideInInspector] public CanvasGroup cg;
 
     // Tab
     [HideInInspector] private static float tabInteractDurTime = 0.25f;
 
     // Tab -> Skill State
-    [HideInInspector] private List<Image> skillImgList = new List<Image>();
-    [HideInInspector] private float defaultSkillStatesRectY;
 
     // Color
     [HideInInspector] public List<Component> mainClrCompList;
@@ -179,7 +160,6 @@ public class PlayerHUDController : UIController
 
     // Ally
     [HideInInspector] private List<AllyPresenceEUIController> allAllyPresence = new List<AllyPresenceEUIController>();
-    [HideInInspector] private float defaultAllyStateRectX;
 
     // Hitted
     [HideInInspector] private static float offsetXPos;
@@ -216,21 +196,8 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < allAllyPresence.Count; i++)
             allAllyPresence[i].Offset();
         
-        currentEmptyBc.Offset();
-        emptyBc.Offset();
-        fullEc.Offset();
-
-        // EP Txt
-        ecCostTxt.text = PlayerManager.instance.playerController.needEP_ForMakeEC.ToString();
-
-        // 스킬
-        for (int i = 0; i < skillList.Count; i++) skillList[i].Offset();
-
-
         // 버프
         //PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
-
-        cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
 
         offsetXPos = hittedInfoRt.anchoredPosition.x;
 
@@ -242,16 +209,8 @@ public class PlayerHUDController : UIController
     {
         // 기본 위치
 
-        // 스킬
-        defaultSkillStatesRectY = DevTool.Get_ComponentTType(
-            skillStatesParentRt.gameObject, out RectTransform ss_Rt) ?
-                ss_Rt.anchoredPosition.y : 0f;
-
         // 부스트
         defaultBoostRectY = boostRt.anchoredPosition.y;
-
-        // Ally
-        defaultAllyStateRectX = allyStateParentRt.anchoredPosition.x;
 
         // High Lv Item
         defaultHighLvItemRectX = highLvItemRt.anchoredPosition.x;
@@ -259,60 +218,6 @@ public class PlayerHUDController : UIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.currentBetteryShard
-            .Subscribe(_currentBs =>
-            {
-                if (PlayerManager.instance.playerController.currentBetteryShard.Value < PlayerManager.instance.playerController.needBS_ForMakeBC)
-                {
-                    currentEmptyBc.Change_Sprite(_currentBs);
-                }
-            })
-            .AddTo(gameObject);
-
-        PlayerManager.instance.playerController.currentBettery
-            .Subscribe(_currentBc =>
-            {
-                emptyBc.Set_Amount(_currentBc, 0.5f);
-            })
-            .AddTo(gameObject);
-
-        PlayerManager.instance.playerController.currentChargedBettery
-            .Subscribe(_currentEc =>
-            {
-                fullEc.Set_Amount(_currentEc, 0.5f);
-
-                DOTween.Kill(ecCostArrowImg);
-                ecCostArrowImg.DOFade(1f, 0.2f)
-                    .OnComplete(() =>
-                    {
-                        ecCostArrowImg.DOFade(0.25f, 0.2f);
-                    });
-            })
-            .AddTo(gameObject);
-
-
-        PlayerManager.instance.playerController.currentCredit
-            .Subscribe(_currentCredit =>
-            {
-                creditEui.Play_Amount(_currentCredit);
-            })
-            .AddTo(gameObject);
-
-        PlayerManager.instance.playerController.currentOverrider
-            .Subscribe(_currentOverrider =>
-            {
-                overriderEui.Play_Amount(_currentOverrider);
-            })
-            .AddTo(gameObject);
-
-        PlayerManager.instance.playerController.currentModuleShard
-            .Subscribe(_currentMS =>
-            {
-                msEui.Play_Amount(_currentMS);
-            })
-            .AddTo(gameObject);
-
-
         PlayerManager.instance.playerController.currentBoostLv
             .Subscribe(_boostLevel =>
             {
@@ -361,17 +266,6 @@ public class PlayerHUDController : UIController
 
     private void Offset_Img()
     {
-        // 스킬 이미지
-        for (int i = 0; i < DevTool.skillAmount; i++)
-        {
-            skillImgList.Add(DevTool.Get_ComponentTType<Image>(skillList[i].gameObject));
-            skillImgList[i].sprite = PlayerManager.instance.playerController.skillWeapon.skillList[i].icon;
-        }
-
-        creditEui.Offset();
-        overriderEui.Offset();
-        msEui.Offset();
-
         paneltyAnnoCg.alpha = 0f;
         DevTool.SetColor(uninteractableClr, paneltyAnnoNameTxt);
         paneltyAnnoNameTxt.text = "";
@@ -426,13 +320,9 @@ public class PlayerHUDController : UIController
     private void Reset_Tab()
     {
         PlayerController player = PlayerManager.instance.playerController;
-        PlayerWeaponController weapon = player.baseWeapon;
-        SkillWeaponController skill = player.skillWeapon;
 
-        tabStateView.ResetTab();
-
-        for (int i = 0; i < DevTool.skillAmount; i++)
-            skillStatesTxtList[i].text = Get_SkillStateTxt(skill.skillList[i]);
+        tabStateView.ResetTab(player);
+        skillView.ResetTab(player.skillWeapon);
     }
 
     #endregion
@@ -566,8 +456,6 @@ public class PlayerHUDController : UIController
 
 
         tabSeq = Play_SeqInteract(
-            allyStateRtX: 700f,
-            skillRtY: 0f,
             boostRtY: 0f,
             highLvItemRtX: 0f,
             stageNameAlpha: 0f,
@@ -588,8 +476,6 @@ public class PlayerHUDController : UIController
         tabModuleView.TabOff(tabInteractDurTime);
 
         tabSeq = Play_SeqInteract(
-            defaultAllyStateRectX,
-            defaultSkillStatesRectY, 
             defaultBoostRectY,
             defaultHighLvItemRectX,
             stageNameAlpha: 1f,
@@ -597,29 +483,6 @@ public class PlayerHUDController : UIController
             tabInteractDurTime, Ease.InCubic);
 
         minimapEui.SetOff_TabInteract(tabInteractDurTime);
-    }
-
-    #endregion
-
-    #region Ally State
-
-    public void Add_AllyState(AllyHUDController hud)
-    {
-        if (hud.gameObject.TryGetComponent(out RectTransform rt))
-        {
-            rt.gameObject.transform.SetParent(allyStateParentRt);
-            rt.gameObject.layer = LayerMask.NameToLayer("UI");
-
-            rt.pivot = new Vector2(0, 1);
-            rt.localScale = Vector3.one;
-
-            int currentAmount = allyHudList.Count;
-            float y = currentAmount == 0 ? 0 : (currentAmount % maxCol) * colInterval;
-            float x = currentAmount == 0 ? 0 : (currentAmount / maxCol) * rowInterval;
-            rt.anchoredPosition3D = new Vector3(x, y, 0);
-
-            allyHudList.Add(rt);
-        }
     }
 
     #endregion
@@ -780,16 +643,15 @@ public class PlayerHUDController : UIController
     #region Tab Interact
 
     // Tab 이동
-    private Sequence Play_SeqInteract(
-        float allyStateRtX, float skillRtY, float boostRtY, float highLvItemRtX,
+    private Sequence Play_SeqInteract(float boostRtY, float highLvItemRtX,
         float stageNameAlpha, float stageDescAlpha,
         float durTime, Ease ease)
     {
         Sequence seq = DOTween.Sequence();
         //seq.Join(moduleListParentRt.DOAnchorPosX(moduleRtX, durTime));
-        seq.Join(allyStateParentRt.DOAnchorPosX(allyStateRtX, durTime));
+        //seq.Join(allyStateParentRt.DOAnchorPosX(allyStateRtX, durTime));
         //seq.Join(playerStatesCostParentRt.DOAnchorPosX(costRtX, durTime));
-        seq.Join(skillStatesParentRt.DOAnchorPosY(skillRtY, durTime));
+        //seq.Join(skillStatesParentRt.DOAnchorPosY(skillRtY, durTime));
         seq.Join(boostRt.DOAnchorPosY(boostRtY, durTime));
         seq.Join(highLvItemRt.DOAnchorPosX(highLvItemRtX, durTime));
 
@@ -833,9 +695,6 @@ public class PlayerHUDController : UIController
             // 스테이지
             stageNameTxt, stageDescTxt,
 
-            // 아이템
-            ecCostTxt, emptyBc.amountTxt, fullEc.amountTxt,
-
             // 상호작용
             interactOnOffTxt
 
@@ -845,13 +704,7 @@ public class PlayerHUDController : UIController
         result.AddRange(DevTool.Get_ComponentTTypeList<Image>(boostLightArr.ToList()));
         result.AddRange(DevTool.Get_ComponentTTypeList<Image>(boostLightWheelArr.ToList()));
 
-        // 스킬
-        for (int i = 0; i < DevTool.skillAmount; i++)
-        {
-            result.Add(skillList[i].skillCostTxt);
-            result.Add(skillList[i].skillErrorTxt);
-            result.Add(skillStatesTxtList[i]);
-        }
+
 
         // Ally
         for (int i = 0; i < allAllyPresence.Count; i++)
@@ -869,9 +722,6 @@ public class PlayerHUDController : UIController
             // 미니맵
             minimapEui.innerImg, 
 
-            // 아이템
-            currentEmptyBc.lightInner, ecCostArrowImg, emptyBc.innerImg, fullEc.innerImg,
-            
             // 상호작용
             innerImg, usingInnerImg
         };
@@ -879,39 +729,10 @@ public class PlayerHUDController : UIController
         // 부스트 Inner
         subClrCompList.AddRange(boostInnerList);
 
-        // 스킬
-        for (int i = 0; i < DevTool.skillAmount; i++)
-            subClrCompList.Add(skillList[i].skillInnerImg);
-
         // Ally
         for (int i = 0; i < allAllyPresence.Count; i++)
             subClrCompList.Add(allAllyPresence[i].innerImg);
         
-        return result;
-    }
-
-
-    // Tab 스킬 스탯의 엘레먼트
-    private List<string> Get_SkillStateStrings(ActiveSkillController skill)
-    {
-        return new List<string>()
-        {
-            skill.tier.actualState.ToString(),
-            skill.power.actualState.ToString()
-        };
-    }
-
-    // Tab 스킬 스탯 Txt
-    private string Get_SkillStateTxt(ActiveSkillController skill)
-    {
-        string result = "";
-        List<string> strings = Get_SkillStateStrings(skill);
-
-        for (int i = 0; i < skillStatesStringList.Count; i++)
-        {
-            result += "<size=70%>" + skillStatesStringList[i] + ": </size>\n";
-            result += "<b>" + strings[i] + "</b>\n";
-        }
         return result;
     }
 
@@ -993,10 +814,7 @@ public class PlayerHUDController : UIController
         interactNoneString = ResourceManager.instance.Get_StaticWord(7);
 
         tabStateView.SetLanguage();
-
-        skillStatesStringList.Clear();
-        for (int i = 17; i <= 18; i++)
-            skillStatesStringList.Add(ResourceManager.instance.Get_StaticWord(i));
+        skillView.SetLanguage();
 
         for (int i = 0; i < allAllyPresence.Count; i++)
             allAllyPresence[i].presenceLangTxt.text = $"{ResourceManager.instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.instance.Get_StaticWord(70)}</size>";

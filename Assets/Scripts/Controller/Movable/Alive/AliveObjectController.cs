@@ -21,7 +21,6 @@ public abstract class AliveObjectController : MovableObjectController
     [Header("=== Point")]
     [SerializeField] protected ReactiveProperty<float> currentSP = new();
     [SerializeField] protected ReactiveProperty<float> currentHP = new();
-    //[SerializeField] protected ReactiveProperty<float> currentEP = new();
     public float currentEp { get; private set; } = 0f;
 
     [Space(10)]

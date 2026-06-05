@@ -55,15 +55,15 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
         return ResourceManager.instance.Get_StaticWord(99);
     }
 
-    public void Play_Interact()
+    public void PlayInteract()
     {
         if (isBroken) return;
 
-        Try_ShopInteract();
+        TryShopInteract();
         Set_StateAnim();
     }
 
-    private void Try_ShopInteract()
+    private void TryShopInteract()
     {
         if (isOn)
         {
@@ -71,18 +71,17 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
             Set_LanguageTxt();
             MainGameUIManager.instance.allyBaseUpgradeUi.SetOn_ThisPanel();
         }
-        else if (Can_ShopPowerOn())
+        else if (CanShopPowerOn())
         {
-            PlayerManager.instance.playerController.currentChargedBettery.Value--;
+            PlayerManager.instance.playerController.UseChargedBettery(1);
             isOn = true;
             SoundManager.instance.Play_2D_SFX_Build("PowerOn");
         }
     }
 
-    private bool Can_ShopPowerOn()
-    {
-        return !isOn && PlayerManager.instance.playerController.currentChargedBettery.Value > 0;
-    }
+    private bool CanShopPowerOn()
+        => !isOn && PlayerManager.instance.playerController.chargedBettery > 0;
+    
 
     #endregion
 

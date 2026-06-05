@@ -113,7 +113,7 @@ public class EndingElevatorController : ElevatorController, IInteract
         return ResourceManager.instance.Get_StaticWord(3);
     }
 
-    public void Play_Interact()
+    public void PlayInteract()
     {
         if (isOn)
         {

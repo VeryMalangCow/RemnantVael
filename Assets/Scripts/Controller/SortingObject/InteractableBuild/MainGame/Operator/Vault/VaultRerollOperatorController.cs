@@ -57,16 +57,16 @@ public class VaultRerollOperatorController : VaultOperatorController
         return ResourceManager.instance.Get_StaticWord(57);
     }
 
-    public override void Play_Interact()
+    public override void PlayInteract()
     {
-        base.Play_Interact();
+        base.PlayInteract();
 
         if (targetVault == null ||
             targetVault.isBroken ||
             PlayerManager.instance.playerController.currentOverrider.Value < Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.instance.playerController.Add_CurrentOverrider(-Get_NeedPay());
+        PlayerManager.instance.playerController.UseOverrider(Get_NeedPay());
         useAmount++;
 
         // 리롤

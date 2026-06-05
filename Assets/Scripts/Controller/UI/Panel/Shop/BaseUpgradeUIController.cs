@@ -107,6 +107,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         BaseUpgradeManager bm = BaseUpgradeManager.instance;
 
         Debug.Log("액션 추가?");
+        //PlayerManager.instance.playerController.OnMaxEpChanged
         maxEpShop.Offset(pc.maxEP, bm.baseMaxEP_BUData, allBuData_Float, this, null);
         spawnEsMultipleShop.Offset(pc.spawnESMultiple, bm.baseSpawnESMultiple_BUData, allBuData_Float, this);
         needEp_ForSkillMultipleShop.Offset(pc.needEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, allBuData_Float, this);
@@ -148,17 +149,16 @@ public class BaseUpgradeUIController : PlayerShopUIController
                 }
             });
         */
-        PlayerManager.instance.playerController.currentBettery
-            .Subscribe(value =>
-            {
-                bcTxt.text = value.ToString();
-            });
+    }
 
-        PlayerManager.instance.playerController.currentChargedBettery
-            .Subscribe(value =>
-            {
-                ecTxt.text = value.ToString();
-            });
+    public void SetEmptyBettery(int value)
+    {
+        bcTxt.text = value.ToString();
+    }
+
+    public void SetChargedBettery(int value)
+    {
+        ecTxt.text = value.ToString();
     }
 
     public void Offset_ColorComp()
@@ -270,9 +270,14 @@ public class BaseUpgradeUIController : PlayerShopUIController
             {
                 if (allBuData_Float[i].Try_Buy())
                 {
-                    if (allBuData_Float[i] == accuracyRateShop)
+                    PlayerController player = PlayerManager.instance.playerController;
+                    if (allBuData_Float[i] == maxEpShop)
                     {
-                        PlayerManager.instance.playerController.baseWeapon.SetAccAimRound();
+                        player.SetMaxEp();
+                    }
+                    else if (allBuData_Float[i] == accuracyRateShop)
+                    {
+                        player.baseWeapon.SetAccAimRound();
                     }
                 }
                 return true;

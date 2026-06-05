@@ -71,7 +71,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
             targetCardEuiController == null)
             return;
 
-        PlayerManager.instance.playerController.Add_CurrentOverrider(-needAmount);
+        PlayerManager.instance.playerController.UseOverrider(needAmount);
         Play_Click();
 
         if (maxNeedAmount > needAmount)
