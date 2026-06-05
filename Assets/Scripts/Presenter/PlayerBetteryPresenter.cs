@@ -5,7 +5,7 @@ public class PlayerBetteryPresenter : MonoBehaviour, IPresentable
     private PlayerController player;
 
     private HudBetteryShardView betteryShardView;
-    private HudBetteriesView betteriesView;
+    private HudBetteryView betteriesView;
 
     private BaseUpgradeUIController baseUpgrade;
     private ModuleUpgradeUIController moduleUpgrade;

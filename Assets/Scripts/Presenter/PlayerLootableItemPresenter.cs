@@ -6,13 +6,14 @@ public class PlayerLootableItemPresenter : MonoBehaviour, IPresentable
 {
     private PlayerController player;
 
-    private HudLootableItemsView view;
+    private HudLootableItemView lootableItemView;
+    private HudKeyView keyView;
 
     public void Init(PresenterOwnerData ownerData, PresenterUIData uiData)
     {
         player = ownerData.player;
 
-        view = uiData.hud.LootableItemsView;
+        lootableItemView = uiData.hud.LootableItemsView;
 
         SubscribeOn();
         Debug.Log("<color=orange>Lootable Item Presenter Set</color>");
@@ -20,9 +21,9 @@ public class PlayerLootableItemPresenter : MonoBehaviour, IPresentable
 
     public void SubscribeOn()
     {
-        player.OnCreditChanged += view.SetCredit;
-        player.OnOverriderChanged += view.SetOverrider;
-        player.OnModuleShardChanged += view.SetModuleShard;
+        player.OnCreditChanged += lootableItemView.SetCredit;
+        player.OnOverriderChanged += lootableItemView.SetOverrider;
+        player.OnModuleShardChanged += lootableItemView.SetModuleShard;
 
         player.SetCreditUI();
         player.SetOverriderUI();
@@ -31,9 +32,9 @@ public class PlayerLootableItemPresenter : MonoBehaviour, IPresentable
 
     public void SubscribeOff()
     {
-        player.OnCreditChanged -= view.SetCredit;
-        player.OnOverriderChanged -= view.SetOverrider;
-        player.OnModuleShardChanged -= view.SetModuleShard;
+        player.OnCreditChanged -= lootableItemView.SetCredit;
+        player.OnOverriderChanged -= lootableItemView.SetOverrider;
+        player.OnModuleShardChanged -= lootableItemView.SetModuleShard;
 
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 
-public class HudLootableItemsView : MonoBehaviour
+public class HudLootableItemView : MonoBehaviour
 {
     [SerializeField] private LootableItemEUIController creditEui;
     [SerializeField] private LootableItemEUIController overriderEui;

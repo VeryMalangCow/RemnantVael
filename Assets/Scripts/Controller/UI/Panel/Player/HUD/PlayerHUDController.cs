@@ -22,8 +22,9 @@ public class PlayerHUDController : UIController
     [SerializeField] private HudSkillView skillView;
     [SerializeField] private HudAllyStateView allyStateView;
     [SerializeField] private HudBetteryShardView betteryShardView;
-    [SerializeField] private HudBetteriesView betteriesView;
-    [SerializeField] private HudLootableItemsView lootableItemsView;
+    [SerializeField] private HudBetteryView betteriesView;
+    [SerializeField] private HudLootableItemView lootableItemsView;
+    [SerializeField] private HudKeyView keyView;
 
     public HudEpView EpView { get { return epView; } }
     public HudTabStateView TabStateView { get { return TabStateView; } }
@@ -31,8 +32,9 @@ public class PlayerHUDController : UIController
     public HudSkillView SkillView { get { return skillView; } }
     public HudAllyStateView AllyStateView { get { return allyStateView; } }
     public HudBetteryShardView BetteryShardView { get { return betteryShardView; } }
-    public HudBetteriesView BetteriesView { get { return betteriesView; } }
-    public HudLootableItemsView LootableItemsView { get { return lootableItemsView; } }
+    public HudBetteryView BetteriesView { get { return betteriesView; } }
+    public HudLootableItemView LootableItemsView { get { return lootableItemsView; } }
+    public HudKeyView KeyView { get { return keyView; } }
 
 
     [Space(10)]
@@ -44,14 +46,15 @@ public class PlayerHUDController : UIController
     {
         PlayerController player = PlayerManager.instance.playerController;
         
-        yield return EpView.Init(mainClr, subClr);
+        yield return epView.Init(mainClr, subClr);
         yield return tabStateView.Init(mainClr);
         yield return tabModuleView.Init();
         yield return allyStateView.Init();
         yield return skillView.Init(player.skillWeapon, mainClr, subClr);
         yield return betteryShardView.Init(subClr);
-        yield return BetteriesView.Init(player, mainClr, subClr);
-        yield return LootableItemsView.Init();
+        yield return betteriesView.Init(player, mainClr, subClr);
+        yield return lootableItemsView.Init();
+        yield return keyView.Init();
     }
 
 
@@ -118,12 +121,6 @@ public class PlayerHUDController : UIController
     [SerializeField] private CanvasGroup paneltyAnnoCg;
     [SerializeField] private TMP_Text paneltyAnnoNameTxt;
     [SerializeField] private TMP_Text paneltyAnnoDescTxt;
-
-    [Space(10)]
-    [Header("=== Key Item")]
-    [SerializeField] private Image keyItemVfxImg;
-    [SerializeField] private List<Image> keyItemImgList;
-    [SerializeField] private List<TMP_Text> keyItemAmountTxtList;
 
     [Space(10)]
     [Header("=== High Lv Item")]
@@ -272,13 +269,6 @@ public class PlayerHUDController : UIController
         DevTool.SetColor(uninteractableClr, paneltyAnnoDescTxt);
         paneltyAnnoDescTxt.text = "";
         paneltyAnnoCg.gameObject.SetActive(false);
-
-        // Key
-        for (int i = 0; i < keyItemImgList.Count; i++)
-        {
-            keyItemImgList[i].gameObject.SetActive(false);
-        }
-
     }
 
     public void Offset_ColorComp()
@@ -734,59 +724,6 @@ public class PlayerHUDController : UIController
             subClrCompList.Add(allAllyPresence[i].innerImg);
         
         return result;
-    }
-
-    #endregion
-
-    #region Key Item
-
-    public void Set_KeyItem(Dictionary<int, int> keyItemDict)
-    {
-        for (int i = 0; i < keyItemImgList.Count; i++)
-        {
-            keyItemImgList[i].gameObject.SetActive(false);
-        }
-
-        int index = 0;
-
-        foreach(var keyItem in keyItemDict)
-        {
-            if (keyItem.Value == 0) continue;
-
-            keyItemImgList[index].sprite = ResourceManager.instance.Get_KeyCardSprite(keyItem.Key);
-            keyItemAmountTxtList[index].text = keyItem.Value.ToString();
-            keyItemImgList[index].gameObject.SetActive(true);
-
-            index++;
-        }
-    }
-
-    public void Effect_KeyIcon(int id)
-    {
-        Sequence seq = DOTween.Sequence();
-        for (int i = 0; i < keyItemImgList.Count; i++)
-        {
-            if (keyItemImgList[i].gameObject.activeSelf && keyItemImgList[i].sprite == ResourceManager.instance.Get_KeyCardSprite(id))
-            {
-                seq.Append(keyItemImgList[i].transform.DOScale(1.3f, 0.1f));
-                seq.Append(keyItemImgList[i].transform.DOScale(1f, 0.3f));
-
-                if (keyItemVfxImg.TryGetComponent(out RectTransform vfxRt) &&
-                    keyItemImgList[i].TryGetComponent(out RectTransform imgRt))
-                {
-                    DevTool.SetKillTween(vfxRt);
-                    vfxRt.anchoredPosition = imgRt.anchoredPosition;
-                    vfxRt.rotation = Quaternion.identity;
-                    vfxRt.DORotate(Vector3.forward * 360, 1f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
-
-                    vfxRt.transform.localScale = Vector3.one;
-                    vfxRt.DOScale(0.5f, 1f);
-                }
-                DevTool.SetKillTween(keyItemVfxImg);
-                keyItemVfxImg.color = new Color(1, 1, 1, 0.7f);
-                keyItemVfxImg.DOFade(0f, 1f);
-            }
-        }
     }
 
     #endregion

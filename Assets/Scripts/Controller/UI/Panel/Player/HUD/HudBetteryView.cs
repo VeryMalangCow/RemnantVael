@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HudBetteriesView : MonoBehaviour
+public class HudBetteryView : MonoBehaviour
 {
     [Space(10)]
     [Header("=== Image")]

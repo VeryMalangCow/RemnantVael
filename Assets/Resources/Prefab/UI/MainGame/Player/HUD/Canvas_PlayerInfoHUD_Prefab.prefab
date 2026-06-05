@@ -1488,10 +1488,10 @@ RectTransform:
   - {fileID: 1638496456082924292}
   - {fileID: 6079221310275439874}
   - {fileID: 1314645373275834340}
+  - {fileID: 8386799808261644310}
   - {fileID: 1295884387851465412}
   - {fileID: 6719613011260746755}
   - {fileID: 8565620062919620952}
-  - {fileID: 8386799808261644310}
   - {fileID: 1194101212017149005}
   - {fileID: 5976016367641447556}
   - {fileID: 18835087208111151}
@@ -1524,6 +1524,7 @@ MonoBehaviour:
   betteryShardView: {fileID: 1381668912053823551}
   betteriesView: {fileID: 1563095369067527313}
   lootableItemsView: {fileID: 7912526943828483307}
+  keyView: {fileID: 0}
   cg: {fileID: 1771656371943305499}
   isTabInteracted:
     value: 0
@@ -1568,19 +1569,6 @@ MonoBehaviour:
   paneltyAnnoCg: {fileID: 5731532277702637715}
   paneltyAnnoNameTxt: {fileID: 5755758642648652184}
   paneltyAnnoDescTxt: {fileID: 5832526810655269550}
-  keyItemVfxImg: {fileID: 2359979699673777947}
-  keyItemImgList:
-  - {fileID: 1323035043674407408}
-  - {fileID: 9106314267057126664}
-  - {fileID: 4196153698292824111}
-  - {fileID: 3916934089387978590}
-  - {fileID: 804563625284333710}
-  keyItemAmountTxtList:
-  - {fileID: 7034933968497920209}
-  - {fileID: 3423437917946976700}
-  - {fileID: 1090514805709488716}
-  - {fileID: 8342856396671451067}
-  - {fileID: 3139861453784458027}
   highLvItemRt: {fileID: 1194101212017149005}
   highLvItemAmountTxtList:
   - {fileID: 2417325914692832242}
@@ -4995,8 +4983,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8386799808261644310}
+  - component: {fileID: 5223292099226684710}
+  - component: {fileID: 8918970916163980656}
   m_Layer: 0
-  m_Name: '******Key'
+  m_Name: =====Keys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5027,6 +5017,54 @@ RectTransform:
   m_AnchoredPosition: {x: 404, y: -600}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0}
+--- !u!114 &5223292099226684710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484791532145512020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1773a243c73f9e64aa53f225c0122781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyItemVfxImg: {fileID: 2359979699673777947}
+  keyItemImgList:
+  - {fileID: 1323035043674407408}
+  - {fileID: 9106314267057126664}
+  - {fileID: 4196153698292824111}
+  - {fileID: 3916934089387978590}
+  - {fileID: 804563625284333710}
+  keyItemAmountTxtList:
+  - {fileID: 7034933968497920209}
+  - {fileID: 3423437917946976700}
+  - {fileID: 1090514805709488716}
+  - {fileID: 8342856396671451067}
+  - {fileID: 3139861453784458027}
+--- !u!223 &8918970916163980656
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484791532145512020}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &2552977368558073352
 GameObject:
   m_ObjectHideFlags: 0
@@ -15544,7 +15582,7 @@ GameObject:
   - component: {fileID: 1563095369067527313}
   - component: {fileID: 7912526943828483307}
   m_Layer: 5
-  m_Name: =====Betteries + Items
+  m_Name: =====Bettery + Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16472,7 +16510,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8804223866111845911}
   - component: {fileID: 8226134959895973888}
-  - component: {fileID: 5078623564992310127}
   m_Layer: 5
   m_Name: =====EP
   m_TagString: Untagged
@@ -16523,29 +16560,6 @@ MonoBehaviour:
   subClrImgs:
   - {fileID: 8553696498197915088}
   - {fileID: 6133692497445316578}
---- !u!223 &5078623564992310127
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7568153531571521792}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &7683694452163969794
 GameObject:
   m_ObjectHideFlags: 0

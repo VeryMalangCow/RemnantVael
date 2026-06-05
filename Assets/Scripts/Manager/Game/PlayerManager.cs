@@ -163,8 +163,8 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         if (havingKeycardDict.ContainsKey(keyCardID))
         {
             havingKeycardDict[keyCardID] += amount;
-            MainGameUIManager.instance.playerHud.Set_KeyItem(havingKeycardDict);
-            MainGameUIManager.instance.playerHud.Effect_KeyIcon(keyCardID);
+            MainGameUIManager.instance.playerHud.KeyView.Set_KeyItem(havingKeycardDict);
+            MainGameUIManager.instance.playerHud.KeyView.Effect_KeyIcon(keyCardID);
         }
     }
 
@@ -173,7 +173,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         if (havingKeycardDict.ContainsKey(keyCardID))
         {
             havingKeycardDict[keyCardID] -= amount;
-            MainGameUIManager.instance.playerHud.Set_KeyItem(havingKeycardDict);
+            MainGameUIManager.instance.playerHud.KeyView.Set_KeyItem(havingKeycardDict);
             SoundManager.instance.Play_2D_SFX_Build("UseKeycard");
         }
     }
