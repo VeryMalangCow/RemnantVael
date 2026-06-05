@@ -15,13 +15,13 @@ public class ProgressBarEUIController : ElementUIController
 
     public override void Offset()
     {
-        SetFillImgSmooth(0, 1);
+        SetFillImg(0, 1);
     }
 
-    public void SetFillImgSmooth(float currentValue, float maxValue)
+    public void SetFillImg(float currentValue, float maxValue)
     {
         barImg.fillAmount = currentValue / maxValue;
-        liner.localPosition = GetLinerPos();
+        liner.anchoredPosition = rt == null ? Vector2.zero : new Vector2(rt.sizeDelta.x * barImg.fillAmount, 0f);
 
         if (txt != null)
         { txt.text = (int)currentValue + "<size=70%>/" + (int)maxValue + "</size>"; }
@@ -36,9 +36,4 @@ public class ProgressBarEUIController : ElementUIController
     { 
         if (txt != null) txt.text = ""; 
     }
-
-
-    private Vector2 GetLinerPos()
-        => rt == null ? Vector2.zero : new Vector2(rt.sizeDelta.x * barImg.fillAmount, 0f);
-    
 }

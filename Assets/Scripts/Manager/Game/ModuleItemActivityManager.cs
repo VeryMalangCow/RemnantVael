@@ -230,7 +230,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         if (rank > UnityEngine.Random.Range(0, 10))
         {
             // 데미지 계산
-            float dmg = rank * PCWeapon.baseDamage.actualState.Value;
+            float dmg = rank * PCWeapon.baseDamage.actualState;
 
             PlayerBulletController pbc = BulletManager.instance.SpawnModule000Bullet();
             Vector2 dir = DevTool.Get_MinFireDir(PC.transform.position);
@@ -249,7 +249,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
                         criticalState, 
                         knockbackState), 
                     false, 
-                    PCWeapon.muzzleSpeed.actualState.Value * 0.7f, 2f);
+                    PCWeapon.muzzleSpeed.actualState * 0.7f, 2f);
             BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(PC.transform.position, dir, 10);
             BulletState_Size? size = null;
             State_Anim? anim = null;

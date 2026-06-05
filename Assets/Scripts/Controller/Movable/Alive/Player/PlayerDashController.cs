@@ -92,7 +92,7 @@ public class PlayerDashController : MonoBehaviour
         if (Is_Dashing()) // ม๘วเ
         {
             playerController.rb.velocity = 
-                bookCaculateVec * dashSpeed.actualState.Value;
+                bookCaculateVec * dashSpeed.actualState;
 
             currentDashProcessTime += deltaTime;
         }
@@ -110,7 +110,7 @@ public class PlayerDashController : MonoBehaviour
             playerController.rb.velocity = Vector2.Lerp(
                 a: playerController.rb.velocity.normalized,
                 b: InputManager.instance.inputMoveDir,
-                t: rotLerpValue * deltaTime) * dashSpeed.actualState.Value;
+                t: rotLerpValue * deltaTime) * dashSpeed.actualState;
 
             currentDashProcessTime += deltaTime;
         }
@@ -175,7 +175,7 @@ public class PlayerDashController : MonoBehaviour
 
     public float Get_ActualNeedEP()
     {
-        return needEP_ForDash * playerController.needEP_ForSkillMultiple.actualState.Value;
+        return needEP_ForDash * playerController.needEP_ForSkillMultiple.actualState;
     }
 
     #endregion

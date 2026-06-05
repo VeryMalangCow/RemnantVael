@@ -33,7 +33,7 @@ public class SkillWeaponController : PlayerSolarController
     {
         skill.needEP.Subscribe(_Value =>
         {
-            skillEUI.Set_CostText(_Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState.Value);
+            skillEUI.Set_CostText(_Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState);
         });
     }
 

@@ -938,15 +938,15 @@ public class PlayerHUDController : UIController
     {
         return new List<string>()
         {
-            player.maxEP.actualState.Value.ToString(),
-            player.walkSpeed.actualState.Value.ToString(),
-            player.dash.dashSpeed.actualState.Value.ToString(),
+            player.maxEP.actualState.ToString(),
+            player.walkSpeed.actualState.ToString(),
+            player.dash.dashSpeed.actualState.ToString(),
             player.dash.Get_ActualNeedEP().ToString(),
-            weapon.baseDamage.actualState.Value.ToString(),
-            weapon.rof.actualState.Value.ToString(),
-            weapon.accRate.actualState.Value.ToString(),
-            weapon.cc.actualState.Value.ToString(),
-            weapon.cd.actualState.Value.ToString()
+            weapon.baseDamage.actualState.ToString(),
+            weapon.rof.actualState.ToString(),
+            weapon.accRate.actualState.ToString(),
+            weapon.cc.actualState.ToString(),
+            weapon.cd.actualState.ToString()
         };
     }
 
@@ -969,8 +969,8 @@ public class PlayerHUDController : UIController
     {
         return new List<string>()
         {
-            skill.tier.actualState.Value.ToString(),
-            skill.power.actualState.Value.ToString()
+            skill.tier.actualState.ToString(),
+            skill.power.actualState.ToString()
         };
     }
 

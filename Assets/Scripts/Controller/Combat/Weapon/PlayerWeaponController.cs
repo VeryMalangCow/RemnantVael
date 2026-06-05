@@ -1,10 +1,13 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeaponController : PlayerSolarController
 {
     #region Value
+
+    public event Action<float> OnAccChanged;
 
     #region - Inspector
 
@@ -34,6 +37,7 @@ public class PlayerWeaponController : PlayerSolarController
     [SerializeField] protected List<Transform> bulletSpawnTfList;
 
     private List<PlayerBulletController> tempPlayerBullets = new List<PlayerBulletController>(2);
+
     #endregion
 
     #endregion
@@ -96,7 +100,7 @@ public class PlayerWeaponController : PlayerSolarController
     // 사격 (발사)
     protected void Play_Fire(List<PlayerBulletController> bulletList)
     {
-        float randomAngle = DevTool.Get_RandomValueBaseZero(100 - accRate.actualState.Value);
+        float randomAngle = DevTool.Get_RandomValueBaseZero(100 - accRate.actualState);
         
         for (int i = 0; i < bulletSpawnTfList.Count; i++)
         {
@@ -156,13 +160,22 @@ public class PlayerWeaponController : PlayerSolarController
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
                 new DmgState(dmgType, player.baseWeapon.baseDamage.buffedState),
-                new CriticalState(player.baseWeapon.cc.actualState.Value, player.baseWeapon.cd.buffedState),
-                new KnockbackState(dmgType == eDamageType.Physics ? true : false, player.baseWeapon.kbPower.actualState.Value, 0.2f)),
+                new CriticalState(player.baseWeapon.cc.actualState, player.baseWeapon.cd.buffedState),
+                new KnockbackState(dmgType == eDamageType.Physics ? true : false, player.baseWeapon.kbPower.actualState, 0.2f)),
             checkIsCritical: true,
-            muzzleSpeed: muzzleSpeed.actualState.Value,
+            muzzleSpeed: muzzleSpeed.actualState,
             aliveTime);
     }
 
-    #endregion    
+    #endregion
+
+    #region Acc
+
+    public void SetAccAimRound()
+    {
+        OnAccChanged?.Invoke(accRate.actualState);
+    }
+
+    #endregion
 }
 

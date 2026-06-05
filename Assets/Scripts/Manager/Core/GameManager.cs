@@ -2412,14 +2412,15 @@ public class BUShopData<T>
         BUState<T> state,
         BULevelData<T> levelData,
         List<BUShopData<T>> allList,
-        BaseUpgradeUIController owner)
+        BaseUpgradeUIController owner,
+        Action lvUpAction = null)
     {
         this.state = state;
         this.levelData = levelData;
 
         upgradeEUI.Offset(owner);
 
-        this.state.Offset(upgradeEUI, this.levelData);
+        this.state.Offset(upgradeEUI, this.levelData, lvUpAction);
         this.state.Set_BuffedState();
 
         allList.Add(this);
@@ -2444,7 +2445,7 @@ public class BUShopData<T>
             BaseUpgradeController.usingShop.currentDur > 0;
     }
 
-    public void Try_Buy()
+    public bool Try_Buy()
     {
         if (Can_Buy())
         {
@@ -2457,14 +2458,18 @@ public class BUShopData<T>
             PlayerManager.instance.playerController.Use_ChargedBettery(levelData.levelDataList[state.currentLevel.Value].needEC_ForUpgrade);
 
             Set_LevelUp();
+
+            return true;
         }
+
+        return false;
     }
 
     private void Set_LevelUp()
     {
         // Lv Up
         state.currentLevel.Value++;
-        state.actualState.Value = levelData.levelDataList[state.currentLevel.Value - 1].upgradeValue;
+        state.actualState = levelData.levelDataList[state.currentLevel.Value - 1].upgradeValue;
         state.Set_BuffedState();
 
         // Can Lv Up
@@ -2585,13 +2590,14 @@ public class BUState<T>
 
     [SerializeField] public T baseState;
     [SerializeField] public List<T> upgradeValueByLevelRange;
-    [SerializeField] public ReactiveProperty<T> actualState;
+    [SerializeField] public T actualState;
+    
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] public ReactiveProperty<int> currentLevel = new();
+    [SerializeField] public ReactiveProperty<int> currentLevel = new();
     [HideInInspector] private List<BuffState<T>> buffList = new List<BuffState<T>>();
 
     [HideInInspector] public T buffedState { get; set; }
@@ -2604,7 +2610,8 @@ public class BUState<T>
 
     public void Offset(
         TxtAmountForBuyEUIController eachEUI, 
-        BULevelData<T> upgradeLevelData)
+        BULevelData<T> upgradeLevelData,
+        Action action)
     {
         currentLevel.Value = 0;
         currentLevel
@@ -2620,7 +2627,10 @@ public class BUState<T>
                }
 
                eachEUI.Set_InnerAlpha((float)_CurrentLevel / (float)DevTool.buMaxLevel);
+
+               if (action != null) action();
            });
+        actualState = baseState;
     }
 
     #endregion
@@ -2644,11 +2654,11 @@ public class BUState<T>
 
     public void Set_BuffedState()
     {
-        if (actualState.Value.GetType() == typeof(float))
+        if (actualState.GetType() == typeof(float))
         {
             Set_BufftedState_Float();
         }
-        else if (actualState.Value.GetType() == typeof(int))
+        else if (actualState.GetType() == typeof(int))
         {
             Set_BufftedState_Int();
         }
@@ -2661,7 +2671,7 @@ public class BUState<T>
         {
             state += float.Parse(buffList[i].actualValue.ToString());
         }
-        state *= float.Parse(actualState.Value.ToString());
+        state *= float.Parse(actualState.ToString());
         buffedState = (T)(object)state;
     }
 
@@ -2672,7 +2682,7 @@ public class BUState<T>
         {
             state += int.Parse(buffList[i].actualValue.ToString());
         }
-        state += int.Parse(actualState.Value.ToString());
+        state += int.Parse(actualState.ToString());
         buffedState = (T)(object)state;
     }
 

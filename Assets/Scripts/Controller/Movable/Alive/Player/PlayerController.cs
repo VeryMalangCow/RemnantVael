@@ -36,8 +36,8 @@ public class PlayerController : AliveObjectController
 
     [Space(10)]
     [Header("=== BU State")]
-    [SerializeField] public BUState<float> avoidChance;
     [SerializeField] public BUState<float> maxEP;
+    [SerializeField] public BUState<float> avoidChance;
     [SerializeField] public BUState<float> takingDmgMultiple;
     [SerializeField] public BUState<float> spawnESMultiple;
     [SerializeField] public BUState<float> needEP_ForSkillMultiple;
@@ -248,7 +248,6 @@ public class PlayerController : AliveObjectController
                 MainGameUIManager.instance.interactAnnoUi.Set_UI();
                 Set_MoveDir();
             });
-
     }
 
     private void Offset_Controller()
@@ -408,7 +407,7 @@ public class PlayerController : AliveObjectController
     // 에너지 획득
     public void AddCurrentEp(float addValue)
     {
-        float maxHp = maxEP.actualState.Value;
+        float maxHp = maxEP.actualState;
         AddCurrentEp(addValue, maxHp);
         OnEpChanged?.Invoke(currentEp, maxHp); 
 
@@ -417,14 +416,14 @@ public class PlayerController : AliveObjectController
 
     public void FullEp()
     {
-        float maxHp = maxEP.actualState.Value;
+        float maxHp = maxEP.actualState;
         SetCurrentEp(maxHp);
         OnEpChanged?.Invoke(currentEp, maxHp);
     }
 
     public float GetPercentEP(float percent)
     {
-        return DevTool.Get_Percent(percent, maxEP.actualState.Value);
+        return DevTool.Get_Percent(percent, maxEP.actualState);
     }
 
     #endregion
@@ -480,7 +479,7 @@ public class PlayerController : AliveObjectController
     // 충전 배터리 생성
     private void Make_ChargedBettery()
     {
-        AddCurrentEp(-needEP_ForMakeEC, maxEP.actualState.Value);
+        AddCurrentEp(-needEP_ForMakeEC, maxEP.actualState);
         currentBettery.Value--;
         currentChargedBettery.Value++;
     }
@@ -516,9 +515,9 @@ public class PlayerController : AliveObjectController
     private void Play_Walk(float deltaTime)
     {
         float multiple =
-            baseWeapon.isShooting ? walkSpeedWhenShotMultiple.actualState.Value : 1f;
+            baseWeapon.isShooting ? walkSpeedWhenShotMultiple.actualState : 1f;
         Play_Walk(
-            InputManager.instance.inputMoveDir, walkSpeed.actualState.Value * multiple, deltaTime);
+            InputManager.instance.inputMoveDir, walkSpeed.actualState * multiple, deltaTime);
     }
 
     public void Try_Dash()
@@ -1110,7 +1109,7 @@ public class PlayerController : AliveObjectController
     public bool Is_Avoid()
     {
         // 회피
-        if (DevTool.Is_ChanceSuccess(avoidChance.actualState.Value))
+        if (DevTool.Is_ChanceSuccess(avoidChance.actualState))
         {
             Play_Avoid();
             SoundManager.instance.Play_2D_SFX_Player(audioQueueSet.Get_T(), "Avoid");

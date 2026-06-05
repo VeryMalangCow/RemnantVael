@@ -35,7 +35,7 @@ public class MissileSkillController : ActiveSkillController
         // ==========
 
         
-        for (int i = 0; i < tier.actualState.Value + 1; i++)
+        for (int i = 0; i < tier.actualState + 1; i++)
         {
             Play_ShotEachMissile();
             yield return new WaitForSeconds(shotDelay);
@@ -95,11 +95,11 @@ public class MissileSkillController : ActiveSkillController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(eDamageType.Physics, playerController.baseWeapon.baseDamage.buffedState * power.actualState.Value * 1.5f),
-                new CriticalState(playerController.baseWeapon.cc.actualState.Value, playerController.baseWeapon.cd.buffedState),
-                new KnockbackState(true, playerController.baseWeapon.kbPower.actualState.Value * 1.5f, 0.4f)),
+                new DmgState(eDamageType.Physics, playerController.baseWeapon.baseDamage.buffedState * power.actualState * 1.5f),
+                new CriticalState(playerController.baseWeapon.cc.actualState, playerController.baseWeapon.cd.buffedState),
+                new KnockbackState(true, playerController.baseWeapon.kbPower.actualState * 1.5f, 0.4f)),
             checkIsCritical: true, 
-            muzzleSpeed: playerController.baseWeapon.muzzleSpeed.actualState.Value * 1.5f, 
+            muzzleSpeed: playerController.baseWeapon.muzzleSpeed.actualState * 1.5f, 
             aliveTime: 3.5f);
     }
 

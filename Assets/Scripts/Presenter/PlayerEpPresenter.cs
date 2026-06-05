@@ -24,5 +24,4 @@ public class PlayerEpPresenter : MonoBehaviour, IPresentable
         player.OnEpChanged -= view.SetEnergyGauge;
         player.OnMaxEpChanged -= view.SetMaxEnergeGauge;
     }
-
 }

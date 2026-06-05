@@ -45,7 +45,7 @@ public class JouleVaultController : VaultController
     private void Gen_J_ByGrade()
     {
         for (int i = 0; i < Random.Range(currentAmountByGrade.typeBase, currentAmountByGrade.typeSpecial + 1); i++)
-            Gen_J(10 * PlayerManager.instance.playerController.spawnESMultiple.actualState.Value);
+            Gen_J(10 * PlayerManager.instance.playerController.spawnESMultiple.actualState);
     }
 
     public override void Gen_ItemWhenHitted()

@@ -105,8 +105,9 @@ public class BaseUpgradeUIController : PlayerShopUIController
         PlayerWeaponController pwc = pc.baseWeapon;
         SkillWeaponController pswc = pc.skillWeapon;
         BaseUpgradeManager bm = BaseUpgradeManager.instance;
-        
-        maxEpShop.Offset(pc.maxEP, bm.baseMaxEP_BUData, allBuData_Float, this);
+
+        Debug.Log("액션 추가?");
+        maxEpShop.Offset(pc.maxEP, bm.baseMaxEP_BUData, allBuData_Float, this, null);
         spawnEsMultipleShop.Offset(pc.spawnESMultiple, bm.baseSpawnESMultiple_BUData, allBuData_Float, this);
         needEp_ForSkillMultipleShop.Offset(pc.needEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, allBuData_Float, this);
         resistShop.Offset(pc.takingDmgMultiple, bm.baseResist_BUData, allBuData_Float, this);
@@ -136,6 +137,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     private void Offset_Subscribe()
     {
+        /*
         PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState
             .Subscribe(_Value =>
             {
@@ -145,7 +147,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
                         _Value * PlayerManager.instance.playerController.skillWeapon.skillList[i].needEP.Value);
                 }
             });
-
+        */
         PlayerManager.instance.playerController.currentBettery
             .Subscribe(value =>
             {
@@ -266,7 +268,13 @@ public class BaseUpgradeUIController : PlayerShopUIController
             if (allBuData_Float[i].upgradeEUI.buyBtn == currentBtn &&
                 currentBtn.btn.interactable)
             {
-                allBuData_Float[i].Try_Buy();
+                if (allBuData_Float[i].Try_Buy())
+                {
+                    if (allBuData_Float[i] == accuracyRateShop)
+                    {
+                        PlayerManager.instance.playerController.baseWeapon.SetAccAimRound();
+                    }
+                }
                 return true;
             }
         }
@@ -281,7 +289,10 @@ public class BaseUpgradeUIController : PlayerShopUIController
             if (allBuData_Int[i].upgradeEUI.buyBtn == currentBtn &&
                 currentBtn.btn.interactable)
             {
-                allBuData_Int[i].Try_Buy();
+                if (allBuData_Int[i].Try_Buy())
+                {
+
+                }
                 return true;
             }
         }

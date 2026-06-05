@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UniRx;
+using System;
 
 public class AimRoundController : StaticDepthController
 {
     #region Value
+
 
     [Space(20)]
     [Header("<><><><><> Aim Round")]
@@ -27,17 +29,7 @@ public class AimRoundController : StaticDepthController
     {
         base.Offset();
 
-        Offset_Subscribe();
         Offset_Sorting();
-    }
-
-    private void Offset_Subscribe()
-    {
-        PlayerManager.instance.playerController.baseWeapon.accRate.actualState
-            .Subscribe(value =>
-            {
-                Set_AngleRoundValue(value);
-            });
     }
 
     private void Offset_Sorting()
@@ -84,7 +76,7 @@ public class AimRoundController : StaticDepthController
 
     #region SetAngle
 
-    private void Set_AngleRoundValue(float value)
+    public void Set_AngleRoundValue(float value)
     {
         spreadMaxAngle = 100 - value;
 

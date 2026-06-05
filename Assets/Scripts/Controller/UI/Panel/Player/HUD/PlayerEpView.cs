@@ -1,11 +1,8 @@
-using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class PlayerEpView : MonoBehaviour
 {
@@ -49,15 +46,14 @@ public class PlayerEpView : MonoBehaviour
     
     public void SetEnergyGauge(float currentEp, float maxEp)
     {
-        epEui.SetFillImgSmooth(currentEp, maxEp);
+        epEui.SetFillImg(currentEp, maxEp);
     }
 
     public void SetMaxEnergeGauge(float currentEp, float maxEp)
     {
         epEui.SetMaxUI(maxEp);
-        epEui.SetFillImgSmooth(currentEp, maxEp);
+        epEui.SetFillImg(currentEp, maxEp);
     }
-
 
     public void SetShieldGauge(float totalShield)
     {
@@ -66,7 +62,6 @@ public class PlayerEpView : MonoBehaviour
     }
 
     private float Get_ShieldGageX(float shieldValue)
-    {
-        return 8 + (shieldValue * 3);
-    }
+        => 8 + (shieldValue * 3);
+    
 }

@@ -61,7 +61,7 @@ public class ActiveSkillController : MonoBehaviour
     // ÄðÅ¸ÀÓÀÌ ´Ù Ã¡´Â°¡?
     private bool Is_FullCooltime()
     {
-        return maxCooltime.actualState.Value <= currentCooltime;
+        return maxCooltime.actualState <= currentCooltime;
     }
 
     // ÄðÅ¸ÀÓ °è»ê
@@ -74,7 +74,7 @@ public class ActiveSkillController : MonoBehaviour
             if (Is_FullCooltime())
             {
                 currentChargeAmount++;
-                currentCooltime = Is_FullCharge() ? 0 : currentCooltime - maxCooltime.actualState.Value;
+                currentCooltime = Is_FullCharge() ? 0 : currentCooltime - maxCooltime.actualState;
             }
         }
     }
@@ -92,7 +92,7 @@ public class ActiveSkillController : MonoBehaviour
         }
         else
         {
-            return 1 - (currentCooltime / maxCooltime.actualState.Value);
+            return 1 - (currentCooltime / maxCooltime.actualState);
         }
     }
 
@@ -103,7 +103,7 @@ public class ActiveSkillController : MonoBehaviour
     public bool Can_Active()
     {
         return currentChargeAmount > 0 &&
-            (PlayerManager.instance.playerController.currentEp > needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState.Value) &&
+            (PlayerManager.instance.playerController.currentEp > needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState) &&
             playerController.movementState == eMovementState.IdleOrWalk;
     }
 
@@ -112,7 +112,7 @@ public class ActiveSkillController : MonoBehaviour
         // Consume
         currentChargeAmount--;
         playerController.AddCurrentEp(
-            -(needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState.Value));
+            -(needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState));
 
         AllyRequestManager.instance.Play_UsingSkill();
     }

@@ -103,7 +103,7 @@ public class DescBUEUIController : ElementUIController
         SetOn_Left_CurrentRange(state.currentLevel.Value);
 
         // Right
-        SetOn_Right_CurrentState(state.currentLevel.Value, state.actualState.Value);
+        SetOn_Right_CurrentState(state.currentLevel.Value, state.actualState);
         SetOn_Right_NextState(state);
     }
 
@@ -194,13 +194,13 @@ public class DescBUEUIController : ElementUIController
             if (state.baseState.GetType() == typeof(float))
             {
                 nextValue = 
-                    (float.Parse(state.actualState.Value.ToString()) + 
+                    (float.Parse(state.actualState.ToString()) + 
                     float.Parse(state.upgradeValueByLevelRange[(int)(state.currentLevel.Value / 3)].ToString())).ToString();
             }
             else if (state.baseState.GetType() == typeof(int))
             {
                 nextValue =
-                    (int.Parse(state.actualState.Value.ToString()) + 
+                    (int.Parse(state.actualState.ToString()) + 
                     int.Parse(state.upgradeValueByLevelRange[(int)(state.currentLevel.Value / 3)].ToString())).ToString();
             }
 

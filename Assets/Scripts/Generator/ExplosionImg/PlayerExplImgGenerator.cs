@@ -136,7 +136,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
         if (PlayerManager.instance.playerController.skillWeapon.skillList[1] is ShockwaveSkillController shock)
         {
             float usableMaxSize = shock.Get_UsableMaxSize();
-            float cc = PlayerManager.instance.playerController.baseWeapon.cc.actualState.Value;
+            float cc = PlayerManager.instance.playerController.baseWeapon.cc.actualState;
             int normalAmount = (int)(36f * (1f - cc));
             int specialAmount = (int)(36f * cc);
 

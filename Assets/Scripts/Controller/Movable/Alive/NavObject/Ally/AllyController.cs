@@ -207,21 +207,21 @@ public class AllyController : NavObjectController, IPoolable
     {
         hud.Offset();
 
-        hud.stateUi.spProgressBar.SetFillImgSmooth(currentSP.Value, maxHP);
-        hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
-        hud.stateUi.epProgressBar.SetFillImgSmooth(currentEp, maxEP);
+        hud.stateUi.spProgressBar.SetFillImg(currentSP.Value, maxHP);
+        hud.stateUi.hpProgressBar.SetFillImg(currentHP.Value, maxHP);
+        hud.stateUi.epProgressBar.SetFillImg(currentEp, maxEP);
 
         currentSP
             .Subscribe(_CurrentSP =>
             {
-                hud.stateUi.spProgressBar.SetFillImgSmooth(currentSP.Value, maxHP);
+                hud.stateUi.spProgressBar.SetFillImg(currentSP.Value, maxHP);
 
                 if (currentSP.Value <= 0)
                 {
                     currentSP.Value = 0;
                     hud.stateUi.spProgressBar.SetNoNum();
-                    hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
-                    hud.stateUi.epProgressBar.SetFillImgSmooth(currentEp, maxEP);
+                    hud.stateUi.hpProgressBar.SetFillImg(currentHP.Value, maxHP);
+                    hud.stateUi.epProgressBar.SetFillImg(currentEp, maxEP);
                 }
                 else
                 {
@@ -233,7 +233,7 @@ public class AllyController : NavObjectController, IPoolable
         currentHP
             .Subscribe(_CurrentHP =>
             {
-                hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
+                hud.stateUi.hpProgressBar.SetFillImg(currentHP.Value, maxHP);
 
                 if (currentSP.Value > 0)
                 { hud.stateUi.hpProgressBar.SetNoNum(); }

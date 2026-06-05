@@ -136,14 +136,14 @@ public abstract class EnemyController : NavObjectController, IPoolable
         currentSP
             .Subscribe(_currentSP =>
             {
-                hud.stateUi.spProgressBar.SetFillImgSmooth(currentSP.Value, maxHP);
+                hud.stateUi.spProgressBar.SetFillImg(currentSP.Value, maxHP);
 
                 if (currentSP.Value <= 0)
                 {
                     currentSP.Value = 0;
                     hud.stateUi.spProgressBar.SetNoNum();
-                    hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
-                    hud.stateUi.epProgressBar.SetFillImgSmooth(currentEp, maxEP);
+                    hud.stateUi.hpProgressBar.SetFillImg(currentHP.Value, maxHP);
+                    hud.stateUi.epProgressBar.SetFillImg(currentEp, maxEP);
 
                     if (buff.shieldBuff.isOn)
                     { buff.shieldBuff.Remove_AllStack(); }
@@ -159,7 +159,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
         currentHP
             .Subscribe(_currentHP =>
             {
-                hud.stateUi.hpProgressBar.SetFillImgSmooth(currentHP.Value, maxHP);
+                hud.stateUi.hpProgressBar.SetFillImg(currentHP.Value, maxHP);
 
                 if (currentSP.Value > 0)
                 { hud.stateUi.hpProgressBar.SetNoNum(); }
@@ -577,7 +577,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
             genP.overriderAmountMinMax.typeBase, genP.overriderAmountMinMax.typeSpecial)); // 오버라이더
         Gen_J(Random.Range(
             genP.jouleAmountMinMax.typeBase, genP.jouleAmountMinMax.typeSpecial)
-            * PlayerManager.instance.playerController.spawnESMultiple.actualState.Value); // 줄
+            * PlayerManager.instance.playerController.spawnESMultiple.actualState); // 줄
         
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(genP.moduleDropPercent))

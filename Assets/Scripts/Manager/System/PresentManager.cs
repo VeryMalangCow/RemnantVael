@@ -12,12 +12,14 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
     [SerializeField] private string initPregressText;
 
     [Space(10)]
-    [SerializeField] private PlayerEpPresenter epPresenter;
+    [Header("=== Player")]
+    private List<IPresentable> presenters = new List<IPresentable>();
 
     private PresenterOwnerData ownerDataset;
     private PresenterUIData uiDataset;
 
     #region Init
+
     public IEnumerator Initialize()
     {
         Stopwatch sw = new Stopwatch();
@@ -30,18 +32,27 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
         uiDataset = new PresenterUIData();
         uiDataset.hud = MainGameUIManager.instance.playerHud;
 
+        CollectPresenters();
 
-        epPresenter.Init(ownerDataset, uiDataset);
-
-
-
-        ownerDataset = null;
-        uiDataset = null;
-
+        for (int i = 0; i < presenters.Count; i++)
+        {
+            presenters[i].Init(ownerDataset, uiDataset);
+        }
+        
         sw.Stop();
         UnityEngine.Debug.Log($"PresentManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
         yield return null;
+    }
+
+    private void CollectPresenters()
+    {
+        presenters.Clear();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).TryGetComponent(out IPresentable presenter))
+                presenters.Add(presenter);
+        }
     }
 
     #endregion
@@ -50,11 +61,12 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
 public class PresenterOwnerData
 {
     public PlayerController player;
-}
+}                            
 
 public class PresenterUIData
 {
     public PlayerHUDController hud;
+    public AimRoundController aimRound;
 }
 
 public interface IPresentable
