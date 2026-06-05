@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerAimRoundPresenter : MonoBehaviour
+public class PlayerAimRoundPresenter : MonoBehaviour, IPresentable
 {
     private PlayerWeaponController weapon;
     private AimRoundController aimRound;
@@ -10,6 +10,7 @@ public class PlayerAimRoundPresenter : MonoBehaviour
         weapon = ownerData.player.baseWeapon;
         aimRound = InputManager.instance.aimRoundController;
         SubscribeOn();
+        Debug.Log("<color=orange>Player Aim Round Presenter Set</color>");
     }
 
     public void SubscribeOn()

@@ -583,7 +583,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             {
                 equipedSlots[i].item.gameObject.SetActive(false);
 
-                MainGameUIManager.instance.playerHud.moduleSlots[i].item.gameObject.SetActive(false);
+                MainGameUIManager.instance.playerHud.TabModuleView.moduleSlots[i].item.gameObject.SetActive(false);
 
                 Set_EquipedDesc(i);
             }
@@ -594,8 +594,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 equipedSlots[i].item.gameObject.SetActive(true);
                 equipedSlots[i].item.Set_Data(new ItemData_UIVisual(data));
 
-                MainGameUIManager.instance.playerHud.moduleSlots[i].item.gameObject.SetActive(true);
-                MainGameUIManager.instance.playerHud.moduleSlots[i].item.Set_Data(new ItemData_UIVisual(data));
+                MainGameUIManager.instance.playerHud.TabModuleView.moduleSlots[i].item.gameObject.SetActive(true);
+                MainGameUIManager.instance.playerHud.TabModuleView.moduleSlots[i].item.Set_Data(new ItemData_UIVisual(data));
 
                 Set_EquipedDesc(i, data);
             }

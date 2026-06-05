@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerEpView : MonoBehaviour
 {
     // Value
+    [Space(10)]
     [Header("=== Energy Gauge")]
     [SerializeField] private ProgressFrameBarEUIController epEui;
 
@@ -17,8 +18,8 @@ public class PlayerEpView : MonoBehaviour
 
     [Space(10)]
     [Header("=== Visual")]
-    [SerializeField] private Image[] mainClrComp;
-    [SerializeField] private Image[] subClrComp;
+    [SerializeField] private Image[] mainClrImgs;
+    [SerializeField] private Image[] subClrImgs;
 
 
     // Init
@@ -30,17 +31,17 @@ public class PlayerEpView : MonoBehaviour
         ColorInit(mainClr, subClr);
 
         sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>EpView</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"Player HUD : <color=orange>Ep View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
     }
 
     private void ColorInit(Color mainClr, Color subClr)
     {
-        DevTool.SetColorImgs(mainClr, mainClrComp);
-        mainClrComp = null;
+        DevTool.SetColorImgs(mainClr, mainClrImgs);
+        mainClrImgs = null;
 
-        DevTool.SetColorImgs(subClr, subClrComp);
-        subClrComp = null;
+        DevTool.SetColorImgs(subClr, subClrImgs);
+        subClrImgs = null;
     }
 
     

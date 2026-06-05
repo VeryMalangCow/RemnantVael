@@ -10,6 +10,7 @@ public class PlayerEpPresenter : MonoBehaviour, IPresentable
         player = ownerData.player;
         view = uiData.hud.EpView;
         SubscribeOn();
+        Debug.Log("<color=orange>Player Ep Presenter Set</color>");
     }
 
     public void SubscribeOn()

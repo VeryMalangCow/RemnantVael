@@ -7,7 +7,6 @@ public class PlayerWeaponController : PlayerSolarController
 {
     #region Value
 
-    public event Action<float> OnAccChanged;
 
     #region - Inspector
 
@@ -30,6 +29,7 @@ public class PlayerWeaponController : PlayerSolarController
     [SerializeField] public BUState<float> cc;
     [SerializeField] public BUState<float> cd;
     [SerializeField] public BUState<float> accRate;
+    public event Action<float> OnAccChanged;
     [SerializeField] public BUState<float> kbPower;
 
     [Space(10)]
