@@ -20,7 +20,8 @@ public class HudKeyView : MonoBehaviour
         // Key
         for (int i = 0; i < keyItemImgList.Count; i++)
             keyItemImgList[i].gameObject.SetActive(false);
-        
+
+        gameObject.SetActive(true);
 
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=orange>Ep View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");

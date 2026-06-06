@@ -23,6 +23,8 @@ public class HudBetteryShardView : MonoBehaviour
 
         ColorInit(subClr);
 
+        gameObject.SetActive(true);
+
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=orange>Bettery Shard View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;

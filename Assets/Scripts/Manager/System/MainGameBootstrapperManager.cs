@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using TMPro;
+using System.Diagnostics;
+using UnityEngine.Scripting;
 
 public class MainGameBootstrapperManager : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class MainGameBootstrapperManager : MonoBehaviour
         for (int i = 0; i < preAwakePersistentSingletons.Length; i++)
             preAwakePersistentSingletons[i].gameObject.SetActive(true);
 
-        Debug.Log("<color=orange>PreAwakeManagers : All Offset Complete</color>");
+        UnityEngine.Debug.Log("<color=orange>PreAwakeManagers : All Offset Complete</color>");
         yield return new WaitForSeconds(1);
 #endif
         initalizeingGo.gameObject.SetActive(true);
@@ -45,15 +46,32 @@ public class MainGameBootstrapperManager : MonoBehaviour
         {
             IMainGameInitializer initializer = initializers[i];
 
-            Debug.Log($"Initializer Start : <color=grey>{initializer}</color>");
+            UnityEngine.Debug.Log($"Initializer Start : <color=grey>{initializer}</color>");
 
             initalizeingTxt.text = initializer.InitPregressText;
             yield return initializer.Initialize();
 
-            Debug.Log($"Initializer Complete : <color=green>{initializer}</color>");
+            UnityEngine.Debug.Log($"Initializer Complete : <color=green>{initializer}</color>");
         }
 
         initalizeingGo.gameObject.SetActive(false);
+
+        ulong gcTimeSlice = 8_000_000;
+#if UNITY_EDITOR
+        int frame = 0;
+#endif
+        while (GarbageCollector.CollectIncremental(gcTimeSlice))
+        {
+#if UNITY_EDITOR
+            frame++;
+#endif
+            yield return null;
+        }
+#if UNITY_EDITOR
+        UnityEngine.Debug.Log($"<color=black>END => GC COLLECT : {frame} frame</color> / {gcTimeSlice / 1_000_000f} ms");
+#endif
+        yield return null;
+
         EndProdInit();
     }
 
@@ -67,7 +85,7 @@ public class MainGameBootstrapperManager : MonoBehaviour
 
             if (mono == null)
             {
-                Debug.LogWarning("Initializer Empty : index " + i);
+                UnityEngine.Debug.LogWarning("Initializer Empty : index " + i);
                 continue;
             }
 
@@ -75,13 +93,13 @@ public class MainGameBootstrapperManager : MonoBehaviour
 
             if (initializer == null)
             {
-                Debug.LogWarning(mono.name + " is not Contain IMainGameInitializer");
+                UnityEngine.Debug.LogWarning(mono.name + " is not Contain IMainGameInitializer");
                 continue;
             }
             
             if (initializers.Contains(initializer))
             {
-                Debug.LogWarning(mono.name + " is already Contain");
+                UnityEngine.Debug.LogWarning(mono.name + " is already Contain");
                 continue;
             }
             

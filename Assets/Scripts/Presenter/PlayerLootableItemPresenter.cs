@@ -16,7 +16,6 @@ public class PlayerLootableItemPresenter : MonoBehaviour, IPresentable
         lootableItemView = uiData.hud.LootableItemsView;
 
         SubscribeOn();
-        Debug.Log("<color=orange>Lootable Item Presenter Set</color>");
     }
 
     public void SubscribeOn()

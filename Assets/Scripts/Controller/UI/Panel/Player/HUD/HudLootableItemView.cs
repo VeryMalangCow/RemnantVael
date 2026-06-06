@@ -16,6 +16,8 @@ public class HudLootableItemView : MonoBehaviour
         overriderEui.Offset();
         moduleShardEui.Offset();
 
+        gameObject.SetActive(true);
+
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=orange>Betteries View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;

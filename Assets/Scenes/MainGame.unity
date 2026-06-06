@@ -3718,7 +3718,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2066110932}
     - target: {fileID: 2784090784048974333, guid: f991a10c2348b56429f7dd5d07204c96, type: 3}
+      propertyPath: payOper
+      value: 
+      objectReference: {fileID: 2066110932}
+    - target: {fileID: 2784090784048974333, guid: f991a10c2348b56429f7dd5d07204c96, type: 3}
       propertyPath: PuzzleOper
+      value: 
+      objectReference: {fileID: 1693724439}
+    - target: {fileID: 2784090784048974333, guid: f991a10c2348b56429f7dd5d07204c96, type: 3}
+      propertyPath: puzzleOper
       value: 
       objectReference: {fileID: 1693724439}
     - target: {fileID: 4995045585254079196, guid: f991a10c2348b56429f7dd5d07204c96, type: 3}
@@ -5929,7 +5937,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1344780854}
     - target: {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: payOper
+      value: 
+      objectReference: {fileID: 1344780854}
+    - target: {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
       propertyPath: PuzzleOper
+      value: 
+      objectReference: {fileID: 885892910}
+    - target: {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: puzzleOper
       value: 
       objectReference: {fileID: 885892910}
     - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
@@ -7922,7 +7938,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1639438789}
     - target: {fileID: 5179974300967090457, guid: 37f1dfe24e381e841b3f63695875b308, type: 3}
+      propertyPath: payOper
+      value: 
+      objectReference: {fileID: 1639438789}
+    - target: {fileID: 5179974300967090457, guid: 37f1dfe24e381e841b3f63695875b308, type: 3}
       propertyPath: PuzzleOper
+      value: 
+      objectReference: {fileID: 1119463907}
+    - target: {fileID: 5179974300967090457, guid: 37f1dfe24e381e841b3f63695875b308, type: 3}
+      propertyPath: puzzleOper
       value: 
       objectReference: {fileID: 1119463907}
     - target: {fileID: 5736045064323075691, guid: 37f1dfe24e381e841b3f63695875b308, type: 3}
@@ -8534,6 +8558,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
       propertyPath: TargetPrison
+      value: 
+      objectReference: {fileID: 1500914904}
+    - target: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: targetPrison
       value: 
       objectReference: {fileID: 1500914904}
     - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
@@ -10065,6 +10093,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
       propertyPath: TargetPrison
+      value: 
+      objectReference: {fileID: 854307672}
+    - target: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: targetPrison
       value: 
       objectReference: {fileID: 854307672}
     - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
@@ -11627,6 +11659,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
       propertyPath: TargetPrison
+      value: 
+      objectReference: {fileID: 1500914904}
+    - target: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: targetPrison
       value: 
       objectReference: {fileID: 1500914904}
     - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
@@ -14795,6 +14831,10 @@ PrefabInstance:
       propertyPath: TargetPrison
       value: 
       objectReference: {fileID: 854307672}
+    - target: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: targetPrison
+      value: 
+      objectReference: {fileID: 854307672}
     - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.9226613
@@ -15348,6 +15388,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
       propertyPath: TargetPrison
+      value: 
+      objectReference: {fileID: 464219170}
+    - target: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: targetPrison
       value: 
       objectReference: {fileID: 464219170}
     - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
@@ -18530,6 +18574,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
       propertyPath: TargetPrison
+      value: 
+      objectReference: {fileID: 464219170}
+    - target: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: targetPrison
       value: 
       objectReference: {fileID: 464219170}
     - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}

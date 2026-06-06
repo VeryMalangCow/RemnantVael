@@ -52,14 +52,21 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
 
         CollectPresenters();
 
-        for (int i = 0; i < presenters.Count; i++)
-        {
-            presenters[i].Init(ownerDataset, uiDataset);
-        }
-        
         sw.Stop();
         UnityEngine.Debug.Log($"PresentManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
+        for (int i = 0; i < presenters.Count; i++)
+        {
+            sw.Restart();
+            presenters[i].Init(ownerDataset, uiDataset);
+
+            sw.Stop();
+            UnityEngine.Debug.Log($"Presenter : <color=orange>{transform.GetChild(i)}</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+
+            yield return null;
+        }
+        
+       
         yield return null;
     }
 

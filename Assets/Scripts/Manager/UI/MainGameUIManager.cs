@@ -125,11 +125,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         Stopwatch sw = new Stopwatch();
         sw.Start();
         GameObject uigo = Instantiate(uiGo, uiParent);
-        sw.Stop();
-        UnityEngine.Debug.Log($"MainGameUIManager : <color=orange>Generate</color> : {uigo.name} : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-
         uigo.gameObject.SetActive(onOff);
-        yield return null;
 
         if (uiGo != null && DevTool.Get_ComponentTType(uigo, out UIController uiController))
         {
@@ -137,6 +133,10 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
             T tComp = uiController as T;
             if (action != null && tComp != null) action(tComp);
         }
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"MainGameUIManager : <color=orange>Generate</color> : {uigo.name} : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+
         yield return null;
     }
 

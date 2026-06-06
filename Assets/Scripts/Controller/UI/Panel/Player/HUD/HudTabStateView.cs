@@ -33,6 +33,8 @@ public class HudTabStateView : MonoBehaviour
 
         ColorInit(mainClr);
 
+        gameObject.SetActive(true);
+
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=orange>Tab State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;

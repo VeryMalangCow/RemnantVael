@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Collections;
+using System.Diagnostics;
 
 public class PlayerHUDController : UIController
 {
@@ -16,15 +17,25 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== View")]
-    [SerializeField] private HudEpView epView;
-    [SerializeField] private HudTabStateView tabStateView;
-    [SerializeField] private HudTabModuleView tabModuleView;
-    [SerializeField] private HudSkillView skillView;
-    [SerializeField] private HudAllyStateView allyStateView;
-    [SerializeField] private HudBetteryShardView betteryShardView;
-    [SerializeField] private HudBetteryView betteriesView;
-    [SerializeField] private HudLootableItemView lootableItemsView;
-    [SerializeField] private HudKeyView keyView;
+
+    [SerializeField] private HudEpView epViewPrefab;
+    [SerializeField] private HudTabStateView tabStateViewPrefab;
+    [SerializeField] private HudTabModuleView tabModuleViewPrefab;
+    [SerializeField] private HudSkillView skillViewPrefab;
+    [SerializeField] private HudAllyStateView allyStateViewPrefab;
+    [SerializeField] private HudBetteryShardView betteryShardViewPrefab;
+    [SerializeField] private HudBetteryView betteriesViewAndLootableViewPrefab;
+    [SerializeField] private HudKeyView keyViewPrefab;
+
+    private HudEpView epView;
+    private HudTabStateView tabStateView;
+    private HudTabModuleView tabModuleView;
+    private HudSkillView skillView;
+    private HudAllyStateView allyStateView;
+    private HudBetteryShardView betteryShardView;
+    private HudBetteryView betteriesView;
+    private HudLootableItemView lootableItemsView;
+    private HudKeyView keyView;
 
     public HudEpView EpView { get { return epView; } }
     public HudTabStateView TabStateView { get { return TabStateView; } }
@@ -44,17 +55,108 @@ public class PlayerHUDController : UIController
 
     public IEnumerator Init(Color mainClr, Color subClr)
     {
+        Stopwatch sw = Stopwatch.StartNew();
+        Offset_Basic();
+        Offset_RectPosData();
+        Offset_Subscribe();
+        Offset_Img();
+        Offset_ColorComp();
+        Offset_AfterColorSet();
+        Offset_HighLvItem();
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Offset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
         PlayerController player = PlayerManager.instance.playerController;
-        
-        yield return epView.Init(mainClr, subClr);
-        yield return tabStateView.Init(mainClr);
-        yield return tabModuleView.Init();
-        yield return allyStateView.Init();
-        yield return skillView.Init(player.skillWeapon, mainClr, subClr);
-        yield return betteryShardView.Init(subClr);
-        yield return betteriesView.Init(player, mainClr, subClr);
-        yield return lootableItemsView.Init();
-        yield return keyView.Init();
+
+        sw.Restart();
+
+        epView = Instantiate(epViewPrefab, transform);
+        epView.Init(mainClr, subClr);
+        epViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Ep View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
+        sw.Restart();
+
+        tabStateView = Instantiate(tabStateViewPrefab, transform);
+        tabStateView.Init(mainClr);
+        tabStateViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>TabState View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
+        sw.Restart();
+
+        tabModuleView = Instantiate(tabModuleViewPrefab, transform);
+        tabModuleView.Init();
+        tabModuleViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>TabModule View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
+        sw.Restart();
+
+        skillView = Instantiate(skillViewPrefab, transform);
+        skillView.Init(player.skillWeapon, mainClr, subClr);
+        skillViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Skill View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
+        sw.Restart();
+
+        allyStateView = Instantiate(allyStateViewPrefab, transform);
+        allyStateView.Init();
+        allyStateViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>AllyState View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
+        sw.Restart();
+
+        betteryShardView = Instantiate(betteryShardViewPrefab, transform);
+        betteryShardView.Init(subClr);
+        betteryShardViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>BetteryShard View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
+        sw.Restart();
+
+        betteriesView = Instantiate(betteriesViewAndLootableViewPrefab, transform);
+        betteriesView.Init(player, mainClr, subClr);
+        if (betteriesView.gameObject.TryGetComponent(out HudLootableItemView _lootableItemsView))
+        {
+            lootableItemsView = _lootableItemsView;
+            lootableItemsView.Init();
+        }
+        betteriesViewAndLootableViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Betteries & LootableItems View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
+        sw.Restart();
+
+        keyView = Instantiate(keyViewPrefab, transform);
+        keyView.Init();
+        keyViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Key View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
+        Set_LanguageTxt();
+
     }
 
 
@@ -172,20 +274,6 @@ public class PlayerHUDController : UIController
 
     #region Offset
 
-    public override void Offset(Camera camera)
-    {
-        base.Offset(camera);
-
-        Offset_Basic();
-        Offset_RectPosData();
-        Offset_Subscribe();
-        Offset_Img();
-        Offset_ColorComp();
-        Offset_AfterColorSet();
-        Offset_HighLvItem();
-        Set_LanguageTxt();
-    }
-
     private void Offset_Basic()
     {
         allAllyPresence = new List<AllyPresenceEUIController> { stAllyPresence, utAllyPresence, ntAllyPresence };
@@ -199,7 +287,6 @@ public class PlayerHUDController : UIController
         offsetXPos = hittedInfoRt.anchoredPosition.x;
 
         isTabInteracted.Value = false;
-
     }
 
     private void Offset_RectPosData()

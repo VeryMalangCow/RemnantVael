@@ -33,6 +33,8 @@ public class HudTabModuleView : MonoBehaviour
             moduleSlots[i].Set_EquipedTxt(true, i);
         }
 
+        gameObject.SetActive(true);
+
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=orange>Tab Module View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;

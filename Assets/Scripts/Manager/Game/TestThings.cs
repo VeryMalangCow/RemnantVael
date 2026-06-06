@@ -36,9 +36,9 @@ public class TestThings : MonoBehaviour
             */
 
             player.GainChargedBettery(9999);
-            player.currentCredit.Value = 9999;
-            player.currentOverrider.Value = 9999;
-            player.currentModuleShard.Value = 9999;
+            player.GainCredit(9999);
+            player.GainOverrider(9999);
+            player.GainModuleShard(9999);
 
             player.strikeTeamPresence.Value = 100;
             player.uplinkTeamPresence.Value = 100;

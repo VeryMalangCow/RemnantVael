@@ -23,16 +23,12 @@ public class HudEpView : MonoBehaviour
 
 
     // Init
-    public IEnumerator Init(Color mainClr, Color subClr)
+    public void Init(Color mainClr, Color subClr)
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         epEui.Offset();
         ColorInit(mainClr, subClr);
 
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Ep View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
+        gameObject.SetActive(true); 
     }
 
     private void ColorInit(Color mainClr, Color subClr)

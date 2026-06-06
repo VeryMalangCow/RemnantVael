@@ -36,7 +36,6 @@ public class PlayerBetteryPresenter : MonoBehaviour, IPresentable
         originCoreCvt = uiData.originCoreCvt;
 
         SubscribeOn();
-        Debug.Log("<color=orange>Bettery Presenter Set</color>");
     }
 
     public void SubscribeOn()

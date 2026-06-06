@@ -10,7 +10,6 @@ public class PlayerAimRoundPresenter : MonoBehaviour, IPresentable
         weapon = ownerData.player.baseWeapon;
         aimRound = uiData.aimRound;
         SubscribeOn();
-        Debug.Log("<color=orange>Aim Round Presenter Set</color>");
     }
 
     public void SubscribeOn()
