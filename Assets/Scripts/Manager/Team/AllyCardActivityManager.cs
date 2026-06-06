@@ -458,7 +458,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void BoosterUpgrade(int boostLv)
     {
-        PlayerManager.instance.playerController.currentBoostLv.Value = boostLv;
+        PlayerManager.instance.playerController.SetBoostLv(boostLv);
     }
 
     #endregion

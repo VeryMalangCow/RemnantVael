@@ -22,10 +22,8 @@ public class HudBetteryView : MonoBehaviour
 
 
     // Init
-    public IEnumerator Init(PlayerController player, Color mainClr, Color subClr)
+    public void Init(PlayerController player, Color mainClr, Color subClr)
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         emptyBetteryEui.Offset();
         chargedBetteryEui.Offset();
 
@@ -35,10 +33,6 @@ public class HudBetteryView : MonoBehaviour
         ColorInit(mainClr, subClr);
 
         gameObject.SetActive(true);
-
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Betteries View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
     }
 
     private void ColorInit(Color mainClr, Color subClr)
@@ -49,12 +43,12 @@ public class HudBetteryView : MonoBehaviour
         DevTool.SetColorImgs(subClr, subClrImgs);
         subClrImgs = null;
     }
-    public void SetEmptyBettery(int amount)
+    public void SetEmptyBetteryUI(int amount)
     {
         emptyBetteryEui.Set_Amount(amount, 0.5f);
     }
 
-    public void SetChargedBettery(int amount)
+    public void SetChargedBetteryUI(int amount)
     {
         chargedBetteryEui.Set_Amount(amount, 0.5f);
 

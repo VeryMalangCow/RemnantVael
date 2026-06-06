@@ -1,6 +1,7 @@
 using System.Collections;
 using UniRx;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PremiumCreditCvtUIController : ConverterUIController
 {
@@ -33,33 +34,21 @@ public class PremiumCreditCvtUIController : ConverterUIController
     {
         base.Offset(camera);
 
-        Offset_EUI();
-        Offset_Subscribe();
-    }
-
-    public void Offset_EUI()
-    {
         cCvtMaterialEui.Offset();
         epCvtMaterialEui.Offset();
     }
 
-    public void Offset_Subscribe()
-    {
-        PlayerManager.instance.playerController.currentCredit
-            .Subscribe(_Value =>
-            {
-                cCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
-            });
+    #endregion
 
-        Debug.Log("PremiumCreditCvtUI: SUB");
-        //PlayerManager.instance.playerController.Get_CurrentEP()
-        //    .Subscribe(_Value =>
-        //    {
-        //        epCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
-        //    });
+    public void SetEpUI(float current, float max)
+    {
+        epCvtMaterialEui.Set_PossessionAmountTxt(max.ToString());
     }
 
-    #endregion
+    public void SetCreditUI(int value)
+    {
+        cCvtMaterialEui.Set_PossessionAmountTxt(value.ToString());
+    }
 
     #region Language
 
@@ -110,7 +99,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
 
         int currentPossibilityCredit = 
-            Get_Acquisitable_Credit(pc.currentCredit.Value);
+            Get_Acquisitable_Credit(pc.currentCredit);
 
         int currentPossibilityEP =
             Get_Acquisitable_EP(pc.currentEp - need_EP);
@@ -130,7 +119,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
         int needCredit = acquisitionBookAmount * need_Credit;
         cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());
-        bool canCvtByCredit = needCredit <= pc.currentCredit.Value;
+        bool canCvtByCredit = needCredit <= pc.currentCredit;
         cCvtMaterialEui.Set_Condition(canCvtByCredit);
 
         float needEP = acquisitionBookAmount * need_EP;

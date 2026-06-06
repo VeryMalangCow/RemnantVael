@@ -36,31 +36,21 @@ public class OriginCoreCvtUIController : ConverterUIController
     {
         base.Offset(camera);
 
-        Offset_EUI();
-        Offset_Subscribe();
-    }
-
-    public void Offset_EUI()
-    {
         cbCvtMaterialEui.Offset();
         cCvtMaterialEui.Offset();
         etherCvtMaterialEui.Offset();
     }
 
-    public void Offset_Subscribe()
-    {
-        PlayerManager.instance.playerController.currentCredit
-            .Subscribe(_Value =>
-            {
-                cCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
-            });
-    }
-
     #endregion
 
-    public void SetChargedBettery(int value)
+    public void SetChargedBetteryUI(int value)
     {
         cbCvtMaterialEui.Set_PossessionAmountTxt(value.ToString());
+    }
+
+    public void SetCreditUI(int value)
+    {
+        cCvtMaterialEui.Set_PossessionAmountTxt(value.ToString());
     }
 
     #region Language
@@ -123,7 +113,7 @@ public class OriginCoreCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
 
         int currentPossibilityCredit =
-            Get_Acquisitable_Credit(pc.currentCredit.Value);
+            Get_Acquisitable_Credit(pc.currentCredit);
 
         int currentPossibilityCB =
             Get_Acquisitable_ChargedBettery(pc.chargedBettery);
@@ -148,7 +138,7 @@ public class OriginCoreCvtUIController : ConverterUIController
 
         int needCredit = acquisitionBookAmount * need_Credit;
         cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());
-        bool canCvtByCredit = needCredit <= pc.currentCredit.Value;
+        bool canCvtByCredit = needCredit <= pc.currentCredit;
         cCvtMaterialEui.Set_Condition(canCvtByCredit);
 
         float needCB = acquisitionBookAmount * need_ChargedBettery;

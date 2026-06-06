@@ -13,22 +13,16 @@ public class HudKeyView : MonoBehaviour
     [SerializeField] private List<TMP_Text> keyItemAmountTxtList;
 
     // Init
-    public IEnumerator Init()
+    public void Init()
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         // Key
         for (int i = 0; i < keyItemImgList.Count; i++)
             keyItemImgList[i].gameObject.SetActive(false);
 
         gameObject.SetActive(true);
-
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Ep View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
     }
 
-    public void Set_KeyItem(Dictionary<int, int> keyItemDict)
+    public void SetKeyItem(Dictionary<int, int> keyItemDict)
     {
         for (int i = 0; i < keyItemImgList.Count; i++)
             keyItemImgList[i].gameObject.SetActive(false);
@@ -47,13 +41,14 @@ public class HudKeyView : MonoBehaviour
         }
     }
 
-    public void Effect_KeyIcon(int id)
+    public void EffectKeyIcon(int id)
     {
         Sequence seq = DOTween.Sequence();
         for (int i = 0; i < keyItemImgList.Count; i++)
         {
             if (keyItemImgList[i].gameObject.activeSelf && keyItemImgList[i].sprite == ResourceManager.instance.Get_KeyCardSprite(id))
             {
+                UnityEngine.Debug.Log("¤·¤·");
                 seq.Append(keyItemImgList[i].transform.DOScale(1.3f, 0.1f));
                 seq.Append(keyItemImgList[i].transform.DOScale(1f, 0.3f));
 

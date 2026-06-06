@@ -44,11 +44,11 @@ public class TestThings : MonoBehaviour
             player.uplinkTeamPresence.Value = 100;
             player.neoTeamPresence.Value = 100;
 
-            PlayerManager.instance.Gain_KeyCard(0, 99);
-            PlayerManager.instance.Gain_KeyCard(1, 99);
-            PlayerManager.instance.Gain_KeyCard(2, 99);
-            PlayerManager.instance.Gain_KeyCard(3, 99);
-            PlayerManager.instance.Gain_KeyCard(4, 99);
+            PlayerManager.instance.GainKeyCard(0, 99);
+            PlayerManager.instance.GainKeyCard(1, 99);
+            PlayerManager.instance.GainKeyCard(2, 99);
+            PlayerManager.instance.GainKeyCard(3, 99);
+            PlayerManager.instance.GainKeyCard(4, 99);
 
             Debug.Log("Alpha4: Get Many Goods");
         }

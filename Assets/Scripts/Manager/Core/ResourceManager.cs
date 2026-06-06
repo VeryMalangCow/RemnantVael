@@ -2342,32 +2342,32 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Canvas UI (Prefab)
 
     // Value
-    [SerializeField] public GameObject titleLobby_CanvasPrefab { get; private set; }
+    public GameObject titleLobby_CanvasPrefab { get; private set; }
 
-    [SerializeField] public GameObject playerHUD_CanvasPrefab { get; private set; }
+    public GameObject playerHUD_CanvasPrefab { get; private set; }
 
-    [SerializeField] public GameObject baseUpgrade_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject moduleUpgrade_CanvasPrefab { get; private set; }
+    public GameObject baseUpgrade_CanvasPrefab { get; private set; }
+    public GameObject moduleUpgrade_CanvasPrefab { get; private set; }
 
-    [SerializeField] public GameObject allyBaseUpgrade_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject allyModuleUpgrade_CanvasPrefab { get; private set; }
+    public GameObject allyBaseUpgrade_CanvasPrefab { get; private set; }
+    public GameObject allyModuleUpgrade_CanvasPrefab { get; private set; }
 
-    [SerializeField] public GameObject outMainGame_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject interactAnno_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject mapIntro_CanvasPrefab { get; private set; }
+    public GameObject outMainGame_CanvasPrefab { get; private set; }
+    public GameObject interactAnno_CanvasPrefab { get; private set; }
+    public GameObject mapIntro_CanvasPrefab { get; private set; }
 
-    [SerializeField] public GameObject allyCard_CanvasPrefab { get; private set; }
+    public GameObject allyCard_CanvasPrefab { get; private set; }
 
-    [SerializeField] public GameObject puzzle_BoxLineConnector_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject puzzle_NumShapeColorPassword_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject puzzle_InOrderLocker_CanvasPrefab { get; private set; }
+    public GameObject puzzle_BoxLineConnector_CanvasPrefab { get; private set; }
+    public GameObject puzzle_NumShapeColorPassword_CanvasPrefab { get; private set; }
+    public GameObject puzzle_InOrderLocker_CanvasPrefab { get; private set; }
 
-    [SerializeField] public GameObject cvt_PremiumCredit_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject cvt_ProtoCore_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject cvt_EtherCore_CanvasPrefab { get; private set; }
-    [SerializeField] public GameObject cvt_OriginCore_CanvasPrefab { get; private set; }
+    public GameObject cvt_PremiumCredit_CanvasPrefab { get; private set; }
+    public GameObject cvt_ProtoCore_CanvasPrefab { get; private set; }
+    public GameObject cvt_EtherCore_CanvasPrefab { get; private set; }
+    public GameObject cvt_OriginCore_CanvasPrefab { get; private set; }
 
-    [SerializeField] public GameObject battleProd_CanvasPrefab { get; private set; }
+    public GameObject battleProd_CanvasPrefab { get; private set; }
 
     // Offset
     private void Offset_Prefab_CanvasUI()

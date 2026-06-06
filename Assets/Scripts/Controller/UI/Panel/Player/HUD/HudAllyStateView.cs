@@ -25,18 +25,12 @@ public class HudAllyStateView : MonoBehaviour
     private Tween tabTween;
 
     // Init
-    public IEnumerator Init()
+    public void Init()
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         // Ally
         defaultAllyStateRectX = allyStateParentRt.anchoredPosition.x;
 
         gameObject.SetActive(true);
-
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Ally State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
     }
 
     public void TabOn(float durTime)

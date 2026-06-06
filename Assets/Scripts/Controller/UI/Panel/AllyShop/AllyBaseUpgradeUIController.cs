@@ -74,7 +74,6 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         base.Offset(camera);
 
         Offset_TunerSet();
-        Offset_Subscribe();
         Set_LanguageTxt();
     }
 
@@ -102,20 +101,16 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         buyBtnEui.Offset();
     }
 
-    private void Offset_Subscribe()
-    {
-        PlayerManager.instance.playerController.currentOverrider
-            .Subscribe(_Value =>
-            {
-                Set_OverriderUI(_Value);
-            });
-    }
-
     #endregion
 
-    public void SetChargedBettery(int value)
+    public void SetChargedBetteryUI(int value)
     {
         Set_ChargedBetteryUI(value, needChargedBettery);
+    }
+
+    public void SetOverriderUI(int value)
+    {
+        Set_OverriderUI(value);
     }
 
     #region Set (Profile)
@@ -247,7 +242,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         for (int i = 0; i < allTunerEui.Count; i++)
         {
             if (allTunerEui[i].rerollBtnEUI == currentBtn &&
-                PlayerManager.instance.playerController.currentOverrider.Value >= needOverrider)
+                PlayerManager.instance.playerController.currentOverrider >= needOverrider)
             {
                 Set_TunerData(i);
                 Set_TunerUI(i);

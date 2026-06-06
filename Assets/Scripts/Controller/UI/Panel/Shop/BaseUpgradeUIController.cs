@@ -151,12 +151,12 @@ public class BaseUpgradeUIController : PlayerShopUIController
         */
     }
 
-    public void SetEmptyBettery(int value)
+    public void SetEmptyBetteryUI(int value)
     {
         bcTxt.text = value.ToString();
     }
 
-    public void SetChargedBettery(int value)
+    public void SetChargedBetteryUI(int value)
     {
         ecTxt.text = value.ToString();
     }

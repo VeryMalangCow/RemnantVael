@@ -13,20 +13,24 @@ public class PlayerController : AliveObjectController
     public event Action<float, float> OnEpChanged;
     public event Action<float, float> OnMaxEpChanged;
 
-    [HideInInspector] public int betteryShard { get; private set; } = 0;
+    public int betteryShard { get; private set; } = 0;
     public event Action<int> OnBetteryShardChanged;
-    [HideInInspector] public int emptyBettery { get; private set; } = 0;
+    public int emptyBettery { get; private set; } = 0;
     public event Action<int> OnEmptyBetteryChanged;
-    [HideInInspector] public int chargedBettery { get; private set; } = 0;
+    public int chargedBettery { get; private set; } = 0;
     public event Action<int> OnChargedBetteryChanged;
 
 
-    [HideInInspector] public ReactiveProperty<int> currentModuleShard = new();
+    [HideInInspector] public int currentModuleShard = 0;
     public event Action<int> OnModuleShardChanged;
-    [HideInInspector] public ReactiveProperty<int> currentOverrider = new();
+    [HideInInspector] public int currentOverrider = 0;
     public event Action<int> OnOverriderChanged;
-    [HideInInspector] public ReactiveProperty<int> currentCredit = new();
+    [HideInInspector] public int currentCredit = 0;
     public event Action<int> OnCreditChanged;
+
+    public int currentBoostLv { get; private set; } = 0;
+    public static readonly int maxBoostLv = 3;
+    public event Action<int> OnBoostLvChanged;
 
     #region - Inspector
 
@@ -123,9 +127,6 @@ public class PlayerController : AliveObjectController
     // Movement
     [HideInInspector] public eMovementState movementState = eMovementState.IdleOrWalk;
 
-    // Boost
-    [HideInInspector] public ReactiveProperty<int> currentBoostLv = new();
-
     // Shield
     [HideInInspector] public List<Shield> shieldElements = new List<Shield>();
 
@@ -150,9 +151,6 @@ public class PlayerController : AliveObjectController
     [HideInInspector] private ReactiveProperty<float> reputation = new ReactiveProperty<float>();
     [HideInInspector] public float Get_Reputation { get { return reputation.Value; } }
 
-
-
-
     // BaseAnim
     [HideInInspector] private Sequence baseSeq = null;
     [HideInInspector] private readonly float baseYLimit = 0.02f;
@@ -169,7 +167,6 @@ public class PlayerController : AliveObjectController
 
     #region - Data
 
-    [HideInInspector] public static readonly int maxBoostLv = 4;
     [HideInInspector] public static readonly int maxRank = 5;
     [HideInInspector] public readonly int needBS_ForMakeBC = 4;
     [HideInInspector] public readonly float needEP_ForMakeEC = 5f;
@@ -199,7 +196,7 @@ public class PlayerController : AliveObjectController
         stateAnim.Set_Anim(new State_Anim(dmgTypeStateAc.typeA, 0.8f), 1f);
 
         // State Anim : Boost
-        Set_BoostAnim(currentBoostLv.Value);
+        SetBoostLv(0);
 
         // State Anim: Room Move
         moveDirStateAnim.Set_Anim(new State_Anim(moveDirAc));
@@ -227,9 +224,9 @@ public class PlayerController : AliveObjectController
 
         // Item
         chargedBettery = 0;
-        currentCredit.Value = 0;
-        currentOverrider.Value = 0;
-        currentModuleShard.Value = 0;
+        currentCredit = 0;
+        currentOverrider = 0;
+        currentModuleShard = 0;
 
         // Presence
         needStrikeTeamPresence.Value = needIntervalPresence;
@@ -522,58 +519,112 @@ public class PlayerController : AliveObjectController
     // Credit
     public void GainCredit(int gainValue)
     {
-        currentCredit.Value = Mathf.Min(currentCredit.Value + gainValue, 9999);
+        currentCredit = Mathf.Min(currentCredit + gainValue, 9999);
         SetCreditUI();
     }
     public void UseCredit(int useValue)
     {
-        currentCredit.Value = Mathf.Max(currentCredit.Value - useValue, 0);
+        currentCredit = Mathf.Max(currentCredit - useValue, 0);
         SetCreditUI();
     }
 
     public void SetCreditUI()
     {
-        OnCreditChanged?.Invoke(currentCredit.Value);
+        OnCreditChanged?.Invoke(currentCredit);
     }
 
     // Overrider
     public void GainOverrider(int gainValue)
     {
-        currentOverrider.Value = Mathf.Min(currentOverrider.Value + gainValue, 9999);
+        currentOverrider = Mathf.Min(currentOverrider + gainValue, 9999);
         SetOverriderUI();
     }
 
     public void UseOverrider(int useValue)
     {
-        currentOverrider.Value = Mathf.Min(currentOverrider.Value - useValue, 0);
+        currentOverrider = Mathf.Min(currentOverrider - useValue, 0);
         SetOverriderUI();
     }
 
     public void SetOverriderUI()
     {
-        OnOverriderChanged?.Invoke(currentOverrider.Value);
+        OnOverriderChanged?.Invoke(currentOverrider);
     }
 
     // Module Shard
     public void GainModuleShard(int gainValue)
     {
-        currentModuleShard.Value = Mathf.Min(currentModuleShard.Value + gainValue, 9999);
+        currentModuleShard = Mathf.Min(currentModuleShard + gainValue, 9999);
         SetModuleShardUI();
     }
     public void UseModuleShard(int useValue)
     {
-        currentModuleShard.Value = Mathf.Min(currentModuleShard.Value - useValue, 0);
+        currentModuleShard = Mathf.Min(currentModuleShard - useValue, 0);
         SetModuleShardUI();
     }
 
     public void SetModuleShardUI()
     {
-        OnModuleShardChanged?.Invoke(currentModuleShard.Value);
+        OnModuleShardChanged?.Invoke(currentModuleShard);
     }
 
 
 
     #endregion
+
+    #region Boost State
+
+    public void SetBoostLv(int value)
+    {
+        currentBoostLv = value;
+        // 플레이어 위
+        Set_BoostAnim_StateWheel(value);
+        Set_BoostAnim_StateExtraVFX(value);
+
+        OnBoostLvChanged?.Invoke(value);
+    }
+
+    // 스탯의 위아래로 도는 바퀴
+    private void Set_BoostAnim_StateWheel(int index)
+    {
+        for (int i = 0; i < maxBoostLv; i++)
+        {
+            // 부스팅 : 언부스팅
+            AnimationClip ac = i < index ?
+                boostOnOffAc.typeSpecial : boostOnOffAc.typeBase;
+            float animSpeed = i < index ?
+                wheelLowestAnimSpeed * (index - i + 1) : wheelLowestAnimSpeed;
+
+            boostStateAnimController.typeBase[i].Set_Anim(new State_Anim(ac, animSpeed));
+        }
+    }
+
+    // 스탯의 좌우로 도는 이펙트
+    private void Set_BoostAnim_StateExtraVFX(int index)
+    {
+        boostStateAnimController.typeSpecial[0].gameObject.SetActive(false);
+        boostStateAnimController.typeSpecial[1].gameObject.SetActive(false);
+
+        float animSpeed = index * 0.5f;
+        if (index > 0)
+        { 
+            Set_EachBoostAnim_StateExtraVFX(0, animSpeed); 
+        }
+        if (index > 2)
+        {
+            Set_EachBoostAnim_StateExtraVFX(1, animSpeed);
+        }
+    }
+
+    private void Set_EachBoostAnim_StateExtraVFX(int index, float animSpeed)
+    {
+        boostStateAnimController.typeSpecial[index].gameObject.SetActive(true);
+        boostStateAnimController.typeSpecial[index].Set_Anim(new State_Anim(boostVFXAnimList[index], animSpeed));
+
+    }
+
+    #endregion
+
 
     #region Movement
 
@@ -817,57 +868,6 @@ public class PlayerController : AliveObjectController
         stateAnim.Set_Anim(
                 new State_Anim(targetDmgMode == eDamageType.Physics ?
                     dmgTypeStateAc.typeA : dmgTypeStateAc.typeB, 0.8f));
-    }
-
-    #endregion
-
-    #region Boost State
-
-
-    // 머리위에 스탯 상태 
-    private void Set_BoostAnim(int index)
-    {
-        Set_BoostAnim_StateWheel(index);
-        Set_BoostAnim_StateExtraVFX(index);
-    }
-
-    // 스탯의 위아래로 도는 바퀴
-    private void Set_BoostAnim_StateWheel(int index)
-    {
-        for (int i = 0; i < maxBoostLv - 1; i++)
-        {
-            // 부스팅 : 언부스팅
-            AnimationClip ac = i < index ?
-                boostOnOffAc.typeSpecial : boostOnOffAc.typeBase;
-            float animSpeed = i < index ?
-                wheelLowestAnimSpeed * (index - i + 1) : wheelLowestAnimSpeed;
-
-            boostStateAnimController.typeBase[i].Set_Anim(new State_Anim(ac, animSpeed));
-        }
-    }
-
-    // 스탯의 좌우로 도는 이펙트
-    private void Set_BoostAnim_StateExtraVFX(int index)
-    {
-        boostStateAnimController.typeSpecial[0].gameObject.SetActive(false);
-        boostStateAnimController.typeSpecial[1].gameObject.SetActive(false);
-
-        float animSpeed = index * 0.5f;
-        if (index > 0)
-        { 
-            Set_EachBoostAnim_StateExtraVFX(0, animSpeed); 
-        }
-        if (index > 2)
-        {
-            Set_EachBoostAnim_StateExtraVFX(1, animSpeed);
-        }
-    }
-
-    private void Set_EachBoostAnim_StateExtraVFX(int index, float animSpeed)
-    {
-        boostStateAnimController.typeSpecial[index].gameObject.SetActive(true);
-        boostStateAnimController.typeSpecial[index].Set_Anim(new State_Anim(boostVFXAnimList[index], animSpeed));
-
     }
 
     #endregion
@@ -1235,9 +1235,9 @@ public class PlayerController : AliveObjectController
 
     public void Set_PrisonPanelty()
     {
-        UseCredit((int)(currentCredit.Value * 0.2f));
-        UseOverrider((int)(currentOverrider.Value * 0.2f));
-        UseModuleShard((int)(currentModuleShard.Value * 0.2f));
+        UseCredit((int)(currentCredit * 0.2f));
+        UseOverrider((int)(currentOverrider * 0.2f));
+        UseModuleShard((int)(currentModuleShard * 0.2f));
 
         Take_Damaged(currentEp * 0.2f, Vector2.zero, false);
 

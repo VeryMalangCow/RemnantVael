@@ -15,19 +15,13 @@ public class HudBetteryShardView : MonoBehaviour
 
 
     // Init
-    public IEnumerator Init(Color subClr)
+    public void Init(Color subClr)
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         currentEmptyBc.Offset();
 
         ColorInit(subClr);
 
         gameObject.SetActive(true);
-
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Bettery Shard View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
     }
 
     private void ColorInit(Color subClr)
@@ -36,7 +30,7 @@ public class HudBetteryShardView : MonoBehaviour
         subClrImgs = null;
     }
 
-    public void SetBetteryShard(int amount)
+    public void SetBetteryShardUI(int amount)
     {
         currentEmptyBc.ChangeSprite(amount);
     }

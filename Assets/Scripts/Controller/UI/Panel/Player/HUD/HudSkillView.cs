@@ -28,10 +28,8 @@ public class HudSkillView : MonoBehaviour
     private Tween tabTween;
 
     // Init
-    public IEnumerator Init(SkillWeaponController skillWeapon, Color mainClr, Color subClr)
+    public void Init(SkillWeaponController skillWeapon, Color mainClr, Color subClr)
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         for (int i = 0; i < skillList.Count; i++) 
             skillList[i].Offset();
 
@@ -48,10 +46,6 @@ public class HudSkillView : MonoBehaviour
         ColorInit(mainClr, subClr);
 
         gameObject.SetActive(true);
-
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Skill View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
     }
 
     private void ColorInit(Color mainClr, Color subClr)

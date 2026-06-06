@@ -170,9 +170,9 @@ public class GateController : StaticDepthController, IInteract
             if (needKeyCardId != -1)
             {
                 // 키카드 사용해서 열기
-                if (PlayerManager.instance.Can_UseKeyCard(needKeyCardId))
+                if (PlayerManager.instance.CanUseKeyCard(needKeyCardId))
                 {
-                    PlayerManager.instance.Use_KeyCard(needKeyCardId);
+                    PlayerManager.instance.UseKeyCard(needKeyCardId);
                     needKeyCardId = -1;
                     parterGate.needKeyCardId = -1;
                     Set_Open();

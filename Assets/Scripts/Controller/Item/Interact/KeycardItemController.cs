@@ -34,7 +34,7 @@ public class KeycardItemController : InteractItemController
     {
         base.PlayInteract();
 
-        PlayerManager.instance.Gain_KeyCard(id);
+        PlayerManager.instance.GainKeyCard(id);
         DropItemManager.instance.RemoveKeycard(this);
     }
 

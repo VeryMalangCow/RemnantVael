@@ -22,10 +22,8 @@ public class HudTabStateView : MonoBehaviour
     private Tween tabTween;
 
     // Init
-    public IEnumerator Init(Color mainClr)
+    public void Init(Color mainClr)
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         // 플레이어 스탯
         defaultPlayerStatesRectX = DevTool.Get_ComponentTType(
             playerStatesCostParentRt.gameObject, out RectTransform state_Rt) ?
@@ -34,10 +32,6 @@ public class HudTabStateView : MonoBehaviour
         ColorInit(mainClr);
 
         gameObject.SetActive(true);
-
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Tab State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
     }
 
     private void ColorInit(Color mainClr)

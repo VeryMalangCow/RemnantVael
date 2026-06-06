@@ -203,7 +203,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         noneSyneBuyBtn.Offset();
     }
 
-    public void SetChargedBettery(int value)
+    public void SetChargedBetteryUI(int value)
     {
         Set_ChargedBetteryUI(value, needChargedBettery);
     }

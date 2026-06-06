@@ -41,12 +41,12 @@ public class HudEpView : MonoBehaviour
     }
 
     
-    public void SetEnergyGauge(float currentEp, float maxEp)
+    public void SetEpUI(float currentEp, float maxEp)
     {
         epEui.SetFillImg(currentEp, maxEp);
     }
 
-    public void SetMaxEnergeGauge(float currentEp, float maxEp)
+    public void SetMaxEpUI(float currentEp, float maxEp)
     {
         epEui.SetMaxUI(maxEp);
         epEui.SetFillImg(currentEp, maxEp);

@@ -15,6 +15,7 @@ public class PlayerAimRoundPresenter : MonoBehaviour, IPresentable
     public void SubscribeOn()
     {
         weapon.OnAccChanged += aimRound.Set_AngleRoundValue;
+
         weapon.SetAccAimRound();
     }
 

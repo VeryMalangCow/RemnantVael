@@ -26,6 +26,7 @@ public class PlayerHUDController : UIController
     [SerializeField] private HudBetteryShardView betteryShardViewPrefab;
     [SerializeField] private HudBetteryView betteriesViewAndLootableViewPrefab;
     [SerializeField] private HudKeyView keyViewPrefab;
+    [SerializeField] private HudBoostView boostViewPrefab;
 
     private HudEpView epView;
     private HudTabStateView tabStateView;
@@ -35,7 +36,8 @@ public class PlayerHUDController : UIController
     private HudBetteryShardView betteryShardView;
     private HudBetteryView betteriesView;
     private HudLootableItemView lootableItemsView;
-    private HudKeyView keyView;
+    private HudKeyView keyView; 
+    private HudBoostView boostView;
 
     public HudEpView EpView { get { return epView; } }
     public HudTabStateView TabStateView { get { return TabStateView; } }
@@ -46,6 +48,7 @@ public class PlayerHUDController : UIController
     public HudBetteryView BetteriesView { get { return betteriesView; } }
     public HudLootableItemView LootableItemsView { get { return lootableItemsView; } }
     public HudKeyView KeyView { get { return keyView; } }
+    public HudBoostView BoostView { get { return boostView; } }
 
 
     [Space(10)]
@@ -155,6 +158,16 @@ public class PlayerHUDController : UIController
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Key View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
 
+        sw.Restart();
+
+        boostView = Instantiate(boostViewPrefab, transform);
+        boostView.Init(mainClr, subClr);
+        boostViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Boost View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
         Set_LanguageTxt();
 
     }
@@ -171,15 +184,6 @@ public class PlayerHUDController : UIController
     [SerializeField] public bool isTabInputed = false;
     [SerializeField] private static float tabInputedMaxTime = 0.25f;
     [SerializeField] private float tabInputedCurrentTime = 0f;
-
-    [Space(10)]
-    [Header("=== Boost")]
-    [SerializeField] private RectTransform boostRt;
-    [HideInInspector] private float defaultBoostRectY;
-    [SerializeField] private TMP_Text boostLv;
-    [SerializeField] private GameObject[] boostLightArr;
-    [SerializeField] private GameObject[] boostLightWheelArr;
-    [SerializeField] List<Image> boostInnerList;
 
     [Space(10)]
     [Header("=== Minimap")]
@@ -293,28 +297,12 @@ public class PlayerHUDController : UIController
     {
         // 기본 위치
 
-        // 부스트
-        defaultBoostRectY = boostRt.anchoredPosition.y;
-
         // High Lv Item
         defaultHighLvItemRectX = highLvItemRt.anchoredPosition.x;
     }
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.currentBoostLv
-            .Subscribe(_boostLevel =>
-            {
-                Set_TextOfBoost(_boostLevel);
-
-                Play_ActiveBoost(boostLightArr, _boostLevel);
-                Play_ActiveBoost(boostLightWheelArr, _boostLevel);
-
-                Play_RollBoost(boostLightWheelArr, _boostLevel);
-            })
-            .AddTo(gameObject);
-
-
         PlayerManager.instance.playerController.strikeTeamPresence
             .Subscribe(_presence =>
             {
@@ -530,10 +518,9 @@ public class PlayerHUDController : UIController
 
         tabStateView.TabOn(tabInteractDurTime);
         tabModuleView.TabOn(tabInteractDurTime);
-
+        boostView.TabOn(tabInteractDurTime);
 
         tabSeq = Play_SeqInteract(
-            boostRtY: 0f,
             highLvItemRtX: 0f,
             stageNameAlpha: 0f,
             stageDescAlpha: 1f,
@@ -551,9 +538,9 @@ public class PlayerHUDController : UIController
 
         tabStateView.TabOff(tabInteractDurTime);
         tabModuleView.TabOff(tabInteractDurTime);
+        boostView.TabOff(tabInteractDurTime);
 
         tabSeq = Play_SeqInteract(
-            defaultBoostRectY,
             defaultHighLvItemRectX,
             stageNameAlpha: 1f,
             stageDescAlpha: 0f, 
@@ -566,11 +553,6 @@ public class PlayerHUDController : UIController
 
     #region Boost
 
-    private void Set_TextOfBoost(int currentLv)
-    {
-        boostLv.text = currentLv.ToString();
-        DevTool.Set_AlphaColor(boostLv, currentLv == 0 ? 0.1f : 0.25f * (currentLv));
-    }
 
     #endregion
 
@@ -672,55 +654,10 @@ public class PlayerHUDController : UIController
 
     #endregion
 
-    #region Boost
-
-    // 부스트 키기
-    private void Play_ActiveBoost(GameObject[] arr, int currentLv)
-    {
-        for (int i = 0; i < arr.Length; i++)
-        {
-            if (DevTool.Get_ComponentTType(arr[i].gameObject, out Image img))
-            {
-                DevTool.SetKillTween(img);
-
-                if (i < currentLv) img.DOFade(1f, 0.2f);
-                else img.DOFade(0f, 0.2f);
-            }
-        }
-    }
-
-    // 부스트 돌리기
-    private void Play_RollBoost(GameObject[] arr, int currentLv)
-    {
-        for (int i = 0; i < arr.Length; i++)
-        {
-            if (DevTool.Get_ComponentTType(arr[i].gameObject, out RectTransform rt))
-            {
-                if (i < currentLv) Play_EachRollBoost(rt, i);
-                else DevTool.SetKillTween(rt);
-            }
-        }
-    }
-
-    // 부스트 하나씩 돌리기
-    private void Play_EachRollBoost(RectTransform rt, int index)
-    {
-        rt.DOLocalRotate(new Vector3(0, 0, 360), 0.2f, RotateMode.LocalAxisAdd)
-                    .SetEase(Ease.OutCubic)
-                    .OnComplete(() =>
-                    {
-                        rt.DOLocalRotate(new Vector3(0, 0, 360), 3f / (index + 1f), RotateMode.LocalAxisAdd)
-                            .SetEase(Ease.Linear)
-                            .SetLoops(-1, LoopType.Restart);
-                    });
-    }
-
-    #endregion
-
     #region Tab Interact
 
     // Tab 이동
-    private Sequence Play_SeqInteract(float boostRtY, float highLvItemRtX,
+    private Sequence Play_SeqInteract(float highLvItemRtX,
         float stageNameAlpha, float stageDescAlpha,
         float durTime, Ease ease)
     {
@@ -729,7 +666,7 @@ public class PlayerHUDController : UIController
         //seq.Join(allyStateParentRt.DOAnchorPosX(allyStateRtX, durTime));
         //seq.Join(playerStatesCostParentRt.DOAnchorPosX(costRtX, durTime));
         //seq.Join(skillStatesParentRt.DOAnchorPosY(skillRtY, durTime));
-        seq.Join(boostRt.DOAnchorPosY(boostRtY, durTime));
+        //seq.Join(boostRt.DOAnchorPosY(boostRtY, durTime));
         seq.Join(highLvItemRt.DOAnchorPosX(highLvItemRtX, durTime));
 
         seq.Join(stageNameTxt.DOFade(stageNameAlpha, durTime));
@@ -766,20 +703,12 @@ public class PlayerHUDController : UIController
     {
         List<Component> result = new List<Component>
         {
-            // 부스트
-            boostLv,
-
             // 스테이지
             stageNameTxt, stageDescTxt,
 
             // 상호작용
             interactOnOffTxt
-
         };
-
-        // 부스트
-        result.AddRange(DevTool.Get_ComponentTTypeList<Image>(boostLightArr.ToList()));
-        result.AddRange(DevTool.Get_ComponentTTypeList<Image>(boostLightWheelArr.ToList()));
 
 
 
@@ -802,9 +731,6 @@ public class PlayerHUDController : UIController
             // 상호작용
             innerImg, usingInnerImg
         };
-
-        // 부스트 Inner
-        subClrCompList.AddRange(boostInnerList);
 
         // Ally
         for (int i = 0; i < allAllyPresence.Count; i++)

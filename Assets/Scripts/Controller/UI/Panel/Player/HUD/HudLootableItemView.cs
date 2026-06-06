@@ -8,32 +8,26 @@ public class HudLootableItemView : MonoBehaviour
     [SerializeField] private LootableItemEUIController overriderEui;
     [SerializeField] private LootableItemEUIController moduleShardEui;
 
-    public IEnumerator Init()
+    public void Init()
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         creditEui.Offset();
         overriderEui.Offset();
         moduleShardEui.Offset();
 
         gameObject.SetActive(true);
-
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Betteries View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
     }
 
-    public void SetCredit(int value)
+    public void SetCreditUI(int value)
     { 
         creditEui.PlayAmount(value);
     }
 
-    public void SetOverrider(int value)
+    public void SetOverriderUI(int value)
     {
         overriderEui.PlayAmount(value);
     }
 
-    public void SetModuleShard(int value)
+    public void SetModuleShardUI(int value)
     {
         moduleShardEui.PlayAmount(value);
     }

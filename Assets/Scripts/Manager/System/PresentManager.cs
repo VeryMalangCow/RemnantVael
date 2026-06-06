@@ -44,6 +44,7 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
         uiDataset.allyBaseUpgrade = uiSet.allyBaseUpgradeUi;
         uiDataset.allyModuleUpgrade = uiSet.allyModuleUpgradeUi;
 
+        uiDataset.premiumCreditCvt = uiSet.premiumCreditCvtUi;
         uiDataset.protoCoreCvt = uiSet.protoCoreCvtUi;
         uiDataset.etherCoreCvt = uiSet.etherCoreCvtUi;
         uiDataset.originCoreCvt = uiSet.originCoreCvtUi;
@@ -98,7 +99,8 @@ public class PresenterUIData
 
     public AllyBaseUpgradeUIController allyBaseUpgrade;
     public AllyModuleUpgradeUIController allyModuleUpgrade;
-    
+
+    public PremiumCreditCvtUIController premiumCreditCvt;
     public ProtoCoreCvtUIController protoCoreCvt;
     public EtherCoreCvtUIController etherCoreCvt;
     public OriginCoreCvtUIController originCoreCvt;

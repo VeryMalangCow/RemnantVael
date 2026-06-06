@@ -17,10 +17,8 @@ public class HudTabModuleView : MonoBehaviour
     private Tween tabTween;
 
     // Init
-    public IEnumerator Init()
+    public void Init()
     {
-        Stopwatch sw = Stopwatch.StartNew();
-
         defaultModuleRectX = DevTool.Get_ComponentTType(
             moduleListParentRt.gameObject, out RectTransform module_Rt) ?
                 module_Rt.anchoredPosition.x : 0f;
@@ -34,10 +32,6 @@ public class HudTabModuleView : MonoBehaviour
         }
 
         gameObject.SetActive(true);
-
-        sw.Stop();
-        UnityEngine.Debug.Log($"Player HUD : <color=orange>Tab Module View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
     }
 
     public void TabOn(float durTime)

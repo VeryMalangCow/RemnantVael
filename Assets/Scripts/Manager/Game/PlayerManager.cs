@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,7 +36,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     [HideInInspector] private EnemyController pingedEnemy;
 
     [HideInInspector] private Dictionary<int, int> havingKeycardDict = new Dictionary<int, int>();
-
+    public Action<Dictionary<int, int>> OnKeycardChanged;
 
     #endregion
 
@@ -158,29 +159,29 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 
     #region KeyCard
 
-    public void Gain_KeyCard(int keyCardID, int amount = 1)
+    public void GainKeyCard(int keyCardID, int amount = 1)
     {
         if (havingKeycardDict.ContainsKey(keyCardID))
         {
-            havingKeycardDict[keyCardID] += amount;
-            MainGameUIManager.instance.playerHud.KeyView.Set_KeyItem(havingKeycardDict);
-            MainGameUIManager.instance.playerHud.KeyView.Effect_KeyIcon(keyCardID);
+            havingKeycardDict[keyCardID] = Mathf.Min(havingKeycardDict[keyCardID] + amount, 99);
+            MainGameUIManager.instance.playerHud.KeyView.EffectKeyIcon(keyCardID);
+            OnKeycardChanged?.Invoke(havingKeycardDict);
         }
     }
 
-    public void Use_KeyCard(int keyCardID, int amount = 1)
+    public void UseKeyCard(int keyCardID, int amount = 1)
     {
         if (havingKeycardDict.ContainsKey(keyCardID))
         {
-            havingKeycardDict[keyCardID] -= amount;
-            MainGameUIManager.instance.playerHud.KeyView.Set_KeyItem(havingKeycardDict);
+            havingKeycardDict[keyCardID] = Mathf.Max(havingKeycardDict[keyCardID] - amount, 0);
             SoundManager.instance.Play_2D_SFX_Build("UseKeycard");
+            OnKeycardChanged?.Invoke(havingKeycardDict);
         }
     }
 
-    public bool Can_UseKeyCard(int keyCardID)
-    {
-        return havingKeycardDict.ContainsKey(keyCardID) && havingKeycardDict[keyCardID] > 0;
-    }
+    public bool CanUseKeyCard(int keyCardID)
+        => havingKeycardDict.ContainsKey(keyCardID) && 
+        havingKeycardDict[keyCardID] > 0;
+    
     #endregion
 }

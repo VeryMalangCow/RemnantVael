@@ -161,7 +161,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         Offset_Equip();
         Offset_Forge();
         Offset_ColorComp();
-        Offset_Subscribe();
 
         Set_LanguageTxt();
     }
@@ -188,8 +187,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             synergyLvTxtList[i].text = (ModuleItemManager.synchoronyMaxLv * (i + 1)).ToString();
         
     }
-
-
 
     private void Offset_Equip()
     {
@@ -363,21 +360,17 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         subColorCompList = null;
     }
 
-    private void Offset_Subscribe()
+    public void SetModuleShard(int value)
     {
-        PlayerManager.instance.playerController.currentModuleShard
-            .Subscribe(value =>
-            {
-                msTxt.text = value.ToString();
-            });
+        msTxt.text = value.ToString();
     }
 
-    public void SetEmptyBettery(int value)
+    public void SetEmptyBetteryUI(int value)
     {
         bcTxt.text = value.ToString();
     }
 
-    public void SetChargedBettery(int value)
+    public void SetChargedBetteryUI(int value)
     {
         ecTxt.text = value.ToString();
     }
@@ -716,7 +709,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             Set_Warning(true, warning_InvenFull);
             return;
         }
-        else if (PlayerManager.instance.playerController.currentModuleShard.Value < ModuleItemManager.Get_MS_ForMake() ||
+        else if (PlayerManager.instance.playerController.currentModuleShard < ModuleItemManager.Get_MS_ForMake() ||
             !PlayerManager.instance.playerController.IsEnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
         {
             Set_Warning(true, warning_NotEnoughItem);
@@ -757,7 +750,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         if (ModuleItemManager.Get_MS_ForFusion(
             ModuleItemManager.instance.Get_ModuleState(index[0]))
-                > PlayerManager.instance.playerController.currentModuleShard.Value) // MS가 부족한가?
+                > PlayerManager.instance.playerController.currentModuleShard) // MS가 부족한가?
         {
             Set_Warning(true, warning_NotEnoughItem);
             return;
