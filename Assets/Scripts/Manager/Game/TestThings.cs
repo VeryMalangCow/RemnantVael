@@ -29,20 +29,15 @@ public class TestThings : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4) && StageManager.instance.targetStageID != 99)
         {
             PlayerController player = PlayerManager.instance.playerController;
-            /*
-            BaseWeapon.BaseDamage.BuffedState = 300f;
-            BaseWeapon.AccuracyRate.ActualState.Value = 100f;
-            WalkSpeed.ActualState.Value = 15f;
-            */
 
             player.GainChargedBettery(9999);
             player.GainCredit(9999);
             player.GainOverrider(9999);
             player.GainModuleShard(9999);
 
-            player.strikeTeamPresence.Value = 100;
-            player.uplinkTeamPresence.Value = 100;
-            player.neoTeamPresence.Value = 100;
+            player.GainStrikePresence(100);
+            player.GainUplinkPresence(100);
+            player.GainNeoPresence(100);
 
             player.GainKeyCard(0, 99);
             player.GainKeyCard(1, 99);

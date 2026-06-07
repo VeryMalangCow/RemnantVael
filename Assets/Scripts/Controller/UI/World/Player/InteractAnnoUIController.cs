@@ -54,12 +54,12 @@ public class InteractAnnoUIController : UIController
         visualCg.DOFade(onOff ? 1f : 0f, durTime);
     }
 
-    public void Set_UI()
-    {
-        IInteract ii = PlayerManager.instance.playerController.currentInteractable.Value;
-        string txt = DevTool.Get_InteractingAnnoTxt(ii, out bool canInteract);
 
-        if (ii != null && txt != "" && ii is MonoBehaviour mb)
+    public void SetInteractableUI(IInteract interactable)
+    {
+        string txt = DevTool.Get_InteractingAnnoTxt(interactable, out bool canInteract);
+
+        if (interactable != null && txt != "" && interactable is MonoBehaviour mb)
         {
             if (canInteract)
                 Set_AnnoColor(interactableClr, true);
@@ -114,17 +114,6 @@ public class InteractAnnoUIController : UIController
         { 
             this.transform.position = ((MonoBehaviour)ii).transform.position; 
         }
-    }
-
-    #endregion
-
-    #region Set (Language)
-
-    public override void Set_LanguageTxt()
-    {
-        base.Set_LanguageTxt();
-
-        Set_UI();
     }
 
     #endregion

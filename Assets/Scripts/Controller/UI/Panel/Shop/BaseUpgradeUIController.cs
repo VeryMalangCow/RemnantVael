@@ -87,7 +87,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         Offset_Subscribe();
         Offset_ColorComp();
 
-        Set_LanguageTxt();
+        SetLanguageTxt();
     }
 
     private void Offset_Basic()
@@ -360,7 +360,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     #region Set (Language)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
         // Label
         labelName = ResourceManager.instance.Get_StaticWord(26) + " " + ResourceManager.instance.Get_StaticWord(2);
@@ -405,7 +405,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         // Desc
         descPanel.Set_LanguageTxt();
 
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
     }
 
     #endregion

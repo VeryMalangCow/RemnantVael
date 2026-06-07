@@ -162,7 +162,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         Offset_Forge();
         Offset_ColorComp();
 
-        Set_LanguageTxt();
+        SetLanguageTxt();
     }
 
     private void Offset_Basic()
@@ -709,7 +709,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             Set_Warning(true, warning_InvenFull);
             return;
         }
-        else if (PlayerManager.instance.playerController.currentModuleShard < ModuleItemManager.Get_MS_ForMake() ||
+        else if (PlayerManager.instance.playerController.moduleShard < ModuleItemManager.Get_MS_ForMake() ||
             !PlayerManager.instance.playerController.IsEnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
         {
             Set_Warning(true, warning_NotEnoughItem);
@@ -750,7 +750,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         if (ModuleItemManager.Get_MS_ForFusion(
             ModuleItemManager.instance.Get_ModuleState(index[0]))
-                > PlayerManager.instance.playerController.currentModuleShard) // MS가 부족한가?
+                > PlayerManager.instance.playerController.moduleShard) // MS가 부족한가?
         {
             Set_Warning(true, warning_NotEnoughItem);
             return;
@@ -1403,7 +1403,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     #region Set (Language)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
         // Label
         labelName = ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
@@ -1434,7 +1434,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // Amalgamation
         DevTool.Set_TxtList(amalgamationTxtList, amalgamationName);
 
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
     }
 
     #endregion

@@ -34,8 +34,6 @@ public class PlayerItemPresenter : MonoBehaviour, IPresentable
         premiumCreditCvt = uiData.premiumCreditCvt;
         etherCoreCvt = uiData.etherCoreCvt;
         originCoreCvt = uiData.originCoreCvt;
-
-        SubscribeOn();
     }
 
     public void SubscribeOn()

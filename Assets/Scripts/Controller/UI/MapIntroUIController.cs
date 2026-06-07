@@ -28,7 +28,7 @@ public class MapIntroUIController : UIController
 
     public void Play_IntroLabel()
     {
-        Set_LanguageTxt();
+        SetLanguageTxt();
 
         Play_Label(downTime: 1.5f, stayTime: 2.5f, upTime: 2f)
             .OnStart(() => { this.gameObject.SetActive(true); })
@@ -61,9 +61,9 @@ public class MapIntroUIController : UIController
 
     #region Set (Language)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
 
         StageData sd =
             StageManager.instance.Get_CurrentStageData();

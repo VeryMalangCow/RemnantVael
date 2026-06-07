@@ -78,7 +78,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     public void Set_LanguageTxt()
     {
-        titleLobby_UIController.Set_LanguageTxt();
+        titleLobby_UIController.SetLanguageTxt();
     }
 
     #endregion

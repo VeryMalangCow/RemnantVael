@@ -13,6 +13,6 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public virtual void Set_LanguageTxt() { }
+    public virtual void SetLanguageTxt() { }
 
 }

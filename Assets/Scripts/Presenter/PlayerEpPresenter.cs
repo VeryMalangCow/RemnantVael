@@ -14,10 +14,7 @@ public class PlayerEpPresenter : MonoBehaviour, IPresentable
         player = ownerData.player;
 
         view = uiData.hud.EpView;
-
         premiumCreditCvt = uiData.premiumCreditCvt;
-
-        SubscribeOn();
     }
 
     public void SubscribeOn()

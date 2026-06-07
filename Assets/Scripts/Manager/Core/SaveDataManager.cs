@@ -27,7 +27,6 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     // Path
     [HideInInspector] private string dataPath = "";
 
-
     #endregion
 
     #region Mono

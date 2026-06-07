@@ -34,8 +34,6 @@ public class PlayerBetteryPresenter : MonoBehaviour, IPresentable
         protoCoreCvt = uiData.protoCoreCvt;
         etherCoreCvt = uiData.etherCoreCvt;
         originCoreCvt = uiData.originCoreCvt;
-
-        SubscribeOn();
     }
 
     public void SubscribeOn()

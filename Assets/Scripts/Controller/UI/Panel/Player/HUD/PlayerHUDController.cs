@@ -3,7 +3,6 @@ using UniRx;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Collections;
@@ -28,6 +27,11 @@ public class PlayerHUDController : UIController
     [SerializeField] private HudKeyView keyViewPrefab;
     [SerializeField] private HudBoostView boostViewPrefab;
     [SerializeField] private HudTabItemView tabItemViewPrefab;
+    [SerializeField] private HudInteractView interactViewPrefab;
+    [SerializeField] private HudAllyPresenceView allyPresenceViewPrefab;
+    [SerializeField] private HudPlayerBuffView playerBuffViewPrefab;
+    [SerializeField] private HudMinimapView minimapViewPrefab;
+    [SerializeField] private HudHittedView hittedViewPrefab;
 
     private HudEpView epView;
     private HudTabStateView tabStateView;
@@ -40,6 +44,11 @@ public class PlayerHUDController : UIController
     private HudKeyView keyView; 
     private HudBoostView boostView;
     private HudTabItemView tabItemView;
+    private HudInteractView interactView;
+    private HudAllyPresenceView allyPresenceView; 
+    private HudPlayerBuffView playerBuffView;
+    private HudMinimapView minimapView;
+    private HudHittedView hittedView;
 
     public HudEpView EpView { get { return epView; } }
     public HudTabStateView TabStateView { get { return TabStateView; } }
@@ -52,90 +61,108 @@ public class PlayerHUDController : UIController
     public HudKeyView KeyView { get { return keyView; } }
     public HudBoostView BoostView { get { return boostView; } }
     public HudTabItemView TabItemView { get { return tabItemView; } }
-
-
-    [Space(10)]
-    [Header("=== Comp")]
-    [SerializeField] public CanvasGroup cg;
-
+    public HudInteractView InteractView { get { return interactView; } }
+    public HudAllyPresenceView AllyPresenceView { get { return allyPresenceView; } }
+    public HudPlayerBuffView PlayerBuffView { get { return playerBuffView; } }
+    public HudMinimapView MinimapView { get { return minimapView; } }
+    public HudHittedView HittedView { get { return hittedView; } }
 
     public IEnumerator Init(Color mainClr, Color subClr)
     {
+#if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
-        Offset_Basic();
-        Offset_Subscribe();
-        Offset_Img();
-        Offset_ColorComp();
-        Offset_AfterColorSet();
-
+#endif
+        isTabInteracted.Value = false;
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Offset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
         PlayerController player = PlayerManager.instance.playerController;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         epView = Instantiate(epViewPrefab, transform);
         epView.Init(mainClr, subClr);
         epViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Ep View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         tabStateView = Instantiate(tabStateViewPrefab, transform);
         tabStateView.Init(mainClr);
         tabStateViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>TabState View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         tabModuleView = Instantiate(tabModuleViewPrefab, transform);
         tabModuleView.Init();
         tabModuleViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>TabModule View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         skillView = Instantiate(skillViewPrefab, transform);
         skillView.Init(player.skillWeapon, mainClr, subClr);
         skillViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Skill View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         allyStateView = Instantiate(allyStateViewPrefab, transform);
         allyStateView.Init();
         allyStateViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>AllyState View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         betteryShardView = Instantiate(betteryShardViewPrefab, transform);
         betteryShardView.Init(subClr);
         betteryShardViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>BetteryShard View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         betteriesView = Instantiate(betteriesViewAndLootableViewPrefab, transform);
         betteriesView.Init(player, mainClr, subClr);
         if (betteriesView.gameObject.TryGetComponent(out HudLootableItemView _lootableItemsView))
@@ -144,43 +171,116 @@ public class PlayerHUDController : UIController
             lootableItemsView.Init();
         }
         betteriesViewAndLootableViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Betteries & LootableItems View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         keyView = Instantiate(keyViewPrefab, transform);
         keyView.Init();
         keyViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Key View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         boostView = Instantiate(boostViewPrefab, transform);
         boostView.Init(mainClr, subClr);
         boostViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Boost View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        sw.Restart();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         tabItemView = Instantiate(tabItemViewPrefab, transform);
         tabItemView.Init();
         tabItemViewPrefab = null;
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Tab Item View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
-        Set_LanguageTxt();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        interactView = Instantiate(interactViewPrefab, transform);
+        interactView.Init(mainClr, subClr);
+        interactViewPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Interact View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        allyPresenceView = Instantiate(allyPresenceViewPrefab, transform);
+        allyPresenceView.Init(mainClr, subClr);
+        allyPresenceViewPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Ally Presence View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        playerBuffView = Instantiate(playerBuffViewPrefab, transform);
+        playerBuffView.Init();
+        playerBuffViewPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Player Buff View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        minimapView = Instantiate(minimapViewPrefab, transform);
+        minimapView.Init(mainClr, subClr);
+        minimapViewPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Minimap View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        hittedView = Instantiate(hittedViewPrefab, transform);
+        hittedView.Init(mainClr, subClr);
+        hittedViewPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Minimap View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+        SetLanguageTxt();
     }
 
 
@@ -190,185 +290,17 @@ public class PlayerHUDController : UIController
 
 
     [Space(10)]
-    [Header("=== Tab")]
+    [SerializeField] public CanvasGroup cg;
+
+    [Space(10)]
     [SerializeField] public ReactiveProperty<bool> isTabInteracted = new ReactiveProperty<bool>();
     [SerializeField] public bool isTabInputed = false;
-    [SerializeField] private static float tabInputedMaxTime = 0.25f;
-    [SerializeField] private float tabInputedCurrentTime = 0f;
 
-    [Space(10)]
-    [Header("=== Minimap")]
-    [SerializeField] public MinimapEUIController minimapEui;
-    [SerializeField] public Image stageIcon;
-
-    [Space(10)]
-    [Header("=== Map Anno")]
-    [SerializeField] private TMP_Text stageNameTxt;
-    [SerializeField] private TMP_Text stageDescTxt;
-
-    [Space(10)]
-    [Header("=== Interact")]
-    [SerializeField] private TMP_Text interactOnOffTxt;
-    [SerializeField] private TMP_Text interactDescTxt;
-
-    [SerializeField] private Image innerImg;
-    [SerializeField] private Image usingInnerImg;
-    [SerializeField] private Color uninteractableClr;
-
-    [Space(10)]
-    [Header("=== Ally")]
-    [SerializeField] private AllyPresenceEUIController stAllyPresence;
-    [SerializeField] private AllyPresenceEUIController utAllyPresence;
-    [SerializeField] private AllyPresenceEUIController ntAllyPresence;
-    [SerializeField] private Image allyReputationImg;
-    [SerializeField] private TMP_Text allyReputationTxt;
-
-    [Space(10)]
-    [Header("=== Buff")]
-    [SerializeField] private Transform buffParentTf;
-    [SerializeField] public List<BuffIconEUIController> allBuffIconUi;
-    [SerializeField] private float buffUiXInterval = 12;
-
-    [Space(10)]
-    [Header("=== Screen")]
-    [SerializeField] private Image hittedScreen;
-    [SerializeField] private Transform hittedInfoPivotTf;
-    [SerializeField] private RectTransform hittedInfoRt;
-    [SerializeField] private TMP_Text hittedDmgTxt;
-    [SerializeField] private CanvasGroup paneltyAnnoCg;
-    [SerializeField] private TMP_Text paneltyAnnoNameTxt;
-    [SerializeField] private TMP_Text paneltyAnnoDescTxt;
+    private float tabInputedCurrentTime = 0f;
+    private float tabInputedMaxTime = 0.25f;
+    private readonly float tabInteractDurTime = 0.25f;
 
     #endregion
-
-    #region - Hide
-
-    // String
-    [HideInInspector] private static string interactEnableString;
-    [HideInInspector] private static string interactDisableString;
-    [HideInInspector] private static string interacInoperableString;
-    [HideInInspector] private static string interactNoneString;
-
-    // Comp
-
-    // Tab
-    [HideInInspector] private static float tabInteractDurTime = 0.25f;
-
-    // Tab -> Skill State
-
-    // Color
-    [HideInInspector] public List<Component> mainClrCompList;
-    [HideInInspector] public List<Component> subClrCompList;
-    [HideInInspector] private Color interactableClr;
-
-    // Tab
-    [HideInInspector] private Sequence tabSeq;
-
-    // Interact
-    [HideInInspector] private bool isActingInteractUi = false;
-
-    // Ally
-    [HideInInspector] private List<AllyPresenceEUIController> allAllyPresence = new List<AllyPresenceEUIController>();
-
-    // Hitted
-    [HideInInspector] private static float offsetXPos;
-
-    // KeyItem
-
-    // High Lv Item
-
-    #endregion
-
-    #endregion
-
-    #region Offset
-
-    private void Offset_Basic()
-    {
-        allAllyPresence = new List<AllyPresenceEUIController> { stAllyPresence, utAllyPresence, ntAllyPresence };
-
-        for (int i = 0; i < allAllyPresence.Count; i++)
-            allAllyPresence[i].Offset();
-        
-        // 버프
-        //PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
-
-        offsetXPos = hittedInfoRt.anchoredPosition.x;
-
-        isTabInteracted.Value = false;
-    }
-
-    private void Offset_Subscribe()
-    {
-        PlayerManager.instance.playerController.strikeTeamPresence
-            .Subscribe(_presence =>
-            {
-                stAllyPresence.Play_Amount(PlayerManager.instance.playerController.strikeTeamPresence.Value, PlayerManager.instance.playerController.needStrikeTeamPresence.Value);
-            });
-        PlayerManager.instance.playerController.uplinkTeamPresence
-            .Subscribe(_presence =>
-            {
-                utAllyPresence.Play_Amount(PlayerManager.instance.playerController.uplinkTeamPresence.Value, PlayerManager.instance.playerController.needUplinkTeamPresence.Value);
-            });
-        PlayerManager.instance.playerController.neoTeamPresence
-            .Subscribe(_presence =>
-            {
-                ntAllyPresence.Play_Amount(PlayerManager.instance.playerController.neoTeamPresence.Value, PlayerManager.instance.playerController.needNeoTeamPresence.Value);
-            });
-
-        PlayerManager.instance.playerController.needStrikeTeamPresence
-            .Subscribe(_needPresence =>
-            {
-                stAllyPresence.Play_Amount(PlayerManager.instance.playerController.strikeTeamPresence.Value, PlayerManager.instance.playerController.needStrikeTeamPresence.Value);
-            });
-        PlayerManager.instance.playerController.needUplinkTeamPresence
-            .Subscribe(_needPresence =>
-            {
-                utAllyPresence.Play_Amount(PlayerManager.instance.playerController.uplinkTeamPresence.Value, PlayerManager.instance.playerController.needUplinkTeamPresence.Value);
-            });
-        PlayerManager.instance.playerController.needNeoTeamPresence
-            .Subscribe(_needPresence =>
-            {
-                ntAllyPresence.Play_Amount(PlayerManager.instance.playerController.neoTeamPresence.Value, PlayerManager.instance.playerController.needNeoTeamPresence.Value);
-            });
-    }
-
-    private void Offset_Img()
-    {
-        paneltyAnnoCg.alpha = 0f;
-        DevTool.SetColor(uninteractableClr, paneltyAnnoNameTxt);
-        paneltyAnnoNameTxt.text = "";
-        DevTool.SetColor(uninteractableClr, paneltyAnnoDescTxt);
-        paneltyAnnoDescTxt.text = "";
-        paneltyAnnoCg.gameObject.SetActive(false);
-    }
-
-    public void Offset_ColorComp()
-    {
-        DevTool.Set_AlphaColor(stageNameTxt, 1);
-        DevTool.Set_AlphaColor(stageDescTxt, 0);
-
-        mainClrCompList.AddRange(Get_MainColorComp());
-        subClrCompList.AddRange(Get_SubColorTxt());
-
-        // Color Set
-        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        DevTool.Set_Color(mainClr, mainClrCompList);
-        mainClrCompList.Clear();
-        mainClrCompList = null;
-
-        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-        DevTool.Set_Color(subClr, subClrCompList);
-        subClrCompList.Clear();
-        subClrCompList = null;
-
-        interactableClr = interactOnOffTxt.color;
-    }
-
-    private void Offset_AfterColorSet()
-    {
-        minimapEui.Offset();
-    }
 
     #endregion
 
@@ -432,71 +364,6 @@ public class PlayerHUDController : UIController
 
     #endregion
 
-    #region Interact
-
-    public void Set_InteractUI()
-    {
-        if (isActingInteractUi) return; 
-
-        IInteract ii = PlayerManager.instance.playerController.currentInteractable.Value;
-        string txt = DevTool.Get_InteractingAnnoTxt(ii, out bool canInteract);
-
-        if (ii != null && txt != "")
-        {
-            if (canInteract)
-            {
-                Set_InteractTxt($"-{interactEnableString}-", txt, interactableClr);
-                Set_InteractFade(1f, 0.5f);
-            }
-            else
-            {
-                Set_InteractTxt($"-{interacInoperableString}-", txt, uninteractableClr);
-                Set_InteractFade(1f, 0.5f);
-            }
-        }
-        else
-        {
-            Set_InteractTxt($"-{interactDisableString}-", $"< {interactNoneString} >", new Color(1, 1, 1, interactOnOffTxt.color.a));
-            Set_InteractFade(0.25f, 0.5f);
-        }
-    }
-
-
-    private void Set_InteractTxt(string onOffTxt, string interactableTxt, Color onOffTxtColor)
-    {
-        interactOnOffTxt.text = onOffTxt;
-        interactOnOffTxt.color = onOffTxtColor;
-        interactDescTxt.text = interactableTxt;
-    }
-
-    private void Set_InteractFade(float alpha, float durTime)
-    {
-        DevTool.SetKillTween(interactOnOffTxt);
-        DevTool.SetKillTween(interactDescTxt);
-
-        interactOnOffTxt.DOFade(alpha, durTime);
-        interactDescTxt.DOFade(alpha, durTime);
-    }
-
-    #endregion
-
-    #region Stage
-
-    public void Set_StageDescription()
-    {
-        stageNameTxt.DOText(
-            ResourceManager.instance.Get_MapName(
-                StageManager.instance.Get_CurrentStageData().infoData.stageId), 0.5f)
-            .OnPlay(() => { stageNameTxt.text = ""; });
-
-        stageDescTxt.DOText(
-            ResourceManager.instance.Get_MapDesc(
-                StageManager.instance.Get_CurrentStageData().infoData.stageId), 0.5f)
-            .OnPlay(() => { stageDescTxt.text = ""; });
-    }
-
-    #endregion
-
     #region Tab
 
     public void SetOn_TabInteract()
@@ -506,19 +373,11 @@ public class PlayerHUDController : UIController
 
         Reset_Tab();
 
-        DevTool.Set_KillTween(tabSeq);
-
         tabStateView.TabOn(tabInteractDurTime);
         tabModuleView.TabOn(tabInteractDurTime);
         boostView.TabOn(tabInteractDurTime);
         tabItemView.TabOn(tabInteractDurTime);
-
-        tabSeq = Play_SeqInteract(
-            stageNameAlpha: 0f,
-            stageDescAlpha: 1f,
-            tabInteractDurTime, Ease.OutCubic);
-
-        minimapEui.SetOn_TabInteract(tabInteractDurTime);
+        minimapView.TabOn(tabInteractDurTime);
     }
 
     public void SetOff_TabInteract()
@@ -526,223 +385,26 @@ public class PlayerHUDController : UIController
         if (!isTabInteracted.Value) return; 
         isTabInteracted.Value = false;
 
-        DevTool.Set_KillTween(tabSeq);
-
         tabStateView.TabOff(tabInteractDurTime);
         tabModuleView.TabOff(tabInteractDurTime);
         boostView.TabOff(tabInteractDurTime);
         tabItemView.TabOff(tabInteractDurTime);
-
-        tabSeq = Play_SeqInteract(
-            stageNameAlpha: 1f,
-            stageDescAlpha: 0f, 
-            tabInteractDurTime, Ease.InCubic);
-
-        minimapEui.SetOff_TabInteract(tabInteractDurTime);
-    }
-
-    #endregion
-
-    #region Buff
-
-    public void Set_BuffPosUI()
-    {
-        for (int i = 0; i < allBuffIconUi.Count; i++)
-            allBuffIconUi[i].rt.anchoredPosition = new Vector2(i * (allBuffIconUi[i].rt.rect.width + buffUiXInterval), 0);
-    }
-
-    #endregion
-
-    #region Tween
-
-    #region Panelty
-
-    public void Play_PrisonPanelty()
-    {
-        Play_HittedPlayScreen(20, 1f);
-
-        string title = $"< {ResourceManager.instance.Get_StaticDesc(36).Replace("\\n", "\n")} >";
-        string desc = ResourceManager.instance.Get_StaticDesc(37).Replace("\\n", "\n");
-        paneltyAnnoNameTxt.text = "";
-        paneltyAnnoDescTxt.text = "";
-
-        Sequence seq = DOTween.Sequence();
-        paneltyAnnoCg.gameObject.SetActive(true);
-
-        seq.Append(paneltyAnnoCg.DOFade(1f, 0.5f));
-        seq.Join(paneltyAnnoNameTxt.DOText(title, 0.5f));
-        seq.Join(paneltyAnnoDescTxt.DOText(desc, 0.5f));
-        seq.AppendInterval(1f);
-        seq.Append(paneltyAnnoCg.DOFade(0f, 2f));
-
-        seq.OnComplete(() => { paneltyAnnoCg.gameObject.SetActive(false); });
-    }
-
-    #endregion
-
-    #region Hitted
-
-    // 피격 시 효과
-    public void Play_HittedPlayScreen(float dmg, float durTime)
-    {
-        DevTool.SetKillTween(hittedScreen);
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(hittedScreen.DOFade((Math.Min(100, dmg) * 0.01f), durTime));
-        seq.Append(hittedScreen.DOFade(0, durTime));
-    }
-
-
-    // 피격 정보
-    public void Play_HittedPlayInfo(float dmg, float durTime)
-    {
-        hittedDmgTxt.text = $"<size=75%>{ResourceManager.instance.Get_StaticWord(74)}:</size> {dmg.ToString("0.0")}";
-        hittedDmgTxt.color = uninteractableClr;
-
-        Play_Info(durTime);
-    }
-
-    // 회피 정보
-    public void Play_AvoidPlayInfo(float durTime)
-    {
-        hittedDmgTxt.text = $"{ResourceManager.instance.Get_StaticWord(75)}";
-        hittedDmgTxt.color = Color.white;
-
-        Play_Info(durTime);
-    }
-
-    // 정보
-    private void Play_Info(float durTime)
-    {
-        hittedInfoPivotTf.rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-5f, 5f));
-
-        DevTool.SetKillTween(hittedInfoRt);
-
-        Sequence seq = DOTween.Sequence();
-
-        hittedInfoRt.anchoredPosition = new Vector2(offsetXPos, 0);
-        seq.Append(hittedInfoRt.DOAnchorPosX(-50f, durTime * 0.2f).SetEase(Ease.Linear));
-        seq.Append(hittedInfoRt.DOAnchorPosX(50f, durTime * 0.6f).SetEase(Ease.Linear));
-        seq.Append(hittedInfoRt.DOAnchorPosX(-offsetXPos, durTime * 0.2f).SetEase(Ease.Linear));
-    }
-
-    #endregion
-
-    #region Tab Interact
-
-    // Tab 이동
-    private Sequence Play_SeqInteract(float stageNameAlpha, float stageDescAlpha,float durTime, Ease ease)
-    {
-        Sequence seq = DOTween.Sequence();
-        //seq.Join(moduleListParentRt.DOAnchorPosX(moduleRtX, durTime));
-        //seq.Join(allyStateParentRt.DOAnchorPosX(allyStateRtX, durTime));
-        //seq.Join(playerStatesCostParentRt.DOAnchorPosX(costRtX, durTime));
-        //seq.Join(skillStatesParentRt.DOAnchorPosY(skillRtY, durTime));
-        //seq.Join(boostRt.DOAnchorPosY(boostRtY, durTime));
-        //seq.Join(highLvItemRt.DOAnchorPosX(highLvItemRtX, durTime));
-
-        seq.Join(stageNameTxt.DOFade(stageNameAlpha, durTime));
-        seq.Join(stageDescTxt.DOFade(stageDescAlpha, durTime));
-        seq.SetEase(ease);
-        return seq;
-    }
-
-    // 상호작용 시 발생
-    public void Play_UseInteractUI()
-    {
-        isActingInteractUi = true;
-
-        DevTool.SetKillTween(usingInnerImg);
-
-        usingInnerImg.DOFade(1f, 0.2f)
-            .OnComplete(() =>
-            {
-                usingInnerImg.DOFade(0.25f, 0.2f)
-                .OnComplete(() =>
-                {
-                    isActingInteractUi = false;
-                    Set_InteractUI();
-                });
-            });
-    }
-    #endregion
-
-    #endregion
-
-    #region Get
-
-    private List<Component> Get_MainColorComp()
-    {
-        List<Component> result = new List<Component>
-        {
-            // 스테이지
-            stageNameTxt, stageDescTxt,
-
-            // 상호작용
-            interactOnOffTxt
-        };
-
-
-
-        // Ally
-        for (int i = 0; i < allAllyPresence.Count; i++)
-        {
-            mainClrCompList.AddRange(DevTool.Get_ChildList<Image>(allAllyPresence[i].capMiddleRt.transform));
-        }
-        
-        return result;
-    }
-
-    private List<Component> Get_SubColorTxt()
-    {
-        List<Component> result = new List<Component>
-        {
-            // 미니맵
-            minimapEui.innerImg, 
-
-            // 상호작용
-            innerImg, usingInnerImg
-        };
-
-        // Ally
-        for (int i = 0; i < allAllyPresence.Count; i++)
-            subClrCompList.Add(allAllyPresence[i].innerImg);
-        
-        return result;
-    }
-
-    #endregion
-
-    #region Ally Reputation
-
-    public void Set_AllyReputation(float value)
-    {
-        allyReputationTxt.text = $"{value} %"; 
-        allyReputationImg.fillAmount = value * 0.01f;
-        allyReputationImg.color = Color.Lerp(new Color(0.8f, 1f, 0.8f, 1f), new Color(0.35f, 1f, 0.35f, 1f), allyReputationImg.fillAmount);
+        minimapView.TabOff(tabInteractDurTime);
     }
 
     #endregion
 
     #region Set (Language)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
-
-        interactEnableString = ResourceManager.instance.Get_StaticWord(4);
-        interactDisableString = ResourceManager.instance.Get_StaticWord(5);
-        interacInoperableString = ResourceManager.instance.Get_StaticWord(6);
-        interactNoneString = ResourceManager.instance.Get_StaticWord(7);
+        base.SetLanguageTxt();
 
         tabStateView.SetLanguage();
         skillView.SetLanguage();
-
-        for (int i = 0; i < allAllyPresence.Count; i++)
-            allAllyPresence[i].presenceLangTxt.text = $"{ResourceManager.instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.instance.Get_StaticWord(70)}</size>";
-
-        Set_InteractUI();
-        Set_StageDescription();
+        interactView.SetLanguage();
+        allyPresenceView.SetLanguage();
+        minimapView.SetStageDescription();
     }
 
     #endregion

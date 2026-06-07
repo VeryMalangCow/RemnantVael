@@ -26,9 +26,9 @@ public class PlayerShopUIController : ShopUIController
 
     #region Set (Language)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
 
         for (int i = 0; i < panelTabList.Count; i++)
             tabSideTxtList[i].text = tabBtnTxtList[i];

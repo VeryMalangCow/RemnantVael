@@ -46,9 +46,9 @@ public class ProtoCoreCvtUIController : ConverterUIController
 
     #region Language
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
 
         // Label
         labelName = ResourceManager.instance.Get_StaticWord(118) + " " +
@@ -92,7 +92,7 @@ public class ProtoCoreCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
 
         int currentPossibilityCredit =
-            Get_Acquisitable_Credit(pc.currentCredit);
+            Get_Acquisitable_Credit(pc.credit);
 
         int currentPossibilityCB =
             Get_Acquisitable_ChargedBettery(pc.chargedBettery);
@@ -112,7 +112,7 @@ public class ProtoCoreCvtUIController : ConverterUIController
 
         int needCredit = acquisitionBookAmount * need_Credit;
         cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());
-        bool canCvtByCredit = needCredit <= pc.currentCredit;
+        bool canCvtByCredit = needCredit <= pc.credit;
         cCvtMaterialEui.Set_Condition(canCvtByCredit);
 
         float needCB = acquisitionBookAmount * need_ChargedBettery;

@@ -117,7 +117,7 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         if (isOn)
         {
-            PlayerManager.instance.playerController.currentInteractable.Value = null;
+            PlayerManager.instance.playerController.SetInteractable(null);
             Play_MoveToTarget();
         }
     }

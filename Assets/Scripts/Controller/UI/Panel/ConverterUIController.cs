@@ -50,7 +50,7 @@ public abstract class ConverterUIController : SinglePanelUIController
         Offset_Basic();
         Offset_ColorComp();
 
-        Set_LanguageTxt();
+        SetLanguageTxt();
     }
 
     private void Offset_Basic()
@@ -283,9 +283,9 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     #region Language
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
 
         // Close
         DevTool.Get_ComponentTType<TMP_Text>(closeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(closeBtn, 0)).gameObject).text =

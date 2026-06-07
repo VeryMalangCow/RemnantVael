@@ -4977,7 +4977,7 @@ public abstract class AllyRequest
     public void Complete()
     {
         ally.Gain_Trust(rank + 1);
-        PlayerManager.instance.playerController.Gain_Reputation((rank + 1) * 0.2f);
+        PlayerManager.instance.playerController.GainReputation((rank + 1) * 0.2f);
         rewardDict[rewardType](rank);
         ally.DataOff_Request();
         Set_IWhenRemove();
@@ -4989,7 +4989,7 @@ public abstract class AllyRequest
     public void Fail()
     {
         ally.Reduce_Trust(rank + 1);
-        PlayerManager.instance.playerController.Reduce_Reputation((rank + 1) * 0.2f);
+        PlayerManager.instance.playerController.ReduceReputation((rank + 1) * 0.2f);
         ally.DataOff_Request();
         Set_IWhenRemove();
 

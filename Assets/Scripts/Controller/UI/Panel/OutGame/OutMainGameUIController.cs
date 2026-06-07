@@ -625,7 +625,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private void Offset_Txt()
     {
-        Set_LanguageTxt();
+        SetLanguageTxt();
     }
 
     public void Offset_ColorComp()
@@ -995,9 +995,9 @@ public class OutMainGameUIController : SinglePanelUIController
 
     #region Set (LanguageTxt)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
 
         basePanelBtnTxt.text = ResourceManager.instance.Get_StaticWord(22);
         DevTool.Get_ComponentTType<TMP_Text>(resumeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(resumeBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(19);

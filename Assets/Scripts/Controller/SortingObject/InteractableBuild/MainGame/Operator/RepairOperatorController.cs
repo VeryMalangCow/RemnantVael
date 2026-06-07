@@ -76,7 +76,7 @@ public class RepairOperatorController : OperatorController
         if (targetBuild == null ||
             targetBuild.Is_MaxDur() ||
             targetBuild.isBroken ||
-            PlayerManager.instance.playerController.currentCredit < Get_NeedPay()) return;
+            PlayerManager.instance.playerController.credit < Get_NeedPay()) return;
 
         // 소비 아이템
         PlayerManager.instance.playerController.GainCredit(-Get_NeedPay());

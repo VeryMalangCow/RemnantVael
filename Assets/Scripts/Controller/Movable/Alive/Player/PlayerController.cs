@@ -10,9 +10,11 @@ public class PlayerController : AliveObjectController
 {
     #region Value
 
+    // Ep
     public event Action<float, float> OnEpChanged;
     public event Action<float, float> OnMaxEpChanged;
 
+    // Bettery
     public int betteryShard { get; private set; } = 0;
     public event Action<int> OnBetteryShardChanged;
     public int emptyBettery { get; private set; } = 0;
@@ -20,20 +22,57 @@ public class PlayerController : AliveObjectController
     public int chargedBettery { get; private set; } = 0;
     public event Action<int> OnChargedBetteryChanged;
 
-
-    public int currentModuleShard = 0;
+    // Module
+    public int moduleShard = 0;
     public event Action<int> OnModuleShardChanged;
-    public int currentOverrider = 0;
+    
+    // Overrider
+    public int overrider = 0;
     public event Action<int> OnOverriderChanged;
-    public int currentCredit = 0;
+    
+    // Credit
+    public int credit = 0;
     public event Action<int> OnCreditChanged;
 
-    private Dictionary<int, int> havingKeycardDict = new Dictionary<int, int>();
+    // keycard
+    private Dictionary<int, int> keycardDict = new Dictionary<int, int>();
     public Action<Dictionary<int, int>> OnKeycardChanged;
 
-    public int currentBoostLv { get; private set; } = 0;
+    // boost
+    public int boostLv { get; private set; } = 0;
     public readonly int maxBoostLv = 3;
     public event Action<int> OnBoostLvChanged;
+
+    // Interact
+    private List<GameObject> interactableGoList = new List<GameObject>();
+    public IInteract interactable { get; private set; } = null;
+    public event Action<IInteract> OnInteractableChanged;
+
+    // Presence
+    public int strikeTeamPresence { get; private set; } = 0;
+    public int needStrikeTeamPresence { get; private set; } = 0;
+
+    public event Action<int, int> OnStrikePresenceChanged;
+
+
+    public int uplinkTeamPresence { get; private set; } = 0;
+    public int needUplinkTeamPresence { get; private set; } = 0;
+
+    public event Action<int, int> OnUplinkPresenceChanged;
+
+
+    public int neoTeamPresence { get; private set; } = 0;
+    public int needNeoTeamPresence { get; private set; } = 0;
+
+    public event Action<int, int> OnNeoPresenceChanged;
+
+    public readonly int needIntervalPresence = 5;
+
+
+    // Reputation
+    public float reputation { get; private set; } = 0f;
+
+    public event Action<float> OnReputationChanged;
 
     #region - Inspector
 
@@ -136,23 +175,6 @@ public class PlayerController : AliveObjectController
     // Buff
     [HideInInspector] public List<BuffController> currentBuffs = new List<BuffController>();
 
-    // Interact
-    [SerializeField] public List<GameObject> currentInteractableGoList = new List<GameObject>();
-    [HideInInspector] public ReactiveProperty<IInteract> currentInteractable = new();
-
-
-    // Ally Presence
-    [HideInInspector] public ReactiveProperty<int> strikeTeamPresence = new();
-    [HideInInspector] public ReactiveProperty<int> uplinkTeamPresence = new();
-    [HideInInspector] public ReactiveProperty<int> neoTeamPresence = new();
-    [HideInInspector] public int needIntervalPresence = 5;
-    [HideInInspector] public ReactiveProperty<int> needStrikeTeamPresence = new();
-    [HideInInspector] public ReactiveProperty<int> needUplinkTeamPresence = new();
-    [HideInInspector] public ReactiveProperty<int> needNeoTeamPresence = new();
-
-    // Ally Reputation
-    [HideInInspector] private ReactiveProperty<float> reputation = new ReactiveProperty<float>();
-    [HideInInspector] public float Get_Reputation { get { return reputation.Value; } }
 
     // BaseAnim
     [HideInInspector] private Sequence baseSeq = null;
@@ -183,9 +205,7 @@ public class PlayerController : AliveObjectController
     public void TestStart()
     {
         Offset_FirstSetting();
-        Offset_Subscribe();
         Offset_Controller();
-        Offset_Reputation();
 
         enabled = true;
     }
@@ -227,37 +247,30 @@ public class PlayerController : AliveObjectController
 
         // Item
         chargedBettery = 0;
-        currentCredit = 0;
-        currentOverrider = 0;
-        currentModuleShard = 0;
+        credit = 0;
+        overrider = 0;
+        moduleShard = 0;
 
         // Presence
-        needStrikeTeamPresence.Value = needIntervalPresence;
-        needUplinkTeamPresence.Value = needIntervalPresence;
-        needNeoTeamPresence.Value = needIntervalPresence;
+        needStrikeTeamPresence = needIntervalPresence;
+        needUplinkTeamPresence = needIntervalPresence;
+        needNeoTeamPresence = needIntervalPresence;
 
-        strikeTeamPresence.Value = 0;
-        uplinkTeamPresence.Value = 0;
-        neoTeamPresence.Value = 0;
+        strikeTeamPresence = 0;
+        uplinkTeamPresence = 0;
+        neoTeamPresence = 0;
+
+        reputation = 1f;
     }
 
-    private void Offset_Subscribe()
-    {
-        currentInteractable
-            .Subscribe(interact =>
-            {
-                MainGameUIManager.instance.playerHud.Set_InteractUI();
-                MainGameUIManager.instance.interactAnnoUi.Set_UI();
-                Set_MoveDir();
-            });
-    }
+
 
     private void Offset_Controller()
     {
-        havingKeycardDict = new Dictionary<int, int>();
+        keycardDict = new Dictionary<int, int>();
 
         for (int i = 0; i < ResourceManager.instance.Get_KeycardAmount(); i++)
-            havingKeycardDict.Add(i, 0);
+            keycardDict.Add(i, 0);
 
         dash.Offset();
         sg = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
@@ -266,17 +279,6 @@ public class PlayerController : AliveObjectController
         audioQueueSet.Offset(); 
         movementAs.volume = 0.2f;
     }
-
-    private void Offset_Reputation()
-    {
-        reputation.Subscribe(value =>
-            {
-                MainGameUIManager.instance.playerHud.Set_AllyReputation(value);
-            });
-
-        reputation.Value = 1f;
-    }
-
 
     #endregion
 
@@ -292,7 +294,7 @@ public class PlayerController : AliveObjectController
 
     private void LateUpdate()
     {
-        MainGameUIManager.instance.interactAnnoUi.Set_PosIfNot(currentInteractable.Value);
+        MainGameUIManager.instance.interactAnnoUi.Set_PosIfNot(interactable);
         Set_Tween(rbLower.transform, rb.velocity);
     }
 
@@ -526,18 +528,18 @@ public class PlayerController : AliveObjectController
 
     public void GainCredit(int gainValue)
     {
-        currentCredit = Mathf.Min(currentCredit + gainValue, 9999);
+        credit = Mathf.Min(credit + gainValue, 9999);
         SetCreditUI();
     }
     public void UseCredit(int useValue)
     {
-        currentCredit = Mathf.Max(currentCredit - useValue, 0);
+        credit = Mathf.Max(credit - useValue, 0);
         SetCreditUI();
     }
 
     public void SetCreditUI()
     {
-        OnCreditChanged?.Invoke(currentCredit);
+        OnCreditChanged?.Invoke(credit);
     }
 
     #endregion
@@ -546,19 +548,19 @@ public class PlayerController : AliveObjectController
 
     public void GainOverrider(int gainValue)
     {
-        currentOverrider = Mathf.Min(currentOverrider + gainValue, 9999);
+        overrider = Mathf.Min(overrider + gainValue, 9999);
         SetOverriderUI();
     }
 
     public void UseOverrider(int useValue)
     {
-        currentOverrider = Mathf.Min(currentOverrider - useValue, 0);
+        overrider = Mathf.Min(overrider - useValue, 0);
         SetOverriderUI();
     }
 
     public void SetOverriderUI()
     {
-        OnOverriderChanged?.Invoke(currentOverrider);
+        OnOverriderChanged?.Invoke(overrider);
     }
 
     #endregion
@@ -567,57 +569,57 @@ public class PlayerController : AliveObjectController
 
     public void GainModuleShard(int gainValue)
     {
-        currentModuleShard = Mathf.Min(currentModuleShard + gainValue, 9999);
+        moduleShard = Mathf.Min(moduleShard + gainValue, 9999);
         SetModuleShardUI();
     }
     public void UseModuleShard(int useValue)
     {
-        currentModuleShard = Mathf.Min(currentModuleShard - useValue, 0);
+        moduleShard = Mathf.Min(moduleShard - useValue, 0);
         SetModuleShardUI();
     }
 
     public void SetModuleShardUI()
     {
-        OnModuleShardChanged?.Invoke(currentModuleShard);
+        OnModuleShardChanged?.Invoke(moduleShard);
     }
 
 
 
     #endregion
 
-    #region KeyCard
+    #region Item - KeyCard
 
     public void GainKeyCard(int keyCardID, int amount = 1)
     {
-        if (havingKeycardDict.ContainsKey(keyCardID))
+        if (keycardDict.ContainsKey(keyCardID))
         {
-            havingKeycardDict[keyCardID] = Mathf.Min(havingKeycardDict[keyCardID] + amount, 99);
+            keycardDict[keyCardID] = Mathf.Min(keycardDict[keyCardID] + amount, 99);
             MainGameUIManager.instance.playerHud.KeyView.EffectKeyIcon(keyCardID);
-            OnKeycardChanged?.Invoke(havingKeycardDict);
+            OnKeycardChanged?.Invoke(keycardDict);
         }
     }
 
     public void UseKeyCard(int keyCardID, int amount = 1)
     {
-        if (havingKeycardDict.ContainsKey(keyCardID))
+        if (keycardDict.ContainsKey(keyCardID))
         {
-            havingKeycardDict[keyCardID] = Mathf.Max(havingKeycardDict[keyCardID] - amount, 0);
+            keycardDict[keyCardID] = Mathf.Max(keycardDict[keyCardID] - amount, 0);
             SoundManager.instance.Play_2D_SFX_Build("UseKeycard");
-            OnKeycardChanged?.Invoke(havingKeycardDict);
+            OnKeycardChanged?.Invoke(keycardDict);
         }
     }
 
     public bool CanUseKeyCard(int keyCardID)
-        => havingKeycardDict.ContainsKey(keyCardID) &&
-        havingKeycardDict[keyCardID] > 0;
+        => keycardDict.ContainsKey(keyCardID) &&
+        keycardDict[keyCardID] > 0;
 
     #endregion
 
-    #region Boost State
+    #region Boost Lv
 
     public void SetBoostLv(int value)
     {
-        currentBoostLv = value;
+        boostLv = value;
         // 플레이어 위
         Set_BoostAnim_StateWheel(value);
         Set_BoostAnim_StateExtraVFX(value);
@@ -666,6 +668,115 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
+    #region Ally Presence
+
+    // Gain
+    public void GainStrikePresence(int value)
+    {
+        strikeTeamPresence += value;
+        OnStrikePresenceChanged?.Invoke(strikeTeamPresence, needStrikeTeamPresence);
+    }
+    public void GainUplinkPresence(int value)
+    {
+        uplinkTeamPresence += value;
+        OnUplinkPresenceChanged?.Invoke(uplinkTeamPresence, needUplinkTeamPresence);
+    }
+    public void GainNeoPresence(int value)
+    {
+        neoTeamPresence += value;
+        OnNeoPresenceChanged?.Invoke(neoTeamPresence, needNeoTeamPresence);
+    }
+
+    public void ActPresence()
+    {
+        OnStrikePresenceChanged?.Invoke(strikeTeamPresence, needStrikeTeamPresence);
+        OnUplinkPresenceChanged?.Invoke(uplinkTeamPresence, needUplinkTeamPresence);
+        OnNeoPresenceChanged?.Invoke(neoTeamPresence, needNeoTeamPresence);
+    }
+
+    // Try Lv Up
+    public void Try_STAllyLvUp()
+    {
+        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
+            return;
+
+        if (needStrikeTeamPresence <= strikeTeamPresence)
+        {
+            needStrikeTeamPresence += needIntervalPresence; 
+            OnStrikePresenceChanged?.Invoke(strikeTeamPresence, needStrikeTeamPresence);
+
+            MainGameUIManager.instance.allyCardUi.typeIndex = 0;
+            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
+        }
+    }
+
+    public void Try_UTAllyLvUp()
+    {
+        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
+            return;
+
+        if (needUplinkTeamPresence <= uplinkTeamPresence)
+        {
+            needUplinkTeamPresence += needIntervalPresence;
+            OnUplinkPresenceChanged?.Invoke(uplinkTeamPresence, needUplinkTeamPresence);
+
+            MainGameUIManager.instance.allyCardUi.typeIndex = 1;
+            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
+        }
+    }
+
+    public void Try_NTAllyLvUp()
+    {
+        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
+            return;
+
+        if (needNeoTeamPresence <= neoTeamPresence)
+        {
+            needNeoTeamPresence += needIntervalPresence;
+            OnNeoPresenceChanged?.Invoke(neoTeamPresence, needNeoTeamPresence);
+
+            MainGameUIManager.instance.allyCardUi.typeIndex = 2;
+            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
+        }
+    }
+
+    #endregion
+
+    #region Reputation
+
+    public void GainReputation(float value)
+    {
+        reputation = Mathf.Min(reputation + value, 100f);
+        OnReputationChanged?.Invoke(reputation);
+    }
+
+    public void ReduceReputation(float value)
+    {
+        reputation = Mathf.Max(reputation - value, 0f);
+        OnReputationChanged?.Invoke(reputation);
+    }
+    public void ActReputation()
+    {
+        OnReputationChanged?.Invoke(reputation);
+    }
+
+    #endregion
+
+    #region Interact
+
+    public void SetInteractable()
+    {
+        OnInteractableChanged?.Invoke(interactable);
+        Set_MoveDir();
+    }
+
+    public void SetInteractable(IInteract interactable)
+    {
+        this.interactable = interactable;
+        SetInteractable();
+    }
+
+    #endregion
 
     #region Movement
 
@@ -829,13 +940,12 @@ public class PlayerController : AliveObjectController
 
     public void Try_Interact()
     {
-        if (currentInteractableGoList.Count <= 0 ||
-            currentInteractable.Value == null)
-        { return; }
+        if (interactableGoList.Count <= 0 || interactable == null)
+            return; 
 
-        currentInteractable.Value.PlayInteract();
+        interactable.PlayInteract();
         
-        MainGameUIManager.instance.playerHud.Play_UseInteractUI();
+        MainGameUIManager.instance.playerHud.InteractView.UseInteractUI(interactable);
     }
 
     #endregion
@@ -929,7 +1039,7 @@ public class PlayerController : AliveObjectController
 
     private void Set_MoveDir()
     {
-        if (DevTool.Can_CastingTType(currentInteractable.Value, out GateController gate) && gate.isOpen)
+        if (DevTool.Can_CastingTType(interactable, out GateController gate) && gate.isOpen)
         { SetOn_RoomMoveDir(gate.gateDir); }
         else
         { SetOff_RoomMoveDir(); }
@@ -971,7 +1081,7 @@ public class PlayerController : AliveObjectController
         GameObject targetGO = col.gameObject.transform.parent.gameObject;
         if (DevTool.Get_ComponentTType<IInteract>(targetGO) != null)
         {
-            DevTool.Add_InList(currentInteractableGoList, targetGO);
+            DevTool.Add_InList(interactableGoList, targetGO);
         }
     }
 
@@ -981,12 +1091,12 @@ public class PlayerController : AliveObjectController
         GameObject targetGo = col.gameObject.transform.parent.gameObject;
         if (DevTool.Get_ComponentTType<IInteract>(targetGo) != null)
         {
-            DevTool.Remove_InList(currentInteractableGoList, targetGo);
+            DevTool.Remove_InList(interactableGoList, targetGo);
 
             // 모두 삭제되었다면
-            if (currentInteractableGoList.Count <= 0)
+            if (interactableGoList.Count <= 0)
             {
-                currentInteractable.Value = null;
+                SetInteractable(null);
             }
         }
     }
@@ -995,26 +1105,26 @@ public class PlayerController : AliveObjectController
     private void OnTriggerStay2D(Collider2D col)
     {
         // None
-        if (currentInteractableGoList.Count <= 0)
+        if (interactableGoList.Count <= 0)
         {
-            currentInteractable.Value = null;
+            SetInteractable(null);
         }
 
         // 하나만 존재
-        else if (currentInteractableGoList.Count == 1)
+        else if (interactableGoList.Count == 1)
         {
-            if (DevTool.Get_ComponentTType(currentInteractableGoList[0], out IInteract i))
+            if (DevTool.Get_ComponentTType(interactableGoList[0], out IInteract i))
             {
-                currentInteractable.Value = i;
+                SetInteractable(i);
             }
         }
         else // 다수 존재
         {
             if (DevTool.Get_ComponentTType(
-                    DevTool.Get_ClosetGO(currentInteractableGoList, this.gameObject),
+                    DevTool.Get_ClosetGO(interactableGoList, this.gameObject),
                     out IInteract i))
             {
-                currentInteractable.Value = i;
+                SetInteractable(i);
             }
         }
     }
@@ -1165,8 +1275,8 @@ public class PlayerController : AliveObjectController
 
         if (showHUDEffect)
         {
-            MainGameUIManager.instance.playerHud.Play_HittedPlayScreen(dmgValue, 0.1f);
-            MainGameUIManager.instance.playerHud.Play_HittedPlayInfo(dmgValue, invincibleTime);
+            MainGameUIManager.instance.playerHud.HittedView.PlayHittedPlayScreen(dmgValue, 0.1f);
+            MainGameUIManager.instance.playerHud.HittedView.PlayHittedPlayInfo(dmgValue, invincibleTime);
         }
 
         if (hittedDir != Vector2.zero)
@@ -1246,7 +1356,7 @@ public class PlayerController : AliveObjectController
     {
         PlayerManager.instance.cameraController.Play_AvoidAnim(invincibleTime);
         VFXManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, targetObject.transform.position);
-        MainGameUIManager.instance.playerHud.Play_AvoidPlayInfo(invincibleTime);
+        MainGameUIManager.instance.playerHud.HittedView.PlayAvoidPlayInfo(invincibleTime);
     }
     
     // 회피하지 못함 => 무적
@@ -1276,59 +1386,13 @@ public class PlayerController : AliveObjectController
 
     public void Set_PrisonPanelty()
     {
-        UseCredit((int)(currentCredit * 0.2f));
-        UseOverrider((int)(currentOverrider * 0.2f));
-        UseModuleShard((int)(currentModuleShard * 0.2f));
+        UseCredit((int)(credit * 0.2f));
+        UseOverrider((int)(overrider * 0.2f));
+        UseModuleShard((int)(moduleShard * 0.2f));
 
         Take_Damaged(currentEp * 0.2f, Vector2.zero, false);
 
-        MainGameUIManager.instance.playerHud.Play_PrisonPanelty();
-    }
-
-    #endregion
-
-    #region Ally
-
-    public void Try_STAllyLvUp()
-    {
-        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
-            return;
-
-        if (needStrikeTeamPresence.Value <= strikeTeamPresence.Value)
-        {
-            needStrikeTeamPresence.Value += needIntervalPresence;
-
-            MainGameUIManager.instance.allyCardUi.typeIndex = 0;
-            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
-        }
-    }
-
-    public void Try_UTAllyLvUp()
-    {
-        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
-            return;
-
-        if (needUplinkTeamPresence.Value <= uplinkTeamPresence.Value)
-        {
-            needUplinkTeamPresence.Value += needIntervalPresence;
-
-            MainGameUIManager.instance.allyCardUi.typeIndex = 1;
-            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
-        }
-    }
-
-    public void Try_NTAllyLvUp()
-    {
-        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
-            return;
-
-        if (needNeoTeamPresence.Value <= neoTeamPresence.Value)
-        {
-            needNeoTeamPresence.Value += needIntervalPresence;
-
-            MainGameUIManager.instance.allyCardUi.typeIndex = 2;
-            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
-        }
+        MainGameUIManager.instance.playerHud.HittedView.PlayPrisonPanelty();
     }
 
     #endregion
@@ -1362,20 +1426,6 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Reputation
-
-
-    public void Gain_Reputation(float value)
-    {
-        reputation.Value = Mathf.Min(reputation.Value + value, 100f);
-    }
-
-    public void Reduce_Reputation(float value)
-    {
-        reputation.Value = Mathf.Max(reputation.Value - value, 0f);
-    }
-
-    #endregion
 
     #region Sound
 

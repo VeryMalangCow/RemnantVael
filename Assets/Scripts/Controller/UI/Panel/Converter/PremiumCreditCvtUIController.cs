@@ -52,9 +52,9 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
     #region Language
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
 
         // Label
         labelName = ResourceManager.instance.Get_StaticWord(124) + " " +
@@ -99,7 +99,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
 
         int currentPossibilityCredit = 
-            Get_Acquisitable_Credit(pc.currentCredit);
+            Get_Acquisitable_Credit(pc.credit);
 
         int currentPossibilityEP =
             Get_Acquisitable_EP(pc.currentEp - need_EP);
@@ -119,7 +119,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
         int needCredit = acquisitionBookAmount * need_Credit;
         cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());
-        bool canCvtByCredit = needCredit <= pc.currentCredit;
+        bool canCvtByCredit = needCredit <= pc.credit;
         cCvtMaterialEui.Set_Condition(canCvtByCredit);
 
         float needEP = acquisitionBookAmount * need_EP;

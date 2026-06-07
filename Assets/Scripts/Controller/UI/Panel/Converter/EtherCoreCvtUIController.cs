@@ -55,9 +55,9 @@ public class EtherCoreCvtUIController : ConverterUIController
 
     #region Language
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
 
         // Label
         labelName = ResourceManager.instance.Get_StaticWord(119) + " " +
@@ -113,7 +113,7 @@ public class EtherCoreCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
 
         int currentPossibilityCredit =
-            Get_Acquisitable_Credit(pc.currentCredit);
+            Get_Acquisitable_Credit(pc.credit);
 
         int currentPossibilityCB =
             Get_Acquisitable_ChargedBettery(pc.chargedBettery);
@@ -138,7 +138,7 @@ public class EtherCoreCvtUIController : ConverterUIController
 
         int needCredit = acquisitionBookAmount * need_Credit;
         cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());
-        bool canCvtByCredit = needCredit <= pc.currentCredit;
+        bool canCvtByCredit = needCredit <= pc.credit;
         cCvtMaterialEui.Set_Condition(canCvtByCredit);
 
         float needCB = acquisitionBookAmount * need_ChargedBettery;

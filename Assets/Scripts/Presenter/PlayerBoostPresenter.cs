@@ -8,8 +8,8 @@ public class PlayerBoostPresenter : MonoBehaviour, IPresentable
     public void Init(PresenterOwnerData ownerData, PresenterUIData uiData)
     {
         player = ownerData.player;
+
         view = uiData.hud.BoostView;
-        SubscribeOn();
     }
 
     public void SubscribeOn()

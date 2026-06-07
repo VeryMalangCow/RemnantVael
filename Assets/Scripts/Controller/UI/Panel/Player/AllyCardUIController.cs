@@ -252,9 +252,9 @@ public class AllyCardUIController : SinglePanelUIController
             rerolls[i].Set_LanguageTxt();
     }
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
 
         AllyManager.instance.Set_LanguageTxt();
         Set_BaseLanguageTxt();

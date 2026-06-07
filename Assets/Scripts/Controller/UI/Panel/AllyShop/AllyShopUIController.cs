@@ -679,7 +679,7 @@ public class AllyShopUIController : ShopUIController
 
     #region Set (Language)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
         // Profile List (Tab)
         tabBtnTxtList = new List<string>
@@ -716,7 +716,7 @@ public class AllyShopUIController : ShopUIController
         // Limit
         stateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.minLimitUpgradeValue} )";
 
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
     }
 
     #endregion

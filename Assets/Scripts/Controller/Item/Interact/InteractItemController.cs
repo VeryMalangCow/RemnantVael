@@ -87,7 +87,7 @@ public abstract class InteractItemController : ItemController, IInteract
 
     public virtual void PlayInteract()
     {
-        PlayerManager.instance.playerController.currentInteractable.Value = null;
+        PlayerManager.instance.playerController.SetInteractable(null);
         currentSpreadPower = 0f;
         settedSpreadDir = Vector2.zero;
 

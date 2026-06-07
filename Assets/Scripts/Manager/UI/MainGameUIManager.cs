@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
@@ -140,7 +139,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         yield return null;
     }
 
-    #region Offset
+    #region Prod
 
     public void StartProd()
     {
@@ -172,27 +171,26 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
     public void Set_LanguageTxt()
     {
-        outMainGameUi.Set_LanguageTxt();
+        outMainGameUi.SetLanguageTxt();
 
-        mapIntroUi.Set_LanguageTxt();
-        playerHud.Set_LanguageTxt();
-        interactAnnoUi.Set_LanguageTxt();
+        mapIntroUi.SetLanguageTxt();
+        playerHud.SetLanguageTxt();
+        interactAnnoUi.SetLanguageTxt();
 
-        baseUpgradeUi.Set_LanguageTxt();
-        moduleUpgradeUi.Set_LanguageTxt();
+        baseUpgradeUi.SetLanguageTxt();
+        moduleUpgradeUi.SetLanguageTxt();
         ModuleItemManager.instance.Set_DataLanguage();
 
-        allyBaseUpgradeUi.Set_LanguageTxt();
-        allyModuleUpgradeUi.Set_LanguageTxt();
+        allyBaseUpgradeUi.SetLanguageTxt();
+        allyModuleUpgradeUi.SetLanguageTxt();
 
-        allyCardUi.Set_LanguageTxt();
+        allyCardUi.SetLanguageTxt();
     }
 
     public void Set_Color()
     {
         outMainGameUi.Offset_ColorComp();
 
-        playerHud.Offset_ColorComp();
         interactAnnoUi.Offset_ColorComp();
 
         baseUpgradeUi.Offset_ColorComp();

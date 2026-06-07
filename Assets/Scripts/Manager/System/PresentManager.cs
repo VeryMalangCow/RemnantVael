@@ -38,6 +38,7 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
         MainGameUIManager uiSet = MainGameUIManager.instance;
 
         uiDataset.hud = uiSet.playerHud;
+        uiDataset.interactAnno = uiSet.interactAnnoUi;
 
         uiDataset.baseUpgrade = uiSet.baseUpgradeUi;
         uiDataset.moduleUpgrade = uiSet.moduleUpgradeUi;
@@ -61,6 +62,7 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
         {
             sw.Restart();
             presenters[i].Init(ownerDataset, uiDataset);
+            presenters[i].SubscribeOn();
 
             sw.Stop();
             UnityEngine.Debug.Log($"Presenter : <color=orange>{transform.GetChild(i)}</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -94,6 +96,7 @@ public class PresenterOwnerData
 public class PresenterUIData
 {
     public PlayerHUDController hud;
+    public InteractAnnoUIController interactAnno;
     public AimRoundController aimRound;
 
     public BaseUpgradeUIController baseUpgrade;
@@ -107,9 +110,12 @@ public class PresenterUIData
     public EtherCoreCvtUIController etherCoreCvt;
     public OriginCoreCvtUIController originCoreCvt;
 
+
 }
 
 public interface IPresentable
 {
     public void Init(PresenterOwnerData ownerData, PresenterUIData uiData);
+    public void SubscribeOn();
+    public void SubscribeOff();
 }

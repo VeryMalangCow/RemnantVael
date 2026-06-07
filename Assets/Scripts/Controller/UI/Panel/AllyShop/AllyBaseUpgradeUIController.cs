@@ -74,7 +74,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         base.Offset(camera);
 
         Offset_TunerSet();
-        Set_LanguageTxt();
+        SetLanguageTxt();
     }
 
     private void Offset_TunerSet()
@@ -242,7 +242,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         for (int i = 0; i < allTunerEui.Count; i++)
         {
             if (allTunerEui[i].rerollBtnEUI == currentBtn &&
-                PlayerManager.instance.playerController.currentOverrider >= needOverrider)
+                PlayerManager.instance.playerController.overrider >= needOverrider)
             {
                 Set_TunerData(i);
                 Set_TunerUI(i);
@@ -357,7 +357,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     #region Set (Language)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
         // Label
         labelName = ResourceManager.instance.Get_StaticWord(95) + " " + ResourceManager.instance.Get_StaticWord(26) + " " + ResourceManager.instance.Get_StaticWord(2);
@@ -378,7 +378,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         positive1_ElementDescEui.increaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
         negative_ElementDescEui.increaseTxt.text = ResourceManager.instance.Get_StaticWord(109);
 
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
     }
 
     #endregion

@@ -143,7 +143,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         Offset_EUI();
 
-        Set_LanguageTxt();
+        SetLanguageTxt();
     }
 
     private void Offset_EUI()
@@ -963,7 +963,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region Set (Language)
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
         // Label
         labelName = ResourceManager.instance.Get_StaticWord(95) + " " + ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
@@ -978,7 +978,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         // Player Sync
         playerSyncNameTxt.text = $"[ {ResourceManager.instance.Get_StaticWord(113)} {ResourceManager.instance.Get_StaticWord(50)} ]";
-        base.Set_LanguageTxt();
+        base.SetLanguageTxt();
     }
 
     #endregion

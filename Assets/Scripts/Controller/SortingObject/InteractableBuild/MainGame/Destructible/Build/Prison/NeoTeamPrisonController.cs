@@ -29,7 +29,7 @@ public class NeoTeamPrisonController : PrisonController
     {
         base.Set_Unlock();
 
-        PlayerManager.instance.playerController.neoTeamPresence.Value += allyAmount;
+        PlayerManager.instance.playerController.GainNeoPresence(allyAmount);
     }
 
     #endregion

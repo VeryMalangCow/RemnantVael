@@ -223,7 +223,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         };
 
         optionUi.Offset(this);
-        Set_LanguageTxt();
+        SetLanguageTxt();
     }
 
     #endregion
@@ -602,7 +602,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     #region Language
 
-    public override void Set_LanguageTxt()
+    public override void SetLanguageTxt()
     {
         startTxt.text = ResourceManager.instance.Get_StaticWord(89);
         optionTxt.text = ResourceManager.instance.Get_StaticWord(20);
