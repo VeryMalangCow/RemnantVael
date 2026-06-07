@@ -119,7 +119,7 @@ public class EtherCoreCvtUIController : ConverterUIController
             Get_Acquisitable_ChargedBettery(pc.chargedBettery);
 
         int currentPossibilityProtoC =
-            Get_Acquisitable_ProtoC(SaveDataManager.instance.jsonData.Get_ItemAmount(1));
+            Get_Acquisitable_ProtoC(SaveDataManager.instance.GetItemAmount(1));
 
         int result = currentPossibilityCredit < currentPossibilityCB ? currentPossibilityCredit : currentPossibilityCB;
         result = result < currentPossibilityProtoC ? result : currentPossibilityProtoC;
@@ -148,7 +148,7 @@ public class EtherCoreCvtUIController : ConverterUIController
 
         float needProtoC = acquisitionBookAmount * need_ProtoC;
         protoCvtMaterialEui.Set_NecessaryAmountTxt(needProtoC.ToString());
-        bool canCvtByProtoC = needProtoC <= (SaveDataManager.instance.jsonData.Get_ItemAmount(1));
+        bool canCvtByProtoC = needProtoC <= (SaveDataManager.instance.GetItemAmount(1));
         protoCvtMaterialEui.Set_Condition(canCvtByProtoC);
 
         canConvert = canCvtByCredit && canCvtByCB && canCvtByProtoC;
@@ -159,7 +159,7 @@ public class EtherCoreCvtUIController : ConverterUIController
     private void Set_AcquAmount_Core()
     {
         protoCvtMaterialEui.Set_PossessionAmountTxt(
-            SaveDataManager.instance.jsonData.Get_ItemAmount(1).ToString());
+            SaveDataManager.instance.GetItemAmount(1).ToString());
     }
 
     #endregion
@@ -174,7 +174,7 @@ public class EtherCoreCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
         pc.GainCredit(-(acquisitionBookAmount * need_Credit));
         pc.UseChargedBettery(acquisitionBookAmount * need_ChargedBettery);
-        SaveDataManager.instance.jsonData.Use_Item(1, acquisitionBookAmount * need_ProtoC);
+        SaveDataManager.instance.UseHighLvItem(1, acquisitionBookAmount * need_ProtoC);
 
         Set_AcquAmount_Core();
         Set_AcquAmount(acquisitionItemId);

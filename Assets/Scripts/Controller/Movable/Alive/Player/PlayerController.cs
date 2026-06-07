@@ -21,15 +21,18 @@ public class PlayerController : AliveObjectController
     public event Action<int> OnChargedBetteryChanged;
 
 
-    [HideInInspector] public int currentModuleShard = 0;
+    public int currentModuleShard = 0;
     public event Action<int> OnModuleShardChanged;
-    [HideInInspector] public int currentOverrider = 0;
+    public int currentOverrider = 0;
     public event Action<int> OnOverriderChanged;
-    [HideInInspector] public int currentCredit = 0;
+    public int currentCredit = 0;
     public event Action<int> OnCreditChanged;
 
+    private Dictionary<int, int> havingKeycardDict = new Dictionary<int, int>();
+    public Action<Dictionary<int, int>> OnKeycardChanged;
+
     public int currentBoostLv { get; private set; } = 0;
-    public static readonly int maxBoostLv = 3;
+    public readonly int maxBoostLv = 3;
     public event Action<int> OnBoostLvChanged;
 
     #region - Inspector
@@ -251,6 +254,11 @@ public class PlayerController : AliveObjectController
 
     private void Offset_Controller()
     {
+        havingKeycardDict = new Dictionary<int, int>();
+
+        for (int i = 0; i < ResourceManager.instance.Get_KeycardAmount(); i++)
+            havingKeycardDict.Add(i, 0);
+
         dash.Offset();
         sg = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
         shadowSr = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
@@ -514,9 +522,8 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Item
+    #region Item - Credit
 
-    // Credit
     public void GainCredit(int gainValue)
     {
         currentCredit = Mathf.Min(currentCredit + gainValue, 9999);
@@ -533,7 +540,10 @@ public class PlayerController : AliveObjectController
         OnCreditChanged?.Invoke(currentCredit);
     }
 
-    // Overrider
+    #endregion
+
+    #region Item - Overrider
+
     public void GainOverrider(int gainValue)
     {
         currentOverrider = Mathf.Min(currentOverrider + gainValue, 9999);
@@ -551,7 +561,10 @@ public class PlayerController : AliveObjectController
         OnOverriderChanged?.Invoke(currentOverrider);
     }
 
-    // Module Shard
+    #endregion
+
+    #region Item - Module Shard
+
     public void GainModuleShard(int gainValue)
     {
         currentModuleShard = Mathf.Min(currentModuleShard + gainValue, 9999);
@@ -569,6 +582,34 @@ public class PlayerController : AliveObjectController
     }
 
 
+
+    #endregion
+
+    #region KeyCard
+
+    public void GainKeyCard(int keyCardID, int amount = 1)
+    {
+        if (havingKeycardDict.ContainsKey(keyCardID))
+        {
+            havingKeycardDict[keyCardID] = Mathf.Min(havingKeycardDict[keyCardID] + amount, 99);
+            MainGameUIManager.instance.playerHud.KeyView.EffectKeyIcon(keyCardID);
+            OnKeycardChanged?.Invoke(havingKeycardDict);
+        }
+    }
+
+    public void UseKeyCard(int keyCardID, int amount = 1)
+    {
+        if (havingKeycardDict.ContainsKey(keyCardID))
+        {
+            havingKeycardDict[keyCardID] = Mathf.Max(havingKeycardDict[keyCardID] - amount, 0);
+            SoundManager.instance.Play_2D_SFX_Build("UseKeycard");
+            OnKeycardChanged?.Invoke(havingKeycardDict);
+        }
+    }
+
+    public bool CanUseKeyCard(int keyCardID)
+        => havingKeycardDict.ContainsKey(keyCardID) &&
+        havingKeycardDict[keyCardID] > 0;
 
     #endregion
 

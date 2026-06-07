@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -6,7 +7,8 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 {
     #region Value
 
-    #region - Inspector
+    // id, amount
+    public event Action<int, int> OnHighItemChanged;
 
     [Header("=== Data")]
     [SerializeField] public List<GameObject> characterPrefabs;
@@ -19,10 +21,6 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     [SerializeField] private string gameProgressPath = "GameProgressData";
     [SerializeField] private string infoPath = "InfoData";
 
-    #endregion
-
-    #region - Hide
-
     [Space(30)]
     [SerializeField] public JsonData jsonData;
 
@@ -32,9 +30,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     #endregion
 
-    #endregion
-
-    #region Framework
+    #region Mono
 
     protected override void Awake()
     {
@@ -46,6 +42,26 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     }
 
     #endregion
+
+    #region High Lv Item
+
+    public void GainHighLvItem(int id, int amount)
+    {
+        jsonData.GainItem(id, amount);
+        OnHighItemChanged?.Invoke(id, amount);
+    }
+
+    public void UseHighLvItem(int id, int amount)
+    {
+        jsonData.UseItem(id, amount);
+        OnHighItemChanged?.Invoke(id, amount);
+    }
+
+    public int GetItemAmount(int id)
+        => jsonData.GetItemAmount(id);
+
+    #endregion
+
 
     #region Save
 
@@ -248,33 +264,17 @@ public class JsonData
     public GameProgressJsonData gameProgressData = new GameProgressJsonData();
     public List<EachInfoJsonData> infoData = new List<EachInfoJsonData>();
 
-    public void Gain_Item(int id, int amount)
+    public void GainItem(int id, int amount)
     {
-        if (itemData.Count > id)
-        {
-            itemData[id].amount += amount;
-            MainGameUIManager.instance.playerHud.Init_HighLvItemUI();
-        }
+        itemData[id].amount += amount;
+    }
+    public void UseItem(int id, int amount)
+    {
+        itemData[id].amount -= amount;
     }
 
-    public int Get_ItemAmount(int id)
-    {
-        if (itemData.Count > id)
-        {
-            return itemData[id].amount;
-        }
-        return 0;
-    }
-
-    public void Use_Item(int id, int amount)
-    {
-        if (itemData.Count > id)
-        {
-            itemData[id].amount -= amount;
-            MainGameUIManager.instance.playerHud.Init_HighLvItemUI();
-        }
-    }
-
+    public int GetItemAmount(int id)
+        => itemData[id].amount;
 }
 
 #endregion

@@ -119,7 +119,7 @@ public class OriginCoreCvtUIController : ConverterUIController
             Get_Acquisitable_ChargedBettery(pc.chargedBettery);
 
         int currentPossibilityEtherC =
-            Get_Acquisitable_EtherC(SaveDataManager.instance.jsonData.Get_ItemAmount(2));
+            Get_Acquisitable_EtherC(SaveDataManager.instance.GetItemAmount(2));
 
         int result = currentPossibilityCredit < currentPossibilityCB ? currentPossibilityCredit : currentPossibilityCB;
         result = result < currentPossibilityEtherC ? result : currentPossibilityEtherC;
@@ -148,7 +148,7 @@ public class OriginCoreCvtUIController : ConverterUIController
 
         float needEtherC = acquisitionBookAmount * need_EtherC;
         etherCvtMaterialEui.Set_NecessaryAmountTxt(needEtherC.ToString());
-        bool canCvtByEtherC = needEtherC <= (SaveDataManager.instance.jsonData.Get_ItemAmount(2));
+        bool canCvtByEtherC = needEtherC <= (SaveDataManager.instance.GetItemAmount(2));
         etherCvtMaterialEui.Set_Condition(canCvtByEtherC);
 
         canConvert = canCvtByCredit && canCvtByCB && canCvtByEtherC;
@@ -159,7 +159,7 @@ public class OriginCoreCvtUIController : ConverterUIController
     private void Set_AcquAmount_Core()
     {
         etherCvtMaterialEui.Set_PossessionAmountTxt(
-            SaveDataManager.instance.jsonData.Get_ItemAmount(2).ToString());
+            SaveDataManager.instance.GetItemAmount(2).ToString());
     }
 
     #endregion
@@ -174,7 +174,7 @@ public class OriginCoreCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
         pc.GainCredit(-(acquisitionBookAmount * need_Credit));
         pc.UseChargedBettery(acquisitionBookAmount * need_ChargedBettery);
-        SaveDataManager.instance.jsonData.Use_Item(2, acquisitionBookAmount * need_EtherC);
+        SaveDataManager.instance.UseHighLvItem(2, acquisitionBookAmount * need_EtherC);
 
         Set_AcquAmount_Core();
         Set_AcquAmount(acquisitionItemId);

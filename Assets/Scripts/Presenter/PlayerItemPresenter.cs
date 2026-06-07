@@ -3,9 +3,11 @@ using UnityEngine;
 public class PlayerItemPresenter : MonoBehaviour, IPresentable
 {
     private PlayerController player;
+    public SaveDataManager saveData;
 
     private HudLootableItemView lootableItemView;
     private HudKeyView keyView;
+    private HudTabItemView tabItemView;
 
     private ModuleUpgradeUIController moduleUpgrade;
 
@@ -18,9 +20,12 @@ public class PlayerItemPresenter : MonoBehaviour, IPresentable
     public void Init(PresenterOwnerData ownerData, PresenterUIData uiData)
     {
         player = ownerData.player;
+        saveData = ownerData.saveData;
+
 
         lootableItemView = uiData.hud.LootableItemsView;
         keyView = uiData.hud.KeyView;
+        tabItemView = uiData.hud.TabItemView;
 
         moduleUpgrade = uiData.moduleUpgrade;
 
@@ -47,7 +52,9 @@ public class PlayerItemPresenter : MonoBehaviour, IPresentable
 
         player.OnOverriderChanged += allyBaseUpgrade.SetOverriderUI;
 
-        PlayerManager.instance.OnKeycardChanged += keyView.SetKeyItem;
+        player.OnKeycardChanged += keyView.SetKeyItem;
+
+        saveData.OnHighItemChanged += tabItemView.SetHighLvItemUI;
 
         player.SetCreditUI();
         player.SetOverriderUI();
@@ -68,6 +75,8 @@ public class PlayerItemPresenter : MonoBehaviour, IPresentable
 
         player.OnOverriderChanged -= allyBaseUpgrade.SetOverriderUI;
 
-        PlayerManager.instance.OnKeycardChanged -= keyView.SetKeyItem;
+        player.OnKeycardChanged -= keyView.SetKeyItem;
+
+        saveData.OnHighItemChanged -= tabItemView.SetHighLvItemUI;
     }
 }

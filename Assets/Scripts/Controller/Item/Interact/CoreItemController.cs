@@ -44,7 +44,7 @@ public class CoreItemController : InteractItemController
     {
         base.PlayInteract();
 
-        SaveDataManager.instance.jsonData.Gain_Item(id, 1);
+        SaveDataManager.instance.GainHighLvItem(id, 1);
         DropItemManager.instance.RemoveCore(this);
     }
 

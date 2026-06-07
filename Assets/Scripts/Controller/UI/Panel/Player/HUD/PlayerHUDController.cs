@@ -27,6 +27,7 @@ public class PlayerHUDController : UIController
     [SerializeField] private HudBetteryView betteriesViewAndLootableViewPrefab;
     [SerializeField] private HudKeyView keyViewPrefab;
     [SerializeField] private HudBoostView boostViewPrefab;
+    [SerializeField] private HudTabItemView tabItemViewPrefab;
 
     private HudEpView epView;
     private HudTabStateView tabStateView;
@@ -38,6 +39,7 @@ public class PlayerHUDController : UIController
     private HudLootableItemView lootableItemsView;
     private HudKeyView keyView; 
     private HudBoostView boostView;
+    private HudTabItemView tabItemView;
 
     public HudEpView EpView { get { return epView; } }
     public HudTabStateView TabStateView { get { return TabStateView; } }
@@ -49,6 +51,7 @@ public class PlayerHUDController : UIController
     public HudLootableItemView LootableItemsView { get { return lootableItemsView; } }
     public HudKeyView KeyView { get { return keyView; } }
     public HudBoostView BoostView { get { return boostView; } }
+    public HudTabItemView TabItemView { get { return tabItemView; } }
 
 
     [Space(10)]
@@ -60,12 +63,10 @@ public class PlayerHUDController : UIController
     {
         Stopwatch sw = Stopwatch.StartNew();
         Offset_Basic();
-        Offset_RectPosData();
         Offset_Subscribe();
         Offset_Img();
         Offset_ColorComp();
         Offset_AfterColorSet();
-        Offset_HighLvItem();
 
         sw.Stop();
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Offset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -168,6 +169,16 @@ public class PlayerHUDController : UIController
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Boost View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
 
+        sw.Restart();
+
+        tabItemView = Instantiate(tabItemViewPrefab, transform);
+        tabItemView.Init();
+        tabItemViewPrefab = null;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Player HUD : <color=yellow>Tab Item View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        yield return null;
+
         Set_LanguageTxt();
 
     }
@@ -228,11 +239,6 @@ public class PlayerHUDController : UIController
     [SerializeField] private TMP_Text paneltyAnnoNameTxt;
     [SerializeField] private TMP_Text paneltyAnnoDescTxt;
 
-    [Space(10)]
-    [Header("=== High Lv Item")]
-    [SerializeField] private RectTransform highLvItemRt;
-    [SerializeField] private List<TMP_Text> highLvItemAmountTxtList;
-
     #endregion
 
     #region - Hide
@@ -270,7 +276,6 @@ public class PlayerHUDController : UIController
     // KeyItem
 
     // High Lv Item
-    [HideInInspector] private float defaultHighLvItemRectX;
 
     #endregion
 
@@ -291,14 +296,6 @@ public class PlayerHUDController : UIController
         offsetXPos = hittedInfoRt.anchoredPosition.x;
 
         isTabInteracted.Value = false;
-    }
-
-    private void Offset_RectPosData()
-    {
-        // 기본 위치
-
-        // High Lv Item
-        defaultHighLvItemRectX = highLvItemRt.anchoredPosition.x;
     }
 
     private void Offset_Subscribe()
@@ -371,11 +368,6 @@ public class PlayerHUDController : UIController
     private void Offset_AfterColorSet()
     {
         minimapEui.Offset();
-    }
-
-    private void Offset_HighLvItem()
-    {
-        Init_HighLvItemUI();
     }
 
     #endregion
@@ -519,9 +511,9 @@ public class PlayerHUDController : UIController
         tabStateView.TabOn(tabInteractDurTime);
         tabModuleView.TabOn(tabInteractDurTime);
         boostView.TabOn(tabInteractDurTime);
+        tabItemView.TabOn(tabInteractDurTime);
 
         tabSeq = Play_SeqInteract(
-            highLvItemRtX: 0f,
             stageNameAlpha: 0f,
             stageDescAlpha: 1f,
             tabInteractDurTime, Ease.OutCubic);
@@ -539,9 +531,9 @@ public class PlayerHUDController : UIController
         tabStateView.TabOff(tabInteractDurTime);
         tabModuleView.TabOff(tabInteractDurTime);
         boostView.TabOff(tabInteractDurTime);
+        tabItemView.TabOff(tabInteractDurTime);
 
         tabSeq = Play_SeqInteract(
-            defaultHighLvItemRectX,
             stageNameAlpha: 1f,
             stageDescAlpha: 0f, 
             tabInteractDurTime, Ease.InCubic);
@@ -551,30 +543,12 @@ public class PlayerHUDController : UIController
 
     #endregion
 
-    #region Boost
-
-
-    #endregion
-
     #region Buff
 
     public void Set_BuffPosUI()
     {
         for (int i = 0; i < allBuffIconUi.Count; i++)
             allBuffIconUi[i].rt.anchoredPosition = new Vector2(i * (allBuffIconUi[i].rt.rect.width + buffUiXInterval), 0);
-    }
-
-    #endregion
-
-    #region High Lv Item
-
-    public void Init_HighLvItemUI()
-    {
-        List<EachItemJsonData> itemData = SaveDataManager.instance.jsonData.itemData;
-        for (int i = 0; i < itemData.Count; i++)
-        {
-            highLvItemAmountTxtList[i].text = itemData[i].amount.ToString();
-        }
     }
 
     #endregion
@@ -657,9 +631,7 @@ public class PlayerHUDController : UIController
     #region Tab Interact
 
     // Tab 이동
-    private Sequence Play_SeqInteract(float highLvItemRtX,
-        float stageNameAlpha, float stageDescAlpha,
-        float durTime, Ease ease)
+    private Sequence Play_SeqInteract(float stageNameAlpha, float stageDescAlpha,float durTime, Ease ease)
     {
         Sequence seq = DOTween.Sequence();
         //seq.Join(moduleListParentRt.DOAnchorPosX(moduleRtX, durTime));
@@ -667,7 +639,7 @@ public class PlayerHUDController : UIController
         //seq.Join(playerStatesCostParentRt.DOAnchorPosX(costRtX, durTime));
         //seq.Join(skillStatesParentRt.DOAnchorPosY(skillRtY, durTime));
         //seq.Join(boostRt.DOAnchorPosY(boostRtY, durTime));
-        seq.Join(highLvItemRt.DOAnchorPosX(highLvItemRtX, durTime));
+        //seq.Join(highLvItemRt.DOAnchorPosX(highLvItemRtX, durTime));
 
         seq.Join(stageNameTxt.DOFade(stageNameAlpha, durTime));
         seq.Join(stageDescTxt.DOFade(stageDescAlpha, durTime));

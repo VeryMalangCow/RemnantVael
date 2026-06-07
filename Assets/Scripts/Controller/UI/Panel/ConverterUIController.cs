@@ -194,7 +194,7 @@ public abstract class ConverterUIController : SinglePanelUIController
     protected void Set_AcquAmount(int _ItemID)
     {
         cvtAcquisitionEui.Set_PossessionAmountTxt(
-            SaveDataManager.instance.jsonData.Get_ItemAmount(acquisitionItemId).ToString());
+            SaveDataManager.instance.GetItemAmount(acquisitionItemId).ToString());
     }
 
     // Data
@@ -254,7 +254,7 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     protected virtual void Convert()
     {
-        SaveDataManager.instance.jsonData.Gain_Item(acquisitionItemId, acquisitionBookAmount);
+        SaveDataManager.instance.GainHighLvItem(acquisitionItemId, acquisitionBookAmount);
         Set_AcquAmount(acquisitionItemId);
     }
 

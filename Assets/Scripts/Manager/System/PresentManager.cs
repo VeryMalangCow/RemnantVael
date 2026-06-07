@@ -31,6 +31,7 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
 
         // Owner
         ownerDataset.player = PlayerManager.instance.playerController;
+        ownerDataset.saveData = SaveDataManager.instance;
 
 
         // UI
@@ -87,6 +88,7 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
 public class PresenterOwnerData
 {
     public PlayerController player;
+    public SaveDataManager saveData;
 }                            
 
 public class PresenterUIData

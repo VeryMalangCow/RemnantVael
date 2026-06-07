@@ -35,9 +35,6 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     [HideInInspector] private PingController playerPing;
     [HideInInspector] private EnemyController pingedEnemy;
 
-    [HideInInspector] private Dictionary<int, int> havingKeycardDict = new Dictionary<int, int>();
-    public Action<Dictionary<int, int>> OnKeycardChanged;
-
     #endregion
 
     #endregion
@@ -62,8 +59,6 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 
         cameraController.Offset(playerController.gameObject.transform);
 
-        Offset_KeyCard();
-
         sw.Stop();
         UnityEngine.Debug.Log($"PlayerManager: <color=orange>DataOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
@@ -73,13 +68,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 
     #region Offset
 
-    private void Offset_KeyCard()
-    {
-        havingKeycardDict = new Dictionary<int, int>();
 
-        for (int i = 0; i < ResourceManager.instance.Get_KeycardAmount(); i++)
-            havingKeycardDict.Add(i, 0);
-    }
 
     #endregion
 
@@ -155,33 +144,5 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         return pingedEnemy;
     }
 
-    #endregion
-
-    #region KeyCard
-
-    public void GainKeyCard(int keyCardID, int amount = 1)
-    {
-        if (havingKeycardDict.ContainsKey(keyCardID))
-        {
-            havingKeycardDict[keyCardID] = Mathf.Min(havingKeycardDict[keyCardID] + amount, 99);
-            MainGameUIManager.instance.playerHud.KeyView.EffectKeyIcon(keyCardID);
-            OnKeycardChanged?.Invoke(havingKeycardDict);
-        }
-    }
-
-    public void UseKeyCard(int keyCardID, int amount = 1)
-    {
-        if (havingKeycardDict.ContainsKey(keyCardID))
-        {
-            havingKeycardDict[keyCardID] = Mathf.Max(havingKeycardDict[keyCardID] - amount, 0);
-            SoundManager.instance.Play_2D_SFX_Build("UseKeycard");
-            OnKeycardChanged?.Invoke(havingKeycardDict);
-        }
-    }
-
-    public bool CanUseKeyCard(int keyCardID)
-        => havingKeycardDict.ContainsKey(keyCardID) && 
-        havingKeycardDict[keyCardID] > 0;
-    
     #endregion
 }
