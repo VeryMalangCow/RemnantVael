@@ -339,7 +339,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     public float Get_PercentHP(float percent)
     {
-        return DevTool.Get_Percent(percent, maxHP);
+        return DevTool.GetPercent(percent, maxHP);
     }
 
     #endregion

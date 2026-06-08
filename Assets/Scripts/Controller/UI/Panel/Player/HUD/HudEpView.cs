@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -55,7 +54,7 @@ public class HudEpView : MonoBehaviour
     public void SetShieldGauge(float totalShield)
     {
         shieldRt.sizeDelta = new Vector2(Get_ShieldGageX(totalShield), shieldRt.sizeDelta.y);
-        shieldTxt.text = "<size=75%>( </size>" + Mathf.Round(totalShield).ToString() + "<size=75%> )</size>";
+        shieldTxt.SetText($"( {Mathf.Round(totalShield).ToString()} )");
     }
 
     private float Get_ShieldGageX(float shieldValue)

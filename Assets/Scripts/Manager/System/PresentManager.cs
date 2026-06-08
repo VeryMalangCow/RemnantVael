@@ -22,8 +22,10 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
 
     public IEnumerator Initialize()
     {
+#if UNITY_EDITOR
         Stopwatch sw = new Stopwatch();
         sw.Start();
+#endif
 
         // 오너들의 데이터 Init
         ownerDataset = new PresenterOwnerData();
@@ -55,23 +57,24 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
 
         CollectPresenters();
 
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"PresentManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
 
         for (int i = 0; i < presenters.Count; i++)
         {
+#if UNITY_EDITOR
             sw.Restart();
+#endif
             presenters[i].Init(ownerDataset, uiDataset);
             presenters[i].SubscribeOn();
-
+#if UNITY_EDITOR
             sw.Stop();
             UnityEngine.Debug.Log($"Presenter : <color=orange>{transform.GetChild(i)}</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-
+#endif
             yield return null;
         }
-        
-       
-        yield return null;
     }
 
     private void CollectPresenters()
@@ -109,8 +112,6 @@ public class PresenterUIData
     public ProtoCoreCvtUIController protoCoreCvt;
     public EtherCoreCvtUIController etherCoreCvt;
     public OriginCoreCvtUIController originCoreCvt;
-
-
 }
 
 public interface IPresentable

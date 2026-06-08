@@ -416,8 +416,11 @@ public class PlayerController : AliveObjectController
     // 에너지 획득
     public void AddCurrentEp(float addValue)
     {
+        if (addValue == 0)
+            return;
+
         float maxHp = maxEP.actualState;
-        AddCurrentEp(addValue, maxHp);
+        AddCurrentEp(addValue, maxHp); // 상속 클래스 함수
         OnEpChanged?.Invoke(currentEp, maxHp); 
 
         CheckIsDead(currentEp);
@@ -432,7 +435,7 @@ public class PlayerController : AliveObjectController
 
     public float GetPercentEP(float percent)
     {
-        return DevTool.Get_Percent(percent, maxEP.actualState);
+        return DevTool.GetPercent(percent, maxEP.actualState);
     }
 
     #endregion

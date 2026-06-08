@@ -54,7 +54,7 @@ public class BuffTickDmgController : BuffController
         { value += constPoint; }
 
         if (maxHpPercent != 0)
-        { value += DevTool.Get_Percent(maxHpPercent, PlayerManager.instance.playerController.maxEP.actualState); }
+        { value += DevTool.GetPercent(maxHpPercent, PlayerManager.instance.playerController.maxEP.actualState); }
         
 
         return value;

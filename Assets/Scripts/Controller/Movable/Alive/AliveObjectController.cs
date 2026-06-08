@@ -37,7 +37,7 @@ public abstract class AliveObjectController : MovableObjectController
         => currentEp = Math.Clamp(currentEp + addValue, 0, max);
     
     protected void AddPercentEp(float percent, float max)
-        => currentEp = Math.Clamp(currentEp + DevTool.Get_Percent(percent, max), 0, max);
+        => currentEp = Math.Clamp(currentEp + DevTool.GetPercent(percent, max), 0, max);
     
 
    
@@ -59,7 +59,7 @@ public abstract class AliveObjectController : MovableObjectController
     // Point
     private void Add_PercentPoint(ref ReactiveProperty<float> refValue, float percent, float max)
     {
-        refValue.Value = Math.Min(refValue.Value + DevTool.Get_Percent(percent, max), max);
+        refValue.Value = Math.Min(refValue.Value + DevTool.GetPercent(percent, max), max);
     }
 
 

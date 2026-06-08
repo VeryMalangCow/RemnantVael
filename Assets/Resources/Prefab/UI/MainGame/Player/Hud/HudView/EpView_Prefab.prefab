@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9180699212226676241}
   - component: {fileID: 210817463459130582}
   - component: {fileID: 5645284715589027793}
-  - component: {fileID: 1660511314426116155}
   m_Layer: 5
   m_Name: EpTxt
   m_TagString: Untagged
@@ -95,9 +94,9 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 32
-  m_fontSizeBase: 24
+  m_fontSizeBase: 32
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 32
   m_fontStyle: 0
@@ -136,36 +135,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1660511314426116155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 108169670375006904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 16
-  spread: 0.5
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 0, g: 0, b: 0, a: 1}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &1041238375166551489
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,7 +949,6 @@ GameObject:
   - component: {fileID: 6666840339266037991}
   - component: {fileID: 2262113512670871548}
   - component: {fileID: 2098535565532005922}
-  - component: {fileID: 701360685494046603}
   m_Layer: 5
   m_Name: ShieldTxt
   m_TagString: Untagged
@@ -1066,7 +1034,7 @@ MonoBehaviour:
   m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 24
   m_fontStyle: 0
@@ -1105,36 +1073,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &701360685494046603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6087473821834976987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 16
-  spread: 0.5
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 0, g: 0, b: 0, a: 1}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &6326917514006715838
 GameObject:
   m_ObjectHideFlags: 0

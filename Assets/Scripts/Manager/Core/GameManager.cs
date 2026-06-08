@@ -86,7 +86,7 @@ public class DevTool
     #region Get
 
     // 퍼센트값을 도출
-    public static float Get_Percent(float percent, float value)
+    public static float GetPercent(float percent, float value)
     {
         return (percent / 100f) * value;
     }
