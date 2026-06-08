@@ -128,7 +128,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
         if (uiGo != null && DevTool.Get_ComponentTType(uigo, out UIController uiController))
         {
-            uiController.Offset(uiCamera);
+            uiController.Offset();
             T tComp = uiController as T;
             if (action != null && tComp != null) action(tComp);
         }

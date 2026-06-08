@@ -586,9 +586,9 @@ public class OutMainGameUIController : SinglePanelUIController
 
     #region Offset
 
-    public override void Offset(Camera camera)
+    public override void Offset()
     {
-        base.Offset(camera);
+        base.Offset();
 
         Offset_EUI();
         Offset_Btn(); 

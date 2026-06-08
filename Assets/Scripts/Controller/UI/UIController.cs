@@ -4,12 +4,12 @@ public class UIController : MonoBehaviour
 {
     protected Canvas canvas;
 
-    public virtual void Offset(Camera uiCamera) 
+    public virtual void Offset() 
     {
         if (TryGetComponent(out Canvas _canvas))
         {
             canvas = _canvas;
-            canvas.worldCamera = uiCamera;
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         }
     }
 

@@ -29,9 +29,9 @@ public class ProtoCoreCvtUIController : ConverterUIController
 
     #region Offset
 
-    public override void Offset(Camera camera)
+    public override void Offset()
     {
-        base.Offset(camera);
+        base.Offset();
 
         cbCvtMaterialEui.Offset();
         cCvtMaterialEui.Offset();

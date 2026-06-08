@@ -5,7 +5,6 @@ using UniRx;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class AllyModuleUpgradeUIController : AllyShopUIController
 {
@@ -137,9 +136,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region Offset
 
-    public override void Offset(Camera camera)
+    public override void Offset()
     {
-        base.Offset(camera);
+        base.Offset();
 
         Offset_EUI();
 

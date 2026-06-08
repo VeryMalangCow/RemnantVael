@@ -61,9 +61,9 @@ public class InOrderLockerUIController : PuzzleUIController
         currentCountdown = baseCountdown + (prison.rating * 4);
     }
 
-    public override void Offset(Camera camera)
+    public override void Offset()
     {
-        base.Offset(camera);
+        base.Offset();
 
         allIolCell = DevTool.Get_ChildList<IOLCellEUIController>(allIolCellParentTf);
 

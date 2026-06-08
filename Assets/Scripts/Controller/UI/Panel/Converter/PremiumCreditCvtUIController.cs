@@ -1,7 +1,5 @@
 using System.Collections;
-using UniRx;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PremiumCreditCvtUIController : ConverterUIController
 {
@@ -30,9 +28,9 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
     #region Offset
 
-    public override void Offset(Camera camera)
+    public override void Offset()
     {
-        base.Offset(camera);
+        base.Offset();
 
         cCvtMaterialEui.Offset();
         epCvtMaterialEui.Offset();

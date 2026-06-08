@@ -62,9 +62,9 @@ public abstract class PuzzleUIController : SinglePanelUIController
         usingPrison = prison;
     }
 
-    public override void Offset(Camera camera)
+    public override void Offset()
     {
-        base.Offset(camera);
+        base.Offset();
 
         // CG
         cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;

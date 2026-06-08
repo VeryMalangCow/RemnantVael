@@ -65,9 +65,9 @@ public class BoxLineConnectorUIController : PuzzleUIController
         currentCountdown = baseCountdown - prison.rating;
     }
 
-    public override void Offset(Camera camera)
+    public override void Offset()
     {
-        base.Offset(camera);
+        base.Offset();
 
         allBoxCellEui = DevTool.Get_ChildList<BoxCellEUIController>(boxCellParentTf);
         allBoxConnectionEui = DevTool.Get_ChildList<BoxConnectionEUIController>(boxConnectionParentTf);

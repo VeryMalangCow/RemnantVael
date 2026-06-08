@@ -26,9 +26,12 @@ public class InteractAnnoUIController : UIController
 
     #region Offset
 
-    public override void Offset(Camera camera)
+    public override void Offset()
     {
-        base.Offset(camera);
+        base.Offset();
+
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.worldCamera = MainGameUIManager.instance.uiCamera;
 
         Offset_ColorComp();
         cg.alpha = 0;
