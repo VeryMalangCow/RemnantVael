@@ -271,7 +271,10 @@ public class HudController : UIController
         UnityEngine.Debug.Log($"Player HUD : <color=yellow>Minimap View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
+
         SetLanguageTxt();
+        gameObject.SetActive(true); 
+
         yield return null;
     }
 

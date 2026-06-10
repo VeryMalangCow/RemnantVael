@@ -70,13 +70,19 @@ public class PauseUIController : SinglePanelUIController
 
     public IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        stateView = Instantiate(stateViewPrefab, viewParentTf);
-        stateViewPrefab = null;
-        yield return stateView.InitAsync(this, mainClr, subClr);
-
-
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
+#endif
+        stateView = Instantiate(stateViewPrefab, viewParentTf);
+        stateViewPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Pause UI : <color=yellow>State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return stateView.InitAsync(this, mainClr, subClr);
+
+#if UNITY_EDITOR
+        sw.Restart();
 #endif
         optionView = Instantiate(optionViewPrefab, viewParentTf);
         optionView.Init(this);
@@ -86,7 +92,6 @@ public class PauseUIController : SinglePanelUIController
         UnityEngine.Debug.Log($"Pause UI : <color=yellow>Option View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
-
 
 
 #if UNITY_EDITOR
@@ -106,7 +111,6 @@ public class PauseUIController : SinglePanelUIController
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-
         interactBasePanelPosX = 1000f;
         interactPanelPosX = optionView.panelRt.rect.width;
         optionView.panelRt.gameObject.SetActive(false);
@@ -115,7 +119,6 @@ public class PauseUIController : SinglePanelUIController
         optionView.panelRt.anchoredPosition = Vector2.zero;
 
         baseInteractingPanelCg.alpha = 0f;
-
 
         resumeBtn.ownerUIController = this;
         infoBtn.ownerUIController = this;
@@ -135,9 +138,11 @@ public class PauseUIController : SinglePanelUIController
 
         SetLanguageTxt();
 
+        gameObject.SetActive(false);   
+
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"Pause UI : <color=yellow>Comp Set</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"Pause UI : <color=yellow>Base Set</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
     }
@@ -215,7 +220,7 @@ public class PauseUIController : SinglePanelUIController
 
             case OutMainGameUIType.InfoPanel:
                 SetOff_Panel(infoView.panelRt);
-                infoView.Set_Panel(false);
+                infoView.SetPanel(false);
                 break;
 
             default:
@@ -366,7 +371,7 @@ public class PauseUIController : SinglePanelUIController
         if (currentBtn == infoView.backBtn)
         {
             SetOff_Panel(infoView.panelRt);
-            infoView.Set_Panel(false);
+            infoView.SetPanel(false);
             return true;
         }
         if (infoView.Is_ListBtn(currentBtn))
@@ -435,7 +440,7 @@ public class PauseUIController : SinglePanelUIController
         baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(144);
         SetOn_Panel(OutMainGameUIType.InfoPanel, infoView.panelRt);
 
-        infoView.Set_Panel(true);
+        infoView.SetPanel(true);
     }
 
     #endregion
@@ -492,16 +497,16 @@ public class PauseUIController : SinglePanelUIController
         base.SetLanguageTxt();
 
         basePanelBtnTxt.text = ResourceManager.instance.Get_StaticWord(22);
-        DevTool.Get_ComponentTType<TMP_Text>(resumeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(resumeBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(19);
-        DevTool.Get_ComponentTType<TMP_Text>(stateBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(stateBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(102);
-        DevTool.Get_ComponentTType<TMP_Text>(optionBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(optionBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(20);
-        DevTool.Get_ComponentTType<TMP_Text>(infoBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(infoBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(144);
-        DevTool.Get_ComponentTType<TMP_Text>(returnBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(returnBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(143);
-        DevTool.Get_ComponentTType<TMP_Text>(quitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(quitBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(21);
+        DevTool.Get_ComponentTType<TMP_Text>(resumeBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(19);
+        DevTool.Get_ComponentTType<TMP_Text>(stateBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(102);
+        DevTool.Get_ComponentTType<TMP_Text>(optionBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(20);
+        DevTool.Get_ComponentTType<TMP_Text>(infoBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(144);
+        DevTool.Get_ComponentTType<TMP_Text>(returnBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(143);
+        DevTool.Get_ComponentTType<TMP_Text>(quitBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(21);
 
         optionView.SetLanguageTxt();
-        stateView.Set_LanguageTxt();
-        infoView.Set_LanguageTxt();
+        stateView.SetLanguageTxt();
+        infoView.SetLanguageTxt();
 
         int langId = 0;
         switch (currentType)

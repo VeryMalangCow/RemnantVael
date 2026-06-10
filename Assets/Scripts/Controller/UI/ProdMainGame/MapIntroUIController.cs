@@ -15,7 +15,6 @@ public class MapIntroUIController : UIController
     [Space(5)]
     [Header("-- RT")]
     [SerializeField] private RectTransform movingRt;
-    [SerializeField] private RectTransform shakingRt;
 
     [Space(5)]
     [Header("-- Txt")]

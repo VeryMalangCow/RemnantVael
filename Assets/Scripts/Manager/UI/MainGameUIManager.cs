@@ -121,9 +121,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         Color mainClr = player.Get_CorrectColor(eDamageType.Energy, false);
         Color subClr = player.Get_CorrectColor(eDamageType.Energy, true);
 
-        yield return InitAsync(hudPrefab, true, delegate (HudController ui) { hud = ui; });
+        yield return InitAsync(hudPrefab, delegate (HudController ui) { hud = ui; });
         yield return hud.InitAsync(mainClr, subClr);
-        yield return InitAsync(pauseUiPrefab, false, delegate (PauseUIController ui) { pauseUi = ui; });
+        yield return InitAsync(pauseUiPrefab, delegate (PauseUIController ui) { pauseUi = ui; });
         yield return pauseUi.InitAsync(mainClr, subClr);
 
         yield return InitAsync(buUiPrefab, false, delegate (BaseUpgradeUIController ui) { buUi = ui; });
@@ -153,6 +153,30 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         PlayerManager.instance.playerController.TestStart();
         PlayerManager.instance.playerController.skillWeapon.TestStart();
 
+    }
+
+    private IEnumerator InitAsync<T>(T tTypePrefab, Action<T> action) where T : UIController
+    {
+#if UNITY_EDITOR
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+#endif
+
+        T tType = Instantiate(tTypePrefab, uiParent);
+
+        if (tTypePrefab != null)
+        {
+            tType.Offset();
+            if (action != null)
+                action(tType);
+        }
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"MainGameUIManager : <color=orange>Generate</color> : {tType.name} : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+
+        yield return null;
     }
 
     private IEnumerator InitAsync<T>(T tTypePrefab, bool onOff, Action<T> action) where T : UIController

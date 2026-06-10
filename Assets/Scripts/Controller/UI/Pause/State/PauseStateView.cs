@@ -129,7 +129,7 @@ public class PauseStateView : MonoBehaviour
         #endregion
     }
 
-    public void Set_LanguageTxt()
+    public void SetLanguageTxt()
     {
         #region Player
 

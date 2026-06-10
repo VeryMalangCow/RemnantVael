@@ -972,7 +972,7 @@ Canvas:
   m_GameObject: {fileID: 126442187}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1810588474}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -11509,6 +11509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 15
   initPregressText: Input Setting...
+  mousePointerParentRt: {fileID: 126442188}
   mousePointerRT: {fileID: 1808296828}
   endBufferedInputTime: 0.5
   isPlayingBuffered: 0

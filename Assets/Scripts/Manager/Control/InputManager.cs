@@ -16,6 +16,7 @@ public class InputManager : Singleton<InputManager>, IMainGameInitializer
     #region - Inspector
 
     [Header("=== Mouse")]
+    [SerializeField] private RectTransform mousePointerParentRt;
     [SerializeField] private RectTransform mousePointerRT;
 
     [Header("=== Buffered")]
@@ -169,10 +170,7 @@ public class InputManager : Singleton<InputManager>, IMainGameInitializer
         if (!isAim)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                DevTool.Get_ComponentTType<RectTransform>(mousePointerRT.transform.parent.gameObject), // 변환할 UI(RectTransform)
-                mousePos, // 현재 마우스 좌표 (Screen Space)
-                MainGameUIManager.instance.uiCamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
-                out Vector2 localPoint); // 변환된 Local 좌표
+                mousePointerParentRt, mousePos, null, out Vector2 localPoint); // 변환된 Local 좌표
 
             mousePointerRT.anchoredPosition = localPoint;
         }

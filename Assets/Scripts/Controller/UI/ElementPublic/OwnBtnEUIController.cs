@@ -34,8 +34,9 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isCanSelect || btn == null || !btn.interactable) return; 
-
+        Debug.Log("들감");
+        if (!isCanSelect || btn == null || !btn.interactable) return;
+        Debug.Log("가능");
         if (ownerUIController != null) ownerUIController.currentBtn = this;
     }
 

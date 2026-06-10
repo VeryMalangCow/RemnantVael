@@ -45,11 +45,11 @@ public class PauseInfoView : MonoBehaviour
             detailEuiArr[i].Offset();
         }
 
-        Set_LanguageTxt();
-        Set_List();
+        SetLanguageTxt();
+        SetList();
     }
 
-    public void Set_List()
+    public void SetList()
     {
         List<EachInfoJsonData> data = SaveDataManager.instance.jsonData.infoData;
 
@@ -72,7 +72,7 @@ public class PauseInfoView : MonoBehaviour
         listScrollPanelEui.Set_ScrollHeight(y);
     }
 
-    public void Set_Panel(bool onOff)
+    public void SetPanel(bool onOff)
     {
         panelRt.gameObject.SetActive(onOff);
 
@@ -105,7 +105,7 @@ public class PauseInfoView : MonoBehaviour
         }
     }
 
-    public void Set_LanguageTxt()
+    public void SetLanguageTxt()
     {
         listTxt.text = ResourceManager.instance.Get_StaticWord(145);
         detailTxt.text = ResourceManager.instance.Get_StaticWord(144);
