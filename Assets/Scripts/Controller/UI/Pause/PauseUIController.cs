@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -11,10 +12,19 @@ public class PauseUIController : SinglePanelUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Out Main Game UI")]
+
+    [Space(10)][SerializeField] private PauseStateView stateViewPrefab;
+    private PauseStateView stateView;
+    [Space(10)][SerializeField] private PauseOptionView optionViewPrefab;
+    private PauseOptionView optionView;
+    [Space(10)][SerializeField] private PauseInfoView infoViewPrefab;
+    private PauseInfoView infoView;
+
+    [Space(5)][SerializeField] private Transform viewParentTf;
+
+    #region - Inspector
 
     [Space(10)]
     [Header("=== Inner")]
@@ -47,527 +57,6 @@ public class PauseUIController : SinglePanelUIController
 
     #endregion
 
-    #region - State
-
-    [Space(10)]
-    [Header("=== State")]
-    [SerializeField] private StateUIController stateUi;
-    [Serializable] private class StateUIController
-    {
-        #region Value
-
-        [SerializeField] public RectTransform panelRt;
-        [SerializeField] public OwnBtnEUIController backBtn;
-        [SerializeField] public OwnBtnEUIController changeTypeBtn;
-        [SerializeField] public bool isBuPanelOn = true;
-
-        [SerializeField] private TMP_Text playerStateNameTxt;
-        [SerializeField] private TMP_Text allyStateNameTxt;
-        [SerializeField] private Image[] innerImgArr;
-
-        #endregion
-
-        #region Value - Player
-
-        // DMG, ROF, CC, CD, MS, AR, KB
-        // MaxEP, ESValue, SkillCost, Resist
-        // WalkS, WalkSWhileS, DashP, AvoidC
-        // Skill 00: Cooltime, Power, Tier
-        // Skill 01: Cooltime, Power, Tier
-        [Space(10)]
-        [Header("=== Player - BU")]
-        [SerializeField] private GameObject playerBuPanelGo;
-        [SerializeField] private ScrollPanelEUIController playerBuScrollEui;
-        [SerializeField] private StandbyPlayerBUEUIController[] buEuiArr;
-
-        [Space(10)]
-        [Header("=== Player - MU")]
-        [SerializeField] private GameObject playerMuPanelGo;
-        [SerializeField] private ScrollPanelEUIController playerMuScrollEui;
-        [SerializeField] private StandbyPlayerMUEUIController[] muEuiArr;
-        [SerializeField] private StandbyPlayerSynergyEUIController[] synergyEuiArr;
-
-        #endregion
-
-        #region Value - Ally
-
-        [Space(10)]
-        [Header("=== Ally - BU")]
-        [SerializeField] private ScrollPanelEUIController allyScrollEui;
-        [SerializeField] private GameObject allyBuEuiPrefab;
-        [HideInInspector] private List<StandbyAllyBUEUIController> allyBuEuiList = new List<StandbyAllyBUEUIController>();
-
-        #endregion
-
-        #region Offset
-
-        public void Offset(PauseUIController uiController)
-        {
-            backBtn.ownerUIController = uiController;
-            backBtn.Offset();
-
-            changeTypeBtn.ownerUIController = uiController;
-            changeTypeBtn.Offset();
-
-            playerBuScrollEui.Offset();
-            playerMuScrollEui.Offset();
-
-            allyScrollEui.Offset();
-
-            for (int i = 0; i < buEuiArr.Length; i++)
-                buEuiArr[i].Offset();
-
-            for (int i = 0; i < muEuiArr.Length; i++)
-                muEuiArr[i].Offset();
-
-            for (int i = 0; i < synergyEuiArr.Length; i++)
-                synergyEuiArr[i].Offset();
-
-            Set_Panel(true);
-        }
-
-
-        #endregion
-
-        #region Panel
-
-        public void Change_Panel()
-        {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
-            Set_Panel(!isBuPanelOn);
-        }
-
-        public void Set_Panel(bool isBuPanelOn)
-        {
-            this.isBuPanelOn = isBuPanelOn;
-
-            playerBuPanelGo.gameObject.SetActive(isBuPanelOn);
-            playerMuPanelGo.gameObject.SetActive(!isBuPanelOn);
-
-            for (int i = 0; i < allyBuEuiList.Count; i++)
-            {
-                allyBuEuiList[i].Set_Panel(isBuPanelOn);
-            }
-        }
-
-        #endregion
-
-        #region Set
-
-        string Get(int index) => ResourceManager.instance.Get_StaticWord(index);
-
-        public void Set_Color(Color imgClr, Color txtClr)
-        {
-            for (int i = 0; i < innerImgArr.Length; i++)
-                innerImgArr[i].color = imgClr;
-
-            #region Player
-
-            playerStateNameTxt.color = imgClr;
-
-            // BU
-            for (int i = 0; i < buEuiArr.Length; i++)
-                buEuiArr[i].Set_Color(imgClr, txtClr);
-
-            // MU
-            for (int i = 0; i < muEuiArr.Length; i++)
-                muEuiArr[i].Set_Color(txtClr);
-
-            for (int i = 0; i < synergyEuiArr.Length; i++)
-                synergyEuiArr[i].Set_Color(imgClr, txtClr);
-
-            #endregion
-
-            #region Ally
-
-            allyStateNameTxt.color = imgClr;
-
-            for (int i = 0; i < allyBuEuiList.Count; i++)
-                allyBuEuiList[i].Set_Color();
-
-            #endregion
-        }
-
-        public void Set_LanguageTxt()
-        {
-            #region Player
-
-            playerStateNameTxt.text = $"<size=70%><color=#808080>{Get(102)} - </color></size><b>[{Get(113)}]</b>";
-
-            // DMG, ROF, CC, CD, MS, AR, KB
-            buEuiArr[0].Set_LanguageTxt(Get(12));
-            buEuiArr[1].Set_LanguageTxt(Get(13));
-            buEuiArr[2].Set_LanguageTxt(Get(15));
-            buEuiArr[3].Set_LanguageTxt(Get(16));
-            buEuiArr[4].Set_LanguageTxt(Get(43));
-            buEuiArr[5].Set_LanguageTxt(Get(14));
-            buEuiArr[6].Set_LanguageTxt(Get(44));
-
-            // MaxEP, ESValue, SkillCost, Resist
-            buEuiArr[7].Set_LanguageTxt(Get(8));
-            buEuiArr[8].Set_LanguageTxt(Get(38));
-            buEuiArr[9].Set_LanguageTxt(Get(39));
-            buEuiArr[10].Set_LanguageTxt(Get(37));
-
-            // WalkS, WalkSWhileS, DashP, AvoidC
-            buEuiArr[11].Set_LanguageTxt(Get(40));
-            buEuiArr[12].Set_LanguageTxt(Get(41));
-            buEuiArr[13].Set_LanguageTxt(Get(10));
-            buEuiArr[14].Set_LanguageTxt(Get(36));
-
-            // Skill 00: Cooltime, Power, Tier
-            buEuiArr[15].Set_LanguageTxt(Get(45));
-            buEuiArr[16].Set_LanguageTxt(Get(18));
-            buEuiArr[17].Set_LanguageTxt(Get(17));
-
-            // Skill 01: Cooltime, Power, Tier
-            buEuiArr[18].Set_LanguageTxt(Get(45));
-            buEuiArr[19].Set_LanguageTxt(Get(18));
-            buEuiArr[20].Set_LanguageTxt(Get(17));
-
-            #endregion
-
-            #region Ally
-
-            // Ally - BU
-            allyStateNameTxt.text = $"<size=70%><color=#808080>{Get(102)} - </color><color=#FFFFFF></size><b>[{Get(95)}]</b></color>";
-
-            #endregion
-        }
-
-        public void Set_State(List<AllyController> allAlly)
-        {
-            #region Player
-
-            PlayerController pc = PlayerManager.instance.playerController;
-            PlayerWeaponController pwc = pc.baseWeapon;
-            SkillWeaponController swc = pc.skillWeapon;
-            PlayerDashController pdc = pc.dash;
-
-            #region Player BU
-
-            // DMG, ROF, CC, CD, MS, AR, KB
-            buEuiArr[0].Set(pwc.baseDamage.currentLevel.Value);
-            buEuiArr[1].Set(pwc.rof.currentLevel.Value);
-            buEuiArr[2].Set(pwc.cc.currentLevel.Value);
-            buEuiArr[3].Set(pwc.cd.currentLevel.Value);
-            buEuiArr[4].Set(pwc.muzzleSpeed.currentLevel.Value);
-            buEuiArr[5].Set(pwc.accRate.currentLevel.Value);
-            buEuiArr[6].Set(pwc.kbPower.currentLevel.Value);
-            // MaxEP, ESValue, SkillCost, Resist
-            buEuiArr[7].Set(pc.maxEP.currentLevel.Value);
-            buEuiArr[8].Set(pc.spawnESMultiple.currentLevel.Value);
-            buEuiArr[9].Set(pc.needEP_ForSkillMultiple.currentLevel.Value);
-            buEuiArr[10].Set(pc.takingDmgMultiple.currentLevel.Value);
-            // WalkS, WalkSWhileS, DashP, AvoidC
-            buEuiArr[11].Set(pc.walkSpeed.currentLevel.Value);
-            buEuiArr[12].Set(pc.walkSpeedWhenShotMultiple.currentLevel.Value);
-            buEuiArr[13].Set(pdc.dashSpeed.currentLevel.Value);
-            buEuiArr[14].Set(pc.avoidChance.currentLevel.Value);
-            // Skill 00: Cooltime, Power, Tier
-            buEuiArr[15].Set(swc.skillList[0].maxCooltime.currentLevel.Value);
-            buEuiArr[16].Set(swc.skillList[0].power.currentLevel.Value);
-            buEuiArr[17].Set(swc.skillList[0].tier.currentLevel.Value);
-            // Skill 01: Cooltime, Power, Tier
-            buEuiArr[18].Set(swc.skillList[1].maxCooltime.currentLevel.Value);
-            buEuiArr[19].Set(swc.skillList[1].power.currentLevel.Value);
-            buEuiArr[20].Set(swc.skillList[1].tier.currentLevel.Value);
-
-            #endregion
-
-            #region Player MU
-
-            // Module
-            List<CopyModuleState> states = ModuleItemManager.instance.Get_EquippedModuleState();
-            for (int i = 0; i < muEuiArr.Length; i++)
-            {
-                
-                if (i < states.Count)
-                    muEuiArr[i].SetOn(states[i].state);
-                else
-                    muEuiArr[i].SetOff();
-            }
-
-            // Sync
-            for (int i = 0; i < synergyEuiArr.Length; i++)
-                synergyEuiArr[i].SetOff();
-
-            int index = 0;
-            Dictionary<int, int> syncData = ModuleItemManager.instance.Get_CurrentMainChipData();
-            foreach (KeyValuePair<int, int> data in syncData)
-            {
-                synergyEuiArr[index].SetOn(data.Key, data.Value);
-                index++;
-            }
-
-            #endregion
-
-            #endregion
-
-            #region Ally
-
-            TryGen_AllyStateEUI(allAlly.Count);
-
-            for (int i = 0; i < allyBuEuiList.Count; i++)
-            {
-                if (allAlly.Count > i)
-                {
-                    allyBuEuiList[i].gameObject.SetActive(true);
-
-                    #region Ally BU
-
-                    allyBuEuiList[i].Set_Data(allAlly[i]);
-
-                    #endregion
-                }
-                else
-                {
-                    allyBuEuiList[i].gameObject.SetActive(false);
-                }
-            }
-
-            #endregion
-        }
-
-        private void TryGen_AllyStateEUI(int targetAmount)
-        {
-            if (allyBuEuiList.Count >= targetAmount) return;
-
-            float baseX = -16;
-            float baseY = -32;
-            float intervalY = -180;
-
-            int needAmount = targetAmount - allyBuEuiList.Count;
-            for (int i = 0; i < needAmount; i++)
-            {
-                Instantiate(allyBuEuiPrefab, allyScrollEui.actualMovableRt).TryGetComponent(out StandbyAllyBUEUIController eui);
-                eui.Offset();
-                eui.Set_Pos(new Vector2(baseX, baseY + (intervalY * allyBuEuiList.Count)));
-                allyBuEuiList.Add(eui);
-            }
-
-            allyScrollEui.actualMovableRt.sizeDelta = new Vector2(allyScrollEui.actualMovableRt.sizeDelta.x,
-                -((baseY * 1.5f) + (intervalY * allyBuEuiList.Count)));
-            allyScrollEui.Set_ScrollPanel();
-        }
-
-        #endregion
-    }
-
-
-    #endregion
-
-    #region - Option
-
-    [Space(10)]
-    [Header("=== Option")]
-    [SerializeField] private OptionUIController optionUi; 
-    [Serializable] public class OptionUIController
-    {
-        [SerializeField] public RectTransform panelRt;
-        [SerializeField] public OwnBtnEUIController backBtn;
-        [SerializeField] public OwnBtnEUIController applyBtn;
-        [SerializeField] public TMP_Text warningTxt;
-
-        [Space(10)]
-        [SerializeField] public LRSlidingItemEUIController languagePanelEui;
-        [SerializeField] public LRSlidingItemEUIController screenModePanelEui;
-        [SerializeField] public LRSlidingItemEUIController resolutionPanelEui;
-        [SerializeField] public LRSlidingItemEUIController fpsPanelEui;
-        [SerializeField] public FillScrollbarEUIController bgmVolumePanelEui;
-        [SerializeField] public FillScrollbarEUIController sfxVolumePanelEui;
-
-        public void Offset(PauseUIController uiController)
-        {
-            backBtn.ownerUIController = uiController;
-            backBtn.Offset();
-
-            applyBtn.ownerUIController = uiController;
-            applyBtn.Offset();
-
-            languagePanelEui.Set_OwnerUIController(uiController);
-            languagePanelEui.Offset();
-
-            screenModePanelEui.Set_OwnerUIController(uiController);
-            screenModePanelEui.Offset();
-
-            resolutionPanelEui.Set_OwnerUIController(uiController);
-            resolutionPanelEui.Offset();
-
-            fpsPanelEui.Set_OwnerUIController(uiController);
-            fpsPanelEui.Offset();
-
-            bgmVolumePanelEui.Set_OwnerUIController(uiController);
-            bgmVolumePanelEui.Offset();
-
-            sfxVolumePanelEui.Set_OwnerUIController(uiController);
-            sfxVolumePanelEui.Offset();
-        }
-
-        public void Set_Panel()
-        {
-            panelRt.gameObject.SetActive(true);
-            warningTxt.gameObject.SetActive(false);
-            languagePanelEui.Set_Item(GameManager.languageID);
-            screenModePanelEui.Set_Item((int)GameManager.screenMode);
-            resolutionPanelEui.Set_Item((int)GameManager.resolutionMode);
-            fpsPanelEui.Set_Item((int)GameManager.fps);
-            bgmVolumePanelEui.Set_Value(SoundManager.instance.bgmVolume);
-            sfxVolumePanelEui.Set_Value(SoundManager.instance.sfxVolume);
-        }
-
-        public void Set_LanguageTxt()
-        {
-            warningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
-
-            DevTool.Get_ComponentTType<TMP_Text>(applyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(applyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(91);
-            languagePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(92);
-            screenModePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(140);
-            resolutionPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(137);
-            fpsPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(141);
-            bgmVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(138);
-            sfxVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(139);
-        }
-
-        public List<Component> Get_MainColorComps()
-        {
-            List<Component> result = new List<Component>();
-
-            result.AddRange(languagePanelEui.Get_InnerMainColorList());
-            result.AddRange(screenModePanelEui.Get_InnerMainColorList());
-            result.AddRange(resolutionPanelEui.Get_InnerMainColorList());
-            result.AddRange(fpsPanelEui.Get_InnerMainColorList());
-            result.AddRange(bgmVolumePanelEui.Get_InnerMainColorList());
-            result.AddRange(sfxVolumePanelEui.Get_InnerMainColorList());
-
-            return result;            
-        }
-    }
-
-    #endregion
-
-    #region - Info
-
-    [Space(10)]
-    [Header("=== State")]
-    [SerializeField] private InfoUIController infoUi;
-    [Serializable] private class InfoUIController
-    {
-        [Header("=== Comp")]
-        [SerializeField] public TMP_Text listTxt;
-        [SerializeField] public TMP_Text detailTxt;
-
-        [SerializeField] public RectTransform panelRt;
-        [SerializeField] public OwnBtnEUIController backBtn;
-        [SerializeField] private ScrollPanelEUIController listScrollPanelEui;
-
-        [Header("=== Element")]
-        [SerializeField] private Transform listElementParentTf;
-
-        [HideInInspector] private InfoEUIController[] listEuiArr;
-        
-        [SerializeField] private Transform detailElementParentTf;
-
-        [HideInInspector] private InfoDetailEUIController[] detailEuiArr;
-        [HideInInspector] private InfoDetailEUIController currentDetailEui;
-
-        public void Offset(PauseUIController ownerUI)
-        {
-            backBtn.Offset();
-            backBtn.ownerUIController = ownerUI;
-
-            listScrollPanelEui.Offset();
-
-            int amount = listElementParentTf.childCount;
-            
-            listEuiArr = new InfoEUIController[amount];
-            detailEuiArr = new InfoDetailEUIController[amount];
-            for (int i = 0; i < amount; i++)
-            {
-                listEuiArr[i] = listElementParentTf.GetChild(i).TryGetComponent(out InfoEUIController infoListEUI) ? infoListEUI : null;
-                listEuiArr[i].ownerUIController = ownerUI;
-                listEuiArr[i].Offset();
-
-                detailEuiArr[i] = detailElementParentTf.GetChild(i).TryGetComponent(out InfoDetailEUIController infoDetailEUI) ? infoDetailEUI : null;
-                detailEuiArr[i].Offset();
-            }
-
-            Set_LanguageTxt();
-            Set_List();
-        }
-
-        public void Set_List()
-        {
-            List<EachInfoJsonData> data = SaveDataManager.instance.jsonData.infoData;
-
-            List<InfoEUIController> visibleEUIs = new List<InfoEUIController>();
-            for (int i = 0; i < listEuiArr.Length; i++)
-            {
-                if (data[i].canVisible)
-                {
-                    listEuiArr[i].gameObject.SetActive(true);
-                    listEuiArr[i].rt.anchoredPosition = new Vector2(listEuiArr[i].rt.anchoredPosition.x, -20 + (-140 * (visibleEUIs.Count)));
-                    visibleEUIs.Add(listEuiArr[i]);
-                }
-                else
-                {
-                    listEuiArr[i].gameObject.SetActive(false);
-                }
-            }
-
-            float y = (140 * visibleEUIs.Count) + 20;
-            listScrollPanelEui.Set_ScrollHeight(y);
-        }
-
-        public void Set_Panel(bool onOff)
-        {
-            panelRt.gameObject.SetActive(onOff);
-
-            if (!onOff)
-            {
-                SetOff_DetailWindow();
-            }
-        }
-
-        public bool Is_ListBtn(OwnBtnEUIController btn)
-        {
-            return listEuiArr.Contains((InfoEUIController)btn);
-        }
-
-        public void SetOn_DetailWindow(InfoEUIController listBtn)
-        {
-            SetOff_DetailWindow();
-
-            int index = Array.IndexOf(listEuiArr, listBtn);
-            currentDetailEui = detailEuiArr[index];
-            currentDetailEui.gameObject.SetActive(true);
-        }
-
-        private void SetOff_DetailWindow()
-        {
-            if (currentDetailEui != null)
-            {
-                currentDetailEui.gameObject.SetActive(false);
-                currentDetailEui = null;
-            }
-        }
-
-        public void Set_LanguageTxt()
-        {
-            listTxt.text = ResourceManager.instance.Get_StaticWord(145);
-            detailTxt.text = ResourceManager.instance.Get_StaticWord(144);
-
-            for (int i = 0; i < listEuiArr.Length; i++)
-                listEuiArr[i].Set_LanguageTxt();
-
-            for (int i = 0; i < detailEuiArr.Length; i++)
-                detailEuiArr[i].Set_LanguageTxt();
-        }
-    }
-
-
-    #endregion
-
     #region - Hide
 
     // Inner
@@ -589,9 +78,37 @@ public class PauseUIController : SinglePanelUIController
 
     public IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        stateUi.Offset(this);
-        optionUi.Offset(this);
-        infoUi.Offset(this);
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        stateView = Instantiate(stateViewPrefab, viewParentTf);
+        stateViewPrefab = null;
+        yield return stateView.InitAsync(this);
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        optionView = Instantiate(optionViewPrefab, viewParentTf);
+        optionView.Init(this);
+        optionViewPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Pause UI : <color=yellow>Option View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        infoView = Instantiate(infoViewPrefab, viewParentTf);
+        infoView.Init(this);
+        infoViewPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Pause UI : <color=yellow>Info View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
 
         resumeBtn.ownerUIController = this;
         infoBtn.ownerUIController = this;
@@ -617,7 +134,7 @@ public class PauseUIController : SinglePanelUIController
         mainColorCompList.AddRange(DevTool.Get_ChildList<Image>(baseInteractingPanelInnerParentTf));
         subColorCompList.AddRange(innerImgs);
 
-        mainColorCompList.AddRange(optionUi.Get_MainColorComps());
+        mainColorCompList.AddRange(optionView.Get_MainColorComps());
 
         Color clr = new Color(1, 1, 1, 0.1f);
         for (int i = 0; i < innerImgArr.Length; i++)
@@ -633,14 +150,14 @@ public class PauseUIController : SinglePanelUIController
         subColorCompList.Clear();
         subColorCompList = null;
 
-        stateUi.Set_Color(mainClr, subClr);
+        stateView.Set_Color(mainClr, subClr);
 
         interactBasePanelPosX = 1000f;
-        interactPanelPosX = optionUi.panelRt.rect.width;
-        optionUi.panelRt.gameObject.SetActive(false);
+        interactPanelPosX = optionView.panelRt.rect.width;
+        optionView.panelRt.gameObject.SetActive(false);
 
         basePanelRt.anchoredPosition = Vector2.zero;
-        optionUi.panelRt.anchoredPosition = Vector2.zero;
+        optionView.panelRt.anchoredPosition = Vector2.zero;
 
         baseInteractingPanelCg.alpha = 0f;
         yield return null;
@@ -691,16 +208,16 @@ public class PauseUIController : SinglePanelUIController
                 SetOff_ThisPanel();
                 break;
             case OutMainGameUIType.OptionPanel:
-                SetOff_Panel(optionUi.panelRt);
+                SetOff_Panel(optionView.panelRt);
                 break;
 
             case OutMainGameUIType.StatePanel:
-                SetOff_Panel(stateUi.panelRt);
+                SetOff_Panel(stateView.panelRt);
                 break;
 
             case OutMainGameUIType.InfoPanel:
-                SetOff_Panel(infoUi.panelRt);
-                infoUi.Set_Panel(false);
+                SetOff_Panel(infoView.panelRt);
+                infoView.Set_Panel(false);
                 break;
 
             default:
@@ -757,23 +274,23 @@ public class PauseUIController : SinglePanelUIController
     {
         if (currentType != OutMainGameUIType.OptionPanel) return false;
 
-        if (currentBtn == optionUi.backBtn)
+        if (currentBtn == optionView.backBtn)
         {
-            SetOff_Panel(optionUi.panelRt);
+            SetOff_Panel(optionView.panelRt);
             return true;
         }
-        else if (currentBtn == optionUi.applyBtn)
+        else if (currentBtn == optionView.applyBtn)
         {
             Set_OptionValueApply();
-            optionUi.warningTxt.gameObject.SetActive(false);
+            optionView.warningTxt.gameObject.SetActive(false);
             return true;
         }
-        else if (Is_Interact_OptionElement(optionUi.languagePanelEui)) return true;
-        else if (Is_Interact_OptionElement(optionUi.screenModePanelEui)) return true;
-        else if (Is_Interact_OptionElement(optionUi.resolutionPanelEui)) return true;
-        else if (Is_Interact_OptionElement(optionUi.bgmVolumePanelEui)) return true;
-        else if (Is_Interact_OptionElement(optionUi.sfxVolumePanelEui)) return true;
-        else if (Is_Interact_OptionElement(optionUi.fpsPanelEui)) return true;
+        else if (Is_Interact_OptionElement(optionView.languagePanelEui)) return true;
+        else if (Is_Interact_OptionElement(optionView.screenModePanelEui)) return true;
+        else if (Is_Interact_OptionElement(optionView.resolutionPanelEui)) return true;
+        else if (Is_Interact_OptionElement(optionView.bgmVolumePanelEui)) return true;
+        else if (Is_Interact_OptionElement(optionView.sfxVolumePanelEui)) return true;
+        else if (Is_Interact_OptionElement(optionView.fpsPanelEui)) return true;
 
         return false;
     }
@@ -784,14 +301,14 @@ public class PauseUIController : SinglePanelUIController
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             lrSlidingEui.Change_Left();
-            optionUi.warningTxt.gameObject.SetActive(true);
+            optionView.warningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (currentBtn == lrSlidingEui.rightBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             lrSlidingEui.Change_Right();
-            optionUi.warningTxt.gameObject.SetActive(true);
+            optionView.warningTxt.gameObject.SetActive(true);
             return true;
         }
 
@@ -804,14 +321,14 @@ public class PauseUIController : SinglePanelUIController
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             scrollEui.Dec();
-            optionUi.warningTxt.gameObject.SetActive(true);
+            optionView.warningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (currentBtn == scrollEui.rightBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             scrollEui.Inc();
-            optionUi.warningTxt.gameObject.SetActive(true);
+            optionView.warningTxt.gameObject.SetActive(true);
             return true;
         }
 
@@ -826,14 +343,14 @@ public class PauseUIController : SinglePanelUIController
     {
         if (currentType != OutMainGameUIType.StatePanel) return false;
 
-        if (currentBtn == stateUi.backBtn)
+        if (currentBtn == stateView.backBtn)
         {
-            SetOff_Panel(stateUi.panelRt);
+            SetOff_Panel(stateView.panelRt);
             return true;
         }
-        if (currentBtn == stateUi.changeTypeBtn)
+        if (currentBtn == stateView.changeTypeBtn)
         {
-            stateUi.Change_Panel();
+            stateView.Change_Panel();
             return true;
         }
 
@@ -848,15 +365,15 @@ public class PauseUIController : SinglePanelUIController
     {
         if (currentType != OutMainGameUIType.InfoPanel) return false;
 
-        if (currentBtn == infoUi.backBtn)
+        if (currentBtn == infoView.backBtn)
         {
-            SetOff_Panel(infoUi.panelRt);
-            infoUi.Set_Panel(false);
+            SetOff_Panel(infoView.panelRt);
+            infoView.Set_Panel(false);
             return true;
         }
-        if (infoUi.Is_ListBtn(currentBtn))
+        if (infoView.Is_ListBtn(currentBtn))
         {
-            infoUi.SetOn_DetailWindow((InfoEUIController)currentBtn);
+            infoView.SetOn_DetailWindow((InfoEUIController)currentBtn);
             return true;
         }
 
@@ -869,17 +386,17 @@ public class PauseUIController : SinglePanelUIController
 
     private void Set_OptionValueApply()
     {
-        if (!optionUi.warningTxt.gameObject.activeSelf) return;
+        if (!optionView.warningTxt.gameObject.activeSelf) return;
 
         SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
-        ResourceManager.instance.Set_LanguageFont(optionUi.languagePanelEui.Get_CurrentIndex());
+        ResourceManager.instance.Set_LanguageFont(optionView.languagePanelEui.Get_CurrentIndex());
         GameManager.instance.Set_Screen(
-            (eResolution)optionUi.resolutionPanelEui.Get_CurrentIndex(),
-            (eScreenMode)optionUi.screenModePanelEui.Get_CurrentIndex());
-        GameManager.instance.Set_FPS((eFPS)optionUi.fpsPanelEui.Get_CurrentIndex());
-        SoundManager.instance.Set_BgmVolume(optionUi.bgmVolumePanelEui.Get_Value());
-        SoundManager.instance.Set_SfxVolume(optionUi.sfxVolumePanelEui.Get_Value());
+            (eResolution)optionView.resolutionPanelEui.Get_CurrentIndex(),
+            (eScreenMode)optionView.screenModePanelEui.Get_CurrentIndex());
+        GameManager.instance.Set_FPS((eFPS)optionView.fpsPanelEui.Get_CurrentIndex());
+        SoundManager.instance.Set_BgmVolume(optionView.bgmVolumePanelEui.Get_Value());
+        SoundManager.instance.Set_SfxVolume(optionView.sfxVolumePanelEui.Get_Value());
 
         SaveDataManager.instance.Save_OptionJsonData();
     }
@@ -889,9 +406,9 @@ public class PauseUIController : SinglePanelUIController
         if (isInteractTweening) return;
 
         baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(20);
-        SetOn_Panel(OutMainGameUIType.OptionPanel, optionUi.panelRt);
+        SetOn_Panel(OutMainGameUIType.OptionPanel, optionView.panelRt);
 
-        optionUi.Set_Panel();
+        optionView.Set_Panel();
     }
 
     #endregion
@@ -903,10 +420,10 @@ public class PauseUIController : SinglePanelUIController
         if (isInteractTweening) return;
 
         baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(102);
-        SetOn_Panel(OutMainGameUIType.StatePanel, stateUi.panelRt);
+        SetOn_Panel(OutMainGameUIType.StatePanel, stateView.panelRt);
 
-        stateUi.Set_Panel(true);
-        stateUi.Set_State(AllyManager.instance.allAlly);
+        stateView.Set_Panel(true);
+        stateView.Set_State(AllyManager.instance.allAlly);
     }
 
     #endregion
@@ -918,9 +435,9 @@ public class PauseUIController : SinglePanelUIController
         if (isInteractTweening) return;
 
         baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(144);
-        SetOn_Panel(OutMainGameUIType.InfoPanel, infoUi.panelRt);
+        SetOn_Panel(OutMainGameUIType.InfoPanel, infoView.panelRt);
 
-        infoUi.Set_Panel(true);
+        infoView.Set_Panel(true);
     }
 
     #endregion
@@ -984,9 +501,9 @@ public class PauseUIController : SinglePanelUIController
         DevTool.Get_ComponentTType<TMP_Text>(returnBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(returnBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(143);
         DevTool.Get_ComponentTType<TMP_Text>(quitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(quitBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(21);
 
-        optionUi.Set_LanguageTxt();
-        stateUi.Set_LanguageTxt();
-        infoUi.Set_LanguageTxt();
+        optionView.Set_LanguageTxt();
+        stateView.Set_LanguageTxt();
+        infoView.Set_LanguageTxt();
 
         int langId = 0;
         switch (currentType)
