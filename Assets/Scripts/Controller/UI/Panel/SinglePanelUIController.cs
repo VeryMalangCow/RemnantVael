@@ -50,8 +50,8 @@ public class SinglePanelUIController : UIController
         InputManager.instance.inputMoveDir = Vector2.zero;
 
         // Tab Input
-        MainGameUIManager.instance.playerHud.isTabInputed = false;
-        MainGameUIManager.instance.playerHud.SetOff_TabInteract();
+        MainGameUIManager.instance.hud.isTabInputed = false;
+        MainGameUIManager.instance.hud.SetOff_TabInteract();
 
     }
 

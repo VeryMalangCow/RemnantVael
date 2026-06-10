@@ -39,14 +39,14 @@ public class PresentManager : MonoBehaviour, IMainGameInitializer
         // UI
         MainGameUIManager uiSet = MainGameUIManager.instance;
 
-        uiDataset.hud = uiSet.playerHud;
+        uiDataset.hud = uiSet.hud;
         uiDataset.interactAnno = uiSet.interactAnnoUi;
 
-        uiDataset.baseUpgrade = uiSet.baseUpgradeUi;
-        uiDataset.moduleUpgrade = uiSet.moduleUpgradeUi;
+        uiDataset.baseUpgrade = uiSet.buUi;
+        uiDataset.moduleUpgrade = uiSet.muUi;
 
-        uiDataset.allyBaseUpgrade = uiSet.allyBaseUpgradeUi;
-        uiDataset.allyModuleUpgrade = uiSet.allyModuleUpgradeUi;
+        uiDataset.allyBaseUpgrade = uiSet.abuUi;
+        uiDataset.allyModuleUpgrade = uiSet.amuUi;
 
         uiDataset.premiumCreditCvt = uiSet.premiumCreditCvtUi;
         uiDataset.protoCoreCvt = uiSet.protoCoreCvtUi;

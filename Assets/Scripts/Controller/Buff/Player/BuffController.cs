@@ -184,14 +184,14 @@ public class BuffController : IDController
         thisBuffEUI.Offset();
         thisBuffEUI.shadowImg.fillAmount = 0;
 
-        MainGameUIManager.instance.playerHud.PlayerBuffView.AddBuff(thisBuffEUI);
+        MainGameUIManager.instance.hud.PlayerBuffView.AddBuff(thisBuffEUI);
 
         thisBuffEUI.gameObject.SetActive(true);
     }
 
     private void Remove_BuffUI()
     {
-        MainGameUIManager.instance.playerHud.PlayerBuffView.RemoveBuff(thisBuffEUI);
+        MainGameUIManager.instance.hud.PlayerBuffView.RemoveBuff(thisBuffEUI);
 
         thisBuffEUI.gameObject.SetActive(false);
         VFXManager.instance.RemoveBuffIcon(thisBuffEUI);
@@ -216,7 +216,7 @@ public class BuffController : IDController
             Gain_BuffUI();
         }
 
-        MainGameUIManager.instance.playerHud.PlayerBuffView.SetBuffPosUI();
+        MainGameUIManager.instance.hud.PlayerBuffView.SetBuffPosUI();
         thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         enabled = true;
@@ -241,7 +241,7 @@ public class BuffController : IDController
             Gain_BuffUI();
         }
 
-        MainGameUIManager.instance.playerHud.PlayerBuffView.SetBuffPosUI();
+        MainGameUIManager.instance.hud.PlayerBuffView.SetBuffPosUI();
         thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         enabled = true;
@@ -262,7 +262,7 @@ public class BuffController : IDController
         }
 
         // UI
-        MainGameUIManager.instance.playerHud.PlayerBuffView.SetBuffPosUI();
+        MainGameUIManager.instance.hud.PlayerBuffView.SetBuffPosUI();
         thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         //
@@ -282,7 +282,7 @@ public class BuffController : IDController
             Remove_BuffUI();
         }
 
-        MainGameUIManager.instance.playerHud.PlayerBuffView.SetBuffPosUI();
+        MainGameUIManager.instance.hud.PlayerBuffView.SetBuffPosUI();
 
         enabled = false; 
     }

@@ -54,6 +54,7 @@ public class AllyCardUIController : SinglePanelUIController
 
     private void Offset_Basic()
     {
+        Debug.Log("!");
         // Cards
         cards = DevTool.Get_ChildList<AllyCardEUIController>(cardParentTf);
         for (int i = 0; i < cards.Count; i++)
@@ -64,6 +65,7 @@ public class AllyCardUIController : SinglePanelUIController
             cards[i].allyOwnerUIController = this;
         }
 
+        Debug.Log("!");
         // Reroll
         rerolls = DevTool.Get_ChildList<AllyCardRerollEUIController>(cardRerollParentTf);
         for (int i = 0; i < rerolls.Count; i++)
@@ -76,6 +78,7 @@ public class AllyCardUIController : SinglePanelUIController
             cards[i].rerollEui = rerolls[i];
         }
 
+        Debug.Log("!");
         // Select Btn
         selectBtn.Offset();
         selectBtn.ownerUIController = this;

@@ -42,7 +42,7 @@ public class SkillWeaponController : PlayerSolarController
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
             Offset_Variable(skillList[i], satelliteSideList[i]);
-            Offset_Subscribe(skillList[i], MainGameUIManager.instance.playerHud.SkillView.skillList[i]);
+            Offset_Subscribe(skillList[i], MainGameUIManager.instance.hud.SkillView.skillList[i]);
         }
     }
 
@@ -71,7 +71,7 @@ public class SkillWeaponController : PlayerSolarController
     {
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            MainGameUIManager.instance.playerHud.SkillView.skillList[i].Set_ShadowFillAmount(
+            MainGameUIManager.instance.hud.SkillView.skillList[i].Set_ShadowFillAmount(
                 skillList[i].Get_FillAmount());
         }
     }

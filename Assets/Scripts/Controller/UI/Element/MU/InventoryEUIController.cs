@@ -45,16 +45,14 @@ public class InventoryEUIController : ElementUIController
             for (int j = 0; j < ModuleItemManager.rowAmount; j++)
             {
                 // Generate GO
-                GameObject slotGO = Instantiate(ResourceManager.instance.Get_ModuleSlotUI_Prefab(), this.transform);
-                GameObject itemGO = Instantiate(ResourceManager.instance.Get_ModuleItemUI_Prefab(), slotGO.transform);
+                InventorySlotEUIController slot = Instantiate(MainGameUIManager.instance.GetModuleSlotEUIPrefab(), this.transform);
+                InventoryItemEUIController item = Instantiate(MainGameUIManager.instance.GetModuleItemEUIPrefab(), slot.transform);
 
-                slotGO.name = $"Slot_Col:{i}_Row:{j}";
-                itemGO.name = $"Item_Col:{i}_Row:{j}";
+                slot.name = $"Slot_Col:{i}_Row:{j}";
+                item.name = $"Item_Col:{i}_Row:{j}";
 
                 // Offset
-                if (DevTool.Get_ComponentTType(slotGO.gameObject, out RectTransform slotRt) &&
-                    DevTool.Get_ComponentTType(slotGO.gameObject, out InventorySlotEUIController slot) &&
-                    DevTool.Get_ComponentTType(itemGO.gameObject, out InventoryItemEUIController item))
+                if (DevTool.Get_ComponentTType(slot.gameObject, out RectTransform slotRt))
                 {
                     slotRt.anchoredPosition = new Vector2((j * 110 + 10), -(i * 110 + 10));
 
@@ -64,7 +62,7 @@ public class InventoryEUIController : ElementUIController
                     slot.row = j;
 
                     item.Offset();
-                    itemGO.gameObject.SetActive(false);
+                    item.gameObject.SetActive(false);
 
                     colSlot.Add(slot);
                     colItem.Add(item);

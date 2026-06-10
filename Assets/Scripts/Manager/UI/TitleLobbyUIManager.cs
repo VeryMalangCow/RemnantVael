@@ -15,7 +15,8 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     [SerializeField] private Transform uiParent;
 
     // Controller
-    [HideInInspector] public TitleLobbyUIController titleLobby_UIController;
+    [SerializeField] private TitleLobbyUIController titleLobbyUiPrefab;
+    public TitleLobbyUIController titleLobbyUi { get; private set; }
 
     [Header("=== Screen")]
     [SerializeField] private Canvas screenCanvas;
@@ -44,8 +45,8 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     private void Start()
     {
-        titleLobby_UIController 
-            = Gen_UI<TitleLobbyUIController>(ResourceManager.instance.titleLobby_CanvasPrefab, true);
+        titleLobbyUi 
+            = Gen_UI(titleLobbyUiPrefab, true);
 
         GameManager.instance.Set_BaseOption();
 
@@ -57,19 +58,13 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     #region Spawn
 
-    private T Gen_UI<T>(GameObject uiGo, bool onOff)
+    private T Gen_UI<T>(T tTypePrefab, bool onOff) where T : UIController
     {
-        GameObject uigo = Instantiate(uiGo, uiParent);
-        uigo.gameObject.SetActive(onOff);
-        if (uigo.TryGetComponent(out UIController ui))
-        {
-            ui.Offset();
-        }
+        T tTypeUi = Instantiate(tTypePrefab, uiParent);
+        tTypeUi.Offset();
+        tTypeUi.gameObject.SetActive(onOff);
 
-        if (uigo.TryGetComponent(out T spawnUI))
-        { return spawnUI; }
-        else
-        { return default; }
+        return tTypeUi;
     }
 
     #endregion
@@ -78,7 +73,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     public void Set_LanguageTxt()
     {
-        titleLobby_UIController.SetLanguageTxt();
+        titleLobbyUi.SetLanguageTxt();
     }
 
     #endregion
@@ -187,7 +182,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
                 screenCanvas.gameObject.SetActive(false);
                 GameManager.instance.wasWatched = true;
 
-                titleLobby_UIController.isInIntro = false;
+                titleLobbyUi.isInIntro = false;
             });
 
         return firstSeq;

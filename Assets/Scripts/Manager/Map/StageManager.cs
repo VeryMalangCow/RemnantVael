@@ -664,7 +664,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         currentRoomController = null;
 
-        MainGameUIManager.instance.playerHud.MinimapView.AllRemoveMinimapCell();
+        MainGameUIManager.instance.hud.MinimapView.AllRemoveMinimapCell();
     }
 
     private void Remove_PassageStage()
@@ -716,7 +716,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         AllyManager.instance.Stop_AllAllies_Combat();
 
         // Minimap
-        MainGameUIManager.instance.playerHud.MinimapView.Set_State();
+        MainGameUIManager.instance.hud.MinimapView.Set_State();
 
         yield return new WaitForSeconds(0.2f);
 
@@ -728,8 +728,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         //LayerOrderManager.instance.AddNeedSortObj(AllyManager.instance.allAlly);
 
         // Minimap
-        MainGameUIManager.instance.playerHud.MinimapView.Set_State();
-        MainGameUIManager.instance.playerHud.MinimapView.Play_Effect();
+        MainGameUIManager.instance.hud.MinimapView.Set_State();
+        MainGameUIManager.instance.hud.MinimapView.Play_Effect();
 
         // Ally
         AllyManager.instance.Start_AllAllies_Combat();
@@ -756,7 +756,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             PlayerManager.instance.playerController.SetInteractable();
 
             // Minimap
-            MainGameUIManager.instance.playerHud.MinimapView.Set_State();
+            MainGameUIManager.instance.hud.MinimapView.Set_State();
         }
     }
 
@@ -783,15 +783,15 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     private void Set_StartUI(StageData stageData)
     {
         MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
-        MainGameUIManager.instance.playerHud.MinimapView.Gen_Minimap();
-        MainGameUIManager.instance.playerHud.MinimapView.SetOnMapIcon(targetStageID);
-        MainGameUIManager.instance.playerHud.MinimapView.SetStageDescription();
+        MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
+        MainGameUIManager.instance.hud.MinimapView.SetOnMapIcon(targetStageID);
+        MainGameUIManager.instance.hud.MinimapView.SetStageDescription();
     }
 
     private void Set_StartPassageUI()
     {
-        MainGameUIManager.instance.playerHud.MinimapView.Gen_Minimap();
-        MainGameUIManager.instance.playerHud.MinimapView.SetOffMapIcon();
+        MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
+        MainGameUIManager.instance.hud.MinimapView.SetOffMapIcon();
     }
 
     #endregion

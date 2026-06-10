@@ -2476,7 +2476,7 @@ public class BUShopData<T>
         upgradeEUI.buyBtn.btn.interactable = DevTool.buMaxLevel <= state.currentLevel.Value ? false : true;
 
         // Desc
-        MainGameUIManager.instance.baseUpgradeUi.SetOn_Desc(upgradeEUI, upgradeEUI.skillNameTxt.text);
+        MainGameUIManager.instance.buUi.SetOn_Desc(upgradeEUI, upgradeEUI.skillNameTxt.text);
     }
 
     #endregion

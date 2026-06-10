@@ -47,12 +47,10 @@ public class MapIntroUIController : UIController
         Sequence seq = DOTween.Sequence();
 
         seq.Append(movingRt.DOAnchorPos(new Vector2(0, -movingRt.rect.height), downTime).SetEase(Ease.OutCubic));
-        seq.Join(shakingRt.DOShakeAnchorPos(downTime * 1.5f, 1f, 50, 90, false, true));
 
         seq.AppendInterval(stayTime);
 
         seq.Append(movingRt.DOAnchorPos(new Vector2(0, 0), upTime).SetEase(Ease.InCubic));
-        seq.Join(shakingRt.DOShakeAnchorPos(upTime * 1.5f, 1f, 50, 90, false, true).SetEase(Ease.InCubic));
 
         return seq;
     }

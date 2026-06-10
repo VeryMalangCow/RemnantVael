@@ -15,6 +15,64 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
     #region - Inspector
 
+    [Header("=== Prefab")]
+    [SerializeField] private PlayerHUDController hudPrefab;
+    [SerializeField] private OutMainGameUIController pauseUiPrefab;
+    [SerializeField] private InteractAnnoUIController interactAnnoUiPrefab;
+    [SerializeField] private MapIntroUIController mapIntroUiPrefab;
+    [Space(5)]
+    [SerializeField] private BaseUpgradeUIController buUiPrefab;
+    [SerializeField] private ModuleUpgradeUIController muUiPrefab;
+    [Space(5)]
+    [SerializeField] public AllyBaseUpgradeUIController abuUiPrefab;
+    [SerializeField] public AllyModuleUpgradeUIController amuUiPrefab;
+    [Space(5)]
+    [SerializeField] public BoxLineConnectorUIController puzzleBlcUiPrefab;
+    [SerializeField] public NumShapeColorPasswordUIController puzzleNscUiPrefab;
+    [SerializeField] public InOrderLockerUIController puzzleIolUiPrefab;
+    [Space(5)]
+    [SerializeField] public AllyCardUIController allyCardUiPrefab;
+    [Space(5)]
+    [SerializeField] public PremiumCreditCvtUIController premiumCreditCvtUiPrefab;
+    [SerializeField] public ProtoCoreCvtUIController protoCoreCvtUiPrefab;
+    [SerializeField] public EtherCoreCvtUIController etherCoreCvtUiPrefab;
+    [SerializeField] public OriginCoreCvtUIController originCoreCvtUiPrefab;
+    [Space(5)]
+    [SerializeField] public BattleProdUIController battleProdUiPrefab;
+
+    public PlayerHUDController hud { get; private set; }
+    public OutMainGameUIController pauseUi { get; private set; }
+    public InteractAnnoUIController interactAnnoUi { get; private set; }
+    public MapIntroUIController mapIntroUi { get; private set; }
+
+
+    public BaseUpgradeUIController buUi { get; private set; }
+    public ModuleUpgradeUIController muUi { get; private set; }
+
+    public AllyBaseUpgradeUIController abuUi { get; private set; }
+    public AllyModuleUpgradeUIController amuUi { get; private set; }
+
+
+    public BoxLineConnectorUIController puzzleBlcUi { get; private set; }
+    public NumShapeColorPasswordUIController puzzleNscUi { get; private set; }
+    public InOrderLockerUIController puzzleIolUi { get; private set; }
+
+    public AllyCardUIController allyCardUi { get; private set; }
+
+
+    public PremiumCreditCvtUIController premiumCreditCvtUi { get; private set; }
+    public ProtoCoreCvtUIController protoCoreCvtUi { get; private set; }
+    public EtherCoreCvtUIController etherCoreCvtUi { get; private set; }
+    public OriginCoreCvtUIController originCoreCvtUi { get; private set; }
+
+    public BattleProdUIController battleProdUi { get; private set; }
+
+
+    [Header("=== Module")]
+    [SerializeField] private InventoryItemEUIController inventoryItemPrefab;
+    [SerializeField] private InventorySlotEUIController inventorySlotPrefab;
+
+
     [Header("=== Class")]
     [SerializeField] public Camera uiCamera;
     [SerializeField] public Transform uiParent;
@@ -37,30 +95,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
     // Controller
 
-    [HideInInspector] public PlayerHUDController playerHud;
 
-    [HideInInspector] public BaseUpgradeUIController baseUpgradeUi;
-    [HideInInspector] public ModuleUpgradeUIController moduleUpgradeUi;
 
-    [HideInInspector] public AllyBaseUpgradeUIController allyBaseUpgradeUi;
-    [HideInInspector] public AllyModuleUpgradeUIController allyModuleUpgradeUi;
-
-    [HideInInspector] public OutMainGameUIController outMainGameUi;
-    [HideInInspector] public InteractAnnoUIController interactAnnoUi;
-    [HideInInspector] public MapIntroUIController mapIntroUi;
-
-    [HideInInspector] public AllyCardUIController allyCardUi;
-
-    [HideInInspector] public BoxLineConnectorUIController boxLineConnectorUi;
-    [HideInInspector] public NumShapeColorPasswordUIController numShapeColorPasswordUi;
-    [HideInInspector] public InOrderLockerUIController inOrderLockerUi;
-
-    [HideInInspector] public PremiumCreditCvtUIController premiumCreditCvtUi;
-    [HideInInspector] public ProtoCoreCvtUIController protoCoreCvtUi;
-    [HideInInspector] public EtherCoreCvtUIController etherCoreCvtUi;
-    [HideInInspector] public OriginCoreCvtUIController originCoreCvtUi;
-
-    [HideInInspector] public BattleProdUIController battleProdUi;
 
     // Current
     [HideInInspector] public static UIController currentOpeningUi;
@@ -81,35 +117,35 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
     {
         yield return null;
 
-        var reso = ResourceManager.instance;
         PlayerController player = PlayerManager.instance.playerController;
         Color mainClr = player.Get_CorrectColor(eDamageType.Energy, false);
         Color subClr = player.Get_CorrectColor(eDamageType.Energy, true);
 
-        yield return InitAsync(reso.playerHUD_CanvasPrefab, true, delegate(PlayerHUDController ui) { playerHud = ui; });
-        yield return playerHud.Init(mainClr, subClr);
-        yield return InitAsync(reso.outMainGame_CanvasPrefab, false, delegate (OutMainGameUIController ui) { outMainGameUi = ui; });
+        yield return InitAsync(hudPrefab, true, delegate (PlayerHUDController ui) { hud = ui; });
+        yield return hud.Init(mainClr, subClr);
+        yield return InitAsync(pauseUiPrefab, false, delegate (OutMainGameUIController ui) { pauseUi = ui; });
 
-        yield return InitAsync(reso.baseUpgrade_CanvasPrefab, false, delegate (BaseUpgradeUIController ui) { baseUpgradeUi = ui; });
-        yield return InitAsync(reso.moduleUpgrade_CanvasPrefab, false, delegate (ModuleUpgradeUIController ui) { moduleUpgradeUi = ui; });
 
-        yield return InitAsync(reso.allyBaseUpgrade_CanvasPrefab, false, delegate (AllyBaseUpgradeUIController ui) { allyBaseUpgradeUi = ui; });
-        yield return InitAsync(reso.allyModuleUpgrade_CanvasPrefab, false, delegate (AllyModuleUpgradeUIController ui) { allyModuleUpgradeUi = ui; });
+        yield return InitAsync(buUiPrefab, false, delegate (BaseUpgradeUIController ui) { buUi = ui; });
+        yield return InitAsync(muUiPrefab, false, delegate (ModuleUpgradeUIController ui) { muUi = ui; });
 
-        yield return InitAsync(reso.interactAnno_CanvasPrefab, false, delegate (InteractAnnoUIController ui) { interactAnnoUi = ui; });
-        yield return InitAsync(reso.mapIntro_CanvasPrefab, false, delegate (MapIntroUIController ui) { mapIntroUi = ui; });
-        yield return InitAsync(reso.allyCard_CanvasPrefab, false, delegate (AllyCardUIController ui) { allyCardUi = ui; });
+        yield return InitAsync(abuUiPrefab, false, delegate (AllyBaseUpgradeUIController ui) { abuUi = ui; });
+        yield return InitAsync(amuUiPrefab, false, delegate (AllyModuleUpgradeUIController ui) { amuUi = ui; });
 
-        yield return InitAsync(reso.puzzle_BoxLineConnector_CanvasPrefab, false, delegate (BoxLineConnectorUIController ui) { boxLineConnectorUi = ui; });
-        yield return InitAsync(reso.puzzle_NumShapeColorPassword_CanvasPrefab, false, delegate (NumShapeColorPasswordUIController ui) { numShapeColorPasswordUi = ui; });
-        yield return InitAsync(reso.puzzle_InOrderLocker_CanvasPrefab, false, delegate (InOrderLockerUIController ui) { inOrderLockerUi = ui; });
+        yield return InitAsync(interactAnnoUiPrefab, false, delegate (InteractAnnoUIController ui) { interactAnnoUi = ui; });
+        yield return InitAsync(mapIntroUiPrefab, false, delegate (MapIntroUIController ui) { mapIntroUi = ui; });
+        yield return InitAsync(allyCardUiPrefab, false, delegate (AllyCardUIController ui) { allyCardUi = ui; });
 
-        yield return InitAsync(reso.cvt_PremiumCredit_CanvasPrefab, false, delegate (PremiumCreditCvtUIController ui) { premiumCreditCvtUi = ui; });
-        yield return InitAsync(reso.cvt_ProtoCore_CanvasPrefab, false, delegate (ProtoCoreCvtUIController ui) { protoCoreCvtUi = ui; });
-        yield return InitAsync(reso.cvt_EtherCore_CanvasPrefab, false, delegate (EtherCoreCvtUIController ui) { etherCoreCvtUi = ui; });
-        yield return InitAsync(reso.cvt_OriginCore_CanvasPrefab, false, delegate (OriginCoreCvtUIController ui) { originCoreCvtUi = ui; });
+        yield return InitAsync(puzzleBlcUiPrefab, false, delegate (BoxLineConnectorUIController ui) { puzzleBlcUi = ui; });
+        yield return InitAsync(puzzleNscUiPrefab, false, delegate (NumShapeColorPasswordUIController ui) { puzzleNscUi = ui; });
+        yield return InitAsync(puzzleIolUiPrefab, false, delegate (InOrderLockerUIController ui) { puzzleIolUi = ui; });
 
-        yield return InitAsync(reso.battleProd_CanvasPrefab, false, delegate (BattleProdUIController ui) { battleProdUi = ui; });
+        yield return InitAsync(premiumCreditCvtUiPrefab, false, delegate (PremiumCreditCvtUIController ui) { premiumCreditCvtUi = ui; });
+        yield return InitAsync(protoCoreCvtUiPrefab, false, delegate (ProtoCoreCvtUIController ui) { protoCoreCvtUi = ui; });
+        yield return InitAsync(etherCoreCvtUiPrefab, false, delegate (EtherCoreCvtUIController ui) { etherCoreCvtUi = ui; });
+        yield return InitAsync(originCoreCvtUiPrefab, false, delegate (OriginCoreCvtUIController ui) { originCoreCvtUi = ui; });
+
+        yield return InitAsync(battleProdUiPrefab, false, delegate (BattleProdUIController ui) { battleProdUi = ui; });
 
         GameManager.instance.Set_BaseOption();
         yield return null;
@@ -119,25 +155,34 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
     }
 
-    private IEnumerator InitAsync<T>(GameObject uiGo, bool onOff, Action<T> action) where T : UIController
+    private IEnumerator InitAsync<T>(T tTypePrefab, bool onOff, Action<T> action) where T : UIController
     {
+#if UNITY_EDITOR
         Stopwatch sw = new Stopwatch();
         sw.Start();
-        GameObject uigo = Instantiate(uiGo, uiParent);
-        uigo.gameObject.SetActive(onOff);
+#endif
 
-        if (uiGo != null && DevTool.Get_ComponentTType(uigo, out UIController uiController))
+        T tType = Instantiate(tTypePrefab, uiParent);
+        tType.gameObject.SetActive(onOff);
+
+        if (tTypePrefab != null)
         {
-            uiController.Offset();
-            T tComp = uiController as T;
-            if (action != null && tComp != null) action(tComp);
+            tType.Offset();
+            if (action != null)
+                action(tType);
         }
 
+#if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"MainGameUIManager : <color=orange>Generate</color> : {uigo.name} : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"MainGameUIManager : <color=orange>Generate</color> : {tType.name} : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
 
         yield return null;
     }
+
+    public InventoryItemEUIController GetModuleItemEUIPrefab() => inventoryItemPrefab;
+    public InventorySlotEUIController GetModuleSlotEUIPrefab() => inventorySlotPrefab;
+
 
     #region Prod
 
@@ -159,7 +204,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
     public void EndProd()
     {
         Play_FadeOut(fadeOutTime);
-        Play_OffLoadingIcon(fadeOutTime); 
+        Play_OffLoadingIcon(fadeOutTime);
 
         EventManager.instance.TryStart_Event(0);
     }
@@ -169,35 +214,35 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
     #region Set
 
-    public void Set_LanguageTxt()
+    public void SetLanguageTxt()
     {
-        outMainGameUi.SetLanguageTxt();
+        pauseUi.SetLanguageTxt();
 
         mapIntroUi.SetLanguageTxt();
-        playerHud.SetLanguageTxt();
+        hud.SetLanguageTxt();
         interactAnnoUi.SetLanguageTxt();
 
-        baseUpgradeUi.SetLanguageTxt();
-        moduleUpgradeUi.SetLanguageTxt();
+        buUi.SetLanguageTxt();
+        muUi.SetLanguageTxt();
         ModuleItemManager.instance.Set_DataLanguage();
 
-        allyBaseUpgradeUi.SetLanguageTxt();
-        allyModuleUpgradeUi.SetLanguageTxt();
+        abuUi.SetLanguageTxt();
+        amuUi.SetLanguageTxt();
 
         allyCardUi.SetLanguageTxt();
     }
 
-    public void Set_Color()
+    public void SetColor()
     {
-        outMainGameUi.Offset_ColorComp();
+        pauseUi.Offset_ColorComp();
 
         interactAnnoUi.Offset_ColorComp();
 
-        baseUpgradeUi.Offset_ColorComp();
-        moduleUpgradeUi.Offset_ColorComp();
+        buUi.Offset_ColorComp();
+        muUi.Offset_ColorComp();
 
-        allyBaseUpgradeUi.Offset_ColorComp();
-        allyModuleUpgradeUi.Offset_ColorComp();
+        abuUi.Offset_ColorComp();
+        amuUi.Offset_ColorComp();
     }
 
     #endregion
@@ -211,12 +256,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         screenCanvas.gameObject.SetActive(true);
 
         seq.Append(screenCG.DOFade(0f, durTime));
-        seq.Join(playerHud.cg.DOFade(1f, durTime));
+        seq.Join(hud.cg.DOFade(1f, durTime));
 
         seq.OnStart(() =>
         {
             screenCG.alpha = 1f;
-            playerHud.cg.alpha = 0f;
+            hud.cg.alpha = 0f;
 
         })
         .OnComplete(() =>
@@ -234,12 +279,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         screenCanvas.gameObject.SetActive(true);
 
         seq.Append(screenCG.DOFade(1f, durTime));
-        seq.Join(playerHud.cg.DOFade(0f, durTime));
+        seq.Join(hud.cg.DOFade(0f, durTime));
 
         seq.OnStart(() =>
         {
             screenCG.alpha = 0f;
-            playerHud.cg.alpha = 1f;
+            hud.cg.alpha = 1f;
         })
         .OnComplete(() =>
         {

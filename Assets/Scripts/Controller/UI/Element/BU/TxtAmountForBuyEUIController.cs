@@ -112,7 +112,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
         rt.DOSizeDelta(new Vector2(maximumSize, rt.sizeDelta.y), sizeDeltaTime);
 
-        MainGameUIManager.instance.baseUpgradeUi.SetOn_Desc(this, skillNameTxt.text);
+        MainGameUIManager.instance.buUi.SetOn_Desc(this, skillNameTxt.text);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -121,7 +121,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
         rt.DOSizeDelta(new Vector2(minimumSize, rt.sizeDelta.y), sizeDeltaTime);
 
-        MainGameUIManager.instance.baseUpgradeUi.SetOff_Desc();
+        MainGameUIManager.instance.buUi.SetOff_Desc();
     }
 
     #endregion

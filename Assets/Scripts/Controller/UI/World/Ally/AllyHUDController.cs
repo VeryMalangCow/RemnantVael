@@ -42,7 +42,7 @@ public class AllyHUDController : MonoBehaviour
 
     public void Offset_Subscribe()
     {
-        MainGameUIManager.instance.playerHud.isTabInteracted.Subscribe(value =>
+        MainGameUIManager.instance.hud.isTabInteracted.Subscribe(value =>
             {
                 baseCg.alpha = value ? 0f : 1f;
                 requestCg.alpha = value ? 1f : 0f;

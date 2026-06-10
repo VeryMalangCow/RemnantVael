@@ -130,10 +130,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_Prefab()
     {
-        Offset_Prefab_ModuleItem();
         Offset_Prefab_Map();
         Offset_Prefab_Build(); 
-        Offset_Prefab_CanvasUI();
     }
 
     private void Offset_Anim()
@@ -232,7 +230,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         if (sceneName == "MainGame")
         {
             // UI
-            MainGameUIManager.instance.Set_LanguageTxt();
+            MainGameUIManager.instance.SetLanguageTxt();
 
             // Ally
             AllyManager.instance.Set_Language();
@@ -1001,22 +999,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
     #region Item - Module (Prefab)
-
-    // Value
-    [HideInInspector] private GameObject inventoryItemPrefab;
-    [HideInInspector] private GameObject inventorySlotPrefab;
-
-    // Offset
-    private void Offset_Prefab_ModuleItem()
-    {
-        string path = "Prefab/UI/MainGame/Build/Player/MU/Inventory/";
-        inventoryItemPrefab = GetAsset<GameObject>(path, "Panel_Item_Prefab");
-        inventorySlotPrefab = GetAsset<GameObject>(path, "Panel_ItemSlot_Prefab");
-    }
-
-    // Get
-    public GameObject Get_ModuleItemUI_Prefab() => inventoryItemPrefab;
-    public GameObject Get_ModuleSlotUI_Prefab() => inventorySlotPrefab;
 
     #endregion
     #region Item - Module (Anim)
@@ -2339,77 +2321,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
-    #region Canvas UI (Prefab)
-
-    // Value
-    public GameObject titleLobby_CanvasPrefab { get; private set; }
-
-    public GameObject playerHUD_CanvasPrefab { get; private set; }
-
-    public GameObject baseUpgrade_CanvasPrefab { get; private set; }
-    public GameObject moduleUpgrade_CanvasPrefab { get; private set; }
-
-    public GameObject allyBaseUpgrade_CanvasPrefab { get; private set; }
-    public GameObject allyModuleUpgrade_CanvasPrefab { get; private set; }
-
-    public GameObject outMainGame_CanvasPrefab { get; private set; }
-    public GameObject interactAnno_CanvasPrefab { get; private set; }
-    public GameObject mapIntro_CanvasPrefab { get; private set; }
-
-    public GameObject allyCard_CanvasPrefab { get; private set; }
-
-    public GameObject puzzle_BoxLineConnector_CanvasPrefab { get; private set; }
-    public GameObject puzzle_NumShapeColorPassword_CanvasPrefab { get; private set; }
-    public GameObject puzzle_InOrderLocker_CanvasPrefab { get; private set; }
-
-    public GameObject cvt_PremiumCredit_CanvasPrefab { get; private set; }
-    public GameObject cvt_ProtoCore_CanvasPrefab { get; private set; }
-    public GameObject cvt_EtherCore_CanvasPrefab { get; private set; }
-    public GameObject cvt_OriginCore_CanvasPrefab { get; private set; }
-
-    public GameObject battleProd_CanvasPrefab { get; private set; }
-
-    // Offset
-    private void Offset_Prefab_CanvasUI()
-    {
-        string path = "Prefab/UI/";
-
-        Dictionary<string, GameObject> dict = new Dictionary<string, GameObject>();
-        GameObject[] prefabs = GetAsset_Arr<GameObject>(path);
-        for (int i = 0; i < prefabs.Length; i++)
-            dict.Add(prefabs[i].name, prefabs[i]);
-
-        titleLobby_CanvasPrefab = dict[Get_CanvasName("TitleLobby")];
-
-        playerHUD_CanvasPrefab = dict[Get_CanvasName("PlayerInfoHUD")];
-
-        baseUpgrade_CanvasPrefab = dict[Get_CanvasName("BUUI")];
-        moduleUpgrade_CanvasPrefab = dict[Get_CanvasName("MUUI")];
-
-        allyBaseUpgrade_CanvasPrefab = dict[Get_CanvasName("ABUUI")];
-        allyModuleUpgrade_CanvasPrefab = dict[Get_CanvasName("AMUUI")];
-
-        outMainGame_CanvasPrefab = dict[Get_CanvasName("OutMainGame")];
-        interactAnno_CanvasPrefab = dict[Get_CanvasName("InteractAnnoHUD")];
-        mapIntro_CanvasPrefab = dict[Get_CanvasName("MapIntroHUD")];
-
-        allyCard_CanvasPrefab = dict[Get_CanvasName("AllyUpgrade")];
-
-        puzzle_BoxLineConnector_CanvasPrefab = dict[Get_CanvasName("Puzzle_BoxLineConnector")];
-        puzzle_NumShapeColorPassword_CanvasPrefab = dict[Get_CanvasName("Puzzle_NumShapeColorPassword")];
-        puzzle_InOrderLocker_CanvasPrefab = dict[Get_CanvasName("Puzzle_InOrderLocker")];
-
-        cvt_PremiumCredit_CanvasPrefab = dict[Get_CanvasName("PremiumCreditCvt")];
-        cvt_ProtoCore_CanvasPrefab = dict[Get_CanvasName("ProtoCoreCvt")];
-        cvt_EtherCore_CanvasPrefab = dict[Get_CanvasName("EtherCoreCvt")];
-        cvt_OriginCore_CanvasPrefab = dict[Get_CanvasName("OriginCoreCvt")];
-
-        battleProd_CanvasPrefab = dict[Get_CanvasName("Battle")];
-
-        string Get_CanvasName(string _Name) => "Canvas_" + _Name + "_Prefab";
-    }
-
-    #endregion
 
     #region GetAsset_WordData
 

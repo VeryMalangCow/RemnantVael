@@ -3327,6 +3327,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 13
   initPregressText: User Interface Setting...
+  hudPrefab: {fileID: 2624218842367888890, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+  pauseUiPrefab: {fileID: 110004972818450902, guid: 82b9bf334a8cc7f4b9f572097e947639, type: 3}
+  interactAnnoUiPrefab: {fileID: 8978010960401040254, guid: 3f9f70f0b4ea9ba478e53c4ebefe9489, type: 3}
+  mapIntroUiPrefab: {fileID: 7356439071727625798, guid: df9a3304eda46724393769374534d0cb, type: 3}
+  buUiPrefab: {fileID: -4558796537540952919, guid: 6ecda6451bb90e344859ba1601c66a49, type: 3}
+  muUiPrefab: {fileID: 6160639171471789262, guid: 8292fd992e049564cbd9aa45cc7afbb7, type: 3}
+  abuUiPrefab: {fileID: 7922904956249558278, guid: b3f606fee97fd7445b937d0f909b142e, type: 3}
+  amuUiPrefab: {fileID: 3025977259023401789, guid: f64669b57f9631549819bdd7ce215a8c, type: 3}
+  puzzleBlcUiPrefab: {fileID: 8553495631541516258, guid: 35b739b676c2f0c48b66c75e98920982, type: 3}
+  puzzleNscUiPrefab: {fileID: 6602087277267692926, guid: 58fc63fff4e38b3479fc9c7e7bd24d0f, type: 3}
+  puzzleIolUiPrefab: {fileID: 7972168708411011473, guid: 419f06a3a02035f4faf61bcfe0e3b6a5, type: 3}
+  allyCardUiPrefab: {fileID: 9106031602801609777, guid: f03abad0bb692904a96ccf2c423a8fe7, type: 3}
+  premiumCreditCvtUiPrefab: {fileID: 9207136374185952010, guid: 57c3efdf20b913748bbcce69c4570346, type: 3}
+  protoCoreCvtUiPrefab: {fileID: 9201026541128882302, guid: d38ea802fd1be3b468857065b89749e6, type: 3}
+  etherCoreCvtUiPrefab: {fileID: 8870252582694287460, guid: 81e793408af032349ac449809959832c, type: 3}
+  originCoreCvtUiPrefab: {fileID: 4221395584199395484, guid: b53de7566681789458aacbde7d37b82e, type: 3}
+  battleProdUiPrefab: {fileID: 2848803891551393918, guid: 3b180d2a36db5bf48ac49e16472924ca, type: 3}
+  inventoryItemPrefab: {fileID: -7953412543886136175, guid: 951c3fe4543da204c8bed0ca79322ca7, type: 3}
+  inventorySlotPrefab: {fileID: 9021736151168979971, guid: affa1baef144b8144bd5d40b3609e16a, type: 3}
   uiCamera: {fileID: 1810588474}
   uiParent: {fileID: 79631295}
   screenCanvas: {fileID: 1959778814}
@@ -3335,23 +3354,6 @@ MonoBehaviour:
   saveDataCG: {fileID: 1299242383}
   deadTxt: {fileID: 884634926}
   endGameTxt: {fileID: 1215183400}
-  playerHud: {fileID: 0}
-  baseUpgradeUi: {fileID: 0}
-  moduleUpgradeUi: {fileID: 0}
-  allyBaseUpgradeUi: {fileID: 0}
-  allyModuleUpgradeUi: {fileID: 0}
-  outMainGameUi: {fileID: 0}
-  interactAnnoUi: {fileID: 0}
-  mapIntroUi: {fileID: 0}
-  allyCardUi: {fileID: 0}
-  boxLineConnectorUi: {fileID: 0}
-  numShapeColorPasswordUi: {fileID: 0}
-  inOrderLockerUi: {fileID: 0}
-  premiumCreditCvtUi: {fileID: 0}
-  protoCoreCvtUi: {fileID: 0}
-  etherCoreCvtUi: {fileID: 0}
-  originCoreCvtUi: {fileID: 0}
-  battleProdUi: {fileID: 0}
 --- !u!1 &407909252
 GameObject:
   m_ObjectHideFlags: 0

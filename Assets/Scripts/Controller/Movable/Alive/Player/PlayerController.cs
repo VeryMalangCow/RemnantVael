@@ -458,7 +458,7 @@ public class PlayerController : AliveObjectController
 
         if (betteryShard >= needBS_ForMakeBC)
         {
-            MainGameUIManager.instance.playerHud.BetteryShardView.currentEmptyBc.Set_Complete(
+            MainGameUIManager.instance.hud.BetteryShardView.currentEmptyBc.Set_Complete(
             fadeInTime: 0.3f,
             stayTime: 0.1f,
             fadeOutTime: 0.5f);
@@ -597,7 +597,7 @@ public class PlayerController : AliveObjectController
         if (keycardDict.ContainsKey(keyCardID))
         {
             keycardDict[keyCardID] = Mathf.Min(keycardDict[keyCardID] + amount, 99);
-            MainGameUIManager.instance.playerHud.KeyView.EffectKeyIcon(keyCardID);
+            MainGameUIManager.instance.hud.KeyView.EffectKeyIcon(keyCardID);
             OnKeycardChanged?.Invoke(keycardDict);
         }
     }
@@ -915,7 +915,7 @@ public class PlayerController : AliveObjectController
 
         if (!skillWeapon.skillList[index].Can_Active())
         {
-            MainGameUIManager.instance.playerHud.SkillView.skillList[index].Play_ErrorUI();
+            MainGameUIManager.instance.hud.SkillView.skillList[index].Play_ErrorUI();
             return;
         }
 
@@ -948,7 +948,7 @@ public class PlayerController : AliveObjectController
 
         interactable.PlayInteract();
         
-        MainGameUIManager.instance.playerHud.InteractView.UseInteractUI(interactable);
+        MainGameUIManager.instance.hud.InteractView.UseInteractUI(interactable);
     }
 
     #endregion
@@ -1278,8 +1278,8 @@ public class PlayerController : AliveObjectController
 
         if (showHUDEffect)
         {
-            MainGameUIManager.instance.playerHud.HittedView.PlayHittedPlayScreen(dmgValue, 0.1f);
-            MainGameUIManager.instance.playerHud.HittedView.PlayHittedPlayInfo(dmgValue, invincibleTime);
+            MainGameUIManager.instance.hud.HittedView.PlayHittedPlayScreen(dmgValue, 0.1f);
+            MainGameUIManager.instance.hud.HittedView.PlayHittedPlayInfo(dmgValue, invincibleTime);
         }
 
         if (hittedDir != Vector2.zero)
@@ -1359,7 +1359,7 @@ public class PlayerController : AliveObjectController
     {
         PlayerManager.instance.cameraController.Play_AvoidAnim(invincibleTime);
         VFXManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, targetObject.transform.position);
-        MainGameUIManager.instance.playerHud.HittedView.PlayAvoidPlayInfo(invincibleTime);
+        MainGameUIManager.instance.hud.HittedView.PlayAvoidPlayInfo(invincibleTime);
     }
     
     // 회피하지 못함 => 무적
@@ -1395,7 +1395,7 @@ public class PlayerController : AliveObjectController
 
         Take_Damaged(currentEp * 0.2f, Vector2.zero, false);
 
-        MainGameUIManager.instance.playerHud.HittedView.PlayPrisonPanelty();
+        MainGameUIManager.instance.hud.HittedView.PlayPrisonPanelty();
     }
 
     #endregion
