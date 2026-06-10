@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
@@ -59,7 +58,7 @@ public class PauseUIController : SinglePanelUIController
     [HideInInspector] public float interactPanelPosX;
 
     [HideInInspector] private bool isInteractTweening = false;
-    [HideInInspector] private OutMainGameUIType currentType = OutMainGameUIType.BasePanel;
+    [SerializeField] private OutMainGameUIType currentType = OutMainGameUIType.BasePanel;
 
 
     #endregion
@@ -236,31 +235,38 @@ public class PauseUIController : SinglePanelUIController
     {
         if (currentType != OutMainGameUIType.BasePanel) return false;
 
+
         // Base Btns
         if (currentBtn == resumeBtn)
         {
+            UnityEngine.Debug.Log("Pause 클릭");
             SetOff_ThisPanel();
         }
         else if (currentBtn == stateBtn)
         {
+            UnityEngine.Debug.Log("Pause 클릭");
             SetOn_StatePanel();
         }
         else if (currentBtn == optionBtn)
         {
+            UnityEngine.Debug.Log("Pause 클릭");
             SetOn_OptionPanel();
         }
         else if (currentBtn == infoBtn)
         {
+            UnityEngine.Debug.Log("Pause 클릭");
             SetOn_InfoPanel();
         }
         else if (currentBtn == returnBtn)
         {
+            UnityEngine.Debug.Log("Pause 클릭");
             SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
             EventManager.instance.Set_Input(false);
             LoadingSceneManager.instance.Play_LoadScene("MainGame");
         }
         else if (currentBtn == quitBtn)
         {
+            UnityEngine.Debug.Log("Pause 클릭");
             SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
             EventManager.instance.Set_Input(false);
             LoadingSceneManager.instance.Play_LoadScene("TitleLobby");
