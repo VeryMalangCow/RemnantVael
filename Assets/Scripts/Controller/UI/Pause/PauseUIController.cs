@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using TMPro;
@@ -27,12 +26,6 @@ public class PauseUIController : SinglePanelUIController
     #region - Inspector
 
     [Space(10)]
-    [Header("=== Inner")]
-    [SerializeField] private Transform innerParentTf;
-    [SerializeField] private Transform baseInteractingPanelInnerParentTf;
-    [SerializeField] private Image[] innerImgArr;
-
-    [Space(10)]
     [Header("=== Btn")]
     [SerializeField] private OwnBtnEUIController resumeBtn;
     [SerializeField] private OwnBtnEUIController stateBtn;
@@ -40,10 +33,6 @@ public class PauseUIController : SinglePanelUIController
     [SerializeField] private OwnBtnEUIController infoBtn;
     [SerializeField] private OwnBtnEUIController returnBtn;
     [SerializeField] private OwnBtnEUIController quitBtn;
-
-    [Space(10)]
-    [Header("=== Img")]
-    [SerializeField] private Image basePanelBtnImg;
 
     [Space(20)]
     [Header("=== Txt")]
@@ -55,12 +44,15 @@ public class PauseUIController : SinglePanelUIController
     [SerializeField] private RectTransform basePanelRt;
     [SerializeField] private CanvasGroup baseInteractingPanelCg;
 
+    [Space(10)]
+    [Header("=== Visual")]
+    [SerializeField] private TMP_Text[] mainClrTmps;
+    [SerializeField] private Image[] mainClrImgs;
+    [SerializeField] private Image[] subClrImgs;
+
     #endregion
 
     #region - Hide
-
-    // Inner
-    [HideInInspector] private List<Image> innerImgs;
 
     // Panel
     [HideInInspector] private float interactBasePanelPosX;
@@ -78,15 +70,13 @@ public class PauseUIController : SinglePanelUIController
 
     public IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-#if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew();
-#endif
         stateView = Instantiate(stateViewPrefab, viewParentTf);
         stateViewPrefab = null;
-        yield return stateView.InitAsync(this);
+        yield return stateView.InitAsync(this, mainClr, subClr);
+
 
 #if UNITY_EDITOR
-        sw.Restart();
+        Stopwatch sw = Stopwatch.StartNew();
 #endif
         optionView = Instantiate(optionViewPrefab, viewParentTf);
         optionView.Init(this);
@@ -96,6 +86,7 @@ public class PauseUIController : SinglePanelUIController
         UnityEngine.Debug.Log($"Pause UI : <color=yellow>Option View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
+
 
 
 #if UNITY_EDITOR
@@ -109,6 +100,22 @@ public class PauseUIController : SinglePanelUIController
         UnityEngine.Debug.Log($"Pause UI : <color=yellow>Info View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
+
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+
+        interactBasePanelPosX = 1000f;
+        interactPanelPosX = optionView.panelRt.rect.width;
+        optionView.panelRt.gameObject.SetActive(false);
+
+        basePanelRt.anchoredPosition = Vector2.zero;
+        optionView.panelRt.anchoredPosition = Vector2.zero;
+
+        baseInteractingPanelCg.alpha = 0f;
+
 
         resumeBtn.ownerUIController = this;
         infoBtn.ownerUIController = this;
@@ -124,43 +131,34 @@ public class PauseUIController : SinglePanelUIController
         returnBtn.Offset();
         quitBtn.Offset();
 
-        innerImgs = DevTool.Get_ChildList<Image>(innerParentTf);
+        SetColor(mainClr, subClr);
 
         SetLanguageTxt();
 
-        mainColorCompList.Add(basePanelBtnTxt);
-        subColorCompList.Add(basePanelBtnImg);
-
-        mainColorCompList.AddRange(DevTool.Get_ChildList<Image>(baseInteractingPanelInnerParentTf));
-        subColorCompList.AddRange(innerImgs);
-
-        mainColorCompList.AddRange(optionView.Get_MainColorComps());
-
-        Color clr = new Color(1, 1, 1, 0.1f);
-        for (int i = 0; i < innerImgArr.Length; i++)
-            innerImgArr[i].color = clr;
-
-        mainColorCompList.AddRange(innerImgArr);
-
-        DevTool.Set_Color(mainClr, mainColorCompList);
-        mainColorCompList.Clear();
-        mainColorCompList = null;
-
-        DevTool.Set_Color(subClr, subColorCompList);
-        subColorCompList.Clear();
-        subColorCompList = null;
-
-        stateView.Set_Color(mainClr, subClr);
-
-        interactBasePanelPosX = 1000f;
-        interactPanelPosX = optionView.panelRt.rect.width;
-        optionView.panelRt.gameObject.SetActive(false);
-
-        basePanelRt.anchoredPosition = Vector2.zero;
-        optionView.panelRt.anchoredPosition = Vector2.zero;
-
-        baseInteractingPanelCg.alpha = 0f;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Pause UI : <color=yellow>Comp Set</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
+    }
+
+    #endregion
+
+    #region Color
+
+    private void SetColor(Color mainClr, Color subClr)
+    {
+        DevTool.SetColorTmps(mainClr, mainClrTmps);
+        mainClrTmps = null;
+        DevTool.SetColorImgs(mainClr, mainClrImgs);
+        mainClrImgs = null;
+
+        DevTool.SetColorImgs(subClr, subClrImgs);
+        subClrImgs = null;
+
+        stateView.SetColor(mainClr, subClr);
+        optionView.SetColor(mainClr);
+
     }
 
     #endregion
@@ -408,7 +406,7 @@ public class PauseUIController : SinglePanelUIController
         baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(20);
         SetOn_Panel(OutMainGameUIType.OptionPanel, optionView.panelRt);
 
-        optionView.Set_Panel();
+        optionView.SetPanel();
     }
 
     #endregion
@@ -422,7 +420,7 @@ public class PauseUIController : SinglePanelUIController
         baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(102);
         SetOn_Panel(OutMainGameUIType.StatePanel, stateView.panelRt);
 
-        stateView.Set_Panel(true);
+        stateView.SetPanel(true);
         stateView.Set_State(AllyManager.instance.allAlly);
     }
 
@@ -501,7 +499,7 @@ public class PauseUIController : SinglePanelUIController
         DevTool.Get_ComponentTType<TMP_Text>(returnBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(returnBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(143);
         DevTool.Get_ComponentTType<TMP_Text>(quitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(quitBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(21);
 
-        optionView.Set_LanguageTxt();
+        optionView.SetLanguageTxt();
         stateView.Set_LanguageTxt();
         infoView.Set_LanguageTxt();
 

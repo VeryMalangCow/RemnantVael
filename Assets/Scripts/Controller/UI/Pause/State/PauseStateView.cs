@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
 
 public class PauseStateView : MonoBehaviour
@@ -17,7 +16,6 @@ public class PauseStateView : MonoBehaviour
 
     [SerializeField] private TMP_Text playerStateNameTxt;
     [SerializeField] private TMP_Text allyStateNameTxt;
-    [SerializeField] private Image[] innerImgArr;
 
     #endregion
 
@@ -52,28 +50,26 @@ public class PauseStateView : MonoBehaviour
 
     #region Init
 
-    public IEnumerator InitAsync(PauseUIController uiController)
+    public IEnumerator InitAsync(PauseUIController uiController, Color mainClr, Color subClr)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
 #endif
-        buStateView = Instantiate(buStateViewPrefab);
-        buStateView.Init();
+        buStateView = Instantiate(buStateViewPrefab, stateViewParentTf);
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"Pause UI : <color=yellow>State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"Pause UI : <color=yellow>Bu State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
-        yield return null;
-
+        yield return buStateView.InitAsync(mainClr, subClr);
 
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        muStateView = Instantiate(muStateViewPrefab);
+        muStateView = Instantiate(muStateViewPrefab, stateViewParentTf);
         muStateView.Init(); 
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"Pause UI : <color=yellow>State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"Pause UI : <color=yellow>Mu State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
 
@@ -85,7 +81,9 @@ public class PauseStateView : MonoBehaviour
 
         allyScrollEui.Offset();
 
-        Set_Panel(true);
+        SetPanel(true);
+
+        yield return null;
     }
 
 #endregion
@@ -95,10 +93,10 @@ public class PauseStateView : MonoBehaviour
     public void Change_Panel()
     {
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
-        Set_Panel(!isBuPanelOn);
+        SetPanel(!isBuPanelOn);
     }
 
-    public void Set_Panel(bool isBuPanelOn)
+    public void SetPanel(bool isBuPanelOn)
     {
         this.isBuPanelOn = isBuPanelOn;
 
@@ -115,16 +113,11 @@ public class PauseStateView : MonoBehaviour
 
     string Get(int index) => ResourceManager.instance.Get_StaticWord(index);
 
-    public void Set_Color(Color imgClr, Color txtClr)
+    public void SetColor(Color imgClr, Color txtClr)
     {
-        for (int i = 0; i < innerImgArr.Length; i++)
-            innerImgArr[i].color = imgClr;
-
         playerStateNameTxt.color = imgClr;
 
-        buStateView.Set_Color(imgClr, txtClr);
-        muStateView.Set_Color(imgClr, txtClr); 
-
+        muStateView.SetColor(imgClr, txtClr); 
 
         #region Ally
 
@@ -164,7 +157,7 @@ public class PauseStateView : MonoBehaviour
         PlayerDashController pdc = pc.dash;
 
         buStateView.SetState();
-        muStateView.Set_State();
+        muStateView.SetState();
 
         #endregion
 

@@ -22,7 +22,9 @@ public class LRSlidingItemEUIController : ElementUIController
     [SerializeField] public OwnBtnEUIController rightBtn;
 
     [Space(10)]
-    [Header("=== Inner")]
+    [Header("=== Visual")]
+    [SerializeField] private TMP_Text[] mainClrTmps;
+    public TMP_Text[] MainClrTmps { get { return mainClrTmps; } }
 
     #endregion
 
@@ -98,16 +100,6 @@ public class LRSlidingItemEUIController : ElementUIController
     #endregion
 
     #region Get
-
-    public List<Component> Get_InnerMainColorList()
-    {
-        return new List<Component>
-        {
-            DevTool.Get_ComponentTType<TMP_Text>(leftBtn.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<TMP_Text>(rightBtn.transform.GetChild(0).gameObject),
-            headerTxt
-        };
-    }
 
     public int Get_CurrentIndex()
     {

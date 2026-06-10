@@ -1520,6 +1520,11 @@ public class DevTool
             tmps[i].color = new Color(clr.r, clr.g, clr.b, tmps[i].color.a);
     }
 
+    public static void SetColorTmps(Color clr, List<TMP_Text> tmps)
+    {
+        for (int i = 0; i < tmps.Count; i++)
+            tmps[i].color = new Color(clr.r, clr.g, clr.b, tmps[i].color.a);
+    }
 
 
 

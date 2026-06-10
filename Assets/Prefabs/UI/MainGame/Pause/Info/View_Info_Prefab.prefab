@@ -388,6 +388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6869320845525660125}
   - component: {fileID: 3090879602827815776}
+  - component: {fileID: 906938859990035899}
   m_Layer: 5
   m_Name: View_Info_Prefab
   m_TagString: Untagged
@@ -437,6 +438,29 @@ MonoBehaviour:
   listScrollPanelEui: {fileID: 2435486646707364382}
   listElementParentTf: {fileID: 1476912345830279903}
   detailElementParentTf: {fileID: 315869123503837829}
+--- !u!223 &906938859990035899
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072566936309321235}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1766688548952342910
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class StandbyPlayerBUEUIController : ElementUIController
 
     [SerializeField] private TMP_Text nameTxt;
     [SerializeField] private Image[] fillImgArr;
+    [SerializeField] public RectTransform rt;
 
     #endregion
 
@@ -22,7 +23,7 @@ public class StandbyPlayerBUEUIController : ElementUIController
 
     #region Set
 
-    public void Set_Color(Color clr, Color txtClr)
+    public void SetColor(Color clr, Color txtClr)
     {
         nameTxt.color = txtClr;
 

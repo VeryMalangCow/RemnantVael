@@ -816,6 +816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421143085177992787}
   - component: {fileID: 4900216239561464048}
+  - component: {fileID: 9198555203946742059}
   m_Layer: 5
   m_Name: View_State_Prefab
   m_TagString: Untagged
@@ -865,46 +866,34 @@ MonoBehaviour:
   isBuPanelOn: 1
   playerStateNameTxt: {fileID: 6828380978552473683}
   allyStateNameTxt: {fileID: 1667421753827115929}
-  innerImgArr:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   buStateViewPrefab: {fileID: 1095628656056897221, guid: 870cc6be5c1a6394fa89b6aa34f54a8b, type: 3}
   muStateViewPrefab: {fileID: 6866766137441004669, guid: 00f651353185e8c489a3e0a48be362a1, type: 3}
   stateViewParentTf: {fileID: 4720239893003802152}
-  playerMuPanelGo: {fileID: 0}
-  playerMuScrollEui: {fileID: 0}
-  muEuiArr:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  synergyEuiArr:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   allyScrollEui: {fileID: 1752431385480561315}
   allyBuEuiPrefab: {fileID: 2074197208769285475, guid: 1c2ae5f9dc899164688ff31dbd8b9782, type: 3}
+--- !u!223 &9198555203946742059
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6904285490870199496}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &6951375932100629873
 GameObject:
   m_ObjectHideFlags: 0

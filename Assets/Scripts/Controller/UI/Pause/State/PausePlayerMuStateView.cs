@@ -17,7 +17,7 @@ public class PausePlayerMuStateView : MonoBehaviour
             synergyEuiArr[i].Offset();
 
     }
-    public void Set_Color(Color imgClr, Color txtClr)
+    public void SetColor(Color imgClr, Color txtClr)
     {
         for (int i = 0; i < muEuiArr.Length; i++)
             muEuiArr[i].Set_Color(txtClr);
@@ -25,7 +25,8 @@ public class PausePlayerMuStateView : MonoBehaviour
         for (int i = 0; i < synergyEuiArr.Length; i++)
             synergyEuiArr[i].Set_Color(imgClr, txtClr);
     }
-    public void Set_State()
+
+    public void SetState()
     {
         // Module
         List<CopyModuleState> states = ModuleItemManager.instance.Get_EquippedModuleState();

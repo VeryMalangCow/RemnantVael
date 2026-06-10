@@ -19,6 +19,11 @@ public class FillScrollbarEUIController : ElementUIController
     [SerializeField] public OwnBtnEUIController leftBtn;
     [SerializeField] public OwnBtnEUIController rightBtn;
 
+    [Space(10)]
+    [Header("=== Visual")]
+    [SerializeField] private TMP_Text[] mainClrTmps;
+    public TMP_Text[] MainClrTmps { get { return mainClrTmps; } }
+
     #endregion
 
     #region Offset
@@ -53,20 +58,6 @@ public class FillScrollbarEUIController : ElementUIController
 
         if (setFunc != null)
             setFunc();
-    }
-
-    #endregion
-
-    #region Color
-
-    public List<Component> Get_InnerMainColorList()
-    {
-        return new List<Component>
-        {
-            DevTool.Get_ComponentTType<TMP_Text>(leftBtn.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<TMP_Text>(rightBtn.transform.GetChild(0).gameObject),
-            headerTxt
-        };
     }
 
     #endregion

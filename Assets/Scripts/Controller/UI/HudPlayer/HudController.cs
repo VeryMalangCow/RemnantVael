@@ -272,6 +272,7 @@ public class HudController : UIController
 #endif
         yield return null;
         SetLanguageTxt();
+        yield return null;
     }
 
 

@@ -42,9 +42,26 @@ public class PauseOptionView : MonoBehaviour
 
         sfxVolumePanelEui.Set_OwnerUIController(uiController);
         sfxVolumePanelEui.Offset();
+
+
     }
 
-    public void Set_Panel()
+    public void SetColor(Color mainClr)
+    {
+        List<TMP_Text> mainClrTmps = new List<TMP_Text>();
+
+        mainClrTmps.AddRange(languagePanelEui.MainClrTmps);
+        mainClrTmps.AddRange(screenModePanelEui.MainClrTmps);
+        mainClrTmps.AddRange(resolutionPanelEui.MainClrTmps);
+        mainClrTmps.AddRange(fpsPanelEui.MainClrTmps);
+        mainClrTmps.AddRange(bgmVolumePanelEui.MainClrTmps);
+        mainClrTmps.AddRange(sfxVolumePanelEui.MainClrTmps);
+
+        DevTool.SetColorTmps(mainClr, mainClrTmps);
+        mainClrTmps = null;
+    }
+
+    public void SetPanel()
     {
         panelRt.gameObject.SetActive(true);
         warningTxt.gameObject.SetActive(false);
@@ -56,7 +73,7 @@ public class PauseOptionView : MonoBehaviour
         sfxVolumePanelEui.Set_Value(SoundManager.instance.sfxVolume);
     }
 
-    public void Set_LanguageTxt()
+    public void SetLanguageTxt()
     {
         warningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
 
@@ -67,19 +84,5 @@ public class PauseOptionView : MonoBehaviour
         fpsPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(141);
         bgmVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(138);
         sfxVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(139);
-    }
-
-    public List<Component> Get_MainColorComps()
-    {
-        List<Component> result = new List<Component>();
-
-        result.AddRange(languagePanelEui.Get_InnerMainColorList());
-        result.AddRange(screenModePanelEui.Get_InnerMainColorList());
-        result.AddRange(resolutionPanelEui.Get_InnerMainColorList());
-        result.AddRange(fpsPanelEui.Get_InnerMainColorList());
-        result.AddRange(bgmVolumePanelEui.Get_InnerMainColorList());
-        result.AddRange(sfxVolumePanelEui.Get_InnerMainColorList());
-
-        return result;
     }
 }
