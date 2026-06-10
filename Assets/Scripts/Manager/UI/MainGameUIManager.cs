@@ -16,8 +16,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
     #region - Inspector
 
     [Header("=== Prefab")]
-    [SerializeField] private PlayerHUDController hudPrefab;
-    [SerializeField] private OutMainGameUIController pauseUiPrefab;
+    [SerializeField] private HudController hudPrefab;
+    [SerializeField] private PauseUIController pauseUiPrefab;
     [SerializeField] private InteractAnnoUIController interactAnnoUiPrefab;
     [SerializeField] private MapIntroUIController mapIntroUiPrefab;
     [Space(5)]
@@ -40,8 +40,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
     [Space(5)]
     [SerializeField] public BattleProdUIController battleProdUiPrefab;
 
-    public PlayerHUDController hud { get; private set; }
-    public OutMainGameUIController pauseUi { get; private set; }
+    public HudController hud { get; private set; }
+    public PauseUIController pauseUi { get; private set; }
     public InteractAnnoUIController interactAnnoUi { get; private set; }
     public MapIntroUIController mapIntroUi { get; private set; }
 
@@ -121,10 +121,10 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         Color mainClr = player.Get_CorrectColor(eDamageType.Energy, false);
         Color subClr = player.Get_CorrectColor(eDamageType.Energy, true);
 
-        yield return InitAsync(hudPrefab, true, delegate (PlayerHUDController ui) { hud = ui; });
-        yield return hud.Init(mainClr, subClr);
-        yield return InitAsync(pauseUiPrefab, false, delegate (OutMainGameUIController ui) { pauseUi = ui; });
-
+        yield return InitAsync(hudPrefab, true, delegate (HudController ui) { hud = ui; });
+        yield return hud.InitAsync(mainClr, subClr);
+        yield return InitAsync(pauseUiPrefab, false, delegate (PauseUIController ui) { pauseUi = ui; });
+        yield return pauseUi.InitAsync(mainClr, subClr);
 
         yield return InitAsync(buUiPrefab, false, delegate (BaseUpgradeUIController ui) { buUi = ui; });
         yield return InitAsync(muUiPrefab, false, delegate (ModuleUpgradeUIController ui) { muUi = ui; });
@@ -234,8 +234,6 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
     public void SetColor()
     {
-        pauseUi.Offset_ColorComp();
-
         interactAnnoUi.Offset_ColorComp();
 
         buUi.Offset_ColorComp();

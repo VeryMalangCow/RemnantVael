@@ -98,7 +98,7 @@ public class PresenterOwnerData
 
 public class PresenterUIData
 {
-    public PlayerHUDController hud;
+    public HudController hud;
     public InteractAnnoUIController interactAnno;
     public AimRoundController aimRound;
 
