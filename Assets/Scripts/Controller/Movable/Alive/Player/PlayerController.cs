@@ -454,7 +454,7 @@ public class PlayerController : AliveObjectController
     // Bettery Shard
     public void GainBetteryShard(int gainValue)
     {
-        betteryShard = Mathf.Max(betteryShard + gainValue, 0);
+        betteryShard = Mathf.Min(betteryShard + gainValue, 9999);
 
         if (betteryShard >= needBS_ForMakeBC)
         {
@@ -557,7 +557,7 @@ public class PlayerController : AliveObjectController
 
     public void UseOverrider(int useValue)
     {
-        overrider = Mathf.Min(overrider - useValue, 0);
+        overrider = Mathf.Max(overrider - useValue, 0);
         SetOverriderUI();
     }
 
@@ -577,7 +577,7 @@ public class PlayerController : AliveObjectController
     }
     public void UseModuleShard(int useValue)
     {
-        moduleShard = Mathf.Min(moduleShard - useValue, 0);
+        moduleShard = Mathf.Max(moduleShard - useValue, 0);
         SetModuleShardUI();
     }
 

@@ -43,14 +43,20 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 
     public IEnumerator Initialize()
     {
+#if UNITY_EDITOR
         Stopwatch sw = new Stopwatch();
         sw.Start();
+#endif
         Gen_Player(out AimController aim, out AimRoundController aimRound);
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"PlayerManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
+#if UNITY_EDITOR
         sw.Restart();
+#endif
         playerPing = DevTool.Get_ComponentTType<PingController>(Gen_PlayerTargetEnemyGO());
         SetOff_PingEnemy();
 
@@ -58,13 +64,14 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         InputManager.instance.aimRoundController = aimRound;
 
         cameraController.Offset(playerController.gameObject.transform);
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"PlayerManager: <color=orange>DataOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
     }
 
-    #endregion
+#endregion
 
     #region Offset
 

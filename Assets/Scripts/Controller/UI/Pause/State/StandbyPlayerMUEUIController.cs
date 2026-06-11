@@ -9,6 +9,7 @@ public class StandbyPlayerMUEUIController : ElementUIController
     [SerializeField] private Image iconImg;
     [SerializeField] private Image rankImg;
     [SerializeField] private TMP_Text nameTxt;
+    [SerializeField] public RectTransform rt;
 
     #endregion
 
@@ -42,7 +43,7 @@ public class StandbyPlayerMUEUIController : ElementUIController
         nameTxt.text = ResourceManager.instance.Get_ModuleName(moduleState.thisItemData.id);
     }
 
-    public void Set_Color(Color clr)
+    public void SetColor(Color clr)
     {
         nameTxt.color = clr;
     }

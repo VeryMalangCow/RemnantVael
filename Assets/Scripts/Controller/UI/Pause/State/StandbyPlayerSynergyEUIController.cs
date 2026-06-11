@@ -12,6 +12,8 @@ public class StandbyPlayerSynergyEUIController : ElementUIController
     [SerializeField] private TMP_Text nameTxt;
     [SerializeField] private TMP_Text amountTxt;
 
+    [SerializeField] public RectTransform rt;
+
     #endregion
 
     #region Offset
@@ -48,7 +50,7 @@ public class StandbyPlayerSynergyEUIController : ElementUIController
         amountTxt.text = amount.ToString();
     }
 
-    public void Set_Color(Color imgClr, Color txtClr)
+    public void SetColor(Color imgClr, Color txtClr)
     {
         amountImg.color = imgClr;
         nameTxt.color = txtClr;

@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
@@ -7,82 +9,86 @@ public class AllyCardUIController : SinglePanelUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Ally Card UI")]
 
-    [Space(10)]
-    [Header("=== TF")]
+    [SerializeField] private AllyCardEUIController cardPrefab;
+    private AllyCardEUIController[] cards = new AllyCardEUIController[3];
     [SerializeField] private Transform cardParentTf;
-    [SerializeField] private Transform cardRerollParentTf;
-    [SerializeField] private RectTransform cardBookingFrameImgRt;
+
+    [SerializeField] private AllyCardRerollEUIController rerollPrefab;
+    private AllyCardRerollEUIController[] rerolls = new AllyCardRerollEUIController[3];
+    [SerializeField] private Transform rerollParentTf;
+
+    [Space(5)]
+    [SerializeField] private float intervalX = 668f;
 
     [Space(10)]
-    [Header("=== Btn")]
+    [SerializeField] private RectTransform cardBookingFrameImgRt;
+    [SerializeField] private TMP_Text cardBookingTxt;
     [SerializeField] private OwnBtnEUIController selectBtn;
-
-    #endregion
-
-    #region - Hide
-
-    // Card
-    [HideInInspector] private List<AllyCardEUIController> cards;
-
-    //Reroll
-    [HideInInspector] private List<AllyCardRerollEUIController> rerolls;
+    [SerializeField] private TMP_Text selectTxt;
 
     // Select & Booking
-    [HideInInspector] private AllyCardEUIController selectingCard;
-    [HideInInspector] private AllyCardEUIController bookingCard;
+    private AllyCardEUIController selectingCard;
+    private AllyCardEUIController bookingCard;
 
     // Type
     [HideInInspector] public int typeIndex = 0;
 
     #endregion
 
-    #endregion
+    #region Init
 
-    #region Offset
-
-    public override void Offset()
+    public IEnumerator InitAsync()
     {
-        base.Offset();
-        Offset_Basic(); 
-        Set_BaseLanguageTxt();
-    }
-
-    private void Offset_Basic()
-    {
-        // Cards
-        cards = DevTool.Get_ChildList<AllyCardEUIController>(cardParentTf);
-        for (int i = 0; i < cards.Count; i++)
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+        string s = "";
+#endif
+        for (int i = 0; i < 3; i++)
         {
+            cards[i] = Instantiate(cardPrefab, cardParentTf);
             cards[i].gameObject.SetActive(false);
             cards[i].Offset();
             cards[i].ownerUIController = this;
             cards[i].allyOwnerUIController = this;
-        }
+            cards[i].rt.anchoredPosition = new Vector2((intervalX * i) - intervalX, 0);
 
-        // Reroll
-        rerolls = DevTool.Get_ChildList<AllyCardRerollEUIController>(cardRerollParentTf);
-        for (int i = 0; i < rerolls.Count; i++)
-        {
+            rerolls[i] = Instantiate(rerollPrefab, rerollParentTf);
             rerolls[i].gameObject.SetActive(false);
             rerolls[i].Offset();
             rerolls[i].ownerUIController = this;
+            rerolls[i].rt.anchoredPosition = new Vector2((intervalX * i) - intervalX, 0);
 
             rerolls[i].targetCardEuiController = cards[i];
             cards[i].rerollEui = rerolls[i];
+#if UNITY_EDITOR
+            sw.Stop();
+            s += $"{sw.Elapsed.TotalMilliseconds:F2} /";
+#endif
+            yield return null;
+#if UNITY_EDITOR
+            sw.Restart();
+#endif
         }
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Ally Card : <color=yellow>Gen Card & Reroll</color> : <color=red>{s}</color> ms");
+#endif
+        yield return null;
 
-        // Select Btn
         selectBtn.Offset();
         selectBtn.ownerUIController = this;
+        SetBaseLanguageTxt();
+
+        gameObject.SetActive(false);
+
+        yield return null;
     }
 
-
     #endregion
+
 
     #region Interact
 
@@ -128,8 +134,19 @@ public class AllyCardUIController : SinglePanelUIController
         if (!DevTool.Can_CastingTType(currentBtn, out AllyCardRerollEUIController reroll))
             return false;
 
-        reroll.Try_Interact();
-        Set_NewCard(rerolls.IndexOf(reroll));
+        if (!reroll.TryInteract())
+            return false;
+
+        int index = -1;
+        for (int i = 0; i < rerolls.Length; i++)
+        {
+            if (rerolls[i] == reroll)
+                index = i;
+        }
+        if (index == -1) 
+            return false;
+
+        Set_NewCard(index);
         if (bookingCard == reroll.targetCardEuiController)
         {
             bookingCard = null;
@@ -159,7 +176,7 @@ public class AllyCardUIController : SinglePanelUIController
     private void Set_NewCard(int index)
     {
         List<int> idList = new List<int>();
-        for (int i = 0; i < cards.Count; i++)
+        for (int i = 0; i < cards.Length; i++)
             idList.Add(cards[i].currentId);
 
         AllyCardData cardData = AllyManager.instance.Get_ChoiceAbleRandomData(typeIndex, idList);
@@ -169,16 +186,16 @@ public class AllyCardUIController : SinglePanelUIController
 
     private void Set_NewCardDeck()
     {
-        List<AllyCardData> cardDeckData = AllyManager.instance.Get_ChoiceAbleRandomData(typeIndex, cards.Count);
+        List<AllyCardData> cardDeckData = AllyManager.instance.Get_ChoiceAbleRandomData(typeIndex, cards.Length);
 
-        int needMoreDataAmount = cards.Count - cardDeckData.Count;
+        int needMoreDataAmount = cards.Length - cardDeckData.Count;
         if (needMoreDataAmount >= 0)
         {
             for (int i = 0; i < needMoreDataAmount; i++)
                 cardDeckData.Add(null);
         }
 
-        for (int i = 0; i < cards.Count; i++)
+        for (int i = 0; i < cards.Length; i++)
             cards[i].Set_Card(typeIndex, cardDeckData[i]);
 
         bookingCard = null;
@@ -240,15 +257,12 @@ public class AllyCardUIController : SinglePanelUIController
 
     #region Set (Language)
 
-    private void Set_BaseLanguageTxt()
+    private void SetBaseLanguageTxt()
     {
-        DevTool.Get_ComponentTType<TMP_Text>(cardBookingFrameImgRt.transform.GetChild(DevTool.Get_TSChildIndex(cardBookingFrameImgRt, 0)).gameObject).text =
-            ResourceManager.instance.Get_StaticWord(82);
+        cardBookingTxt.SetText(ResourceManager.instance.Get_StaticWord(82));
+        selectTxt.SetText(ResourceManager.instance.Get_StaticWord(83));
 
-        DevTool.Get_ComponentTType<TMP_Text>(selectBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(selectBtn, 0)).gameObject).text =
-            ResourceManager.instance.Get_StaticWord(83);
-
-        for (int i = 0; i < rerolls.Count; i++)
+        for (int i = 0; i < rerolls.Length; i++)
             rerolls[i].Set_LanguageTxt();
     }
 
@@ -257,7 +271,7 @@ public class AllyCardUIController : SinglePanelUIController
         base.SetLanguageTxt();
 
         AllyManager.instance.Set_LanguageTxt();
-        Set_BaseLanguageTxt();
+        SetBaseLanguageTxt();
     }
 
     #endregion

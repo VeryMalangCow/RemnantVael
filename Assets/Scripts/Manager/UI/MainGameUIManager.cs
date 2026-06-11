@@ -134,7 +134,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
         yield return InitAsync(interactAnnoUiPrefab, false, delegate (InteractAnnoUIController ui) { interactAnnoUi = ui; });
         yield return InitAsync(mapIntroUiPrefab, false, delegate (MapIntroUIController ui) { mapIntroUi = ui; });
-        yield return InitAsync(allyCardUiPrefab, false, delegate (AllyCardUIController ui) { allyCardUi = ui; });
+        yield return InitAsync(allyCardUiPrefab, delegate (AllyCardUIController ui) { allyCardUi = ui; });
+        yield return allyCardUi.InitAsync();
 
         yield return InitAsync(puzzleBlcUiPrefab, false, delegate (BoxLineConnectorUIController ui) { puzzleBlcUi = ui; });
         yield return InitAsync(puzzleNscUiPrefab, false, delegate (NumShapeColorPasswordUIController ui) { puzzleNscUi = ui; });

@@ -6,10 +6,10 @@ using UnityEngine;
 public class PausePlayerBuStateView : MonoBehaviour
 {
     [SerializeField] private ScrollPanelEUIController playerBuScrollEui;
-
     [Space(5)]
-    [SerializeField] private StandbyPlayerBUEUIController playerBuScrollEuiPrefab;
+    [SerializeField] private StandbyPlayerBUEUIController playerBuEuiPrefab;
     [SerializeField] private ScrollPanelEUISet[] ScrollPanelEUISets;
+
     [System.Serializable]
     public class ScrollPanelEUISet
     {
@@ -33,7 +33,7 @@ public class PausePlayerBuStateView : MonoBehaviour
 #endif
             for (int j = 0; j < ScrollPanelEUISets[i].amount; j++)
             {
-                StandbyPlayerBUEUIController eui = Instantiate(playerBuScrollEuiPrefab, ScrollPanelEUISets[i].parentTf);
+                StandbyPlayerBUEUIController eui = Instantiate(playerBuEuiPrefab, ScrollPanelEUISets[i].parentTf);
                 eui.Offset();
                 eui.SetColor(imgClr, txtClr);
                 eui.rt.anchoredPosition = new Vector2(0, intervalY * j);

@@ -21,11 +21,16 @@ public class NPCManager : Singleton<NPCManager>, IMainGameInitializer
 
     public IEnumerator Initialize()
     {
+#if UNITY_EDITOR
         Stopwatch sw = new Stopwatch();
         sw.Start();
+#endif
+
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"NpcManager: <color=orange>NONE</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        yield return null;
+#endif
+        yield break;
     }
 
     #endregion

@@ -53,6 +53,7 @@ public class PoolSystem<T> where T : MonoBehaviour, IPoolable
                 sw.Restart();
             }
         }
+        sw.Stop();
 
 #if UNITY_EDITOR
         if (createdThisFrame > 0)

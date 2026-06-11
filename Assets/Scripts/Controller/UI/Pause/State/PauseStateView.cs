@@ -66,12 +66,11 @@ public class PauseStateView : MonoBehaviour
         sw.Restart();
 #endif
         muStateView = Instantiate(muStateViewPrefab, stateViewParentTf);
-        muStateView.Init(); 
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Pause UI : <color=yellow>Mu State View</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
-        yield return null;
+        yield return muStateView.InitAsync(mainClr, subClr);
 
         backBtn.ownerUIController = uiController;
         backBtn.Offset();
@@ -80,6 +79,8 @@ public class PauseStateView : MonoBehaviour
         changeTypeBtn.Offset();
 
         allyScrollEui.Offset();
+
+        SetColor(mainClr, subClr);
 
         SetPanel(true);
 
@@ -116,17 +117,10 @@ public class PauseStateView : MonoBehaviour
     public void SetColor(Color imgClr, Color txtClr)
     {
         playerStateNameTxt.color = imgClr;
-
-        muStateView.SetColor(imgClr, txtClr); 
-
-        #region Ally
-
         allyStateNameTxt.color = imgClr;
 
         for (int i = 0; i < allyBuEuiList.Count; i++)
             allyBuEuiList[i].Set_Color();
-
-        #endregion
     }
 
     public void SetLanguageTxt()

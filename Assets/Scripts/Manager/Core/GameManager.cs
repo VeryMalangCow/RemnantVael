@@ -11,7 +11,6 @@ using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class GameManager : PersistentSingleton<GameManager>
 {

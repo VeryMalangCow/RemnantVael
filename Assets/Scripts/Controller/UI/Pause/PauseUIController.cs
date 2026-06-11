@@ -160,7 +160,6 @@ public class PauseUIController : SinglePanelUIController
         DevTool.SetColorImgs(subClr, subClrImgs);
         subClrImgs = null;
 
-        stateView.SetColor(mainClr, subClr);
         optionView.SetColor(mainClr);
 
     }

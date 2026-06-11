@@ -14,8 +14,8 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
     [SerializeField] private RectTransform btnRt;
 
     // Value
-    [HideInInspector] private int needAmount = 1;
-    [HideInInspector] private static readonly int maxNeedAmount = 5;
+    private int needAmount = 1;
+    private static readonly int maxNeedAmount = 5;
 
     // Owner
     [HideInInspector] public AllyCardEUIController targetCardEuiController;
@@ -45,31 +45,31 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
     private void Reset_Amount()
     {
         needAmount = 1;
-        Set_Amount();
+        SetAmount();
     }
 
     #endregion
     
     #region Set
 
-    private void Set_Amount()
+    private void SetAmount()
     {
         string needAmountText = $"x <size=1{needAmount}0%><b>{needAmount}</b></size>";
         if (needAmount == maxNeedAmount)
             needAmountText += $"<size=75%>({ResourceManager.instance.Get_StaticWord(84)})</size>";
 
-        needAmountTxt.text = needAmountText;
+        needAmountTxt.SetText(needAmountText);
     }
 
     #endregion
 
     #region Interact
 
-    public void Try_Interact()
+    public bool TryInteract()
     {
         if (needAmount > PlayerManager.instance.playerController.overrider ||
             targetCardEuiController == null)
-            return;
+            return false;
 
         PlayerManager.instance.playerController.UseOverrider(needAmount);
         Play_Click();
@@ -77,8 +77,9 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
         if (maxNeedAmount > needAmount)
         {
             needAmount++;
-            Set_Amount();
+            SetAmount();
         }
+        return true;
     }
 
     #endregion
