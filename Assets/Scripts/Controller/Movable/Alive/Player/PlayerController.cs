@@ -709,7 +709,7 @@ public class PlayerController : AliveObjectController
             OnStrikePresenceChanged?.Invoke(strikeTeamPresence, needStrikeTeamPresence);
 
             MainGameUIManager.instance.allyCardUi.typeIndex = 0;
-            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
+            MainGameUIManager.instance.allyCardUi.SetOnThisPanel();
         }
     }
 
@@ -724,7 +724,7 @@ public class PlayerController : AliveObjectController
             OnUplinkPresenceChanged?.Invoke(uplinkTeamPresence, needUplinkTeamPresence);
 
             MainGameUIManager.instance.allyCardUi.typeIndex = 1;
-            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
+            MainGameUIManager.instance.allyCardUi.SetOnThisPanel();
         }
     }
 
@@ -739,7 +739,7 @@ public class PlayerController : AliveObjectController
             OnNeoPresenceChanged?.Invoke(neoTeamPresence, needNeoTeamPresence);
 
             MainGameUIManager.instance.allyCardUi.typeIndex = 2;
-            MainGameUIManager.instance.allyCardUi.SetOn_ThisPanel();
+            MainGameUIManager.instance.allyCardUi.SetOnThisPanel();
         }
     }
 

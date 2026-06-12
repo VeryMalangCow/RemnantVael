@@ -70,7 +70,7 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
         {
             usingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.instance.amuUi.SetOn_ThisPanel();
+            MainGameUIManager.instance.amuUi.SetOnThisPanel();
         }
         else if (Can_ShopPowerOn())
         {

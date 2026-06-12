@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,21 +52,15 @@ public class InOrderLockerUIController : PuzzleUIController
 
     #endregion
 
-    #region Offset
+    #region Init
 
-    public override void Offset_FirstValue(PrisonController prison)
+    public override IEnumerator InitAsync()
     {
-        base.Offset_FirstValue(prison);
+        yield return base.InitAsync();
 
-        Debug.Log(prison.rating);
-        cellAmount = 5 + prison.rating;
-        currentCountdown = baseCountdown + (prison.rating * 4);
-    }
-
-    public override void Offset()
-    {
-        base.Offset();
-
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
         allIolCell = DevTool.Get_ChildList<IOLCellEUIController>(allIolCellParentTf);
 
         innerImgList = DevTool.Get_ChildList<Image>(innerParentTf);
@@ -78,6 +74,23 @@ public class InOrderLockerUIController : PuzzleUIController
 
         selectInputImg.sprite = ResourceManager.instance.mlbSprite;
         selectInputImg.SetNativeSize();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=FFFF7F>InOrderLocker Puzzle</color> : DataSet : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+#endif
+    }
+
+    #endregion
+
+    #region Prison
+
+    public override void SetPrison(PrisonController prison)
+    {
+        base.SetPrison(prison);
+
+        cellAmount = 5 + prison.rating;
+        currentCountdown = baseCountdown + (prison.rating * 4);
     }
 
     #endregion

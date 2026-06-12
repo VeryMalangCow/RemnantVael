@@ -231,9 +231,9 @@ public class AllyShopUIController : ShopUIController
 
     #region Set (Panel)
 
-    public override void SetOn_ThisPanel()
+    public override void SetOnThisPanel()
     {
-        base.SetOn_ThisPanel();
+        base.SetOnThisPanel();
 
         Reset_AllData();
         Reset_AllyProfileListPanel();

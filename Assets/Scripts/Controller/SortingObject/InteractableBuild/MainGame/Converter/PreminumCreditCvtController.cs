@@ -11,7 +11,7 @@ public class PreminumCreditCvtController : ConverterController, IInteract
 
     public void PlayInteract()
     {
-        MainGameUIManager.instance.premiumCreditCvtUi.SetOn_ThisPanel();
+        MainGameUIManager.instance.premiumCreditCvtUi.SetOnThisPanel();
     }
 
     #endregion

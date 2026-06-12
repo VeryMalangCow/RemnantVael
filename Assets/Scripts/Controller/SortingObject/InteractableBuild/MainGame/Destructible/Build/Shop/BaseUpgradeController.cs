@@ -61,7 +61,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
         {
             usingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.instance.buUi.SetOn_ThisPanel();
+            MainGameUIManager.instance.buUi.SetOnThisPanel();
         }
         else if (Can_ShopPowerOn())
         {

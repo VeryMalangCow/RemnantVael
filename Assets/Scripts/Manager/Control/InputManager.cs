@@ -764,7 +764,7 @@ public class InputManager : Singleton<InputManager>, IMainGameInitializer
     private void Input_OMGUI(InputAction.CallbackContext inputValue)
     {
         if (inputValue.ReadValueAsButton())
-            MainGameUIManager.instance.pauseUi.SetOn_ThisPanel();
+            MainGameUIManager.instance.pauseUi.SetOnThisPanel();
     }
 
     private void Input_OMGUIClick(InputAction.CallbackContext inputValue)

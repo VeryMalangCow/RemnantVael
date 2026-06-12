@@ -221,9 +221,9 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     #region Set (Panel)
 
-    public override void SetOn_ThisPanel()
+    public override void SetOnThisPanel()
     {
-        base.SetOn_ThisPanel();
+        base.SetOnThisPanel();
 
         Play_OnTween();
 

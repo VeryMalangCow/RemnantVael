@@ -36,7 +36,7 @@ public class SinglePanelUIController : UIController
 
     #region Set Panel
 
-    public virtual void SetOn_ThisPanel()
+    public virtual void SetOnThisPanel()
     {
         // Basic
         MainGameUIManager.currentOpeningUi = this;

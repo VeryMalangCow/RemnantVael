@@ -168,9 +168,9 @@ public class PauseUIController : SinglePanelUIController
 
     #region Set (Panel)
 
-    public override void SetOn_ThisPanel()
+    public override void SetOnThisPanel()
     {
-        base.SetOn_ThisPanel();
+        base.SetOnThisPanel();
 
         SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
         PlayerManager.instance.cameraController.Stop_SlowMotion();

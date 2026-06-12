@@ -448,11 +448,11 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     #region Set (Panel)
 
-    public override void SetOn_ThisPanel()
+    public override void SetOnThisPanel()
     {
         Tween_Enable();
 
-        base.SetOn_ThisPanel();
+        base.SetOnThisPanel();
 
         // Dur
         durEui.Set_Dur(ModuleUpgradeController.usingShop.currentDur);

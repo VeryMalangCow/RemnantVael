@@ -42,16 +42,16 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
         switch (targetPrison)
         {
             case StrikeTeamPrisonController:
-                MainGameUIManager.instance.puzzleBlcUi.Offset_FirstValue(targetPrison);
-                MainGameUIManager.instance.puzzleBlcUi.SetOn_ThisPanel();
+                MainGameUIManager.instance.puzzleBlcUi.SetPrison(targetPrison);
+                MainGameUIManager.instance.puzzleBlcUi.SetOnThisPanel();
                 break;
             case UplinkTeamPrisonController:
-                MainGameUIManager.instance.puzzleNscUi.Offset_FirstValue(targetPrison);
-                MainGameUIManager.instance.puzzleNscUi.SetOn_ThisPanel();
+                MainGameUIManager.instance.puzzleNscUi.SetPrison(targetPrison);
+                MainGameUIManager.instance.puzzleNscUi.SetOnThisPanel();
                 break;
             case NeoTeamPrisonController:
-                MainGameUIManager.instance.puzzleIolUi.Offset_FirstValue(targetPrison);
-                MainGameUIManager.instance.puzzleIolUi.SetOn_ThisPanel();
+                MainGameUIManager.instance.puzzleIolUi.SetPrison(targetPrison);
+                MainGameUIManager.instance.puzzleIolUi.SetOnThisPanel();
                 break;
 
             default:

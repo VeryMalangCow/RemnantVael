@@ -1,101 +1,111 @@
 using DG.Tweening;
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
 public abstract class PuzzleUIController : SinglePanelUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Puzzle UI")]
 
-    [Space(10)]
-    [Header("=== Value")]
-    [SerializeField] protected float baseCountdown = 15f;
 
     [Space(10)]
-    [Header("=== Ready Panel")]
-    [SerializeField] protected PuzzleReadyPanelEUIController readyPanelEui;
+    [Header("=== Panel")]
+    [SerializeField] private PuzzleReadyPanelEUIController readyPanelPrefab;
+    protected PuzzleReadyPanelEUIController readyPanelEui;
 
-    [Space(10)]
-    [Header("=== Left")]
-    [SerializeField] private PuzzleTimePanelEUIController timePanelEui;
+    [SerializeField] private PuzzleTimePanelEUIController timePanelPrefab;
+    private PuzzleTimePanelEUIController timePanelEui;
 
-    [Space(10)]
-    [Header("=== Right")]
-    [SerializeField] private PuzzleUnlockPanelEUIController unlockPanelEui;
+    [SerializeField] private PuzzleUnlockPanelEUIController unlockPanelPrefab;
+    private PuzzleUnlockPanelEUIController unlockPanelEui;
+
+    // class
+    private PrisonController usingPrison = null;
+    protected CanvasGroup cg;
+
+    // Cooldown Value
+    protected static readonly float baseCountdown = 15f;
+    protected float currentCountdown = 0;
+
+    // State Value
+    protected bool canSuccess = false;
+    protected bool isInteractable = false;
+    private bool isReady = false;
+    private bool isStart = false;
+
+    // string
+    private static readonly string secondString = "<size=50%>s</size>";
 
     #endregion
 
-    #region - Hide
+    #region Init
 
-    // Canvas Group
-    [HideInInspector] protected CanvasGroup cg;
-
-
-
-    // Static Data
-    [HideInInspector] private static string secondString = "<size=50%>s</size>";
-
-    // Success
-    [HideInInspector] protected bool canSuccess = false;
-    [HideInInspector] protected bool isInteractable = false;
-    [HideInInspector] private bool isReady = false;
-    [HideInInspector] private bool isStart = false;
-
-    // Value
-    [HideInInspector] protected float currentCountdown = 0;
-
-    // Prison
-    [HideInInspector] private PrisonController usingPrison = null;
-
-    #endregion
-
-    #endregion
-
-    #region Offset
-
-    public virtual void Offset_FirstValue(PrisonController prison)
+    public virtual IEnumerator InitAsync()
     {
-        usingPrison = prison;
-    }
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        readyPanelEui = Instantiate(readyPanelPrefab, transform);
+        readyPanelEui.Offset();
+        readyPanelPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($" Puzzle : Generate : <color=yellow>Ready Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+#endif
+        yield return null;
 
-    public override void Offset()
-    {
-        base.Offset();
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        timePanelEui = Instantiate(timePanelPrefab, transform);
+        timePanelEui.Offset();
+        timePanelPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($" Puzzle : Generate : <color=yellow>Time Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        unlockPanelEui = Instantiate(unlockPanelPrefab, transform);
+        unlockPanelEui.Offset();
+        unlockPanelPrefab = null;
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($" Puzzle : Generate : <color=yellow>Unlock Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+#endif
+        yield return null;
 
         // CG
         cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
-
-        // Left
-        timePanelEui.Offset();
-
-        // Right
-        unlockPanelEui.Offset();
-
-        // Ready
-        readyPanelEui.Offset();
-
     }
 
     #endregion
 
-    #region Framework
+    public virtual void SetPrison(PrisonController prison)
+        => usingPrison = prison;
+    
+    #region Mono
 
     private void Update()
     {
-        Caculate_CountDown(Time.deltaTime);
+        CaculateCountDown(Time.deltaTime);
     }
 
-    #endregion
+    #endregion  
 
     #region Panel
 
-    public override void SetOn_ThisPanel()
+    public override void SetOnThisPanel()
     {
-        base.SetOn_ThisPanel();
+        base.SetOnThisPanel();
 
         cg.alpha = 1f;
 
@@ -189,7 +199,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     #region Caculate
 
-    private void Caculate_CountDown(float deltaTime)
+    private void CaculateCountDown(float deltaTime)
     {
         if (!isInteractable || !isStart) return;
 

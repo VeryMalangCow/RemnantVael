@@ -384,9 +384,9 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     #region Set (Panel)
 
-    public override void SetOn_ThisPanel()
+    public override void SetOnThisPanel()
     {
-        base.SetOn_ThisPanel();
+        base.SetOnThisPanel();
 
         // Dur
         durEui.Set_Dur(AllyBaseUpgradeController.usingShop.currentDur);

@@ -29,9 +29,9 @@ public class PanelUIController : SinglePanelUIController
 
     #region Set Panel
 
-    public override void SetOn_ThisPanel()
+    public override void SetOnThisPanel()
     {
-        base.SetOn_ThisPanel();
+        base.SetOnThisPanel();
 
         // Actual Tab
         SoundManager.instance.Play_2D_SFX_UI("Click_Approve");

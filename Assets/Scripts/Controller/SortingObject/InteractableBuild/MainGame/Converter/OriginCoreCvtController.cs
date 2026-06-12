@@ -11,7 +11,7 @@ public class OriginCoreCvtController : ConverterController, IInteract
 
     public void PlayInteract()
     {
-        MainGameUIManager.instance.originCoreCvtUi.SetOn_ThisPanel();
+        MainGameUIManager.instance.originCoreCvtUi.SetOnThisPanel();
     }
 
     #endregion

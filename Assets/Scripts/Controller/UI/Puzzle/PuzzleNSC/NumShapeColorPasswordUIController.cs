@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,22 +44,15 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     #endregion
 
-    #region Offset
+    #region Init
 
-    public override void Offset_FirstValue(PrisonController prison)
+    public override IEnumerator InitAsync()
     {
-        base.Offset_FirstValue(prison);
+        yield return base.InitAsync();
 
-        Debug.Log(prison.rating);
-        unlockedAmount = 4 + prison.rating;
-        currentCountdown = baseCountdown - prison.rating;
-    }
-
-
-    public override void Offset()
-    {
-        base.Offset();
-
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
         allNscPanelEui = DevTool.Get_ChildList<NSCPanelEUIController>(allNscPanelEuiParentRt);
 
         for (int i = 0; i < allNscPanelEui.Count; i++)
@@ -72,6 +67,24 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
         downRollInputImg.SetNativeSize();
         upRollInputImg.sprite = ResourceManager.instance.mrbSprite;
         upRollInputImg.SetNativeSize();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=FFFF7F>NumShapeColorPassword Puzzle</color> : DataSet : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+#endif
+        yield return null;
+    }
+
+    #endregion
+
+    #region Prison
+
+    public override void SetPrison(PrisonController prison)
+    {
+        base.SetPrison(prison);
+
+        unlockedAmount = 4 + prison.rating;
+        currentCountdown = baseCountdown - prison.rating;
     }
 
     #endregion

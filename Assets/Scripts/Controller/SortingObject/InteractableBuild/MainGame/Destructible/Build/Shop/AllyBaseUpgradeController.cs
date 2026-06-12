@@ -69,7 +69,7 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
         {
             usingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.instance.abuUi.SetOn_ThisPanel();
+            MainGameUIManager.instance.abuUi.SetOnThisPanel();
         }
         else if (CanShopPowerOn())
         {

@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,20 +57,15 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     #endregion
 
-    #region Offset
+    #region Init
 
-    public override void Offset_FirstValue(PrisonController prison)
+    public override IEnumerator InitAsync()
     {
-        base.Offset_FirstValue(prison);
+        yield return base.InitAsync();
 
-        cellAmount = 4 + prison.rating;
-        currentCountdown = baseCountdown - prison.rating;
-    }
-
-    public override void Offset()
-    {
-        base.Offset();
-
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
         allBoxCellEui = DevTool.Get_ChildList<BoxCellEUIController>(boxCellParentTf);
         allBoxConnectionEui = DevTool.Get_ChildList<BoxConnectionEUIController>(boxConnectionParentTf);
         innerList = DevTool.Get_ChildList<Image>(innerParentTf);
@@ -90,6 +87,24 @@ public class BoxLineConnectorUIController : PuzzleUIController
         rightRollInputImg.SetNativeSize();
         leftRollInputImg.sprite = ResourceManager.instance.mrbSprite;
         leftRollInputImg.SetNativeSize();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=FFFF7F>BoxLineConnector Puzzle</color> : DataSet : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+#endif
+        yield return null;
+    }
+
+    #endregion
+
+    #region Prison
+
+    public override void SetPrison(PrisonController prison)
+    {
+        base.SetPrison(prison);
+
+        cellAmount = 4 + prison.rating;
+        currentCountdown = baseCountdown - prison.rating;
     }
 
     #endregion
