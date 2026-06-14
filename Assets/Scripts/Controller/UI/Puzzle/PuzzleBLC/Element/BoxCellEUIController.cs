@@ -8,12 +8,7 @@ public class BoxCellEUIController : OwnBtnEUIController
 {
     #region Value
 
-    [Space(10)]
-    [Header("=== Value")]
-    [SerializeField] public Vector2Int pos;
-
-    [Space(10)]
-    [Header("=== GO")]
+    public Vector2Int pos { get; private set; }
 
     [Space(5)]
     [Header("-- Main")]
@@ -44,6 +39,21 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     #endregion
 
+    #region Init
+
+    public void Init(BoxLineConnectorUIController puzzleUi, Vector2Int gridPos, Vector2 pos)
+    {
+        Offset_Value();
+
+        ownerUIController = puzzleUi;
+        ownerPuzzleUIController = puzzleUi;
+
+        rt.anchoredPosition = pos;
+        this.pos = gridPos;
+    }
+
+    #endregion
+
     #region Offset
 
     private void Offset_Value()
@@ -69,13 +79,6 @@ public class BoxCellEUIController : OwnBtnEUIController
         allInnerList.AddRange(DevTool.Get_ChildList<Image>(rightLineGo.transform));
         allInnerList.AddRange(DevTool.Get_ChildList<Image>(downLineGo.transform));
         allInnerList.AddRange(DevTool.Get_ChildList<Image>(leftLineGo.transform));
-    }
-
-    public override void Offset()
-    {
-        base.Offset();
-
-        Offset_Value();
     }
 
     #endregion

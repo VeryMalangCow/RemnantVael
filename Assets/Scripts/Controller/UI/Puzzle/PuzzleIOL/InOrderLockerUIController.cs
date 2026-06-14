@@ -60,6 +60,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
+        initString = "";
 #endif
         allIolCell = DevTool.Get_ChildList<IOLCellEUIController>(allIolCellParentTf);
 
@@ -77,7 +78,8 @@ public class InOrderLockerUIController : PuzzleUIController
 
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=FFFF7F>InOrderLocker Puzzle</color> : DataSet : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+        initString += $"<color=yellow>DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}ms</color>";
+        UnityEngine.Debug.Log(initString);
 #endif
     }
 

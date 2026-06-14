@@ -51,7 +51,8 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
         yield return base.InitAsync();
 
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew();
+        Stopwatch sw = Stopwatch.StartNew(); 
+        initString = "";
 #endif
         allNscPanelEui = DevTool.Get_ChildList<NSCPanelEUIController>(allNscPanelEuiParentRt);
 
@@ -70,7 +71,8 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=FFFF7F>NumShapeColorPassword Puzzle</color> : DataSet : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+        initString += $"<color=yellow>DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}ms</color>";
+        UnityEngine.Debug.Log(initString);
 #endif
         yield return null;
     }

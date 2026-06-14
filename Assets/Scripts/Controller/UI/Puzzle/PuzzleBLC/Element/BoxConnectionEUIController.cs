@@ -8,9 +8,27 @@ public class BoxConnectionEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private List<Vector2Int> contactPosList;
+    [SerializeField] private Vector2Int[] contactPositions;
+    [SerializeField] private RectTransform rt;
 
     [HideInInspector] private Image innerImg;
+
+    #endregion
+
+    #region Init
+
+    public void Init(Vector2Int vecIntA, Vector2Int vecIntB, Vector2 pos, bool rotateRightAngle)
+    {
+        contactPositions = new Vector2Int[2];
+        contactPositions[0] = vecIntA;
+        contactPositions[1] = vecIntB;
+
+        rt.anchoredPosition = pos;
+        if (rotateRightAngle)
+            rt.rotation = Quaternion.Euler(0, 0, 90);
+        else
+            rt.rotation = Quaternion.identity;
+    }
 
     #endregion
 
@@ -25,27 +43,27 @@ public class BoxConnectionEUIController : ElementUIController
 
     #region Set
 
-    public void Set_Active(bool onOff)
+    public void SetActive(bool onOff)
     {
         gameObject.SetActive(onOff);
     }
 
-    public void Set_ActiveByCondition(HashSet<Vector2Int> onDirBoxCell)
+    public void SetActiveByCondition(HashSet<Vector2Int> onDirBoxCell)
     {
-        for (int i = 0; i < contactPosList.Count; i++)
+        for (int i = 0; i < contactPositions.Length; i++)
         {
-            if (!onDirBoxCell.Contains(contactPosList[i]))
+            if (!onDirBoxCell.Contains(contactPositions[i]))
             {
-                Set_Active(false);
+                SetActive(false);
                 return;
             }
         }
-        Set_Active(true);
+        SetActive(true);
         return;
     }
 
 
-    public void Set_InnerColor(Color clr)
+    public void SetInnerColor(Color clr)
     {
         DevTool.SetColor(clr, innerImg);
     }

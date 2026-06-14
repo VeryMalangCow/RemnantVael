@@ -19,6 +19,7 @@ public class PuzzleReadyPanelEUIController : ElementUIController
     [SerializeField] private TMP_Text readyTimeLimitTxt;
     [SerializeField] private TMP_Text readyKeyAnnoTxt;
     [SerializeField] private Image readyInputAnnoImg;
+    [SerializeField] private Transform keyAnnoParentTf;
 
     [Space(10)]
     [Header("=== Rule")]
@@ -106,6 +107,11 @@ public class PuzzleReadyPanelEUIController : ElementUIController
     public void Set_RuleDesc(string desc)
     {
         ruleDescTxt.text = desc.Replace("\\n", "\n");
+    }
+
+    public void Set_KeyAnno(Transform tf)
+    {
+        tf.SetParent(keyAnnoParentTf);
     }
 
     #endregion

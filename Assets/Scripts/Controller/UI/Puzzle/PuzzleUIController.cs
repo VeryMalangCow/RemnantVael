@@ -22,6 +22,10 @@ public abstract class PuzzleUIController : SinglePanelUIController
     [SerializeField] private PuzzleUnlockPanelEUIController unlockPanelPrefab;
     private PuzzleUnlockPanelEUIController unlockPanelEui;
 
+    [Space(10)]
+    [Header("=== Key")]
+    [SerializeField] private Transform keyAnnoTf;
+
     // class
     private PrisonController usingPrison = null;
     protected CanvasGroup cg;
@@ -39,21 +43,27 @@ public abstract class PuzzleUIController : SinglePanelUIController
     // string
     private static readonly string secondString = "<size=50%>s</size>";
 
-    #endregion
+#if UNITY_EDITOR
+    protected string initString;
+
+#endif
+
+#endregion
 
     #region Init
 
     public virtual IEnumerator InitAsync()
     {
 #if UNITY_EDITOR
+        initString = "";
         Stopwatch sw = Stopwatch.StartNew();
 #endif
-        readyPanelEui = Instantiate(readyPanelPrefab, transform);
-        readyPanelEui.Offset();
-        readyPanelPrefab = null;
+        unlockPanelEui = Instantiate(unlockPanelPrefab, transform);
+        unlockPanelEui.Offset();
+        unlockPanelPrefab = null;
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($" Puzzle : Generate : <color=yellow>Ready Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+        initString += $"<color=yellow>Unlock Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
 
@@ -66,7 +76,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         timePanelPrefab = null;
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($" Puzzle : Generate : <color=yellow>Time Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+        initString += $"<color=yellow>Time Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
 
@@ -74,17 +84,19 @@ public abstract class PuzzleUIController : SinglePanelUIController
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        unlockPanelEui = Instantiate(unlockPanelPrefab, transform);
-        unlockPanelEui.Offset();
-        unlockPanelPrefab = null;
+        readyPanelEui = Instantiate(readyPanelPrefab, transform);
+        readyPanelEui.Offset();
+        readyPanelPrefab = null;
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($" Puzzle : Generate : <color=yellow>Unlock Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+        initString += $"<color=yellow>Ready Panel</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms";
+        UnityEngine.Debug.Log(initString);
 #endif
         yield return null;
 
         // CG
         cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
+        readyPanelEui.Set_KeyAnno(keyAnnoTf);
     }
 
     #endregion

@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 1249692278035326110}
   - component: {fileID: 7364577995106158940}
   m_Layer: 5
-  m_Name: ElementUi_BoxConnection_Prefab
+  m_Name: ElementUi_BoxConnector_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,3 +134,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contactPosList: []
+  rt: {fileID: 4608009974913438174}

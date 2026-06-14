@@ -9,33 +9,31 @@ public class BoxLineConnectorUIController : PuzzleUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Box Line Connector")]
 
     [Space(10)]
-    [Header("=== TF")]
+    [Header("=== Box Cell")]
+    [SerializeField] private BoxCellEUIController boxCellEuiPrefab;
     [SerializeField] private Transform boxCellParentTf;
+    [SerializeField] private Vector2 boxInterval;
+    private BoxCellEUIController[] allBoxCellEui;
+
+    [Space(10)]
+    [Header("=== Box Connector")]
+    [SerializeField] private BoxConnectionEUIController boxConnectorEuiPrefab;
     [SerializeField] private Transform boxConnectionParentTf;
-    [SerializeField] private Transform innerParentTf;
+    private BoxConnectionEUIController[] allBoxConnectionEui;
 
     [Space(10)]
     [Header("=== Selecting")]
     [SerializeField] private RectTransform selectingSignRt;
 
     [Space(10)]
-    [Header("=== Ready KeyAnno")]
-    [SerializeField] private Image leftRollInputImg;
-    [SerializeField] private Image rightRollInputImg;
-
-    #endregion
-
-    #region - Hide
+    [Header("=== Visual")]
+    [SerializeField] private Image[] clrImgs;
 
     // EUI
-    [HideInInspector] private List<BoxCellEUIController> allBoxCellEui;
-    [HideInInspector] private List<BoxConnectionEUIController> allBoxConnectionEui;
 
     // Value
     [HideInInspector] private int cellAmount = 0;
@@ -49,12 +47,6 @@ public class BoxLineConnectorUIController : PuzzleUIController
     // Selecting
     [HideInInspector] private BoxCellEUIController selectingBoxCellEui = null;
 
-    // Inner
-    [HideInInspector] private List<Image> innerList;
-
-
-    #endregion
-
     #endregion
 
     #region Init
@@ -65,32 +57,79 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
+        string ms = "";
 #endif
-        allBoxCellEui = DevTool.Get_ChildList<BoxCellEUIController>(boxCellParentTf);
-        allBoxConnectionEui = DevTool.Get_ChildList<BoxConnectionEUIController>(boxConnectionParentTf);
-        innerList = DevTool.Get_ChildList<Image>(innerParentTf);
-
-        for (int i = 0; i < allBoxCellEui.Count; i++)
+        allBoxCellEui = new BoxCellEUIController[9];
+        Vector2Int gridPos;
+        Vector2 pos;
+        for (int i = 0; i < allBoxCellEui.Length; i++)
         {
+            allBoxCellEui[i] = Instantiate(boxCellEuiPrefab, boxCellParentTf);
             allBoxCellEui[i].Offset();
-            allBoxCellEui[i].ownerUIController = this;
-            allBoxCellEui[i].ownerPuzzleUIController = this;
+            gridPos = new Vector2Int((i % 3) - 1, (i / 3) - 1);
+            pos = new Vector2(gridPos.x * boxInterval.x, gridPos.y * boxInterval.y);
+            allBoxCellEui[i].Init(this, gridPos, pos);
+
             boxCellDirDict.Add(allBoxCellEui[i].pos, allBoxCellEui[i]);
-        }
 
-        for (int i = 0; i < allBoxConnectionEui.Count; i++)
+            if (i % 3 == 2)
+            {
+#if UNITY_EDITOR
+                sw.Stop();
+                ms += $"{(float)sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif
+                yield return null;
+#if UNITY_EDITOR
+                sw.Restart();
+#endif
+            }
+        }
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Box Cell</color> : <color=red>{ms:F2}ms</color>");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        allBoxConnectionEui = new BoxConnectionEUIController[12];
+
+        int k = 0;
+        Vector2Int vecA, vecB;
+
+        for (int i = 0; i < 3; i++)
         {
-            allBoxConnectionEui[i].Offset();
+            for (int j = 0; j < 3; j++)
+            {
+                vecA = new Vector2Int(j - 1, i - 1);
+                if (j % 3 != 2) // 가장 오른쪽이 아니라면
+                {
+                    allBoxConnectionEui[k] = Instantiate(boxConnectorEuiPrefab, boxConnectionParentTf);
+                    allBoxConnectionEui[k].Offset();
+                    vecB = new Vector2Int(vecA.x + 1, vecA.y);
+                    Vector2 vec = new Vector2((vecA.x + vecB.x) * 0.5f, (vecA.y + vecB.y) * 0.5f);
+                    vec *= boxInterval;
+                    allBoxConnectionEui[k].Init(vecA, vecB, vec, true);
+                    k++;
+                }
+                if (i != 2)
+                {
+                    allBoxConnectionEui[k] = Instantiate(boxConnectorEuiPrefab, boxConnectionParentTf);
+                    allBoxConnectionEui[k].Offset();
+                    vecB = new Vector2Int(vecA.x, vecA.y + 1);
+                    Vector2 vec = new Vector2((vecA.x + vecB.x) * 0.5f, (vecA.y + vecB.y) * 0.5f);
+                    vec *= boxInterval;
+                    allBoxConnectionEui[k].Init(vecA, vecB, vec, false);
+                    k++;
+                }
+            }
         }
-
-        rightRollInputImg.sprite = ResourceManager.instance.mlbSprite;
-        rightRollInputImg.SetNativeSize();
-        leftRollInputImg.sprite = ResourceManager.instance.mrbSprite;
-        leftRollInputImg.SetNativeSize();
 
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=FFFF7F>BoxLineConnector Puzzle</color> : DataSet : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+        UnityEngine.Debug.Log($"<color=yellow>Box Connector</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}ms</color>");
 #endif
         yield return null;
     }
@@ -143,25 +182,23 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     private void Set_AllInnerColor(Color clr)
     {
+        DevTool.SetColorImgs(clr, clrImgs);
+
         // Cell
-        for (int i = 0; i < allBoxCellEui.Count; i++)
+        for (int i = 0; i < allBoxCellEui.Length; i++)
             allBoxCellEui[i].Set_InnerColor(clr);
         
         // Connection
-        for (int i = 0; i < allBoxConnectionEui.Count; i++)
-            allBoxConnectionEui[i].Set_InnerColor(clr);
-        
-        // Inner 
-        for (int i = 0; i < innerList.Count; i++)
-            DevTool.SetColor(clr, innerList[i]);
+        for (int i = 0; i < allBoxConnectionEui.Length; i++)
+            allBoxConnectionEui[i].SetInnerColor(clr);
     }
 
     private void Set_AllDefault()
     {
-        for (int i = 0; i < allBoxCellEui.Count; i++)
+        for (int i = 0; i < allBoxCellEui.Length; i++)
             allBoxCellEui[i].Set_Active(false);
-        for (int i = 0; i < allBoxConnectionEui.Count; i++)
-            allBoxConnectionEui[i].Set_Active(false);
+        for (int i = 0; i < allBoxConnectionEui.Length; i++)
+            allBoxConnectionEui[i].SetActive(false);
 
         Set_AllInnerColor(ResourceManager.instance.lockedClr);
 
@@ -177,12 +214,12 @@ public class BoxLineConnectorUIController : PuzzleUIController
             onDirBoxCell.Clear();
         
         // 처음은 랜덤으로 설정
-        Vector2Int firstBoxCell = allBoxCellEui[Random.Range(0, allBoxCellEui.Count)].pos;
+        Vector2Int firstBoxCell = allBoxCellEui[Random.Range(0, allBoxCellEui.Length)].pos;
         onDirBoxCell.Add(firstBoxCell);
 
         while(true)
         {
-            Vector2Int randomBoxCell = allBoxCellEui[Random.Range(0, allBoxCellEui.Count)].pos;
+            Vector2Int randomBoxCell = allBoxCellEui[Random.Range(0, allBoxCellEui.Length)].pos;
             if (!onDirBoxCell.Contains(randomBoxCell) &&
                 DevTool.Get_RoundVec(onDirBoxCell).Contains(randomBoxCell))
                 onDirBoxCell.Add(randomBoxCell);
@@ -191,7 +228,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
             
 
             // 일정 수치를 채우면 종료
-            if (onDirBoxCell.Count >= cellAmount || onDirBoxCell.Count >= allBoxCellEui.Count)
+            if (onDirBoxCell.Count >= cellAmount || onDirBoxCell.Count >= allBoxCellEui.Length)
                 break;
         }
     }
@@ -219,9 +256,9 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     private void SetOn_ByConditionToConnector()
     {
-        for (int i = 0; i < allBoxConnectionEui.Count; i++)
+        for (int i = 0; i < allBoxConnectionEui.Length; i++)
         {
-            allBoxConnectionEui[i].Set_ActiveByCondition(onDirBoxCell);
+            allBoxConnectionEui[i].SetActiveByCondition(onDirBoxCell);
         }
     }
 
