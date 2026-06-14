@@ -1,42 +1,49 @@
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PremiumCreditCvtUIController : ConverterUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Cvt. Premium Credit")]
 
-    [Space(10)]
-    [Header("=== EUI")]
-    [SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
-    [SerializeField] private CvtMaterialEUIController epCvtMaterialEui;
+    private CvtMaterialEUIController cCvtMaterialEui;
+    private CvtMaterialEUIController epCvtMaterialEui;
+    private static int need_Credit = 10;
+    private static float need_EP = 1;
 
     #endregion
 
-    #region - Hide
+    #region Init
 
-    [HideInInspector] private static int need_Credit = 10;
-    [HideInInspector] private static float need_EP = 1;
-
-    #endregion
-
-    #endregion
-
-    #region Offset
-
-    public override void Offset()
+    public override IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        base.Offset();
+        yield return base.InitAsync(mainClr, subClr);
+
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        cCvtMaterialEui = cvtMaterialEuis[0];
+        epCvtMaterialEui = cvtMaterialEuis[1];
+        cvtMaterialEuis = null;
 
         cCvtMaterialEui.Offset();
         epCvtMaterialEui.Offset();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Premium Credit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+
+        SetLanguageTxt();
+        yield return null;
     }
 
     #endregion
+
+    #region UI
 
     public void SetEpUI(float current, float max)
     {
@@ -47,6 +54,8 @@ public class PremiumCreditCvtUIController : ConverterUIController
     {
         cCvtMaterialEui.Set_PossessionAmountTxt(value.ToString());
     }
+
+    #endregion
 
     #region Language
 
@@ -61,7 +70,6 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
         cCvtMaterialEui.Set_Language();
         epCvtMaterialEui.Set_Language();
-
     }
 
     #endregion
@@ -113,7 +121,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
         // Data
         PlayerController pc = PlayerManager.instance.playerController;
-        Debug.Assert(pc, "Player is Null");
+        UnityEngine.Debug.Assert(pc, "Player is Null");
 
         int needCredit = acquisitionBookAmount * need_Credit;
         cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());

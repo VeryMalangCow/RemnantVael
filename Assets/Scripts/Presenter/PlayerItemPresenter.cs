@@ -54,7 +54,7 @@ public class PlayerItemPresenter : MonoBehaviour, IPresentable
 
         saveData.OnHighItemChanged += tabItemView.SetHighLvItemUI;
 
-        player.SetCreditUI();
+        //player.SetCreditUI();
         player.SetOverriderUI();
         player.SetModuleShardUI();
     }

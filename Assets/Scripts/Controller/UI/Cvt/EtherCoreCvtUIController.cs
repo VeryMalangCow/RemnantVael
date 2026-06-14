@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using UniRx;
 using UnityEngine;
 
@@ -6,38 +7,43 @@ public class EtherCoreCvtUIController : ConverterUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Cvt. Premium Credit")]
 
-    [Space(10)]
-    [Header("=== EUI")]
-    [SerializeField] private CvtMaterialEUIController cbCvtMaterialEui;
-    [SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
-    [SerializeField] private CvtMaterialEUIController protoCvtMaterialEui;
+    private CvtMaterialEUIController cbCvtMaterialEui;
+    private CvtMaterialEUIController cCvtMaterialEui;
+    private CvtMaterialEUIController protoCvtMaterialEui;
+    private static int need_ChargedBettery = 10;
+    private static int need_Credit = 50;
+    private static int need_ProtoC = 3;
+
 
     #endregion
 
-    #region - Hide
+    #region Init
 
-    [HideInInspector] private static int need_ChargedBettery = 10;
-    [HideInInspector] private static int need_Credit = 50;
-    [HideInInspector] private static int need_ProtoC = 3;
-
-    #endregion
-
-    #endregion
-
-    #region Offset
-
-    public override void Offset()
+    public override IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        base.Offset();
+        yield return base.InitAsync(mainClr, subClr);
+
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        cbCvtMaterialEui = cvtMaterialEuis[0];
+        cCvtMaterialEui = cvtMaterialEuis[1];
+        protoCvtMaterialEui = cvtMaterialEuis[2];
+        cvtMaterialEuis = null;
 
         cbCvtMaterialEui.Offset();
         cCvtMaterialEui.Offset();
         protoCvtMaterialEui.Offset();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Ether Core</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        SetLanguageTxt();
+        yield return null;
     }
 
     #endregion
@@ -133,7 +139,7 @@ public class EtherCoreCvtUIController : ConverterUIController
 
         // Data
         PlayerController pc = PlayerManager.instance.playerController;
-        Debug.Assert(pc, "Player is Null");
+        UnityEngine.Debug.Assert(pc, "Player is Null");
 
         int needCredit = acquisitionBookAmount * need_Credit;
         cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());

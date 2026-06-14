@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
@@ -7,27 +8,43 @@ public abstract class ConverterUIController : SinglePanelUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
-    [Header("<><><><><> Cvt. Premium Credit")]
+    [Header("<><><><><> Cvt.")]
+    [SerializeField] private Transform cvtEuiParentTf;
 
     [Space(10)]
-    [Header("=== Label")]
+    [Header("=== Material")]
+    [SerializeField] private CvtMaterialEUIController cvtMaterialEuiPrefab;
+    [SerializeField] private CvtMaterialData[] cvtMaterialDatas;
+    protected CvtMaterialEUIController[] cvtMaterialEuis;
+
+    [System.Serializable]
+    public class CvtMaterialData
+    {
+        public float posY;
+        public Sprite icon;
+        public float rotateZ;
+    }
+
+    [Space(10)]
+    [Header("=== Acquisition")]
+    [SerializeField] private CvtAcquisitionEUIController cvtAcquisitionEuiPrefab;
+    [SerializeField] private Sprite acquisitionItemIcon;
+    protected CvtAcquisitionEUIController cvtAcquisitionEui;
+
+    [Space(10)]
+    [Header("=== Comp")]
     [SerializeField] protected TMP_Text labelTxt;
+    [SerializeField] protected OwnBtnEUIController closeBtn;
+
+    [Space(10)]
+    [Header("=== Visual")]
+    [SerializeField] private TMP_Text[] mainTmps;
+    [SerializeField] private TMP_Text[] subTmps;
 
     [Space(10)]
     [Header("=== EUI")]
-    [SerializeField] protected CvtAcquisitionEUIController cvtAcquisitionEui;
     [SerializeField] protected int acquisitionItemId;
-
-    [Space(10)]
-    [Header("=== Close")]
-    [SerializeField] protected OwnBtnEUIController closeBtn;
-
-    #endregion
-
-    #region - Hide 
 
     // String
     [HideInInspector] public static string labelName;
@@ -39,50 +56,45 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     #endregion
 
-    #endregion
+    #region Init
 
-    #region Offset
-
-    public override void Offset()
+    public virtual IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        base.Offset();
-
-        Offset_Basic();
-        Offset_ColorComp();
-
-        SetLanguageTxt();
-    }
-
-    private void Offset_Basic()
-    {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
         closeBtn.Offset();
         closeBtn.ownerUIController = this;
 
+        SetColor(mainClr, subClr);
+
+        int len = cvtMaterialDatas.Length;
+        cvtMaterialEuis = new CvtMaterialEUIController[len];
+        for (int i = 0; i < len; i++)
+        {
+            cvtMaterialEuis[i] = Instantiate(cvtMaterialEuiPrefab, cvtEuiParentTf);
+            cvtMaterialEuis[i].Init(cvtMaterialDatas[i]);
+        }
+
+        cvtAcquisitionEui = Instantiate(cvtAcquisitionEuiPrefab, cvtEuiParentTf);
         cvtAcquisitionEui.Offset();
-        cvtAcquisitionEui.Offset_Owner(this);
+        cvtAcquisitionEui.Init(this, acquisitionItemIcon);
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Data Set + Material EUI + Acquisition EUI</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
     }
 
-    private void Offset_ColorComp()
+    #endregion
+
+    #region Color
+
+    private void SetColor(Color mainClr, Color subClr)
     {
-        mainColorCompList = new List<Component>();
-        subColorCompList = new List<Component>();
-
-        // Label
-        mainColorCompList.Add(labelTxt);
-
-        // Close
-        subColorCompList.Add(closeBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-
-
-        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        DevTool.Set_Color(mainClr, mainColorCompList);
-        mainColorCompList.Clear();
-        mainColorCompList = null;
-
-        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-        DevTool.Set_Color(subClr, subColorCompList);
-        subColorCompList.Clear();
-        subColorCompList = null;
+        DevTool.SetColorTmps(mainClr, mainTmps);
+        DevTool.SetColorTmps(subClr, subTmps);
     }
 
     #endregion

@@ -57,7 +57,7 @@ public class PlayerBetteryPresenter : MonoBehaviour, IPresentable
 
         player.SetBetteryShardUI();
         player.SetEmptyBetteryUI();
-        player.SetChargedBetteryUI();
+        //player.SetChargedBetteryUI();
     }
 
     public void SubscribeOff()

@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static ConverterUIController;
 
 public class CvtMaterialEUIController : ElementUIController
 {
@@ -12,6 +13,9 @@ public class CvtMaterialEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
+    [SerializeField] public RectTransform rt;
+
+    [Space(4)]
     [SerializeField] private Image iconImg;
     [SerializeField] private Image conditionIconImg;
 
@@ -25,6 +29,20 @@ public class CvtMaterialEUIController : ElementUIController
 
     [Space(4)]
     [SerializeField] private CanvasGroup lineCg;
+    [SerializeField] private RectTransform arrowAngleRt;
+
+    #endregion
+
+    #region Init
+
+    public void Init(CvtMaterialData cvtData)
+    {
+        rt.anchoredPosition = new Vector2(0, cvtData.posY);
+        iconImg.sprite = cvtData.icon;
+        iconImg.SetNativeSize();
+        arrowAngleRt.rotation = Quaternion.Euler(0, 0, cvtData.rotateZ);
+        Set_Language();
+    }
 
     #endregion
 
@@ -32,7 +50,6 @@ public class CvtMaterialEUIController : ElementUIController
 
     public override void Offset()
     {
-        Set_Language();
     }
 
     #endregion

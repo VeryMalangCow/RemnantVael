@@ -29,6 +29,7 @@ public class CvtAcquisitionEUIController : ElementUIController
     [SerializeField] private TMP_Text acquisitionAmountTxt;
 
     [Space(5)]
+    [SerializeField] private Image IconImg;
     [SerializeField] private Image convertInnerImg;
     [SerializeField] private CanvasGroup visualCg;
     [SerializeField] private RectTransform cog0Rt;
@@ -41,6 +42,20 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     #endregion
 
+    public void Init(SinglePanelUIController ownerUI, Sprite sprite)
+    {
+        IconImg.sprite = sprite;
+        IconImg.SetNativeSize();
+
+        convertBtn.ownerUIController = ownerUI;
+        maxBtn.ownerUIController = ownerUI;
+        more10Btn.ownerUIController = ownerUI;
+        more1Btn.ownerUIController = ownerUI;
+        less1Btn.ownerUIController = ownerUI;
+        less10Btn.ownerUIController = ownerUI;
+        minBtn.ownerUIController = ownerUI;
+    }
+
     #region Offset
 
     public override void Offset()
@@ -52,17 +67,6 @@ public class CvtAcquisitionEUIController : ElementUIController
         less1Btn.Offset();
         less10Btn.Offset();
         minBtn.Offset();
-    }
-
-    public void Offset_Owner(SinglePanelUIController ownerUI)
-    {
-        convertBtn.ownerUIController = ownerUI;
-        maxBtn.ownerUIController = ownerUI;
-        more10Btn.ownerUIController = ownerUI;
-        more1Btn.ownerUIController = ownerUI;
-        less1Btn.ownerUIController = ownerUI;
-        less10Btn.ownerUIController = ownerUI;
-        minBtn.ownerUIController = ownerUI;
     }
 
     #endregion
