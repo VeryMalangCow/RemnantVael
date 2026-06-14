@@ -6,8 +6,6 @@ public class NSCPanelEUIController : ElementUIController
 {
     #region Value 
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> NSC Panel")]
 
@@ -25,10 +23,6 @@ public class NSCPanelEUIController : ElementUIController
     [Header("=== TF")]
     [SerializeField] private Transform innerParentTf;
 
-    #endregion
-
-    #region - Hide
-
     // Owner
     [HideInInspector] public NumShapeColorPasswordUIController ownerUIController;
 
@@ -41,9 +35,17 @@ public class NSCPanelEUIController : ElementUIController
 
     #endregion
 
-    #region - Hide
+    #region Init
 
-    #endregion
+    public void Init(NumShapeColorPasswordUIController ui, Vector2 pos)
+    {
+        ownerUIController = ui;
+
+        rt.anchoredPosition = pos;
+
+        for (int i = 0; i < allRollEui.Count; i++)
+            allRollEui[i].Init(ownerUIController, this);
+    }
 
     #endregion
 
@@ -59,10 +61,6 @@ public class NSCPanelEUIController : ElementUIController
 
         for (int i = 0; i < allRollEui.Count; i++)
         {
-            allRollEui[i].ownerUIController = ownerUIController;
-            allRollEui[i].ownerNscUIController = ownerUIController;
-            allRollEui[i].ownerNscPanelEuiController = this;
-
             allRollEui[i].Offset();
         }
     }

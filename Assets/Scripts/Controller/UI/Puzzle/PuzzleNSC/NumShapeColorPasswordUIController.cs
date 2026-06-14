@@ -9,38 +9,30 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> NSC")]
 
     [Space(10)]
-    [Header("=== RT")]
-    [SerializeField] private RectTransform allNscPanelEuiParentRt;
-    [SerializeField] private RectTransform selectingSignRt;
+    [Header("=== Nsc")]
+    [SerializeField] private NSCPanelEUIController allNscPanelEuiPrefab;
+    [SerializeField] private Transform allNscPanelEuiParentTf;
+    [SerializeField] private float intervalY;
+    private NSCPanelEUIController[] allNscPanelEui;
+    private List<NSCRollCellEUIController> allNscRollCellEui;
 
     [Space(10)]
-    [Header("=== Ready KeyAnno")]
-    [SerializeField] private Image downRollInputImg;
-    [SerializeField] private Image upRollInputImg;
-
-    #endregion
-
-    #region - Hide
+    [Header("=== Seleting")]
+    [SerializeField] private RectTransform selectingSignRt;
 
     // Value
     [HideInInspector] private int unlockedAmount = 0;
     [HideInInspector] private int lockedAmount = 0;
 
     // EUI
-    [HideInInspector] private List<NSCPanelEUIController> allNscPanelEui;
-    [HideInInspector] private List<NSCRollCellEUIController> allNscRollCellEui = new List<NSCRollCellEUIController>();
     [HideInInspector] private List<int> lockedRollCellEuiIndexList;
 
     // Input
     [HideInInspector] private NSCRollCellEUIController selectingRollCellEui;
-
-    #endregion
 
     #endregion
 
@@ -51,28 +43,33 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
         yield return base.InitAsync();
 
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew(); 
-        initString = "";
+        Stopwatch sw = Stopwatch.StartNew();
+        string s = "";
 #endif
-        allNscPanelEui = DevTool.Get_ChildList<NSCPanelEUIController>(allNscPanelEuiParentRt);
-
-        for (int i = 0; i < allNscPanelEui.Count; i++)
+        allNscPanelEui = new NSCPanelEUIController[3];
+        allNscRollCellEui = new List<NSCRollCellEUIController>(3 * allNscPanelEui.Length);
+        for (int i = 0; i < allNscPanelEui.Length; i++)
         {
-            allNscPanelEui[i].ownerUIController = this;
+            allNscPanelEui[i] = Instantiate(allNscPanelEuiPrefab, allNscPanelEuiParentTf);
+
             allNscPanelEui[i].Offset();
+            allNscPanelEui[i].Init(this, new Vector2(0, -(i - 1) * intervalY));
 
             allNscRollCellEui.AddRange(allNscPanelEui[i].allRollEui);
-        }
 
-        downRollInputImg.sprite = ResourceManager.instance.mlbSprite;
-        downRollInputImg.SetNativeSize();
-        upRollInputImg.sprite = ResourceManager.instance.mrbSprite;
-        upRollInputImg.SetNativeSize();
+#if UNITY_EDITOR
+            sw.Stop();
+            s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif
+            yield return null;
+#if UNITY_EDITOR
+            sw.Restart();
+#endif
+        }
 
 #if UNITY_EDITOR
         sw.Stop();
-        initString += $"<color=yellow>DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}ms</color>";
-        UnityEngine.Debug.Log(initString);
+        UnityEngine.Debug.Log($"<color=yellow>Nsc Panel</color> : <color=red>{s}</color> ms");
 #endif
         yield return null;
     }
@@ -111,7 +108,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        for (int i = 0; i < allNscPanelEui.Count; i++)
+        for (int i = 0; i < allNscPanelEui.Length; i++)
         {
             allNscPanelEui[i].Set_InnerColor(ResourceManager.instance.unlockedClr);
         }
@@ -123,7 +120,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     private void Set_AllNSCPanelEUI_DefaultAndRandom()
     {
-        for (int i = 0; i < allNscPanelEui.Count; i++)
+        for (int i = 0; i < allNscPanelEui.Length; i++)
         {
             allNscPanelEui[i].Set_RollValueRandom();
             allNscPanelEui[i].Set_RandomAnswer();
@@ -237,7 +234,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     public override bool Can_Success()
     {
-        for (int i = 0; i < allNscPanelEui.Count; i++)
+        for (int i = 0; i < allNscPanelEui.Length; i++)
             if (!allNscPanelEui[i].Is_Answer())
                 return false;
             

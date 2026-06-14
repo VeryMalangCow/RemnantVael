@@ -45,6 +45,18 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
 
     #endregion
 
+    #region Init
+
+    public void Init(NumShapeColorPasswordUIController ui, NSCPanelEUIController panelUi)
+    {
+        ownerUIController = ui;
+        ownerNscUIController = ui;
+
+        ownerNscPanelEuiController = panelUi;
+    }
+
+    #endregion
+
     #region Offset
 
     public override void Offset()

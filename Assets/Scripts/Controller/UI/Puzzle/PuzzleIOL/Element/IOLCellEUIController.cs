@@ -59,6 +59,18 @@ public class IOLCellEUIController : OwnBtnEUIController
 
     #endregion
 
+    #region Init
+
+    public void Init(InOrderLockerUIController ui, Vector2 pos)
+    {
+        ownerUIController = ui;
+        ownerIolUIController = ui;
+
+        rt.anchoredPosition = pos;
+    }
+
+    #endregion
+
     #region Offset
 
     public override void Offset()

@@ -139,10 +139,10 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
         yield return InitAsync(puzzleBlcUiPrefab, false, delegate (BoxLineConnectorUIController ui) { puzzleBlcUi = ui; });
         yield return puzzleBlcUi.InitAsync();
-        yield return InitAsync(puzzleNscUiPrefab, false, delegate (NumShapeColorPasswordUIController ui) { puzzleNscUi = ui; });
-        yield return puzzleNscUi.InitAsync();
         yield return InitAsync(puzzleIolUiPrefab, false, delegate (InOrderLockerUIController ui) { puzzleIolUi = ui; });
         yield return puzzleIolUi.InitAsync();
+        yield return InitAsync(puzzleNscUiPrefab, false, delegate (NumShapeColorPasswordUIController ui) { puzzleNscUi = ui; });
+        yield return puzzleNscUi.InitAsync();
 
         yield return InitAsync(premiumCreditCvtUiPrefab, false, delegate (PremiumCreditCvtUIController ui) { premiumCreditCvtUi = ui; });
         yield return InitAsync(protoCoreCvtUiPrefab, false, delegate (ProtoCoreCvtUIController ui) { protoCoreCvtUi = ui; });

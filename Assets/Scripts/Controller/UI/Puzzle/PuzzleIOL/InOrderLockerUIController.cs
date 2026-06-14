@@ -5,39 +5,33 @@ using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class InOrderLockerUIController : PuzzleUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> In Order Locker")]
 
     [Space(10)]
-    [Header("=== TF")]
-    [SerializeField] private Transform allIolCellParentTf;
-    [SerializeField] private Transform innerParentTf;
+    [Header("=== IOL Cell")]
+    [SerializeField] private IOLCellEUIController iolCellEuiPrefab;
+    [SerializeField] private Transform iolCellParentTf;
+    [SerializeField] private Vector2 iolInterval;
+    private IOLCellEUIController[] allIolCell;
+
+    [Space(10)]
+    [Header("=== Visual")]
+    [SerializeField] private Image[] clrImgs;
+
+    [Space(10)]
+    [Header("=== Selecting")]
     [SerializeField] private RectTransform selectingSignRT;
 
     [Space(10)]
     [SerializeField] private TMP_Text answerIndexTxt;
     [SerializeField] private TMP_Text answerCurrentSetTxt;
-
-    [Space(10)]
-    [Header("=== Ready KeyAnno")]
-    [SerializeField] private Image selectInputImg;
-
-    #endregion
-
-    #region - Hide
-
-    // EUI
-    [HideInInspector] private List<IOLCellEUIController> allIolCell;
-
-    // Inner
-    [HideInInspector] private List<Image> innerImgList;
 
     // Value
     [HideInInspector] private int cellAmount = 0;
@@ -50,8 +44,6 @@ public class InOrderLockerUIController : PuzzleUIController
 
     #endregion
 
-    #endregion
-
     #region Init
 
     public override IEnumerator InitAsync()
@@ -60,27 +52,35 @@ public class InOrderLockerUIController : PuzzleUIController
 
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
-        initString = "";
+        string s = "";
 #endif
-        allIolCell = DevTool.Get_ChildList<IOLCellEUIController>(allIolCellParentTf);
+        allIolCell = new IOLCellEUIController[9];
+        Vector2 pos;
 
-        innerImgList = DevTool.Get_ChildList<Image>(innerParentTf);
-
-        for (int i = 0; i < allIolCell.Count; i++)
+        for (int i = 0; i < allIolCell.Length; i++)
         {
-            allIolCell[i].ownerUIController = this;
-            allIolCell[i].ownerIolUIController = this;
+            allIolCell[i] = Instantiate(iolCellEuiPrefab, iolCellParentTf);
+            pos = new Vector2(((i % 3) - 1) * iolInterval.x, ((i / 3) - 1) * iolInterval.y);
             allIolCell[i].Offset();
+            allIolCell[i].Init(this, pos);
+            if (i == 3)
+            {
+#if UNITY_EDITOR
+                sw.Stop();
+                s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif
+                yield return null;
+#if UNITY_EDITOR
+                sw.Restart();
+#endif
+            }
         }
-
-        selectInputImg.sprite = ResourceManager.instance.mlbSprite;
-        selectInputImg.SetNativeSize();
 
 #if UNITY_EDITOR
         sw.Stop();
-        initString += $"<color=yellow>DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}ms</color>";
-        UnityEngine.Debug.Log(initString);
+        UnityEngine.Debug.Log($"<color=yellow>Iol Cell</color> : <color=red>{s} {sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
+        yield return null;
     }
 
     #endregion
@@ -168,7 +168,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
     private void Set_AllDefault()
     {
-        for (int i = 0; i < allIolCell.Count; i++)
+        for (int i = 0; i < allIolCell.Length; i++)
         {
             allIolCell[i].Set_Default();
             allIolCell[i].Set_Interactable(false);
@@ -180,14 +180,10 @@ public class InOrderLockerUIController : PuzzleUIController
 
     private void Set_InnerColor(Color clr)
     {
-        for (int i = 0; i < innerImgList.Count; i++)
-        {
-            DevTool.SetColor(clr, innerImgList[i]);
-        }
-        for (int i = 0; i < allIolCell.Count; i++)
-        {
+        DevTool.SetColorImgs(clr, clrImgs);
+
+        for (int i = 0; i < allIolCell.Length; i++)
             allIolCell[i].Set_Color(clr);
-        }
     }
 
     private void Set_InteractableAmount(int amount)
@@ -215,7 +211,17 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
-        int targetCellEUIIndex = allIolCell.IndexOf(cellEui);
+        int targetCellEUIIndex = -1;
+        for (int i = 0; i < allIolCell.Length; i++)
+        {
+            if (allIolCell[i] == cellEui)
+            {
+                targetCellEUIIndex = i;
+                break;
+            }
+        }
+        if (targetCellEUIIndex == -1)
+            return;
 
         // 처음 선택
         if (needNextSelectEUIIndex == -1 ||

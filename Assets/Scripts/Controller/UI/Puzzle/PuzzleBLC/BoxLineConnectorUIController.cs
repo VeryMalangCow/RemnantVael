@@ -86,7 +86,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
         }
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=yellow>Box Cell</color> : <color=red>{ms:F2}ms</color>");
+        UnityEngine.Debug.Log($"<color=yellow>Box Cell</color> : <color=red>{ms:F2}</color> ms");
 #endif
         yield return null;
 
@@ -129,7 +129,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=yellow>Box Connector</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}ms</color>");
+        UnityEngine.Debug.Log($"<color=yellow>Box Connector</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
     }
