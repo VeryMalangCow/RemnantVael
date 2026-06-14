@@ -15,15 +15,19 @@ public class PlayerInteractPresenter : MonoBehaviour, IPresentable
         interactAnno = uiData.interactAnno;
     }
 
+    private void SetInteract(IInteract ii)
+    {
+        interactView.SetInteractableUI(ii);
+        interactAnno.SetInteractableUI(ii);
+    }
+
     public void SubscribeOn()
     {
-        player.OnInteractableChanged += interactView.SetInteractableUI;
-        player.OnInteractableChanged += interactAnno.SetInteractableUI;
+        player.OnInteractableChanged += SetInteract;
     }
 
     public void SubscribeOff()
     {
-        player.OnInteractableChanged -= interactView.SetInteractableUI;
-        player.OnInteractableChanged -= interactAnno.SetInteractableUI;
+        player.OnInteractableChanged -= SetInteract;
     }
 }

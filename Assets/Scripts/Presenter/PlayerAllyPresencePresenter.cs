@@ -15,13 +15,33 @@ public class PlayerAllyPresencePresenter : MonoBehaviour, IPresentable
         allyPresence = uiData.hud.AllyPresenceView;
     }
 
+    private void SetStrikeTeamPresence(int current, int max)
+    {
+        allyPresence.StrikePresence(current, max);
+    }
+
+    private void SetUplinkTeamPresence(int current, int max)
+    {
+        allyPresence.UplinkPresence(current, max);
+    }
+
+    private void SetNeoTeamPresence(int current, int max)
+    {
+        allyPresence.NeoPresence(current, max);
+    }
+
+    private void SetReputation(float value)
+    {
+        allyPresence.SetReputation(value);
+    }
+
     public void SubscribeOn()
     {
-        player.OnStrikePresenceChanged += allyPresence.StrikePresence;
-        player.OnUplinkPresenceChanged += allyPresence.UplinkPresence;
-        player.OnNeoPresenceChanged += allyPresence.NeoPresence;
+        player.OnStrikePresenceChanged += SetStrikeTeamPresence;
+        player.OnUplinkPresenceChanged += SetUplinkTeamPresence;
+        player.OnNeoPresenceChanged += SetNeoTeamPresence;
 
-        player.OnReputationChanged += allyPresence.SetReputation;
+        player.OnReputationChanged += SetReputation;
 
         player.ActPresence();
         player.ActReputation();
@@ -29,10 +49,10 @@ public class PlayerAllyPresencePresenter : MonoBehaviour, IPresentable
 
     public void SubscribeOff()
     {
-        player.OnStrikePresenceChanged -= allyPresence.StrikePresence;
-        player.OnUplinkPresenceChanged -= allyPresence.UplinkPresence;
-        player.OnNeoPresenceChanged -= allyPresence.NeoPresence;
+        player.OnStrikePresenceChanged -= SetStrikeTeamPresence;
+        player.OnUplinkPresenceChanged -= SetUplinkTeamPresence;
+        player.OnNeoPresenceChanged -= SetNeoTeamPresence;
 
-        player.OnReputationChanged -= allyPresence.SetReputation;
+        player.OnReputationChanged -= SetReputation;
     }
 }

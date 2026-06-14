@@ -36,47 +36,48 @@ public class PlayerBetteryPresenter : MonoBehaviour, IPresentable
         originCoreCvt = uiData.originCoreCvt;
     }
 
+    private void SetBetteryShard(int value)
+    {
+        betteryShardView.SetBetteryShardUI(value);
+    }
+
+    private void SetEmptyBettery(int value)
+    {
+        betteriesView.SetEmptyBetteryUI(value); 
+        baseUpgrade.SetEmptyBetteryUI(value); 
+        moduleUpgrade.SetEmptyBetteryUI(value);
+    }
+
+    private void SetChargedBettery(int value)
+    {
+        betteriesView.SetChargedBetteryUI(value);
+        baseUpgrade.SetChargedBetteryUI(value);
+        moduleUpgrade.SetChargedBetteryUI(value);
+
+        allyBaseUpgrade.SetChargedBetteryUI(value);
+        allyModuleUpgrade.SetChargedBetteryUI(value);
+
+        protoCoreCvt.SetChargedBetteryUI(value);
+        etherCoreCvt.SetChargedBetteryUI(value);
+        originCoreCvt.SetChargedBetteryUI(value);
+    }
+
     public void SubscribeOn()
     {
-        player.OnBetteryShardChanged += betteryShardView.SetBetteryShardUI;
-        player.OnEmptyBetteryChanged += betteriesView.SetEmptyBetteryUI;
-        player.OnChargedBetteryChanged += betteriesView.SetChargedBetteryUI;
-
-        player.OnEmptyBetteryChanged += baseUpgrade.SetEmptyBetteryUI;
-        player.OnChargedBetteryChanged += baseUpgrade.SetChargedBetteryUI;
-        player.OnEmptyBetteryChanged += moduleUpgrade.SetEmptyBetteryUI;
-        player.OnChargedBetteryChanged += moduleUpgrade.SetChargedBetteryUI;
-
-
-        player.OnChargedBetteryChanged += allyBaseUpgrade.SetChargedBetteryUI;
-        player.OnChargedBetteryChanged += allyModuleUpgrade.SetChargedBetteryUI;
-
-        player.OnChargedBetteryChanged += protoCoreCvt.SetChargedBetteryUI;
-        player.OnChargedBetteryChanged += etherCoreCvt.SetChargedBetteryUI;
-        player.OnChargedBetteryChanged += originCoreCvt.SetChargedBetteryUI;
+        player.OnBetteryShardChanged += SetBetteryShard;
+        player.OnEmptyBetteryChanged += SetEmptyBettery;
+        player.OnChargedBetteryChanged += SetChargedBettery;
 
         player.SetBetteryShardUI();
         player.SetEmptyBetteryUI();
-        //player.SetChargedBetteryUI();
+        player.SetChargedBetteryUI();
     }
 
     public void SubscribeOff()
     {
-        player.OnBetteryShardChanged -= betteryShardView.SetBetteryShardUI;
-        player.OnEmptyBetteryChanged -= betteriesView.SetEmptyBetteryUI;
-        player.OnChargedBetteryChanged -= betteriesView.SetChargedBetteryUI;
+        player.OnBetteryShardChanged -= SetBetteryShard;
+        player.OnEmptyBetteryChanged -= SetEmptyBettery;
+        player.OnChargedBetteryChanged -= SetChargedBettery;
 
-        player.OnEmptyBetteryChanged -= baseUpgrade.SetEmptyBetteryUI;
-        player.OnChargedBetteryChanged -= baseUpgrade.SetChargedBetteryUI;
-        player.OnEmptyBetteryChanged -= moduleUpgrade.SetEmptyBetteryUI;
-        player.OnChargedBetteryChanged -= moduleUpgrade.SetChargedBetteryUI;
-
-
-        player.OnChargedBetteryChanged -= allyBaseUpgrade.SetChargedBetteryUI;
-        player.OnChargedBetteryChanged -= allyModuleUpgrade.SetChargedBetteryUI;
-
-        player.OnChargedBetteryChanged -= protoCoreCvt.SetChargedBetteryUI;
-        player.OnChargedBetteryChanged -= etherCoreCvt.SetChargedBetteryUI;
-        player.OnChargedBetteryChanged -= originCoreCvt.SetChargedBetteryUI;
     }
 }

@@ -17,12 +17,21 @@ public class PlayerEpPresenter : MonoBehaviour, IPresentable
         premiumCreditCvt = uiData.premiumCreditCvt;
     }
 
+    private void SetEp(float current, float max)
+    {
+        view.SetEpUI(current, max);
+        premiumCreditCvt.SetEpUI(current, max);
+    }
+
+    private void SetMaxEp(float current, float max)
+    {
+        view.SetMaxEpUI(current, max);
+    }
+
     public void SubscribeOn()
     {
-        player.OnEpChanged += view.SetEpUI;
-        player.OnMaxEpChanged += view.SetMaxEpUI;
-
-        player.OnEpChanged += premiumCreditCvt.SetEpUI;
+        player.OnEpChanged += SetEp;
+        player.OnMaxEpChanged += SetMaxEp;
 
         player.SetMaxEp();
         player.FullEp();
@@ -30,9 +39,7 @@ public class PlayerEpPresenter : MonoBehaviour, IPresentable
 
     public void SubscribeOff()
     {
-        player.OnEpChanged -= view.SetEpUI;
-        player.OnMaxEpChanged -= view.SetMaxEpUI;
-
-        player.OnEpChanged -= premiumCreditCvt.SetEpUI;
+        player.OnEpChanged -= SetEp;
+        player.OnMaxEpChanged -= SetMaxEp;
     }
 }

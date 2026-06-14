@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerItemPresenter : MonoBehaviour, IPresentable
 {
     private PlayerController player;
-    public SaveDataManager saveData;
+    private SaveDataManager saveData;
 
     private HudLootableItemView lootableItemView;
     private HudKeyView keyView;
@@ -36,45 +37,56 @@ public class PlayerItemPresenter : MonoBehaviour, IPresentable
         originCoreCvt = uiData.originCoreCvt;
     }
 
+
+    private void SetCredit(int value)
+    {
+        lootableItemView.SetCreditUI(value);
+        premiumCreditCvt.SetCreditUI(value);
+        etherCoreCvt.SetCreditUI(value);
+        originCoreCvt.SetCreditUI(value);
+    }
+
+    private void SetOverrider(int value)
+    {
+        lootableItemView.SetOverriderUI(value);
+        allyBaseUpgrade.SetOverriderUI(value);
+    }
+
+    private void SetModuleShard(int value)
+    {
+        lootableItemView.SetModuleShardUI(value);
+        moduleUpgrade.SetModuleShard(value);
+    }
+
+    private void SetKey(Dictionary<int, int> dict)
+    {
+        keyView.SetKeyItem(dict);
+    }
+
+    private void SetHighItem(int id, int amount)
+    {
+        tabItemView.SetHighLvItemUI(id, amount);
+    }
+
     public void SubscribeOn()
     {
-        player.OnCreditChanged += lootableItemView.SetCreditUI;
-        player.OnOverriderChanged += lootableItemView.SetOverriderUI;
-        player.OnModuleShardChanged += lootableItemView.SetModuleShardUI;
+        player.OnCreditChanged += SetCredit;
+        player.OnOverriderChanged += SetOverrider;
+        player.OnModuleShardChanged += SetModuleShard;
+        player.OnKeycardChanged += SetKey;
+        saveData.OnHighItemChanged += SetHighItem;
 
-        player.OnCreditChanged += premiumCreditCvt.SetCreditUI;
-        player.OnCreditChanged += etherCoreCvt.SetCreditUI;
-        player.OnCreditChanged += originCoreCvt.SetCreditUI;
-
-        player.OnModuleShardChanged += moduleUpgrade.SetModuleShard;
-
-        player.OnOverriderChanged += allyBaseUpgrade.SetOverriderUI;
-
-        player.OnKeycardChanged += keyView.SetKeyItem;
-
-        saveData.OnHighItemChanged += tabItemView.SetHighLvItemUI;
-
-        //player.SetCreditUI();
+        player.SetCreditUI();
         player.SetOverriderUI();
         player.SetModuleShardUI();
     }
 
     public void SubscribeOff()
     {
-        player.OnCreditChanged -= lootableItemView.SetCreditUI;
-        player.OnOverriderChanged -= lootableItemView.SetOverriderUI;
-        player.OnModuleShardChanged -= lootableItemView.SetModuleShardUI;
-
-        player.OnCreditChanged -= premiumCreditCvt.SetCreditUI;
-        player.OnCreditChanged -= etherCoreCvt.SetCreditUI;
-        player.OnCreditChanged -= originCoreCvt.SetCreditUI;
-
-        player.OnModuleShardChanged -= moduleUpgrade.SetModuleShard;
-
-        player.OnOverriderChanged -= allyBaseUpgrade.SetOverriderUI;
-
-        player.OnKeycardChanged -= keyView.SetKeyItem;
-
-        saveData.OnHighItemChanged -= tabItemView.SetHighLvItemUI;
+        player.OnCreditChanged -= SetCredit;
+        player.OnOverriderChanged -= SetOverrider;
+        player.OnModuleShardChanged -= SetModuleShard;
+        player.OnKeycardChanged -= SetKey;
+        saveData.OnHighItemChanged -= SetHighItem;
     }
 }

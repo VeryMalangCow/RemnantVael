@@ -12,15 +12,20 @@ public class PlayerAimRoundPresenter : MonoBehaviour, IPresentable
         aimRound = uiData.aimRound;
     }
 
+    private void SetAcc(float acc)
+    {
+        aimRound.Set_AngleRoundValue(acc);
+    }
+
     public void SubscribeOn()
     {
-        weapon.OnAccChanged += aimRound.Set_AngleRoundValue;
+        weapon.OnAccChanged += SetAcc;
 
         weapon.SetAccAimRound();
     }
 
     public void SubscribeOff()
     {
-        weapon.OnAccChanged -= aimRound.Set_AngleRoundValue;
+        weapon.OnAccChanged -= SetAcc;
     }
 }

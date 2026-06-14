@@ -12,15 +12,20 @@ public class PlayerBoostPresenter : MonoBehaviour, IPresentable
         view = uiData.hud.BoostView;
     }
 
+    private void SetBoost(int value)
+    {
+        view.SetBoostLvUI(value);
+    }
+
     public void SubscribeOn()
     {
-        player.OnBoostLvChanged += view.SetBoostLvUI;
+        player.OnBoostLvChanged += SetBoost;
 
         player.SetBoostLv(0);
     }
 
     public void SubscribeOff()
     {
-        player.OnBoostLvChanged -= view.SetBoostLvUI;
+        player.OnBoostLvChanged -= SetBoost;
     }
 }
