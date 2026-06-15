@@ -1312,6 +1312,17 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     #region Drag
 
+    protected Vector2 Get_PanelLocalPoint()
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            DevTool.Get_ComponentTType<RectTransform>(gameObject), // 변환할 UI(RectTransform)
+            InputManager.instance.mousePos, // 현재 마우스 좌표 (Screen Space)
+            null, // Canvas의 카메라 (Render Mode 따라 null 가능)
+            out Vector2 localPoint); // 변환된 Local 좌표
+
+        return localPoint;
+    }
+
     private void Caculate_Drag()
     {
         if (!dragItemEui.gameObject.activeSelf) return;
