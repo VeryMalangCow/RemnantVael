@@ -2858,66 +2858,6 @@ public class ModuleItem005 : ModuleState, IWhen_CriticalHit
 
 #endregion
 
-#region Class : State : Player : MU UI
-
-[System.Serializable]
-class ForgeInteractPanel
-{
-    #region Value
-
-    [Space(10)]
-    public RectTransform panelRT; 
-    public OwnBtnEUIController panelBtn;
-    public TMP_Text panelBtnTxt;
-
-    [HideInInspector] public CanvasGroup PanelBtnCG;
-
-    [Space(10)]
-    public OwnBtnEUIController roleBtn;
-    public TMP_Text roleBtnTxt;
-    public TMP_Text roleDescTxt;
-
-    [HideInInspector] public RectTransform roleBtnTxtRT;
-    [HideInInspector] public Tween rtTween = null;
-
-    [Space(10)]
-    public List<Image> innerImgs;
-
-    #endregion
-
-    public void Offset(ModuleUpgradeUIController muuc, string btnName, string btnDesc)
-    {
-        panelBtn.Offset();
-
-        panelBtn.ownerUIController = muuc;
-
-        roleBtn.Offset();
-        roleBtn.ownerUIController = muuc;
-
-        PanelBtnCG = DevTool.Get_ComponentTType<CanvasGroup>(panelBtn.gameObject);
-
-        roleBtnTxtRT = DevTool.Get_ComponentTType<RectTransform>(roleBtnTxt.gameObject);
-
-        Set_LanguageTxt(btnName, btnDesc);
-
-        rtTween = roleBtnTxtRT.DOScale(1.15f, 1.0f)
-                .OnPlay(() => { roleBtnTxtRT.localScale = Vector2.one; })
-                .OnKill(() => { roleBtnTxtRT.localScale = Vector2.one; })
-                .SetLoops(-1, LoopType.Yoyo);
-
-        DOTween.Play(rtTween);
-    }
-
-    public void Set_LanguageTxt(string btnName, string btnDesc)
-    {
-        panelBtnTxt.text = btnName;
-        roleBtnTxt.text = ">>  " + btnName + "  <<";
-        roleDescTxt.text = btnDesc;
-    }
-}
-
-#endregion
-
 #region Class : State : Player : MC
 
 [System.Serializable]

@@ -2043,8 +2043,9 @@ GameObject:
   - component: {fileID: 3006765476458741460}
   - component: {fileID: 7932246059155101738}
   - component: {fileID: 1945147587196910606}
+  - component: {fileID: 1865848468787103372}
   m_Layer: 5
-  m_Name: ElementUi_Make_Prefab
+  m_Name: View_Make_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2167,6 +2168,34 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1865848468787103372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975370932665810839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49fa384f034c7841be6c7033dc433af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preview_NeedMs_ForMake: {fileID: 6487295058900569831}
+  preview_NeedCb_ForMake: {fileID: 4454262500492706260}
+  mainTmps:
+  - {fileID: 6487295058900569831}
+  - {fileID: 4454262500492706260}
+  panelRT: {fileID: 2499327277246228926}
+  panelBtn: {fileID: 0}
+  panelBtnTxt: {fileID: 0}
+  PanelBtnCG: {fileID: 0}
+  roleBtn: {fileID: 7733700489916059774}
+  roleBtnTxt: {fileID: 3683978400787401477}
+  roleDescTxt: {fileID: 1425550470150887571}
+  roleBtnTxtRT: {fileID: 0}
+  innerImgs:
+  - {fileID: 2772730884766506037}
+  - {fileID: 7125557017604329427}
 --- !u!1 &9003851695711651690
 GameObject:
   m_ObjectHideFlags: 0

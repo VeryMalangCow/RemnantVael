@@ -1,18 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class DecompositionView : MonoBehaviour
+public class DecompositionView : ForgeElementView
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("=== Comp")]
+    [SerializeField] public InventorySlotEUIController thisSlot;
+    [SerializeField] private TMP_Text previewGainMs;
+    [SerializeField] private TMP_Text previewGainBc;
+
+
+    public override void Offset(ModuleUpgradeUIController ui, OwnBtnEUIController _panelBtn, string btnName, string btnDesc)
     {
-        
+        thisSlot.ownerUIController = ui;
+        thisSlot.Offset();
+        thisSlot.item.Offset();
+        thisSlot.item.ownerUIController = ui;
+
+        thisSlot.Set_ForgeSelectedTxt(true);
+
+        base.Offset(ui, _panelBtn, btnName, btnDesc);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ResetPanel()
     {
-        
+        thisSlot.item.gameObject.SetActive(false);
+
+        previewGainBc.text = "-";
+        previewGainMs.text = "-";
     }
+
+    // ºÐÇØ ½½·Ô UI ¼Â
+    public void Set_DecompositionUI(bool setActive, string gainBc, string gainMs)
+    {
+        thisSlot.item.gameObject.SetActive(setActive);
+        previewGainBc.text = gainBc;
+        previewGainMs.text = gainMs;
+    }
+
+    public void SetItemData(InventoryItemEUIController itemEui)
+    {
+        thisSlot.item.Set_Data(itemEui);
+    }
+
 }

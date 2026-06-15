@@ -1271,8 +1271,9 @@ GameObject:
   - component: {fileID: 2324991416911580598}
   - component: {fileID: 9166677415186869915}
   - component: {fileID: 7064620950078592508}
+  - component: {fileID: 1139347572268700378}
   m_Layer: 5
-  m_Name: ElementUi_Fusion_Prefab
+  m_Name: View_Fusion_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1402,6 +1403,36 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1139347572268700378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5725984699306275812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32551177776296346b648e6b4294a13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fusionSlotList:
+  - {fileID: 9221586115836778350}
+  - {fileID: 760178224299979137}
+  preview_NeedMs_ForFusion: {fileID: 8647309191791498697}
+  mainTmps:
+  - {fileID: 8647309191791498697}
+  panelRT: {fileID: 5404722763895895476}
+  panelBtn: {fileID: 0}
+  panelBtnTxt: {fileID: 0}
+  PanelBtnCG: {fileID: 0}
+  roleBtn: {fileID: 1981238139521054073}
+  roleBtnTxt: {fileID: 1368096044948105887}
+  roleDescTxt: {fileID: 3558494977228365505}
+  roleBtnTxtRT: {fileID: 0}
+  innerImgs:
+  - {fileID: 1937008666984884606}
+  - {fileID: 2331652118083967150}
+  - {fileID: 755750492351918144}
 --- !u!1 &5802953829331957411
 GameObject:
   m_ObjectHideFlags: 0

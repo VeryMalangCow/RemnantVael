@@ -69,28 +69,29 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [Header("-- In Forge")]
     [SerializeField] public InventoryEUIController inventory_InForge;
 
-    [SerializeField] private List<ForgeInteractPanel> forgeInteractPanels;
-    [SerializeField] private List<Image> forgePanelInnerList;
-
     [Space(5)]
     [SerializeField] private TMP_Text noticeTxt;
     [SerializeField] private TMP_Text warningTxt;
 
-    [Space(5)]
-    [Header("* Decomposition")]
-    [SerializeField] private InventorySlotEUIController decompositionSlot;
-    [SerializeField] private TMP_Text preview_GainMs;
-    [SerializeField] private TMP_Text preview_GainBc;
 
-    [Space(5)]
-    [Header("* Fusion")]
-    [SerializeField] private List<InventorySlotEUIController> fusionSlotList;
-    [SerializeField] private TMP_Text preview_NeedMs_ForFusion;
+    [Space(10)]
+    [Header("-- In Forge -- Element View")]
+    [SerializeField] private Transform forgeElementViewParentTf;
 
-    [Space(5)]
-    [Header("* Make")]
-    [SerializeField] private TMP_Text preview_NeedMs_ForMake;
-    [SerializeField] private TMP_Text preview_NeedCb_ForMake;
+    [SerializeField] private DecompositionView decompositionViewPrefab;
+    [SerializeField] private OwnBtnEUIController decompositionPanelBtn;
+    private DecompositionView decompositionView;
+
+    [SerializeField] private FusionView fusionViewPrefab;
+    [SerializeField] private OwnBtnEUIController fusionPanelBtn;
+    private FusionView fusionView;
+
+    [SerializeField] private MakeView makeViewPrefab;
+    [SerializeField] private OwnBtnEUIController makePanelBtn;
+    private MakeView makeView;
+
+    private List<ForgeElementView> forgeElementViews;
+    private ForgeElementView currentForgeElementView;
 
     [Space(5)]
     [Header("=== Visual")]
@@ -108,7 +109,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [HideInInspector] public InventoryItemEUIController currentDraggingItemBtn = null;
 
     // Panel
-    private ForgeInteractPanel currentForgeInteractPanel;
 
     // Equiped
     private List<InventorySlotEUIController> equipedSlots;
@@ -229,40 +229,57 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #endif
         yield return null;
 
-
         inventory_InForge.Offset();
         yield return inventory_InForge.Gen_AllSlotAndItemAsync(this, 8f);
+
 
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        forgeInteractPanels[0].Offset(this, ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
-        forgeInteractPanels[1].Offset(this, ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
-        forgeInteractPanels[2].Offset(this, ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
-
         // decomposition
-        decompositionSlot.ownerUIController = this;
-        decompositionSlot.Offset();
-        decompositionSlot.item.Offset();
-        decompositionSlot.item.ownerUIController = this;
+        decompositionView = Instantiate(decompositionViewPrefab, forgeElementViewParentTf);
+        decompositionView.Offset(this, decompositionPanelBtn, ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
 
-        decompositionSlot.Set_ForgeSelectedTxt(true);
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Decomposition (Forge)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
 
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         // fusion
-        for (int i = 0; i < fusionSlotList.Count; i++)
-        {
-            fusionSlotList[i].ownerUIController = this;
-            fusionSlotList[i].Offset();
-            fusionSlotList[i].item.Offset();
-            fusionSlotList[i].item.ownerUIController = this;
+        fusionView = Instantiate(fusionViewPrefab, forgeElementViewParentTf);
+        fusionView.Offset(this, fusionPanelBtn, ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Fusion (Forge)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
 
-            fusionSlotList[i].Set_ForgeSelectedTxt(true, i);
-        }
 
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         // make
-        preview_NeedMs_ForMake.text = ModuleItemManager.Get_MS_ForMake().ToString();
-        preview_NeedCb_ForMake.text = ModuleItemManager.Get_CB_ForMake().ToString();
+        makeView = Instantiate(makeViewPrefab, forgeElementViewParentTf);
+        makeView.Offset(this, makePanelBtn, ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Make (Forge)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
 
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        forgeElementViews = new List<ForgeElementView>() { decompositionView, fusionView, makeView };
         // visual
         noticeCg =
             DevTool.Get_ComponentTType(noticeTxt.gameObject.transform.parent.gameObject,
@@ -296,9 +313,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #endif
         yield return null;
     }
-
-
-
 
     public void SetColor()
     {
@@ -339,27 +353,24 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         mainColorCompList.Add(toggleBtn_InEquip.transform.GetChild(0).GetComponent<TMP_Text>());
 
         // Forge Interact Panel Inner
-        for (int i = 0; i < forgeInteractPanels.Count; i++)
+        for (int i = 0; i < forgeElementViews.Count; i++)
         {
-            mainColorCompList.Add(forgeInteractPanels[i].panelBtnTxt);
+            mainColorCompList.Add(forgeElementViews[i].panelBtnTxt);
 
-            mainColorCompList.Add(forgeInteractPanels[i].roleBtnTxt);
-            mainColorCompList.Add(forgeInteractPanels[i].roleDescTxt);
+            mainColorCompList.Add(forgeElementViews[i].roleBtnTxt);
+            mainColorCompList.Add(forgeElementViews[i].roleDescTxt);
 
-            subColorCompList.AddRange(forgeInteractPanels[i].innerImgs);
+            subColorCompList.AddRange(forgeElementViews[i].innerImgs);
         }
-        subColorCompList.AddRange(forgePanelInnerList);
 
         // Desc
         mainColorCompList.AddRange(descPanel.Get_MainColorList());
         subColorCompList.AddRange(descPanel.Get_SubColorList());
 
         // Item
-        mainColorCompList.Add(preview_GainMs);
-        mainColorCompList.Add(preview_GainBc);
-        mainColorCompList.Add(preview_NeedMs_ForFusion);
-        mainColorCompList.Add(preview_NeedMs_ForMake);
-        mainColorCompList.Add(preview_NeedCb_ForMake);
+        decompositionView.SetColor(mainClr);
+        fusionView.SetColor(mainClr);
+        makeView.SetColor(mainClr);
 
         DevTool.Set_Color(mainClr, mainColorCompList);
         mainColorCompList.Clear();
@@ -397,13 +408,15 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     private void Reset_ForgePanel()
     {
-        currentForgeInteractPanel = null;
+        currentForgeElementView = null;
+        if (forgeElementViews == null)
+            return;
 
-        for (int i = 0; i < forgeInteractPanels.Count; i++)
+        for (int i = 0; i < forgeElementViews.Count; i++)
         {
-            forgeInteractPanels[i].panelRT.gameObject.SetActive(false);
+            forgeElementViews[i].panelRT.gameObject.SetActive(false);
 
-            if (DevTool.Get_ComponentTType(forgeInteractPanels[i].panelBtn.gameObject, out CanvasGroup btnCg))
+            if (DevTool.Get_ComponentTType(forgeElementViews[i].panelBtn.gameObject, out CanvasGroup btnCg))
             {
                 btnCg.alpha = forgeElementBtnOffAlpha;
             }
@@ -420,16 +433,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         inventory_InForge.SetOff_AllInventoryForgeSelectedUI();
 
-        decompositionSlot.item.gameObject.SetActive(false);
-        for (int i = 0; i < fusionSlotList.Count; i++)
-            fusionSlotList[i].item.gameObject.SetActive(false);
-
-        preview_GainBc.text = "-";
-        preview_GainMs.text = "-";
-        preview_NeedMs_ForMake.text = "-";
-        preview_NeedMs_ForFusion.text = "-";
-        preview_NeedMs_ForMake.text = ModuleItemManager.Get_MS_ForMake().ToString();
-        preview_NeedCb_ForMake.text = ModuleItemManager.Get_CB_ForMake().ToString();
+        decompositionView.ResetPanel();
+        fusionView.ResetPanel();
+        makeView.ResetPanel();
 
         SetOff_Anno();
     }
@@ -500,21 +506,21 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     private void Tween_Enable()
     {
-        for (int i = 0; i < forgeInteractPanels.Count; i++)
+        for (int i = 0; i < forgeElementViews.Count; i++)
         {
-            if (forgeInteractPanels[i].roleBtnTxtRT == null) break;
+            if (forgeElementViews[i].roleBtnTxtRT == null) break;
 
-            forgeInteractPanels[i].rtTween.Play();
+            forgeElementViews[i].rtTween.Play();
         }
     }
 
     private void Tween_Disable()
     {
-        for (int i = 0; i < forgeInteractPanels.Count; i++)
+        for (int i = 0; i < forgeElementViews.Count; i++)
         {
-            if (forgeInteractPanels[i].roleBtnTxtRT == null) break;
+            if (forgeElementViews[i].roleBtnTxtRT == null) break;
 
-            forgeInteractPanels[i].rtTween.Pause();
+            forgeElementViews[i].rtTween.Pause();
         }
     }
 
@@ -628,7 +634,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             gainBC = ModuleItemManager.Get_BC_ByDescomposition(moduleState).ToString();
             gainMS = ModuleItemManager.Get_MS_ByDecomposition(moduleState).ToString();
 
-            decompositionSlot.item.Set_Data(itemEui);
+            decompositionView.SetItemData(itemEui);
         }
         else // 슬롯에서 빼는 것이라면
         {
@@ -637,10 +643,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             gainMS = "-";
         }
 
+        decompositionView.Set_DecompositionUI(setActive, gainBC, gainMS);
+
         inventory_InForge.Set_InventoryForgeSelectedUI(applyIndex, setActive);
-        decompositionSlot.item.gameObject.SetActive(setActive);
-        preview_GainBc.text = gainBC;
-        preview_GainMs.text = gainMS;
 
         Check_DecompositionAnno();
     }
@@ -659,14 +664,14 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
             if (targetCol == -1 || targetRow == -1)
             {
-                fusionSlotList[i].item.gameObject.SetActive(false);
+                fusionView.fusionSlotList[i].item.gameObject.SetActive(false);
             }
             else
             {
                 ItemData data = allModuleState[targetCol][targetRow].thisItemData;
 
-                fusionSlotList[i].item.gameObject.SetActive(true);
-                fusionSlotList[i].item.Set_Data(new ItemData_UIVisual(data));
+                fusionView.fusionSlotList[i].item.gameObject.SetActive(true);
+                fusionView.fusionSlotList[i].item.Set_Data(new ItemData_UIVisual(data));
 
                 inventory_InForge.Set_InventoryForgeSelectedUI(new CoupleData<int>(targetCol, targetRow), true, i);
             }
@@ -680,7 +685,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 needMS = ModuleItemManager.Get_MS_ForFusion(ms).ToString();
         }
 
-        preview_NeedMs_ForFusion.text = needMS;
+        fusionView.preview_NeedMs_ForFusion.text = needMS;
 
         Check_FusionAnno();
     }
@@ -823,17 +828,17 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private bool Is_Interact_ForgeTabPanel()
     {
         List<OwnBtnEUIController> btns = new List<OwnBtnEUIController>();
-        for (int i = 0; i < forgeInteractPanels.Count; i++)
-            btns.Add(forgeInteractPanels[i].panelBtn);
+        for (int i = 0; i < forgeElementViews.Count; i++)
+            btns.Add(forgeElementViews[i].panelBtn);
 
         if (btns.Contains(currentBtn))
         {
-            for (int i = 0; i < forgeInteractPanels.Count; i++)
+            for (int i = 0; i < forgeElementViews.Count; i++)
             {
                 if (btns[i] == currentBtn)
                 {
                     // 다른 탭일 경우 초기화
-                    if (forgeInteractPanels[i] != currentForgeInteractPanel)
+                    if (forgeElementViews[i] != currentForgeElementView)
                         Reset_ForgeElementPanel();
 
                     // 생성이라면
@@ -842,15 +847,15 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                         Check_MakeAnno();
                     }
 
-                    forgeInteractPanels[i].panelRT.gameObject.SetActive(true);
-                    forgeInteractPanels[i].PanelBtnCG.alpha = 1f;
+                    forgeElementViews[i].panelRT.gameObject.SetActive(true);
+                    forgeElementViews[i].PanelBtnCG.alpha = 1f;
 
-                    currentForgeInteractPanel = forgeInteractPanels[i];
+                    currentForgeElementView = forgeElementViews[i];
                 }
                 else
                 {
-                    forgeInteractPanels[i].panelRT.gameObject.SetActive(false);
-                    forgeInteractPanels[i].PanelBtnCG.alpha = 0.5f;
+                    forgeElementViews[i].panelRT.gameObject.SetActive(false);
+                    forgeElementViews[i].PanelBtnCG.alpha = 0.5f;
                 }
             }
 
@@ -1020,7 +1025,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         }
         else if (panelIndex == 1) // Forge 창
         {
-            int panelIndexOfForge = forgeInteractPanels.IndexOf(currentForgeInteractPanel);
+            int panelIndexOfForge = forgeElementViews.IndexOf(currentForgeElementView);
 
             if (panelIndexOfForge == 0) // 분해
             {
@@ -1091,10 +1096,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     // 분해 장착
     private void Interact_DecompositionInit(InventoryItemEUIController itemEui)
-    {
+    {        
         // 이미 존재한다면
         if (!ModuleItemManager.instance.Is_EmptyDecompositionSlot())
-            Interact_UnDecompositionInit(decompositionSlot.item);
+            Interact_UnDecompositionInit(decompositionView.thisSlot.item);
 
         ModuleItemManager.instance.Set_DecompositionSlot(new CoupleData<int>(itemEui.slot.col, itemEui.slot.row));
 
@@ -1136,10 +1141,11 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         {
             // 이미 슬롯에 있다면, 제거
             if (ModuleItemManager.instance.Is_IncludeFusionSlots(new CoupleData<int>(itemEui.slot.col, itemEui.slot.row), out int listIndex))
-                Interact_UnFusionInit(fusionSlotList[listIndex].item);
+                Interact_UnFusionInit(fusionView.fusionSlotList[listIndex].item);
+
             // 해당 인덱스 슬롯에 비어있지 않다면, 제거
             if (!ModuleItemManager.instance.Is_EmptyFusionSlot(slotIndex))
-                Interact_UnFusionInit(fusionSlotList[slotIndex].item);
+                Interact_UnFusionInit(fusionView.fusionSlotList[slotIndex].item);
 
             ModuleItemManager.instance.Set_FusionSlot(slotIndex, new CoupleData<int>(itemEui.slot.col, itemEui.slot.row));
         }
@@ -1151,8 +1157,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         if (!ModuleItemManager.instance.Is_AllEmptyFusionSlot())
         {
             List<InventoryItemEUIController> itemEUIList = new List<InventoryItemEUIController>();
-            for (int i = 0; i < fusionSlotList.Count; i++)
-                itemEUIList.Add(fusionSlotList[i].item);
+            for (int i = 0; i < fusionView.fusionSlotList.Count; i++)
+                itemEUIList.Add(fusionView.fusionSlotList[i].item);
 
             int index = itemEUIList.IndexOf(itemEui);
 
@@ -1167,8 +1173,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 합성 스위칭
     private void Interact_FusionSwitch(InventoryItemEUIController itemEui0, InventoryItemEUIController itemEui1)
     {
-        int index0 = fusionSlotList.IndexOf(itemEui0.slot);
-        int index1 = fusionSlotList.IndexOf(itemEui1.slot);
+        int index0 = fusionView.fusionSlotList.IndexOf(itemEui0.slot);
+        int index1 = fusionView.fusionSlotList.IndexOf(itemEui1.slot);
         ModuleItemManager.instance.Set_SwitchFusion(index0, index1);
     }
 
@@ -1180,9 +1186,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     private bool Is_Interact_RoleBtn()
     {
-        for (int i = 0; i < forgeInteractPanels.Count; i++)
+        for (int i = 0; i < forgeElementViews.Count; i++)
         {
-            if (forgeInteractPanels[i].roleBtn == currentBtn)
+            if (forgeElementViews[i].roleBtn == currentBtn)
             {
                 if (i == 0) // 분해
                     Role_Decomposition();
@@ -1347,7 +1353,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             }
             else if (panelIndex == 1) // Forge 창
             {
-                int panelIndexOfForge = forgeInteractPanels.IndexOf(currentForgeInteractPanel);
+                int panelIndexOfForge = forgeElementViews.IndexOf(currentForgeElementView);
 
                 if (panelIndexOfForge == 0) // 분해
                 {
@@ -1355,7 +1361,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 }
                 else if (panelIndexOfForge == 1) // 합성
                 {
-                    Interact_FusionInit(currentDraggingItemBtn, fusionSlotList.IndexOf(currentSlotBtn)); // 퓨전 슬롯에 장착
+                    Interact_FusionInit(currentDraggingItemBtn, fusionView.fusionSlotList.IndexOf(currentSlotBtn)); // 퓨전 슬롯에 장착
                 }
             }
 
@@ -1376,7 +1382,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             }
             else if (panelIndex == 1) // Forge 창
             {
-                int panelIndexOfForge = forgeInteractPanels.IndexOf(currentForgeInteractPanel);
+                int panelIndexOfForge = forgeElementViews.IndexOf(currentForgeElementView);
 
                 if (panelIndexOfForge == 0) // 분해
                 {
@@ -1396,7 +1402,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 }
                 else if (panelIndex == 1) // Forge 창
                 {
-                    if (forgeInteractPanels.IndexOf(currentForgeInteractPanel) == 1) // 합성
+                    if (forgeElementViews.IndexOf(currentForgeElementView) == 1) // 합성
                     {
                         Interact_FusionSwitch(currentDraggingItemBtn, currentSlotBtn.item);
                     }
@@ -1434,9 +1440,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         descPanel.Set_LanguageTxt();
 
         // Forge
-        forgeInteractPanels[0].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
-        forgeInteractPanels[1].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
-        forgeInteractPanels[2].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
+        forgeElementViews[0].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
+        forgeElementViews[1].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
+        forgeElementViews[2].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
 
         // Amalgamation
         DevTool.Set_TxtList(amalgamationTxtList, amalgamationName);
