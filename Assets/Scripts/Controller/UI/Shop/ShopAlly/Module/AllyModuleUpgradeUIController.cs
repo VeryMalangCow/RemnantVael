@@ -5,6 +5,8 @@ using UniRx;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Diagnostics;
 
 public class AllyModuleUpgradeUIController : AllyShopUIController
 {
@@ -134,16 +136,30 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #endregion
 
-    #region Offset
+    #region Init
 
-    public override void Offset()
+    public override IEnumerator InitAsync()
     {
-        base.Offset();
+        yield return base.InitAsync();
+
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
 
         Offset_EUI();
 
         SetLanguageTxt();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>AMU DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
     }
+
+    #endregion
+
+    #region Offset
 
     private void Offset_EUI()
     {
@@ -511,7 +527,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             SetOn_NoneSyneEmptyPanel(false);
 
             Dictionary<int, int> noFullSyncData = currentPickedAlly.Get_NoFullSyncData();
-            Debug.Log(noFullSyncData.Count);
+            UnityEngine.Debug.Log(noFullSyncData.Count);
             Gen_NoneSyncItemEUI(noFullSyncData.Count);
             SetOff_AllNoneSyncEUI();
             SetOn_NoneSyncEUI(noFullSyncData); 

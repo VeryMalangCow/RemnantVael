@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
@@ -66,15 +68,31 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     #endregion
 
-    #region Offset
+    #region Init
 
-    public override void Offset()
+    public override IEnumerator InitAsync()
     {
-        base.Offset();
+        yield return base.InitAsync();
+
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
 
         Offset_TunerSet();
+
         SetLanguageTxt();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>ABU DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
     }
+
+    #endregion
+
+    #region Offset
+
 
     private void Offset_TunerSet()
     {

@@ -122,7 +122,7 @@ public class AllyShopUIController : ShopUIController
         base.Offset();
 
         Offset_Comp();
-        Offset_ColorComp();
+        SetColor();
     }
 
     private void Offset_Comp()
@@ -164,7 +164,7 @@ public class AllyShopUIController : ShopUIController
         inStateSyncActingEuiList = new List<AllySyncIconEUIController>();
     }
 
-    public void Offset_ColorComp()
+    public void SetColor()
     {
         mainColorCompList = new List<Component>();
         subColorCompList = new List<Component>();

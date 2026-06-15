@@ -6,8 +6,6 @@ public class PlayerShopUIController : ShopUIController
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Player Shop")]
 
@@ -15,12 +13,6 @@ public class PlayerShopUIController : ShopUIController
     [Header("=== Visual")]
     [SerializeField] protected List<TMP_Text> tabSideTxtList;
 
-    #endregion
-
-    #region - Hide 
-
-
-    #endregion
 
     #endregion
 

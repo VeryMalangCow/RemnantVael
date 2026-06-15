@@ -127,10 +127,14 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         yield return pauseUi.InitAsync(mainClr, subClr);
 
         yield return InitAsync(buUiPrefab, false, delegate (BaseUpgradeUIController ui) { buUi = ui; });
+        yield return buUi.InitAsync();
         yield return InitAsync(muUiPrefab, false, delegate (ModuleUpgradeUIController ui) { muUi = ui; });
+        yield return muUi.InitAsync();
 
         yield return InitAsync(abuUiPrefab, false, delegate (AllyBaseUpgradeUIController ui) { abuUi = ui; });
+        yield return abuUi.InitAsync();
         yield return InitAsync(amuUiPrefab, false, delegate (AllyModuleUpgradeUIController ui) { amuUi = ui; });
+        yield return amuUi.InitAsync();
 
         yield return InitAsync(interactAnnoUiPrefab, false, delegate (InteractAnnoUIController ui) { interactAnnoUi = ui; });
         yield return InitAsync(mapIntroUiPrefab, false, delegate (MapIntroUIController ui) { mapIntroUi = ui; });
@@ -268,11 +272,11 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
     {
         interactAnnoUi.Offset_ColorComp();
 
-        buUi.Offset_ColorComp();
-        muUi.Offset_ColorComp();
+        buUi.SetColor();
+        muUi.SetColor();
 
-        abuUi.Offset_ColorComp();
-        amuUi.Offset_ColorComp();
+        abuUi.SetColor();
+        amuUi.SetColor();
     }
 
     #endregion

@@ -1,16 +1,13 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
-using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ModuleUpgradeUIController : PlayerShopUIController
 {
-    #region Value
-
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Module Upgrade Shop")]
 
@@ -32,14 +29,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [SerializeField] private InventoryItemEUIController dragItemEui;
 
 
-    #endregion
-
-    #region - Module
-
     [Space(20)]
     [Header("=== Module")]
-
-    #region - Module Equip
 
     [Space(10)]
     [Header("-- In Equip")]
@@ -71,10 +62,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [SerializeField] private List<TMP_Text> amalgamationTxtList;
     [SerializeField] public List<TMP_Text> amalgamationDescTxtList;
 
-    #endregion
-
-    #region - Module Forge
-
     [Space(10)]
     [Header("-- In Forge")]
     [SerializeField] public InventoryEUIController inventory_InForge;
@@ -101,12 +88,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [Header("* Make")]
     [SerializeField] private TMP_Text preview_NeedMs_ForMake;
     [SerializeField] private TMP_Text preview_NeedCb_ForMake;
-
-    #endregion
-
-    #endregion
-
-    #region - Hide
 
     // string
     [HideInInspector] public static string amalgamationName;
@@ -146,31 +127,18 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [HideInInspector] private RectTransform dragItemRt;
     [HideInInspector] private bool isDragging;
 
-    #endregion
-
-    #endregion
-
-
-    #region Offset
-
-    public override void Offset()
+    // Init
+    public override IEnumerator InitAsync()
     {
-        base.Offset();
+        yield return base.InitAsync();
 
-        Offset_Basic();
-        Offset_Equip();
-        Offset_Forge();
-        Offset_ColorComp();
-
-        SetLanguageTxt();
-    }
-
-    private void Offset_Basic()
-    {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
         // Desc
         descPanel.Offset();
 
-        // Inventory
+        // Inventory 
         inventories = new List<InventoryEUIController>
         {
             inventory_InEquip, inventory_InForge
@@ -185,8 +153,50 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // Sync Lv Txt
         for (int i = 0; i < synergyLvTxtList.Count; i++)
             synergyLvTxtList[i].text = (ModuleItemManager.synchoronyMaxLv * (i + 1)).ToString();
-        
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Basic</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        Offset_Equip();
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Equip</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        Offset_Forge();
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Forge</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetColor();
+
+        SetLanguageTxt();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Visual</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
     }
+
 
     private void Offset_Equip()
     {
@@ -292,7 +302,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     }
 
 
-    public void Offset_ColorComp()
+    public void SetColor()
     {
         mainColorCompList = new List<Component>();
         subColorCompList = new List<Component>();
@@ -375,8 +385,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         ecTxt.text = value.ToString();
     }
 
-    #endregion
-
     #region Reset
 
     // 장착 패널 리셋
@@ -436,7 +444,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         Reset_EquipPanel();
         Reset_ForgePanel();
-        msgEui.Reset_Data();
     }
 
     private void LateUpdate()

@@ -1,15 +1,13 @@
 using UnityEngine;
-using UniRx;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
+using System.Diagnostics;
 
 public class BaseUpgradeUIController : PlayerShopUIController
 {
-    #region Value
-
-    #region - Inspector
 
     [Space(20)]
     [Header("<><><><><> Base Upgrade Shop")]
@@ -20,137 +18,284 @@ public class BaseUpgradeUIController : PlayerShopUIController
     [SerializeField] public TMP_Text ecTxt;
 
     [Space(10)]
+    [Header("=== Element")]
+    [SerializeField] private TxtAmountForBuyEUIController buyEuiPrefab;
+
+    [Space(10)]
     [Header("=== Desc")]
-    [SerializeField] protected DescBUEUIController descPanel;
+    [SerializeField] private DescBUEUIController descPanelPrefab;
+    protected DescBUEUIController descPanel;
 
     [Space(10)]
     [Header("=== Visual")]
     [SerializeField] public Image frameInnerImg;
 
-    #region - BU State
+    private BUShopData<float> dmgShop = new BUShopData<float>();
+    private BUShopData<float> rofShop = new BUShopData<float>();
+    private BUShopData<float> ccShop = new BUShopData<float>();
+    private BUShopData<float> cdShop = new BUShopData<float>();
+    private BUShopData<float> muzzleShop = new BUShopData<float>();
+    private BUShopData<float> accuracyRateShop = new BUShopData<float>();
+    private BUShopData<float> knockbackShop = new BUShopData<float>();
+    [SerializeField] private Sprite[] attackSprites;
 
-    [Space(10)]
-    [Header("=== BU Data")]
 
-    [Space(5)]
-    [Header("-- Attack")]
-    [SerializeField] private BUShopData<float> dmgShop;
-    [SerializeField] private BUShopData<float> rofShop;
-    [SerializeField] private BUShopData<float> ccShop;
-    [SerializeField] private BUShopData<float> cdShop;
-    [SerializeField] private BUShopData<float> muzzleShop;
-    [SerializeField] private BUShopData<float> accuracyRateShop;
-    [SerializeField] private BUShopData<float> knockbackShop;
+    private BUShopData<float> maxEpShop = new BUShopData<float>();
+    private BUShopData<float> spawnEsMultipleShop = new BUShopData<float>();
+    private BUShopData<float> needEp_ForSkillMultipleShop = new BUShopData<float>();
+    private BUShopData<float> resistShop = new BUShopData<float>();
+    [SerializeField] private Sprite[] epSprites;
 
-    [Space(5)]
-    [Header("-- EP")]
-    [SerializeField] private BUShopData<float> maxEpShop;
-    [SerializeField] private BUShopData<float> spawnEsMultipleShop;
-    [SerializeField] private BUShopData<float> needEp_ForSkillMultipleShop;
-    //[SerializeField] private BUShopData<float> DecEnergyPointMultipleShop;
-    [SerializeField] private BUShopData<float> resistShop;
 
-    [Space(5)]
-    [Header("-- Movement")]
-    [SerializeField] private BUShopData<float> walkSpeedShop;
-    [SerializeField] private BUShopData<float> walkSpeedWhenShotMultipleShop;
-    [SerializeField] private BUShopData<float> dashSpeedShop;
-    [SerializeField] private BUShopData<float> walkAvoidChance;
+    private BUShopData<float> walkSpeedShop = new BUShopData<float>();
+    private BUShopData<float> walkSpeedWhenShotMultipleShop = new BUShopData<float>();
+    private BUShopData<float> dashSpeedShop = new BUShopData<float>();
+    private BUShopData<float> walkAvoidChance = new BUShopData<float>();
+    [SerializeField] private Sprite[] movementSprites;
 
-    [Space(5)]
-    [Header("-- Skill")]
-    [SerializeField] private List<BUShopSkillData<float, int>> skillShopList;
 
-    #endregion
-
-    #endregion
-
-    #region - Hide
+    private List<BUShopSkillData<float, int>> skillShopList = new List<BUShopSkillData<float, int>>();
+    [SerializeField] private Sprite[] skillSprites;
 
     // BU Stata Data -> List
     [HideInInspector] public List<BUShopData<float>> allBuData_Float = new List<BUShopData<float>>();
     [HideInInspector] public List<BUShopData<int>> allBuData_Int = new List<BUShopData<int>>();
 
-    #endregion
-
-    #endregion
-
-
-    #region Offset
-
-    public override void Offset()
+    // Init
+    public override IEnumerator InitAsync()
     {
-        base.Offset();
+        yield return base.InitAsync();
 
-        Offset_Basic();
-        Offset_BUShop();
-        Offset_Subscribe();
-        Offset_ColorComp();
-
-        SetLanguageTxt();
-    }
-
-    private void Offset_Basic()
-    {
-        // Desc
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        descPanel = Instantiate(descPanelPrefab, transform);
         descPanel.Offset();
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Desc</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
 
-    }
-
-    private void Offset_BUShop()
-    {
-        #region Each Offset
-
+        // BU
         PlayerController pc = PlayerManager.instance.playerController;
         PlayerWeaponController pwc = pc.baseWeapon;
         SkillWeaponController pswc = pc.skillWeapon;
         BaseUpgradeManager bm = BaseUpgradeManager.instance;
 
-        Debug.Log("액션 추가?");
-        //PlayerManager.instance.playerController.OnMaxEpChanged
-        maxEpShop.Offset(pc.maxEP, bm.baseMaxEP_BUData, allBuData_Float, this, null);
-        spawnEsMultipleShop.Offset(pc.spawnESMultiple, bm.baseSpawnESMultiple_BUData, allBuData_Float, this);
-        needEp_ForSkillMultipleShop.Offset(pc.needEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, allBuData_Float, this);
-        resistShop.Offset(pc.takingDmgMultiple, bm.baseResist_BUData, allBuData_Float, this);
+        #region Attack
 
-        walkSpeedShop.Offset(pc.walkSpeed, bm.baseWalkSpeed_BUData, allBuData_Float, this);
-        walkSpeedWhenShotMultipleShop.Offset(pc.walkSpeedWhenShotMultiple, bm.baseWalkSpeedWhenShotMultiple_BUData, allBuData_Float, this);
-        walkAvoidChance.Offset(pc.avoidChance, bm.baseAvoidChance_BUData, allBuData_Float, this);
-        dashSpeedShop.Offset(pc.dash.dashSpeed, bm.baseDashSpeed_BUData, allBuData_Float, this);
+#if UNITY_EDITOR
+        sw.Restart();
+        string s = "";
+#endif
+        dmgShop.Offset(pwc.baseDamage, bm.baseDamage_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[0].actualMovableRt), 0, attackSprites[0]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif  
+        yield return null;
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        rofShop.Offset(pwc.rof, bm.baseROF_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[0].actualMovableRt), 1, attackSprites[1]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif  
+        yield return null;
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        ccShop.Offset(pwc.cc, bm.baseCC_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[0].actualMovableRt), 2, attackSprites[2]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif  
+        yield return null;
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        cdShop.Offset(pwc.cd, bm.baseCD_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[0].actualMovableRt), 3, attackSprites[3]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif  
+        yield return null;
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        muzzleShop.Offset(pwc.muzzleSpeed, bm.baseMuzzleSpeed_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[0].actualMovableRt), 4, attackSprites[4]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif  
+        yield return null;
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        accuracyRateShop.Offset(pwc.accRate, bm.baseAccuracyRate_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[0].actualMovableRt), 5, attackSprites[5]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif  
+        yield return null;
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        knockbackShop.Offset(pwc.kbPower, bm.knockback_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[0].actualMovableRt), 6, attackSprites[6]);
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>BU Attack</color> : <color=red>{s} {sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif        
+        yield return null;
 
-        dmgShop.Offset(pwc.baseDamage, bm.baseDamage_BUData, allBuData_Float, this);
-        rofShop.Offset(pwc.rof, bm.baseROF_BUData, allBuData_Float, this);
-        ccShop.Offset(pwc.cc, bm.baseCC_BUData, allBuData_Float, this);
-        cdShop.Offset(pwc.cd, bm.baseCD_BUData, allBuData_Float, this);
-        muzzleShop.Offset(pwc.muzzleSpeed, bm.baseMuzzleSpeed_BUData, allBuData_Float, this);
-        accuracyRateShop.Offset(pwc.accRate, bm.baseAccuracyRate_BUData, allBuData_Float, this);
-        knockbackShop.Offset(pwc.kbPower, bm.knockback_BUData, allBuData_Float, this);
+        #endregion
+
+        #region Ep
+
+#if UNITY_EDITOR
+        sw.Restart();
+        s = "";
+#endif
+        maxEpShop.Offset(pc.maxEP, bm.baseMaxEP_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[1].actualMovableRt), 0, epSprites[0]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif        
+        yield return null;
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        spawnEsMultipleShop.Offset(pc.spawnESMultiple, bm.baseSpawnESMultiple_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[1].actualMovableRt), 1, epSprites[1]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif        
+        yield return null;
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        needEp_ForSkillMultipleShop.Offset(pc.needEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[1].actualMovableRt), 2, epSprites[2]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif        
+        yield return null;
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        resistShop.Offset(pc.takingDmgMultiple, bm.baseResist_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[1].actualMovableRt), 3, epSprites[3]);
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>BU Ep</color> : <color=red>{s} {sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif        
+        yield return null;
+
+        #endregion
+
+        #region Movement
+
+#if UNITY_EDITOR
+        sw.Restart();
+        s = "";
+#endif
+        walkSpeedShop.Offset(pc.walkSpeed, bm.baseWalkSpeed_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[2].actualMovableRt), 0, movementSprites[0]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif        
+        yield return null;
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        walkSpeedWhenShotMultipleShop.Offset(pc.walkSpeedWhenShotMultiple, bm.baseWalkSpeedWhenShotMultiple_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[2].actualMovableRt), 1, movementSprites[1]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif        
+        yield return null;
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        walkAvoidChance.Offset(pc.avoidChance, bm.baseAvoidChance_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[2].actualMovableRt), 2, movementSprites[2]);
+#if UNITY_EDITOR
+        sw.Stop();
+        s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif        
+        yield return null;
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        dashSpeedShop.Offset(pc.dash.dashSpeed, bm.baseDashSpeed_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[2].actualMovableRt), 3, movementSprites[3]);
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>BU Movement</color> : <color=red>{s} {sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        #endregion
+
+        #region Skill
 
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            skillShopList[i].skill_CooltimeShop.Offset(pswc.skillList[i].maxCooltime, bm.skill_BUDataList[i].skill_Cooltime_BUData, allBuData_Float, this);
-            skillShopList[i].skill_PowerShop.Offset(pswc.skillList[i].power, bm.skill_BUDataList[i].skill_Power_BUData, allBuData_Float, this);
-            skillShopList[i].skill_TierShop.Offset(pswc.skillList[i].tier, bm.skill_BUDataList[i].skill_Tier_BUData, allBuData_Int, this);
+#if UNITY_EDITOR
+            sw.Restart();
+            s = "";
+#endif
+            skillShopList.Add(new BUShopSkillData<float, int>());
+            skillShopList[i].skill_CooltimeShop = new BUShopData<float>();
+            skillShopList[i].skill_PowerShop = new BUShopData<float>();
+            skillShopList[i].skill_TierShop = new BUShopData<int>();
+            skillShopList[i].skill_CooltimeShop.Offset(pswc.skillList[i].maxCooltime, bm.skill_BUDataList[i].skill_Cooltime_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[i + 3].actualMovableRt), 0, skillSprites[0]);
+#if UNITY_EDITOR
+            sw.Stop();
+            s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif
+            yield return null;
+
+#if UNITY_EDITOR
+            sw.Restart();
+#endif
+            skillShopList[i].skill_PowerShop.Offset(pswc.skillList[i].power, bm.skill_BUDataList[i].skill_Power_BUData, allBuData_Float, this, Instantiate(buyEuiPrefab, panelTabList[i + 3].actualMovableRt), 1, skillSprites[1]);
+#if UNITY_EDITOR
+            sw.Stop();
+            s += $"{sw.Elapsed.TotalMilliseconds:F2} / ";
+#endif
+            yield return null;
+
+#if UNITY_EDITOR
+            sw.Restart();
+#endif
+            skillShopList[i].skill_TierShop.Offset(pswc.skillList[i].tier, bm.skill_BUDataList[i].skill_Tier_BUData, allBuData_Int, this, Instantiate(buyEuiPrefab, panelTabList[i + 3].actualMovableRt), 2, skillSprites[2]);
+#if UNITY_EDITOR
+            sw.Stop();
+            UnityEngine.Debug.Log($"<color=yellow>BU Skill {i}</color> : <color=red>{s} {sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif        
+            yield return null;
         }
 
         #endregion
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetColor();
+        SetLanguageTxt();
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Visual</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
     }
 
-    private void Offset_Subscribe()
-    {
-        /*
-        PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState
-            .Subscribe(_Value =>
-            {
-                for (int i = 0; i < DevTool.skillAmount; i++)
-                {
-                    MainGameUIManager.instance.playerHud.skillList[i].Set_CostText(
-                        _Value * PlayerManager.instance.playerController.skillWeapon.skillList[i].needEP.Value);
-                }
-            });
-        */
-    }
 
+    // Betteries
     public void SetEmptyBetteryUI(int value)
     {
         bcTxt.text = value.ToString();
@@ -161,7 +306,9 @@ public class BaseUpgradeUIController : PlayerShopUIController
         ecTxt.text = value.ToString();
     }
 
-    public void Offset_ColorComp()
+
+    // Color
+    public void SetColor()
     {
         mainColorCompList = new List<Component>();
         subColorCompList = new List<Component>();
@@ -206,28 +353,13 @@ public class BaseUpgradeUIController : PlayerShopUIController
     }
 
 
-    #endregion
-
-    #region Framework
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-        msgEui.Reset_Data();
-    }
-
-    #endregion
-
-    #region Set (Panel)
-
+    // Panel
     public override void SetOnThisPanel()
     {
         base.SetOnThisPanel();
 
         Play_OnTween();
 
-        // Dur
         durEui.Set_Dur(BaseUpgradeController.usingShop.currentDur);
     }
 
@@ -240,10 +372,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
         BaseUpgradeController.usingShop = null;
     }
 
-    #endregion
 
-    #region Input
-
+    // Interact
     public void Try_Interact()
     {
         InputManager.instance.Play_MousePointerClick();
@@ -257,8 +387,6 @@ public class BaseUpgradeUIController : PlayerShopUIController
         if (Is_Interact_CloseBtn()) return;
         if (Is_Interact_TabPanel()) return;
     }
-
-    #region Buy
 
     private bool Is_Interact_Buy_Float()
     {
@@ -304,10 +432,6 @@ public class BaseUpgradeUIController : PlayerShopUIController
         return false;
     }
 
-    #endregion
-
-    #region Interact
-
     private bool Is_Interact_TabPanel()
     {
         for (int i = 0; i < panelTabList.Count; i++)
@@ -321,12 +445,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
         return false;
     }
 
-    #endregion
 
-    #endregion
-
-    #region Desc
-
+    // Desc
     public void SetOn_Desc(TxtAmountForBuyEUIController mtafb, string name)
     {
         BUState<float> baseUpgradeState_Float = DevTool.Get_ThisData(allBuData_Float, mtafb);
@@ -343,10 +463,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
         descPanel.SetOff_Desc();
     }
 
-    #endregion
 
-    #region Tween
-
+    // Tween
     private void Play_OnTween()
     {
         DevTool.Set_CompleteTween(frameInnerImg);
@@ -356,10 +474,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         seq.Append(frameInnerImg.DOFade(0.5f, 0.5f));
     }
 
-    #endregion
-
-    #region Set (Language)
-
+    // Lang
     public override void SetLanguageTxt()
     {
         // Label
@@ -407,6 +522,4 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         base.SetLanguageTxt();
     }
-
-    #endregion
 }

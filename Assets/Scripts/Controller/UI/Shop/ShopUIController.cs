@@ -1,12 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
 public class ShopUIController : PanelUIController
 {
     #region Value
-
-    #region - Inspector
 
     [Space(20)]
     [Header("<><><><><> Shop")]
@@ -17,79 +17,85 @@ public class ShopUIController : PanelUIController
 
     [Space(10)]
     [Header("=== Durablity")]
-    [SerializeField] public DurablityEUIController durEui;
-    [SerializeField] public MessageWindowEUIController msgEui;
+    [SerializeField] private DurablityEUIController durEuiPrefab;
+    public DurablityEUIController durEui { get; private set; }
+    [SerializeField] private MessageWindowEUIController msgEuiPrefab;
+    public MessageWindowEUIController msgEui { get; private set; }
+
+    [Space(10)]
+    [Header("=== Visual")]
+    [SerializeField] private TMP_Text[] mainTmps;
+    [SerializeField] private TMP_Text[] subTmps;
 
     [Space(10)]
     [Header("=== Close")]
     [SerializeField] protected OwnBtnEUIController closeBtn;
 
+    public static string labelName;
+    public static List<string> tabBtnTxtList;
 
     #endregion
 
-    #region - Hide 
+    #region Init
 
-    // String
-    [HideInInspector] public static string labelName;
-    [HideInInspector] public static List<string> tabBtnTxtList;
-
-    #endregion
-
-    #endregion
-
-    #region Offset
-
-    public override void Offset()
+    public virtual IEnumerator InitAsync()
     {
-        base.Offset();
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        // dur
+        durEui = Instantiate(durEuiPrefab, transform);
+        durEui.Offset();
 
-        Offset_Basic();
-        Offset_ExtraColorComp();
-    }
+        // msg
+        msgEui = Instantiate(msgEuiPrefab, transform);
+        msgEui.Offset(); 
+        msgEui.Reset_Data();
 
-    private void Offset_Basic()
-    {
-        // Tab
+        // data
         for (int i = 0; i < panelTabList.Count; i++)
         {
             panelTabList[i].Offset();
             panelTabList[i].tabBtn.ownerUIController = this;
         }
 
-        // Dur
-        durEui.Offset();
-
         // Close
         closeBtn.Offset();
         closeBtn.ownerUIController = this;
 
-        // Broken
-        msgEui.Offset();
+        SetColor();
+
+#if UNITY_EDITOR        
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Dur + Msg + DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
     }
 
-    private void Offset_ExtraColorComp()
+#endregion
+
+    #region Color
+
+    private void SetColor()
     {
+        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+
+        DevTool.SetColorTmps(mainClr, mainTmps);
+        DevTool.SetColorTmps(subClr, subTmps);
+
         mainColorCompList = new List<Component>();
         subColorCompList = new List<Component>();   
-
-        // Label
-        mainColorCompList.Add(labelTxt);
-
-        // Close
-        subColorCompList.Add(closeBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
         // Tab Btn
         mainColorCompList.AddRange(Get_AllTabBtn_Txt());
         subColorCompList.AddRange(Get_AllTabBtn_Img());
 
-
         // Set Color
-        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, mainColorCompList);
         mainColorCompList.Clear();
         mainColorCompList = null;
 
-        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, subColorCompList);
         subColorCompList.Clear();
         subColorCompList = null;
@@ -97,7 +103,7 @@ public class ShopUIController : PanelUIController
 
     #endregion
 
-    #region Framework
+    #region Mono
 
     protected virtual void OnEnable()
     {
@@ -105,6 +111,9 @@ public class ShopUIController : PanelUIController
         {
             MET.Reset_ScrollBar();
         }
+
+        if (msgEui != null)
+            msgEui.Reset_Data();
     }
 
     #endregion
@@ -146,7 +155,6 @@ public class ShopUIController : PanelUIController
 
         // Dur
         durEui.Set_LanguageTxt();
-
 
         for (int i = 0; i < panelTabList.Count; i++)
             panelTabList[i].tabBtn.Offset_Txt(tabBtnTxtList[i]);

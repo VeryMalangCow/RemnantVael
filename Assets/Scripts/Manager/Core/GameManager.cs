@@ -2392,21 +2392,13 @@ public class BUShopData<T>
 {
     #region Value
 
-    #region - Insprector
-
-    [SerializeField] public TxtAmountForBuyEUIController upgradeEUI;
-
-    #endregion
-
-    #region - Hide
+    [HideInInspector] public TxtAmountForBuyEUIController upgradeEUI;
 
     [HideInInspector] public BUState<T> state;
     [HideInInspector] private BULevelData<T> levelData;
 
     [HideInInspector] public string name;
     [HideInInspector] public string desc;
-
-    #endregion
 
     #endregion
 
@@ -2417,14 +2409,17 @@ public class BUShopData<T>
         BULevelData<T> levelData,
         List<BUShopData<T>> allList,
         BaseUpgradeUIController owner,
-        Action lvUpAction = null)
+        TxtAmountForBuyEUIController eui, int index, Sprite icon)
     {
+        upgradeEUI = eui;
+        upgradeEUI.Offset(owner, icon);
+        upgradeEUI.rt.anchoredPosition = new Vector2(0, index * -250);
+
         this.state = state;
         this.levelData = levelData;
 
-        upgradeEUI.Offset(owner);
 
-        this.state.Offset(upgradeEUI, this.levelData, lvUpAction);
+        this.state.Offset(upgradeEUI, this.levelData);
         this.state.Set_BuffedState();
 
         allList.Add(this);
@@ -2614,8 +2609,7 @@ public class BUState<T>
 
     public void Offset(
         TxtAmountForBuyEUIController eachEUI, 
-        BULevelData<T> upgradeLevelData,
-        Action action)
+        BULevelData<T> upgradeLevelData)
     {
         currentLevel.Value = 0;
         currentLevel
@@ -2631,8 +2625,6 @@ public class BUState<T>
                }
 
                eachEUI.Set_InnerAlpha((float)_CurrentLevel / (float)DevTool.buMaxLevel);
-
-               if (action != null) action();
            });
         actualState = baseState;
     }

@@ -9,8 +9,6 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 {
     #region Value
 
-    #region - Inspector
-
     [Space(10)]
     [Header("=== Open")]
 
@@ -49,14 +47,8 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     [SerializeField] private float minimumSize = 300;
     [SerializeField] private float sizeDeltaTime = 0.2f;
 
-    #endregion
-
-    #region - Hide
-
     // Comp
-    [HideInInspector] private RectTransform rt;
-
-    #endregion
+    [HideInInspector] public RectTransform rt;
 
     #endregion
 
@@ -69,11 +61,12 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
         buyBtn.Offset();
     }
 
-    public void Offset(BaseUpgradeUIController owner)
+    public void Offset(BaseUpgradeUIController owner, Sprite icon)
     {
         this.Offset();
         imgTxtAmountEui.Offset();
-
+        skillIconImg.sprite = icon;
+        skillIconImg.SetNativeSize();
         buyBtn.ownerUIController = owner;
     }
 
