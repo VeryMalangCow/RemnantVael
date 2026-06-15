@@ -479,8 +479,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
         allModuleData[index0.typeBase][index0.typeSpecial] = moduleState1;
         allModuleData[index1.typeBase][index1.typeSpecial] = moduleState0;
 
-        MainGameUIManager.instance.muUi.Set_InventoryUI(allModuleData);
-        MainGameUIManager.instance.muUi.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.muUi.SetInventoryUI(allModuleData);
+        MainGameUIManager.instance.muUi.SetEquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -495,7 +495,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
     {
         equippedIndex[equipedIndex] = interactIndex;
 
-        MainGameUIManager.instance.muUi.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.muUi.SetEquipedUI(allModuleData, equippedIndex);
         
         Reset_Interface();
         AllyManager.instance.Set_AllAlliesSync();
@@ -505,7 +505,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
     {
         equippedIndex[equipedIndex] = new CoupleData<int>(-1, -1);
 
-        MainGameUIManager.instance.muUi.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.muUi.SetEquipedUI(allModuleData, equippedIndex);
 
         Reset_Interface(); 
         AllyManager.instance.Set_AllAlliesSync();
@@ -517,8 +517,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
         equippedIndex[listIndex0] = new CoupleData<int>(equippedIndex[listIndex1]);
         equippedIndex[listIndex1] = new CoupleData<int>(temp);
 
-        MainGameUIManager.instance.muUi.Set_InventoryUI(allModuleData);
-        MainGameUIManager.instance.muUi.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.muUi.SetInventoryUI(allModuleData);
+        MainGameUIManager.instance.muUi.SetEquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -564,7 +564,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
         fusionIndex[listIndex0] = new CoupleData<int>(fusionIndex[listIndex1]);
         fusionIndex[listIndex1] = new CoupleData<int>(temp);
 
-        MainGameUIManager.instance.muUi.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.muUi.SetInventoryUI(allModuleData);
         MainGameUIManager.instance.muUi.Set_FusionUI(allModuleData, fusionIndex);
         Reset_Interface();
     }
@@ -715,7 +715,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
     public void Set_UpRank(CoupleData<int> index)
     {
         allModuleData[index.typeBase][index.typeSpecial].thisItemData.rank++;
-        MainGameUIManager.instance.muUi.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.muUi.SetInventoryUI(allModuleData);
         Reset_Interface();
     }
 
@@ -733,8 +733,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
 
         allModuleData[index.typeBase][index.typeSpecial] = null;
 
-        MainGameUIManager.instance.muUi.Set_InventoryUI(allModuleData); 
-        MainGameUIManager.instance.muUi.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.muUi.SetInventoryUI(allModuleData); 
+        MainGameUIManager.instance.muUi.SetEquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -751,8 +751,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
             allModuleData[indexList[i].typeBase][indexList[i].typeSpecial] = null;
         }
 
-        MainGameUIManager.instance.muUi.Set_InventoryUI(allModuleData);
-        MainGameUIManager.instance.muUi.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.muUi.SetInventoryUI(allModuleData);
+        MainGameUIManager.instance.muUi.SetEquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -778,7 +778,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
 
         allModuleData[index.typeBase][index.typeSpecial] = newModuleState;
 
-        MainGameUIManager.instance.muUi.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.muUi.SetInventoryUI(allModuleData);
     }
 
     // æ∆¿Ã≈€¿ª ∑£¥˝«œ∞‘ »πµÊ
@@ -959,7 +959,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
         Set_ItemDataLanguage();
         Set_MainChipDataLanguage();
 
-        MainGameUIManager.instance.muUi.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.muUi.SetEquipedUI(allModuleData, equippedIndex);
     }
 
     private void Set_ItemDataLanguage()

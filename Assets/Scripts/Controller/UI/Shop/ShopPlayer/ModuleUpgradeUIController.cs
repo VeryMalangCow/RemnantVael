@@ -22,7 +22,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     [Space(10)]
     [Header("=== Desc")]
-    [SerializeField] private DescMUEUIController descPanel;
+    [SerializeField] private DescMUEUIController descPanelPrefab;
+    private DescMUEUIController descPanel;
 
     [Space(10)]
     [Header("=== Drag")]
@@ -47,8 +48,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [Header("* Synergy")]
     [SerializeField] private GameObject synergyPanelGo;
     [SerializeField] private CoupleData<GameObject> synergyPanelIsExistGo;
-    [SerializeField] private Transform synergyInnerParentTf;
+    [SerializeField] private SynergySlotEUIController synergyPrefab;
     [SerializeField] private Transform synergySlotsParentTf;
+    [SerializeField] private Vector2 synergyInterval;
+
     [SerializeField] private Transform synergyDescsParentTf;
     [SerializeField] public List<Sprite> synergyTierFrames;
 
@@ -89,43 +92,44 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [SerializeField] private TMP_Text preview_NeedMs_ForMake;
     [SerializeField] private TMP_Text preview_NeedCb_ForMake;
 
+    [Space(5)]
+    [Header("=== Visual")]
+    [SerializeField] Image[] subImgs;
+
     // string
-    [HideInInspector] public static string amalgamationName;
-    [HideInInspector] public static string notice_Equiped;
-    [HideInInspector] public static string warning_NotSameRank;
-    [HideInInspector] public static string warning_NotEnoughItem;
-    [HideInInspector] public static string warning_AlreadyMaxLv;
-    [HideInInspector] public static string warning_InvenFull;
+    public static string amalgamationName;
+    public static string notice_Equiped;
+    public static string warning_NotSameRank;
+    public static string warning_NotEnoughItem;
+    public static string warning_AlreadyMaxLv;
+    public static string warning_InvenFull;
 
     // Current
     [HideInInspector] public InventoryItemEUIController currentDraggingItemBtn = null;
 
-    // Inventory
-    [HideInInspector] private List<InventoryEUIController> inventories;
-
     // Panel
-    [HideInInspector] private ForgeInteractPanel currentForgeInteractPanel;
+    private ForgeInteractPanel currentForgeInteractPanel;
 
     // Equiped
-    [HideInInspector] private List<InventorySlotEUIController> equipedSlots;
-    [HideInInspector] private List<Image> equipPanelInnerList;
-    [HideInInspector] private List<TMP_Text> equipDescStateTxtList;
+    private List<InventorySlotEUIController> equipedSlots;
+    private List<Image> equipPanelInnerList;
+    private List<TMP_Text> equipDescStateTxtList;
 
     // Synergy
-    [HideInInspector] private List<SynergySlotEUIController> synergySlotList = new List<SynergySlotEUIController>();
-    [HideInInspector] private SynergySlotEUIController selectedSynergySlot;
+    private List<SynergySlotEUIController> synergySlots;
+    private SynergySlotEUIController selectedSynergySlot;
 
     // Forge Element
-    [HideInInspector] public static readonly float forgeElementBtnOnAlpha = 1f;
-    [HideInInspector] public static readonly float forgeElementBtnOffAlpha = 0.5f;
+    public static readonly float forgeElementBtnOnAlpha = 1f;
+    public static readonly float forgeElementBtnOffAlpha = 0.5f;
 
     // Forge Anno
-    [HideInInspector] private CanvasGroup noticeCg;
-    [HideInInspector] private CanvasGroup warningCg;
+    private CanvasGroup noticeCg;
+    private CanvasGroup warningCg;
 
     // Drag
-    [HideInInspector] private RectTransform dragItemRt;
-    [HideInInspector] private bool isDragging;
+    private RectTransform dragItemRt;
+    private bool isDragging;
 
     // Init
     public override IEnumerator InitAsync()
@@ -136,14 +140,16 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         Stopwatch sw = Stopwatch.StartNew();
 #endif
         // Desc
+        descPanel = Instantiate(descPanelPrefab, transform);
         descPanel.Offset();
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Desc</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
 
-        // Inventory 
-        inventories = new List<InventoryEUIController>
-        {
-            inventory_InEquip, inventory_InForge
-        };
-
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         // Drag
         dragItemEui.Offset();
         dragItemRt = DevTool.Get_ComponentTType(dragItemEui.gameObject, out RectTransform rt) ? rt : null;
@@ -161,13 +167,35 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         yield return null;
 
 
+        inventory_InEquip.Offset();
+        yield return inventory_InEquip.Gen_AllSlotAndItemAsync(this, 8f);
+
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        Offset_Equip();
+        toggleBtn_InEquip.Offset();
+        toggleBtn_InEquip.ownerUIController = this;
+
+        // 슬롯
+        equipedSlots = DevTool.Get_ChildList<InventorySlotEUIController>(equippedSlotsParentTf);
+        for (int i = 0; i < equipedSlots.Count; i++)
+        {
+            equipedSlots[i].ownerUIController = this;
+            equipedSlots[i].Offset();
+            equipedSlots[i].item.Offset();
+            equipedSlots[i].item.ownerUIController = this;
+
+            equipedSlots[i].Set_EquipedTxt(true, i);
+        }
+
+        // 이너 라인, 설명
+        equipPanelInnerList = DevTool.Get_ChildList<Image>(equippedInnerParentTf);
+
+        equipDescStateTxtList = DevTool.Get_ChildList<TMP_Text>(equippedInnerParentTf);
+
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=yellow>Equip</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"<color=yellow>Extra (Equip)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
 
@@ -175,10 +203,82 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        Offset_Forge();
+        // Synergy
+        int x = 9, y = 2;
+        int synergySlotAmount = x * y;
+        synergySlots = new List<SynergySlotEUIController>(synergySlotAmount);
+        for (int i = 0; i < y; i++)
+        {
+            for (int j = 0; j < x; j++)
+            {
+                var slot = Instantiate(synergyPrefab, synergySlotsParentTf);
+                synergySlots.Add(slot);
+                slot.Offset();
+                slot.ownerUIController = this;
+                slot.Init(new Vector2(synergyInterval.x * j, synergyInterval.y * i));
+            }
+        }
+
+        SetOnOff_SynergySlot(false);
+
+        Reset_EquipPanel();
+
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=yellow>Forge</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"<color=yellow>Synergy Slot (Equip)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+        inventory_InForge.Offset();
+        yield return inventory_InForge.Gen_AllSlotAndItemAsync(this, 8f);
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        forgeInteractPanels[0].Offset(this, ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
+        forgeInteractPanels[1].Offset(this, ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
+        forgeInteractPanels[2].Offset(this, ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
+
+        // decomposition
+        decompositionSlot.ownerUIController = this;
+        decompositionSlot.Offset();
+        decompositionSlot.item.Offset();
+        decompositionSlot.item.ownerUIController = this;
+
+        decompositionSlot.Set_ForgeSelectedTxt(true);
+
+        // fusion
+        for (int i = 0; i < fusionSlotList.Count; i++)
+        {
+            fusionSlotList[i].ownerUIController = this;
+            fusionSlotList[i].Offset();
+            fusionSlotList[i].item.Offset();
+            fusionSlotList[i].item.ownerUIController = this;
+
+            fusionSlotList[i].Set_ForgeSelectedTxt(true, i);
+        }
+
+        // make
+        preview_NeedMs_ForMake.text = ModuleItemManager.Get_MS_ForMake().ToString();
+        preview_NeedCb_ForMake.text = ModuleItemManager.Get_CB_ForMake().ToString();
+
+        // visual
+        noticeCg =
+            DevTool.Get_ComponentTType(noticeTxt.gameObject.transform.parent.gameObject,
+                out CanvasGroup nCg) ? nCg : null;
+        warningCg =
+            DevTool.Get_ComponentTType(warningTxt.gameObject.transform.parent.gameObject,
+                out CanvasGroup wCg) ? wCg : null;
+
+        noticeCg.gameObject.SetActive(false);
+        warningCg.gameObject.SetActive(false);
+
+        Reset_ForgePanel();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>Extra (Forge)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
 
@@ -198,112 +298,15 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     }
 
 
-    private void Offset_Equip()
-    {
-        inventory_InEquip.Offset();
-        inventory_InEquip.Gen_AllSlotAndItem(this);
-
-        toggleBtn_InEquip.Offset();
-        toggleBtn_InEquip.ownerUIController = this;
-
-        Offset_Equip_InEquip();
-        Offset_Synergy_InEquip();
-
-        Reset_EquipPanel();
-    }
-
-    private void Offset_Equip_InEquip()
-    {
-        // 슬롯
-        equipedSlots = DevTool.Get_ChildList<InventorySlotEUIController>(equippedSlotsParentTf);
-        for (int i = 0; i < equipedSlots.Count; i++)
-        {
-            equipedSlots[i].ownerUIController = this;
-            equipedSlots[i].Offset();
-            equipedSlots[i].item.Offset();
-            equipedSlots[i].item.ownerUIController = this;
-
-            equipedSlots[i].Set_EquipedTxt(true, i);
-        }
-
-        // 이너 라인, 설명
-        equipPanelInnerList = DevTool.Get_ChildList<Image>(equippedInnerParentTf);
-        equipDescStateTxtList = DevTool.Get_ChildList<TMP_Text>(equippedInnerParentTf);
-    }
-
-    private void Offset_Synergy_InEquip()
-    {
-        // Synergy
-        synergySlotList = DevTool.Get_ChildList<SynergySlotEUIController>(synergySlotsParentTf);
-        for (int i = 0; i < synergySlotList.Count; i++)
-        {
-            synergySlotList[i].Offset();
-            synergySlotList[i].ownerUIController = this;
-        }
-
-        SetOnOff_SynergySlot(false);
-    }
-
-
-
-    private void Offset_Forge()
-    {
-        inventory_InForge.Offset();
-        inventory_InForge.Gen_AllSlotAndItem(this);
-
-        forgeInteractPanels[0].Offset(this, ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
-        forgeInteractPanels[1].Offset(this, ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
-        forgeInteractPanels[2].Offset(this, ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
-
-        Offset_Forge_Decomposition();
-        Offset_Forge_Fusion();
-        Offset_Forge_Make();
-
-        noticeCg =
-            DevTool.Get_ComponentTType(noticeTxt.gameObject.transform.parent.gameObject,
-                out CanvasGroup nCg) ? nCg : null;
-        warningCg =
-            DevTool.Get_ComponentTType(warningTxt.gameObject.transform.parent.gameObject,
-                out CanvasGroup wCg) ? wCg : null;
-
-        noticeCg.gameObject.SetActive(false);
-        warningCg.gameObject.SetActive(false);
-
-        Reset_ForgePanel();
-    }
-
-    private void Offset_Forge_Decomposition()
-    {
-        decompositionSlot.ownerUIController = this;
-        decompositionSlot.Offset();
-        decompositionSlot.item.Offset();
-        decompositionSlot.item.ownerUIController = this;
-
-        decompositionSlot.Set_ForgeSelectedTxt(true);
-    }
-
-    private void Offset_Forge_Fusion()
-    {
-        for (int i = 0; i < fusionSlotList.Count; i++)
-        {
-            fusionSlotList[i].ownerUIController = this;
-            fusionSlotList[i].Offset();
-            fusionSlotList[i].item.Offset();
-            fusionSlotList[i].item.ownerUIController = this;
-
-            fusionSlotList[i].Set_ForgeSelectedTxt(true, i);
-        }
-    }
-
-    private void Offset_Forge_Make()
-    {
-        preview_NeedMs_ForMake.text = ModuleItemManager.Get_MS_ForMake().ToString();
-        preview_NeedCb_ForMake.text = ModuleItemManager.Get_CB_ForMake().ToString();
-    }
 
 
     public void SetColor()
     {
+        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+
+        DevTool.SetColorImgs(subClr, subImgs);
+
         mainColorCompList = new List<Component>();
         subColorCompList = new List<Component>();
 
@@ -317,11 +320,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // Synergy
         mainColorCompList.AddRange(amalgamationDescTxtList);
         subColorCompList.Add(selectViewAmalgamation);
-        subColorCompList.AddRange(DevTool.Get_ChildList<Image>(synergyInnerParentTf));
-        for (int i = 0; i < synergySlotList.Count; i++)
+        for (int i = 0; i < synergySlots.Count; i++)
         {
-            mainColorCompList.Add(synergySlotList[i].tierImg);
-            subColorCompList.Add(synergySlotList[i].txt);
+            mainColorCompList.Add(synergySlots[i].tierImg);
+            subColorCompList.Add(synergySlots[i].txt);
         }
         mainColorCompList.AddRange(DevTool.Get_ChildList<Image>(synergyDescLinerParentTf));
         for (int i = 0; i < synergyDescTextParentTf.childCount; i++)
@@ -359,12 +361,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         mainColorCompList.Add(preview_NeedMs_ForMake);
         mainColorCompList.Add(preview_NeedCb_ForMake);
 
-        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, mainColorCompList);
         mainColorCompList.Clear();
         mainColorCompList = null;
 
-        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, subColorCompList);
         subColorCompList.Clear();
         subColorCompList = null;
@@ -436,7 +436,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     #endregion
 
-    #region Framework
+    #region Mono
 
     protected override void OnEnable()
     {
@@ -535,15 +535,15 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             SetOnOff_SynergySlot(true);
 
             // 모두 끄기
-            for (int i = 0; i < synergySlotList.Count; i++)
-                synergySlotList[i].SetOff_SynergySlot();
+            for (int i = 0; i < synergySlots.Count; i++)
+                synergySlots[i].SetOff_SynergySlot();
 
             // 가지고 있는 시너지 부분을 추가
             int currentSynergies = 0;
             foreach (KeyValuePair<int, int> keyValuePair in dict)
             {
                 MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(keyValuePair.Key);
-                synergySlotList[currentSynergies].SetOn_SynergySlot(keyValuePair.Key, MDC.thisIcon, keyValuePair.Value);
+                synergySlots[currentSynergies].SetOn_SynergySlot(keyValuePair.Key, MDC.thisIcon, keyValuePair.Value);
 
                 currentSynergies++;
             }
@@ -564,14 +564,14 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     #region Item UI
 
     // 인벤토리 UI 셋
-    public void Set_InventoryUI(ModuleState[][] allModuleState)
+    public void SetInventoryUI(ModuleState[][] allModuleState)
     {
-        for (int i = 0; i < inventories.Count; i++)
-            inventories[i].Set_InventoryUI(allModuleState);
+        inventory_InEquip.Set_InventoryUI(allModuleState);
+        inventory_InForge.Set_InventoryUI(allModuleState);
     }
 
     // 장착 슬롯 UI 셋
-    public void Set_EquipedUI(ModuleState[][] allModuleState, CoupleData<int>[] equipedData)
+    public void SetEquipedUI(ModuleState[][] allModuleState, CoupleData<int>[] equipedData)
     {
         for (int i = 0; i < equipedData.Length; i++)
         {
@@ -600,8 +600,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             }
         }
 
-        for (int i = 0; i < inventories.Count; i++)
-            inventories[i].Set_InventoryEquipedUI(equipedData);
+        inventory_InEquip.Set_InventoryEquipedUI(equipedData);
+        inventory_InForge.Set_InventoryEquipedUI(equipedData);
     }
 
     // 장착된 모듈들의 설명 키기/끄기
@@ -887,7 +887,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 시너지 아이템
     private bool Is_Interact_SynergyItem()
     {
-        if (currentBtn is SynergySlotEUIController synergySlot && synergySlotList.Contains(synergySlot))
+        if (currentBtn is SynergySlotEUIController synergySlot && synergySlots.Contains(synergySlot))
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
 

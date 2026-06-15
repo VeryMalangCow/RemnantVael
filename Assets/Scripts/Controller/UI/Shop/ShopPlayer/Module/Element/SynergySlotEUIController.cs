@@ -13,6 +13,15 @@ public class SynergySlotEUIController : OwnBtnEUIController
 
     #endregion
 
+    #region Init
+
+    public void Init(Vector2 pos)
+    {
+        rt.anchoredPosition = pos;
+    }
+
+    #endregion
+
     #region Offset
 
     public override void Offset()
