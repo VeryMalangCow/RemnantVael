@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AllyProfileDetailEUIController : ElementUIController
+public class AllyProfileDetailView : ElementUIController
 {
     [Space(20)]
     [Header("<><><><><> Profile Detail")]
@@ -90,11 +90,12 @@ public class AllyProfileDetailEUIController : ElementUIController
         syncScrollPanel.Offset();
 
         SetOff_Panel();
+        SetColor();
+
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Profile Detail -> DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
-        yield return null;
         yield return null;
     }
 

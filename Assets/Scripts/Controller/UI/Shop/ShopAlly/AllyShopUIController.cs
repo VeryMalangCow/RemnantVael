@@ -25,8 +25,8 @@ public class AllyShopUIController : ShopUIController
 
     [Space(5)]
     [Header("-- Detail")]
-    [SerializeField] private AllyProfileDetailEUIController profileDetailEuiPrefab;
-    public AllyProfileDetailEUIController profileDetailEui { get; private set; }
+    [SerializeField] private AllyProfileDetailView profileDetailEuiPrefab;
+    public AllyProfileDetailView profileDetailEui { get; private set; }
 
     [Space(10)]
     [Header("=== Inner")]
@@ -103,6 +103,7 @@ public class AllyShopUIController : ShopUIController
 
     public void SetColor()
     {
+
         mainColorCompList = new List<Component>();
         subColorCompList = new List<Component>();
 
@@ -122,7 +123,6 @@ public class AllyShopUIController : ShopUIController
         subColorCompList.Clear();
         subColorCompList = null;
 
-        profileDetailEui.SetColor();
     }
 
     #region Reset

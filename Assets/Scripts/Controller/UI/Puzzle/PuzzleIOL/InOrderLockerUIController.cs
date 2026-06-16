@@ -5,7 +5,6 @@ using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class InOrderLockerUIController : PuzzleUIController
 {
