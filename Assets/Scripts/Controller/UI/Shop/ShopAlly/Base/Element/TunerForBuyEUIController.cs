@@ -14,24 +14,23 @@ public class TunerForBuyEUIController : OwnBtnEUIController
     [SerializeField] private EachTunerEUIController positiveTuner0;
     [SerializeField] private EachTunerEUIController positiveTuner1;
     [SerializeField] private EachTunerEUIController negativeTuner;
-    [SerializeField] public TunerRerollBtnEUIController rerollBtnEUI;
+    public TunerRerollBtnEUIController rerollBtnEUI { get; private set; }
 
     #endregion
 
-    #region Offset
-
-    public override void Offset()
+    public void Init(SinglePanelUIController ui, TunerRerollBtnEUIController rerollBtn, Vector2 pos, float btnX)
     {
-        base.Offset();
+        ownerUIController = ui;
+        rt.anchoredPosition = pos;
 
         positiveTuner0.Offset();
         positiveTuner1.Offset();
         negativeTuner.Offset();
 
+        rerollBtnEUI = rerollBtn;
         rerollBtnEUI.Offset();
+        rerollBtnEUI.Init(ui, new Vector2(pos.x + btnX, pos.y));
     }
-
-    #endregion
 
     #region Set
 

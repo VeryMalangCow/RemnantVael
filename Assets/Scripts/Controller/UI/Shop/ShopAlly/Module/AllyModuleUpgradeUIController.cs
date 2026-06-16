@@ -138,36 +138,17 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region Init
 
-    public override IEnumerator InitAsync()
+    public override IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        yield return base.InitAsync();
+        yield return base.InitAsync(mainClr, subClr);
+
+        inventoryScrollPanelEui.Offset();
+        inventoryEui.Offset();
+        yield return inventoryEui.Gen_AllSlotAndItemAsync(this, 8f);
 
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
 #endif
-
-        Offset_EUI();
-
-        SetLanguageTxt();
-
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"<color=yellow>AMU DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
-        yield return null;
-    }
-
-    #endregion
-
-    #region Offset
-
-    private void Offset_EUI()
-    {
-        // Inven
-        inventoryScrollPanelEui.Offset();
-        inventoryEui.Offset();
-        inventoryEui.Gen_AllSlotAndItem(this);
-
         noneSyncScrollPanelEui.Offset();
 
         // Picked Panel
@@ -216,14 +197,22 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         noneSyncCanBuyTxt.text = ResourceManager.instance.Get_StaticWord(115);
         noneSyneBuyBtn.ownerUIController = this;
         noneSyneBuyBtn.Offset();
+
+        SetLanguageTxt();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
     }
+
+    #endregion
 
     public void SetChargedBetteryUI(int value)
     {
         Set_ChargedBetteryUI(value, needChargedBettery);
     }
-
-    #endregion
 
     #region Interact
 
@@ -347,7 +336,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             else
                 DevTool.Remove_InList(selectedNoneSyncIdList, eui.Get_ID());
 
-            Set_NoneSyncAmountTxt(currentPickedAlly.Get_HadNoneSyncAmount(), Get_CurrentNeedNoneSync());
+            Set_NoneSyncAmountTxt(profileListEui.currentPickedAlly.Get_HadNoneSyncAmount(), Get_CurrentNeedNoneSync());
             Set_NoneSyncBuyBtn();
 
             return true;
@@ -421,10 +410,11 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // Sync를 살 수 있는가
     private bool Can_NoneSyncBuy()
     {
-        if (currentPickedAlly == null) return false;
+        AllyController ally = profileListEui.currentPickedAlly;
+        if (ally == null) return false;
 
         return selectedNoneSyncIdList.Count > 0 &&
-            currentPickedAlly.Get_HadNoneSyncAmount() >= Get_CurrentNeedNoneSync() &&
+            ally.Get_HadNoneSyncAmount() >= Get_CurrentNeedNoneSync() &&
             !AllyModuleUpgradeController.usingShop.isBroken;
     }
 
@@ -447,21 +437,20 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Buy_FromNoneSync()
     {
         // 추가
-        currentPickedAlly.Add_Sync(selectedNoneSyncIdList);
+        AllyController ally = profileListEui.currentPickedAlly;
+        ally.Add_Sync(selectedNoneSyncIdList);
 
         // 재화 소모
         int needGoods = Get_CurrentNeedNoneSync();
-        currentPickedAlly.Use_HadNoneSyncAmount(needGoods);
+        ally.Use_HadNoneSyncAmount(needGoods);
         AllyModuleUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);
 
         // 소비 효과
         Play_UseTxt(noneSyncUseTxt, needGoods, 30f);
 
         // Extra 창에 State UI
-        Set_AllyState(currentPickedAlly);
-
-        // Extra 창에 Sync UI
-        Set_AllySync(currentPickedAlly);
+        profileDetailEui.Set_AllyState(ally);
+        profileDetailEui.Set_AllySync(ally);
 
         // 패널 다시 세팅
         Set_NoneSynePanel();
@@ -475,7 +464,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // 현재 None Sync 패널에 진입할 수 있는지?
     private bool Can_EnterNoneSyncPanel()
     {
-        if (currentPickedAlly.Get_HadNoneSyncAmount() >= AllyController.noneSyncNeedOneBuy)
+        if (profileListEui.currentPickedAlly.Get_HadNoneSyncAmount() >= AllyController.noneSyncNeedOneBuy)
         {
             return true;
         }
@@ -515,7 +504,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // 현재 추가 획득할 수 있는 NoneSync 패널 세팅
     private void Set_NoneSynePanel()
     {
-        if (currentPickedAlly == null)
+        AllyController ally = profileListEui.currentPickedAlly;
+        if (ally == null)
         {
             Set_NoneSyncAmountTxt();
             SetOn_NoneSyneEmptyPanel(true);
@@ -523,10 +513,10 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         }
         else
         {
-            Set_NoneSyncAmountTxt(currentPickedAlly.Get_HadNoneSyncAmount());
+            Set_NoneSyncAmountTxt(ally.Get_HadNoneSyncAmount());
             SetOn_NoneSyneEmptyPanel(false);
 
-            Dictionary<int, int> noFullSyncData = currentPickedAlly.Get_NoFullSyncData();
+            Dictionary<int, int> noFullSyncData = ally.Get_NoFullSyncData();
             UnityEngine.Debug.Log(noFullSyncData.Count);
             Gen_NoneSyncItemEUI(noFullSyncData.Count);
             SetOff_AllNoneSyncEUI();
@@ -547,7 +537,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         }
         else
         {
-            result += currentPickedAlly.Get_HadNoneSyncAmount().ToString();
+            result += profileListEui.currentPickedAlly.Get_HadNoneSyncAmount().ToString();
             
             if (need != 0)
             {
@@ -649,7 +639,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         return !AllyModuleUpgradeController.usingShop.isBroken &&
             isExist && 
             PlayerManager.instance.playerController.chargedBettery >= goods &&
-            currentPickedProfileEui != null &&
+            profileListEui.currentPickedProfileEui != null &&
             pickedModulePanel_AllyGo.activeSelf;
     }
 
@@ -658,17 +648,16 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         // 데이터
         PlayerManager.instance.playerController.UseChargedBettery(needChargedBettery);
         ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(pickedItemEui.slot).originalIndex);
+        AllyController ally = profileListEui.currentPickedAlly;
 
-        currentPickedAlly.Add_Sync(Get_PickedSyncList());
+        ally.Add_Sync(Get_PickedSyncList());
 
         // 소비 효과
         Play_UseTxt(chargeBetteryUseTxt, needChargedBettery, 30f);
 
         // Extra 창에 State UI
-        Set_AllyState(currentPickedAlly);
-
-        // Extra 창에 Sync UI
-        Set_AllySync(currentPickedAlly);
+        profileDetailEui.Set_AllyState(ally);
+        profileDetailEui.Set_AllySync(ally);
 
         // 구매한 모듈로 재세팅
         Set_Inventory();

@@ -12,6 +12,17 @@ public class TunerRerollBtnEUIController : OwnBtnEUIController
 
     #endregion
 
+    #region Init
+
+    public void Init(SinglePanelUIController ui, Vector2 pos)
+    {
+        ownerUIController = ui;
+
+        rt.anchoredPosition = pos;
+    }
+
+    #endregion
+
     #region Set (UI)
 
     public void Set_UI(int needOverrider)

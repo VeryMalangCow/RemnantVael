@@ -38,7 +38,7 @@ public class ShopUIController : PanelUIController
 
     #region Init
 
-    public virtual IEnumerator InitAsync()
+    public virtual IEnumerator InitAsync(Color mainClr, Color subClr)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
@@ -63,7 +63,7 @@ public class ShopUIController : PanelUIController
         closeBtn.Offset();
         closeBtn.ownerUIController = this;
 
-        SetColor();
+        SetColor(mainClr, subClr);
 
 #if UNITY_EDITOR        
         sw.Stop();
@@ -76,11 +76,8 @@ public class ShopUIController : PanelUIController
 
     #region Color
 
-    private void SetColor()
+    private void SetColor(Color mainClr, Color subClr)
     {
-        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-
         DevTool.SetColorTmps(mainClr, mainTmps);
         DevTool.SetColorTmps(subClr, subTmps);
 

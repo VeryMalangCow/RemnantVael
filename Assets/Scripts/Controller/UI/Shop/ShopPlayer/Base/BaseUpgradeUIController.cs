@@ -62,9 +62,9 @@ public class BaseUpgradeUIController : PlayerShopUIController
     [HideInInspector] public List<BUShopData<int>> allBuData_Int = new List<BUShopData<int>>();
 
     // Init
-    public override IEnumerator InitAsync()
+    public override IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        yield return base.InitAsync();
+        yield return base.InitAsync(mainClr, subClr);
 
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
@@ -285,7 +285,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        SetColor();
+        SetColor(mainClr, subClr);
         SetLanguageTxt();
 #if UNITY_EDITOR
         sw.Stop();
@@ -308,7 +308,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
 
     // Color
-    public void SetColor()
+    public void SetColor(Color mainClr, Color subClr)
     {
         mainColorCompList = new List<Component>();
         subColorCompList = new List<Component>();
@@ -341,12 +341,10 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         subColorCompList.Add(frameInnerImg);
 
-        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, mainColorCompList);
         mainColorCompList.Clear();
         mainColorCompList = null;
 
-        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, subColorCompList);
         subColorCompList.Clear();
         subColorCompList = null;

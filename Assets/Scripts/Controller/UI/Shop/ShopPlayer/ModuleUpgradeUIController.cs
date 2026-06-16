@@ -132,9 +132,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private bool isDragging;
 
     // Init
-    public override IEnumerator InitAsync()
+    public override IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        yield return base.InitAsync();
+        yield return base.InitAsync(mainClr, subClr);
 
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
@@ -303,7 +303,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        SetColor();
+        SetColor(mainClr, subClr);
 
         SetLanguageTxt();
 
@@ -314,11 +314,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         yield return null;
     }
 
-    public void SetColor()
+    public void SetColor(Color mainClr, Color subClr)
     {
-        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-
         DevTool.SetColorImgs(subClr, subImgs);
 
         mainColorCompList = new List<Component>();

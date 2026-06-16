@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,150 +14,64 @@ public class AllyShopUIController : ShopUIController
     [Header("<><><><><> Ally Shop")]
 
     [Space(10)]
-    [Header("=== Profile List EUI")]
-    [SerializeField] private Transform allyProfileParentTf;
-    [SerializeField] private RectTransform allyProfileSelectSignRt;
-    [SerializeField] private RectTransform allyProfilePickedSignRt;
+    [Header("=== Profile EUI")]
+    [SerializeField] private AllyProfileListView profileListEuiPrefab;
+    public AllyProfileListView profileListEui { get; private set; }
 
-    [Space(10)]
-    [Header("=== Profile Detail EUI")]
-
-    [Space(5)]
-    [Header("-- Detail")]
     [SerializeField] private AllyProfileDetailView profileDetailEuiPrefab;
     public AllyProfileDetailView profileDetailEui { get; private set; }
+    [SerializeField] private Transform profileParentTf;
 
     [Space(10)]
     [Header("=== Inner")]
     [SerializeField] private List<Image> extraMainClrImgList;
     [SerializeField] private List<TMP_Text> extraMainClrTxtList;
-
     [SerializeField] private List<Image> extraSubClrImgList;
-    [SerializeField] private List<TMP_Text> extraSubClrTxtList;
-
 
     protected bool isTweening = false;
-    // Profile List
-    [HideInInspector] private List<AllyProfileEUIController> allAllyProfileEuiList;
-    [HideInInspector] private List<AllyProfileEUIController> currentActiveProfileEuiList = new List<AllyProfileEUIController>();
-
-    [HideInInspector] private AllyProfileEUIController currentSelectProfileEui = null;
-    [HideInInspector] protected AllyProfileEUIController currentPickedProfileEui = null;
-
-    [HideInInspector] private static readonly float allyProfileIntervalY = 160;
-    [HideInInspector] private static readonly float allyProfilePanelMinHeight = 800;
-
-    // Picked
-    [HideInInspector] protected AllyController currentPickedAlly = null;
-    [HideInInspector] private CanvasGroup allyProfilePickedSignCg;
-
 
     #endregion
 
-    public override IEnumerator InitAsync()
+    public override IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        yield return base.InitAsync();
+        yield return base.InitAsync(mainClr, subClr);
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
 #endif
-        // Profile List
-        allAllyProfileEuiList = new List<AllyProfileEUIController>();
-
-        foreach (Transform TF in allyProfileParentTf)
-        {
-            if (TF.TryGetComponent(out AllyProfileEUIController profile))
-            {
-                profile.ownerUIController = this;
-                profile.Offset();
-                allAllyProfileEuiList.Add(profile);
-            }
-        }
-
-        allyProfilePickedSignCg = DevTool.Get_ComponentTType(allyProfilePickedSignRt.gameObject, out CanvasGroup cg) ? cg : null;
+        profileListEui = Instantiate(profileListEuiPrefab, profileParentTf);
+        profileListEuiPrefab = null;
+        profileListEui.Init(this);
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Profile List</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
 
-
-
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        profileDetailEui = Instantiate(profileDetailEuiPrefab, transform);
-        profileDetailEui.Offset();
+        profileDetailEui = Instantiate(profileDetailEuiPrefab, profileParentTf);
         profileDetailEuiPrefab = null;
+        profileDetailEui.Init(this);
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=yellow>Profile Detail -> Gen</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"<color=yellow>Profile Detail</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
-
-        yield return profileDetailEui.InitAsync(this);
-
-        SetColor();
+        panelTabList = new List<TabEUIController>() { profileListEui.thisTabEui };
+        SetColor(mainClr, subClr);
         yield return null;
     }
 
-    public void SetColor()
+    public void SetColor(Color mainClr, Color subClr)
     {
+        DevTool.SetColorImgs(mainClr, extraMainClrImgList);
+        DevTool.SetColorTmps(mainClr, extraMainClrTxtList);
+        DevTool.SetColorImgs(subClr, extraSubClrImgList);
 
-        mainColorCompList = new List<Component>();
-        subColorCompList = new List<Component>();
-
-        mainColorCompList.AddRange(extraMainClrImgList);
-        mainColorCompList.AddRange(extraMainClrTxtList);
-        subColorCompList.AddRange(extraSubClrImgList);
-        subColorCompList.AddRange(extraSubClrTxtList);
-
-        // Set Color
-        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        DevTool.Set_Color(mainClr, mainColorCompList);
-        mainColorCompList.Clear();
-        mainColorCompList = null;
-
-        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-        DevTool.Set_Color(subClr, subColorCompList);
-        subColorCompList.Clear();
-        subColorCompList = null;
-
+        profileListEui.SetColor(mainClr, subClr);
+        profileDetailEui.SetColor(mainClr, subClr);
     }
-
-    #region Reset
-
-    // 모든 데이터 초기화
-    private void Reset_AllData()
-    {
-        currentActiveProfileEuiList.Clear();
-        currentSelectProfileEui = null;
-        currentPickedProfileEui = null;
-
-        allyProfilePickedSignRt.gameObject.SetActive(false);
-        isTweening = false;
-
-        profileDetailEui.ResetData();
-    }
-
-    // 프로필 리스트 리셋
-    private void Reset_AllyProfileListPanel()
-    {
-        List<AllyController> allAlly = AllyManager.instance.allAlly;
-
-        Set_AllAllyProfileListOff();
-        Set_AllyProfileListOn(allAlly);
-        Set_AllyProfileListPanelY(allAlly.Count);
-        Select_DefaultAllyProfile();
-    }
-    
-    // 프로필 디테일 리셋
-    private void Reset_AllyProfileDetailPanel()
-    {
-        profileDetailEui.SetOff_Panel();
-
-    }
-
-    #endregion
 
     #region Set (Panel)
 
@@ -166,81 +79,21 @@ public class AllyShopUIController : ShopUIController
     {
         base.SetOnThisPanel();
 
-        Reset_AllData();
-        Reset_AllyProfileListPanel();
-        Reset_AllyProfileDetailPanel();
+        // 모든 데이터 초기화
+        isTweening = false;
+        profileListEui.ResetData();
+        profileDetailEui.ResetData();
 
+        // 프로필 리스트 리셋
+        List<AllyController> allAlly = AllyManager.instance.allAlly;
+        profileListEui.SetOnProfileListOn(allAlly);
+
+        // 프로필 디테일 리셋
+        profileDetailEui.SetOff_Panel();
         profileDetailEui.Play_ProfileExtraY(0.3f);
     }
 
     #endregion
-
-    #region Profile List
-
-    // 모든 프로필 끄기
-    private void Set_AllAllyProfileListOff()
-    {
-        for (int i = 0; i < allAllyProfileEuiList.Count; i++)
-        {
-            allAllyProfileEuiList[i].gameObject.SetActive(false);
-            allAllyProfileEuiList[i].Reset_Profile();
-        }
-    }
-
-    // 프로필 키기 (현재 Ally)
-    private void Set_AllyProfileListOn(List<AllyController> allAlly)
-    {
-
-        for (int i = 0; i < allAlly.Count; i++)
-        {
-            allAllyProfileEuiList[i].gameObject.SetActive(true);
-            allAllyProfileEuiList[i].Set_Profile(allAlly[i], -(i * allyProfileIntervalY));
-            currentActiveProfileEuiList.Add(allAllyProfileEuiList[i]);
-        }
-    }
-
-    // 프로필 항목 패널의 사이즈 조절 (Scroll을 위함)
-    private void Set_AllyProfileListPanelY(int amount)
-    {
-        float y = Mathf.Max(amount * allyProfileIntervalY, allyProfilePanelMinHeight);
-        panelTabList[0].Set_ScrollHeight(y);
-    }
-
-    #endregion
-
-    #region Profile Select
-
-    // 처음 시작 시, 첫번째 Ally 선택 (없다면 NULL)
-    private void Select_DefaultAllyProfile()
-    {
-        if (currentActiveProfileEuiList.Count <= 0) // 없다면
-        {
-            Select_AllyProfile(null);
-            allyProfileSelectSignRt.gameObject.SetActive(false);
-        }
-        else
-        {
-            Select_AllyProfile(currentActiveProfileEuiList[0]);
-            allyProfileSelectSignRt.gameObject.SetActive(true);
-        }
-    }
-
-    public void Select_AllyProfile(AllyProfileEUIController eui)
-    {
-        if (currentSelectProfileEui == eui) return;
-
-        currentSelectProfileEui = eui;
-
-        allyProfileSelectSignRt.SetParent(currentSelectProfileEui.transform);
-        allyProfileSelectSignRt.SetAsLastSibling();
-
-        DevTool.SetKillTween(allyProfileSelectSignRt);
-        allyProfileSelectSignRt.DOAnchorPos(Vector2.zero, 0.05f);
-    }
-
-    #endregion
-
-    #region Profile Pick
 
     // 실제로 인풋으로 클릭이나 지정하는 것
     // 인풋을 통해, Ally를 픽 (UI 변경 필요)
@@ -248,55 +101,17 @@ public class AllyShopUIController : ShopUIController
     {
         if (isTweening) return;
 
-        currentPickedProfileEui = eui;
-        currentPickedAlly = currentPickedProfileEui.Get_ThisAlly();
+        AllyProfileEUIController allyProfileEui = profileListEui.currentPickedProfileEui;
+        profileListEui.Pick_AllyProfile(eui);
 
-        allyProfilePickedSignRt.gameObject.SetActive(true);
-        allyProfilePickedSignRt.SetParent(currentSelectProfileEui.transform);
-        allyProfilePickedSignRt.SetAsLastSibling();
-        allyProfilePickedSignRt.anchoredPosition = Vector2.zero;
-
-        DevTool.SetKillTween(allyProfilePickedSignRt);
-        allyProfilePickedSignRt.transform.localScale = Vector2.one * 1.2f;
-        allyProfilePickedSignRt.transform.DOScale(Vector2.one, 0.15f);
-
-        DevTool.SetKillTween(allyProfilePickedSignCg);
-        allyProfilePickedSignCg.alpha = 0f;
-        allyProfilePickedSignCg.DOFade(1f, 0.2f);
-
-        // Data UI Set
-        Set_AllyState(currentPickedAlly);
-        Set_AllyTuner(currentPickedAlly);
-        Set_AllySync(currentPickedAlly);
-
-        // Detail Panel
-        profileDetailEui.SetOn_Panel(currentPickedAlly);
-
-        // Extra Panel
-        profileDetailEui.Play_ProfileExtraY_CloseAndOpen(0, currentPickedProfileEui);
-
-        // Sound
-        SoundManager.instance.Play_2D_SFX_UI("Click_01");
-    }
-
-    #endregion
-
-    // State
-    protected void Set_AllyState(AllyController ally)
-    {
+        AllyController ally = profileListEui.currentPickedAlly;
         profileDetailEui.Set_AllyState(ally);
-    }
-
-    // Tuner
-    protected void Set_AllyTuner(AllyController ally)
-    {
         profileDetailEui.Set_AllyTuner(ally);
-    }
-
-    // Sync
-    protected void Set_AllySync(AllyController ally)
-    {
         profileDetailEui.Set_AllySync(ally);
+        profileDetailEui.SetOn_Panel(ally);
+        profileDetailEui.Play_ProfileExtraY_CloseAndOpen(0, allyProfileEui);
+
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
     }
 
     // Interact
@@ -311,10 +126,10 @@ public class AllyShopUIController : ShopUIController
 
     private bool Interact_ProfileList()
     {
-        if ((currentBtn == currentSelectProfileEui) &&
-            (currentSelectProfileEui != currentPickedProfileEui))
+        if ((currentBtn == profileListEui.currentSelectProfileEui) &&
+            (profileListEui.currentSelectProfileEui != profileListEui.currentPickedProfileEui))
         {
-            Pick_AllyProfile(currentSelectProfileEui);
+            Pick_AllyProfile(profileListEui.currentSelectProfileEui);
 
             return true;
         }
@@ -327,7 +142,7 @@ public class AllyShopUIController : ShopUIController
         if (currentBtn is OwnCGBtnEUIController btn &&
             profileDetailEui.stateBtnList.Contains(btn))
         {
-            profileDetailEui.Play_ProfileExtraY_CloseAndOpen(profileDetailEui.stateBtnList.IndexOf(btn), currentPickedProfileEui);
+            profileDetailEui.Play_ProfileExtraY_CloseAndOpen(profileDetailEui.stateBtnList.IndexOf(btn), profileListEui.currentPickedProfileEui);
 
             return true;
         }

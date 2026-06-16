@@ -1513,6 +1513,13 @@ public class DevTool
         for (int i = 0; i < imgs.Length; i++)
             imgs[i].color = new Color(clr.r, clr.g, clr.b, imgs[i].color.a);
     }
+
+    public static void SetColorImgs(Color clr, List<Image> imgs)
+    {
+        for (int i = 0; i < imgs.Count; i++)
+            imgs[i].color = new Color(clr.r, clr.g, clr.b, imgs[i].color.a);
+    }
+
     public static void SetColorTmps(Color clr, TMP_Text[] tmps)
     {
         for (int i = 0; i < tmps.Length; i++)

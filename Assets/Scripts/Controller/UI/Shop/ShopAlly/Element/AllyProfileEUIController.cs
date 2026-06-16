@@ -64,7 +64,7 @@ public class AllyProfileEUIController : OwnBtnEUIController
 
         if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        if (ownerUIController != null) allyOwnerUIController.Select_AllyProfile(this);
+        if (ownerUIController != null) allyOwnerUIController.profileListEui.Select_AllyProfile(this);
     }
 
     #endregion

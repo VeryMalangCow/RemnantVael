@@ -18,13 +18,9 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     [Header("=== Tuner Detail")]
     [SerializeField] private GameObject tunerDetailOffGo;
     [SerializeField] private GameObject tunerDetailOnGo;
-    [SerializeField] private TunerEUIController detailTunerEui;
-
-    [Space(10)]
-    [Header("-- Tuner Element Desc")]
-    [SerializeField] private TunerDescEUIController positive0_ElementDescEui;
-    [SerializeField] private TunerDescEUIController positive1_ElementDescEui;
-    [SerializeField] private TunerDescEUIController negative_ElementDescEui;
+    [SerializeField] private TunerDetailEUIController detailTunerEuiPrefab;
+    [SerializeField] private Transform detailTunerEuiParentTf;
+    private TunerDetailEUIController detailTunerEui;
 
     [Space(5)]
     [Header("-- Buy")]
@@ -41,7 +37,15 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     [Space(10)]
     [Header("=== Tuner List")]
-    [SerializeField] private List<TunerForBuyEUIController> allTunerEui;
+    [SerializeField] private Transform tunerBuyEuiParentTf;
+    [Space(5)]
+    [SerializeField] private TunerForBuyEUIController tunerBuyEuiPrefab;
+    [SerializeField] private float tunerBuyIntervalY;
+    private List<TunerForBuyEUIController> allTunerEui;
+    [Space(5)]
+    [SerializeField] private TunerRerollBtnEUIController tunerRerollBtnPrefab;
+    [SerializeField] private float tunerRerollBtnIntervalX;
+    [Space(5)]
     [SerializeField] private RectTransform pickTunerListSignRt;
 
     [Space(10)]
@@ -70,52 +74,67 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     #region Init
 
-    public override IEnumerator InitAsync()
+    public override IEnumerator InitAsync(Color mainClr, Color subClr)
     {
-        yield return base.InitAsync();
+        yield return base.InitAsync(mainClr, subClr);
 
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
 #endif
-
-        Offset_TunerSet();
-
-        SetLanguageTxt();
-
+        detailTunerEui = Instantiate(detailTunerEuiPrefab, detailTunerEuiParentTf);
+        detailTunerEuiPrefab = null; 
+        tunerDetailExtraRTOpen = tunerDetailExtraRt.sizeDelta;
+        detailTunerEui.Offset();
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"<color=yellow>ABU DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"<color=yellow>TunerPanel Gen</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
-    }
-
-    #endregion
-
-    #region Offset
 
 
-    private void Offset_TunerSet()
-    {
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         // Data Set (Must set First)
         allyTunerSet = new AllyBaseUpradeTunerSet();
         allyTunerSet.Offset(tunerAmount, AllyManager.stateTypeList, AllyManager.tunerTypePercent);
 
         // UI Set
-        for (int i = 0; i < allTunerEui.Count; i++)
+        int tunerBuyEuiAmount = 5;
+        allTunerEui = new List<TunerForBuyEUIController>(5);
+        for (int i = 0; i < tunerBuyEuiAmount; i++)
         {
-            allTunerEui[i].ownerUIController = this;
-            allTunerEui[i].rerollBtnEUI.ownerUIController = this;
-            allTunerEui[i].Offset();
+            TunerForBuyEUIController tunerBuyEui = Instantiate(tunerBuyEuiPrefab, tunerBuyEuiParentTf);
+            TunerRerollBtnEUIController tunerRerollBtn = Instantiate(tunerRerollBtnPrefab, tunerBuyEuiParentTf);
+
+            tunerBuyEui.Offset();
+            tunerBuyEui.Init(this, tunerRerollBtn, new Vector2(0, tunerBuyIntervalY * (i - 2)), tunerRerollBtnIntervalX);
+
+            allTunerEui.Add(tunerBuyEui);
+
             Set_TunerUI(i);
         }
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>TunerBuy Panel Gen</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
 
-        // Tuner Detail
-        tunerDetailExtraRTOpen = tunerDetailExtraRt.sizeDelta;
-        detailTunerEui.Offset();
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         // Buy
         buyBtnEui.ownerUIController = this;
         buyBtnEui.Offset();
+
+        SetLanguageTxt();
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"<color=yellow>DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
     }
 
     #endregion
@@ -161,7 +180,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         if (onOff)
         {
-            Set_TunerDetailUI(detailTunerEui, pickedTunerData);
+            detailTunerEui.Set_TunerDetailUI(pickedTunerData);
             needChargedBettery = pickedTunerData.needPay;
 
             pickTunerListSignRt.SetParent(allTunerEui[allyTunerSet.allyTunerDataList.IndexOf(pickedTunerData)].transform);
@@ -197,15 +216,6 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     private void Set_TunerUI(int index)
     {
         allTunerEui[index].Set_UI(allyTunerSet.allyTunerDataList[index], needOverrider);
-    }
-
-    private void Set_TunerDetailUI(TunerEUIController targetEui, AllyTunerData data)
-    {
-        targetEui.Set_UI(data);
-
-        positive0_ElementDescEui.Set_UI(data.positive0, true);
-        positive1_ElementDescEui.Set_UI(data.positive1, true);
-        negative_ElementDescEui.Set_UI(data.negative, false);
     }
 
     #endregion
@@ -321,24 +331,23 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     private bool Can_Buy()
         => !AllyBaseUpgradeController.usingShop.isBroken &&
             (PlayerManager.instance.playerController.chargedBettery >= needChargedBettery) &&
-            currentPickedProfileEui != null;
+            profileListEui.currentPickedProfileEui != null;
     
     
     private void Buy()
     {
         // 데이터
-
         PlayerManager.instance.playerController.UseChargedBettery(needChargedBettery);
-        currentPickedAlly.Add_Tuner(pickedTunerData);
+        AllyController ally = profileListEui.currentPickedAlly;
+
+        ally.Add_Tuner(pickedTunerData);
 
         // 소비 효과
         Play_UseTxt(chargeBetteryUseTxt, needChargedBettery, 30f);
 
         // Extra 창에 State UI
-        Set_AllyState(currentPickedAlly);
-
-        // Extra 창에 Tuner UI
-        Set_AllyTuner(currentPickedAlly);
+        profileDetailEui.Set_AllyState(ally);
+        profileDetailEui.Set_AllyTuner(ally);
 
         // 구매한 튜너를 바꿈
         int index = allyTunerSet.allyTunerDataList.IndexOf(pickedTunerData);
@@ -391,9 +400,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         buyBtnEui.txt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
 
         // Desc
-        positive0_ElementDescEui.increaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
-        positive1_ElementDescEui.increaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
-        negative_ElementDescEui.increaseTxt.text = ResourceManager.instance.Get_StaticWord(109);
+        detailTunerEui.SetLanguageTxt();
 
         base.SetLanguageTxt();
     }

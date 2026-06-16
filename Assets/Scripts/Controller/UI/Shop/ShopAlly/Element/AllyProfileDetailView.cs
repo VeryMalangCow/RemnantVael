@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AllyProfileDetailView : ElementUIController
+public class AllyProfileDetailView : MonoBehaviour
 {
     [Space(20)]
     [Header("<><><><><> Profile Detail")]
@@ -21,6 +21,9 @@ public class AllyProfileDetailView : ElementUIController
     [Header("=== Off Panel")]
     [SerializeField] private GameObject offPanelGo;
 
+    [Header("=== Visual")]
+    [SerializeField] private TMP_Text[] mainTmps;
+    [SerializeField] private Image[] subImgs;
 
     [Space(10)]
     [Header("=== Extra")]
@@ -74,11 +77,8 @@ public class AllyProfileDetailView : ElementUIController
     private static readonly float inStateSyncEui_IntervalY = -140;
     private static readonly int inStateSyncEui_WidthAmount = 4;
 
-    public IEnumerator InitAsync(AllyShopUIController ui)
+    public void Init(AllyShopUIController ui)
     {
-#if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew();
-#endif
         for (int i = 0; i < stateBtnList.Count; i++)
         {
             stateBtnList[i].ownerUIController = ui;
@@ -90,13 +90,6 @@ public class AllyProfileDetailView : ElementUIController
         syncScrollPanel.Offset();
 
         SetOff_Panel();
-        SetColor();
-
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"<color=yellow>Profile Detail -> DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
-        yield return null;
     }
 
     public void ResetData()
@@ -107,6 +100,15 @@ public class AllyProfileDetailView : ElementUIController
         statePanelCg.alpha = 0;
     }
 
+    // Color
+    public void SetColor(Color mainClr, Color subClr)
+    {
+        DevTool.SetColorTmps(mainClr, mainTmps);
+        DevTool.SetColorImgs(subClr, subImgs);
+
+        for (int i = 0; i < inStateSyncEuiList.Count; i++)
+            inStateSyncEuiList[i].Set_Color();
+    }
 
     #region State
 
@@ -290,14 +292,6 @@ public class AllyProfileDetailView : ElementUIController
     
     #endregion
 
-
-    // Color
-    public void SetColor()
-    {
-        for (int i = 0; i < inStateSyncEuiList.Count; i++)
-            inStateSyncEuiList[i].Set_Color();
-    }
-
     // Panel
     public void SetOn_Panel(AllyController ally)
     {
@@ -438,6 +432,4 @@ public class AllyProfileDetailView : ElementUIController
         // Limit
         stateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.minLimitUpgradeValue} )";
     }
-
-    public override void Offset() { }
 }
