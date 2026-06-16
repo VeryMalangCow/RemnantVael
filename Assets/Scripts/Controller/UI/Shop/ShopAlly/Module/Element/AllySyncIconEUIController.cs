@@ -52,7 +52,7 @@ public class AllySyncIconEUIController : ElementUIController
         MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(id);
         
         iconImg.sprite = MDC.thisIcon;
-        progressImg.sprite = MainGameUIManager.instance.amuUi.Get_SyncProgressSprite(amount);
+        progressImg.sprite = MainGameUIManager.instance.amuUi.profileDetailEui.Get_SyncProgressSprite(amount);
         progressTxt.text = amount.ToString();
         float progressing = (float)amount / AllyController.syncMax;
         DevTool.Set_AlphaColor(progressTxt, progressing);
