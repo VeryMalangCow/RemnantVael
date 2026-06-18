@@ -4,41 +4,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class StageManager : Singleton<StageManager>, IMainGameInitializer
 {
-    #region Value
-
-    #region - Inspector
     public int InitOrder { get { return initOrder; } }
     [SerializeField] private int initOrder;
     public string InitPregressText { get { return initPregressText; } }
     [SerializeField] private string initPregressText;
 
-    [Space(20)]
-    [Header("<><><><><> Stage Manager")]
-
-    [Space(10)]
     [Header("=== Nav")]
     [SerializeField] private NavMeshSurface thisNav;
 
-    [Space(10)]
     [Header("=== Generate")]
     [SerializeField] private Transform mapParentTF;
     [SerializeField] public int targetStageID = -1;
     [Space(10)] [SerializeField] private StageData lobbyStageData;
     [Space(10)][SerializeField] private List<StageData> allStageData;
 
-    [Space(10)]
     [Header("=== Current")]
     [SerializeField] private List<RoomController> currentAllRoomController = new List<RoomController>();
     [SerializeField] private List<EntranceRuleController> currentAllEntranceRoomController = new List<EntranceRuleController>();
     [SerializeField] public RoomController currentRoomController;
-
-    #endregion
-
-    #region - Hide
 
     // Size
     [HideInInspector] private Vector2 offsetRoomSize = new Vector2(22, 14);
@@ -72,57 +61,463 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     [HideInInspector] private AllPassageMiddleSpriteData passageMiddleSpriteData;
 
-
-    #endregion
-
-    #region Init
+    // Init
     public IEnumerator Initialize()
     {
+#if UNITY_EDITOR
         Stopwatch sw = new Stopwatch();
         sw.Start();
-        Offset();
-        sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-
-        yield return null;
-        // 스테이지 소환
-
-        sw.Restart();
-        Gen_Stage(targetStageID);
-        sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-    }
-
-    #endregion
-
-    #endregion
-
-    #region Offset
-
-    private void Offset()
-    {
+#endif
+        // Offset
         lobbyStageData.Offset(ResourceManager.instance.Get_LobbyMapReso());
 
         for (int i = 0; i < allStageData.Count; i++)
         {
             allStageData[i].Offset(ResourceManager.instance.Get_StageMapReso(i));
         }
+        // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
+        passageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.instance.Get_PassageMapReso());
 
-        Init_PassageMiddleData();
+#if UNITY_EDITOR
+    sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        Gen_Stage(targetStageID);
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+    }
+
+
+    // 방 생성 시 규칙
+    [Serializable]
+    public class StageRule
+    {
+        public int minRoomAmount;
+        public int maxRoomAmount;
+        public RoomPercent[] percents;
+    }
+
+    [Serializable]
+    public class RoomPercent
+    {
+        public int typeIndex;
+        public float percent;
+
+        public RoomPercent(int typeIndex, float percent)
+        {
+            this.typeIndex = typeIndex;
+            this.percent = percent;
+        }
+    }
+
+    
+    // 실제 그리드 구조
+    [Serializable]
+    public class RoomStateData
+    {
+        public int instanceId;
+        public Vector2Int[] roomPos;
+
+        public List<GateStateData> gates;
+
+        public RoomStateData(int instanceId, Vector2Int[] roomPos)
+        {
+            this.instanceId = instanceId;
+            this.roomPos = roomPos;
+        }
+    }
+
+    [Serializable]
+    public class GateStateData
+    {
+        public Vector2Int[] pos;
+        public Vector2Int[] dir;
+        public RoomStateData connectedRoom;
+
+        public GateStateData(Vector2Int[] pos, Vector2Int[] dir, RoomStateData connectedRoom)
+        {
+            this.pos = pos;
+            this.dir = dir;
+            this.connectedRoom = connectedRoom;
+        }
+    }
+
+
+
+    [Space(100)]
+    [SerializeField] private TextAsset stageRuleCSV;
+
+    private static int roomTypeAmount = 8;
+    private static Vector2Int[][] ownGridStaticData;
+    private static Vector2Int[][] roundOwnGridStaticData;
+
+    [Space(10)]
+    [SerializeField] public StageRule targetStageRule = new StageRule();
+    [SerializeField] private int targetStageId = 0;
+
+    // 실제 차지한 방
+    private HashSet<Vector2Int> existPositions;
+    private HashSet<Vector2Int> roundPositions;
+    private HashSet<Vector2Int> selectedPositions;
+
+
+    private Dictionary<Vector2Int, RoomStateData> existPosDict;
+
+    private List<RoomStateData> roomGenStateData;
+
+    #region EDITOR
+#if UNITY_EDITOR
+    public List<RoomStateData> RoomGenStateData => roomGenStateData;
+
+
+    [ContextMenu("GenerateGridRoomData x 1000")]
+    private void GenerateGridRoomData1000()
+    {
+        Init();
+        SetStageRule(targetStageRule, targetStageId);
+        for (int i = 0; i < 1000; i++)
+            GenerateRoomGrid();
+    }
+
+#endif
+    #endregion
+
+    [ContextMenu("GenerateGridRoomData")]
+    private void GenerateGridRoomData()
+    {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        Init();
+        SetStageRule(targetStageRule, targetStageId);
+#if UNITY_EDITOR
+        sw.Stop();
+#endif
+        UnityEngine.Debug.Log($"Init + Setting : {sw.Elapsed.TotalMilliseconds:F2} ms");
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        GenerateRoomGrid();
+        GenerateGateGrid();
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"Grid : {sw.Elapsed.TotalMilliseconds:F2} ms");
+#endif
+    }
+
+    #region Init
+
+    // Pos Data Offset
+    private void Init()
+    {
+        ownGridStaticData = new Vector2Int[8][]
+        {
+            new Vector2Int[1] { new Vector2Int(0, 0) },
+            new Vector2Int[2] { new Vector2Int(0, 0), new Vector2Int(1, 0) },
+            new Vector2Int[2] { new Vector2Int(0, 0), new Vector2Int(0, 1) },
+            new Vector2Int[4] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1), new Vector2Int(1, 1) },
+            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, -1) },
+            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1) },
+            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(0, 1), new Vector2Int(1, 1) },
+            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, 1) }
+        };
+
+        roundOwnGridStaticData = new Vector2Int[8][]
+        {
+            GetInitRoundGridStaticData(ownGridStaticData[0]),
+            GetInitRoundGridStaticData(ownGridStaticData[1]),
+            GetInitRoundGridStaticData(ownGridStaticData[2]),
+            GetInitRoundGridStaticData(ownGridStaticData[3]),
+            GetInitRoundGridStaticData(ownGridStaticData[4]),
+            GetInitRoundGridStaticData(ownGridStaticData[5]),
+            GetInitRoundGridStaticData(ownGridStaticData[6]),
+            GetInitRoundGridStaticData(ownGridStaticData[7])
+        };
+    }
+
+    private Vector2Int[] GetInitRoundGridStaticData(Vector2Int[] ownGrid)
+    {
+        HashSet<Vector2Int> addablePos = new HashSet<Vector2Int>();
+        for (int i = 0; i < ownGrid.Length; i++)
+        {
+            addablePos.Add(ownGrid[i] + Vector2Int.left);
+            addablePos.Add(ownGrid[i] + Vector2Int.up);
+            addablePos.Add(ownGrid[i] + Vector2Int.right);
+            addablePos.Add(ownGrid[i] + Vector2Int.down);
+        }
+        for (int i = 0; i < ownGrid.Length; i++)
+        {
+            addablePos.Remove(ownGrid[i]);
+        }
+
+        Vector2Int[] result = new Vector2Int[addablePos.Count];
+        addablePos.CopyTo(result);
+        return result;
     }
 
     #endregion
 
-    #region Framework
-/*
-    private void Start()
-    {
-        Offset();
+    #region Rule
 
-        // 스테이지 소환
-        Gen_Stage(targetStageID);
+    // CSV to Stage Rule
+    private void SetStageRule(StageRule rule, int stageId)
+    {
+        string alltxt = stageRuleCSV.text;
+
+        string[] stageRuleTxts = alltxt.Split("\n");
+        string[] stageRuleTxt = stageRuleTxts[stageId + 1].Split(",");
+
+        rule.minRoomAmount = int.TryParse(stageRuleTxt[1], out int min) ? min : 1;
+        rule.maxRoomAmount = int.TryParse(stageRuleTxt[2], out int max) ? max : 10;
+
+        rule.percents = new RoomPercent[roomTypeAmount];
+        for (int i = 0; i < roomTypeAmount; i++)
+            rule.percents[i] = new RoomPercent(i, float.TryParse(stageRuleTxt[i + 3], out float typePercent) ? typePercent : 0);
     }
-*/
+
+    #endregion
+
+    #region Grid Map
+
+    // Generate Grid Map
+    private bool GenerateRoomGrid()
+    {
+        // Data Set
+        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
+        int currentRoomAmount = 1;
+
+        existPositions = new HashSet<Vector2Int>();
+        roundPositions = new HashSet<Vector2Int>();
+        selectedPositions = new HashSet<Vector2Int>();
+
+        existPosDict = new Dictionary<Vector2Int, RoomStateData>();
+
+        roomGenStateData = new List<RoomStateData>();
+
+        int failCount = 0, failMaxLimit = 30;
+        bool isCompleted = true;
+
+        // 처음방 생성
+        TryAddExistPos(0, Vector2Int.zero, 0);
+
+        while (currentRoomAmount < targetRoomAmount)
+        {
+            selectedPositions.Clear(); 
+            bool success = false;
+
+            int type = GetRandomRoomType(targetStageRule.percents);
+            if (type < 0)
+            {
+                UnityEngine.Debug.LogWarning("유효한 방 타입(모양)을 선택하지 못했습니다.");
+                isCompleted = false;
+                break;
+            }
+
+            List<Vector2Int> shuffledRounds = GetShuffledList(roundPositions);
+            for (int i = 0; i < shuffledRounds.Count; i++)
+            {
+
+                if (TryAddExistPos(type, shuffledRounds[i], currentRoomAmount))
+                {
+                    success = true;
+                    break;
+                }
+            }
+
+            if (!success)
+            {
+                failCount++;
+                if (failMaxLimit <= failCount)
+                {
+                    UnityEngine.Debug.LogWarning("방을 생성하지 못했습니다.");
+                    isCompleted = false;
+                    break;
+                }
+
+                continue;
+            }
+
+            failCount = 0;
+            currentRoomAmount++;
+        }
+
+        return isCompleted;
+    }
+
+    // 확률에 따른 랜덤 타입 찾기
+    private int GetRandomRoomType(RoomPercent[] roomPercents)
+    {
+        if (roomPercents == null || roomPercents.Length == 0)
+            return -1;
+
+        float totalWeight = 0f;
+
+        for (int i = 0; i < roomPercents.Length; i++)
+        {
+            if (roomPercents[i].percent > 0f)
+                totalWeight += roomPercents[i].percent;
+        }
+
+        if (totalWeight <= 0f)
+            return -1;
+
+        float randomValue = UnityEngine.Random.Range(0f, totalWeight);
+        float currentWeight = 0f;
+
+        for (int i = 0; i < roomPercents.Length; i++)
+        {
+            float weight = roomPercents[i].percent;
+
+            if (weight <= 0f)
+                continue;
+
+            currentWeight += weight;
+
+            if (randomValue < currentWeight)
+                return roomPercents[i].typeIndex;
+        }
+
+        return roomPercents[roomPercents.Length - 1].typeIndex;
+    }
+
+
+    // 추가 시도
+    private bool TryAddExistPos(int type, Vector2Int pos, int instanceId)
+    {
+        int i;
+        // 실제 좌표
+        Vector2Int[] addExistPos = GetRelativeExistPos(type, pos);
+        Vector2Int[] addRoundPos = GetRelativeRoundPos(type, pos);
+
+        // 실제 방을 추가할 수 있는가?
+        for (i = 0; i < addExistPos.Length; i++)
+            if (existPositions.Contains(addExistPos[i]))
+                return false;
+        
+        // 인접한 방이 1개인가?
+        int currentAdjacency = 0, maxAdjacencyLimit = 1;
+        for (i = 0; i < addRoundPos.Length; i++)
+        {
+            if (existPositions.Contains(addRoundPos[i]))
+                currentAdjacency++;
+            
+            if (currentAdjacency > maxAdjacencyLimit)
+                return false;
+        }
+
+        // 실제 방 추가
+        var room = new RoomStateData(instanceId, addExistPos);
+        roomGenStateData.Add(room);
+        for (i = 0; i < addExistPos.Length; i++)
+        {
+            existPositions.Add(addExistPos[i]);
+            existPosDict.Add(addExistPos[i], room);
+        }
+
+        // 라운드 위치 추가 (방이 존재한 위치는 제외)
+        for (i = 0; i < addRoundPos.Length; i++) 
+            if (!existPositions.Contains(addRoundPos[i]))
+                roundPositions.Add(addRoundPos[i]);
+
+        // 현재 실제 방 추가 위치는 다시 삭제하기
+        for (i = 0; i < addExistPos.Length; i++)
+            roundPositions.Remove(addExistPos[i]);
+
+        return true;
+    }
+
+
+    // Hashset을 List 셔플 반환
+    private List<T> GetShuffledList<T>(HashSet<T> source)
+    {
+        if (source == null || source.Count == 0)
+            return new List<T>();
+
+        List<T> result = new List<T>(source.Count);
+
+        foreach (T item in source)
+        {
+            result.Add(item);
+        }
+
+        Shuffle(result);
+
+        return result;
+    }
+
+    private void Shuffle<T>(List<T> list)
+    {
+        if (list == null || list.Count <= 1)
+            return;
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(i, list.Count);
+
+            T temp = list[i];
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
+    }
+
+
+    // 실제 값을 적용한 위치값
+    private Vector2Int[] GetRelativeExistPos(int type, Vector2Int pos)
+        => GetRelativePos(ownGridStaticData[type], pos);
+
+    private Vector2Int[] GetRelativeRoundPos(int type, Vector2Int pos)
+        => GetRelativePos(roundOwnGridStaticData[type], pos);
+
+    private Vector2Int[] GetRelativePos(Vector2Int[] originPos, Vector2Int addPos)
+    {
+        Vector2Int[] applyPos = new Vector2Int[originPos.Length];
+        for (int i = 0; i < originPos.Length; i++)
+            applyPos[i] = originPos[i] + addPos;
+
+        return applyPos;
+    }
+
+    #endregion
+
+    #region Grid Gate
+
+    private void GenerateGateGrid()
+    {
+
+    }
+
+    // 방 구조에 따라 Gate Data 초기화하기
+    private void SetGateData()
+    {
+        for (int i = 0; i < roomGenStateData.Count; i++)
+        {
+            RoomStateData room = roomGenStateData[i];
+
+            for (int j = 0; j < room.roomPos.Length; j++)
+            {
+                if (existPositions.Contains(room.roomPos[j]))
+                {
+
+                }
+            }
+        }
+    }
+    
+    // 하나의 룸 테두리에 연결된 Gate데이터
+    private void Set()
+    {
+
+    }
+
     #endregion
 
     #region Generate
@@ -157,7 +552,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         Set_GateActiveOn();
 
         // UI 셋
-        Set_StartUI(stageData);
+        MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
+        MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
+        MainGameUIManager.instance.hud.MinimapView.SetOnMapIcon(targetStageID);
+        MainGameUIManager.instance.hud.MinimapView.SetStageDescription();
 
         // Sound (BGM) 시작
         SoundManager.instance.Play_2D_BGM_Stage(stageData.infoData.stageId);
@@ -184,7 +582,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         Set_GateActiveOn();
 
         // UI 셋
-        Set_StartPassageUI();
+        MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
+        MainGameUIManager.instance.hud.MinimapView.SetOffMapIcon();
 
         // Sound (BGM) 시작
         //SoundManager.Instance.Play_2D_BGM("Stage" + DevTool.Get_LengthString(stageData.InfoData.StageID, 2) + "_BGM");
@@ -315,7 +714,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             room.Offset(tempID);
             Add_RoundVec(new List<Vector2Int>() { Vector2Int.zero });
 
-            Set_FieldObjPos(room);
+            room.Spawn_FieldObj();
         }
     }
 
@@ -690,8 +1089,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         if (targetRoom == null) yield break;
 
         // 필요없는 유닛 제거
-        Remove_SetSprites();
-        Remove_SetAnims();
+        currentSetSprites.Clear();
+        currentSetAnims.Clear();
 
         // 현재 방 선택
         currentRoomController = targetRoom;
@@ -722,7 +1121,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         PlayerManager.instance.playerController.SetOn_Trail();
         targetRoom.Play_RoomState();
-        Set_NavBake();
+        thisNav.BuildNavMesh();
 
         //LayerOrderManager.instance.AddNeedSortObj(EnemyManager.instance.currentEnemyList); 
         //LayerOrderManager.instance.AddNeedSortObj(AllyManager.instance.allAlly);
@@ -778,43 +1177,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Set
 
-    #region Stage
-
-    private void Set_StartUI(StageData stageData)
-    {
-        MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
-        MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
-        MainGameUIManager.instance.hud.MinimapView.SetOnMapIcon(targetStageID);
-        MainGameUIManager.instance.hud.MinimapView.SetStageDescription();
-    }
-
-    private void Set_StartPassageUI()
-    {
-        MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
-        MainGameUIManager.instance.hud.MinimapView.SetOffMapIcon();
-    }
-
-    #endregion
-
-    #region Room
-
-    // 방 위치 세팅
-    private void Set_RoomPos(RoomController room)
-    {
-        room.gameObject.transform.position = new Vector2(room.roomVec[0].x * offsetRoomSize.x, room.roomVec[0].y * offsetRoomSize.y);
-    }
-
-    #endregion
-
-    #region Field Obj
-
-    private void Set_FieldObjPos(RoomController room)
-    {
-        room.Spawn_FieldObj();
-    }
-
-    #endregion
-
     #region Gate
 
     // 게이트에 모든 짝꿍 게이트 지정과 세팅
@@ -838,6 +1200,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
     }
 
+    // 반대편에 방에 존재하는 게이트인지 + 서로 바라보고 있는지
+    private bool Is_PartnerGate(GateController gate1, GateController gate2)
+        => ((gate1.roomPosGate + gate1.gateDir) == gate2.roomPosGate) && (gate1.gateDir * -1) == gate2.gateDir;
+    
 
     // 현재 게이트 모두 활성화
     private void Set_GateActiveOn()
@@ -882,17 +1248,13 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             room.Set_CollectGatePos(i, worldVecList[i]);
     }
 
-    #endregion
-
-    #region Relative
-
     // 월드 기준: 상대적인 좌표 직접 지정
     private void Set_NormalRelativeVec(RoomController room, List<Vector2Int> relativePos)
     {
         Set_RelativeVec(room, relativePos);
 
-        Set_RoomPos(room);
-        Set_FieldObjPos(room);
+        room.gameObject.transform.position = new Vector2(room.roomVec[0].x * offsetRoomSize.x, room.roomVec[0].y * offsetRoomSize.y);
+        room.Spawn_FieldObj();
         Add_RoundVec(room.roomVec);
     }
 
@@ -901,8 +1263,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         Set_RelativeVec(room, Get_FindCorrectWorldVec_Normal(room, connectedRoomAmount, applySpecialExist));
 
-        Set_RoomPos(room);
-        Set_FieldObjPos(room);
+        room.gameObject.transform.position = new Vector2(room.roomVec[0].x * offsetRoomSize.x, room.roomVec[0].y * offsetRoomSize.y);
+        room.Spawn_FieldObj();
         Add_RoundVec(room.roomVec);
     }
 
@@ -911,8 +1273,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         Set_RelativeVec(room, Get_FindCorrectWorldVec_Furthest(room, connectedRoomAmount, applySpecialExist));
 
-        Set_RoomPos(room);
-        Set_FieldObjPos(room);
+        room.gameObject.transform.position = new Vector2(room.roomVec[0].x * offsetRoomSize.x, room.roomVec[0].y * offsetRoomSize.y);
+        room.Spawn_FieldObj();
         Add_RoundVec(room.roomVec);
 
         Add_RoundSpecialVec(room.roomVec);
@@ -932,19 +1294,16 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     }
 
     public void Set_CurrentMapSprite(SpriteRenderer sr, string spriteKey)
-    {
-        Set_MapUnclearSprite(currentStageData, sr, spriteKey);
-    }
+        => Set_MapUnclearSprite(currentStageData, sr, spriteKey);
+    
 
     public void Set_BeforeMapSprite(SpriteRenderer sr, string spriteKey)
-    {
-        Set_MapClearSprite(beforeStageData, sr, spriteKey);
-    }
+        => Set_MapClearSprite(beforeStageData, sr, spriteKey);
+    
 
     public void Set_AfterMapSprite(SpriteRenderer sr, string spriteKey)
-    {
-        Set_MapClearSprite(afterStageData, sr, spriteKey);
-    }
+        => Set_MapClearSprite(afterStageData, sr, spriteKey);
+    
 
     public void Set_SetSpriteClearly()
     {
@@ -1266,59 +1625,15 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #endregion
 
-    #region SR
-
     public void Add_SetSprite(BuildSetSpriteController setSprite)
     {
         currentSetSprites.Add(setSprite);
     }
 
-    #endregion
-
-    #region Anim
-
     public void Add_SetAnim(BuildSetAnimController setAnim)
     {
         currentSetAnims.Add(setAnim);
     }
-
-    #endregion
-
-    #endregion
-
-    #region Remove
-
-    #region SR
-
-    private void Remove_SetSprites()
-    {
-        currentSetSprites.Clear();
-    }
-
-    #endregion
-
-    #region Anim
-
-    private void Remove_SetAnims()
-    {
-        currentSetAnims.Clear();
-    }
-
-    #endregion
-
-    #endregion
-
-    #region Is
-
-    #region Gate 
-
-    private bool Is_PartnerGate(GateController gate1, GateController gate2)
-    {
-        return ((gate1.roomPosGate + gate1.gateDir) == gate2.roomPosGate) && // 반대편에 방에 존재하는 게이트인지
-            (gate1.gateDir * -1) == gate2.gateDir; // 서로 바라보고 있는지
-    }
-
-    #endregion
 
     #endregion
 
@@ -1417,25 +1732,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         yield return new WaitForSeconds(outDurTime);
 
         EventManager.instance.Set_Input(true);
-    }
-
-    #endregion
-
-    #region Nav
-
-    public void Set_NavBake()
-    {
-        thisNav.BuildNavMesh();
-    }
-
-    #endregion
-
-    #region Init
-
-    // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
-    public void Init_PassageMiddleData()
-    {
-        passageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.instance.Get_PassageMapReso());
     }
 
     #endregion
