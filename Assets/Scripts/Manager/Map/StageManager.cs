@@ -73,23 +73,21 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     public StageRule targetStageRule = new StageRule();
 
     // 실제 방 데이터들
-    private readonly List<RoomGrid> roomGenStateData = new List<RoomGrid>();
+    private readonly List<RoomGrid> allRoomGrids = new List<RoomGrid>();
 
+    // 정적 데이터
     private static int roomTypeAmount = 8;
     private static Vector2Int[][] ownGridStaticData;
     private static Vector2Int[][] roundOwnGridStaticData;
 
-
-    //[Space(10)]
-    //[Header("=== Room Grid")]
-
-    // 생성 과정 좌표 데이터
+    // 생성 과정 동적 데이터
     // 실제 배치 + 테두리 (Hashset을 사용해 중복을 "절대" 방지)
     private HashSet<Vector2Int> existPositions;
     private HashSet<Vector2Int> roundPositions;
 
     // 실제 좌표와 해당 좌표가 포함되어있는 방
     private Dictionary<Vector2Int, RoomGrid> existPosDict;
+
 
     // 캐시 최적화 (New 방지 = GC Alloc 최소화) => Capacity : 현재 방의 크기 최대치와 Round 최대치를 생각한 값
     // For Init
@@ -175,7 +173,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
 #if UNITY_EDITOR
 
-    public List<RoomGrid> RoomGenStateData => roomGenStateData;
+    public List<RoomGrid> RoomGenStateData => allRoomGrids;
 
     [ContextMenu("GenerateGridRoomData")]
     private void GenerateGridRoomDataTest() // Test
@@ -204,9 +202,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         UnityEngine.Debug.Log($"Bring Stage Rule : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         sw.Restart();
 #endif
-        roomGenStateData.Clear();
+        allRoomGrids.Clear();
         if (GenerateRoomGrid())
+        {
             GenerateGateGrid();
+        }
 #if UNITY_EDITOR
         else
         {
@@ -393,7 +393,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         // 실제 방 추가
         RoomGrid room = new RoomGrid(instanceId, existLength);
 
-        roomGenStateData.Add(room);
+        allRoomGrids.Add(room);
         for (i = 0; i < existLength; i++)
         {
             room.roomPos[i] = tempAddExistPositions[i];
@@ -419,9 +419,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Generate <Gate Grid>
     private void GenerateGateGrid()
     {
-        for (int i = 0; i < roomGenStateData.Count; i++)
+        for (int i = 0; i < allRoomGrids.Count; i++)
         {
-            RoomGrid room = roomGenStateData[i];
+            RoomGrid room = allRoomGrids[i];
             room.gates.Clear();
             SetRoomGateGrid(room);
         }
