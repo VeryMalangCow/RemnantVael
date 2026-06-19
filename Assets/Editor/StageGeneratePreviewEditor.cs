@@ -9,9 +9,11 @@ public class StageGeneratePreviewEditor : Editor
     private const float PreviewHeight = 240f;
     private const float Padding = 12f;
 
-    private static Color normalClr = new Color(0.5f, 0.5f, 0.5f);
+    private static Color normalClr = new Color(0.8f, 0.8f, 0.8f);
     private static Color startClr = new Color(1f, 1f, 1f);
     private static Color bossClr = new Color(0.9f, 0.2f, 0.2f);
+
+    private static Color gateClr = new Color(0.6f, 0.6f, 0.6f);
 
     public override void OnInspectorGUI()
     {
@@ -34,12 +36,22 @@ public class StageGeneratePreviewEditor : Editor
     private void DrawRoomLegend()
     {
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-
         EditorGUILayout.LabelField("Room Type", EditorStyles.boldLabel);
 
         DrawLegendItem(normalClr, "Normal Room");
         DrawLegendItem(startClr, "Start Room");
         DrawLegendItem(bossClr, "Boss Room");
+
+        EditorGUILayout.EndVertical();
+
+
+        EditorGUILayout.Space(3);
+
+
+        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+        EditorGUILayout.LabelField("Gate Type", EditorStyles.boldLabel);
+
+        DrawLegendItem(gateClr, "Gate");
 
         EditorGUILayout.EndVertical();
     }
@@ -121,7 +133,21 @@ public class StageGeneratePreviewEditor : Editor
                 cellSize
             );
         }
+
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            DrawRoomGates(
+                rooms[i],
+                minX,
+                maxY,
+                startX,
+                startY,
+                cellSize
+            );
+        }
     }
+
+
 
     private void DrawRoomBlock(StageManager.RoomGrid roomData, int minX, int maxY, float startX, float startY, float cellSize)
     {
@@ -266,5 +292,90 @@ public class StageGeneratePreviewEditor : Editor
         return style;
     }
 
+
+    private void DrawRoomGates(
+        StageManager.RoomGrid roomData,
+        int minX,
+        int maxY,
+        float startX,
+        float startY,
+        float cellSize)
+    {
+        if (roomData == null || roomData.gates == null)
+            return;
+
+        for (int i = 0; i < roomData.gates.Count; i++)
+        {
+            StageManager.GateGrid gate = roomData.gates[i];
+
+            if (gate == null)
+                continue;
+
+            Rect cellRect = GetCellRect(
+                gate.pos,
+                minX,
+                maxY,
+                startX,
+                startY,
+                cellSize
+            );
+
+            DrawGateInsideCell(cellRect, gate.dir, cellSize);
+        }
+    }
+
+    private void DrawGateInsideCell(Rect cellRect, Vector2Int dir, float cellSize)
+    {
+        float gateLength = cellSize * 0.4f;
+        float gateThickness = Mathf.Max(3f, cellSize * 0.12f);
+
+        // 방 외곽선과 겹치지 않게 안쪽으로 조금 넣기
+        float inset = Mathf.Max(3f, cellSize * 0.04f);
+
+        Rect gateRect;
+        if (dir == Vector2Int.up)
+        {
+            gateRect = new Rect(
+                cellRect.center.x - gateLength * 0.5f,
+                cellRect.y + inset,
+                gateLength,
+                gateThickness
+            );
+        }
+        else if (dir == Vector2Int.down)
+        {
+            gateRect = new Rect(
+                cellRect.center.x - gateLength * 0.5f,
+                cellRect.yMax - inset - gateThickness,
+                gateLength,
+                gateThickness
+            );
+        }
+        else if (dir == Vector2Int.left)
+        {
+            gateRect = new Rect(
+                cellRect.x + inset,
+                cellRect.center.y - gateLength * 0.5f,
+                gateThickness,
+                gateLength
+            );
+        }
+        else if (dir == Vector2Int.right)
+        {
+            gateRect = new Rect(
+                cellRect.xMax - inset - gateThickness,
+                cellRect.center.y - gateLength * 0.5f,
+                gateThickness,
+                gateLength
+            );
+        }
+        else
+        {
+            return;
+        }
+
+        EditorGUI.DrawRect(gateRect, gateClr);
+        DrawRectOutline(gateRect, Color.black, 1f);
+    }
 }
 #endif

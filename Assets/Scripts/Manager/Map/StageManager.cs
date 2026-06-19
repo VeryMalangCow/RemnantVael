@@ -131,7 +131,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        GenerateGridRoomData();
+        GenerateGridData();
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"StageManager: <color=orange>Room+Gate Grid Set</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -177,58 +177,21 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public List<RoomGrid> RoomGenStateData => roomGenStateData;
 
-    [ContextMenu("GenerateGridRoomData x 1000")]
-    private void GenerateGridRoomDataTest1000()
-    {
-        InitRoomData();
-        if (!SetStageRule(targetStageRule, targetStageId))
-            return;
-
-        int successCount = 0;
-        int failCount = 0;
-
-        for (int i = 0; i < 1000; i++)
-        {
-            UnityEngine.Random.InitState(i);
-
-            bool success = GenerateRoomGrid();
-
-            if (success)
-                successCount++;
-            else
-                failCount++;
-        }
-
-        UnityEngine.Debug.Log($"GenerateGridRoomData x 1000 Result / Success: <color=red>{successCount}</color>, Fail: <color=red>{failCount}</color>");
-    }
-
     [ContextMenu("GenerateGridRoomData")]
     private void GenerateGridRoomDataTest() // Test
     {
         Stopwatch sw = Stopwatch.StartNew();
         InitRoomData();
-        if (!SetStageRule(targetStageRule, targetStageId))
-            return;
-
         sw.Stop();
-        UnityEngine.Debug.Log($"Init + Setting : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        sw.Restart();
-        if (GenerateRoomGrid())
-            GenerateGateGrid();
-        else
-        {
-            sw.Stop();
-            UnityEngine.Debug.Log("Room Grid Generate FAIL");
-        }
+        UnityEngine.Debug.Log($"Init : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
-        sw.Stop();
-        UnityEngine.Debug.Log($"Grid : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        GenerateGridData();
     }
 
 #endif
 
     // 맵의 그리드 생성
-    private void GenerateGridRoomData()
+    private void GenerateGridData()
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
@@ -238,11 +201,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
 #if UNITY_EDITOR
         sw.Stop();
-#endif
         UnityEngine.Debug.Log($"Bring Stage Rule : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#if UNITY_EDITOR
         sw.Restart();
 #endif
+        roomGenStateData.Clear();
         if (GenerateRoomGrid())
             GenerateGateGrid();
 #if UNITY_EDITOR
