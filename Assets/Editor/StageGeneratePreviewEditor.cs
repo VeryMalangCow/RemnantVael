@@ -72,7 +72,7 @@ public class StageGeneratePreviewEditor : Editor
 
 
 
-    private void DrawRoomPreview(IReadOnlyList<StageManager.RoomStateData> rooms)
+    private void DrawRoomPreview(IReadOnlyList<StageManager.RoomGrid> rooms)
     {
         Rect previewRect = EditorGUILayout.GetControlRect(
             false,
@@ -123,7 +123,7 @@ public class StageGeneratePreviewEditor : Editor
         }
     }
 
-    private void DrawRoomBlock(StageManager.RoomStateData roomData, int minX, int maxY, float startX, float startY, float cellSize)
+    private void DrawRoomBlock(StageManager.RoomGrid roomData, int minX, int maxY, float startX, float startY, float cellSize)
     {
         if (roomData == null || roomData.roomPos == null)
             return;
@@ -131,7 +131,7 @@ public class StageGeneratePreviewEditor : Editor
         HashSet<Vector2Int> localSet = new HashSet<Vector2Int>(roomData.roomPos);
 
         Color fillColor = roomData.instanceId == 0
-            ? Color.white
+            ? startClr
             : normalClr;
 
         // 1. 방 내부 칸 채우기
@@ -221,7 +221,7 @@ public class StageGeneratePreviewEditor : Editor
         }
     }
 
-    private void GetBounds(IReadOnlyList<StageManager.RoomStateData> rooms, out int minX, out int maxX, out int minY, out int maxY)
+    private void GetBounds(IReadOnlyList<StageManager.RoomGrid> rooms, out int minX, out int maxX, out int minY, out int maxY)
     {
         minX = int.MaxValue;
         maxX = int.MinValue;
@@ -250,8 +250,6 @@ public class StageGeneratePreviewEditor : Editor
         }
     }
 
-
-
     private void DrawRectOutline(Rect rect, Color color, float thickness)
     {
         EditorGUI.DrawRect(new Rect(rect.x, rect.y, rect.width, thickness), color);
@@ -267,5 +265,6 @@ public class StageGeneratePreviewEditor : Editor
         style.normal.textColor = Color.gray;
         return style;
     }
+
 }
 #endif

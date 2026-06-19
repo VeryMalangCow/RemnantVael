@@ -4,9 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class StageManager : Singleton<StageManager>, IMainGameInitializer
 {
@@ -14,6 +12,612 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     [SerializeField] private int initOrder;
     public string InitPregressText { get { return initPregressText; } }
     [SerializeField] private string initPregressText;
+
+
+    // 방 생성 시 규칙
+    public class StageRule
+    {
+        public int minRoomAmount;
+        public int maxRoomAmount;
+        public RoomPercent[] percents;
+    }
+
+    public class RoomPercent
+    {
+        public int typeIndex;
+        public float percent;
+
+        public RoomPercent(int typeIndex, float percent)
+        {
+            this.typeIndex = typeIndex;
+            this.percent = percent;
+        }
+    }
+
+
+    // 실제 그리드 구조
+    public class RoomGrid
+    {
+        public int instanceId;
+        public Vector2Int[] roomPos;
+
+        public List<GateGrid> gates;
+
+        public RoomGrid(int instanceId, int roomPosLenght)
+        {
+            this.instanceId = instanceId;
+            this.roomPos = new Vector2Int[roomPosLenght];
+            gates = new List<GateGrid>();
+        }
+    }
+
+    public class GateGrid
+    {
+        public Vector2Int pos;
+        public Vector2Int dir;
+        public RoomGrid connectedRoom;
+
+        public GateGrid(Vector2Int pos, Vector2Int dir, RoomGrid connectedRoom)
+        {
+            this.pos = pos;
+            this.dir = dir;
+            this.connectedRoom = connectedRoom;
+        }
+    }
+
+
+    [Space(10)]
+    [Header("=== Rule")]
+    [SerializeField] private TextAsset stageRuleCSV;
+    [SerializeField] private int targetStageId = 0;
+    public StageRule targetStageRule = new StageRule();
+
+    // 실제 방 데이터들
+    private readonly List<RoomGrid> roomGenStateData = new List<RoomGrid>();
+
+    private static int roomTypeAmount = 8;
+    private static Vector2Int[][] ownGridStaticData;
+    private static Vector2Int[][] roundOwnGridStaticData;
+
+
+    //[Space(10)]
+    //[Header("=== Room Grid")]
+
+    // 생성 과정 좌표 데이터
+    // 실제 배치 + 테두리 (Hashset을 사용해 중복을 "절대" 방지)
+    private HashSet<Vector2Int> existPositions;
+    private HashSet<Vector2Int> roundPositions;
+
+    // 실제 좌표와 해당 좌표가 포함되어있는 방
+    private Dictionary<Vector2Int, RoomGrid> existPosDict;
+
+    // 캐시 최적화 (New 방지 = GC Alloc 최소화) => Capacity : 현재 방의 크기 최대치와 Round 최대치를 생각한 값
+    // For Init
+    private readonly HashSet<Vector2Int> roundPosSetCache = new HashSet<Vector2Int>(8);
+    private readonly List<Vector2Int> roundPosListCache = new List<Vector2Int>(8);
+    // For Round Cadidate
+    private readonly List<Vector2Int> roundCandidateCache = new List<Vector2Int>();
+    // For Add
+    private readonly Vector2Int[] tempAddExistPositions = new Vector2Int[4];
+    private readonly Vector2Int[] tempAddRoundPositions = new Vector2Int[8];
+
+
+    private static readonly Vector2Int[] FourDirs =
+    {
+        Vector2Int.left,
+        Vector2Int.up,
+        Vector2Int.right,
+        Vector2Int.down
+    };
+
+
+    // Init
+    public IEnumerator Initialize()
+    {
+#if UNITY_EDITOR
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+#endif
+        InitRoomData();
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: <color=orange>RoomData Init</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        GenerateGridRoomData();
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: <color=orange>Room+Gate Grid Set</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        // Offset
+        lobbyStageData.Offset(ResourceManager.instance.Get_LobbyMapReso());
+
+        for (int i = 0; i < allStageData.Count; i++)
+        {
+            allStageData[i].Offset(ResourceManager.instance.Get_StageMapReso(i));
+        }
+        // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
+        passageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.instance.Get_PassageMapReso());
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        Gen_Stage(targetStageID);
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+    }
+
+
+#if UNITY_EDITOR
+
+    public List<RoomGrid> RoomGenStateData => roomGenStateData;
+
+    [ContextMenu("GenerateGridRoomData x 1000")]
+    private void GenerateGridRoomDataTest1000()
+    {
+        InitRoomData();
+        if (!SetStageRule(targetStageRule, targetStageId))
+            return;
+
+        int successCount = 0;
+        int failCount = 0;
+
+        for (int i = 0; i < 1000; i++)
+        {
+            UnityEngine.Random.InitState(i);
+
+            bool success = GenerateRoomGrid();
+
+            if (success)
+                successCount++;
+            else
+                failCount++;
+        }
+
+        UnityEngine.Debug.Log($"GenerateGridRoomData x 1000 Result / Success: <color=red>{successCount}</color>, Fail: <color=red>{failCount}</color>");
+    }
+
+    [ContextMenu("GenerateGridRoomData")]
+    private void GenerateGridRoomDataTest() // Test
+    {
+        Stopwatch sw = Stopwatch.StartNew();
+        InitRoomData();
+        if (!SetStageRule(targetStageRule, targetStageId))
+            return;
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Init + Setting : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        sw.Restart();
+        if (GenerateRoomGrid())
+            GenerateGateGrid();
+        else
+        {
+            sw.Stop();
+            UnityEngine.Debug.Log("Room Grid Generate FAIL");
+        }
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Grid : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+    }
+
+#endif
+
+    // 맵의 그리드 생성
+    private void GenerateGridRoomData()
+    {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        if (!SetStageRule(targetStageRule, targetStageId))
+            return;
+
+#if UNITY_EDITOR
+        sw.Stop();
+#endif
+        UnityEngine.Debug.Log($"Bring Stage Rule : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        if (GenerateRoomGrid())
+            GenerateGateGrid();
+#if UNITY_EDITOR
+        else
+        {
+            sw.Stop();
+            UnityEngine.Debug.Log("<color=red>Room Grid Generate FAIL</color>");
+        }
+
+        sw.Stop();
+        UnityEngine.Debug.Log($"Grid : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+    }
+
+
+
+    // Init
+    private void InitRoomData()
+    {
+        ownGridStaticData = new Vector2Int[8][]
+        {
+            new Vector2Int[1] { new Vector2Int(0, 0) },
+            new Vector2Int[2] { new Vector2Int(0, 0), new Vector2Int(1, 0) },
+            new Vector2Int[2] { new Vector2Int(0, 0), new Vector2Int(0, 1) },
+            new Vector2Int[4] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1), new Vector2Int(1, 1) },
+            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, -1) },
+            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1) },
+            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(0, 1), new Vector2Int(1, 1) },
+            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, 1) }
+        };
+
+        roundOwnGridStaticData = new Vector2Int[8][];
+        for (int i = 0; i < roundOwnGridStaticData.Length; i++)
+            roundOwnGridStaticData[i] = GetInitRoundPositions(ownGridStaticData[i]);
+
+        roundPosSetCache.Clear();
+        roundPosListCache.Clear();
+    }
+
+    // CSV to Stage Rule (By ID)
+    private bool SetStageRule(StageRule rule, int stageId)
+    {
+        if (stageRuleCSV == null)
+        {
+            UnityEngine.Debug.LogError("stageRuleCSV가 없습니다.");
+            return false;
+        }
+
+        string[] lines = stageRuleCSV.text.Split("\n");
+        int lineIndex = stageId + 1;
+        if (lineIndex < 0 || lineIndex >= lines.Length)
+        {
+            UnityEngine.Debug.LogError($"StageRule CSV 범위 초과. stageId: {stageId}");
+            return false;
+        }
+
+        string[] cols = lines[lineIndex].Trim().Split(",");
+        if (cols.Length < 3 + roomTypeAmount)
+        {
+            UnityEngine.Debug.LogError($"StageRule CSV 컬럼 부족. stageId: {stageId}");
+            return false;
+        }
+
+        rule.minRoomAmount = int.TryParse(cols[1], out int min) ? min : 1;
+        rule.maxRoomAmount = int.TryParse(cols[2], out int max) ? max : 10;
+        if (rule.maxRoomAmount < rule.minRoomAmount) rule.maxRoomAmount = rule.minRoomAmount;
+
+        rule.percents = new RoomPercent[roomTypeAmount];
+        for (int i = 0; i < roomTypeAmount; i++)
+            rule.percents[i] = new RoomPercent(i, float.TryParse(cols[i + 3], out float typePercent) ? typePercent : 0);
+
+        return true;
+    }
+
+
+
+
+    // Generate <Room Grid>
+    private bool GenerateRoomGrid()
+    {
+        // Data Set
+        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
+        int currentRoomAmount = 1;
+
+        existPositions = new HashSet<Vector2Int>();
+        roundPositions = new HashSet<Vector2Int>();
+
+        existPosDict = new Dictionary<Vector2Int, RoomGrid>();
+
+        int failCount = 0, failMaxLimit = 30;
+
+        // 처음방 생성
+        TryAddExistPositions(0, Vector2Int.zero, 0);
+
+        while (currentRoomAmount < targetRoomAmount)
+        {
+            bool success = false;
+
+            int type = GetRandomRoomType(targetStageRule.percents);
+            if (type < 0)
+            {
+                UnityEngine.Debug.LogWarning("유효한 방 타입(모양)을 선택하지 못했습니다.");
+                return false;
+            }
+
+            if (TryAddRoomAtRandomRoundPositions(type, currentRoomAmount))
+            {
+                success = true;
+            }
+
+            if (!success)
+            {
+                failCount++;
+                if (failMaxLimit <= failCount)
+                {
+                    UnityEngine.Debug.LogWarning("방을 생성하지 못했습니다.");
+                    return false;
+                }
+
+                continue;
+            }
+
+            failCount = 0;
+            currentRoomAmount++;
+        }
+
+        roundCandidateCache.Clear();
+
+        return true;
+    }
+
+    // round 후보들을 선정해서, 랜덤한 순서로 배치 시도
+    private bool TryAddRoomAtRandomRoundPositions(int type, int instanceId)
+    {
+        roundCandidateCache.Clear();
+
+        if (roundCandidateCache.Capacity < roundPositions.Count)
+            roundCandidateCache.Capacity = roundPositions.Count;
+
+        foreach (Vector2Int pos in roundPositions)
+        {
+            roundCandidateCache.Add(pos);
+        }
+
+        while (roundCandidateCache.Count > 0)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, roundCandidateCache.Count);
+
+            Vector2Int selectedPos = roundCandidateCache[randomIndex];
+
+            int lastIndex = roundCandidateCache.Count - 1;
+            roundCandidateCache[randomIndex] = roundCandidateCache[lastIndex];
+            roundCandidateCache.RemoveAt(lastIndex);
+
+            if (TryAddExistPositions(type, selectedPos, instanceId))
+                return true;
+        }
+
+        return false;
+    }
+
+    // Add Exist Positions
+    private bool TryAddExistPositions(int type, Vector2Int pos, int instanceId)
+    {
+        int i;
+        // 실제 좌표
+        GetRelativeExistPos(type, pos, out int existLength);
+        GetRelativeRoundPos(type, pos, out int roundLength);
+
+        // 실제 방을 추가할 수 있는가?
+        for (i = 0; i < existLength; i++)
+            if (existPositions.Contains(tempAddExistPositions[i]))
+                return false;
+
+        // 인접한 방이 1개인가?
+        int currentAdjacency = 0, maxAdjacencyLimit = 1;
+        for (i = 0; i < roundLength; i++)
+        {
+            if (existPositions.Contains(tempAddRoundPositions[i]))
+                currentAdjacency++;
+
+            if (currentAdjacency > maxAdjacencyLimit)
+                return false;
+        }
+
+        // 실제 방 추가
+        RoomGrid room = new RoomGrid(instanceId, existLength);
+
+        roomGenStateData.Add(room);
+        for (i = 0; i < existLength; i++)
+        {
+            room.roomPos[i] = tempAddExistPositions[i];
+            existPositions.Add(tempAddExistPositions[i]);
+            existPosDict.Add(tempAddExistPositions[i], room);
+        }
+
+        // 라운드 위치 추가 (방이 존재한 위치는 제외)
+        for (i = 0; i < roundLength; i++)
+            if (!existPositions.Contains(tempAddRoundPositions[i]))
+                roundPositions.Add(tempAddRoundPositions[i]);
+
+        // 현재 실제 방 추가 위치는 다시 삭제하기
+        for (i = 0; i < existLength; i++)
+            roundPositions.Remove(tempAddExistPositions[i]);
+
+        return true;
+    }
+
+
+
+
+    // Generate <Gate Grid>
+    private void GenerateGateGrid()
+    {
+        for (int i = 0; i < roomGenStateData.Count; i++)
+        {
+            RoomGrid room = roomGenStateData[i];
+            room.gates.Clear();
+            SetRoomGateGrid(room);
+        }
+    }
+
+    // 하나의 Room에서 연결 구조 계산
+    private void SetRoomGateGrid(RoomGrid room)
+    {
+        Vector2Int pos, checkPos, dir;
+        for (int i = 0; i < room.roomPos.Length; i++)
+        {
+
+            pos = room.roomPos[i];
+
+            for (int j = 0; j < FourDirs.Length; j++)
+            {
+                dir = FourDirs[j];
+                checkPos = pos + dir;
+
+                if (!existPosDict.TryGetValue(checkPos, out RoomGrid connectRoom))
+                    continue;
+
+                // 같은 방이면 제외
+                if (connectRoom == room)
+                    continue;
+
+                room.gates.Add(new GateGrid(pos, dir, connectRoom));
+
+            }
+        }
+    }
+
+
+
+
+
+    // Find Room Type -> Random
+    private int GetRandomRoomType(RoomPercent[] roomPercents)
+    {
+        if (roomPercents == null || roomPercents.Length == 0)
+            return -1;
+
+        int i;
+
+        float totalWeight = 0f;
+        int lastValidType = -1; // 마지막 타입 체크
+
+        for (i = 0; i < roomPercents.Length; i++)
+        {
+            if (roomPercents[i].percent <= 0f)
+                continue;
+
+            if (roomPercents[i].typeIndex < 0 || roomPercents[i].typeIndex >= roomTypeAmount)
+                continue;
+
+            totalWeight += roomPercents[i].percent;
+            lastValidType = roomPercents[i].typeIndex;
+        }
+
+        if (totalWeight <= 0f)
+            return -1;
+
+        float randomValue = UnityEngine.Random.Range(0f, totalWeight);
+        float currentWeight = 0f;
+
+        int _typeIndex;
+        for (i = 0; i < roomPercents.Length; i++)
+        {
+            float weight = roomPercents[i].percent;
+
+            if (weight <= 0f)
+                continue;
+
+            _typeIndex = roomPercents[i].typeIndex;
+            if (_typeIndex < 0 || _typeIndex >= roomTypeAmount)
+                continue;
+
+            currentWeight += weight;
+
+            if (randomValue < currentWeight)
+                return _typeIndex;
+        }
+
+        return lastValidType;
+    }
+
+
+    // round Pos Set
+    private void GetRoundPositions(Vector2Int[] ownGrid)
+    {
+        roundPosSetCache.Clear();
+        roundPosListCache.Clear();
+        for (int i = 0; i < ownGrid.Length; i++)
+        {
+            roundPosSetCache.Add(ownGrid[i] + Vector2Int.left);
+            roundPosSetCache.Add(ownGrid[i] + Vector2Int.up);
+            roundPosSetCache.Add(ownGrid[i] + Vector2Int.right);
+            roundPosSetCache.Add(ownGrid[i] + Vector2Int.down);
+        }
+        for (int i = 0; i < ownGrid.Length; i++)
+        {
+            roundPosSetCache.Remove(ownGrid[i]);
+        }
+
+        if (roundPosListCache.Capacity < roundPosSetCache.Count)
+            roundPosListCache.Capacity = roundPosSetCache.Count;
+
+        roundPosListCache.AddRange(roundPosSetCache);
+    }
+    // + Init
+    private Vector2Int[] GetInitRoundPositions(Vector2Int[] ownGrid)
+    {
+        GetRoundPositions(ownGrid);
+        return roundPosListCache.ToArray();
+    }
+
+
+
+    // Relative Pos
+    private void GetRelativeExistPos(int type, Vector2Int pos, out int length)
+    {
+        Vector2Int[] originPos = ownGridStaticData[type];
+        length = originPos.Length;
+        for (int i = 0; i < length; i++)
+            tempAddExistPositions[i] = originPos[i] + pos;
+    }
+    private void GetRelativeRoundPos(int type, Vector2Int pos, out int length)
+    {
+        Vector2Int[] originPos = roundOwnGridStaticData[type];
+        length = originPos.Length;
+        for (int i = 0; i < length; i++)
+            tempAddRoundPositions[i] = originPos[i] + pos;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     [Header("=== Nav")]
     [SerializeField] private NavMeshSurface thisNav;
@@ -61,464 +665,20 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     [HideInInspector] private AllPassageMiddleSpriteData passageMiddleSpriteData;
 
-    // Init
-    public IEnumerator Initialize()
-    {
-#if UNITY_EDITOR
-        Stopwatch sw = new Stopwatch();
-        sw.Start();
-#endif
-        // Offset
-        lobbyStageData.Offset(ResourceManager.instance.Get_LobbyMapReso());
-
-        for (int i = 0; i < allStageData.Count; i++)
-        {
-            allStageData[i].Offset(ResourceManager.instance.Get_StageMapReso(i));
-        }
-        // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
-        passageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.instance.Get_PassageMapReso());
-
-#if UNITY_EDITOR
-    sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
-        yield return null;
-
-
-#if UNITY_EDITOR
-        sw.Restart();
-#endif
-        Gen_Stage(targetStageID);
-
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
-    }
-
-
-    // 방 생성 시 규칙
-    [Serializable]
-    public class StageRule
-    {
-        public int minRoomAmount;
-        public int maxRoomAmount;
-        public RoomPercent[] percents;
-    }
-
-    [Serializable]
-    public class RoomPercent
-    {
-        public int typeIndex;
-        public float percent;
-
-        public RoomPercent(int typeIndex, float percent)
-        {
-            this.typeIndex = typeIndex;
-            this.percent = percent;
-        }
-    }
-
     
-    // 실제 그리드 구조
-    [Serializable]
-    public class RoomStateData
-    {
-        public int instanceId;
-        public Vector2Int[] roomPos;
 
-        public List<GateStateData> gates;
 
-        public RoomStateData(int instanceId, Vector2Int[] roomPos)
-        {
-            this.instanceId = instanceId;
-            this.roomPos = roomPos;
-        }
-    }
 
-    [Serializable]
-    public class GateStateData
-    {
-        public Vector2Int[] pos;
-        public Vector2Int[] dir;
-        public RoomStateData connectedRoom;
 
-        public GateStateData(Vector2Int[] pos, Vector2Int[] dir, RoomStateData connectedRoom)
-        {
-            this.pos = pos;
-            this.dir = dir;
-            this.connectedRoom = connectedRoom;
-        }
-    }
 
 
 
-    [Space(100)]
-    [SerializeField] private TextAsset stageRuleCSV;
+ 
 
-    private static int roomTypeAmount = 8;
-    private static Vector2Int[][] ownGridStaticData;
-    private static Vector2Int[][] roundOwnGridStaticData;
 
-    [Space(10)]
-    [SerializeField] public StageRule targetStageRule = new StageRule();
-    [SerializeField] private int targetStageId = 0;
 
-    // 실제 차지한 방
-    private HashSet<Vector2Int> existPositions;
-    private HashSet<Vector2Int> roundPositions;
-    private HashSet<Vector2Int> selectedPositions;
 
 
-    private Dictionary<Vector2Int, RoomStateData> existPosDict;
-
-    private List<RoomStateData> roomGenStateData;
-
-    #region EDITOR
-#if UNITY_EDITOR
-    public List<RoomStateData> RoomGenStateData => roomGenStateData;
-
-
-    [ContextMenu("GenerateGridRoomData x 1000")]
-    private void GenerateGridRoomData1000()
-    {
-        Init();
-        SetStageRule(targetStageRule, targetStageId);
-        for (int i = 0; i < 1000; i++)
-            GenerateRoomGrid();
-    }
-
-#endif
-    #endregion
-
-    [ContextMenu("GenerateGridRoomData")]
-    private void GenerateGridRoomData()
-    {
-#if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew();
-#endif
-        Init();
-        SetStageRule(targetStageRule, targetStageId);
-#if UNITY_EDITOR
-        sw.Stop();
-#endif
-        UnityEngine.Debug.Log($"Init + Setting : {sw.Elapsed.TotalMilliseconds:F2} ms");
-#if UNITY_EDITOR
-        sw.Restart();
-#endif
-        GenerateRoomGrid();
-        GenerateGateGrid();
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"Grid : {sw.Elapsed.TotalMilliseconds:F2} ms");
-#endif
-    }
-
-    #region Init
-
-    // Pos Data Offset
-    private void Init()
-    {
-        ownGridStaticData = new Vector2Int[8][]
-        {
-            new Vector2Int[1] { new Vector2Int(0, 0) },
-            new Vector2Int[2] { new Vector2Int(0, 0), new Vector2Int(1, 0) },
-            new Vector2Int[2] { new Vector2Int(0, 0), new Vector2Int(0, 1) },
-            new Vector2Int[4] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1), new Vector2Int(1, 1) },
-            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, -1) },
-            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1) },
-            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(0, 1), new Vector2Int(1, 1) },
-            new Vector2Int[3] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, 1) }
-        };
-
-        roundOwnGridStaticData = new Vector2Int[8][]
-        {
-            GetInitRoundGridStaticData(ownGridStaticData[0]),
-            GetInitRoundGridStaticData(ownGridStaticData[1]),
-            GetInitRoundGridStaticData(ownGridStaticData[2]),
-            GetInitRoundGridStaticData(ownGridStaticData[3]),
-            GetInitRoundGridStaticData(ownGridStaticData[4]),
-            GetInitRoundGridStaticData(ownGridStaticData[5]),
-            GetInitRoundGridStaticData(ownGridStaticData[6]),
-            GetInitRoundGridStaticData(ownGridStaticData[7])
-        };
-    }
-
-    private Vector2Int[] GetInitRoundGridStaticData(Vector2Int[] ownGrid)
-    {
-        HashSet<Vector2Int> addablePos = new HashSet<Vector2Int>();
-        for (int i = 0; i < ownGrid.Length; i++)
-        {
-            addablePos.Add(ownGrid[i] + Vector2Int.left);
-            addablePos.Add(ownGrid[i] + Vector2Int.up);
-            addablePos.Add(ownGrid[i] + Vector2Int.right);
-            addablePos.Add(ownGrid[i] + Vector2Int.down);
-        }
-        for (int i = 0; i < ownGrid.Length; i++)
-        {
-            addablePos.Remove(ownGrid[i]);
-        }
-
-        Vector2Int[] result = new Vector2Int[addablePos.Count];
-        addablePos.CopyTo(result);
-        return result;
-    }
-
-    #endregion
-
-    #region Rule
-
-    // CSV to Stage Rule
-    private void SetStageRule(StageRule rule, int stageId)
-    {
-        string alltxt = stageRuleCSV.text;
-
-        string[] stageRuleTxts = alltxt.Split("\n");
-        string[] stageRuleTxt = stageRuleTxts[stageId + 1].Split(",");
-
-        rule.minRoomAmount = int.TryParse(stageRuleTxt[1], out int min) ? min : 1;
-        rule.maxRoomAmount = int.TryParse(stageRuleTxt[2], out int max) ? max : 10;
-
-        rule.percents = new RoomPercent[roomTypeAmount];
-        for (int i = 0; i < roomTypeAmount; i++)
-            rule.percents[i] = new RoomPercent(i, float.TryParse(stageRuleTxt[i + 3], out float typePercent) ? typePercent : 0);
-    }
-
-    #endregion
-
-    #region Grid Map
-
-    // Generate Grid Map
-    private bool GenerateRoomGrid()
-    {
-        // Data Set
-        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
-        int currentRoomAmount = 1;
-
-        existPositions = new HashSet<Vector2Int>();
-        roundPositions = new HashSet<Vector2Int>();
-        selectedPositions = new HashSet<Vector2Int>();
-
-        existPosDict = new Dictionary<Vector2Int, RoomStateData>();
-
-        roomGenStateData = new List<RoomStateData>();
-
-        int failCount = 0, failMaxLimit = 30;
-        bool isCompleted = true;
-
-        // 처음방 생성
-        TryAddExistPos(0, Vector2Int.zero, 0);
-
-        while (currentRoomAmount < targetRoomAmount)
-        {
-            selectedPositions.Clear(); 
-            bool success = false;
-
-            int type = GetRandomRoomType(targetStageRule.percents);
-            if (type < 0)
-            {
-                UnityEngine.Debug.LogWarning("유효한 방 타입(모양)을 선택하지 못했습니다.");
-                isCompleted = false;
-                break;
-            }
-
-            List<Vector2Int> shuffledRounds = GetShuffledList(roundPositions);
-            for (int i = 0; i < shuffledRounds.Count; i++)
-            {
-
-                if (TryAddExistPos(type, shuffledRounds[i], currentRoomAmount))
-                {
-                    success = true;
-                    break;
-                }
-            }
-
-            if (!success)
-            {
-                failCount++;
-                if (failMaxLimit <= failCount)
-                {
-                    UnityEngine.Debug.LogWarning("방을 생성하지 못했습니다.");
-                    isCompleted = false;
-                    break;
-                }
-
-                continue;
-            }
-
-            failCount = 0;
-            currentRoomAmount++;
-        }
-
-        return isCompleted;
-    }
-
-    // 확률에 따른 랜덤 타입 찾기
-    private int GetRandomRoomType(RoomPercent[] roomPercents)
-    {
-        if (roomPercents == null || roomPercents.Length == 0)
-            return -1;
-
-        float totalWeight = 0f;
-
-        for (int i = 0; i < roomPercents.Length; i++)
-        {
-            if (roomPercents[i].percent > 0f)
-                totalWeight += roomPercents[i].percent;
-        }
-
-        if (totalWeight <= 0f)
-            return -1;
-
-        float randomValue = UnityEngine.Random.Range(0f, totalWeight);
-        float currentWeight = 0f;
-
-        for (int i = 0; i < roomPercents.Length; i++)
-        {
-            float weight = roomPercents[i].percent;
-
-            if (weight <= 0f)
-                continue;
-
-            currentWeight += weight;
-
-            if (randomValue < currentWeight)
-                return roomPercents[i].typeIndex;
-        }
-
-        return roomPercents[roomPercents.Length - 1].typeIndex;
-    }
-
-
-    // 추가 시도
-    private bool TryAddExistPos(int type, Vector2Int pos, int instanceId)
-    {
-        int i;
-        // 실제 좌표
-        Vector2Int[] addExistPos = GetRelativeExistPos(type, pos);
-        Vector2Int[] addRoundPos = GetRelativeRoundPos(type, pos);
-
-        // 실제 방을 추가할 수 있는가?
-        for (i = 0; i < addExistPos.Length; i++)
-            if (existPositions.Contains(addExistPos[i]))
-                return false;
-        
-        // 인접한 방이 1개인가?
-        int currentAdjacency = 0, maxAdjacencyLimit = 1;
-        for (i = 0; i < addRoundPos.Length; i++)
-        {
-            if (existPositions.Contains(addRoundPos[i]))
-                currentAdjacency++;
-            
-            if (currentAdjacency > maxAdjacencyLimit)
-                return false;
-        }
-
-        // 실제 방 추가
-        var room = new RoomStateData(instanceId, addExistPos);
-        roomGenStateData.Add(room);
-        for (i = 0; i < addExistPos.Length; i++)
-        {
-            existPositions.Add(addExistPos[i]);
-            existPosDict.Add(addExistPos[i], room);
-        }
-
-        // 라운드 위치 추가 (방이 존재한 위치는 제외)
-        for (i = 0; i < addRoundPos.Length; i++) 
-            if (!existPositions.Contains(addRoundPos[i]))
-                roundPositions.Add(addRoundPos[i]);
-
-        // 현재 실제 방 추가 위치는 다시 삭제하기
-        for (i = 0; i < addExistPos.Length; i++)
-            roundPositions.Remove(addExistPos[i]);
-
-        return true;
-    }
-
-
-    // Hashset을 List 셔플 반환
-    private List<T> GetShuffledList<T>(HashSet<T> source)
-    {
-        if (source == null || source.Count == 0)
-            return new List<T>();
-
-        List<T> result = new List<T>(source.Count);
-
-        foreach (T item in source)
-        {
-            result.Add(item);
-        }
-
-        Shuffle(result);
-
-        return result;
-    }
-
-    private void Shuffle<T>(List<T> list)
-    {
-        if (list == null || list.Count <= 1)
-            return;
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            int randomIndex = UnityEngine.Random.Range(i, list.Count);
-
-            T temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
-        }
-    }
-
-
-    // 실제 값을 적용한 위치값
-    private Vector2Int[] GetRelativeExistPos(int type, Vector2Int pos)
-        => GetRelativePos(ownGridStaticData[type], pos);
-
-    private Vector2Int[] GetRelativeRoundPos(int type, Vector2Int pos)
-        => GetRelativePos(roundOwnGridStaticData[type], pos);
-
-    private Vector2Int[] GetRelativePos(Vector2Int[] originPos, Vector2Int addPos)
-    {
-        Vector2Int[] applyPos = new Vector2Int[originPos.Length];
-        for (int i = 0; i < originPos.Length; i++)
-            applyPos[i] = originPos[i] + addPos;
-
-        return applyPos;
-    }
-
-    #endregion
-
-    #region Grid Gate
-
-    private void GenerateGateGrid()
-    {
-
-    }
-
-    // 방 구조에 따라 Gate Data 초기화하기
-    private void SetGateData()
-    {
-        for (int i = 0; i < roomGenStateData.Count; i++)
-        {
-            RoomStateData room = roomGenStateData[i];
-
-            for (int j = 0; j < room.roomPos.Length; j++)
-            {
-                if (existPositions.Contains(room.roomPos[j]))
-                {
-
-                }
-            }
-        }
-    }
-    
-    // 하나의 룸 테두리에 연결된 Gate데이터
-    private void Set()
-    {
-
-    }
-
-    #endregion
 
     #region Generate
 
