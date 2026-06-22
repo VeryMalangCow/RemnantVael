@@ -6234,6 +6234,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
+  stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
+  saveDataManager: {fileID: 657936137}
+  targetStageId: 0
   thisNav: {fileID: 535791893}
   mapParentTF: {fileID: 1948256983}
   targetStageID: 99
@@ -6414,28 +6417,6 @@ MonoBehaviour:
   currentAllEntranceRoomController: []
   currentRoomController: {fileID: 0}
   isStartStage: 1
-  stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
-  targetStageRule:
-    minRoomAmount: 10
-    maxRoomAmount: 15
-    percents:
-    - typeIndex: 0
-      percent: 77.5
-    - typeIndex: 1
-      percent: 5
-    - typeIndex: 2
-      percent: 5
-    - typeIndex: 3
-      percent: 2.5
-    - typeIndex: 4
-      percent: 2.5
-    - typeIndex: 5
-      percent: 2.5
-    - typeIndex: 6
-      percent: 2.5
-    - typeIndex: 7
-      percent: 2.5
-  targetStageId: 0
 --- !u!1 &724611502
 GameObject:
   m_ObjectHideFlags: 0

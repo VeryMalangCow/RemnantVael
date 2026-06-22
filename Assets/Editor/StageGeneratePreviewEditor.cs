@@ -17,7 +17,6 @@ public class StageGeneratePreviewEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
 
         EditorGUILayout.Space(12);
         EditorGUILayout.LabelField("Room Preview", EditorStyles.boldLabel);
@@ -29,6 +28,8 @@ public class StageGeneratePreviewEditor : Editor
         StageManager preview = (StageManager)target;
 
         DrawRoomPreview(preview.RoomGenStateData);
+
+        DrawDefaultInspector();
     }
 
 
@@ -307,9 +308,6 @@ public class StageGeneratePreviewEditor : Editor
         for (int i = 0; i < roomData.gates.Count; i++)
         {
             StageManager.GateGrid gate = roomData.gates[i];
-
-            if (gate == null)
-                continue;
 
             Rect cellRect = GetCellRect(
                 gate.pos,

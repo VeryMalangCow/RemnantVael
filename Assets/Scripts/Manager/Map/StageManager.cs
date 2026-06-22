@@ -20,9 +20,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         public int minRoomAmount;
         public int maxRoomAmount;
         public RoomPercent[] percents;
+        public int[] bossIndices;
     }
 
-    public class RoomPercent
+    public struct RoomPercent
     {
         public int typeIndex;
         public float percent;
@@ -35,7 +36,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     }
 
 
-    // 실제 그리드 구조
+    // 방 그리드
     public class RoomGrid
     {
         public int instanceId;
@@ -51,13 +52,15 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
     }
 
-    public class GateGrid
+
+    // 게이트 그리드
+    public struct GateGrid
     {
         public Vector2Int pos;
         public Vector2Int dir;
-        public RoomGrid connectedRoom;
+        public int connectedRoom;
 
-        public GateGrid(Vector2Int pos, Vector2Int dir, RoomGrid connectedRoom)
+        public GateGrid(Vector2Int pos, Vector2Int dir, int connectedRoom)
         {
             this.pos = pos;
             this.dir = dir;
@@ -65,10 +68,20 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
     }
 
+    // 예약 방 구조
+    public struct ReserveRoom
+    {
+
+    }
+
+
 
     [Space(10)]
     [Header("=== Rule")]
     [SerializeField] private TextAsset stageRuleCSV;
+#if UNITY_EDITOR
+    [SerializeField] private SaveDataManager saveDataManager;
+#endif
     [SerializeField] private int targetStageId = 0;
     public StageRule targetStageRule = new StageRule();
 
@@ -84,6 +97,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // 실제 배치 + 테두리 (Hashset을 사용해 중복을 "절대" 방지)
     private HashSet<Vector2Int> existPositions;
     private HashSet<Vector2Int> roundPositions;
+    private HashSet<Vector2Int> specialRoundPositions;
 
     // 실제 좌표와 해당 좌표가 포함되어있는 방
     private Dictionary<Vector2Int, RoomGrid> existPosDict;
@@ -94,7 +108,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     private readonly HashSet<Vector2Int> roundPosSetCache = new HashSet<Vector2Int>(8);
     private readonly List<Vector2Int> roundPosListCache = new List<Vector2Int>(8);
     // For Round Cadidate
-    private readonly List<Vector2Int> roundCandidateCache = new List<Vector2Int>();
+    private readonly HashSet<Vector2Int> baseCandidateSetCache = new HashSet<Vector2Int>(32);
+    private readonly List<Vector2Int> baseCandidateListCache = new List<Vector2Int>(32);
     // For Add
     private readonly Vector2Int[] tempAddExistPositions = new Vector2Int[4];
     private readonly Vector2Int[] tempAddRoundPositions = new Vector2Int[8];
@@ -183,40 +198,103 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         sw.Stop();
         UnityEngine.Debug.Log($"Init : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
-        GenerateGridData();
+        TestGenerateGridData();
+    }
+
+    private void TestGenerateGridData()
+    {
+        if (!SetStageRule(targetStageRule, targetStageId))
+            return;
+
+        allRoomGrids.Clear();
+        GenerateRoomGridTest();
+    }
+
+    private void GenerateRoomGridTest()
+    {
+        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
+        int targetNormalRoomAmount = targetRoomAmount;
+        GameProgressJsonData saveData = saveDataManager.jsonData.gameProgressData;
+
+        if (saveData.usableBU || saveData.usableMU)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableABU || saveData.usableAMU)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableVault)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableSTPrison)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableUTPrison)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableNTPrison)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (targetStageRule.bossIndices != null)
+        {
+            for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
+            {
+                if (targetStageRule.bossIndices[i] != -1)
+                {
+                    targetNormalRoomAmount--;
+
+                }
+            }
+        }
+
+        if (GenerateNormalRoomGrid(targetNormalRoomAmount))
+        {
+            if (GenerateSpecialRoomGrid())
+            {
+                GenerateGateGrid();
+            }
+            else
+            {
+                UnityEngine.Debug.Log("<color=red>Room Special Grid Generate FAIL</color>");
+            }
+        }
+        else
+        {
+            UnityEngine.Debug.Log("<color=red>Room Normal Grid Generate FAIL</color>");
+        }
+
     }
 
 #endif
 
     // 맵의 그리드 생성
-    private void GenerateGridData()
+    private IEnumerator GenerateGridData()
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
 #endif
         if (!SetStageRule(targetStageRule, targetStageId))
-            return;
+            yield break;
 
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"Bring Stage Rule : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-        sw.Restart();
 #endif
-        allRoomGrids.Clear();
-        if (GenerateRoomGrid())
-        {
-            GenerateGateGrid();
-        }
-#if UNITY_EDITOR
-        else
-        {
-            sw.Stop();
-            UnityEngine.Debug.Log("<color=red>Room Grid Generate FAIL</color>");
-        }
+        yield return null;
 
-        sw.Stop();
-        UnityEngine.Debug.Log($"Grid : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
+        allRoomGrids.Clear();
+        yield return GenerateRoomGrid(); 
     }
 
 
@@ -276,17 +354,121 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         for (int i = 0; i < roomTypeAmount; i++)
             rule.percents[i] = new RoomPercent(i, float.TryParse(cols[i + 3], out float typePercent) ? typePercent : 0);
 
+        string[] bossIndices = cols[roomTypeAmount + 4].Trim().Split("/");
+        rule.bossIndices = new int[bossIndices.Length];
+        for (int i = 0; i < rule.bossIndices.Length; i++)
+            rule.bossIndices[i] = int.TryParse(bossIndices[i], out int bossIndex) ? bossIndex : -1;
+        
         return true;
     }
 
 
 
 
-    // Generate <Room Grid>
-    private bool GenerateRoomGrid()
+    // Generate <All Type Room>
+    private IEnumerator GenerateRoomGrid()
+    {
+        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
+        int targetNormalRoomAmount = targetRoomAmount;
+        GameProgressJsonData saveData = SaveDataManager.instance.jsonData.gameProgressData;
+
+        if (saveData.usableBU || saveData.usableMU)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableABU || saveData.usableAMU)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableVault)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableSTPrison)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableUTPrison)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (saveData.usableNTPrison)
+        {
+            targetNormalRoomAmount--;
+
+        }
+        if (targetStageRule.bossIndices != null)
+        {
+            for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
+            {
+                if (targetStageRule.bossIndices[i] != -1)
+                {
+                    targetNormalRoomAmount--;
+
+                }
+            }
+        }
+
+
+        bool success = false;
+        int maxTry = 30, currentTry = 0;
+        while (success)
+        {
+            if (GenerateNormalRoomGrid(targetNormalRoomAmount))
+            {
+                if (GenerateSpecialRoomGrid())
+                {
+                    GenerateGateGrid();
+                    success = true;
+                }
+#if UNITY_EDITOR
+                else
+                {
+                    UnityEngine.Debug.Log("<color=red>Room Special Grid Generate FAIL</color>");
+                }
+#endif
+            }
+#if UNITY_EDITOR
+            else
+            {
+                UnityEngine.Debug.Log("<color=red>Room Normal Grid Generate FAIL</color>");
+            }
+#endif
+
+            if (success)
+                break;
+
+            if (maxTry > currentTry)
+            {
+                currentTry++;
+            }
+            else
+            {
+                yield return null;
+                currentTry = 0;
+            }
+        }
+        
+
+        existPositions.Clear();
+        roundPositions.Clear();
+
+        existPosDict.Clear();
+
+        baseCandidateSetCache.Clear();
+        baseCandidateListCache.Clear();
+    }
+
+
+    // Generate <Normal Room Grid>
+    private bool GenerateNormalRoomGrid(int targetRoomAmount)
     {
         // Data Set
-        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
         int currentRoomAmount = 1;
 
         existPositions = new HashSet<Vector2Int>();
@@ -331,40 +513,68 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             currentRoomAmount++;
         }
 
-        roundCandidateCache.Clear();
+        baseCandidateSetCache.Clear();
+        baseCandidateListCache.Clear();
 
         return true;
     }
 
+
+    // Generate <Special Room Grid>
+    private bool GenerateSpecialRoomGrid()
+    {
+        specialRoundPositions = new HashSet<Vector2Int>();
+
+        return true;
+    }
+
+
     // round 후보들을 선정해서, 랜덤한 순서로 배치 시도
     private bool TryAddRoomAtRandomRoundPositions(int type, int instanceId)
     {
-        roundCandidateCache.Clear();
+        Vector2Int[] ownGrid = ownGridStaticData[type];
 
-        if (roundCandidateCache.Capacity < roundPositions.Count)
-            roundCandidateCache.Capacity = roundPositions.Count;
+        baseCandidateSetCache.Clear();
+        baseCandidateListCache.Clear();
 
-        foreach (Vector2Int pos in roundPositions)
+        // 테두리 순회 (배치 가능성이 존재하는 모든 테두리)
+        foreach (Vector2Int roundPos in roundPositions)
         {
-            roundCandidateCache.Add(pos);
+            // 방의 좌표에 따른 순회
+            // => 해당 좌표와 중앙 말고도 주변 모든 각도를 체크하기 위한 값으로 baseCandidateSetCache 초기화
+            for (int i = 0; i < ownGrid.Length; i++)
+            {
+                Vector2Int basePos = roundPos - ownGrid[i];
+                baseCandidateSetCache.Add(basePos);
+            }
         }
 
-        while (roundCandidateCache.Count > 0)
+        // Set -> List
+        if (baseCandidateListCache.Capacity < baseCandidateSetCache.Count)
+            baseCandidateListCache.Capacity = baseCandidateSetCache.Count;
+
+        foreach (Vector2Int basePos in baseCandidateSetCache)
+            baseCandidateListCache.Add(basePos);
+        
+        // 후보들을 순회
+        while (baseCandidateListCache.Count > 0)
         {
-            int randomIndex = UnityEngine.Random.Range(0, roundCandidateCache.Count);
+            // 랜덤 값을 추출
+            // => 마지막 인덱스와 바꿈 (밀림/당김 현상 제거)
+            int randomIndex = UnityEngine.Random.Range(0, baseCandidateListCache.Count);
+            Vector2Int selectedBasePos = baseCandidateListCache[randomIndex];
+            int lastIndex = baseCandidateListCache.Count - 1;
+            baseCandidateListCache[randomIndex] = baseCandidateListCache[lastIndex];
+            baseCandidateListCache.RemoveAt(lastIndex);
 
-            Vector2Int selectedPos = roundCandidateCache[randomIndex];
-
-            int lastIndex = roundCandidateCache.Count - 1;
-            roundCandidateCache[randomIndex] = roundCandidateCache[lastIndex];
-            roundCandidateCache.RemoveAt(lastIndex);
-
-            if (TryAddExistPositions(type, selectedPos, instanceId))
+            // 삽입 시도
+            if (TryAddExistPositions(type, selectedBasePos, instanceId))
                 return true;
         }
 
         return false;
     }
+
 
     // Add Exist Positions
     private bool TryAddExistPositions(int type, Vector2Int pos, int instanceId)
@@ -448,7 +658,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 if (connectRoom == room)
                     continue;
 
-                room.gates.Add(new GateGrid(pos, dir, connectRoom));
+                room.gates.Add(new GateGrid(pos, dir, connectRoom.instanceId));
 
             }
         }
@@ -580,7 +790,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
 
 
-
+    [Space(50)]
     [Header("=== Nav")]
     [SerializeField] private NavMeshSurface thisNav;
 
