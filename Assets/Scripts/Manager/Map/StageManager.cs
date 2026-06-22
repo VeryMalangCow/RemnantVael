@@ -41,14 +41,16 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         public int instanceId;
         public Vector2Int[] roomPos;
+        public eRoomGridType roomType;
 
         public List<GateGrid> gates;
 
-        public RoomGrid(int instanceId, int roomPosLenght)
+        public RoomGrid(int instanceId, int roomPosLenght, eRoomGridType roomType)
         {
             this.instanceId = instanceId;
             this.roomPos = new Vector2Int[roomPosLenght];
             gates = new List<GateGrid>();
+            this.roomType = roomType;
         }
     }
 
@@ -71,7 +73,19 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // 예약 방 구조
     public struct ReserveRoom
     {
+        public int typeId;
+        public eRoomGridType roomType;
 
+        public ReserveRoom(int typeId, eRoomGridType roomType)
+        {
+            this.typeId = typeId;
+            this.roomType = roomType;
+        }
+    }
+
+    public enum eRoomGridType
+    {
+        normal, vault, baseShop, allyShop, stPrison, utPrison, ntPrison, boss
     }
 
 
@@ -95,12 +109,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     // 생성 과정 동적 데이터
     // 실제 배치 + 테두리 (Hashset을 사용해 중복을 "절대" 방지)
-    private HashSet<Vector2Int> existPositions;
-    private HashSet<Vector2Int> roundPositions;
-    private HashSet<Vector2Int> specialRoundPositions;
+    private HashSet<Vector2Int> existPositions = new HashSet<Vector2Int>();
+    private HashSet<Vector2Int> roundPositions = new HashSet<Vector2Int>();
 
     // 실제 좌표와 해당 좌표가 포함되어있는 방
-    private Dictionary<Vector2Int, RoomGrid> existPosDict;
+    private Dictionary<Vector2Int, RoomGrid> existPosDict = new Dictionary<Vector2Int, RoomGrid>();
 
 
     // 캐시 최적화 (New 방지 = GC Alloc 최소화) => Capacity : 현재 방의 크기 최대치와 Round 최대치를 생각한 값
@@ -114,6 +127,15 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     private readonly Vector2Int[] tempAddExistPositions = new Vector2Int[4];
     private readonly Vector2Int[] tempAddRoundPositions = new Vector2Int[8];
 
+
+    // Spaical Room을 위한 캐시
+    private List<ReserveRoom> specialRooms = new List<ReserveRoom>();
+    private List<ReserveRoom> tempSpecialRooms = new List<ReserveRoom>();
+    private HashSet<Vector2Int> specialCandidateSetCache = new HashSet<Vector2Int>(8);
+    private List<Vector2Int> specialCandidateSortedListCache = new List<Vector2Int>(8);
+
+    // 일반 특수방 랜덤 시도용 임시 리스트
+    private readonly List<Vector2Int> specialCandidateTryListCache = new List<Vector2Int>(8);
 
     private static readonly Vector2Int[] FourDirs =
     {
@@ -212,55 +234,18 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     private void GenerateRoomGridTest()
     {
+        ClearGridCaches();
+        specialRooms.Clear();
+
         int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
-        int targetNormalRoomAmount = targetRoomAmount;
-        GameProgressJsonData saveData = saveDataManager.jsonData.gameProgressData;
+        BuildSpecialRooms(saveDataManager.jsonData.gameProgressData);
 
-        if (saveData.usableBU || saveData.usableMU)
+        int targetNormalRoomAmount = targetRoomAmount - specialRooms.Count;
+
+        ResetTempSpecialRooms();
+        if (GenerateNormalRoomGrid(targetNormalRoomAmount, out int nextRoomId))
         {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableABU || saveData.usableAMU)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableVault)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableSTPrison)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableUTPrison)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableNTPrison)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (targetStageRule.bossIndices != null)
-        {
-            for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
-            {
-                if (targetStageRule.bossIndices[i] != -1)
-                {
-                    targetNormalRoomAmount--;
-
-                }
-            }
-        }
-
-        if (GenerateNormalRoomGrid(targetNormalRoomAmount))
-        {
-            if (GenerateSpecialRoomGrid())
+            if (GenerateSpecialRoomGrid(nextRoomId))
             {
                 GenerateGateGrid();
             }
@@ -274,6 +259,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             UnityEngine.Debug.Log("<color=red>Room Normal Grid Generate FAIL</color>");
         }
 
+        UnityEngine.Debug.Log($"<color=orange>{specialCandidateSetCache.Count}</color>");
     }
 
 #endif
@@ -368,60 +354,24 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Generate <All Type Room>
     private IEnumerator GenerateRoomGrid()
     {
+        
+        specialRooms.Clear();
+
         int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
-        int targetNormalRoomAmount = targetRoomAmount;
-        GameProgressJsonData saveData = SaveDataManager.instance.jsonData.gameProgressData;
+        BuildSpecialRooms(SaveDataManager.instance.jsonData.gameProgressData);
 
-        if (saveData.usableBU || saveData.usableMU)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableABU || saveData.usableAMU)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableVault)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableSTPrison)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableUTPrison)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (saveData.usableNTPrison)
-        {
-            targetNormalRoomAmount--;
-
-        }
-        if (targetStageRule.bossIndices != null)
-        {
-            for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
-            {
-                if (targetStageRule.bossIndices[i] != -1)
-                {
-                    targetNormalRoomAmount--;
-
-                }
-            }
-        }
-
+        int targetNormalRoomAmount = targetRoomAmount - specialRooms.Count;
 
         bool success = false;
         int maxTry = 30, currentTry = 0;
-        while (success)
+        while (!success)
         {
-            if (GenerateNormalRoomGrid(targetNormalRoomAmount))
+            ClearGridCaches();
+            ResetTempSpecialRooms();
+
+            if (GenerateNormalRoomGrid(targetNormalRoomAmount, out int nextRoomId))
             {
-                if (GenerateSpecialRoomGrid())
+                if (GenerateSpecialRoomGrid(nextRoomId))
                 {
                     GenerateGateGrid();
                     success = true;
@@ -439,9 +389,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 UnityEngine.Debug.Log("<color=red>Room Normal Grid Generate FAIL</color>");
             }
 #endif
-
             if (success)
                 break;
+
+            ClearGridCaches();
 
             if (maxTry > currentTry)
             {
@@ -453,7 +404,32 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 currentTry = 0;
             }
         }
-        
+#if UNITY_EDITOR
+        UnityEngine.Debug.Log("<color=red>ROOM GENERATE COMPLETE");
+#endif
+    }
+
+    private void BuildSpecialRooms(GameProgressJsonData saveData)
+    {
+        if (saveData.usableBU || saveData.usableMU) specialRooms.Add(new ReserveRoom(0, eRoomGridType.baseShop));
+        if (saveData.usableABU || saveData.usableAMU) specialRooms.Add(new ReserveRoom(0, eRoomGridType.allyShop));
+        if (saveData.usableVault) specialRooms.Add(new ReserveRoom(0, eRoomGridType.vault));
+        if (saveData.usableSTPrison) specialRooms.Add(new ReserveRoom(0, eRoomGridType.stPrison));
+        if (saveData.usableUTPrison) specialRooms.Add(new ReserveRoom(0, eRoomGridType.utPrison));
+        if (saveData.usableNTPrison) specialRooms.Add(new ReserveRoom(0, eRoomGridType.ntPrison));
+        if (targetStageRule.bossIndices != null)
+        {
+            for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
+            {
+                if (targetStageRule.bossIndices[i] != -1)
+                    specialRooms.Add(new ReserveRoom(4, eRoomGridType.boss));
+            }
+        }
+    }
+
+    private void ClearGridCaches()
+    {
+        allRoomGrids.Clear();
 
         existPositions.Clear();
         roundPositions.Clear();
@@ -462,19 +438,24 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         baseCandidateSetCache.Clear();
         baseCandidateListCache.Clear();
+
+        specialCandidateSetCache.Clear();
+        specialCandidateSortedListCache.Clear();
     }
 
 
+
+
     // Generate <Normal Room Grid>
-    private bool GenerateNormalRoomGrid(int targetRoomAmount)
+    private bool GenerateNormalRoomGrid(int targetRoomAmount, out int nextRoomId)
     {
         // Data Set
         int currentRoomAmount = 1;
+        nextRoomId = 1;
+        existPositions.Clear();
+        roundPositions.Clear();
 
-        existPositions = new HashSet<Vector2Int>();
-        roundPositions = new HashSet<Vector2Int>();
-
-        existPosDict = new Dictionary<Vector2Int, RoomGrid>();
+        existPosDict.Clear();
 
         int failCount = 0, failMaxLimit = 30;
 
@@ -511,25 +492,13 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
             failCount = 0;
             currentRoomAmount++;
+            nextRoomId = currentRoomAmount;
         }
 
-        baseCandidateSetCache.Clear();
-        baseCandidateListCache.Clear();
-
         return true;
     }
 
-
-    // Generate <Special Room Grid>
-    private bool GenerateSpecialRoomGrid()
-    {
-        specialRoundPositions = new HashSet<Vector2Int>();
-
-        return true;
-    }
-
-
-    // round 후보들을 선정해서, 랜덤한 순서로 배치 시도
+    // round 후보들을 선정해서, 랜덤한 순서로 배치 시도 <Normal>
     private bool TryAddRoomAtRandomRoundPositions(int type, int instanceId)
     {
         Vector2Int[] ownGrid = ownGridStaticData[type];
@@ -575,8 +544,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         return false;
     }
 
-
-    // Add Exist Positions
+    // Add Exist Positions <Normal>
     private bool TryAddExistPositions(int type, Vector2Int pos, int instanceId)
     {
         int i;
@@ -601,7 +569,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
 
         // 실제 방 추가
-        RoomGrid room = new RoomGrid(instanceId, existLength);
+        RoomGrid room = new RoomGrid(instanceId, existLength, eRoomGridType.normal);
 
         allRoomGrids.Add(room);
         for (i = 0; i < existLength; i++)
@@ -626,6 +594,118 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
 
 
+    // Generate <Special Room Grid>
+    private bool GenerateSpecialRoomGrid(int startRoomId)
+    {
+        specialCandidateSetCache.Clear();
+
+        SetSpecialCandidateSet();
+        SetSpecialCandidateSetToSortedList();
+
+        while (tempSpecialRooms.Count > 0)
+        {
+            // 후보가 필요값보다 적으면 false
+            if (specialCandidateSortedListCache.Count < tempSpecialRooms.Count)
+                return false;
+
+            // 가장 뒤가 보스라서 보스부터 순서대로 진행
+            int i;
+            for (i = tempSpecialRooms.Count - 1; i > 0; i--)
+            {
+                // 보스 방
+                if (tempSpecialRooms[i].roomType == eRoomGridType.boss)
+                {
+                    SetSpeicalRoomBoss(tempSpecialRooms[i]);
+                }
+                // 기타
+                else
+                {
+
+                }
+            }
+
+        }
+
+        return true;
+    }
+
+    // 예약 방을 배치하기
+    private void SetSpeicalRoomBoss(ReserveRoom reserveRoom)
+    {
+
+    }
+
+    // 현재 라운드에서 특수방이 배치될 수 있는 라운드를 선출
+    private void SetSpecialCandidateSet()
+    {
+        int i, adjacentSide;
+        bool isCandidate;
+
+        // 기존 라운드를 순회
+        foreach (Vector2Int roundPos in roundPositions)
+        {
+            adjacentSide = 0;
+            isCandidate = true;
+            // 해당 라운드 좌표마다 사방에 1개의 방만 존재하는 좌표만 후보에 추가
+            for (i = 0; i < 4; i++)
+            {
+                if (existPositions.Contains(roundPos + FourDirs[i]))
+                {
+                    adjacentSide++;
+                }
+
+                if (adjacentSide > 1)
+                {
+                    isCandidate = false;
+                    break;
+                }
+            }
+
+            if (isCandidate)
+            {
+                specialCandidateSetCache.Add(roundPos);
+            }
+        }
+    }
+
+    // 특수방 후보 라운드를 Set -> Sorted List로 변경
+    private void SetSpecialCandidateSetToSortedList()
+    {
+        specialCandidateSortedListCache.Clear();
+
+        if (specialCandidateSortedListCache.Capacity < specialCandidateSetCache.Count)
+            specialCandidateSortedListCache.Capacity = specialCandidateSetCache.Count;
+
+        specialCandidateSortedListCache.AddRange(specialCandidateSetCache);
+
+        specialCandidateSortedListCache.Sort(GridDistanceAscendingComparer);
+    }
+
+    // 거리 측정
+    private static readonly IComparer<Vector2Int> GridDistanceAscendingComparer = new GridDistanceComparer();
+    private sealed class GridDistanceComparer : IComparer<Vector2Int>
+    {
+        public int Compare(Vector2Int a, Vector2Int b)
+        {
+            int disA = Mathf.Abs(a.x) + Mathf.Abs(a.y);
+            int disB = Mathf.Abs(b.x) + Mathf.Abs(b.y);
+
+            return disA.CompareTo(disB);
+        }
+    }
+
+    // temp Special Rooms 를 복사
+    private void ResetTempSpecialRooms()
+    {
+        tempSpecialRooms.Clear();
+
+        if (tempSpecialRooms.Capacity < specialRooms.Count)
+            tempSpecialRooms.Capacity = specialRooms.Count;
+
+        tempSpecialRooms.AddRange(specialRooms);
+    }
+
+
     // Generate <Gate Grid>
     private void GenerateGateGrid()
     {
@@ -643,7 +723,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         Vector2Int pos, checkPos, dir;
         for (int i = 0; i < room.roomPos.Length; i++)
         {
-
             pos = room.roomPos[i];
 
             for (int j = 0; j < FourDirs.Length; j++)
@@ -718,7 +797,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         return lastValidType;
     }
 
-
     // round Pos Set
     private void GetRoundPositions(Vector2Int[] ownGrid)
     {
@@ -758,6 +836,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         for (int i = 0; i < length; i++)
             tempAddExistPositions[i] = originPos[i] + pos;
     }
+
     private void GetRelativeRoundPos(int type, Vector2Int pos, out int length)
     {
         Vector2Int[] originPos = roundOwnGridStaticData[type];
