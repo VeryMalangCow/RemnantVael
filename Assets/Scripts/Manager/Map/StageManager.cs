@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>, IMainGameInitializer
@@ -41,11 +42,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         public int instanceId;
         public Vector2Int[] roomPos;
-        public eRoomGridType roomType;
+        public RoomGridType roomType;
 
         public List<GateGrid> gates;
 
-        public RoomGrid(int instanceId, int roomPosLenght, eRoomGridType roomType)
+        public RoomGrid(int instanceId, int roomPosLenght, RoomGridType roomType)
         {
             this.instanceId = instanceId;
             this.roomPos = new Vector2Int[roomPosLenght];
@@ -74,16 +75,16 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     public struct ReserveRoom
     {
         public int typeId;
-        public eRoomGridType roomType;
+        public RoomGridType roomType;
 
-        public ReserveRoom(int typeId, eRoomGridType roomType)
+        public ReserveRoom(int typeId, RoomGridType roomType)
         {
             this.typeId = typeId;
             this.roomType = roomType;
         }
     }
 
-    public enum eRoomGridType
+    public enum RoomGridType
     {
         normal, vault, baseShop, allyShop, stPrison, utPrison, ntPrison, boss
     }
@@ -166,7 +167,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        GenerateGridData();
+        yield return GenerateGridData();
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"StageManager: <color=orange>Room+Gate Grid Set</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -228,8 +229,13 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         int maxSuccess = 1000;
         int currentSuccess = 0;
         int currentFail = 0;
-        while (maxSuccess > currentSuccess)
+
+        int maxTotalTry = 10000;
+        int totalTry = 0;
+
+        while (maxSuccess > currentSuccess && totalTry < maxTotalTry)
         {
+            totalTry++;
             bool success = GenerateRoomGridTest();
             if (success)
             {
@@ -240,18 +246,27 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 currentFail++;
             }
         }
-        UnityEngine.Debug.Log($"Fail:<color=red>{currentFail}</color> / Success:<color=blue>{currentSuccess}</color> / average:<color=yellow>{((float)currentFail/currentSuccess):F2}</color>(회당 1회 성공)");
+        UnityEngine.Debug.Log(
+            $"Try:[<color=gray>{totalTry}</color>] " +
+            $"Fail:[<color=red>{currentFail}</color>] " +
+            $"Success:[<color=blue>{currentSuccess}</color>] " +
+            $"Average:[<color=yellow>1 in {((float)totalTry / currentSuccess):F2}</color>] " +
+            $"Percent:[<color=yellow>{((float)currentSuccess / totalTry) * 100f:F2}%</color>]");
     }
 
     private bool GenerateRoomGridTest()
     {
         ClearGridCaches();
-        specialRooms.Clear();
 
         int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
         BuildSpecialRooms(saveDataManager.jsonData.gameProgressData);
 
         int targetNormalRoomAmount = targetRoomAmount - specialRooms.Count;
+        if (targetNormalRoomAmount <= 0)
+        {
+            UnityEngine.Debug.Log($"일반 방 개수가 부족 / targetRoomAmount: {targetRoomAmount}, specialRooms: {specialRooms.Count}");
+            return false;
+        }
 
         ResetTempSpecialRooms();
         if (GenerateNormalRoomGrid(targetNormalRoomAmount, out int nextRoomId))
@@ -330,7 +345,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
 
         string[] cols = lines[lineIndex].Trim().Split(",");
-        if (cols.Length < 3 + roomTypeAmount)
+        int bossIndexColumn = roomTypeAmount + 4;
+        if (cols.Length <= bossIndexColumn)
         {
             UnityEngine.Debug.LogError($"StageRule CSV 컬럼 부족. stageId: {stageId}");
             return false;
@@ -358,15 +374,20 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Generate <All Type Room>
     private IEnumerator GenerateRoomGrid()
     {
-        specialRooms.Clear();
-
         int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
         BuildSpecialRooms(SaveDataManager.instance.jsonData.gameProgressData);
 
         int targetNormalRoomAmount = targetRoomAmount - specialRooms.Count;
 
+        if (targetNormalRoomAmount <= 0)
+        {
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"일반 방 개수가 부족 / targetRoomAmount: {targetRoomAmount}, specialRooms: {specialRooms.Count}");
+#endif
+            yield break;
+        }
         bool success = false;
-        int maxTry = 30, currentTry = 0;
+        int maxTry = 120, perTry = 30, currentTry = 0;
         while (!success)
         {
             ClearGridCaches();
@@ -397,35 +418,43 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
             ClearGridCaches();
 
-            if (maxTry > currentTry)
+            currentTry++;
+
+            if (maxTry <= currentTry) // 시도 초과
             {
-                currentTry++;
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log("<color=red>ROOM GENERATE FAIL (Over Try)</color>");
+#endif
+                yield break;
             }
             else
             {
-                yield return null;
-                currentTry = 0;
+                if (currentTry % perTry == 0)
+                    yield return null;
             }
         }
 #if UNITY_EDITOR
-        UnityEngine.Debug.Log("<color=red>ROOM GENERATE COMPLETE");
+        UnityEngine.Debug.Log("<color=green>ROOM GENERATE COMPLETE</color>");
 #endif
+        ClearGridCaches();
     }
 
     private void BuildSpecialRooms(GameProgressJsonData saveData)
     {
-        if (saveData.usableBU || saveData.usableMU) specialRooms.Add(new ReserveRoom(0, eRoomGridType.baseShop));
-        if (saveData.usableABU || saveData.usableAMU) specialRooms.Add(new ReserveRoom(0, eRoomGridType.allyShop));
-        if (saveData.usableVault) specialRooms.Add(new ReserveRoom(0, eRoomGridType.vault));
-        if (saveData.usableSTPrison) specialRooms.Add(new ReserveRoom(0, eRoomGridType.stPrison));
-        if (saveData.usableUTPrison) specialRooms.Add(new ReserveRoom(0, eRoomGridType.utPrison));
-        if (saveData.usableNTPrison) specialRooms.Add(new ReserveRoom(0, eRoomGridType.ntPrison));
+        specialRooms.Clear();
+
+        if (saveData.usableBU || saveData.usableMU) specialRooms.Add(new ReserveRoom(0, RoomGridType.baseShop));
+        if (saveData.usableABU || saveData.usableAMU) specialRooms.Add(new ReserveRoom(0, RoomGridType.allyShop));
+        if (saveData.usableVault) specialRooms.Add(new ReserveRoom(0, RoomGridType.vault));
+        if (saveData.usableSTPrison) specialRooms.Add(new ReserveRoom(0, RoomGridType.stPrison));
+        if (saveData.usableUTPrison) specialRooms.Add(new ReserveRoom(0, RoomGridType.utPrison));
+        if (saveData.usableNTPrison) specialRooms.Add(new ReserveRoom(0, RoomGridType.ntPrison));
         if (targetStageRule.bossIndices != null)
         {
             for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
             {
                 if (targetStageRule.bossIndices[i] != -1)
-                    specialRooms.Add(new ReserveRoom(3, eRoomGridType.boss));
+                    specialRooms.Add(new ReserveRoom(3, RoomGridType.boss));
             }
         }
     }
@@ -454,7 +483,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         // Data Set
         int currentRoomAmount = 1;
-        nextRoomId = 1;
         existPositions.Clear();
         roundPositions.Clear();
 
@@ -463,7 +491,12 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         int failCount = 0, failMaxLimit = 30;
 
         // 처음방 생성
-        TryAddExistPositions(0, Vector2Int.zero, 0);
+        if (!TryPlaceNormalRoomAtBasePos(0, Vector2Int.zero, 0))
+        {
+            nextRoomId = 0;
+            return false;
+        }
+        nextRoomId = 1;
 
         while (currentRoomAmount < targetRoomAmount)
         {
@@ -476,7 +509,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 return false;
             }
 
-            if (TryAddRoomAtRandomRoundPositions(type, currentRoomAmount))
+            if (TryPlaceNormalRoomAtRandomCandidate(type, currentRoomAmount))
             {
                 success = true;
             }
@@ -502,7 +535,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     }
 
     // round 후보들을 선정해서, 랜덤한 순서로 배치 시도 <Normal>
-    private bool TryAddRoomAtRandomRoundPositions(int type, int instanceId)
+    private bool TryPlaceNormalRoomAtRandomCandidate(int type, int instanceId)
     {
         Vector2Int[] ownGrid = ownGridStaticData[type];
 
@@ -540,7 +573,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             baseCandidateListCache.RemoveAt(lastIndex);
 
             // 삽입 시도
-            if (TryAddExistPositions(type, selectedBasePos, instanceId))
+            if (TryPlaceNormalRoomAtBasePos(type, selectedBasePos, instanceId))
                 return true;
         }
 
@@ -548,7 +581,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     }
 
     // Add Exist Positions <Normal>
-    private bool TryAddExistPositions(int type, Vector2Int pos, int instanceId)
+    private bool TryPlaceNormalRoomAtBasePos(int type, Vector2Int pos, int instanceId)
     {
         int i;
         // 실제 좌표
@@ -572,7 +605,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
 
         // 실제 방 추가
-        RoomGrid room = new RoomGrid(instanceId, existLength, eRoomGridType.normal);
+        RoomGrid room = new RoomGrid(instanceId, existLength, RoomGridType.normal);
 
         allRoomGrids.Add(room);
         for (i = 0; i < existLength; i++)
@@ -602,19 +635,19 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         int nextRoomId = startRoomId;
 
-        SetSpecialCandidateSet();
-        SetSpecialCandidateSetToSortedList();
+        CollectSpecialCandidatePositions();
+        BuildSortedSpecialCandidateListByDistance();
 
         // 1. 보스방 먼저 배치
         for (int i = tempSpecialRooms.Count - 1; i >= 0; i--)
         {
-            if (tempSpecialRooms[i].roomType != eRoomGridType.boss)
+            if (tempSpecialRooms[i].roomType != RoomGridType.boss)
                 continue;
 
             if (specialCandidateSortedListCache.Count < tempSpecialRooms.Count)
                 return false;
 
-            if (!SetSpeicalRoomBoss(tempSpecialRooms[i], nextRoomId))
+            if (!TryPlaceBossRoom(tempSpecialRooms[i], nextRoomId))
                 return false;
 
             tempSpecialRooms.RemoveAt(i);
@@ -629,7 +662,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
             int index = tempSpecialRooms.Count - 1;
 
-            if (!SetSpecialRoom(tempSpecialRooms[index], nextRoomId))
+            if (!TryPlaceRandomSpecialRoom(tempSpecialRooms[index], nextRoomId))
                 return false;
 
             tempSpecialRooms.RemoveAt(index);
@@ -640,8 +673,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     }
 
     // 현재 라운드에서 특수방이 배치될 수 있는 라운드를 선출
-    private void SetSpecialCandidateSet()
+    private void CollectSpecialCandidatePositions()
     {
+        specialCandidateSetCache.Clear();
+
         int i, adjacentSide;
         bool isCandidate;
 
@@ -679,12 +714,14 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
     }
 
-    private bool IsSpecialRoomType(eRoomGridType roomType)
+    // 특수방인가?
+    private bool IsSpecialRoomType(RoomGridType roomType)
     {
-        return roomType != eRoomGridType.normal;
+        return roomType != RoomGridType.normal;
     }
 
-    private bool HasOnlyOneGateSideAndNoSpecialAdjacent(int existLength)
+    // 생성할 때, 문 하나만 생성이 될 것인가?
+    private bool CanConnectBySingleGateOnly(int existLength)
     {
         int adjacentSide = 0;
 
@@ -713,7 +750,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         return adjacentSide == 1;
     }
-    private void RemoveSpecialCandidatesAroundAddedRoom(int existLength, int roundLength)
+
+    
+    private void InvalidateSpecialCandidatesAroundPlacedRoom(int existLength, int roundLength)
     {
         for (int i = specialCandidateSortedListCache.Count - 1; i >= 0; i--)
         {
@@ -751,7 +790,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 specialCandidateSortedListCache.RemoveAt(i);
         }
     }
-    private bool TryAddSpecialRoom(int type, Vector2Int basePos, int instanceId, eRoomGridType roomType)
+
+    private bool TryPlaceSpecialRoomAtBasePos(int type, Vector2Int basePos, int instanceId, RoomGridType roomType)
     {
         int i;
 
@@ -766,7 +806,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
 
         // 2. 게이트가 정확히 1개인지 검사
-        if (!HasOnlyOneGateSideAndNoSpecialAdjacent(existLength))
+        if (!CanConnectBySingleGateOnly(existLength))
             return false;
 
         // 3. 실제 방 추가
@@ -793,12 +833,12 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
 
         // 5. 특수방 후보 리스트에서 불가능해진 좌표 제거
-        RemoveSpecialCandidatesAroundAddedRoom(existLength, roundLength);
+        InvalidateSpecialCandidatesAroundPlacedRoom(existLength, roundLength);
 
         return true;
     }
 
-    private bool TryAddSpecialRoomFromCandidate(ReserveRoom reserveRoom, Vector2Int candidatePos, int instanceId)
+    private bool TryPlaceSpecialRoomAtCandidate(ReserveRoom reserveRoom, Vector2Int candidatePos, int instanceId)
     {
         int type = reserveRoom.typeId;
         // ReserveRoom의 실제 필드명이 다르면 이 부분만 맞춰 바꾸면 됨.
@@ -810,27 +850,28 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         {
             Vector2Int basePos = candidatePos - ownGrid[i];
 
-            if (TryAddSpecialRoom(type, basePos, instanceId, reserveRoom.roomType))
+            if (TryPlaceSpecialRoomAtBasePos(type, basePos, instanceId, reserveRoom.roomType))
                 return true;
         }
 
         return false;
     }
 
-    private bool SetSpeicalRoomBoss(ReserveRoom reserveRoom, int instanceId)
+    // 방 배치
+    private bool TryPlaceBossRoom(ReserveRoom reserveRoom, int instanceId)
     {
         for (int i = specialCandidateSortedListCache.Count - 1; i >= 0; i--)
         {
             Vector2Int candidatePos = specialCandidateSortedListCache[i];
 
-            if (TryAddSpecialRoomFromCandidate(reserveRoom, candidatePos, instanceId))
+            if (TryPlaceSpecialRoomAtCandidate(reserveRoom, candidatePos, instanceId))
                 return true;
         }
 
         return false;
     }
 
-    private bool SetSpecialRoom(ReserveRoom reserveRoom, int instanceId)
+    private bool TryPlaceRandomSpecialRoom(ReserveRoom reserveRoom, int instanceId)
     {
         specialCandidateTryListCache.Clear();
 
@@ -849,7 +890,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             specialCandidateTryListCache[randomIndex] = specialCandidateTryListCache[lastIndex];
             specialCandidateTryListCache.RemoveAt(lastIndex);
 
-            if (TryAddSpecialRoomFromCandidate(reserveRoom, candidatePos, instanceId))
+            if (TryPlaceSpecialRoomAtCandidate(reserveRoom, candidatePos, instanceId))
                 return true;
         }
 
@@ -858,7 +899,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
 
     // 특수방 후보 라운드를 Set -> Sorted List로 변경
-    private void SetSpecialCandidateSetToSortedList()
+    private void BuildSortedSpecialCandidateListByDistance()
     {
         specialCandidateSortedListCache.Clear();
 

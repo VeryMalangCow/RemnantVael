@@ -9,16 +9,16 @@ public class StageGeneratePreviewEditor : Editor
     private const float PreviewHeight = 240f;
     private const float Padding = 12f;
 
-    private static Dictionary<StageManager.eRoomGridType, Color> clrDict = new Dictionary<StageManager.eRoomGridType, Color> 
+    private static Dictionary<StageManager.RoomGridType, Color> clrDict = new Dictionary<StageManager.RoomGridType, Color> 
     {
-        { StageManager.eRoomGridType.normal, new Color(0.8f, 0.8f, 0.8f) },
-        { StageManager.eRoomGridType.boss, new Color(0.5f, 0.0f, 1.0f) },
-        { StageManager.eRoomGridType.vault, new Color(1.0f, 0.5f, 0.0f) },
-        { StageManager.eRoomGridType.baseShop, new Color(0.0f, 1.0f, 0.0f) },
-        { StageManager.eRoomGridType.allyShop, new Color(0.0f, 0.5f, 0.0f) },
-        { StageManager.eRoomGridType.stPrison, new Color(1.0f, 0.0f, 0.0f) },
-        { StageManager.eRoomGridType.utPrison, new Color(1.0f, 1.0f, 0.0f) },
-        { StageManager.eRoomGridType.ntPrison, new Color(0.0f, 1.0f, 1.0f) },
+        { StageManager.RoomGridType.normal, new Color(0.8f, 0.8f, 0.8f) },
+        { StageManager.RoomGridType.boss, new Color(0.5f, 0.0f, 1.0f) },
+        { StageManager.RoomGridType.vault, new Color(1.0f, 0.5f, 0.0f) },
+        { StageManager.RoomGridType.baseShop, new Color(0.0f, 1.0f, 0.0f) },
+        { StageManager.RoomGridType.allyShop, new Color(0.0f, 0.5f, 0.0f) },
+        { StageManager.RoomGridType.stPrison, new Color(1.0f, 0.0f, 0.0f) },
+        { StageManager.RoomGridType.utPrison, new Color(1.0f, 1.0f, 0.0f) },
+        { StageManager.RoomGridType.ntPrison, new Color(0.0f, 1.0f, 1.0f) },
     };
 
     private static Color startClr = new Color(1f, 1f, 1f);
@@ -50,14 +50,14 @@ public class StageGeneratePreviewEditor : Editor
         EditorGUILayout.LabelField("Room Type", EditorStyles.boldLabel);
 
         DrawLegendItem(startClr, "Start Room");
-        DrawLegendItem(clrDict[StageManager.eRoomGridType.normal], "Normal Room");
-        DrawLegendItem(clrDict[StageManager.eRoomGridType.boss], "Boss Room");
-        DrawLegendItem(clrDict[StageManager.eRoomGridType.vault], "Vault Room");
-        DrawLegendItem(clrDict[StageManager.eRoomGridType.baseShop], "BaseShop Room");
-        DrawLegendItem(clrDict[StageManager.eRoomGridType.allyShop], "AllyShop Room");
-        DrawLegendItem(clrDict[StageManager.eRoomGridType.stPrison], "ST Room");
-        DrawLegendItem(clrDict[StageManager.eRoomGridType.utPrison], "UT Room");
-        DrawLegendItem(clrDict[StageManager.eRoomGridType.ntPrison], "NT Room");
+        DrawLegendItem(clrDict[StageManager.RoomGridType.normal], "Normal Room");
+        DrawLegendItem(clrDict[StageManager.RoomGridType.boss], "Boss Room");
+        DrawLegendItem(clrDict[StageManager.RoomGridType.vault], "Vault Room");
+        DrawLegendItem(clrDict[StageManager.RoomGridType.baseShop], "BaseShop Room");
+        DrawLegendItem(clrDict[StageManager.RoomGridType.allyShop], "AllyShop Room");
+        DrawLegendItem(clrDict[StageManager.RoomGridType.stPrison], "ST Room");
+        DrawLegendItem(clrDict[StageManager.RoomGridType.utPrison], "UT Room");
+        DrawLegendItem(clrDict[StageManager.RoomGridType.ntPrison], "NT Room");
 
         EditorGUILayout.EndVertical();
 
