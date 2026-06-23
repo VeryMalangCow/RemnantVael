@@ -9,9 +9,19 @@ public class StageGeneratePreviewEditor : Editor
     private const float PreviewHeight = 240f;
     private const float Padding = 12f;
 
-    private static Color normalClr = new Color(0.8f, 0.8f, 0.8f);
+    private static Dictionary<StageManager.eRoomGridType, Color> clrDict = new Dictionary<StageManager.eRoomGridType, Color> 
+    {
+        { StageManager.eRoomGridType.normal, new Color(0.8f, 0.8f, 0.8f) },
+        { StageManager.eRoomGridType.boss, new Color(0.5f, 0.0f, 1.0f) },
+        { StageManager.eRoomGridType.vault, new Color(1.0f, 0.5f, 0.0f) },
+        { StageManager.eRoomGridType.baseShop, new Color(0.0f, 1.0f, 0.0f) },
+        { StageManager.eRoomGridType.allyShop, new Color(0.0f, 0.5f, 0.0f) },
+        { StageManager.eRoomGridType.stPrison, new Color(1.0f, 0.0f, 0.0f) },
+        { StageManager.eRoomGridType.utPrison, new Color(1.0f, 1.0f, 0.0f) },
+        { StageManager.eRoomGridType.ntPrison, new Color(0.0f, 1.0f, 1.0f) },
+    };
+
     private static Color startClr = new Color(1f, 1f, 1f);
-    private static Color bossClr = new Color(0.9f, 0.2f, 0.2f);
 
     private static Color gateClr = new Color(0.6f, 0.6f, 0.6f);
 
@@ -39,9 +49,15 @@ public class StageGeneratePreviewEditor : Editor
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
         EditorGUILayout.LabelField("Room Type", EditorStyles.boldLabel);
 
-        DrawLegendItem(normalClr, "Normal Room");
         DrawLegendItem(startClr, "Start Room");
-        DrawLegendItem(bossClr, "Boss Room");
+        DrawLegendItem(clrDict[StageManager.eRoomGridType.normal], "Normal Room");
+        DrawLegendItem(clrDict[StageManager.eRoomGridType.boss], "Boss Room");
+        DrawLegendItem(clrDict[StageManager.eRoomGridType.vault], "Vault Room");
+        DrawLegendItem(clrDict[StageManager.eRoomGridType.baseShop], "BaseShop Room");
+        DrawLegendItem(clrDict[StageManager.eRoomGridType.allyShop], "AllyShop Room");
+        DrawLegendItem(clrDict[StageManager.eRoomGridType.stPrison], "ST Room");
+        DrawLegendItem(clrDict[StageManager.eRoomGridType.utPrison], "UT Room");
+        DrawLegendItem(clrDict[StageManager.eRoomGridType.ntPrison], "NT Room");
 
         EditorGUILayout.EndVertical();
 
@@ -159,7 +175,7 @@ public class StageGeneratePreviewEditor : Editor
 
         Color fillColor = roomData.instanceId == 0
             ? startClr
-            : normalClr;
+            : clrDict[roomData.roomType];
 
         // 1. 방 내부 칸 채우기
         for (int i = 0; i < roomData.roomPos.Length; i++)

@@ -215,11 +215,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     [ContextMenu("GenerateGridRoomData")]
     private void GenerateGridRoomDataTest() // Test
     {
-        Stopwatch sw = Stopwatch.StartNew();
         InitRoomData();
-        sw.Stop();
-        UnityEngine.Debug.Log($"Init : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-
         TestGenerateGridData();
     }
 
@@ -229,10 +225,25 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             return;
 
         allRoomGrids.Clear();
-        GenerateRoomGridTest();
+        int maxSuccess = 1000;
+        int currentSuccess = 0;
+        int currentFail = 0;
+        while (maxSuccess > currentSuccess)
+        {
+            bool success = GenerateRoomGridTest();
+            if (success)
+            {
+                currentSuccess++;
+            }
+            else
+            {
+                currentFail++;
+            }
+        }
+        UnityEngine.Debug.Log($"Fail:<color=red>{currentFail}</color> / Success:<color=blue>{currentSuccess}</color> / average:<color=yellow>{((float)currentFail/currentSuccess):F2}</color>(회당 1회 성공)");
     }
 
-    private void GenerateRoomGridTest()
+    private bool GenerateRoomGridTest()
     {
         ClearGridCaches();
         specialRooms.Clear();
@@ -248,18 +259,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             if (GenerateSpecialRoomGrid(nextRoomId))
             {
                 GenerateGateGrid();
+                return true;
             }
-            else
-            {
-                UnityEngine.Debug.Log("<color=red>Room Special Grid Generate FAIL</color>");
-            }
-        }
-        else
-        {
-            UnityEngine.Debug.Log("<color=red>Room Normal Grid Generate FAIL</color>");
         }
 
-        UnityEngine.Debug.Log($"<color=orange>{specialCandidateSetCache.Count}</color>");
+        return false;
     }
 
 #endif
@@ -280,7 +284,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         yield return null;
 
         allRoomGrids.Clear();
-        yield return GenerateRoomGrid(); 
+        yield return GenerateRoomGrid();
     }
 
 
@@ -344,7 +348,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         rule.bossIndices = new int[bossIndices.Length];
         for (int i = 0; i < rule.bossIndices.Length; i++)
             rule.bossIndices[i] = int.TryParse(bossIndices[i], out int bossIndex) ? bossIndex : -1;
-        
+
         return true;
     }
 
@@ -354,7 +358,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Generate <All Type Room>
     private IEnumerator GenerateRoomGrid()
     {
-        
         specialRooms.Clear();
 
         int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
@@ -422,7 +425,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
             {
                 if (targetStageRule.bossIndices[i] != -1)
-                    specialRooms.Add(new ReserveRoom(4, eRoomGridType.boss));
+                    specialRooms.Add(new ReserveRoom(3, eRoomGridType.boss));
             }
         }
     }
@@ -524,7 +527,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         foreach (Vector2Int basePos in baseCandidateSetCache)
             baseCandidateListCache.Add(basePos);
-        
+
         // 후보들을 순회
         while (baseCandidateListCache.Count > 0)
         {
@@ -597,42 +600,43 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Generate <Special Room Grid>
     private bool GenerateSpecialRoomGrid(int startRoomId)
     {
-        specialCandidateSetCache.Clear();
+        int nextRoomId = startRoomId;
 
         SetSpecialCandidateSet();
         SetSpecialCandidateSetToSortedList();
 
-        while (tempSpecialRooms.Count > 0)
+        // 1. 보스방 먼저 배치
+        for (int i = tempSpecialRooms.Count - 1; i >= 0; i--)
         {
-            // 후보가 필요값보다 적으면 false
+            if (tempSpecialRooms[i].roomType != eRoomGridType.boss)
+                continue;
+
             if (specialCandidateSortedListCache.Count < tempSpecialRooms.Count)
                 return false;
 
-            // 가장 뒤가 보스라서 보스부터 순서대로 진행
-            int i;
-            for (i = tempSpecialRooms.Count - 1; i > 0; i--)
-            {
-                // 보스 방
-                if (tempSpecialRooms[i].roomType == eRoomGridType.boss)
-                {
-                    SetSpeicalRoomBoss(tempSpecialRooms[i]);
-                }
-                // 기타
-                else
-                {
+            if (!SetSpeicalRoomBoss(tempSpecialRooms[i], nextRoomId))
+                return false;
 
-                }
-            }
+            tempSpecialRooms.RemoveAt(i);
+            nextRoomId++;
+        }
 
+        // 2. 나머지 특수방 배치
+        while (tempSpecialRooms.Count > 0)
+        {
+            if (specialCandidateSortedListCache.Count < tempSpecialRooms.Count)
+                return false;
+
+            int index = tempSpecialRooms.Count - 1;
+
+            if (!SetSpecialRoom(tempSpecialRooms[index], nextRoomId))
+                return false;
+
+            tempSpecialRooms.RemoveAt(index);
+            nextRoomId++;
         }
 
         return true;
-    }
-
-    // 예약 방을 배치하기
-    private void SetSpeicalRoomBoss(ReserveRoom reserveRoom)
-    {
-
     }
 
     // 현재 라운드에서 특수방이 배치될 수 있는 라운드를 선출
@@ -646,13 +650,22 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         {
             adjacentSide = 0;
             isCandidate = true;
-            // 해당 라운드 좌표마다 사방에 1개의 방만 존재하는 좌표만 후보에 추가
-            for (i = 0; i < 4; i++)
+
+            for (i = 0; i < FourDirs.Length; i++)
             {
-                if (existPositions.Contains(roundPos + FourDirs[i]))
+                Vector2Int checkPos = roundPos + FourDirs[i];
+
+                if (!existPosDict.TryGetValue(checkPos, out RoomGrid adjacentRoom))
+                    continue;
+
+                // 이미 특수방과 붙은 후보는 제외
+                if (IsSpecialRoomType(adjacentRoom.roomType))
                 {
-                    adjacentSide++;
+                    isCandidate = false;
+                    break;
                 }
+
+                adjacentSide++;
 
                 if (adjacentSide > 1)
                 {
@@ -661,12 +674,188 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 }
             }
 
-            if (isCandidate)
-            {
+            if (isCandidate && adjacentSide == 1)
                 specialCandidateSetCache.Add(roundPos);
-            }
         }
     }
+
+    private bool IsSpecialRoomType(eRoomGridType roomType)
+    {
+        return roomType != eRoomGridType.normal;
+    }
+
+    private bool HasOnlyOneGateSideAndNoSpecialAdjacent(int existLength)
+    {
+        int adjacentSide = 0;
+
+        for (int i = 0; i < existLength; i++)
+        {
+            Vector2Int cellPos = tempAddExistPositions[i];
+
+            for (int j = 0; j < FourDirs.Length; j++)
+            {
+                Vector2Int checkPos = cellPos + FourDirs[j];
+
+                if (!existPosDict.TryGetValue(checkPos, out RoomGrid adjacentRoom))
+                    continue;
+
+                // 특수방끼리 인접 금지
+                if (IsSpecialRoomType(adjacentRoom.roomType))
+                    return false;
+
+                adjacentSide++;
+
+                // 문 후보가 2개 이상이면 실패
+                if (adjacentSide > 1)
+                    return false;
+            }
+        }
+
+        return adjacentSide == 1;
+    }
+    private void RemoveSpecialCandidatesAroundAddedRoom(int existLength, int roundLength)
+    {
+        for (int i = specialCandidateSortedListCache.Count - 1; i >= 0; i--)
+        {
+            Vector2Int candidate = specialCandidateSortedListCache[i];
+
+            bool remove = false;
+
+            // 추가된 방의 실제 좌표 제거
+            for (int j = 0; j < existLength; j++)
+            {
+                if (candidate == tempAddExistPositions[j])
+                {
+                    remove = true;
+                    break;
+                }
+            }
+
+            if (remove)
+            {
+                specialCandidateSortedListCache.RemoveAt(i);
+                continue;
+            }
+
+            // 추가된 방의 테두리 좌표 제거
+            for (int j = 0; j < roundLength; j++)
+            {
+                if (candidate == tempAddRoundPositions[j])
+                {
+                    remove = true;
+                    break;
+                }
+            }
+
+            if (remove)
+                specialCandidateSortedListCache.RemoveAt(i);
+        }
+    }
+    private bool TryAddSpecialRoom(int type, Vector2Int basePos, int instanceId, eRoomGridType roomType)
+    {
+        int i;
+
+        GetRelativeExistPos(type, basePos, out int existLength);
+        GetRelativeRoundPos(type, basePos, out int roundLength);
+
+        // 1. 겹침 검사
+        for (i = 0; i < existLength; i++)
+        {
+            if (existPositions.Contains(tempAddExistPositions[i]))
+                return false;
+        }
+
+        // 2. 게이트가 정확히 1개인지 검사
+        if (!HasOnlyOneGateSideAndNoSpecialAdjacent(existLength))
+            return false;
+
+        // 3. 실제 방 추가
+        RoomGrid room = new RoomGrid(instanceId, existLength, roomType);
+        allRoomGrids.Add(room);
+
+        for (i = 0; i < existLength; i++)
+        {
+            room.roomPos[i] = tempAddExistPositions[i];
+            existPositions.Add(tempAddExistPositions[i]);
+            existPosDict.Add(tempAddExistPositions[i], room);
+        }
+
+        // 4. roundPositions 갱신
+        for (i = 0; i < roundLength; i++)
+        {
+            if (!existPositions.Contains(tempAddRoundPositions[i]))
+                roundPositions.Add(tempAddRoundPositions[i]);
+        }
+
+        for (i = 0; i < existLength; i++)
+        {
+            roundPositions.Remove(tempAddExistPositions[i]);
+        }
+
+        // 5. 특수방 후보 리스트에서 불가능해진 좌표 제거
+        RemoveSpecialCandidatesAroundAddedRoom(existLength, roundLength);
+
+        return true;
+    }
+
+    private bool TryAddSpecialRoomFromCandidate(ReserveRoom reserveRoom, Vector2Int candidatePos, int instanceId)
+    {
+        int type = reserveRoom.typeId;
+        // ReserveRoom의 실제 필드명이 다르면 이 부분만 맞춰 바꾸면 됨.
+        // 예: reserveRoom.typeIndex, reserveRoom.roomTypeIndex 등
+
+        Vector2Int[] ownGrid = ownGridStaticData[type];
+
+        for (int i = 0; i < ownGrid.Length; i++)
+        {
+            Vector2Int basePos = candidatePos - ownGrid[i];
+
+            if (TryAddSpecialRoom(type, basePos, instanceId, reserveRoom.roomType))
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool SetSpeicalRoomBoss(ReserveRoom reserveRoom, int instanceId)
+    {
+        for (int i = specialCandidateSortedListCache.Count - 1; i >= 0; i--)
+        {
+            Vector2Int candidatePos = specialCandidateSortedListCache[i];
+
+            if (TryAddSpecialRoomFromCandidate(reserveRoom, candidatePos, instanceId))
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool SetSpecialRoom(ReserveRoom reserveRoom, int instanceId)
+    {
+        specialCandidateTryListCache.Clear();
+
+        if (specialCandidateTryListCache.Capacity < specialCandidateSortedListCache.Count)
+            specialCandidateTryListCache.Capacity = specialCandidateSortedListCache.Count;
+
+        specialCandidateTryListCache.AddRange(specialCandidateSortedListCache);
+
+        while (specialCandidateTryListCache.Count > 0)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, specialCandidateTryListCache.Count);
+
+            Vector2Int candidatePos = specialCandidateTryListCache[randomIndex];
+
+            int lastIndex = specialCandidateTryListCache.Count - 1;
+            specialCandidateTryListCache[randomIndex] = specialCandidateTryListCache[lastIndex];
+            specialCandidateTryListCache.RemoveAt(lastIndex);
+
+            if (TryAddSpecialRoomFromCandidate(reserveRoom, candidatePos, instanceId))
+                return true;
+        }
+
+        return false;
+    }
+
 
     // 특수방 후보 라운드를 Set -> Sorted List로 변경
     private void SetSpecialCandidateSetToSortedList()
@@ -876,7 +1065,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     [Header("=== Generate")]
     [SerializeField] private Transform mapParentTF;
     [SerializeField] public int targetStageID = -1;
-    [Space(10)] [SerializeField] private StageData lobbyStageData;
+    [Space(10)][SerializeField] private StageData lobbyStageData;
     [Space(10)][SerializeField] private List<StageData> allStageData;
 
     [Header("=== Current")]
@@ -916,7 +1105,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     [HideInInspector] private AllPassageMiddleSpriteData passageMiddleSpriteData;
 
-    
 
 
 
@@ -924,7 +1112,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
 
 
- 
+
+
 
 
 
@@ -1012,7 +1201,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         if (indexList.Count > 1)
             indexList = DevTool.Get_ShuffledList(indexList);
-        
+
         for (int i = 0; i < indexList.Count; i++)
             currentAllEntranceRoomController[i].Set_ElevatorData(indexList[i]);
     }
@@ -1296,7 +1485,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 BURepairOper.gameObject.transform.localPosition = Vector2.zero;
                 BURepairOper.gameObject.SetActive(false);
             }
-            
+
             if (data.usableMU)
             {
                 ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(ResourceManager.instance.MUShopPrefab, shopRule.inRoom_muShopParentTf));
@@ -1311,7 +1500,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 MURepairOper.gameObject.transform.localPosition = Vector2.zero;
                 MURepairOper.gameObject.SetActive(false);
             }
-           
+
             room.Offset(tempID);
             Set_NormalRelativeVec(room, connectedRoomAmount: 1, applySpecialExist: true);
 
@@ -1514,10 +1703,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         // 처음 엘베 레이어때문에 추가 하지않음
         if (!isStartStage)
-        { 
+        {
             // PlayerManager.instance.playerController.AddSortingLayer();
         }
-        
+
         currentRoomController.gameObject.SetActive(true);
         currentRoomController.Set_SortingStaticObjects();
 
@@ -1594,7 +1783,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     private void Set_ParterAllGate()
     {
         List<GateController> allGate = Get_AllGate(currentAllRoomController);
-         
+
         for (int i = 0; i < allGate.Count - 1; i++)
         {
             // 이미 파트너 게이트가 있다면
@@ -1614,7 +1803,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // 반대편에 방에 존재하는 게이트인지 + 서로 바라보고 있는지
     private bool Is_PartnerGate(GateController gate1, GateController gate2)
         => ((gate1.roomPosGate + gate1.gateDir) == gate2.roomPosGate) && (gate1.gateDir * -1) == gate2.gateDir;
-    
+
 
     // 현재 게이트 모두 활성화
     private void Set_GateActiveOn()
@@ -1706,21 +1895,21 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public void Set_CurrentMapSprite(SpriteRenderer sr, string spriteKey)
         => Set_MapUnclearSprite(currentStageData, sr, spriteKey);
-    
+
 
     public void Set_BeforeMapSprite(SpriteRenderer sr, string spriteKey)
         => Set_MapClearSprite(beforeStageData, sr, spriteKey);
-    
+
 
     public void Set_AfterMapSprite(SpriteRenderer sr, string spriteKey)
         => Set_MapClearSprite(afterStageData, sr, spriteKey);
-    
+
 
     public void Set_SetSpriteClearly()
     {
         if (currentSetSprites == null || currentSetSprites.Count <= 0) return;
 
-        foreach(BuildSetSpriteController setSprite in currentSetSprites)
+        foreach (BuildSetSpriteController setSprite in currentSetSprites)
         {
             if (DevTool.Get_ComponentTType(setSprite.gameObject, out SpriteRenderer sr))
             {
@@ -1818,7 +2007,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         for (int i = 0; i < genRoomAmountList.Count; i++)
             for (int j = 0; j < genRoomAmountList[i].amount; j++)
                 result.Add(genRoomAmountList[i].id);
-            
+
         return result;
     }
 
@@ -1846,7 +2035,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         for (int i = 0; i < ResourceManager.instance.roomRulePrefabArr.Length; i++)
             if (ResourceManager.instance.roomRulePrefabArr[i].TryGetComponent(out RoomRuleController rrc) && rrc.roomVec.SequenceEqual(roomIndex))
                 result.Add(rrc);
-            
+
         return result;
     }
 
@@ -1961,7 +2150,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public CoupleData<Sprite> Get_CorrectMinimapIcon(RoomRuleController roomRule)
     {
-        switch(roomRule)
+        switch (roomRule)
         {
             case VaultRuleController:
                 return ResourceManager.instance.vault_Icon;
@@ -1995,7 +2184,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Vault
 
-    public GameObject Get_VaultCorrectType(Type typeVault) 
+    public GameObject Get_VaultCorrectType(Type typeVault)
     {
         for (int i = 0; i < ResourceManager.instance.vaultPrefabArr.Length; i++)
             if (DevTool.Get_ComponentTType<VaultController>(ResourceManager.instance.vaultPrefabArr[i]).GetType() == typeVault)
@@ -2114,8 +2303,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     public void Play_GoInEliteRoom(GateController gate, int id)
     {
         MainGameUIManager.instance.battleProdUi.Play_BattleOnProd(
-            EnemyManager.instance.GetEliteProdSprite(id), 
-            ResourceManager.instance.Get_EnemyName(id), 
+            EnemyManager.instance.GetEliteProdSprite(id),
+            ResourceManager.instance.Get_EnemyName(id),
             out float durTime);
 
         StartCoroutine(Play_GoInBattleRoom_Cor(gate, durTime));
@@ -2125,7 +2314,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         MainGameUIManager.instance.battleProdUi.Play_BattleOnProd(
             EnemyManager.instance.GetEliteProdSprite(id),
-            ResourceManager.instance.Get_EnemyName(id), 
+            ResourceManager.instance.Get_EnemyName(id),
             out float durTime);
 
         StartCoroutine(Play_GoInBattleRoom_Cor(gate, durTime));
