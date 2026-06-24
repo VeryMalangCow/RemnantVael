@@ -76,6 +76,12 @@ public class RoomController : IDController
         roomRule.Offset();
     }
 
+    public void Offset(int instanceId, RoomRuleController rule)
+    {
+        roomRule = rule;
+        Offset(instanceId);
+    }
+
     #endregion
 
     #region Layer
@@ -413,9 +419,6 @@ public class RoomController : IDController
 
     public void Spawn_FieldObj()
     {
-        Debug.Log("지금은 막아둠: FIELD OBJ");
-        return;
-
         List<Vector2> data = Get_FieldObjPos();
 
         for (int i = 0; i < data.Count; i++)

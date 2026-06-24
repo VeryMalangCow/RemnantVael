@@ -55,4 +55,34 @@ public class VaultRuleController : RoomRuleController
     }
 
     #endregion
+
+    #region Vault & Oper
+
+    public void SetVault(VaultController _vault, RepairOperatorController repairOper, VaultRerollOperatorController rerollOper, VaultUpgradeOperatorController upgradeOper)
+    {
+        vault = _vault;
+        vault.transform.SetParent(inRoom_vaultParentTf);
+        vault.gameObject.transform.localPosition = Vector2.zero;
+        vault.gameObject.SetActive(false);
+
+        repairOperator = repairOper;
+        repairOperator.transform.SetParent(inRoom_RepairOperactorParentTf);
+        repairOperator.Set_TargetBuild(vault);
+        repairOperator.gameObject.transform.localPosition = Vector2.zero;
+        repairOperator.gameObject.SetActive(false);
+
+        rerollOperator = rerollOper;
+        rerollOperator.transform.SetParent(inRoom_RerollOperactorParentTf);
+        rerollOperator.Set_TargetBuild(vault);
+        rerollOperator.gameObject.transform.localPosition = Vector2.zero;
+        rerollOperator.gameObject.SetActive(false);
+
+        upgradeOperator = upgradeOper;
+        upgradeOperator.transform.SetParent(inRoom_UpgradeOperactorParentTf);
+        upgradeOperator.Set_TargetBuild(vault);
+        upgradeOperator.gameObject.transform.localPosition = Vector2.zero;
+        upgradeOperator.gameObject.SetActive(false);
+    }
+
+    #endregion
 }

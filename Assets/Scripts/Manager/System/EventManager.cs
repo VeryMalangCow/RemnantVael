@@ -173,14 +173,14 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
         UnityEngine.Debug.Log("Input " + (onOff ? "On" : "Off"));
         if (onOff)
         {
-            InputManager.instance.SetOnOff_InputAction(StageManager.instance.targetStageID, true);
+            InputManager.instance.SetOnOff_InputAction(StageManager.instance.targetStageId, true);
 
             InputManager.instance.Set_AllPointer(aim: true, mouse: false);
             InputManager.instance.canMouseInput = true;
         }
         else
         {
-            InputManager.instance.SetOnOff_InputAction(StageManager.instance.targetStageID, false);
+            InputManager.instance.SetOnOff_InputAction(StageManager.instance.targetStageId, false);
 
             InputManager.instance.Set_AllPointer(false);
 
@@ -545,7 +545,7 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
 
         isPlayingCutscene = false;
 
-        SoundManager.instance.Play_2D_BGM_Stage(StageManager.instance.Get_CurrentStageData().infoData.stageId);
+        SoundManager.instance.Play_2D_BGM_Stage(StageManager.instance.GetCurrentStageData().infoData.stageId);
     }
 
     #endregion

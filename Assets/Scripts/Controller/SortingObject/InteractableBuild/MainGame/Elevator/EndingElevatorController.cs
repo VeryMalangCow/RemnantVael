@@ -31,7 +31,7 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         this.nextStageIndex = nextStageIndex;
 
-        if (StageManager.instance.targetStageID == 99)
+        if (StageManager.instance.targetStageId == 99)
             isLobbyElevator = true;
 
         forPassageElevator = forPassage;

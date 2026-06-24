@@ -40,7 +40,7 @@ public class StartingElevatorController : ElevatorController
         // Intetactable Anno Panel
         MainGameUIManager.instance.interactAnnoUi.Set_VisualCG(true);
 
-        if (StageManager.instance.targetStageID == 1)
+        if (StageManager.instance.targetStageId == 1)
         {
             MainGameUIManager.instance.Play_EndGameProd();
         }

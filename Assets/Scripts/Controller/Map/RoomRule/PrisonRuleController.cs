@@ -47,4 +47,26 @@ public class PrisonRuleController : RoomRuleController
     }
 
     #endregion
+
+    #region Prison & Oper
+
+    public void SetPrison(PrisonController _prison, PrisonPayOperatorController payOper, PrisonPuzzleOperatorController puzzleOper)
+    {
+        prison = _prison;
+        prison.transform.SetParent(inRoom_PrisonParentTF);
+        prison.gameObject.transform.localPosition = Vector2.zero;
+        prison.gameObject.SetActive(false);
+
+        payOperator = payOper;
+        payOperator.transform.SetParent(inRoom_PayOperactorParentTF);
+        payOperator.Set_TargetBuild(prison);
+        payOperator.gameObject.SetActive(false);
+
+        puzzleOperator = puzzleOper;
+        puzzleOperator.transform.SetParent(inRoom_PuzzleOperactorParentTF);
+        puzzleOperator.Set_TargetBuild(prison);
+        puzzleOperator.gameObject.SetActive(false);
+    }
+
+    #endregion
 }

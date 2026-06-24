@@ -185,13 +185,13 @@ public class GateController : StaticDepthController, IInteract
             {
                 if (parterGate.thisRoom.roomRule.Is_EliteEnemyRoom(out int eliteID))
                 {
-                    StageManager.instance.Play_GoInEliteRoom(this, eliteID);
+                    StageManager.instance.StartEliteRoom(this, eliteID);
                     SoundManager.instance.Pause_2D_BGM();
 
                 }
                 else if (parterGate.thisRoom.roomRule.Is_BossEnemyRoom(out int bossID))
                 {
-                    StageManager.instance.Play_GoInBossRoom(this, bossID);
+                    StageManager.instance.StartBossRoom(this, bossID);
                     SoundManager.instance.Pause_2D_BGM();
                 }
                 else
@@ -207,7 +207,7 @@ public class GateController : StaticDepthController, IInteract
         SoundManager.instance.Play_2D_SFX_Build("EnterGate");
         PlayerManager.instance.playerController.SetOff_Trail();
         PlayerManager.instance.playerController.gameObject.transform.position = parterGate.Get_WarpPoint();
-        StageManager.instance.Play_CurrentRoom(parterGate.thisRoom);
+        StageManager.instance.StartCurrentRoom(parterGate.thisRoom);
 
         HudController hud = MainGameUIManager.instance.hud;
         if (hud.isTabInteracted.Value) hud.MinimapView.Reset_BookRoom();

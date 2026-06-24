@@ -606,7 +606,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
         DevTool.Remove_InList(EnemyManager.instance.currentEnemyList, this);
 
         // Check Room State
-        StageManager.instance.Play_CompleteKillAll();
+        StageManager.instance.CompleteRoomKillAll();
 
         // Ping
         if (PlayerManager.instance.Is_PingedEnemy(this))

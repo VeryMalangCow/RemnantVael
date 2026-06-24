@@ -63,7 +63,7 @@ public class MapIntroUIController : UIController
         base.SetLanguageTxt();
 
         StageData sd =
-            StageManager.instance.Get_CurrentStageData();
+            StageManager.instance.GetCurrentStageData();
 
         Set_Txt(
             ResourceManager.instance.Get_MapName(sd.infoData.stageId),

@@ -1547,13 +1547,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Map (Prefab)
 
     // Value
-    [HideInInspector] public GameObject lobbyRoomRulePrefab { get; private set; } // Lobby
     [HideInInspector] public GameObject[] sRoomPrefabList { get; private set; }
     [HideInInspector] public GameObject lobbyEntranceRoomRulePrefab { get; private set; }
 
-    [HideInInspector] public GameObject startRoomRulePrefab { get; private set; }  // Start
-
-    [HideInInspector] public GameObject[] roomPrefabArr { get; private set; } // Room
     [HideInInspector] public GameObject[] roomDesignatedPrefabArr { get; private set; }
 
     [HideInInspector] public GameObject[] roomRulePrefabArr { get; private set; } // Rule
@@ -1577,9 +1573,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         // Dict
         Dictionary<string, Action<GameObject>> prefabDict = new Dictionary<string, Action<GameObject>>
         {
-            { "R00_LobbyR00", go => lobbyRoomRulePrefab = go },
             { "RS00_EntranceR00", go => lobbyEntranceRoomRulePrefab = go },
-            { "R00_StartR00", go => startRoomRulePrefab = go },
             { "RP01", go => passageRoomPrefab = go },
             { "R01_PassageR00", go => passageRulePrefab = go }
         };
@@ -1590,13 +1584,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         {
             int idx = i;
             prefabDict.Add($"RS{DevTool.Get_LengthString(idx, 2)}", go => sRoomPrefabList[idx] = go);
-        }
-
-        roomPrefabArr = new GameObject[8]; // Room: 8
-        for (int i = 0; i < roomPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R{DevTool.Get_LengthString(idx, 2)}", go => roomPrefabArr[idx] = go);
         }
 
         roomDesignatedPrefabArr = new GameObject[3]; // Room - Designated: 3

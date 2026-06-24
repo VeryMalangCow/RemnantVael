@@ -37,7 +37,7 @@ public class StageGeneratePreviewEditor : Editor
 
         StageManager preview = (StageManager)target;
 
-        DrawRoomPreview(preview.allRoomGrids);
+        DrawRoomPreview(preview.stageGridGenerator.allRoomGrids);
 
         DrawDefaultInspector();
     }

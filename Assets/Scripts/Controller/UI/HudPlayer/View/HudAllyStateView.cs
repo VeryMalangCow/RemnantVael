@@ -22,7 +22,7 @@ public class HudAllyStateView : MonoBehaviour
     [Space(10)]
     [Header("=== Visual")]
 
-    private Tween tabTween;
+    private Tween tabTween = null;
 
     // Init
     public void Init()

@@ -26,7 +26,7 @@ public class TestThings : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha4) && StageManager.instance.targetStageID != 99)
+        if (Input.GetKeyDown(KeyCode.Alpha4) && StageManager.instance.targetStageId != 99)
         {
             PlayerController player = PlayerManager.instance.playerController;
 
@@ -48,14 +48,14 @@ public class TestThings : MonoBehaviour
             Debug.Log("Alpha4: Get Many Goods");
         }
 
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && StageManager.instance.targetStageID != 99)
+        else if (Input.GetKeyDown(KeyCode.Alpha5) && StageManager.instance.targetStageId != 99)
         {
             Test_Cor();
 
             Debug.Log("Alpha5: Spawn Builds");
         }
 
-        else if (Input.GetKeyDown(KeyCode.Alpha6) && StageManager.instance.targetStageID != 99)
+        else if (Input.GetKeyDown(KeyCode.Alpha6) && StageManager.instance.targetStageId != 99)
         {
             isUltraMode = !isUltraMode;
             Set_UltraModeGO(isUltraMode);

@@ -51,4 +51,36 @@ public class ShopRuleController : RoomRuleController
     }
 
     #endregion
+
+    #region Shop & Oper
+
+    public void SetBuShop(BaseUpgradeController bu, RepairOperatorController repairOper)
+    {
+        buShop = bu;
+        buShop.transform.SetParent(inRoom_buShopParentTf);
+        buShop.gameObject.transform.localPosition = Vector2.zero;
+        buShop.gameObject.SetActive(false);
+
+        buRepairOperator = repairOper;
+        buRepairOperator.transform.SetParent(inRoom_buRepairOperactorParentTf);
+        buRepairOperator.Set_TargetBuild(buShop);
+        buRepairOperator.gameObject.transform.localPosition = Vector2.zero;
+        buRepairOperator.gameObject.SetActive(false);
+    }
+
+    public void SetMuShop(ModuleUpgradeController mu, RepairOperatorController repairOper)
+    {
+        muShop = mu;
+        muShop.transform.SetParent(inRoom_muShopParentTf);
+        muShop.gameObject.transform.localPosition = Vector2.zero;
+        muShop.gameObject.SetActive(false);
+        
+        muRepairOperator = repairOper;
+        muRepairOperator.transform.SetParent(inRoom_muRepairOperactorParentTf);
+        muRepairOperator.Set_TargetBuild(muShop);
+        muRepairOperator.gameObject.transform.localPosition = Vector2.zero;
+        muRepairOperator.gameObject.SetActive(false);
+    }
+
+    #endregion
 }

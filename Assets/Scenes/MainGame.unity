@@ -6234,10 +6234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
-  stageGridGenerator:
-    stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
-    saveDataManager: {fileID: 657936137}
-    targetStageId: 0
+  targetStageId: 0
   stageTheme:
     lobbyStageData:
       mapIndexName: Map99
@@ -6412,13 +6409,70 @@ MonoBehaviour:
         doorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
         materialIndex: 0
       allMapSprite: []
-  thisNav: {fileID: 535791893}
-  mapParentTF: {fileID: 1948256983}
-  targetStageID: 99
-  currentAllRoomController: []
-  currentAllEntranceRoomController: []
+  stagePrefab:
+    roomLobbyEntrancePrefab: {fileID: -5182979113265001400, guid: 4d637ae9ae2428743aef33630261c2ef, type: 3}
+    roomRuleLobbyPrefab: {fileID: 398387223839193825, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
+    roomEntranceRuleLobbyPrefab: {fileID: 2693801644758337919, guid: 27c09aa286b5b9a4ca5323e92d94cf02, type: 3}
+    roomPrefabs:
+    - {fileID: -5182979113265001400, guid: 3c54d8342469add46b6d029c394101a8, type: 3}
+    - {fileID: -5182979113265001400, guid: 7e00fb37e72c2bd4382f11b048268c19, type: 3}
+    - {fileID: -5182979113265001400, guid: d39952447f1100a46ae4d4779dd9302b, type: 3}
+    - {fileID: -5182979113265001400, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
+    - {fileID: -5182979113265001400, guid: bf646e6fc5f63aa4fadceba1d9bf0ace, type: 3}
+    - {fileID: -5182979113265001400, guid: b6a9c06dc727bc148b314b203219dc8f, type: 3}
+    - {fileID: -5182979113265001400, guid: c7fdb27c083fcf34d9eb8f3bdc6779be, type: 3}
+    - {fileID: -5182979113265001400, guid: d4ab8a3de61f65446a274276ca6587be, type: 3}
+    roomStartPrefab: {fileID: 8811059131841986343, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
+    roomEntrancePrefabs:
+    - {fileID: 6591078569616373478, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
+    - {fileID: 3688222396178353669, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
+    roomVaultPrefab: {fileID: 8242124758998225667, guid: fbb1a9e1842c4d94f99699c725af6f36, type: 3}
+    roomShopPrefab: {fileID: 3635096754202495175, guid: d30915823e2e8eb43a9d195178a83b47, type: 3}
+    roomAllyShopPrefab: {fileID: 4164879491352479518, guid: 7357aaaa152bf834ea4dd936a19cd5d0, type: 3}
+    roomPrisonPrefab: {fileID: 4031315333983788123, guid: 335bf5e4dca0a5043aab82f4958d5033, type: 3}
+    vaultPrefabs:
+    - {fileID: 114888182504759569, guid: ee4da6a03b0a7f342bbe8b19563d73d9, type: 3}
+    - {fileID: 843154509398518699, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
+    - {fileID: 6217917494651744050, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
+    buPrefab: {fileID: 5830729734699832537, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+    muPrefab: {fileID: 4104660094863163793, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
+    abuPrefab: {fileID: 1008028800653928466, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
+    amuPrefab: {fileID: 5302830401716886137, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
+    prisonPrefabs:
+    - {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+    - {fileID: 5179974300967090457, guid: 37f1dfe24e381e841b3f63695875b308, type: 3}
+    - {fileID: 2784090784048974333, guid: f991a10c2348b56429f7dd5d07204c96, type: 3}
+    repairOperPrefab: {fileID: 1248777847252891641, guid: a52794494980df442a6685865c19674b, type: 3}
+    vaultRerollOperPrefab: {fileID: 947837347572156946, guid: ee83beb77b674c44eaa658cff9b1b899, type: 3}
+    vaultUpgradeOperPrefab: {fileID: 5893029927452776160, guid: 07c41729688314b4598ff66a28e5f300, type: 3}
+    prisonPayOperPrefab: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+    prisonPuzzleOperPrefab: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+  stageGridGenerator:
+    stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
+    saveDataManager: {fileID: 657936137}
+    testTargetStageId: 0
+  stageObjectGenerator:
+    stageParentTf: {fileID: 1948256983}
+    currentAllRoomController: []
+    currentAllEntranceRoomController: []
+    currentStageData:
+      mapIndexName: 
+      infoData:
+        stageId: 0
+      roomData:
+        roomAmount: []
+        designatedRoom: []
+        entranceRoom: []
+        vaultRoom: []
+        shopRoom: []
+        allyShopRoom: []
+        prisonRoom: []
+      mapMaterialUnclear: []
+      mapMaterialClear: []
+      mapDoorAnim: []
+      allMapSprite: []
+  navMesh: {fileID: 535791893}
   currentRoomController: {fileID: 0}
-  isStartStage: 1
 --- !u!1 &724611502
 GameObject:
   m_ObjectHideFlags: 0

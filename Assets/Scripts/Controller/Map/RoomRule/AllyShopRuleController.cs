@@ -51,4 +51,36 @@ public class AllyShopRuleController : RoomRuleController
     }
 
     #endregion
+
+    #region AllyShop & Oper
+
+    public void SetAbuShop(AllyBaseUpgradeController abu, RepairOperatorController repairOper)
+    {
+        buShop = abu;
+        buShop.transform.SetParent(inRoom_buShopParentTf);
+        buShop.gameObject.transform.localPosition = Vector2.zero;
+        buShop.gameObject.SetActive(false);
+
+        buRepairOperator = repairOper;
+        buRepairOperator.transform.SetParent(inRoom_buRepairOperactorParentTf);
+        buRepairOperator.Set_TargetBuild(buShop);
+        buRepairOperator.gameObject.transform.localPosition = Vector2.zero;
+        buRepairOperator.gameObject.SetActive(false);
+    }
+
+    public void SetAmuShop(AllyModuleUpgradeController amu, RepairOperatorController repairOper)
+    {
+        muShop = amu;
+        muShop.transform.SetParent(inRoom_muShopParentTf);
+        muShop.gameObject.transform.localPosition = Vector2.zero;
+        muShop.gameObject.SetActive(false);
+        
+        muRepairOperator = repairOper;
+        muRepairOperator.transform.SetParent(inRoom_muRepairOperactorParentTf);
+        muRepairOperator.Set_TargetBuild(muShop);
+        muRepairOperator.gameObject.transform.localPosition = Vector2.zero;
+        muRepairOperator.gameObject.SetActive(false);
+    }
+
+    #endregion
 }

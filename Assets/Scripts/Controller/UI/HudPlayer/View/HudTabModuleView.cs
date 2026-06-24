@@ -14,7 +14,7 @@ public class HudTabModuleView : MonoBehaviour
     private float defaultModuleRectX;
     [HideInInspector] public List<InventorySlotEUIController> moduleSlots = new List<InventorySlotEUIController>();
     
-    private Tween tabTween;
+    private Tween tabTween = null;
 
     // Init
     public void Init()

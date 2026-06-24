@@ -25,7 +25,7 @@ public class HudSkillView : MonoBehaviour
     [SerializeField] private TMP_Text[] subClrTmps;
     [SerializeField] private Image[] mainClrImgs;
 
-    private Tween tabTween;
+    private Tween tabTween = null;
 
     // Init
     public void Init(SkillWeaponController skillWeapon, Color mainClr, Color subClr)
