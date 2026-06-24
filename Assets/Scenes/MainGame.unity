@@ -6234,185 +6234,187 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
-  stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
-  saveDataManager: {fileID: 657936137}
-  targetStageId: 0
+  stageGridGenerator:
+    stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
+    saveDataManager: {fileID: 657936137}
+    targetStageId: 0
+  stageTheme:
+    lobbyStageData:
+      mapIndexName: Map99
+      infoData:
+        stageId: 99
+      roomData:
+        roomAmount: []
+        designatedRoom: []
+        entranceRoom: []
+        vaultRoom: []
+        shopRoom: []
+        allyShopRoom: []
+        prisonRoom: []
+      mapMaterialUnclear:
+      - {fileID: 2100000, guid: 8f88455681ebf204ab1bec4124f2e8a5, type: 2}
+      - {fileID: 2100000, guid: d00759d6f63313746a8d499ed6169b9f, type: 2}
+      mapMaterialClear:
+      - {fileID: 2100000, guid: 3409bf52a3cc81e46984db08eb5e30d1, type: 2}
+      - {fileID: 2100000, guid: d58d9fae558fe2346a62ed1ddc81c4d6, type: 2}
+      mapDoorAnim:
+      - dir: {x: 0, y: -1}
+        doorAnim: {fileID: 7400000, guid: d5c5a5503aa5a7a43a5282ebc66ad54b, type: 2}
+        materialIndex: 0
+      - dir: {x: -1, y: 0}
+        doorAnim: {fileID: 7400000, guid: c10c6ff3cfb780547a625e9ed52e095d, type: 2}
+        materialIndex: 0
+      - dir: {x: 1, y: 0}
+        doorAnim: {fileID: 7400000, guid: fa88c644bb2c7b6499776c1db667f480, type: 2}
+        materialIndex: 0
+      - dir: {x: 0, y: 1}
+        doorAnim: {fileID: 7400000, guid: 655745c9192f3e149b5c0cc6ad4e851a, type: 2}
+        materialIndex: 0
+      allMapSprite: []
+    allStageData:
+    - mapIndexName: Map00
+      infoData:
+        stageId: 0
+      roomData:
+        roomAmount:
+        - id: 0
+          amount: 5
+        - id: 1
+          amount: 3
+        - id: 2
+          amount: 3
+        - id: 4
+          amount: 2
+        - id: 5
+          amount: 2
+        - id: 6
+          amount: 2
+        - id: 7
+          amount: 2
+        designatedRoom:
+        - id: 0
+          ruleId: 0
+        - id: 0
+          ruleId: 1
+        - id: 0
+          ruleId: 2
+        entranceRoom:
+        - id: 3
+          ruleId: 0
+        - id: 3
+          ruleId: 1
+        vaultRoom:
+        - id: 0
+          ruleId: 0
+        shopRoom:
+        - id: 0
+          ruleId: 0
+        allyShopRoom:
+        - id: 0
+          ruleId: 0
+        prisonRoom:
+        - id: 0
+          ruleId: 0
+          typeId: 0
+        - id: 0
+          ruleId: 0
+          typeId: 1
+        - id: 0
+          ruleId: 0
+          typeId: 2
+      mapMaterialUnclear:
+      - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      - {fileID: 2100000, guid: 519ca4ba8ee8cd146a55966a26e1ea8c, type: 2}
+      mapMaterialClear:
+      - {fileID: 2100000, guid: 5411254558eda4f4883706ba9445ecf0, type: 2}
+      - {fileID: 2100000, guid: ebc0ed9589212f34fb9c3aa4df828ad6, type: 2}
+      mapDoorAnim:
+      - dir: {x: 0, y: -1}
+        doorAnim: {fileID: 7400000, guid: 1c249b8fb21ab16409ac647a74f9d435, type: 2}
+        materialIndex: 0
+      - dir: {x: -1, y: 0}
+        doorAnim: {fileID: 7400000, guid: 32209fc59e5378e47ae11db329627db5, type: 2}
+        materialIndex: 0
+      - dir: {x: 1, y: 0}
+        doorAnim: {fileID: 7400000, guid: 68c4705b95683d6438092d027ff0fd4f, type: 2}
+        materialIndex: 0
+      - dir: {x: 0, y: 1}
+        doorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
+        materialIndex: 0
+      allMapSprite: []
+    - mapIndexName: Map01
+      infoData:
+        stageId: 1
+      roomData:
+        roomAmount:
+        - id: 0
+          amount: 5
+        - id: 1
+          amount: 3
+        - id: 2
+          amount: 3
+        - id: 4
+          amount: 2
+        - id: 5
+          amount: 2
+        - id: 6
+          amount: 2
+        - id: 7
+          amount: 2
+        designatedRoom:
+        - id: 0
+          ruleId: 0
+        - id: 0
+          ruleId: 1
+        - id: 0
+          ruleId: 2
+        entranceRoom:
+        - id: 3
+          ruleId: 0
+        - id: 3
+          ruleId: 1
+        vaultRoom:
+        - id: 0
+          ruleId: 0
+        shopRoom:
+        - id: 0
+          ruleId: 0
+        allyShopRoom:
+        - id: 0
+          ruleId: 0
+        prisonRoom:
+        - id: 0
+          ruleId: 0
+          typeId: 0
+        - id: 0
+          ruleId: 0
+          typeId: 1
+        - id: 0
+          ruleId: 0
+          typeId: 2
+      mapMaterialUnclear:
+      - {fileID: 2100000, guid: 8b689d8c19f30334a98c2f0d67d608c5, type: 2}
+      - {fileID: 2100000, guid: deb9be69c28c64944b4e86b3c81e6b83, type: 2}
+      mapMaterialClear:
+      - {fileID: 2100000, guid: 812b285c29f3cce4a82f4413446f12af, type: 2}
+      - {fileID: 2100000, guid: 3e7a34fe58e2bad4b8e82d8e6bc05f21, type: 2}
+      mapDoorAnim:
+      - dir: {x: 0, y: -1}
+        doorAnim: {fileID: 7400000, guid: 647f2f6a2c56c3841b90aa7bbdd9650a, type: 2}
+        materialIndex: 0
+      - dir: {x: -1, y: 0}
+        doorAnim: {fileID: 7400000, guid: 12522e083c51e4343a9c15968ff996d2, type: 2}
+        materialIndex: 0
+      - dir: {x: 1, y: 0}
+        doorAnim: {fileID: 7400000, guid: b16066ca352c5084fa29fd87112d0a3b, type: 2}
+        materialIndex: 0
+      - dir: {x: 0, y: 1}
+        doorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
+        materialIndex: 0
+      allMapSprite: []
   thisNav: {fileID: 535791893}
   mapParentTF: {fileID: 1948256983}
   targetStageID: 99
-  lobbyStageData:
-    mapIndexName: Map99
-    infoData:
-      stageId: 99
-    roomData:
-      roomAmount: []
-      designatedRoom: []
-      entranceRoom: []
-      vaultRoom: []
-      shopRoom: []
-      allyShopRoom: []
-      prisonRoom: []
-    mapMaterialUnclear:
-    - {fileID: 2100000, guid: 8f88455681ebf204ab1bec4124f2e8a5, type: 2}
-    - {fileID: 2100000, guid: d00759d6f63313746a8d499ed6169b9f, type: 2}
-    mapMaterialClear:
-    - {fileID: 2100000, guid: 3409bf52a3cc81e46984db08eb5e30d1, type: 2}
-    - {fileID: 2100000, guid: d58d9fae558fe2346a62ed1ddc81c4d6, type: 2}
-    mapDoorAnim:
-    - dir: {x: 0, y: -1}
-      doorAnim: {fileID: 7400000, guid: d5c5a5503aa5a7a43a5282ebc66ad54b, type: 2}
-      materialIndex: 0
-    - dir: {x: -1, y: 0}
-      doorAnim: {fileID: 7400000, guid: c10c6ff3cfb780547a625e9ed52e095d, type: 2}
-      materialIndex: 0
-    - dir: {x: 1, y: 0}
-      doorAnim: {fileID: 7400000, guid: fa88c644bb2c7b6499776c1db667f480, type: 2}
-      materialIndex: 0
-    - dir: {x: 0, y: 1}
-      doorAnim: {fileID: 7400000, guid: 655745c9192f3e149b5c0cc6ad4e851a, type: 2}
-      materialIndex: 0
-    allMapSprite: []
-  allStageData:
-  - mapIndexName: Map00
-    infoData:
-      stageId: 0
-    roomData:
-      roomAmount:
-      - id: 0
-        amount: 5
-      - id: 1
-        amount: 3
-      - id: 2
-        amount: 3
-      - id: 4
-        amount: 2
-      - id: 5
-        amount: 2
-      - id: 6
-        amount: 2
-      - id: 7
-        amount: 2
-      designatedRoom:
-      - id: 0
-        ruleId: 0
-      - id: 0
-        ruleId: 1
-      - id: 0
-        ruleId: 2
-      entranceRoom:
-      - id: 3
-        ruleId: 0
-      - id: 3
-        ruleId: 1
-      vaultRoom:
-      - id: 0
-        ruleId: 0
-      shopRoom:
-      - id: 0
-        ruleId: 0
-      allyShopRoom:
-      - id: 0
-        ruleId: 0
-      prisonRoom:
-      - id: 0
-        ruleId: 0
-        typeId: 0
-      - id: 0
-        ruleId: 0
-        typeId: 1
-      - id: 0
-        ruleId: 0
-        typeId: 2
-    mapMaterialUnclear:
-    - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
-    - {fileID: 2100000, guid: 519ca4ba8ee8cd146a55966a26e1ea8c, type: 2}
-    mapMaterialClear:
-    - {fileID: 2100000, guid: 5411254558eda4f4883706ba9445ecf0, type: 2}
-    - {fileID: 2100000, guid: ebc0ed9589212f34fb9c3aa4df828ad6, type: 2}
-    mapDoorAnim:
-    - dir: {x: 0, y: -1}
-      doorAnim: {fileID: 7400000, guid: 1c249b8fb21ab16409ac647a74f9d435, type: 2}
-      materialIndex: 0
-    - dir: {x: -1, y: 0}
-      doorAnim: {fileID: 7400000, guid: 32209fc59e5378e47ae11db329627db5, type: 2}
-      materialIndex: 0
-    - dir: {x: 1, y: 0}
-      doorAnim: {fileID: 7400000, guid: 68c4705b95683d6438092d027ff0fd4f, type: 2}
-      materialIndex: 0
-    - dir: {x: 0, y: 1}
-      doorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
-      materialIndex: 0
-    allMapSprite: []
-  - mapIndexName: Map01
-    infoData:
-      stageId: 1
-    roomData:
-      roomAmount:
-      - id: 0
-        amount: 5
-      - id: 1
-        amount: 3
-      - id: 2
-        amount: 3
-      - id: 4
-        amount: 2
-      - id: 5
-        amount: 2
-      - id: 6
-        amount: 2
-      - id: 7
-        amount: 2
-      designatedRoom:
-      - id: 0
-        ruleId: 0
-      - id: 0
-        ruleId: 1
-      - id: 0
-        ruleId: 2
-      entranceRoom:
-      - id: 3
-        ruleId: 0
-      - id: 3
-        ruleId: 1
-      vaultRoom:
-      - id: 0
-        ruleId: 0
-      shopRoom:
-      - id: 0
-        ruleId: 0
-      allyShopRoom:
-      - id: 0
-        ruleId: 0
-      prisonRoom:
-      - id: 0
-        ruleId: 0
-        typeId: 0
-      - id: 0
-        ruleId: 0
-        typeId: 1
-      - id: 0
-        ruleId: 0
-        typeId: 2
-    mapMaterialUnclear:
-    - {fileID: 2100000, guid: 8b689d8c19f30334a98c2f0d67d608c5, type: 2}
-    - {fileID: 2100000, guid: deb9be69c28c64944b4e86b3c81e6b83, type: 2}
-    mapMaterialClear:
-    - {fileID: 2100000, guid: 812b285c29f3cce4a82f4413446f12af, type: 2}
-    - {fileID: 2100000, guid: 3e7a34fe58e2bad4b8e82d8e6bc05f21, type: 2}
-    mapDoorAnim:
-    - dir: {x: 0, y: -1}
-      doorAnim: {fileID: 7400000, guid: 647f2f6a2c56c3841b90aa7bbdd9650a, type: 2}
-      materialIndex: 0
-    - dir: {x: -1, y: 0}
-      doorAnim: {fileID: 7400000, guid: 12522e083c51e4343a9c15968ff996d2, type: 2}
-      materialIndex: 0
-    - dir: {x: 1, y: 0}
-      doorAnim: {fileID: 7400000, guid: b16066ca352c5084fa29fd87112d0a3b, type: 2}
-      materialIndex: 0
-    - dir: {x: 0, y: 1}
-      doorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
-      materialIndex: 0
-    allMapSprite: []
   currentAllRoomController: []
   currentAllEntranceRoomController: []
   currentRoomController: {fileID: 0}

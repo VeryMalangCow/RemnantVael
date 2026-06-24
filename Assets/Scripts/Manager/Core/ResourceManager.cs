@@ -1519,51 +1519,14 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #endregion
     #region Map (Sprite & Material)
 
-    // Value
-    [HideInInspector] private int eachKindOfMapAmount = 2;
-
-    [HideInInspector] private MapReso lobbyMapReso;
-
-    [HideInInspector] public static int kindOfMapAmount = 2;
-    [HideInInspector] private MapReso[] stageMapReso;
-
-    [HideInInspector] private MapReso passageMapReso;
-
-    [HideInInspector] private int kindOfFieldObjType = 3;
-    [HideInInspector] private Sprite[][][] mapFieldObjList_Data;
-
     [HideInInspector] private Material[] passageMiddleMaterialArr;
 
     // Offset
     private void Offset_Sprite_Map()
     {
-        string path = $"Sprite/Map/";
 
-        // Lobby Map
-        string lobbyName = $"MapLobby";
-        lobbyMapReso = GetAsset_MapReso(path, lobbyName);
-
-        // Stage Map
-        List<MapReso> resos = new List<MapReso>();
-        for (int i = 0; i < kindOfMapAmount; i++)
-        {
-            string stageName = $"Map{DevTool.Get_LengthString(i, 2)}";
-            resos.Add(GetAsset_MapReso(path, stageName));
-        }
-        stageMapReso = resos.ToArray();
-
-        // Passage Map
-        string passageName = $"MapPassage/";
-        passageMapReso = GetAsset_MapReso(path, passageName);
-
-        // Kind of Map / Type / List
-        List<Sprite[][]> mapFieldObjList_Data = new List<Sprite[][]>();
-        for (int i = 0; i < stageMapReso.Length; i++)
-        {
-            mapFieldObjList_Data.Add(Get_FieldObj(stageMapReso[i]));
-        }
-        this.mapFieldObjList_Data = mapFieldObjList_Data.ToArray();
     }
+
     private void Offset_Material_Map()
     {
         string path = "Material/";
@@ -1575,62 +1538,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     }
 
-    private MapReso GetAsset_MapReso(string path, string name)
-    {
-        List<MapResoElement> mapResoElements = new List<MapResoElement>();
 
-        for (int i = 0; i < eachKindOfMapAmount; i++)
-        {
-            Sprite[] spriteArr = GetAsset_Arr<Sprite>(path + name + "/", $"{name}_{DevTool.Get_LengthString(i, 3)}");
-
-            for (int j = 0; j < spriteArr.Length; j++)
-            {
-                mapResoElements.Add(new MapResoElement(spriteArr[j], i));
-            }
-        }
-
-        return new MapReso(mapResoElements.ToArray());
-    }
-
-    private Sprite[][] Get_FieldObj(MapReso reso) // Type / SpriteList
-    {
-        List<List<Sprite>> result = new List<List<Sprite>>();
-
-        for (int i = 0; i < kindOfFieldObjType; i++)
-        {
-            result.Add(new List<Sprite>());
-        }
-
-        for (int i = 0; i < reso.mapResoElements.Length; i++)
-        {
-            string[] name = reso.mapResoElements[i].sprite.name.Split("_");
-            if (name[1] == "FieldObj")
-            {
-                int type = Int32.Parse(name[2].Substring(1, 2));
-                result[type].Add(reso.mapResoElements[i].sprite);
-            }
-        }
-
-        List<Sprite[]> result2 = new List<Sprite[]>();
-        for (int i = 0; i < result.Count; i++)
-        {
-            result2.Add(result[i].ToArray());
-        }
-
-        return result2.ToArray();
-    }
 
     // Get
-    public MapReso Get_LobbyMapReso() => lobbyMapReso;
-    public MapReso Get_StageMapReso(int id) => stageMapReso[id];
-    public MapReso Get_PassageMapReso() => passageMapReso;
-
-    public Sprite Get_RandomFieldObjSprite(int stageID, int typeID)
-    {
-        Sprite[] spriteArr = mapFieldObjList_Data[stageID][typeID];
-        return spriteArr[UnityEngine.Random.Range(0, spriteArr.Length)];
-    }
-
     public Material Get_PassageMiddleMaterial(int index) => passageMiddleMaterialArr[index];
 
     #endregion
@@ -1766,9 +1676,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         // Field Obj
         string path = "Prefab/FieldObj/";
 
-        fieldObjArray = new GameObject[kindOfFieldObjType];
+        fieldObjArray = new GameObject[StageTheme.kindOfFieldObjType];
 
-        for (int i = 0; i < kindOfFieldObjType; i++)
+        for (int i = 0; i < StageTheme.kindOfFieldObjType; i++)
             fieldObjArray[i] = GetAsset<GameObject>(path, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}");
     }
 

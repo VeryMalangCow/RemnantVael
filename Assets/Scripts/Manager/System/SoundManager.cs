@@ -221,7 +221,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         Add_BGM(stagePath, "Stage_99");
 
-        for (int i = 0; i < ResourceManager.kindOfMapAmount; i++)
+        for (int i = 0; i < StageTheme.kindOfMapAmount; i++)
             Add_BGM(stagePath, $"Stage_{DevTool.Get_LengthString(i, 2)}");
 
 

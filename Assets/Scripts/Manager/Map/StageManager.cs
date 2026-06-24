@@ -4,16 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class StageManager : Singleton<StageManager>, IMainGameInitializer
+[System.Serializable]
+public class StageGridGenerator
 {
-    public int InitOrder { get { return initOrder; } }
-    [SerializeField] private int initOrder;
-    public string InitPregressText { get { return initPregressText; } }
-    [SerializeField] private string initPregressText;
-
+    #region Class & Struct
 
     // 방 생성 시 규칙
     public class StageRule
@@ -89,9 +85,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         normal, vault, baseShop, allyShop, stPrison, utPrison, ntPrison, boss
     }
 
+    #endregion
 
+    #region Variable
 
-    [Space(10)]
     [Header("=== Rule")]
     [SerializeField] private TextAsset stageRuleCSV;
 #if UNITY_EDITOR
@@ -101,7 +98,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     public StageRule targetStageRule = new StageRule();
 
     // 실제 방 데이터들
-    private readonly List<RoomGrid> allRoomGrids = new List<RoomGrid>();
+    public readonly List<RoomGrid> allRoomGrids = new List<RoomGrid>();
 
     // 정적 데이터
     private static int roomTypeAmount = 8;
@@ -146,6 +143,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         Vector2Int.down
     };
 
+    #endregion
+
+    #region Init
 
     // Init
     public IEnumerator Initialize()
@@ -157,134 +157,17 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         InitRoomData();
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>RoomData Init</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"StageManager : <color=orange>RoomData Init</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
-
-
-
-
-#if UNITY_EDITOR
-        sw.Restart();
-#endif
-        yield return GenerateGridData();
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>Room+Gate Grid Set</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
-        yield return null;
-
-
-
-
-#if UNITY_EDITOR
-        sw.Restart();
-#endif
-        // Offset
-        lobbyStageData.Offset(ResourceManager.instance.Get_LobbyMapReso());
-
-        for (int i = 0; i < allStageData.Count; i++)
-        {
-            allStageData[i].Offset(ResourceManager.instance.Get_StageMapReso(i));
-        }
-        // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
-        passageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.instance.Get_PassageMapReso());
-
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
-        yield return null;
-
-
-#if UNITY_EDITOR
-        sw.Restart();
-#endif
-        Gen_Stage(targetStageID);
-
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
     }
 
+    #endregion
 
-#if UNITY_EDITOR
-
-    public List<RoomGrid> RoomGenStateData => allRoomGrids;
-
-    [ContextMenu("GenerateGridRoomData")]
-    private void GenerateGridRoomDataTest() // Test
-    {
-        InitRoomData();
-        TestGenerateGridData();
-    }
-
-    private void TestGenerateGridData()
-    {
-        if (!SetStageRule(targetStageRule, targetStageId))
-            return;
-
-        allRoomGrids.Clear();
-        int maxSuccess = 1000;
-        int currentSuccess = 0;
-        int currentFail = 0;
-
-        int maxTotalTry = 10000;
-        int totalTry = 0;
-
-        while (maxSuccess > currentSuccess && totalTry < maxTotalTry)
-        {
-            totalTry++;
-            bool success = GenerateRoomGridTest();
-            if (success)
-            {
-                currentSuccess++;
-            }
-            else
-            {
-                currentFail++;
-            }
-        }
-        UnityEngine.Debug.Log(
-            $"Try:[<color=gray>{totalTry}</color>] " +
-            $"Fail:[<color=red>{currentFail}</color>] " +
-            $"Success:[<color=blue>{currentSuccess}</color>] " +
-            $"Average:[<color=yellow>1 in {((float)totalTry / currentSuccess):F2}</color>] " +
-            $"Percent:[<color=yellow>{((float)currentSuccess / totalTry) * 100f:F2}%</color>]");
-    }
-
-    private bool GenerateRoomGridTest()
-    {
-        ClearGridCaches();
-
-        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
-        BuildSpecialRooms(saveDataManager.jsonData.gameProgressData);
-
-        int targetNormalRoomAmount = targetRoomAmount - specialRooms.Count;
-        if (targetNormalRoomAmount <= 0)
-        {
-            UnityEngine.Debug.Log($"일반 방 개수가 부족 / targetRoomAmount: {targetRoomAmount}, specialRooms: {specialRooms.Count}");
-            return false;
-        }
-
-        ResetTempSpecialRooms();
-        if (GenerateNormalRoomGrid(targetNormalRoomAmount, out int nextRoomId))
-        {
-            if (GenerateSpecialRoomGrid(nextRoomId))
-            {
-                GenerateGateGrid();
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-#endif
+    #region Generate
 
     // 맵의 그리드 생성
-    private IEnumerator GenerateGridData()
+    public IEnumerator GenerateGridData()
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
@@ -294,7 +177,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
 #if UNITY_EDITOR
         sw.Stop();
-        UnityEngine.Debug.Log($"Bring Stage Rule : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+        UnityEngine.Debug.Log($"StageManager : <color=orange>Set StageRule</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
         yield return null;
 
@@ -302,7 +185,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         yield return GenerateRoomGrid();
     }
 
-
+    #region Init
 
     // Init
     private void InitRoomData()
@@ -368,8 +251,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         return true;
     }
 
+    #endregion
 
-
+    #region Total Room
 
     // Generate <All Type Room>
     private IEnumerator GenerateRoomGrid()
@@ -475,8 +359,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         specialCandidateSortedListCache.Clear();
     }
 
+    #endregion
 
-
+    #region Normal Room
 
     // Generate <Normal Room Grid>
     private bool GenerateNormalRoomGrid(int targetRoomAmount, out int nextRoomId)
@@ -627,7 +512,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         return true;
     }
 
+    #endregion
 
+    #region Special Room
 
 
     // Generate <Special Room Grid>
@@ -751,7 +638,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         return adjacentSide == 1;
     }
 
-    
+
     private void InvalidateSpecialCandidatesAroundPlacedRoom(int existLength, int roundLength)
     {
         for (int i = specialCandidateSortedListCache.Count - 1; i >= 0; i--)
@@ -936,6 +823,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     }
 
 
+    #endregion
+
+    #region Gate
+
     // Generate <Gate Grid>
     private void GenerateGateGrid()
     {
@@ -973,9 +864,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
     }
 
+    #endregion
 
-
-
+    #region Room Caculator
 
     // Find Room Type -> Random
     private int GetRandomRoomType(RoomPercent[] roomPercents)
@@ -1076,23 +967,266 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     }
 
 
+    #endregion
+
+    #endregion
+
+#if UNITY_EDITOR
+
+    public void GenerateGridRoomDataTest() // Test
+    {
+        InitRoomData();
+        TestGenerateGridData();
+    }
+
+    private void TestGenerateGridData()
+    {
+        if (!SetStageRule(targetStageRule, targetStageId))
+            return;
+
+        allRoomGrids.Clear();
+        int maxSuccess = 1000;
+        int currentSuccess = 0;
+        int currentFail = 0;
+
+        int maxTotalTry = 10000;
+        int totalTry = 0;
+
+        while (maxSuccess > currentSuccess && totalTry < maxTotalTry)
+        {
+            totalTry++;
+            bool success = GenerateRoomGridTest();
+            if (success)
+            {
+                currentSuccess++;
+            }
+            else
+            {
+                currentFail++;
+            }
+        }
+        UnityEngine.Debug.Log(
+            $"Try:[<color=gray>{totalTry}</color>] " +
+            $"Fail:[<color=red>{currentFail}</color>] " +
+            $"Success:[<color=blue>{currentSuccess}</color>] " +
+            $"Average:[<color=yellow>1 in {((float)totalTry / currentSuccess):F2}</color>] " +
+            $"Percent:[<color=yellow>{((float)currentSuccess / totalTry) * 100f:F2}%</color>]");
+    }
+
+    private bool GenerateRoomGridTest()
+    {
+        ClearGridCaches();
+
+        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
+        BuildSpecialRooms(saveDataManager.jsonData.gameProgressData);
+
+        int targetNormalRoomAmount = targetRoomAmount - specialRooms.Count;
+        if (targetNormalRoomAmount <= 0)
+        {
+            UnityEngine.Debug.Log($"일반 방 개수가 부족 / targetRoomAmount: {targetRoomAmount}, specialRooms: {specialRooms.Count}");
+            return false;
+        }
+
+        ResetTempSpecialRooms();
+        if (GenerateNormalRoomGrid(targetNormalRoomAmount, out int nextRoomId))
+        {
+            if (GenerateSpecialRoomGrid(nextRoomId))
+            {
+                GenerateGateGrid();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+#endif
+}
+
+[System.Serializable]
+public class StageTheme
+{
+    [SerializeField] public StageData lobbyStageData;
+    [SerializeField] public List<StageData> allStageData;
+    [HideInInspector] public AllPassageMiddleSpriteData passageMiddleSpriteData;
+
+    private MapReso[] stageMapReso;
+    private MapReso passageMapReso;
+
+    private Sprite[][][] mapFieldObjList_Data;
+
+    private static int eachKindOfMapAmount = 2;
+    public static int kindOfMapAmount = 2;
+    public static int kindOfFieldObjType = 3;
+
+    public IEnumerator Initialize()
+    {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        // Offset
+        lobbyStageData.Offset(GetAsset_MapReso("Sprite/Map/", "MapLobby"));
+
+        test();
+        for (int i = 0; i < allStageData.Count; i++)
+        {
+            allStageData[i].Offset(stageMapReso[i]);
+        }
+        // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
+        passageMiddleSpriteData = new AllPassageMiddleSpriteData(passageMapReso);
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager : <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+        yield return null;
+    }
+
+    public Sprite Get_RandomFieldObjSprite(int stageID, int typeID)
+    {
+        Sprite[] spriteArr = mapFieldObjList_Data[stageID][typeID];
+        return spriteArr[UnityEngine.Random.Range(0, spriteArr.Length)];
+    }
+
+    private void test()
+    {
+        string path = $"Sprite/Map/";
+
+        List<MapReso> resos = new List<MapReso>();
+        for (int i = 0; i < kindOfMapAmount; i++)
+        {
+            string stageName = $"Map{DevTool.Get_LengthString(i, 2)}";
+            resos.Add(GetAsset_MapReso("Sprite/Map/", stageName));
+        }
+        stageMapReso = resos.ToArray();
+
+        string passageName = $"MapPassage/";
+        passageMapReso = GetAsset_MapReso(path, passageName);
+
+        // Kind of Map / Type / List
+        List<Sprite[][]> mapFieldObjList_Data = new List<Sprite[][]>();
+        for (int i = 0; i < stageMapReso.Length; i++)
+        {
+            mapFieldObjList_Data.Add(Get_FieldObj(stageMapReso[i]));
+        }
+        this.mapFieldObjList_Data = mapFieldObjList_Data.ToArray();
+    }
+
+    private Sprite[][] Get_FieldObj(MapReso reso) // Type / SpriteList
+    {
+        List<List<Sprite>> result = new List<List<Sprite>>();
+
+        for (int i = 0; i < kindOfFieldObjType; i++)
+        {
+            result.Add(new List<Sprite>());
+        }
+
+        for (int i = 0; i < reso.mapResoElements.Length; i++)
+        {
+            string[] name = reso.mapResoElements[i].sprite.name.Split("_");
+            if (name[1] == "FieldObj")
+            {
+                int type = Int32.Parse(name[2].Substring(1, 2));
+                result[type].Add(reso.mapResoElements[i].sprite);
+            }
+        }
+
+        List<Sprite[]> result2 = new List<Sprite[]>();
+        for (int i = 0; i < result.Count; i++)
+        {
+            result2.Add(result[i].ToArray());
+        }
+
+        return result2.ToArray();
+    }
+
+    private T[] GetAsset_Arr<T>(string path, string fileName = "") where T : UnityEngine.Object
+    => Resources.LoadAll<T>(path + fileName);
+
+    private MapReso GetAsset_MapReso(string path, string name)
+    {
+        List<MapResoElement> mapResoElements = new List<MapResoElement>();
+
+        for (int i = 0; i < eachKindOfMapAmount; i++)
+        {
+            Sprite[] spriteArr = GetAsset_Arr<Sprite>(path + name + "/", $"{name}_{DevTool.Get_LengthString(i, 3)}");
+
+            for (int j = 0; j < spriteArr.Length; j++)
+            {
+                mapResoElements.Add(new MapResoElement(spriteArr[j], i));
+            }
+        }
+
+        return new MapReso(mapResoElements.ToArray());
+    }
+}
 
 
 
+public class StageManager : Singleton<StageManager>, IMainGameInitializer
+{
+    #region Init - Variable
 
+    public int InitOrder { get { return initOrder; } }
+    [SerializeField] private int initOrder;
+    public string InitPregressText { get { return initPregressText; } }
+    [SerializeField] private string initPregressText;
 
+    #endregion
 
+    #region Init - Initialize
 
+    // Init
+    public IEnumerator Initialize()
+    {
+        yield return stageGridGenerator.Initialize();
 
+        yield return stageTheme.Initialize();
 
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        Gen_Stage(targetStageID);
 
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"StageManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
+    }
 
+    #endregion
 
+    #region  Stage Grid Generator - Variable
 
+    [SerializeField] public StageGridGenerator stageGridGenerator;
+    public List<StageGridGenerator.RoomGrid> allRoomGrids;
 
+    #endregion
 
+    #region Stage Grid Generator - Generate
 
+    private IEnumerator GenerateGridRoomData()
+    {
+        yield return stageGridGenerator.GenerateGridData();
+        allRoomGrids = stageGridGenerator.allRoomGrids;
+    }
 
+#if UNITY_EDITOR
+    [ContextMenu("GenerateGridRoomData")]
+    private void GenerateGridRoomDataTest() // Test
+    {
+        stageGridGenerator.GenerateGridRoomDataTest();
+        allRoomGrids = stageGridGenerator.allRoomGrids;
+    }
+#endif
+
+    #endregion
+
+    #region Stage Theme - Variable
+
+    [SerializeField] public StageTheme stageTheme;
+
+    #endregion
 
 
 
@@ -1106,8 +1240,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     [Header("=== Generate")]
     [SerializeField] private Transform mapParentTF;
     [SerializeField] public int targetStageID = -1;
-    [Space(10)][SerializeField] private StageData lobbyStageData;
-    [Space(10)][SerializeField] private List<StageData> allStageData;
 
     [Header("=== Current")]
     [SerializeField] private List<RoomController> currentAllRoomController = new List<RoomController>();
@@ -1144,7 +1276,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     [HideInInspector] private StageData beforeStageData;
     [HideInInspector] private StageData afterStageData;
 
-    [HideInInspector] private AllPassageMiddleSpriteData passageMiddleSpriteData;
 
 
 
@@ -1927,7 +2058,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public void Set_PassageMiddleSprite(SpriteRenderer sr, string key)
     {
-        Sprite data = passageMiddleSpriteData.Get_CorrectSprite(key, out int materialIndex);
+        Sprite data = stageTheme.passageMiddleSpriteData.Get_CorrectSprite(key, out int materialIndex);
         if (data == null) return;
 
         sr.sprite = data;
@@ -2023,11 +2154,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     public StageData Get_CollectStageData(int stageId)
     {
         if (stageId == 99)
-            return lobbyStageData;
+            return stageTheme.lobbyStageData;
 
-        for (int i = 0; i < allStageData.Count; i++)
-            if (allStageData[i].infoData.stageId == stageId)
-                return allStageData[i];
+        for (int i = 0; i < stageTheme.allStageData.Count; i++)
+            if (stageTheme.allStageData[i].infoData.stageId == stageId)
+                return stageTheme.allStageData[i];
 
         return null;
     }
