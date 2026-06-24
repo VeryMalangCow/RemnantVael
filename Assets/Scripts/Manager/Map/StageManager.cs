@@ -93,8 +93,8 @@ public class StageGridGenerator
     [SerializeField] private TextAsset stageRuleCSV;
 #if UNITY_EDITOR
     [SerializeField] private SaveDataManager saveDataManager;
+    [SerializeField] private int testTargetStageId;
 #endif
-    [SerializeField] private int targetStageId = 0;
     public StageRule targetStageRule = new StageRule();
 
     // 실제 방 데이터들
@@ -167,7 +167,7 @@ public class StageGridGenerator
     #region Generate
 
     // 맵의 그리드 생성
-    public IEnumerator GenerateGridData()
+    public IEnumerator GenerateGridData(int targetStageId)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
@@ -981,7 +981,7 @@ public class StageGridGenerator
 
     private void TestGenerateGridData()
     {
-        if (!SetStageRule(targetStageRule, targetStageId))
+        if (!SetStageRule(targetStageRule, testTargetStageId))
             return;
 
         allRoomGrids.Clear();
@@ -1161,6 +1161,73 @@ public class StageTheme
     }
 }
 
+[System.Serializable]
+public class StageObjectGenerator
+{
+
+    public IEnumerator Initialize()
+    {
+        yield return null;
+    }
+
+    // 스테이지 생성
+    public IEnumerator Gen_Stage(StageTheme stageTheme, int stageId)
+    {
+        StageData stageData = GetCollectStageData(stageTheme, stageId);
+
+        yield return null;
+    }
+
+    // 올바른 Stage Data 구하기
+    public StageData GetCollectStageData(StageTheme stageTheme, int stageId)
+    {
+        if (stageTheme == null)
+            return null;
+
+        if (stageId == 99)
+            return stageTheme.lobbyStageData;
+
+        StageData stageData = stageTheme.allStageData[stageId];
+        if (stageId == stageData.infoData.stageId)
+            return stageData;
+
+        for (int i = 0; i < stageTheme.allStageData.Count; i++)
+        {
+            stageData = stageTheme.allStageData[i];
+            if (stageData.infoData.stageId == stageId)
+                return stageData;
+        }
+        
+        return null;
+    }
+
+
+}
+
+[System.Serializable]
+public class StageData
+{
+    public string mapIndexName;
+
+    [Space(5)]
+    public StageInfo infoData;
+
+    [Space(5)]
+    public StageRoom roomData;
+
+    [Space(5)]
+    public List<Material> mapMaterialUnclear;
+    public List<Material> mapMaterialClear;
+    public List<StageDoorAnim> mapDoorAnim;
+
+    [HideInInspector] public List<Sprite> allMapSprite;
+    [HideInInspector] public StageMapSprite mapSpriteReso;
+
+    public void Offset(MapReso reso)
+    {
+        mapSpriteReso.Offset(reso, mapIndexName);
+    }
+}
 
 
 public class StageManager : Singleton<StageManager>, IMainGameInitializer
@@ -1179,22 +1246,22 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Init
     public IEnumerator Initialize()
     {
-        yield return stageGridGenerator.Initialize();
-
         yield return stageTheme.Initialize();
+        yield return stageGridGenerator.Initialize();
+        yield return stageObjectGenerator.Initialize();
 
-#if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew();
-#endif
-        Gen_Stage(targetStageID);
-
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"StageManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
+        yield return GenerateStage(targetStageID);
     }
 
     #endregion
+
+
+    #region Stage Theme - Variable
+
+    [SerializeField] public StageTheme stageTheme;
+
+    #endregion
+
 
     #region  Stage Grid Generator - Variable
 
@@ -1205,9 +1272,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Stage Grid Generator - Generate
 
-    private IEnumerator GenerateGridRoomData()
+    private IEnumerator GenerateGridRoomData(int targetStageId)
     {
-        yield return stageGridGenerator.GenerateGridData();
+        yield return stageGridGenerator.GenerateGridData(targetStageId);
         allRoomGrids = stageGridGenerator.allRoomGrids;
     }
 
@@ -1222,16 +1289,34 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #endregion
 
-    #region Stage Theme - Variable
 
-    [SerializeField] public StageTheme stageTheme;
+    #region Stage Object Generator - Variable
+
+    [SerializeField] private StageObjectGenerator stageObjectGenerator;
 
     #endregion
 
+    #region Stage Object Generator - Generate
 
+    private IEnumerator GenerateRoomObjects(int targetStageId)
+    {
+        yield return stageObjectGenerator.Gen_Stage(stageTheme, targetStageId);
+    }
 
+    #endregion
 
+    #region Generate
 
+    public IEnumerator GenerateStage(int targetStageId)
+    {
+        yield return GenerateGridRoomData(targetStageId);
+        yield return GenerateRoomObjects(targetStageId);
+
+    }
+
+    #endregion
+
+    #region Temp - Variable
 
     [Space(50)]
     [Header("=== Nav")]
@@ -1276,17 +1361,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     [HideInInspector] private StageData beforeStageData;
     [HideInInspector] private StageData afterStageData;
 
-
-
-
-
-
-
-
-
-
-
-
+    #endregion
 
 
 
@@ -1296,10 +1371,12 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Stage
 
+
+
     // 스테이지 생성
     public void Gen_Stage(int stageId)
     {
-        StageData stageData = Get_CollectStageData(stageId);
+        StageData stageData = GetCollectStageData(stageId);
 
         // 전에 있는 데이터를 제거
         Remove_PassageStage();
@@ -1339,6 +1416,19 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         // 처음 스타트맵
         Play_CurrentRoom(Get_CorrectRoom(0));
+    }
+
+    // 올바른 Stage 데이터 구하기
+    public StageData GetCollectStageData(int stageId)
+    {
+        if (stageId == 99)
+            return stageTheme.lobbyStageData;
+
+        for (int i = 0; i < stageTheme.allStageData.Count; i++)
+            if (stageTheme.allStageData[i].infoData.stageId == stageId)
+                return stageTheme.allStageData[i];
+
+        return null;
     }
 
     // 통로 스테이지 생성
@@ -2150,22 +2240,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Stage
 
-    // 올바른 Stage 데이터 구하기
-    public StageData Get_CollectStageData(int stageId)
-    {
-        if (stageId == 99)
-            return stageTheme.lobbyStageData;
 
-        for (int i = 0; i < stageTheme.allStageData.Count; i++)
-            if (stageTheme.allStageData[i].infoData.stageId == stageId)
-                return stageTheme.allStageData[i];
-
-        return null;
-    }
 
     public StageData Get_CurrentStageData()
     {
-        return Get_CollectStageData(targetStageID);
+        return GetCollectStageData(targetStageID);
     }
 
     #endregion
@@ -2445,8 +2524,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         beforeStageID = targetStageID;
         this.afterStageID = afterStageID;
 
-        beforeStageData = Get_CollectStageData(beforeStageID);
-        afterStageData = Get_CollectStageData(this.afterStageID);
+        beforeStageData = GetCollectStageData(beforeStageID);
+        afterStageData = GetCollectStageData(this.afterStageID);
 
         StartCoroutine(Play_GenPassageStage_Cor());
     }

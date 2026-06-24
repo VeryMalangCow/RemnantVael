@@ -4208,30 +4208,6 @@ public class MapResoElement
 
 #region Class : Stage
 
-[System.Serializable]
-public class StageData
-{
-    public string mapIndexName;
-
-    [Space(5)]
-    public StageInfo infoData;
-
-    [Space(5)]
-    public StageRoom roomData;
-
-    [Space(5)]
-    public List<Material> mapMaterialUnclear;
-    public List<Material> mapMaterialClear;
-    public List<StageDoorAnim> mapDoorAnim;
-
-    [HideInInspector] public List<Sprite> allMapSprite;
-    [HideInInspector] public StageMapSprite mapSpriteReso;
-    
-    public void Offset(MapReso reso)
-    {
-        mapSpriteReso.Offset(reso, mapIndexName);
-    }
-}
 
 #endregion
 
