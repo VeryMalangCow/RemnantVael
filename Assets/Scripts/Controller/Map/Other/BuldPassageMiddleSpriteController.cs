@@ -21,8 +21,8 @@ public class BuldPassageMiddleSpriteController : MonoBehaviour
                 string[] fullName = sr.sprite.name.Split("_");
                 spriteKey = 
                     $"{fullName[1]}_" +
-                    $"{DevTool.Get_LengthString(StageManager.instance.Get_BeforeStageID(), 2)}_" +
-                    $"{DevTool.Get_LengthString(StageManager.instance.Get_AfterStageID(), 2)}";
+                    $"{DevTool.Get_LengthString(StageManager.instance.stageObjectGenerator.Get_BeforeStageID(), 2)}_" +
+                    $"{DevTool.Get_LengthString(StageManager.instance.stageObjectGenerator.Get_AfterStageID(), 2)}";
             }
 
             StageManager.instance.Set_PassageMiddleSprite(sr, spriteKey);

@@ -108,7 +108,8 @@ public class VaultController : DestructibleBuildController
                 break;
         }
 
-        VaultController targetVault = DevTool.Get_ComponentTType<VaultController>(Instantiate(StageManager.instance.Get_VaultCorrectType(resultType), gameObject.transform.parent));
+        VaultController targetVault = DevTool.Get_ComponentTType<VaultController>(
+            Instantiate(StageManager.instance.stageObjectGenerator.Get_VaultCorrectType(resultType), gameObject.transform.parent));
         targetVault.transform.localPosition = transform.localPosition;
         targetVault.Change_OperValue(repairOper, rerollOper, upgradeOper);
 

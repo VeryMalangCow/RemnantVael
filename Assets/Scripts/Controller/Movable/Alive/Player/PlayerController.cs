@@ -341,7 +341,6 @@ public class PlayerController : AliveObjectController
 
         stateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
-        StageManager.instance.isStartStage = false;
         AddSortingLayer();
 
         SetOn_Trail();

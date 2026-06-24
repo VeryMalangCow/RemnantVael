@@ -20,7 +20,7 @@ public class BuildSpriteController : MonoBehaviour
             if (spriteKey == "")
                 spriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
 
-            StageManager.instance.Set_CurrentMapSprite(sr, spriteKey);
+            StageManager.instance.stageObjectGenerator.Set_CurrentMapSprite(sr, spriteKey);
         }
     }
 

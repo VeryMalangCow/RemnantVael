@@ -21,9 +21,9 @@ public class BuildPassageSpriteController : MonoBehaviour
                 spriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
 
             if (isBeforeMap)
-                StageManager.instance.Set_BeforeMapSprite(sr, spriteKey);
+                StageManager.instance.stageObjectGenerator.Set_BeforeMapSprite(sr, spriteKey);
             else
-                StageManager.instance.Set_AfterMapSprite(sr, spriteKey);
+                StageManager.instance.stageObjectGenerator.Set_AfterMapSprite(sr, spriteKey);
         }
     }
 

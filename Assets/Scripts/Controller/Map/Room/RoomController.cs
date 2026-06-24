@@ -413,6 +413,9 @@ public class RoomController : IDController
 
     public void Spawn_FieldObj()
     {
+        Debug.Log("지금은 막아둠: FIELD OBJ");
+        return;
+
         List<Vector2> data = Get_FieldObjPos();
 
         for (int i = 0; i < data.Count; i++)
@@ -421,7 +424,7 @@ public class RoomController : IDController
 
     private void EachSpawn_FieldObj(Vector2 pos)
     {
-        if (Instantiate(ResourceManager.instance.Get_RandomFieldObj_Prefab()).TryGetComponent(out DestructibleObjectController ddoc))
+        if (Instantiate(StageManager.instance.stageTheme.Get_RandomFieldObj_Prefab()).TryGetComponent(out DestructibleObjectController ddoc))
         {
             ddoc.gameObject.transform.SetParent(inRoom_FieldObjSpawnerParentTF);
             ddoc.gameObject.transform.position = pos;

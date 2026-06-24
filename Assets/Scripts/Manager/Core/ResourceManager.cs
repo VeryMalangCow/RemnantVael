@@ -1567,7 +1567,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [SerializeField] public GameObject passageRoomPrefab{ get; private set; } // Passage // Room
     [SerializeField] public GameObject passageRulePrefab { get; private set; } // Rule
 
-    [HideInInspector] private GameObject[] fieldObjArray;
 
     // Offset
     private void Offset_Prefab_Map()
@@ -1672,18 +1671,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
                 set(prefab);
             }
         }
-
-        // Field Obj
-        string path = "Prefab/FieldObj/";
-
-        fieldObjArray = new GameObject[StageTheme.kindOfFieldObjType];
-
-        for (int i = 0; i < StageTheme.kindOfFieldObjType; i++)
-            fieldObjArray[i] = GetAsset<GameObject>(path, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}");
     }
 
-    // Get
-    public GameObject Get_RandomFieldObj_Prefab() => fieldObjArray[UnityEngine.Random.Range(0, fieldObjArray.Length)];
 
     #endregion
 

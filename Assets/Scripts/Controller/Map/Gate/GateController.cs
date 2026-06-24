@@ -77,7 +77,7 @@ public class GateController : StaticDepthController, IInteract
         base.Offset();
 
         at = DevTool.Get_ComponentTType<Animator>(targetObject);
-        StageManager.instance.Set_StageDoorAnim(this, DevTool.Get_ComponentTType<SpriteRenderer>(targetObject), gateDir);
+        StageManager.instance.stageObjectGenerator.Set_StageDoorAnim(this, DevTool.Get_ComponentTType<SpriteRenderer>(targetObject), gateDir);
 
         keyCardIconSr.gameObject.SetActive(false);
         keyCardIconSr.sortingOrder = SortingOrderManager.order_DoorIcon;
