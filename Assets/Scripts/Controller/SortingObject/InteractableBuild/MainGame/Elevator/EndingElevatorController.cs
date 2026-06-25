@@ -82,11 +82,11 @@ public class EndingElevatorController : ElevatorController, IInteract
         // 통로 맵으로 가는 엘레베이터가 아니면 맵 생성
         if (isLobbyElevator == true || !forPassageElevator) 
         {
-            StageManager.instance.GenerateStageNext(nextStageIndex);
+            StageManager.instance.GenerateStage(nextStageIndex);
         }
         else // 둘 모두 아니면 통로 맵 생성
         {
-            StageManager.instance.Play_GenPassageStage(nextStageIndex);
+            StageManager.instance.GeneratePassageStage(nextStageIndex);
         }
 
         SaveDataManager.instance.Save_JsonData();

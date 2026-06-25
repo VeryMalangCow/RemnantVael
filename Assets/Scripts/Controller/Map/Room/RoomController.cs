@@ -229,8 +229,8 @@ public class RoomController : MonoBehaviour
             }
         }
 
-        StageManager.instance.Set_SetSpriteClearly();
-        StageManager.instance.Set_SetAnimClearly();
+        StageManager.instance.SetSetSpriteClearly();
+        StageManager.instance.SetSetAnimClearly();
 
         roomRule.Set_Completed();
     }

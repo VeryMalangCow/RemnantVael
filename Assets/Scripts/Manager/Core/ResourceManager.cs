@@ -116,7 +116,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_AllyCard();
         Offset_Sprite_AllyRequest();
         Offset_Sprite_Prison();
-        Offset_Sprite_Map();
         Offset_Sprite_Ally();
         Offset_Sprite_PuzzleNSC();
         Offset_Sprite_Minimap();
@@ -125,7 +124,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private void Offset_Material()
     {
         Offset_Material_Static();
-        Offset_Material_Map();
     }
 
     private void Offset_Anim()
@@ -1442,8 +1440,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region Map (CSV)
 
+
     // Value
-    [HideInInspector] private Dictionary<int, MapNextIndex> mapNextIndex_Data;
+    [HideInInspector] private Dictionary<int, List<int>> mapNextIndex_Data;
 
     [HideInInspector] private WordSet_Just mapName_Data;
     [HideInInspector] private WordSet_Just mapDesc_Data;
@@ -1458,9 +1457,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         mapDesc_Data = GetAsset_WordData(path, "MapDesc_CSV");
     }
 
-    private Dictionary<int, MapNextIndex> Offset_MapNextIndex(string path, string fileName)
+    private Dictionary<int, List<int>> Offset_MapNextIndex(string path, string fileName)
     {
-        Dictionary<int, MapNextIndex> result = new Dictionary<int, MapNextIndex>();
+        Dictionary<int, List<int>> result = new Dictionary<int, List<int>>();
 
         string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
@@ -1471,21 +1470,21 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             int pastIndex = int.Parse(stringList[i][0]);
             int nextIndex = int.Parse(stringList[i][1]);
 
-            List<MapNextIndex> indexList = new List<MapNextIndex>();
-            if (Is_ExistMapIndex(result, pastIndex, out MapNextIndex mapNextIndex)) // 이미 존재한다면
+            List<int> indexList = new List<int>();
+            if (Is_ExistMapIndex(result, pastIndex, out List<int> mapNextIndex)) // 이미 존재한다면
             {
-                mapNextIndex.nextIndexList.Add(nextIndex);
+                mapNextIndex.Add(nextIndex);
             }
             else // 존재하지 않는다면
             {
-                result.Add(pastIndex, new MapNextIndex(pastIndex, nextIndex));
+                result.Add(pastIndex, new List<int> { nextIndex });
             }
         }
 
         return result;
     }
 
-    private bool Is_ExistMapIndex(Dictionary<int, MapNextIndex> allMapNextIndex, int pastIndex, out MapNextIndex mapNextIndex)
+    private bool Is_ExistMapIndex(Dictionary<int, List<int>> allMapNextIndex, int pastIndex, out List<int> mapNextIndex)
     {
         mapNextIndex = null;
         if (allMapNextIndex.ContainsKey(pastIndex))
@@ -1504,37 +1503,10 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public List<int> Get_CorrectIndexList(int pastIndex)
     {
         if (mapNextIndex_Data.ContainsKey(pastIndex))
-            return mapNextIndex_Data[pastIndex].nextIndexList;
+            return mapNextIndex_Data[pastIndex];
 
         return null;
     }
-
-    #endregion
-    #region Map (Sprite & Material)
-
-    [HideInInspector] private Material[] passageMiddleMaterialArr;
-
-    // Offset
-    private void Offset_Sprite_Map()
-    {
-
-    }
-
-    private void Offset_Material_Map()
-    {
-        string path = "Material/";
-
-        string mapPassagePath = path + "Map/MapPassage/";
-        passageMiddleMaterialArr = new Material[1];
-        for (int i = 0; i < passageMiddleMaterialArr.Length; i++)
-            passageMiddleMaterialArr[i] = GetAsset<Material>(mapPassagePath, $"MapPassage_{DevTool.Get_LengthString(i, 3)}");
-
-    }
-
-
-
-    // Get
-    public Material Get_PassageMiddleMaterial(int index) => passageMiddleMaterialArr[index];
 
     #endregion
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuldPassageMiddleSpriteController : MonoBehaviour
 {
@@ -24,8 +25,7 @@ public class BuldPassageMiddleSpriteController : MonoBehaviour
                     $"{DevTool.Get_LengthString(StageManager.instance.stageObjectGenerator.beforeStageId, 2)}_" +
                     $"{DevTool.Get_LengthString(StageManager.instance.stageObjectGenerator.afterStageId, 2)}";
             }
-
-            StageManager.instance.Set_PassageMiddleSprite(sr, spriteKey);
+            StageManager.instance.StageObjectGenerator.Set_PassageMiddleSprite(sr, spriteKey);
         }
     }
 

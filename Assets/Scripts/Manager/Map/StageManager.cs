@@ -6,6 +6,26 @@ using System.Diagnostics;
 using UnityEngine;
 
 [System.Serializable]
+public class StageData
+{
+    public int stageId;
+
+    [Space(5)]
+    public List<Material> mapMaterialUnclear;
+    public List<Material> mapMaterialClear;
+    public List<StageDoorAnim> mapDoorAnim;
+
+    public List<Sprite> allMapSprite;
+    public StageMapSprite mapSpriteReso;
+
+    public void Offset(MapReso reso)
+    {
+        mapSpriteReso.Offset(reso);
+    }
+}
+
+
+[System.Serializable]
 public class StageGridGenerator
 {
     #region Class & Struct
@@ -978,6 +998,7 @@ public class StageGridGenerator
     public void GenerateGridRoomDataTest() // Test
     {
         InitRoomData();
+
         TestGenerateGridData();
     }
 
@@ -1018,6 +1039,7 @@ public class StageGridGenerator
     private bool GenerateRoomGridTest()
     {
         ClearGridCaches();
+        allRoomGrids.Clear();
 
         int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
         BuildSpecialRooms(saveDataManager.jsonData.gameProgressData);
@@ -1050,7 +1072,8 @@ public class StageTheme
 {
     [SerializeField] public StageData lobbyStageData;
     [SerializeField] public List<StageData> allStageData;
-    [HideInInspector] public AllPassageMiddleSpriteData passageMiddleSpriteData;
+    [SerializeField] public Material[] passageMiddleMaterialArr;
+    [HideInInspector] public AllPassageMiddleSpriteData passageMiddleSpriteData; 
 
     private MapReso[] stageMapReso;
     private MapReso passageMapReso;
@@ -1201,7 +1224,16 @@ public class StageObjectGenerator
     public static readonly Vector2Int offsetRoomSize = new Vector2Int(22, 14);
 
     public List<RoomController> currentAllRoomController { get; private set; } = new List<RoomController>();
-    public List<EntranceRuleController> currentAllEntranceRoomController = new List<EntranceRuleController>();
+    public List<EntranceRuleController> currentAllEntranceRoomController { get; private set; } = new List<EntranceRuleController>();
+
+    // Stage Data
+    public StageData currentStageData { get; private set; }
+    private StageData beforeStageData;
+    private StageData afterStageData;
+
+    public int currentStageId { get { return currentStageData != null ? currentStageData.stageId : -1; } }
+    public int beforeStageId { get { return beforeStageData != null ? beforeStageData.stageId : -1; } }
+    public int afterStageId { get { return afterStageData != null ? afterStageData.stageId : -1; } }
 
     #endregion
 
@@ -1218,11 +1250,11 @@ public class StageObjectGenerator
 
     #region Generate
 
+    // Lobby Or GamePlay 스테이지 생성
     public IEnumerator GenStage(StageTheme stageTheme, int stageId, List<StageGridGenerator.RoomGrid> allRoomGrids)
     {
         ResetData();
 
-        currentStageId = stageId;
         currentStageData = GetStageData(stageTheme, stageId);
         if (currentStageData == null) yield break;
 
@@ -1238,7 +1270,13 @@ public class StageObjectGenerator
         }
 
         // Entrance 활성화
-        //Set_EntranceIndex(stageId);
+        List<int> indexList = ResourceManager.instance.Get_CorrectIndexList(stageId);
+
+        if (indexList.Count > 1)
+            indexList = DevTool.Get_ShuffledList(indexList);
+
+        for (int i = 0; i < indexList.Count; i++)
+            currentAllEntranceRoomController[i].Set_ElevatorData(indexList[i]);
 
         // 게이트 활성화
         //Set_GateActiveOn();
@@ -1261,6 +1299,35 @@ public class StageObjectGenerator
 
         yield return null;
     }
+
+    // Passage 스테이지 생성
+    public IEnumerator GenPassageStage(int beforeStageId, int afterStageId)
+    {
+        // 전에 있는 데이터를 제거
+        ResetData();
+
+#if UNITY_EDITOR
+        UnityEngine.Debug.Log($"{beforeStageId} -> {afterStageId}");
+#endif
+        beforeStageData = GetStageData(stageTheme, this.beforeStageId);
+        afterStageData = GetStageData(stageTheme, this.afterStageId);
+
+        // Gen
+        GenPassageRoom(afterStageId);
+
+        // 게이트 활성화
+        //Set_GateActiveOn();
+
+        // UI 셋
+        MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
+        MainGameUIManager.instance.hud.MinimapView.SetOffMapIcon();
+
+        // Sound (BGM) 시작
+        //SoundManager.Instance.Play_2D_BGM("Stage" + DevTool.Get_LengthString(stageData.InfoData.StageID, 2) + "_BGM");
+
+        yield return null;
+    }
+
 
     #endregion
 
@@ -1519,9 +1586,6 @@ public class StageObjectGenerator
 
         MainGameUIManager.instance.hud.MinimapView.AllRemoveMinimapCell();
 
-        beforeStageId = -1;
-        afterStageId = -1;
-
         beforeStageData = null;
         afterStageData = null;
     }
@@ -1559,50 +1623,7 @@ public class StageObjectGenerator
     #endregion
 
 
-
-
-    #region Temp - Variable
-
-    // 클리어와 클리어 전 머터리얼 셋 
-
-    public int currentStageId { get; private set; }
-    public StageData currentStageData { get; private set; }
-
-    // Passage
-    public int beforeStageId { get; private set; } = -1;
-    public int afterStageId { get; private set; } = -1;
-    private StageData beforeStageData;
-    private StageData afterStageData;
-
-    #endregion
-
-
-    #region Stage
-
-    // 통로 스테이지 생성
-    public void GenPassageStage(int nextStageId)
-    {
-        // 전에 있는 데이터를 제거
-        ResetData();
-
-        // Gen
-        GenPassageRoom(nextStageId);
-
-        // 게이트 활성화
-        //Set_GateActiveOn();
-
-        // UI 셋
-        MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
-        MainGameUIManager.instance.hud.MinimapView.SetOffMapIcon();
-
-        // Sound (BGM) 시작
-        //SoundManager.Instance.Play_2D_BGM("Stage" + DevTool.Get_LengthString(stageData.InfoData.StageID, 2) + "_BGM");
-    }
-
-
-    #endregion
-
-    #region SR
+    #region Sprite
 
     public void Set_PassageMiddleSprite(SpriteRenderer sr, string key)
     {
@@ -1610,7 +1631,7 @@ public class StageObjectGenerator
         if (data == null) return;
 
         sr.sprite = data;
-        sr.material = ResourceManager.instance.Get_PassageMiddleMaterial(materialIndex);
+        sr.material = stageTheme.passageMiddleMaterialArr[materialIndex];
     }
 
     public void Set_CurrentMapSprite(SpriteRenderer sr, string spriteKey)
@@ -1661,48 +1682,7 @@ public class StageObjectGenerator
     }
 
     #endregion
-
-    #region Play (Spawn another Passage Stage)
-
-    public void Play_GenPassageStage(int beforeStageId, int afterStageId)
-    {
-        this.beforeStageId = beforeStageId;
-        this.afterStageId = afterStageId;
-        UnityEngine.Debug.Log($"{beforeStageId} -> {afterStageData}");
-
-        beforeStageData = GetStageData(stageTheme, this.beforeStageId);
-        afterStageData = GetStageData(stageTheme, this.afterStageId);
-
-        GenPassageStage(afterStageId);
-    }
-
-    #endregion
-
-
-
-
 }
-
-[System.Serializable]
-public class StageData
-{
-    public string mapIndexName;
-    public int stageId;
-
-    [Space(5)]
-    public List<Material> mapMaterialUnclear;
-    public List<Material> mapMaterialClear;
-    public List<StageDoorAnim> mapDoorAnim;
-
-    [HideInInspector] public List<Sprite> allMapSprite;
-    [HideInInspector] public StageMapSprite mapSpriteReso;
-
-    public void Offset(MapReso reso)
-    {
-        mapSpriteReso.Offset(reso, mapIndexName);
-    }
-}
-
 
 public class StageManager : Singleton<StageManager>, IMainGameInitializer
 {
@@ -1726,15 +1706,14 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         yield return stageGridGenerator.Initialize();
         yield return stageObjectGenerator.Initialize(stagePrefab, stageTheme);
 
-        yield return GenerateStage(targetStageId);
+        yield return GenerateStageCor(targetStageId);
     }
 
     #endregion
 
-    [Space(10)]
-
     #region Stage Resource - Variable
 
+    [Space(10)]
     [SerializeField] private StagePrefabSO stagePrefab;
     [SerializeField] private StageIconSO stageIcon;
     [SerializeField] private StageTheme stageTheme;
@@ -1743,15 +1722,14 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #endregion
 
-
     #region  Stage Grid Generator - Variable
 
-    [SerializeField] public StageGridGenerator stageGridGenerator;
+    [SerializeField] private StageGridGenerator stageGridGenerator;
+    public StageGridGenerator StageGridGenerator { get { return stageGridGenerator; } }
 
     #endregion
 
     #region Stage Grid Generator - Generate
-
     private IEnumerator GenerateGridRoomData(int targetStageId)
     {
         yield return stageGridGenerator.GenerateGridData(targetStageId);
@@ -1771,6 +1749,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #region Stage Object Generator - Variable
 
     [SerializeField] public StageObjectGenerator stageObjectGenerator;
+    public StageObjectGenerator StageObjectGenerator { get { return stageObjectGenerator; } }
 
     [SerializeField] public List<RoomController> currentAllRoomController => stageObjectGenerator.currentAllRoomController;
     [SerializeField] private List<EntranceRuleController> currentAllEntranceRoomController => stageObjectGenerator.currentAllEntranceRoomController;
@@ -1784,8 +1763,14 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         RemoveStageObject();
         yield return stageObjectGenerator.GenStage(stageTheme, targetStageId, stageGridGenerator.allRoomGrids);
 
-        // 처음 스타트맵
-        StartCurrentRoom(GetCorrectRoom(0));
+        StartCurrentRoom(currentAllRoomController[0]);
+    }
+    private IEnumerator GeneratePassageRoomObjects(int afterStageID)
+    {
+        RemoveStageObject();
+        yield return stageObjectGenerator.GenPassageStage(targetStageId, afterStageID);
+
+        StartCurrentRoom(currentAllRoomController[0]);
     }
 
     private void RemoveStageObject()
@@ -1810,15 +1795,16 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #endregion
 
 
-    #region Generate
+    #region Generate - Func
 
-    public void GenerateStageNext(int targetStageId)
+    // Lobby & Battle
+    public void GenerateStage(int targetStageId)
     {
         this.targetStageId = targetStageId;
-        StartCoroutine(GenerateStage(targetStageId));
+        StartCoroutine(GenerateStageCor(targetStageId));
     }
 
-    private IEnumerator GenerateStage(int targetStageId)
+    private IEnumerator GenerateStageCor(int targetStageId)
     {
         if (targetStageId != 99)
             yield return GenerateGridRoomData(targetStageId);
@@ -1826,11 +1812,24 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         yield return GenerateRoomObjects(targetStageId);
     }
 
+    public void GeneratePassageStage(int afterStageID)
+    {
+        StartCoroutine(GeneratePassageStageCor(afterStageID));
+    }
+
+    public IEnumerator GeneratePassageStageCor(int afterStageID)
+    {
+        yield return GeneratePassageRoomObjects(afterStageID);
+    }
+
     #endregion
 
-    [Space(10)]
+
+
 
     #region Variable
+
+    [Space(10)]
 
     // Nav
     [SerializeField] private NavMeshSurface navMesh;
@@ -1838,13 +1837,12 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     private HashSet<BuildSetSpriteController> currentSetSprites = new HashSet<BuildSetSpriteController>();
     private HashSet<BuildSetAnimController> currentSetAnims = new HashSet<BuildSetAnimController>();
 
+    public StageData currentStageData => stageObjectGenerator.currentStageData;
     public RoomController currentRoomController;
 
     #endregion
 
-    public StageData currentStageData => stageObjectGenerator.currentStageData;
-    //public StageData GetCurrentStageData()
-    //    => stageObjectGenerator.GetStageData(stageTheme, targetStageId);
+    #region Play
 
     // Start Room
     public void StartCurrentRoom(RoomController targetRoom)
@@ -1933,6 +1931,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         StartCoroutine(CompleteRoomKillAllCor());
     }
+
     public IEnumerator CompleteRoomKillAllCor()
     {
         yield return new WaitForSeconds(0.5f);
@@ -1949,58 +1948,16 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         }
     }
 
-
-
-    #region Room
-
-
-    // id에 맞는 방
-    public RoomController GetCorrectRoom(int id)
-    {
-        if (currentAllRoomController == null) return null;
-
-        RoomController room = currentAllRoomController[id];
-        if (room.id == id)
-            return room;
-
-        for (int i = 0; i < currentAllRoomController.Count; i++)
-        {
-            room = currentAllRoomController[i];
-            if (room.id == id)
-                return room;
-        }
-
-        return null;
-    }
-
     #endregion
 
+    #region Visual
 
-    public void Add_SetSprite(BuildSetSpriteController setSprite)
-    {
-        currentSetSprites.Add(setSprite);
-    }
-
-    public void Add_SetAnim(BuildSetAnimController setAnim)
-    {
-        currentSetAnims.Add(setAnim);
-    }
-    public void Set_SetAnimClearly()
-    {
-        if (currentSetAnims == null || currentSetAnims.Count <= 0) return;
-
-        foreach (BuildSetAnimController setAnim in currentSetAnims)
-        {
-            if (DevTool.Get_ComponentTType(setAnim.gameObject, out SpriteRenderer sr))
-            {
-                int index = stageObjectGenerator.currentStageData.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
-                if (index == -1)
-                { UnityEngine.Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = stageObjectGenerator.currentStageData.mapMaterialClear[index];
-            }
-        }
-    }
-    public void Set_SetSpriteClearly()
+    public void AddSetSprite(BuildSetSpriteController setSprite)
+        => currentSetSprites.Add(setSprite);
+    
+    public void AddSetAnim(BuildSetAnimController setAnim)
+        => currentSetAnims.Add(setAnim);
+    public void SetSetSpriteClearly()
     {
         if (currentSetSprites == null || currentSetSprites.Count <= 0) return;
 
@@ -2015,16 +1972,27 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             }
         }
     }
-
-    public void Set_PassageMiddleSprite(SpriteRenderer sr, string key)
+    
+    public void SetSetAnimClearly()
     {
-        stageObjectGenerator.Set_PassageMiddleSprite(sr, key);
+        if (currentSetAnims == null || currentSetAnims.Count <= 0) return;
+
+        foreach (BuildSetAnimController setAnim in currentSetAnims)
+        {
+            if (DevTool.Get_ComponentTType(setAnim.gameObject, out SpriteRenderer sr))
+            {
+                int index = stageObjectGenerator.currentStageData.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                if (index == -1)
+                { UnityEngine.Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
+                sr.material = stageObjectGenerator.currentStageData.mapMaterialClear[index];
+            }
+        }
     }
 
-    public void Play_GenPassageStage(int afterStageID)
-    {
-        stageObjectGenerator.Play_GenPassageStage(targetStageId, afterStageID);
-    }
+
+    #endregion
+
+    #region Shift Vault
 
     public VaultController GetVaultCorrectType(Type typeVault)
     {
@@ -2037,4 +2005,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         return null;
     }
+
+    #endregion
 }

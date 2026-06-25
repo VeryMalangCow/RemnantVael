@@ -4208,18 +4208,7 @@ public class MapResoElement
 
 #region Class : Stage : NextIndex
 
-[System.Serializable]
-public class MapNextIndex
-{
-    public int pastIndex;
-    public List<int> nextIndexList;
 
-    public MapNextIndex(int pastIndex, int nextIndex)
-    {
-        this.pastIndex = pastIndex;
-        nextIndexList = new List<int> { nextIndex };
-    }
-}
 
 #endregion  
 
@@ -5101,7 +5090,7 @@ public class StageMapSprite
 
     public Dictionary<string, SpriteMaterial> mapSprite = new Dictionary<string, SpriteMaterial>();
 
-    public void Offset(MapReso reso, string mapIndexName)
+    public void Offset(MapReso reso)
     {
         for (int i = 0; i < reso.mapResoElements.Length; i++)
         {

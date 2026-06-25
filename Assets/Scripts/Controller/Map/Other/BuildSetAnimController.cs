@@ -6,7 +6,7 @@ public class BuildSetAnimController : MonoBehaviour
 
     private void Add_CurrentSetAnim()
     {
-        StageManager.instance.Add_SetAnim(this);
+        StageManager.instance.AddSetAnim(this);
     }
 
     #endregion
