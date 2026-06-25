@@ -22,7 +22,7 @@ public class MinimapCellEUIController : ElementUIController
     {
         mmImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
         cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
-        this.cg.alpha = 0f;
+        cg.alpha = 0f;
         mmoImg = DevTool.Get_ComponentTType(transform.GetChild(0).gameObject, out Image outlineImg) ? outlineImg : null;
         iconImg = DevTool.Get_ComponentTType(transform.GetChild(1).gameObject, out Image _iconImg) ? _iconImg : null;
     }
@@ -49,10 +49,10 @@ public class MinimapCellEUIController : ElementUIController
         {
             rt.pivot = minimapReso.spritePivot;
             rt.anchoredPosition = new Vector2(
-                    (float)room.roomVec[0].x * intervalMm.Get_Base(isNormal),
-                    (float)room.roomVec[0].y * intervalMm.Get_Base(isNormal));
+                room.RoomVecWorld[0].x * intervalMm.Get_Base(isNormal),
+                room.RoomVecWorld[0].y * intervalMm.Get_Base(isNormal));
         }
-        CoupleData<Sprite> sprite = StageManager.instance.stageObjectGenerator.Get_CorrectMinimapIcon(room.roomRule);
+        CoupleData<Sprite> sprite = StageManager.instance.StageIcon.GetMinimapIcon(room.roomRule);
 
         if (sprite != null)
         {

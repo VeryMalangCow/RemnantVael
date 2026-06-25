@@ -66,8 +66,8 @@ public class MapIntroUIController : UIController
             StageManager.instance.GetCurrentStageData();
 
         Set_Txt(
-            ResourceManager.instance.Get_MapName(sd.infoData.stageId),
-            ResourceManager.instance.Get_MapDesc(sd.infoData.stageId));
+            ResourceManager.instance.Get_MapName(sd.stageId),
+            ResourceManager.instance.Get_MapDesc(sd.stageId));
     }
 
     #endregion

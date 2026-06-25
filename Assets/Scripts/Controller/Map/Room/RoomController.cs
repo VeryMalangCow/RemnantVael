@@ -2,24 +2,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class RoomController : IDController
+public class RoomController : MonoBehaviour
 {
     #region Value
 
-    #region - Inspector
-
-    [Space(20)]
-    [Header("<><><><><> Room")]
-
-    [Space(10)]
-    [Header("=== Data")]
-
-    [Space(5)]
-    [Header("-- Vec")]
-    [SerializeField] public List<Vector2Int> roomVec;
-    public Vector2Int[] roomVecWorld { get; private set; }
+    // Id
+    public int id { get; private set; }
+    [SerializeField] public int roomStaticId;
 
 
+    // Pos
+    [SerializeField] private Vector2Int[] roomVec;
+    [SerializeField] private Vector2Int[] roomVecWorld;
+    public Vector2Int[] RoomVec => roomVec;
+    public Vector2Int[] RoomVecWorld => roomVecWorld;
+    
+
+    // Wall
     [Space(10)]
     [Header("=== Wall")]
     [SerializeField] private Transform inRoom_UpperWallParentTF;
@@ -30,11 +29,6 @@ public class RoomController : IDController
 
     [Space(10)]
     [Header("=== Room Static ID")]
-    [SerializeField] public int roomStaticId;
-
-    #endregion
-
-    #region - Hide
 
     // Rule
     [HideInInspector] public RoomRuleController roomRule;
@@ -53,16 +47,20 @@ public class RoomController : IDController
     [HideInInspector] public MinimapCellEUIController thisMME;
     [HideInInspector] public MinimapCellEUIController thisIMME;
 
-
-    #endregion
-
     #endregion
 
     #region Offset
 
-    public override void Offset(int id)
+    public void Offset(RoomRuleController rule, int instanceId, int typeId, Vector2Int worldGridPivot)
     {
-        base.Offset(id);
+        id = instanceId;
+        roomStaticId = typeId;
+        roomRule = rule;
+        roomVecWorld = new Vector2Int[roomVec.Length];
+        for (int i = 0; i < roomVecWorld.Length; i++)
+            roomVecWorld[i] = roomVec[i] + worldGridPivot;
+
+        transform.position = (Vector2)(worldGridPivot * StageObjectGenerator.offsetRoomSize);
 
         // Wall
         inRoom_UpperWalls = DevTool.Get_ChildList<StaticDepthController>(inRoom_UpperWallParentTF);
@@ -73,14 +71,8 @@ public class RoomController : IDController
         inRoom_AllGate = DevTool.Get_CombineList(inRoom_UpperGates, inRoom_LowerGates);
         for (int i = 0; i < inRoom_AllGate.Count; i++)
             inRoom_AllGate[i].thisRoom = this;
-        
-        roomRule.Offset();
-    }
 
-    public void Offset(int instanceId, RoomRuleController rule)
-    {
-        roomRule = rule;
-        Offset(instanceId);
+        roomRule.Offset();
     }
 
     #endregion
@@ -428,7 +420,7 @@ public class RoomController : IDController
 
     private void EachSpawn_FieldObj(Vector2 pos)
     {
-        if (Instantiate(StageManager.instance.stageTheme.Get_RandomFieldObj_Prefab()).TryGetComponent(out DestructibleObjectController ddoc))
+        if (Instantiate(StageManager.instance.StageTheme.Get_RandomFieldObj_Prefab()).TryGetComponent(out DestructibleObjectController ddoc))
         {
             ddoc.gameObject.transform.SetParent(inRoom_FieldObjSpawnerParentTF);
             ddoc.gameObject.transform.position = pos;

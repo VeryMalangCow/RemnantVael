@@ -128,11 +128,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Material_Map();
     }
 
-    private void Offset_Prefab()
-    {
-        Offset_Prefab_Build(); 
-    }
-
     private void Offset_Anim()
     {
         Offset_Anim_Static();
@@ -153,7 +148,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_CSV();
         Offset_Sprite();
         Offset_Material();
-        Offset_Prefab(); 
         Offset_Anim();
     }
 
@@ -1651,69 +1645,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     // Get
     public Sprite Get_NSCAnswerSprite(int shapeIndex, int numIndex) => allNscAnswerSpriteSet[shapeIndex].allAnswerSet[numIndex];
-
-    #endregion
-    #region Build (Prefab)
-
-    // Value
-    [HideInInspector] public GameObject BUShopPrefab { get; private set; } // Player Shop
-    [HideInInspector] public GameObject MUShopPrefab { get; private set; }
-
-    [HideInInspector] public GameObject ABUShopPrefab { get; private set; }  // Ally Shop
-    [HideInInspector] public GameObject AMUShopPrefab { get; private set; }
-
-    [HideInInspector] public GameObject[] vaultPrefabArr { get; private set; } // Value
-    [HideInInspector] public GameObject[] prisonPrefabArr { get; private set; } // Prison
-
-
-    [HideInInspector] public GameObject repairOperatorPrefab { get; private set; }  // Oper
-
-    [HideInInspector] public GameObject vaultRerollOperatorPrefab { get; private set; }
-    [HideInInspector] public GameObject vaultUpgradeOperatorPrefab { get; private set; }
-
-    [HideInInspector] public GameObject prisonPayOperatorPrefab { get; private set; }
-    [HideInInspector] public GameObject prisonPuzzleOperatorPrefab { get; private set; }
-
-    // Offset
-    private void Offset_Prefab_Build()
-    {
-        string shop = "Shop";
-        string vault = "Vault";
-        string prison = "Prison";
-        string oper = "Operator";
-
-        string path = "Prefab/Build/MainGame/";
-
-        string playerPath = path + shop + "/";
-        BUShopPrefab = GetAsset<GameObject>(playerPath, $"BaseUpgrade{shop}");
-        MUShopPrefab = GetAsset<GameObject>(playerPath, $"ModuleUpgrade{shop}");
-
-        string allyPath = path + "Ally" + shop + "/";
-        ABUShopPrefab = GetAsset<GameObject>(allyPath, $"AllyBaseUpgrade{shop}");
-        AMUShopPrefab = GetAsset<GameObject>(allyPath, $"AllyModuleUpgrade{shop}");
-
-        string vaultPath = path + vault + "/";
-        vaultPrefabArr = new GameObject[3]; // 3
-        vaultPrefabArr[0] = GetAsset<GameObject>(vaultPath, $"BetteryShard{vault}");
-        vaultPrefabArr[1] = GetAsset<GameObject>(vaultPath, $"Joule{vault}");
-        vaultPrefabArr[2] = GetAsset<GameObject>(vaultPath, $"Module{vault}");
-
-        string prisonPath = path + prison + "/";
-        prisonPrefabArr = new GameObject[3]; // 3
-        prisonPrefabArr[0] = GetAsset<GameObject>(prisonPath, $"{prison}_StrikeTeam");
-        prisonPrefabArr[1] = GetAsset<GameObject>(prisonPath, $"{prison}_UplinkTeam");
-        prisonPrefabArr[2] = GetAsset<GameObject>(prisonPath, $"{prison}_NeoTeam");
-
-
-        string operPath = path + oper + "/";
-        repairOperatorPrefab = GetAsset<GameObject>(operPath, $"Repair{oper}");
-        string vaultOperPath = operPath + vault + "/";
-        vaultRerollOperatorPrefab = GetAsset<GameObject>(vaultOperPath, $"VaultReroll{oper}");
-        vaultUpgradeOperatorPrefab = GetAsset<GameObject>(vaultOperPath, $"VaultUpgrade{oper}");
-        string prisonOperPath = operPath + prison + "/";
-        prisonPayOperatorPrefab = GetAsset<GameObject>(prisonOperPath, $"PrisonPay{oper}");
-        prisonPuzzleOperatorPrefab = GetAsset<GameObject>(prisonOperPath, $"PrisonPuzzle{oper}");
-    }
 
     #endregion
 
