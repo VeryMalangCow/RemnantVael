@@ -97,7 +97,7 @@ public class MinimapEUIController : ElementUIController
 
     public void Gen_Minimap()
     {
-        List<RoomController> allRC = StageManager.instance.stageObjectGenerator.Get_AllRoom();
+        List<RoomController> allRC = StageManager.instance.stageObjectGenerator.currentAllRoomController;
 
         for (int i = 0; i < allRC.Count; i++)
         {

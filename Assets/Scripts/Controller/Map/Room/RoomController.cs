@@ -17,6 +17,7 @@ public class RoomController : IDController
     [Space(5)]
     [Header("-- Vec")]
     [SerializeField] public List<Vector2Int> roomVec;
+    public Vector2Int[] roomVecWorld { get; private set; }
 
 
     [Space(10)]

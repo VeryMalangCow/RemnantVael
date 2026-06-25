@@ -6422,6 +6422,34 @@ MonoBehaviour:
     - {fileID: -5182979113265001400, guid: b6a9c06dc727bc148b314b203219dc8f, type: 3}
     - {fileID: -5182979113265001400, guid: c7fdb27c083fcf34d9eb8f3bdc6779be, type: 3}
     - {fileID: -5182979113265001400, guid: d4ab8a3de61f65446a274276ca6587be, type: 3}
+    roomRulePrefabs:
+    - array:
+      - {fileID: 8811059131841986343, guid: 8cf2e8f83e6b9754793f6d767a5c7813, type: 3}
+      - {fileID: 8811059131841986343, guid: 67fa92153a88e8148a72c2fb2684f1ad, type: 3}
+      - {fileID: 8811059131841986343, guid: 111341ff89a1c4d42acebe8029376aed, type: 3}
+      - {fileID: 8811059131841986343, guid: 488aa58a242914e429e26ab187ceac84, type: 3}
+      - {fileID: 8811059131841986343, guid: fe5cd2510de8e8e438f49fa03151c094, type: 3}
+    - array:
+      - {fileID: 8811059131841986343, guid: d15fe63ca7bc8f54998fb883d03f8285, type: 3}
+      - {fileID: 8811059131841986343, guid: e2d61214c26412c42b27f59afb66fa64, type: 3}
+    - array:
+      - {fileID: 8811059131841986343, guid: 14f0c5c5e1d4d964b8f7066b58c30578, type: 3}
+      - {fileID: 8811059131841986343, guid: a81b4495cb4435542bd9d2765a3e4406, type: 3}
+    - array:
+      - {fileID: 8811059131841986343, guid: 29c566f2f9b618d4fb8b00335f99aab1, type: 3}
+      - {fileID: 8811059131841986343, guid: d5e35c275268abc4b989637796a59f2d, type: 3}
+    - array:
+      - {fileID: 8811059131841986343, guid: 6a62b95d452bccc46897840841783066, type: 3}
+      - {fileID: 8811059131841986343, guid: 6fe7de39cdc6bf240a8d5a2552c18718, type: 3}
+    - array:
+      - {fileID: 8811059131841986343, guid: 2c49bfe8e24851e42a56a54d12f2fc2d, type: 3}
+      - {fileID: 8811059131841986343, guid: eb1bcddd55ba1304aad285d6004f3f9d, type: 3}
+    - array:
+      - {fileID: 8811059131841986343, guid: 816f43f131534e4428dc6e7bd91b7950, type: 3}
+      - {fileID: 8811059131841986343, guid: 6882f6bfe84fea94fa38734faf514c6e, type: 3}
+    - array:
+      - {fileID: 8811059131841986343, guid: a564cf29453c03e4ab796a41b0fb2d09, type: 3}
+      - {fileID: 8811059131841986343, guid: 403d614e5bc336346b5933b9bc4b4875, type: 3}
     roomStartPrefab: {fileID: 8811059131841986343, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
     roomEntrancePrefabs:
     - {fileID: 6591078569616373478, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
@@ -6430,6 +6458,8 @@ MonoBehaviour:
     roomShopPrefab: {fileID: 3635096754202495175, guid: d30915823e2e8eb43a9d195178a83b47, type: 3}
     roomAllyShopPrefab: {fileID: 4164879491352479518, guid: 7357aaaa152bf834ea4dd936a19cd5d0, type: 3}
     roomPrisonPrefab: {fileID: 4031315333983788123, guid: 335bf5e4dca0a5043aab82f4958d5033, type: 3}
+    roomPassagePrefab: {fileID: -5182979113265001400, guid: a5fc5d9c3d2354c49ba4369bc383e0b8, type: 3}
+    roomPassageRulePrefab: {fileID: 2767395928603246051, guid: fe55da7b226a81246a2e6de6f81224a1, type: 3}
     vaultPrefabs:
     - {fileID: 114888182504759569, guid: ee4da6a03b0a7f342bbe8b19563d73d9, type: 3}
     - {fileID: 843154509398518699, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}

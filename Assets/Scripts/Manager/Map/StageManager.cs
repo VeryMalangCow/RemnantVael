@@ -1188,69 +1188,26 @@ public class StageTheme
 }
 
 [System.Serializable]
-public class StagePrefab
-{
-    [Header("=== Prefab")]
-    [Space(10)]
-    [Header("-- Lobby")]
-    [Header("* Room")]
-    [SerializeField] public RoomController roomLobbyEntrancePrefab;
-    [Header("* Rule")]
-    [SerializeField] public RoomRuleController roomRuleLobbyPrefab;
-    [SerializeField] public EntranceRuleController roomEntranceRuleLobbyPrefab;
-
-    [Space(10)]
-    [Header("-- GamePlay")]
-    [Header("* Room")]
-    [SerializeField] public RoomController[] roomPrefabs;
-    [Header("* Rule")]
-    [SerializeField] public RoomRuleController roomStartPrefab;
-    [SerializeField] public EntranceRuleController[] roomEntrancePrefabs;
-    [SerializeField] public VaultRuleController roomVaultPrefab;
-    [SerializeField] public ShopRuleController roomShopPrefab;
-    [SerializeField] public AllyShopRuleController roomAllyShopPrefab;
-    [SerializeField] public PrisonRuleController roomPrisonPrefab;
-
-    [Space(10)]
-    [Header("=== Build")]
-    [SerializeField] public VaultController[] vaultPrefabs;
-    [SerializeField] public BaseUpgradeController buPrefab;
-    [SerializeField] public ModuleUpgradeController muPrefab;
-    [SerializeField] public AllyBaseUpgradeController abuPrefab;
-    [SerializeField] public AllyModuleUpgradeController amuPrefab;
-    [SerializeField] public PrisonController[] prisonPrefabs;
-
-    [Space(10)]
-    [Header("=== Oper")]
-    [SerializeField] public RepairOperatorController repairOperPrefab;
-    [SerializeField] public VaultRerollOperatorController vaultRerollOperPrefab;
-    [SerializeField] public VaultUpgradeOperatorController vaultUpgradeOperPrefab;
-    [SerializeField] public PrisonPayOperatorController prisonPayOperPrefab;
-    [SerializeField] public PrisonPuzzleOperatorController prisonPuzzleOperPrefab;
-}
-
-[System.Serializable]
 public class StageObjectGenerator
 {
     #region Variable
 
-
     // Comp
     [SerializeField] private Transform stageParentTf;
 
-    private StagePrefab stagePrefab;
+    private StagePrefabSO stagePrefab;
 
     // Cell Size
     private static readonly Vector2Int offsetRoomSize = new Vector2Int(22, 14);
 
-    public List<RoomController> currentAllRoomController = new List<RoomController>();
+    public List<RoomController> currentAllRoomController { get; private set; } = new List<RoomController>();
     public List<EntranceRuleController> currentAllEntranceRoomController = new List<EntranceRuleController>();
 
     #endregion
 
     #region Init
 
-    public IEnumerator Initialize(StagePrefab stagePrefab)
+    public IEnumerator Initialize(StagePrefabSO stagePrefab)
     {
         this.stagePrefab = stagePrefab;
         yield return null;
@@ -1291,8 +1248,6 @@ public class StageObjectGenerator
 
         // Sound (BGM) 시작
         SoundManager.instance.Play_2D_BGM_Stage(currentStageData.infoData.stageId);
-
-        Reset_GenStageData();
 
         if (stageId == 99)
             Play_LobbyStart_Cor();
@@ -1342,8 +1297,6 @@ public class StageObjectGenerator
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomRuleLobbyPrefab, room.gameObject.transform);
 
-        currentAllRoomController.Add(room);
-
         SetLobbyRoomToWorld(room, roomRule, instanceId, pos);
     }
 
@@ -1352,7 +1305,6 @@ public class StageObjectGenerator
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomLobbyEntrancePrefab, stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomEntranceRuleLobbyPrefab, room.gameObject.transform);
 
-        currentAllRoomController.Add(room);
         currentAllEntranceRoomController.Add(roomRule);
 
         roomRule.Set_EntranceRuleInLobby();
@@ -1414,8 +1366,6 @@ public class StageObjectGenerator
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomStartPrefab, room.gameObject.transform);
 
-        currentAllRoomController.Add(room);
-
         SetGamePlayRoomToWorld(room, roomRule, instanceId, pos);
     }
 
@@ -1423,9 +1373,7 @@ public class StageObjectGenerator
     private void GenNormalRoom(int roomTypeId, int instanceId, Vector2Int pos)
     {
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
-        var roomRule = UnityEngine.Object.Instantiate(Get_CorrectRandomRoomRule(room), room.gameObject.transform);
-
-        currentAllRoomController.Add(room);
+        var roomRule = UnityEngine.Object.Instantiate(Get_CorrectRandomRoomRule(roomTypeId), room.gameObject.transform);
 
         SetGamePlayRoomToWorld(room, roomRule, instanceId, pos);
     }
@@ -1436,7 +1384,6 @@ public class StageObjectGenerator
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomEntrancePrefabs[entranceId], room.gameObject.transform);
 
-        currentAllRoomController.Add(room); 
         currentAllEntranceRoomController.Add(roomRule);
 
         SetGamePlayRoomToWorld(room, roomRule, instanceId, pos);
@@ -1447,8 +1394,6 @@ public class StageObjectGenerator
     {
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomVaultPrefab, room.gameObject.transform);
-
-        currentAllRoomController.Add(room);
 
         SetGamePlayRoomToWorld(room, roomRule, instanceId, pos);
 
@@ -1465,8 +1410,6 @@ public class StageObjectGenerator
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomShopPrefab, room.gameObject.transform);
 
-        currentAllRoomController.Add(room); 
-        
         SetGamePlayRoomToWorld(room, roomRule, instanceId, pos);
 
         GameProgressJsonData data = SaveDataManager.instance.jsonData.gameProgressData;
@@ -1486,8 +1429,6 @@ public class StageObjectGenerator
     {
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomAllyShopPrefab, room.gameObject.transform);
-
-        currentAllRoomController.Add(room);
 
         SetGamePlayRoomToWorld(room, roomRule, instanceId, pos);
 
@@ -1509,8 +1450,6 @@ public class StageObjectGenerator
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomPrisonPrefab, room.gameObject.transform);
 
-        currentAllRoomController.Add(room);
-
         SetGamePlayRoomToWorld(room, roomRule, instanceId, pos);
 
         roomRule.SetPrison(
@@ -1521,21 +1460,16 @@ public class StageObjectGenerator
     }
 
     // 통로 방 생성
-    private void Gen_PassageRoom(int nextStageId)
+    private void GenPassageRoom(int nextStageId)
     {
-        if (DevTool.Get_ComponentTType(UnityEngine.Object.Instantiate(ResourceManager.instance.passageRoomPrefab, stageParentTf), out RoomController room))
-        {
-            currentAllRoomController.Add(room);
+        var room = UnityEngine.Object.Instantiate(stagePrefab.roomPassagePrefab, stageParentTf);
+        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomPassageRulePrefab, room.gameObject.transform);
 
-            if (DevTool.Get_ComponentTType(UnityEngine.Object.Instantiate(ResourceManager.instance.passageRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
-                room.roomRule = roomRule;
+        SetGamePlayRoomToWorld(room, roomRule, 0, Vector2Int.zero);
 
-            PassageRuleController passageRule = DevTool.Get_CastingTType<PassageRuleController>(roomRule);
-            passageRule.Set_ElevatorData(nextStageId);
-
-            room.Offset(0);
-        }
+        roomRule.Set_ElevatorData(nextStageId);
     }
+
 
     #endregion
 
@@ -1573,8 +1507,6 @@ public class StageObjectGenerator
     {
         currentAllRoomController.Clear();
 
-
-
         MainGameUIManager.instance.hud.MinimapView.AllRemoveMinimapCell();
 
         beforeStageId = -1;
@@ -1590,12 +1522,16 @@ public class StageObjectGenerator
 
     private void SetLobbyRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, Vector2Int gridPos)
     {
+        currentAllRoomController.Add(room);
+
         room.Offset(instanceId, roomRule);
         room.gameObject.transform.position = GetGridVecToWorldPos(room.roomVec[0] + gridPos);
     }
 
     private void SetGamePlayRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, Vector2Int gridPos)
     {
+        currentAllRoomController.Add(room);
+
         room.Offset(instanceId, roomRule);
         room.gameObject.transform.position = GetGridVecToWorldPos(room.roomVec[0] + gridPos);
 
@@ -1604,25 +1540,25 @@ public class StageObjectGenerator
 
     private Vector2 GetGridVecToWorldPos(Vector2 gridVec)
         => gridVec * offsetRoomSize;
-    
+
 
     #endregion
 
+    #region Random Rule
 
+    // 인덱스가 같은 RoomRule 찾기 (마지막엔 랜덤)
+    private RoomRuleController Get_CorrectRandomRoomRule(int typeId)
+    {
+        RoomRuleController[] roomRuleList = stagePrefab.roomRulePrefabs[typeId].array;
+        return roomRuleList[UnityEngine.Random.Range(0, roomRuleList.Length)];
+    }
 
+    #endregion
 
 
     #region Temp - Variable
 
     [Header("=== Current")]
-
-
-    // 이미 차지한 Vec
-    [HideInInspector] private HashSet<Vector2Int> alreadyExistList = new HashSet<Vector2Int>();
-    [HideInInspector] private HashSet<Vector2Int> alreadyExistSpeicalList = new HashSet<Vector2Int>();
-
-    // 배치할 주변 Vec
-    [HideInInspector] private List<Vector2Int> roundList = new List<Vector2Int>();
 
     // 클리어와 클리어 전 머터리얼 셋 
     [HideInInspector] public StageData currentStageData;
@@ -1639,13 +1575,13 @@ public class StageObjectGenerator
     #region Stage
 
     // 통로 스테이지 생성
-    public void Gen_PassageStage(int nextStageId)
+    public void GenPassageStage(int nextStageId)
     {
         // 전에 있는 데이터를 제거
         ResetData();
 
         // Gen
-        Gen_PassageRoom(nextStageId);
+        GenPassageRoom(nextStageId);
 
         // 게이트 활성화
         Set_GateActiveOn();
@@ -1656,35 +1592,8 @@ public class StageObjectGenerator
 
         // Sound (BGM) 시작
         //SoundManager.Instance.Play_2D_BGM("Stage" + DevTool.Get_LengthString(stageData.InfoData.StageID, 2) + "_BGM");
-
-        Reset_GenStageData();
     }
 
-
-    private void Set_EntranceIndex(int currentIndex)
-    {
-        List<int> indexList = ResourceManager.instance.Get_CorrectIndexList(currentIndex);
-
-        if (indexList.Count > 1)
-            indexList = DevTool.Get_ShuffledList(indexList);
-
-        for (int i = 0; i < indexList.Count; i++)
-            currentAllEntranceRoomController[i].Set_ElevatorData(indexList[i]);
-    }
-
-    #endregion
-
-
-
-    #region Reset
-
-    private void Reset_GenStageData()
-    {
-        alreadyExistList.Clear();
-        alreadyExistSpeicalList.Clear();
-
-        roundList.Clear();
-    }
 
     #endregion
 
@@ -1747,50 +1656,6 @@ public class StageObjectGenerator
                 allGate[i].Set_ExistDoorState(false);
             }
         }
-    }
-
-    #endregion
-
-    #region Round
-
-    // 해당 월드 좌표값을 Room에 적용
-    private void Set_RelativeVec(RoomController room, List<Vector2Int> worldVecList)
-    {
-        // 벡터값을 넣어주고 (실제 좌표 값에 비례되는 값을 넣어줌 + Gate도)
-        for (int i = 0; i < room.roomVec.Count; i++)
-            room.Set_CollectGatePos(i, worldVecList[i]);
-    }
-
-    // 월드 기준: 상대적인 좌표 직접 지정
-    private void Set_NormalRelativeVec(RoomController room, List<Vector2Int> relativePos)
-    {
-        Set_RelativeVec(room, relativePos);
-
-        
-        room.Spawn_FieldObj();
-        Add_RoundVec(room.roomVec);
-    }
-
-    // 월드 기준: 상대적인 좌표 삽입
-    private void Set_NormalRelativeVec(RoomController room, int connectedRoomAmount = -1, bool applySpecialExist = false)
-    {
-        Set_RelativeVec(room, Get_FindCorrectWorldVec_Normal(room, connectedRoomAmount, applySpecialExist));
-
-        room.gameObject.transform.position = new Vector2(room.roomVec[0].x * offsetRoomSize.x, room.roomVec[0].y * offsetRoomSize.y);
-        room.Spawn_FieldObj();
-        Add_RoundVec(room.roomVec);
-    }
-
-    // 월드 기준: 상대적인 좌표 삽입: 가장 멀고, 특별 Round 포함
-    private void Set_FurthestRelativeVec(RoomController room, int connectedRoomAmount = -1, bool applySpecialExist = true)
-    {
-        Set_RelativeVec(room, Get_FindCorrectWorldVec_Furthest(room, connectedRoomAmount, applySpecialExist));
-
-        room.gameObject.transform.position = new Vector2(room.roomVec[0].x * offsetRoomSize.x, room.roomVec[0].y * offsetRoomSize.y);
-        room.Spawn_FieldObj();
-        Add_RoundVec(room.roomVec);
-
-        Add_RoundSpecialVec(room.roomVec);
     }
 
     #endregion
@@ -1859,40 +1724,6 @@ public class StageObjectGenerator
 
     #endregion
 
-    #region Get
-
-    #region Room
-
-    // 현재 모든 방 구하기
-    public List<RoomController> Get_AllRoom() => currentAllRoomController;
-    
-
-
-
-    #endregion
-
-    #region RoomRule
-
-    // Room 인덱스에 맞는 모든 RoomRule 가져오기
-    private List<RoomRuleController> Get_CorrectRoomRuleList(RoomController room)
-    {
-        List<Vector2Int> roomIndex = room.roomVec;
-        List<RoomRuleController> result = new List<RoomRuleController>();
-        for (int i = 0; i < ResourceManager.instance.roomRulePrefabArr.Length; i++)
-            if (ResourceManager.instance.roomRulePrefabArr[i].TryGetComponent(out RoomRuleController rrc) && rrc.roomVec.SequenceEqual(roomIndex))
-                result.Add(rrc);
-
-        return result;
-    }
-
-    // 인덱스가 같은 RoomRule 찾기 (마지막엔 랜덤)
-    private RoomRuleController Get_CorrectRandomRoomRule(RoomController room)
-    {
-        List<RoomRuleController> roomRuleList = Get_CorrectRoomRuleList(room);
-        return roomRuleList[UnityEngine.Random.Range(0, roomRuleList.Count)];
-    }
-
-    #endregion
 
     #region Gate 
 
@@ -1903,91 +1734,6 @@ public class StageObjectGenerator
             allGate.AddRange(roomList[i].inRoom_AllGate);
 
         return allGate;
-    }
-
-    #endregion
-
-    #region Round
-
-    // 현재 Round에서, 타겟 Room에 맞춘 위치 값 반환
-    private List<Vector2Int> Get_FindCorrectWorldVec_Normal(RoomController targetRoom, int connectedRoomAmount = -1, bool applySpecialExist = false)
-    {
-        List<Vector2Int> randomRoundList = DevTool.Get_ShuffledList(roundList);
-
-        List<Vector2Int> existList = new List<Vector2Int>(alreadyExistList);
-        if (applySpecialExist) existList.AddRange(alreadyExistSpeicalList);
-
-        return Get_FindCorrectWorldVec(
-            targetRoom.roomVec, roundList, existList, connectedRoomAmount);
-    }
-
-    // 현재 Round에서, 타겟 Room에 맞춘 위치 값 + 가장 먼 위치 값 반환
-    private List<Vector2Int> Get_FindCorrectWorldVec_Furthest(RoomController targetRoom, int connectedRoomAmount = -1, bool applySpecialExist = false)
-    {
-        List<Vector2Int> farRoundList = roundList.OrderByDescending(obj => Vector2Int.Distance(Vector2Int.zero, obj)).ToList();
-
-        List<Vector2Int> existList = new List<Vector2Int>(alreadyExistList);
-        if (applySpecialExist) existList.AddRange(alreadyExistSpeicalList);
-
-        return Get_FindCorrectWorldVec(
-            targetRoom.roomVec, farRoundList, existList, connectedRoomAmount);
-    }
-
-    // 계산
-    private List<Vector2Int> Get_FindCorrectWorldVec(List<Vector2Int> roomVec, List<Vector2Int> roundList, List<Vector2Int> existList, int connectedRoomAmount = -1)
-    {
-        List<Vector2Int> WorldVecList = new List<Vector2Int>();
-
-        // 찾을 때까지 실행
-
-        int randomIndex = 0;
-
-        while (true)
-        {
-            WorldVecList = new List<Vector2Int>();
-            bool wrongPlace = false;
-
-            // 주변 공간에 배치할 시 배치 할 수 있는지에 대한
-            for (int i = 0; i < roomVec.Count; i++)
-            {
-                if (roundList.Count <= randomIndex || roomVec.Count <= i)
-                {
-                    break;
-                }
-
-                WorldVecList.Add(roundList[randomIndex] + roomVec[i]);
-
-                if (existList.Contains(WorldVecList[i]))
-                {
-                    wrongPlace = true;
-                    break;
-                }
-            }
-
-            if (connectedRoomAmount != -1 && Get_AdjacentRoomAmount(WorldVecList, existList) != connectedRoomAmount)
-                wrongPlace = true;
-
-            randomIndex++;
-
-            if (randomIndex > 100)
-            {
-                UnityEngine.Debug.Assert(false, "생성에 문제!");
-            }
-
-            // 안된다면 다시 시작
-            if (!wrongPlace) break;
-        }
-
-        return WorldVecList;
-    }
-
-
-
-    private int Get_AdjacentRoomAmount(List<Vector2Int> targetRoomVec, List<Vector2Int> existRoomVec)
-    {
-        List<Vector2Int> targetRoomVecRound = DevTool.Get_RoundVec(targetRoomVec);
-
-        return DevTool.Get_IntersectionAmount(targetRoomVecRound, existRoomVec);
     }
 
     #endregion
@@ -2041,40 +1787,6 @@ public class StageObjectGenerator
 
     #endregion
 
-    #endregion
-
-    #region Add
-
-    #region Round
-
-    // 존재하는 방의 좌표와 Round 좌표를 초기화
-    private void Add_RoundVec(List<Vector2Int> addVecList)
-    {
-        foreach (var vec in addVecList)
-            alreadyExistList.Add(vec);
-
-        roundList = DevTool.Get_RoundVec(alreadyExistList).ToList();
-    }
-
-    // 특수 방의 좌표를 넣어줌
-    private void Add_RoundSpecialVec(List<Vector2Int> addVecList)
-    {
-        foreach (var vec in addVecList)
-        {
-            alreadyExistSpeicalList.Add(vec);
-            List<Vector2Int> eachRound = DevTool.Get_RoundVec(vec);
-            for (int i = 0; i < eachRound.Count; i++)
-                alreadyExistSpeicalList.Add(eachRound[i]);
-        }
-
-    }
-
-    #endregion
-
-
-
-    #endregion
-
     #region Play (Spawn another Passage Stage)
 
     public void Play_GenPassageStage(StageTheme stageTheme, int beforeStageId, int afterStageId)
@@ -2086,7 +1798,7 @@ public class StageObjectGenerator
         beforeStageData = GetCollectStageData(stageTheme, this.beforeStageId);
         afterStageData = GetCollectStageData(stageTheme, this.afterStageId);
 
-        Gen_PassageStage(afterStageId);
+        GenPassageStage(afterStageId);
     }
 
 
@@ -2162,15 +1874,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     [Space(10)]
 
-    #region Stage Theme - Variable
+    #region Stage Resource - Variable
 
+    [SerializeField] private StagePrefabSO stagePrefab;
     [SerializeField] public StageTheme stageTheme;
-
-    #endregion
-
-    #region Stage Prefab - Variable
-
-    [SerializeField] private StagePrefab stagePrefab;
 
     #endregion
 

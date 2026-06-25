@@ -130,7 +130,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_Prefab()
     {
-        Offset_Prefab_Map();
         Offset_Prefab_Build(); 
     }
 
@@ -1542,124 +1541,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     // Get
     public Material Get_PassageMiddleMaterial(int index) => passageMiddleMaterialArr[index];
-
-    #endregion
-    #region Map (Prefab)
-
-    // Value
-    [HideInInspector] public GameObject[] sRoomPrefabList { get; private set; }
-    [HideInInspector] public GameObject lobbyEntranceRoomRulePrefab { get; private set; }
-
-    [HideInInspector] public GameObject[] roomDesignatedPrefabArr { get; private set; }
-
-    [HideInInspector] public GameObject[] roomRulePrefabArr { get; private set; } // Rule
-    [HideInInspector] public GameObject[] roomRuleEntrancePrefabArr { get; private set; }
-    [HideInInspector] public GameObject[] roomRuleVaultPrefabArr { get; private set; }
-    [HideInInspector] public GameObject[] roomRuleShopPrefabArr { get; private set; }
-    [HideInInspector] public GameObject[] roomRuleAllyShopPrefabArr { get; private set; }
-    [HideInInspector] public GameObject[] roomRulePrisonPrefabArr { get; private set; }
-
-
-    [SerializeField] public GameObject passageRoomPrefab{ get; private set; } // Passage // Room
-    [SerializeField] public GameObject passageRulePrefab { get; private set; } // Rule
-
-
-    // Offset
-    private void Offset_Prefab_Map()
-    {
-        string mapPath = "Prefab/Map/";
-        string roomPath = mapPath + "Rooms/";
-
-        // Dict
-        Dictionary<string, Action<GameObject>> prefabDict = new Dictionary<string, Action<GameObject>>
-        {
-            { "RS00_EntranceR00", go => lobbyEntranceRoomRulePrefab = go },
-            { "RP01", go => passageRoomPrefab = go },
-            { "R01_PassageR00", go => passageRulePrefab = go }
-        };
-
-        // 지역 복사본 (클로즈 캡쳐 주의)
-        sRoomPrefabList = new GameObject[1]; // Small: 1
-        for (int i = 0; i < sRoomPrefabList.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"RS{DevTool.Get_LengthString(idx, 2)}", go => sRoomPrefabList[idx] = go);
-        }
-
-        roomDesignatedPrefabArr = new GameObject[3]; // Room - Designated: 3
-        for (int i = 0; i < roomDesignatedPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_EliteEnemyR{DevTool.Get_LengthString(idx, 2)}", go => roomDesignatedPrefabArr[idx] = go);
-        }
-
-        int[] rAmount = new int[] { /*0*/5, /*1*/2, /*2*/2, /*3*/2, /*4*/2, /*5*/2, /*6*/2, /*7*/2 };
-        roomRulePrefabArr = new GameObject[19]; // Rule - Base: 19
-        int roomIdx = 0;
-        int ruleIdx = 0;
-        int orderIdx = 0;
-        for (int i = 0; i < rAmount.Length; i++)
-        {
-            for (int j = 0; j < rAmount[i]; j++)
-            {
-                int idx = roomIdx;
-                int idx2 = ruleIdx;
-                int order = orderIdx;
-                prefabDict.Add($"R{DevTool.Get_LengthString(idx, 2)}_RR{DevTool.Get_LengthString(idx2, 2)}", go => roomRulePrefabArr[order] = go);
-                ruleIdx++;
-                orderIdx++;
-            }
-            ruleIdx = 0;
-            roomIdx++;
-        }
-
-        roomRuleEntrancePrefabArr = new GameObject[2]; // Rule - Entrance: 2
-        for (int i = 0; i < roomRuleEntrancePrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R03_EntranceR{DevTool.Get_LengthString(idx, 2)}", go => roomRuleEntrancePrefabArr[idx] = go);
-        }
-
-        roomRuleVaultPrefabArr = new GameObject[1]; // Rule - Vault: 1
-        for (int i = 0; i < roomRuleVaultPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_VaultR{DevTool.Get_LengthString(idx, 2)}", go => roomRuleVaultPrefabArr[idx] = go);
-        }
-
-        roomRuleShopPrefabArr = new GameObject[1]; // Rule - Shop: 1
-        for (int i = 0; i < roomRuleShopPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_ShopR{DevTool.Get_LengthString(idx, 2)}", go => roomRuleShopPrefabArr[idx] = go);
-        }
-
-        roomRuleAllyShopPrefabArr = new GameObject[1]; // Rule - Ally Shop: 1
-        for (int i = 0; i < roomRuleAllyShopPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_AllyShopR{DevTool.Get_LengthString(idx, 2)}", go => roomRuleAllyShopPrefabArr[idx] = go);
-        }
-
-        roomRulePrisonPrefabArr = new GameObject[1]; // Rule - Prison: 1
-        for (int i = 0; i < roomRulePrisonPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_PrisonR{DevTool.Get_LengthString(idx, 2)}", go => roomRulePrisonPrefabArr[idx] = go);
-        }
-
-        // Init
-        GameObject[] allRoomReso = GetAsset_Arr<GameObject>(roomPath);
-        for (int i = 0; i < allRoomReso.Length; i++)
-        {
-            GameObject prefab = allRoomReso[i];
-            if (prefabDict.TryGetValue(prefab.name, out Action<GameObject> set))
-            {
-                set(prefab);
-            }
-        }
-    }
-
 
     #endregion
 
