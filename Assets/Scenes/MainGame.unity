@@ -6239,7 +6239,6 @@ MonoBehaviour:
   stageIcon: {fileID: 11400000, guid: 9a44da07aefc56843a33772112800dd6, type: 2}
   stageTheme:
     lobbyStageData:
-      mapIndexName: Map99
       stageId: 99
       mapMaterialUnclear:
       - {fileID: 2100000, guid: 8f88455681ebf204ab1bec4124f2e8a5, type: 2}
@@ -6262,8 +6261,7 @@ MonoBehaviour:
         materialIndex: 0
       allMapSprite: []
     allStageData:
-    - mapIndexName: Map00
-      stageId: 0
+    - stageId: 0
       mapMaterialUnclear:
       - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
       - {fileID: 2100000, guid: 519ca4ba8ee8cd146a55966a26e1ea8c, type: 2}
@@ -6284,8 +6282,7 @@ MonoBehaviour:
         doorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
         materialIndex: 0
       allMapSprite: []
-    - mapIndexName: Map01
-      stageId: 1
+    - stageId: 1
       mapMaterialUnclear:
       - {fileID: 2100000, guid: 8b689d8c19f30334a98c2f0d67d608c5, type: 2}
       - {fileID: 2100000, guid: deb9be69c28c64944b4e86b3c81e6b83, type: 2}
@@ -6306,20 +6303,14 @@ MonoBehaviour:
         doorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
         materialIndex: 0
       allMapSprite: []
+    passageMiddleMaterialArr:
+    - {fileID: 2100000, guid: 55264e190318654408539c732bde9c75, type: 2}
   stageGridGenerator:
     stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
     saveDataManager: {fileID: 657936137}
     testTargetStageId: 0
   stageObjectGenerator:
     stageParentTf: {fileID: 1948256983}
-    currentAllEntranceRoomController: []
-    currentStageData:
-      mapIndexName: 
-      stageId: 0
-      mapMaterialUnclear: []
-      mapMaterialClear: []
-      mapDoorAnim: []
-      allMapSprite: []
   navMesh: {fileID: 535791893}
   currentRoomController: {fileID: 0}
 --- !u!1 &724611502

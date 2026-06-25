@@ -106,11 +106,12 @@ public class GateController : StaticDepthController, IInteract
     #region On Off
 
     // 처음 문의 상태를 (벽이거나 문이거나) 판별해서 세팅
-    public void Set_ExistDoorState(bool isExist)
+    public void Set_ExistDoorState(bool isExist, GateController parterGate)
     {
         thingsGo.typeBase.SetActive(!isExist);
         thingsGo.typeSpecial.SetActive(isExist);
 
+        this.parterGate = parterGate;
     }
 
 

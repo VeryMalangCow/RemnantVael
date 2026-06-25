@@ -74,17 +74,24 @@ public class StageGridGenerator
 
 
     // 게이트 그리드
-    public struct GateGrid
+    public class GateGrid
     {
         public Vector2Int pos;
         public Vector2Int dir;
+
+        public int ownerRoom;
         public int connectedRoom;
 
-        public GateGrid(Vector2Int pos, Vector2Int dir, int connectedRoom)
+        public GateGrid connectedGate;
+        public GateGrid(Vector2Int pos, Vector2Int dir, int ownerRoom, int connectedRoom)
         {
             this.pos = pos;
             this.dir = dir;
+
+            this.ownerRoom = ownerRoom;
             this.connectedRoom = connectedRoom;
+
+            this.connectedGate = null;
         }
     }
 
@@ -858,6 +865,8 @@ public class StageGridGenerator
             room.gates.Clear();
             SetRoomGateGrid(room);
         }
+
+        ConnectFacingGates();
     }
 
     // 하나의 Room에서 연결 구조 계산
@@ -880,10 +889,64 @@ public class StageGridGenerator
                 if (connectRoom == room)
                     continue;
 
-                room.gates.Add(new GateGrid(pos, dir, connectRoom.instanceId));
+                room.gates.Add(new GateGrid(pos, dir, room.instanceId, connectRoom.instanceId));
 
             }
         }
+    }
+
+    // 서로 마주보는 게이트 연결
+    private void ConnectFacingGates()
+    {
+        for (int i = 0; i < allRoomGrids.Count; i++)
+        {
+            RoomGrid room = allRoomGrids[i];
+
+            for (int j = 0; j < room.gates.Count; j++)
+            {
+                GateGrid gate = room.gates[j];
+
+                if (gate.connectedGate != null)
+                    continue;
+
+                RoomGrid connectedRoom = allRoomGrids[gate.connectedRoom];
+
+                if (connectedRoom == null)
+                    continue;
+
+                Vector2Int oppositeGatePos = gate.pos + gate.dir;
+                Vector2Int oppositeGateDir = -gate.dir;
+
+                GateGrid oppositeGate = FindGate(connectedRoom, oppositeGatePos, oppositeGateDir, room.instanceId);
+
+                if (oppositeGate == null)
+                    continue;
+
+                gate.connectedGate = oppositeGate;
+                oppositeGate.connectedGate = gate;
+            }
+        }
+    }
+
+    private GateGrid FindGate(RoomGrid room, Vector2Int pos, Vector2Int dir, int connectedRoomId)
+    {
+        for (int i = 0; i < room.gates.Count; i++)
+        {
+            GateGrid gate = room.gates[i];
+
+            if (gate.pos != pos)
+                continue;
+
+            if (gate.dir != dir)
+                continue;
+
+            if (gate.connectedRoom != connectedRoomId)
+                continue;
+
+            return gate;
+        }
+
+        return null;
     }
 
     #endregion
@@ -1279,7 +1342,7 @@ public class StageObjectGenerator
             currentAllEntranceRoomController[i].Set_ElevatorData(indexList[i]);
 
         // 게이트 활성화
-        //Set_GateActiveOn();
+        TryConnectGate(allRoomGrids);
 
         // UI 셋
         MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
@@ -1316,7 +1379,7 @@ public class StageObjectGenerator
         GenPassageRoom(afterStageId);
 
         // 게이트 활성화
-        //Set_GateActiveOn();
+        ResetAllGateState();
 
         // UI 셋
         MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
@@ -1549,11 +1612,211 @@ public class StageObjectGenerator
 
     #endregion
 
+    #region Connect Gate
+
+    // 모든 문의 연결을 끊고, 제거하기
+    private void ResetAllGateState()
+    {
+        for (int i = 0; i < currentAllRoomController.Count; i++)
+        {
+            RoomController room = currentAllRoomController[i];
+
+            for (int j = 0; j < room.inRoom_AllGate.Count; j++)
+            {
+                GateController gate = room.inRoom_AllGate[j];
+
+                gate.Set_ExistDoorState(false, null);
+            }
+        }
+    }
+
+    // 게이트 연결 시도
+    private void TryConnectGate(List<StageGridGenerator.RoomGrid> allRoomGrids)
+    {
+        if (allRoomGrids == null || allRoomGrids.Count == 0)
+            return;
+
+        ResetAllGateState();
+
+        for (int i = 0; i < allRoomGrids.Count; i++)
+        {
+            StageGridGenerator.RoomGrid grid = allRoomGrids[i];
+
+            if (grid.instanceId < 0 || grid.instanceId >= currentAllRoomController.Count)
+                continue;
+
+            RoomController room = currentAllRoomController[grid.instanceId];
+
+            for (int j = 0; j < grid.gates.Count; j++)
+            {
+                StageGridGenerator.GateGrid gateGrid = grid.gates[j];
+
+                if (gateGrid.connectedGate == null)
+                    continue;
+
+                if (gateGrid.connectedRoom < 0 || gateGrid.connectedRoom >= allRoomGrids.Count)
+                    continue;
+
+                Vector2Int localGatePos = gateGrid.pos - grid.roomPos[0];
+                GateController gate = FindGate(room, localGatePos, gateGrid.dir);
+
+                if (gate == null)
+                    continue;
+
+                if (gate.parterGate != null)
+                    continue;
+
+                StageGridGenerator.RoomGrid connectedGrid = allRoomGrids[gateGrid.connectedRoom];
+
+                if (connectedGrid.instanceId < 0 || connectedGrid.instanceId >= currentAllRoomController.Count)
+                    continue;
+
+                RoomController connectedRoom = currentAllRoomController[connectedGrid.instanceId];
+
+                StageGridGenerator.GateGrid partnerGateGrid = gateGrid.connectedGate;
+
+                // 연결된 방 기준 로컬 게이트 좌표
+                Vector2Int partnerLocalGatePos = partnerGateGrid.pos - connectedGrid.roomPos[0];
+
+                GateController partnerGate = FindGate(
+                    connectedRoom,
+                    partnerLocalGatePos,
+                    partnerGateGrid.dir
+                );
+
+                if (partnerGate == null)
+                    continue;
+
+                ConnectGatePair(gate, partnerGate);
+            }
+        }
+    }
+
+    // id를 통해 Room 찾기
+    private RoomController GetRoomById(int instanceId)
+    {
+        if (instanceId < 0 || instanceId >= currentAllRoomController.Count)
+        {
+#if UNITY_EDITOR
+            UnityEngine.Debug.LogWarning($"RoomController를 찾을 수 없습니다. instanceId: {instanceId}");
+#endif
+            return null;
+        }
+
+        return currentAllRoomController[instanceId];
+    }
+
+    // Room 내부 Gate 찾기
+    private GateController FindGate(RoomController room, Vector2Int gatePos, Vector2Int gateDir)
+    {
+        if (room == null || room.inRoom_AllGate == null)
+            return null;
+
+        for (int i = 0; i < room.inRoom_AllGate.Count; i++)
+        {
+            GateController gate = room.inRoom_AllGate[i];
+
+            if (gate.roomPosGate != gatePos || gate.gateDir != gateDir)
+                continue;
+
+            return gate;
+        }
+
+#if UNITY_EDITOR
+        UnityEngine.Debug.LogWarning(
+            $"GateController를 찾을 수 없습니다. roomId: {room.id}, pos: {gatePos}, dir: {gateDir}"
+        );
+#endif
+
+        return null;
+    }
+
+    // 실제 게이트 연결
+    private void ConnectGatePair(GateController gate, GateController partnerGate)
+    {
+        gate.Set_ExistDoorState(true, partnerGate);
+        partnerGate.Set_ExistDoorState(true, gate);
+
+        int needKeyCardID = gate.thisRoom.roomRule.Get_NeedKeyCardID();
+
+        if (needKeyCardID == -1)
+            needKeyCardID = partnerGate.thisRoom.roomRule.Get_NeedKeyCardID();
+
+        if (needKeyCardID != -1)
+        {
+            gate.Set_NeedKeyCard(needKeyCardID);
+            partnerGate.Set_NeedKeyCard(needKeyCardID);
+        }
+
+        gate.Set_NextMap();
+        partnerGate.Set_NextMap();
+    }
+
+    /*
+        private void Set_ParterAllGate()
+        {
+            List<GateController> allGate = Get_AllGate(currentAllRoomController);
+
+            for (int i = 0; i < allGate.Count - 1; i++)
+            {
+                if (allGate[i].parterGate != null) continue;
+
+                for (int j = i + 1; j < allGate.Count; j++)
+                {
+                    if (Is_PartnerGate(allGate[i], allGate[j]))
+                    {
+                        allGate[i].parterGate = allGate[j];
+                        allGate[j].parterGate = allGate[i];
+                    }
+                }
+            }
+        }
+
+        private bool Is_PartnerGate(GateController gate1, GateController gate2)
+            => ((gate1.roomPosGate + gate1.gateDir) == gate2.roomPosGate) && (gate1.gateDir * -1) == gate2.gateDir;
+
+        private List<GateController> Get_AllGate(List<RoomController> roomList)
+        {
+            List<GateController> allGate = new List<GateController>();
+            for (int i = 0; i < roomList.Count; i++)
+                allGate.AddRange(roomList[i].inRoom_AllGate);
+
+            return allGate;
+        }
+
+        private void Set_GateActiveOn()
+        {
+            Set_ParterAllGate();
+            List<GateController> allGate = Get_AllGate(currentAllRoomController);
+            for (int i = 0; i < allGate.Count; i++)
+            {
+                if (allGate[i].parterGate != null)
+                {
+                    allGate[i].Set_ExistDoorState(true);
+
+                    int needKeyCardID = allGate[i].thisRoom.roomRule.Get_NeedKeyCardID();
+                    if (needKeyCardID != -1)
+                    {
+                        allGate[i].Set_NeedKeyCard(needKeyCardID);
+                        allGate[i].parterGate.Set_NeedKeyCard(needKeyCardID);
+                    }
+
+                    // Next Map Icon
+                    allGate[i].Set_NextMap();
+                }
+                else
+                {
+                    allGate[i].Set_ExistDoorState(false);
+                }
+            }
+        }*/
+
+    #endregion
 
     #region Data
 
     // 올바른 Stage Data 구하기
-    
+
     public StageData GetStageData(StageTheme stageTheme, int stageId)
     {
         if (stageTheme == null)
