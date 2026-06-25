@@ -67,12 +67,12 @@ public class HudMinimapView : MonoBehaviour
     {
         stageNameTxt.DOText(
             ResourceManager.instance.Get_MapName(
-                StageManager.instance.GetCurrentStageData().stageId), 0.5f)
+                StageManager.instance.targetStageId), 0.5f)
             .OnPlay(() => { stageNameTxt.text = ""; });
 
         stageDescTxt.DOText(
             ResourceManager.instance.Get_MapDesc(
-                StageManager.instance.GetCurrentStageData().stageId), 0.5f)
+                StageManager.instance.targetStageId), 0.5f)
             .OnPlay(() => { stageDescTxt.text = ""; });
     }
 

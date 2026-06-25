@@ -1222,9 +1222,9 @@ public class StageObjectGenerator
     {
         ResetData();
 
-        currentStageData = GetCollectStageData(stageTheme, stageId);
-        if (currentStageData == null)
-            yield break;
+        currentStageId = stageId;
+        currentStageData = GetStageData(stageTheme, stageId);
+        if (currentStageData == null) yield break;
 
         // 로비 시작 방
         if (stageId == 99)
@@ -1250,7 +1250,7 @@ public class StageObjectGenerator
         MainGameUIManager.instance.hud.MinimapView.SetStageDescription();
 
         // Sound (BGM) 시작
-        SoundManager.instance.Play_2D_BGM_Stage(currentStageData.stageId);
+        SoundManager.instance.Play_2D_BGM_Stage(currentStageId);
 
         // 로비는 시작 엘레베이터가 없기에 직접 인풋 키기
         if (stageId == 99)
@@ -1486,7 +1486,8 @@ public class StageObjectGenerator
     #region Data
 
     // 올바른 Stage Data 구하기
-    public StageData GetCollectStageData(StageTheme stageTheme, int stageId)
+    
+    public StageData GetStageData(StageTheme stageTheme, int stageId)
     {
         if (stageTheme == null)
             return null;
@@ -1562,10 +1563,10 @@ public class StageObjectGenerator
 
     #region Temp - Variable
 
-    [Header("=== Current")]
-
     // 클리어와 클리어 전 머터리얼 셋 
-    [HideInInspector] public StageData currentStageData;
+
+    public int currentStageId { get; private set; }
+    public StageData currentStageData { get; private set; }
 
     // Passage
     public int beforeStageId { get; private set; } = -1;
@@ -1659,8 +1660,6 @@ public class StageObjectGenerator
             }
     }
 
-
-
     #endregion
 
     #region Play (Spawn another Passage Stage)
@@ -1671,8 +1670,8 @@ public class StageObjectGenerator
         this.afterStageId = afterStageId;
         UnityEngine.Debug.Log($"{beforeStageId} -> {afterStageData}");
 
-        beforeStageData = GetCollectStageData(stageTheme, this.beforeStageId);
-        afterStageData = GetCollectStageData(stageTheme, this.afterStageId);
+        beforeStageData = GetStageData(stageTheme, this.beforeStageId);
+        afterStageData = GetStageData(stageTheme, this.afterStageId);
 
         GenPassageStage(afterStageId);
     }
@@ -1843,9 +1842,9 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #endregion
 
-
-    public StageData GetCurrentStageData()
-        => stageObjectGenerator.GetCollectStageData(stageTheme, targetStageId);
+    public StageData currentStageData => stageObjectGenerator.currentStageData;
+    //public StageData GetCurrentStageData()
+    //    => stageObjectGenerator.GetStageData(stageTheme, targetStageId);
 
     // Start Room
     public void StartCurrentRoom(RoomController targetRoom)
@@ -2038,5 +2037,4 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
         return null;
     }
-
 }

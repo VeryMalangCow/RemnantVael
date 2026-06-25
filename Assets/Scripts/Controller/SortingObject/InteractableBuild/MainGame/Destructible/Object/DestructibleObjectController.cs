@@ -23,7 +23,7 @@ public class DestructibleObjectController : SortingObjectController
             StageManager.instance.targetStageId,
             typeIndex);
 
-        thisSr.material = StageManager.instance.GetCurrentStageData().mapMaterialClear[1];
+        thisSr.material = StageManager.instance.currentStageData.mapMaterialClear[1];
     }
 
     #endregion
@@ -44,7 +44,7 @@ public class DestructibleObjectController : SortingObjectController
 
     #endregion
 
-    #region 
+    #region Trigger
 
     private void OnTriggerEnter2D(Collider2D col)
     {
