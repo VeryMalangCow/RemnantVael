@@ -2176,27 +2176,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Map01_000_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 323
-        width: 62
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9d9de011b31f55c4f8a1f85a73d51fd1
-      internalID: -1491746142
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Map01_FF_B_DD_00
       rect:
         serializedVersion: 2
@@ -2218,27 +2197,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Map01_000_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 323
-        width: 62
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 805ac43d6989c6e4bad2ca9acba7b422
-      internalID: 1801296085
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Map01_FF_B_RD_00
       rect:
         serializedVersion: 2
@@ -2247,7 +2205,7 @@ TextureImporter:
         width: 36
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2268,7 +2226,7 @@ TextureImporter:
         width: 36
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

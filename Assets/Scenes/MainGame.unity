@@ -6234,7 +6234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
-  targetStageId: 0
+  targetStageId: 1
   stagePrefab: {fileID: 11400000, guid: 56c47a3709e20ac4d9ddfa9d88766cbe, type: 2}
   stageIcon: {fileID: 11400000, guid: 9a44da07aefc56843a33772112800dd6, type: 2}
   stageTheme:
@@ -6259,7 +6259,9 @@ MonoBehaviour:
       - dir: {x: 0, y: 1}
         doorAnim: {fileID: 7400000, guid: 655745c9192f3e149b5c0cc6ad4e851a, type: 2}
         materialIndex: 0
-      allMapSprite: []
+      mapSpriteReso:
+        mapSpriteSerializable:
+          data: []
     allStageData:
     - stageId: 0
       mapMaterialUnclear:
@@ -6281,7 +6283,9 @@ MonoBehaviour:
       - dir: {x: 0, y: 1}
         doorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
         materialIndex: 0
-      allMapSprite: []
+      mapSpriteReso:
+        mapSpriteSerializable:
+          data: []
     - stageId: 1
       mapMaterialUnclear:
       - {fileID: 2100000, guid: 8b689d8c19f30334a98c2f0d67d608c5, type: 2}
@@ -6302,7 +6306,9 @@ MonoBehaviour:
       - dir: {x: 0, y: 1}
         doorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
         materialIndex: 0
-      allMapSprite: []
+      mapSpriteReso:
+        mapSpriteSerializable:
+          data: []
     passageMiddleMaterialArr:
     - {fileID: 2100000, guid: 55264e190318654408539c732bde9c75, type: 2}
   stageGridGenerator:

@@ -15,12 +15,41 @@ public class StageData
     public List<Material> mapMaterialClear;
     public List<StageDoorAnim> mapDoorAnim;
 
-    public List<Sprite> allMapSprite;
     public StageMapSprite mapSpriteReso;
 
     public void Offset(MapReso reso)
     {
         mapSpriteReso.Offset(reso);
+    }
+}
+
+[Serializable]
+public class SerializalbeDict<KeyT, ValueT>
+{
+    public List<SerializableData<KeyT, ValueT>> data = new List<SerializableData<KeyT, ValueT>>();
+
+    public void SetDict(Dictionary<KeyT, ValueT> dict)
+    {
+        data.Clear();
+
+        foreach (KeyValuePair<KeyT, ValueT> item in dict)
+        {
+            SerializableData<KeyT, ValueT> initData = new SerializableData<KeyT, ValueT>(item.Key, item.Value);
+            data.Add(initData);
+        }
+    }
+}
+
+[Serializable]
+public class SerializableData<KeyT, ValueT>
+{
+    public KeyT key;
+    public ValueT value;
+
+    public SerializableData(KeyT key, ValueT value)
+    {
+        this.key = key;
+        this.value = value;
     }
 }
 
@@ -1157,7 +1186,7 @@ public class StageTheme
         // Offset
         lobbyStageData.Offset(GetAsset_MapReso("Sprite/Map/", "MapLobby"));
 
-        test();
+        SetMapReso();
         for (int i = 0; i < allStageData.Count; i++)
         {
             allStageData[i].Offset(stageMapReso[i]);
@@ -1186,8 +1215,7 @@ public class StageTheme
 #endif
         yield return null;
     }
-    private T GetAsset<T>(string path, string fileName) where T : UnityEngine.Object
-    => Resources.Load<T>(path + fileName);
+
     // Get
     public GameObject Get_RandomFieldObj_Prefab() => fieldObjArray[UnityEngine.Random.Range(0, fieldObjArray.Length)];
 
@@ -1199,7 +1227,7 @@ public class StageTheme
         return spriteArr[UnityEngine.Random.Range(0, spriteArr.Length)];
     }
 
-    private void test()
+    private void SetMapReso()
     {
         string path = $"Sprite/Map/";
 
@@ -1251,8 +1279,13 @@ public class StageTheme
         return result2.ToArray();
     }
 
+
+    #region Get Asset
+
+    private T GetAsset<T>(string path, string fileName) where T : UnityEngine.Object
+        => Resources.Load<T>(path + fileName);
     private T[] GetAsset_Arr<T>(string path, string fileName = "") where T : UnityEngine.Object
-    => Resources.LoadAll<T>(path + fileName);
+        => Resources.LoadAll<T>(path + fileName);
 
     private MapReso GetAsset_MapReso(string path, string name)
     {
@@ -1270,6 +1303,9 @@ public class StageTheme
 
         return new MapReso(mapResoElements.ToArray());
     }
+
+    #endregion
+
 }
 
 [System.Serializable]
@@ -1751,65 +1787,6 @@ public class StageObjectGenerator
         gate.Set_NextMap();
         partnerGate.Set_NextMap();
     }
-
-    /*
-        private void Set_ParterAllGate()
-        {
-            List<GateController> allGate = Get_AllGate(currentAllRoomController);
-
-            for (int i = 0; i < allGate.Count - 1; i++)
-            {
-                if (allGate[i].parterGate != null) continue;
-
-                for (int j = i + 1; j < allGate.Count; j++)
-                {
-                    if (Is_PartnerGate(allGate[i], allGate[j]))
-                    {
-                        allGate[i].parterGate = allGate[j];
-                        allGate[j].parterGate = allGate[i];
-                    }
-                }
-            }
-        }
-
-        private bool Is_PartnerGate(GateController gate1, GateController gate2)
-            => ((gate1.roomPosGate + gate1.gateDir) == gate2.roomPosGate) && (gate1.gateDir * -1) == gate2.gateDir;
-
-        private List<GateController> Get_AllGate(List<RoomController> roomList)
-        {
-            List<GateController> allGate = new List<GateController>();
-            for (int i = 0; i < roomList.Count; i++)
-                allGate.AddRange(roomList[i].inRoom_AllGate);
-
-            return allGate;
-        }
-
-        private void Set_GateActiveOn()
-        {
-            Set_ParterAllGate();
-            List<GateController> allGate = Get_AllGate(currentAllRoomController);
-            for (int i = 0; i < allGate.Count; i++)
-            {
-                if (allGate[i].parterGate != null)
-                {
-                    allGate[i].Set_ExistDoorState(true);
-
-                    int needKeyCardID = allGate[i].thisRoom.roomRule.Get_NeedKeyCardID();
-                    if (needKeyCardID != -1)
-                    {
-                        allGate[i].Set_NeedKeyCard(needKeyCardID);
-                        allGate[i].parterGate.Set_NeedKeyCard(needKeyCardID);
-                    }
-
-                    // Next Map Icon
-                    allGate[i].Set_NextMap();
-                }
-                else
-                {
-                    allGate[i].Set_ExistDoorState(false);
-                }
-            }
-        }*/
 
     #endregion
 

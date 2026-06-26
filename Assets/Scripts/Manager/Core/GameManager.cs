@@ -4206,12 +4206,6 @@ public class MapResoElement
 
 #endregion
 
-#region Class : Stage : NextIndex
-
-
-
-#endregion  
-
 #region Class : Passage : Middle
 
 public class AllPassageMiddleSpriteData
@@ -5089,6 +5083,7 @@ public class StageMapSprite
     [Header("=== Sprtie: Based on the outer surface")]
 
     public Dictionary<string, SpriteMaterial> mapSprite = new Dictionary<string, SpriteMaterial>();
+    public SerializalbeDict<string, SpriteMaterial> mapSpriteSerializable = new SerializalbeDict<string, SpriteMaterial>();
 
     public void Offset(MapReso reso)
     {
@@ -5103,6 +5098,8 @@ public class StageMapSprite
                     new SpriteMaterial(reso.mapResoElements[i].sprite, reso.mapResoElements[i].materialIndex));
             }
         }
+
+        mapSpriteSerializable.SetDict(mapSprite);
     }
 }
 
