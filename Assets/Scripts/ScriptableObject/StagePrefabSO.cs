@@ -3,13 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StagePrefabSet", menuName = "ScriptableObject/StagePrefabSet")]
 public class StagePrefabSO : ScriptableObject
 {
-    [System.Serializable]
-    public class ArrayTo<T>
-    {
-        public T[] array;
-    }
-
-
     [Header("=== Prefab")]
     [Space(10)]
     [Header("-- Lobby")]
@@ -24,7 +17,7 @@ public class StagePrefabSO : ScriptableObject
     [Header("* Room")]
     public RoomController[] roomPrefabs;
     [Header("* Rule")]
-    public ArrayTo<RoomRuleController>[] roomRulePrefabs;
+    public SerializableArray<RoomRuleController>[] roomRulePrefabs;
     public RoomRuleController roomStartPrefab;
     public EntranceRuleController[] roomEntrancePrefabs;
     public VaultRuleController roomVaultPrefab;

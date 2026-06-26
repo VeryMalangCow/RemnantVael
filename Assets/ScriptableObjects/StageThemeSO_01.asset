@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d077c6be6129c468a6bc1c8c85538b, type: 3}
+  m_Name: StageThemeSO_01
+  m_EditorClassIdentifier: 
+  stageId: 1
+  mapMaterialUnclear:
+  - {fileID: 2100000, guid: 8b689d8c19f30334a98c2f0d67d608c5, type: 2}
+  - {fileID: 2100000, guid: deb9be69c28c64944b4e86b3c81e6b83, type: 2}
+  mapMaterialClear:
+  - {fileID: 2100000, guid: 812b285c29f3cce4a82f4413446f12af, type: 2}
+  - {fileID: 2100000, guid: 3e7a34fe58e2bad4b8e82d8e6bc05f21, type: 2}
+  mapDoorAnim:
+  - dir: {x: 0, y: -1}
+    doorAnim: {fileID: 7400000, guid: 647f2f6a2c56c3841b90aa7bbdd9650a, type: 2}
+    materialIndex: 0
+  - dir: {x: -1, y: 0}
+    doorAnim: {fileID: 7400000, guid: 12522e083c51e4343a9c15968ff996d2, type: 2}
+    materialIndex: 0
+  - dir: {x: 1, y: 0}
+    doorAnim: {fileID: 7400000, guid: b16066ca352c5084fa29fd87112d0a3b, type: 2}
+    materialIndex: 0
+  - dir: {x: 0, y: 1}
+    doorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
+    materialIndex: 0

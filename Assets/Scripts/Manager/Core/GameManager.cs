@@ -1729,6 +1729,12 @@ public class DevTool
 
 #endregion
 
+[System.Serializable]
+public class SerializableArray<T>
+{
+    public T[] array;
+}
+
 #region ========== CLASS
 
 #region Class : Title UI
@@ -4179,16 +4185,6 @@ public class SatelliteCenterController : SatelliteController
 
 #region Class : Map Reso
 
-[System.Serializable]
-public class MapReso
-{
-    public MapResoElement[] mapResoElements;
-
-    public MapReso(MapResoElement[] mapResoElements)
-    {
-        this.mapResoElements = mapResoElements;
-    }
-}
 
 [System.Serializable]
 public class MapResoElement
@@ -4212,16 +4208,16 @@ public class AllPassageMiddleSpriteData
 {
     private Dictionary<string, EachPassageMiddleSpriteData> passageMiddleSpriteDict;
 
-    public AllPassageMiddleSpriteData(MapReso allSprite)
+    public AllPassageMiddleSpriteData(MapResoElement[] allSprite)
     {
         passageMiddleSpriteDict = new Dictionary<string, EachPassageMiddleSpriteData>();
-        for (int i = 0; i < allSprite.mapResoElements.Length; i++)
+        for (int i = 0; i < allSprite.Length; i++)
         {
-            string[] fullName = allSprite.mapResoElements[i].sprite.name.Split("_");
+            string[] fullName = allSprite[i].sprite.name.Split("_");
 
             passageMiddleSpriteDict.Add(
                 $"{fullName[1]}_{fullName[3]}_{fullName[5]}",
-                new EachPassageMiddleSpriteData(allSprite.mapResoElements[i].sprite, allSprite.mapResoElements[i].materialIndex));
+                new EachPassageMiddleSpriteData(allSprite[i].sprite, allSprite[i].materialIndex));
         }
     }
 
@@ -5074,58 +5070,6 @@ public class SpriteTypeName
 
 #endregion
 
-
-#region Class : Stage : Reso
-
-[System.Serializable]
-public class StageMapSprite
-{
-    [Header("=== Sprtie: Based on the outer surface")]
-
-    public Dictionary<string, SpriteMaterial> mapSprite = new Dictionary<string, SpriteMaterial>();
-    public SerializalbeDict<string, SpriteMaterial> mapSpriteSerializable = new SerializalbeDict<string, SpriteMaterial>();
-
-    public void Offset(MapReso reso)
-    {
-        for (int i = 0; i < reso.mapResoElements.Length; i++)
-        {
-            if (reso.mapResoElements[i].sprite.name.Length > 5)
-            {
-                if (reso.mapResoElements[i].sprite.name[5] == 'A') continue; 
-                
-                mapSprite.Add(
-                    reso.mapResoElements[i].sprite.name.Substring(5, reso.mapResoElements[i].sprite.name.Length - 5),
-                    new SpriteMaterial(reso.mapResoElements[i].sprite, reso.mapResoElements[i].materialIndex));
-            }
-        }
-
-        mapSpriteSerializable.SetDict(mapSprite);
-    }
-}
-
-[System.Serializable]
-public class SpriteMaterial
-{
-    public Sprite sprite;
-    public int materialIndex;
-
-    public SpriteMaterial(Sprite sprite, int materialIndex)
-    {
-        this.sprite = sprite;
-        this.materialIndex = materialIndex;
-    }
-}
-
-
-[System.Serializable]
-public class StageDoorAnim
-{
-    public Vector2Int dir;
-    public AnimationClip doorAnim;
-    public int materialIndex;
-}
-
-#endregion
 
 #region Class : Visual
 

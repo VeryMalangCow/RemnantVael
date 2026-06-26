@@ -989,9 +989,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public Sprite Get_DescRankIcon(int rank) => descRankIconArr[rank - 1];
 
     #endregion
-    #region Item - Module (Prefab)
-
-    #endregion
     #region Item - Module (Anim)
 
     // Value

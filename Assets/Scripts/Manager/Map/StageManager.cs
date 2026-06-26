@@ -8,21 +8,66 @@ using UnityEngine;
 [System.Serializable]
 public class StageData
 {
-    public int stageId;
-
-    [Space(5)]
-    public List<Material> mapMaterialUnclear;
-    public List<Material> mapMaterialClear;
-    public List<StageDoorAnim> mapDoorAnim;
+    public StageThemeSO stageThemeSO;
 
     public StageMapSprite mapSpriteReso;
 
-    public void Offset(MapReso reso)
+    public void Offset(MapResoElement[] reso)
     {
         mapSpriteReso.Offset(reso);
     }
 }
 
+[System.Serializable]
+public class StageDoorAnim
+{
+    public Vector2Int dir;
+    public AnimationClip doorAnim;
+    public int materialIndex;
+}
+
+[System.Serializable]
+public class StageMapSprite
+{
+    [Header("=== Sprtie: Based on the outer surface")]
+
+    public Dictionary<string, SpriteMaterial> mapSprite = new Dictionary<string, SpriteMaterial>();
+#if UNITY_EDITOR
+    public SerializalbeDict<string, SpriteMaterial> mapSpriteSerializable = new SerializalbeDict<string, SpriteMaterial>();
+#endif
+    public void Offset(MapResoElement[] reso)
+    {
+        for (int i = 0; i < reso.Length; i++)
+        {
+            if (reso[i].sprite.name.Length > 5)
+            {
+                if (reso[i].sprite.name[5] == 'A') continue;
+
+                mapSprite.Add(
+                    reso[i].sprite.name.Substring(5, reso[i].sprite.name.Length - 5),
+                    new SpriteMaterial(reso[i].sprite, reso[i].materialIndex));
+            }
+        }
+#if UNITY_EDITOR
+        mapSpriteSerializable.SetDict(mapSprite);
+#endif
+    }
+}
+
+[System.Serializable]
+public class SpriteMaterial
+{
+    public Sprite sprite;
+    public int materialIndex;
+
+    public SpriteMaterial(Sprite sprite, int materialIndex)
+    {
+        this.sprite = sprite;
+        this.materialIndex = materialIndex;
+    }
+}
+
+#if UNITY_EDITOR
 [Serializable]
 public class SerializalbeDict<KeyT, ValueT>
 {
@@ -52,7 +97,7 @@ public class SerializableData<KeyT, ValueT>
         this.value = value;
     }
 }
-
+#endif
 
 [System.Serializable]
 public class StageGridGenerator
@@ -1167,8 +1212,8 @@ public class StageTheme
     [SerializeField] public Material[] passageMiddleMaterialArr;
     [HideInInspector] public AllPassageMiddleSpriteData passageMiddleSpriteData; 
 
-    private MapReso[] stageMapReso;
-    private MapReso passageMapReso;
+    private MapResoElement[][] stageMapReso;
+    private MapResoElement[] passageMapReso;
 
     private Sprite[][][] mapFieldObjList_Data;
 
@@ -1176,7 +1221,9 @@ public class StageTheme
     public static int kindOfMapAmount = 2;
     public static int kindOfFieldObjType = 3;
 
-    [HideInInspector] private GameObject[] fieldObjArray;
+    [SerializeField] private DestructibleObjectController[] fieldObjPrefabs;
+    public DestructibleObjectController GetRandomFieldObjPrefab() => fieldObjPrefabs[UnityEngine.Random.Range(0, fieldObjPrefabs.Length)];
+
 
     public IEnumerator Initialize()
     {
@@ -1202,13 +1249,6 @@ public class StageTheme
         }
         this.mapFieldObjList_Data = mapFieldObjList_Data.ToArray();
 
-        // Field Obj
-        string path = "Prefab/FieldObj/";
-        fieldObjArray = new GameObject[kindOfFieldObjType];
-
-        for (int i = 0; i < kindOfFieldObjType; i++)
-            fieldObjArray[i] = GetAsset<GameObject>(path, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}");
-
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"StageManager : <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -1217,8 +1257,6 @@ public class StageTheme
     }
 
     // Get
-    public GameObject Get_RandomFieldObj_Prefab() => fieldObjArray[UnityEngine.Random.Range(0, fieldObjArray.Length)];
-
     public Sprite Get_RandomFieldObjSprite(int stageID, int typeID)
     {
         if (stageID >= mapFieldObjList_Data.Length) UnityEngine.Debug.Log("Stage ID : " + stageID);
@@ -1231,7 +1269,7 @@ public class StageTheme
     {
         string path = $"Sprite/Map/";
 
-        List<MapReso> resos = new List<MapReso>();
+        List<MapResoElement[]> resos = new List<MapResoElement[]>();
         for (int i = 0; i < kindOfMapAmount; i++)
         {
             string stageName = $"Map{DevTool.Get_LengthString(i, 2)}";
@@ -1251,7 +1289,7 @@ public class StageTheme
         this.mapFieldObjList_Data = mapFieldObjList_Data.ToArray();
     }
 
-    private Sprite[][] Get_FieldObj(MapReso reso) // Type / SpriteList
+    private Sprite[][] Get_FieldObj(MapResoElement[] reso) // Type / SpriteList
     {
         List<List<Sprite>> result = new List<List<Sprite>>();
 
@@ -1260,13 +1298,13 @@ public class StageTheme
             result.Add(new List<Sprite>());
         }
 
-        for (int i = 0; i < reso.mapResoElements.Length; i++)
+        for (int i = 0; i < reso.Length; i++)
         {
-            string[] name = reso.mapResoElements[i].sprite.name.Split("_");
+            string[] name = reso[i].sprite.name.Split("_");
             if (name[1] == "FieldObj")
             {
                 int type = Int32.Parse(name[2].Substring(1, 2));
-                result[type].Add(reso.mapResoElements[i].sprite);
+                result[type].Add(reso[i].sprite);
             }
         }
 
@@ -1287,7 +1325,7 @@ public class StageTheme
     private T[] GetAsset_Arr<T>(string path, string fileName = "") where T : UnityEngine.Object
         => Resources.LoadAll<T>(path + fileName);
 
-    private MapReso GetAsset_MapReso(string path, string name)
+    private MapResoElement[] GetAsset_MapReso(string path, string name)
     {
         List<MapResoElement> mapResoElements = new List<MapResoElement>();
 
@@ -1301,7 +1339,7 @@ public class StageTheme
             }
         }
 
-        return new MapReso(mapResoElements.ToArray());
+        return mapResoElements.ToArray();
     }
 
     #endregion
@@ -1330,9 +1368,9 @@ public class StageObjectGenerator
     private StageData beforeStageData;
     private StageData afterStageData;
 
-    public int currentStageId { get { return currentStageData != null ? currentStageData.stageId : -1; } }
-    public int beforeStageId { get { return beforeStageData != null ? beforeStageData.stageId : -1; } }
-    public int afterStageId { get { return afterStageData != null ? afterStageData.stageId : -1; } }
+    public int currentStageId { get { return currentStageData != null ? currentStageData.stageThemeSO.stageId : -1; } }
+    public int beforeStageId { get { return beforeStageData != null ? beforeStageData.stageThemeSO.stageId : -1; } }
+    public int afterStageId { get { return afterStageData != null ? afterStageData.stageThemeSO.stageId : -1; } }
 
     #endregion
 
@@ -1805,14 +1843,14 @@ public class StageObjectGenerator
 
         // Game
         StageData stageData = stageTheme.allStageData[stageId];
-        if (stageId == stageData.stageId)
+        if (stageId == stageData.stageThemeSO.stageId)
             return stageData;
 
         // 만약 Id가 올바르지않다면 순회해서 탐색
         for (int i = 0; i < stageTheme.allStageData.Count; i++)
         {
             stageData = stageTheme.allStageData[i];
-            if (stageData.stageId == stageId)
+            if (stageData.stageThemeSO.stageId == stageId)
                 return stageData;
         }
 
@@ -1885,16 +1923,13 @@ public class StageObjectGenerator
     public void Set_AfterMapSprite(SpriteRenderer sr, string spriteKey)
         => Set_MapClearSprite(afterStageData, sr, spriteKey);
 
-
-
-
     private void Set_MapUnclearSprite(StageData stageData, SpriteRenderer sr, string spriteKey)
     {
         if (!stageData.mapSpriteReso.mapSprite.ContainsKey(spriteKey)) { UnityEngine.Debug.Log(spriteKey); return; }
 
         SpriteMaterial spriteMatrial = stageData.mapSpriteReso.mapSprite[spriteKey];
         sr.sprite = spriteMatrial.sprite;
-        sr.material = stageData.mapMaterialUnclear[spriteMatrial.materialIndex];
+        sr.material = stageData.stageThemeSO.mapMaterialUnclear[spriteMatrial.materialIndex];
     }
 
     private void Set_MapClearSprite(StageData stageData, SpriteRenderer sr, string spriteKey)
@@ -1903,7 +1938,7 @@ public class StageObjectGenerator
 
         SpriteMaterial spriteMatrial = stageData.mapSpriteReso.mapSprite[spriteKey];
         sr.sprite = spriteMatrial.sprite;
-        sr.material = stageData.mapMaterialClear[spriteMatrial.materialIndex];
+        sr.material = stageData.stageThemeSO.mapMaterialClear[spriteMatrial.materialIndex];
     }
 
     #endregion
@@ -1912,12 +1947,12 @@ public class StageObjectGenerator
 
     public void Set_StageDoorAnim(GateController gate, SpriteRenderer sr, Vector2Int doorDir)
     {
-        List<StageDoorAnim> doorAnim = currentStageData.mapDoorAnim;
+        List<StageDoorAnim> doorAnim = currentStageData.stageThemeSO.mapDoorAnim;
         for (int i = 0; i < doorAnim.Count; i++)
             if (doorAnim[i].dir == doorDir)
             {
                 gate.ac = doorAnim[i].doorAnim;
-                sr.material = currentStageData.mapMaterialUnclear[doorAnim[i].materialIndex];
+                sr.material = currentStageData.stageThemeSO.mapMaterialUnclear[doorAnim[i].materialIndex];
             }
     }
 
@@ -1933,6 +1968,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     public string InitPregressText { get { return initPregressText; } }
     [SerializeField] private string initPregressText;
 
+    [Space(20)]
     [SerializeField] public int targetStageId = -1;
 
     #endregion
@@ -1952,8 +1988,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #endregion
 
     #region Stage Resource - Variable
-
-    [Space(10)]
+    
     [SerializeField] private StagePrefabSO stagePrefab;
     [SerializeField] private StageIconSO stageIcon;
     [SerializeField] private StageTheme stageTheme;
@@ -2197,6 +2232,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     
     public void AddSetAnim(BuildSetAnimController setAnim)
         => currentSetAnims.Add(setAnim);
+
     public void SetSetSpriteClearly()
     {
         if (currentSetSprites == null || currentSetSprites.Count <= 0) return;
@@ -2205,10 +2241,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         {
             if (DevTool.Get_ComponentTType(setSprite.gameObject, out SpriteRenderer sr))
             {
-                int index = stageObjectGenerator.currentStageData.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                int index = stageObjectGenerator.currentStageData.stageThemeSO.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
                 { UnityEngine.Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = stageObjectGenerator.currentStageData.mapMaterialClear[index];
+                sr.material = stageObjectGenerator.currentStageData.stageThemeSO.mapMaterialClear[index];
             }
         }
     }
@@ -2221,10 +2257,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         {
             if (DevTool.Get_ComponentTType(setAnim.gameObject, out SpriteRenderer sr))
             {
-                int index = stageObjectGenerator.currentStageData.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                int index = stageObjectGenerator.currentStageData.stageThemeSO.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
                 { UnityEngine.Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = stageObjectGenerator.currentStageData.mapMaterialClear[index];
+                sr.material = stageObjectGenerator.currentStageData.stageThemeSO.mapMaterialClear[index];
             }
         }
     }

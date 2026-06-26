@@ -420,11 +420,12 @@ public class RoomController : MonoBehaviour
 
     private void EachSpawn_FieldObj(Vector2 pos)
     {
-        if (Instantiate(StageManager.instance.StageTheme.Get_RandomFieldObj_Prefab()).TryGetComponent(out DestructibleObjectController ddoc))
-        {
-            ddoc.gameObject.transform.SetParent(inRoom_FieldObjSpawnerParentTF);
-            ddoc.gameObject.transform.position = pos;
-        }
+        DestructibleObjectController ddoc = Instantiate(StageManager.instance.StageTheme.GetRandomFieldObjPrefab());
+        if (ddoc == null)
+            return;
+
+        ddoc.gameObject.transform.SetParent(inRoom_FieldObjSpawnerParentTF);
+        ddoc.gameObject.transform.position = pos;
     }
 
     private List<Vector2> Get_FieldObjPos()

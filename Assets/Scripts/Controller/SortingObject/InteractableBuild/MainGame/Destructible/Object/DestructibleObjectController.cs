@@ -23,7 +23,7 @@ public class DestructibleObjectController : SortingObjectController
             StageManager.instance.targetStageId,
             typeIndex);
 
-        thisSr.material = StageManager.instance.currentStageData.mapMaterialClear[1];
+        thisSr.material = StageManager.instance.currentStageData.stageThemeSO.mapMaterialClear[1];
     }
 
     #endregion
