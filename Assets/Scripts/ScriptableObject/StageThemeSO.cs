@@ -12,7 +12,20 @@ public class StageThemeSO : ScriptableObject
 
     public Texture2D[] stageTextures;
 
-    public List<Sprite> stageAllSprites;
-    public SerializableArray<Sprite>[] fieldObjSprites;
+    public List<SpriteMaterial> stageAllSprites;
+    public SerializableArray<SpriteMaterial>[] fieldObjSprites;
 
+}
+
+[System.Serializable]
+public class SpriteMaterial
+{
+    public Sprite sprite;
+    public int materialIndex;
+
+    public SpriteMaterial(Sprite sprite, int materialIndex)
+    {
+        this.sprite = sprite;
+        this.materialIndex = materialIndex;
+    }
 }

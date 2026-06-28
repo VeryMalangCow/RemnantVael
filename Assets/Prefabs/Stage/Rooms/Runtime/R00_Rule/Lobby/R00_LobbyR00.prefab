@@ -8,14 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 919224296032472034, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
-      propertyPath: thisSr
-      value: 
-      objectReference: {fileID: 2710109296396095387}
-    - target: {fileID: 919224296032472034, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
-      propertyPath: spriteIndex
-      value: 75
-      objectReference: {fileID: 0}
     - target: {fileID: 2234060382953184247, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -63,6 +55,14 @@ PrefabInstance:
     - target: {fileID: 2366716024367920320, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2949870405135312264, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
+      propertyPath: thisSr
+      value: 
+      objectReference: {fileID: 2710109296396095387}
+    - target: {fileID: 2949870405135312264, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
+      propertyPath: spriteIndex
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 8671702513593221327, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
       propertyPath: m_Name

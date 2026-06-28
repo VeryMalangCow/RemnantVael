@@ -38,6 +38,9 @@ public class RoomController : MonoBehaviour
     [SerializeField] private Transform inRoom_FieldObjSpawnerParentTF;
 
 
+    // Visual
+    private List<RoomVisualMaterial> visualMaterials;
+
     // Rule
     public RoomRuleController roomRule { get; private set; }
 
@@ -49,7 +52,7 @@ public class RoomController : MonoBehaviour
 
     #region Offset
 
-    public void Offset(RoomRuleController rule, int instanceId, int typeId, Vector2Int worldGridPivot)
+    public void Offset(RoomRuleController rule, int instanceId, int typeId, Vector2Int worldGridPivot, StageThemeSO stagethemeSO)
     {
         id = instanceId;
         roomTypeId = typeId;
@@ -71,6 +74,46 @@ public class RoomController : MonoBehaviour
             inRoom_AllGate[i].thisRoom = this;
 
         roomRule.Offset();
+
+        SetVisualSprite(stagethemeSO);
+        InitVisualMaterials();
+    }
+
+    #endregion
+
+    #region Visual
+
+    private void SetVisualSprite(StageThemeSO stageThemeSO)
+    {
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            if (child.TryGetComponent(out RoomVisualSprite visualSprite))
+            {
+                visualSprite.SetSprite(stageThemeSO);
+            }
+        }
+    }
+
+    private void InitVisualMaterials()
+    {
+        visualMaterials = new List<RoomVisualMaterial>();
+        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        foreach (Transform child in allChildren)
+        {
+            if (child.TryGetComponent(out RoomVisualMaterial visualSprite))
+            {
+                visualMaterials.Add(visualSprite);
+            }
+        }
+    }
+
+    private void SetVisualMaterial()
+    {
+        for (int i = 0; i < visualMaterials.Count; i++)
+        {
+
+        }
     }
 
     #endregion

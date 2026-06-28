@@ -308,7 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7353244006134267101}
   - component: {fileID: 7129489249643128393}
-  - component: {fileID: 1653103660986768454}
+  - component: {fileID: 2802436413629580981}
   m_Layer: 0
   m_Name: Platform (9)
   m_TagString: Untagged
@@ -384,7 +384,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &1653103660986768454
+--- !u!114 &2802436413629580981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -393,9 +393,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3537261790563799759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
   spriteKey: 
 --- !u!1 &4684220275449595523
 GameObject:
@@ -407,7 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1717999960862300092}
   - component: {fileID: 7139355816449862581}
-  - component: {fileID: 2783287168061628880}
+  - component: {fileID: 6486055800008494073}
   m_Layer: 0
   m_Name: Platform (11)
   m_TagString: Untagged
@@ -483,7 +485,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &2783287168061628880
+--- !u!114 &6486055800008494073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -492,9 +494,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4684220275449595523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
   spriteKey: 
 --- !u!1 &5155419088078123447
 GameObject:
@@ -506,7 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6291396698853747290}
   - component: {fileID: 8826234480963232782}
-  - component: {fileID: 4583631959606712869}
+  - component: {fileID: 3495493507785286359}
   m_Layer: 0
   m_Name: Platform (8)
   m_TagString: Untagged
@@ -582,7 +586,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &4583631959606712869
+--- !u!114 &3495493507785286359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -591,9 +595,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5155419088078123447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
   spriteKey: 
 --- !u!1 &6179181829161350185
 GameObject:
@@ -605,7 +611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9194757496635189217}
   - component: {fileID: 9022406427645620708}
-  - component: {fileID: 4027667709478563802}
+  - component: {fileID: 6901019872871524215}
   m_Layer: 0
   m_Name: Platform (10)
   m_TagString: Untagged
@@ -681,7 +687,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &4027667709478563802
+--- !u!114 &6901019872871524215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -690,9 +696,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6179181829161350185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
   spriteKey: 
 --- !u!1 &6242516189217315641
 GameObject:
@@ -792,6 +800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
   spriteKey: 
 --- !u!1 &7206350535201679558
 GameObject:

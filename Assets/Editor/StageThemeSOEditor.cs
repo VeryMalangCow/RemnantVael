@@ -36,7 +36,7 @@ public class StageThemeSOEditor : Editor
         }
 
         if (themeSO.stageAllSprites == null)
-            themeSO.stageAllSprites = new List<Sprite>();
+            themeSO.stageAllSprites = new List<SpriteMaterial>();
         else
             themeSO.stageAllSprites.Clear();
 
@@ -48,7 +48,7 @@ public class StageThemeSOEditor : Editor
 
         List<SpriteEntry> spriteEntries = new List<SpriteEntry>();
 
-        CollectSubSprites(themeSO, (sprite) =>
+        CollectSubSprites(themeSO, (sprite, materialIndex) =>
         {
             Match match = regex.Match(sprite.name);
 
@@ -58,7 +58,7 @@ public class StageThemeSOEditor : Editor
             if (!int.TryParse(match.Groups[1].Value, out int id))
                 return;
 
-            spriteEntries.Add(new SpriteEntry(id, sprite));
+            spriteEntries.Add(new SpriteEntry(id, sprite, materialIndex));
         });
 
         spriteEntries.Sort((a, b) => a.id.CompareTo(b.id));
@@ -75,7 +75,7 @@ public class StageThemeSOEditor : Editor
                 continue;
             }
 
-            themeSO.stageAllSprites.Add(entry.sprite);
+            themeSO.stageAllSprites.Add(new SpriteMaterial(entry.sprite, entry.materialIndex));
         }
 
         Debug.Log($"stageAllSprites 수집 완료: {themeSO.stageAllSprites.Count}개 / Prefix: {prefix}", themeSO);
@@ -104,7 +104,7 @@ public class StageThemeSOEditor : Editor
 
         int maxFieldObjIndex = -1;
 
-        CollectSubSprites(themeSO, (sprite) =>
+        CollectSubSprites(themeSO, (sprite, materialIndex) =>
         {
             Match match = regex.Match(sprite.name);
 
@@ -131,18 +131,18 @@ public class StageThemeSOEditor : Editor
 
         if (maxFieldObjIndex < 0)
         {
-            themeSO.fieldObjSprites = new SerializableArray<Sprite>[0];
+            themeSO.fieldObjSprites = new SerializableArray<SpriteMaterial>[0];
             Debug.LogWarning($"FieldObj Sprite를 찾지 못했습니다. Prefix: {prefix}", themeSO);
             return;
         }
 
-        themeSO.fieldObjSprites = new SerializableArray<Sprite>[maxFieldObjIndex + 1];
+        themeSO.fieldObjSprites = new SerializableArray<SpriteMaterial>[maxFieldObjIndex + 1];
 
         for (int fieldObjIndex = 0; fieldObjIndex <= maxFieldObjIndex; fieldObjIndex++)
         {
             if (!groupedEntries.TryGetValue(fieldObjIndex, out List<FieldObjSpriteEntry> list))
             {
-                themeSO.fieldObjSprites[fieldObjIndex] = CreateSpriteArray(new Sprite[0]);
+                themeSO.fieldObjSprites[fieldObjIndex] = CreateSpriteArray(new SpriteMaterial[0]);
                 continue;
             }
 
@@ -155,7 +155,7 @@ public class StageThemeSOEditor : Editor
                     maxSpriteIndex = list[i].spriteIndex;
             }
 
-            Sprite[] sprites = new Sprite[maxSpriteIndex + 1];
+            SpriteMaterial[] sprites = new SpriteMaterial[maxSpriteIndex + 1];
             HashSet<int> usedSpriteIndices = new HashSet<int>();
 
             for (int i = 0; i < list.Count; i++)
@@ -171,7 +171,7 @@ public class StageThemeSOEditor : Editor
                     continue;
                 }
 
-                sprites[entry.spriteIndex] = entry.sprite;
+                sprites[entry.spriteIndex] = new SpriteMaterial(entry.sprite, 1); // Field Obj는 MaterialIndex -> 1
             }
 
             themeSO.fieldObjSprites[fieldObjIndex] = CreateSpriteArray(sprites);
@@ -180,7 +180,7 @@ public class StageThemeSOEditor : Editor
         Debug.Log($"fieldObjSprites 수집 완료: {themeSO.fieldObjSprites.Length}종 / Prefix: {prefix}", themeSO);
     }
 
-    private void CollectSubSprites(StageThemeSO themeSO, System.Action<Sprite> onSpriteFound)
+    private void CollectSubSprites(StageThemeSO themeSO, System.Action<Sprite, int> onSpriteFound)
     {
         for (int i = 0; i < themeSO.stageTextures.Length; i++)
         {
@@ -198,20 +198,21 @@ public class StageThemeSOEditor : Editor
             }
 
             Object[] subAssets = AssetDatabase.LoadAllAssetRepresentationsAtPath(path);
+            int materialIndex = i;
 
             for (int j = 0; j < subAssets.Length; j++)
             {
                 if (!(subAssets[j] is Sprite sprite))
                     continue;
 
-                onSpriteFound?.Invoke(sprite);
+                onSpriteFound?.Invoke(sprite, materialIndex);
             }
         }
     }
 
-    private SerializableArray<Sprite> CreateSpriteArray(Sprite[] sprites)
+    private SerializableArray<SpriteMaterial> CreateSpriteArray(SpriteMaterial[] sprites)
     {
-        SerializableArray<Sprite> result = new SerializableArray<Sprite>();
+        SerializableArray<SpriteMaterial> result = new SerializableArray<SpriteMaterial>();
         result.array = sprites;
         return result;
     }
@@ -220,11 +221,13 @@ public class StageThemeSOEditor : Editor
     {
         public readonly int id;
         public readonly Sprite sprite;
+        public readonly int materialIndex;
 
-        public SpriteEntry(int id, Sprite sprite)
+        public SpriteEntry(int id, Sprite sprite, int materialIndex)
         {
             this.id = id;
             this.sprite = sprite;
+            this.materialIndex = materialIndex;
         }
     }
 

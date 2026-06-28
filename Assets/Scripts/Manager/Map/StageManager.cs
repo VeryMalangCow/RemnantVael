@@ -50,19 +50,6 @@ public class StageMapSprite
 }
 
 [System.Serializable]
-public class SpriteMaterial
-{
-    public Sprite sprite;
-    public int materialIndex;
-
-    public SpriteMaterial(Sprite sprite, int materialIndex)
-    {
-        this.sprite = sprite;
-        this.materialIndex = materialIndex;
-    }
-}
-
-[System.Serializable]
 public class StageGridGenerator
 {
     #region Class & Struct
@@ -1210,13 +1197,13 @@ public class StageTheme
 
     // Get
 
-    public Sprite GetRandomFieldObjSprite(StageData stageData, int typeId)
+    public SpriteMaterial GetRandomFieldObjSprite(StageData stageData, int typeId)
     {
         StageThemeSO stageTheme = stageData.stageThemeSO;
         if (stageData.stageThemeSO.stageId == 99)
             return null;
 
-        Sprite[] objSprites = stageTheme.fieldObjSprites[typeId].array;
+        SpriteMaterial[] objSprites = stageTheme.fieldObjSprites[typeId].array;
         return objSprites[UnityEngine.Random.Range(0, objSprites.Length)];
     }
 
@@ -1413,6 +1400,10 @@ public class StageObjectGenerator
 #endif
         yield return null;
     }
+
+    #endregion
+
+    #region Generate - Lobby - Room
 
     // 로비 방 생성
     private void GenLobbyStartRoom(int roomTypeId, int instanceId, Vector2Int pos)
@@ -1792,13 +1783,13 @@ public class StageObjectGenerator
     private void SetLobbyRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
     {
         currentAllRoomController.Add(room);
-        room.Offset(roomRule, instanceId, typeId, gridPos);
+        room.Offset(roomRule, instanceId, typeId, gridPos, stageTheme.lobbyStageData.stageThemeSO);
     }
 
     private void SetGamePlayRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
     {
         currentAllRoomController.Add(room);
-        room.Offset(roomRule, instanceId, typeId, gridPos);
+        room.Offset(roomRule, instanceId, typeId, gridPos, currentStageData.stageThemeSO);
 
         room.Spawn_FieldObj();
     }
@@ -2018,7 +2009,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Field Obj
 
-    public Sprite GetRandomFieldObjSprite(int typeId)
+    public SpriteMaterial GetRandomFieldObjSprite(int typeId)
     {
         return stageTheme.GetRandomFieldObjSprite(currentStageData, typeId);
     }
@@ -2032,7 +2023,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Nav
     [SerializeField] private NavMeshSurface navMesh;
 
-    private HashSet<BuildSetSpriteController> currentSetSprites = new HashSet<BuildSetSpriteController>();
+    private HashSet<RoomVisualMaterial> currentSetSprites = new HashSet<RoomVisualMaterial>();
     private HashSet<BuildSetAnimController> currentSetAnims = new HashSet<BuildSetAnimController>();
 
     public StageData currentStageData => stageObjectGenerator.currentStageData;
@@ -2150,7 +2141,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Visual
 
-    public void AddSetSprite(BuildSetSpriteController setSprite)
+    public void AddSetSprite(RoomVisualMaterial setSprite)
         => currentSetSprites.Add(setSprite);
     
     public void AddSetAnim(BuildSetAnimController setAnim)
@@ -2160,7 +2151,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         if (currentSetSprites == null || currentSetSprites.Count <= 0) return;
 
-        foreach (BuildSetSpriteController setSprite in currentSetSprites)
+        foreach (RoomVisualMaterial setSprite in currentSetSprites)
         {
             if (DevTool.Get_ComponentTType(setSprite.gameObject, out SpriteRenderer sr))
             {
