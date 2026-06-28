@@ -19,10 +19,7 @@ public class DestructibleObjectController : SortingObjectController
     {
         base.Offset();
 
-        thisSr.sprite = StageManager.instance.StageTheme.Get_RandomFieldObjSprite(
-            StageManager.instance.targetStageId,
-            typeIndex);
-
+        thisSr.sprite = StageManager.instance.GetRandomFieldObjSprite(typeIndex);
         thisSr.material = StageManager.instance.currentStageData.stageThemeSO.mapMaterialClear[1];
     }
 

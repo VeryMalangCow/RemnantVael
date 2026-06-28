@@ -162,7 +162,7 @@ public class MinimapEUIController : ElementUIController
             CurrentRC.thisIMME.Set_Uncomplete();
         }
 
-        List<RoomController> connectedAllRC = CurrentRC.Get_ConnectedRooms();
+        List<RoomController> connectedAllRC = CurrentRC.GetConnectedRooms();
 
         for (int i = 0; i < connectedAllRC.Count; i++)
         {
@@ -300,7 +300,7 @@ public class MinimapEUIController : ElementUIController
     {
         if (canInteractable && InputManager.instance.inputArrowDir != Vector2Int.zero)
         {
-            GateController gc = minimapSelectedElementRoom.Get_MinimapInteract_ShortcutGate(InputManager.instance.inputArrowDir);
+            GateController gc = minimapSelectedElementRoom.GetMinimapInteractShortcutGate(InputManager.instance.inputArrowDir);
             if (gc != null)
             {
                 interactingBookGate = gc.parterGate;

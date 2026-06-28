@@ -1098,6 +1098,7 @@ MonoBehaviour:
   targetObject: {fileID: 577954787020225617}
   thisSr: {fileID: 4575630143981922311}
   targetRange: 0.6
+  isSortingMover: 0
   needKeyCardId: -1
   keyCardIconSr: {fileID: 6029059239892482254}
   nextMapIconSr: {fileID: 6157921451586922772}
@@ -1339,7 +1340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteKey: 
+  spriteKey: 16
 --- !u!1 &4322610366680782772
 GameObject:
   m_ObjectHideFlags: 0

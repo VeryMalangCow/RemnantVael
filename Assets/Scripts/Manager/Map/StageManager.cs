@@ -32,9 +32,7 @@ public class StageMapSprite
     [Header("=== Sprtie: Based on the outer surface")]
 
     public Dictionary<string, SpriteMaterial> mapSprite = new Dictionary<string, SpriteMaterial>();
-#if UNITY_EDITOR
-    public SerializalbeDict<string, SpriteMaterial> mapSpriteSerializable = new SerializalbeDict<string, SpriteMaterial>();
-#endif
+
     public void Offset(MapResoElement[] reso)
     {
         for (int i = 0; i < reso.Length; i++)
@@ -48,9 +46,6 @@ public class StageMapSprite
                     new SpriteMaterial(reso[i].sprite, reso[i].materialIndex));
             }
         }
-#if UNITY_EDITOR
-        mapSpriteSerializable.SetDict(mapSprite);
-#endif
     }
 }
 
@@ -66,38 +61,6 @@ public class SpriteMaterial
         this.materialIndex = materialIndex;
     }
 }
-
-#if UNITY_EDITOR
-[Serializable]
-public class SerializalbeDict<KeyT, ValueT>
-{
-    public List<SerializableData<KeyT, ValueT>> data = new List<SerializableData<KeyT, ValueT>>();
-
-    public void SetDict(Dictionary<KeyT, ValueT> dict)
-    {
-        data.Clear();
-
-        foreach (KeyValuePair<KeyT, ValueT> item in dict)
-        {
-            SerializableData<KeyT, ValueT> initData = new SerializableData<KeyT, ValueT>(item.Key, item.Value);
-            data.Add(initData);
-        }
-    }
-}
-
-[Serializable]
-public class SerializableData<KeyT, ValueT>
-{
-    public KeyT key;
-    public ValueT value;
-
-    public SerializableData(KeyT key, ValueT value)
-    {
-        this.key = key;
-        this.value = value;
-    }
-}
-#endif
 
 [System.Serializable]
 public class StageGridGenerator
@@ -1215,15 +1178,12 @@ public class StageTheme
     private MapResoElement[][] stageMapReso;
     private MapResoElement[] passageMapReso;
 
-    private Sprite[][][] mapFieldObjList_Data;
-
     private static int eachKindOfMapAmount = 2;
     public static int kindOfMapAmount = 2;
     public static int kindOfFieldObjType = 3;
 
     [SerializeField] private DestructibleObjectController[] fieldObjPrefabs;
     public DestructibleObjectController GetRandomFieldObjPrefab() => fieldObjPrefabs[UnityEngine.Random.Range(0, fieldObjPrefabs.Length)];
-
 
     public IEnumerator Initialize()
     {
@@ -1241,14 +1201,6 @@ public class StageTheme
         // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
         passageMiddleSpriteData = new AllPassageMiddleSpriteData(passageMapReso);
 
-        // Field
-        List<Sprite[][]> mapFieldObjList_Data = new List<Sprite[][]>();
-        for (int i = 0; i < stageMapReso.Length; i++)
-        {
-            mapFieldObjList_Data.Add(Get_FieldObj(stageMapReso[i]));
-        }
-        this.mapFieldObjList_Data = mapFieldObjList_Data.ToArray();
-
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"StageManager : <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -1257,12 +1209,15 @@ public class StageTheme
     }
 
     // Get
-    public Sprite Get_RandomFieldObjSprite(int stageID, int typeID)
-    {
-        if (stageID >= mapFieldObjList_Data.Length) UnityEngine.Debug.Log("Stage ID : " + stageID);
 
-        Sprite[] spriteArr = mapFieldObjList_Data[stageID][typeID];
-        return spriteArr[UnityEngine.Random.Range(0, spriteArr.Length)];
+    public Sprite GetRandomFieldObjSprite(StageData stageData, int typeId)
+    {
+        StageThemeSO stageTheme = stageData.stageThemeSO;
+        if (stageData.stageThemeSO.stageId == 99)
+            return null;
+
+        Sprite[] objSprites = stageTheme.fieldObjSprites[typeId].array;
+        return objSprites[UnityEngine.Random.Range(0, objSprites.Length)];
     }
 
     private void SetMapReso()
@@ -1279,49 +1234,11 @@ public class StageTheme
 
         string passageName = $"MapPassage/";
         passageMapReso = GetAsset_MapReso(path, passageName);
-
-        // Kind of Map / Type / List
-        List<Sprite[][]> mapFieldObjList_Data = new List<Sprite[][]>();
-        for (int i = 0; i < stageMapReso.Length; i++)
-        {
-            mapFieldObjList_Data.Add(Get_FieldObj(stageMapReso[i]));
-        }
-        this.mapFieldObjList_Data = mapFieldObjList_Data.ToArray();
-    }
-
-    private Sprite[][] Get_FieldObj(MapResoElement[] reso) // Type / SpriteList
-    {
-        List<List<Sprite>> result = new List<List<Sprite>>();
-
-        for (int i = 0; i < kindOfFieldObjType; i++)
-        {
-            result.Add(new List<Sprite>());
-        }
-
-        for (int i = 0; i < reso.Length; i++)
-        {
-            string[] name = reso[i].sprite.name.Split("_");
-            if (name[1] == "FieldObj")
-            {
-                int type = Int32.Parse(name[2].Substring(1, 2));
-                result[type].Add(reso[i].sprite);
-            }
-        }
-
-        List<Sprite[]> result2 = new List<Sprite[]>();
-        for (int i = 0; i < result.Count; i++)
-        {
-            result2.Add(result[i].ToArray());
-        }
-
-        return result2.ToArray();
     }
 
 
     #region Get Asset
 
-    private T GetAsset<T>(string path, string fileName) where T : UnityEngine.Object
-        => Resources.Load<T>(path + fileName);
     private T[] GetAsset_Arr<T>(string path, string fileName = "") where T : UnityEngine.Object
         => Resources.LoadAll<T>(path + fileName);
 
@@ -2099,8 +2016,14 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #endregion
 
+    #region Field Obj
 
+    public Sprite GetRandomFieldObjSprite(int typeId)
+    {
+        return stageTheme.GetRandomFieldObjSprite(currentStageData, typeId);
+    }
 
+    #endregion
 
     #region Variable
 
@@ -2139,7 +2062,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         DevTool.Set_Active(currentAllRoomController, false);
 
         currentRoomController.gameObject.SetActive(true);
-        currentRoomController.Set_SortingStaticObjects();
+        currentRoomController.SetSortingStaticObjects();
 
         // Ally
         AllyManager.instance.Set_AllAllyPlayerNearPos();
