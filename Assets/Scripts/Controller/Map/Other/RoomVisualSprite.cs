@@ -5,8 +5,9 @@ public class RoomVisualSprite : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer thisSr;
     [SerializeField] private bool isClearVisualMode;
-    public SpriteRenderer ThisSr { get { return ThisSr; } }
     [SerializeField] private int spriteIndex;
+    public SpriteRenderer ThisSr { get { return ThisSr; } }
+    public bool IsClearVisualMode { get { return isClearVisualMode; } }
 
 #if UNITY_EDITOR
     public void SetData(int index)
@@ -17,10 +18,17 @@ public class RoomVisualSprite : MonoBehaviour
 
 #endif
 
+    // 초기 설정
     public void SetSprite(StageThemeSO stageThemeSO)
     {
         SpriteMaterial spriteMaterial = stageThemeSO.stageAllSprites[spriteIndex];
         thisSr.sprite = spriteMaterial.sprite;
-        thisSr.material = stageThemeSO.mapMaterialClear[spriteMaterial.materialIndex];
+        thisSr.material = stageThemeSO.mapMaterialUnclear[spriteMaterial.materialIndex];
+    }
+
+    // 클리어
+    public void SetClearMaterial(StageThemeSO stageThemeSO)
+    {
+        thisSr.material = stageThemeSO.mapMaterialClear[stageThemeSO.stageAllSprites[spriteIndex].materialIndex];
     }
 }

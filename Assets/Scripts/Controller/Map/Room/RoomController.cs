@@ -9,6 +9,7 @@ public class RoomController : MonoBehaviour
     // Id
     public int id { get; private set; }
     public int roomTypeId { get; private set; }
+    private bool isAlreadyRoomClear  = false;
 
     [Space(10)]
     [Header("=== Pos")]
@@ -39,7 +40,8 @@ public class RoomController : MonoBehaviour
 
 
     // Visual
-    private List<RoomVisualMaterial> visualMaterials;
+    private StageThemeSO stageThemeSO;
+    private List<RoomVisualSprite> clearModeVisualSprites;
 
     // Rule
     public RoomRuleController roomRule { get; private set; }
@@ -52,7 +54,7 @@ public class RoomController : MonoBehaviour
 
     #region Offset
 
-    public void Offset(RoomRuleController rule, int instanceId, int typeId, Vector2Int worldGridPivot, StageThemeSO stagethemeSO)
+    public void Offset(RoomRuleController rule, int instanceId, int typeId, Vector2Int worldGridPivot, StageThemeSO stageThemeSO)
     {
         id = instanceId;
         roomTypeId = typeId;
@@ -75,44 +77,35 @@ public class RoomController : MonoBehaviour
 
         roomRule.Offset();
 
-        SetVisualSprite(stagethemeSO);
-        InitVisualMaterials();
+        this.stageThemeSO = stageThemeSO;
+
+        InitVisualSprite();
     }
 
     #endregion
 
     #region Visual
 
-    private void SetVisualSprite(StageThemeSO stageThemeSO)
+    private void InitVisualSprite()
     {
+        clearModeVisualSprites = new List<RoomVisualSprite>();
         Transform[] allChildren = GetComponentsInChildren<Transform>();
         foreach (Transform child in allChildren)
         {
             if (child.TryGetComponent(out RoomVisualSprite visualSprite))
             {
                 visualSprite.SetSprite(stageThemeSO);
+                if (visualSprite.IsClearVisualMode)
+                    clearModeVisualSprites.Add(visualSprite);
             }
         }
     }
 
-    private void InitVisualMaterials()
+    private void SetClearModeVisualSprites()
     {
-        visualMaterials = new List<RoomVisualMaterial>();
-        Transform[] allChildren = GetComponentsInChildren<Transform>();
-        foreach (Transform child in allChildren)
+        for (int i = 0; i < clearModeVisualSprites.Count; i++)
         {
-            if (child.TryGetComponent(out RoomVisualMaterial visualSprite))
-            {
-                visualMaterials.Add(visualSprite);
-            }
-        }
-    }
-
-    private void SetVisualMaterial()
-    {
-        for (int i = 0; i < visualMaterials.Count; i++)
-        {
-
+            clearModeVisualSprites[i].SetClearMaterial(stageThemeSO);
         }
     }
 
@@ -203,7 +196,7 @@ public class RoomController : MonoBehaviour
 
     public void Play_RoomState()
     {
-        if (roomRule.isAlreadyRoomClear == true) return;
+        if (isAlreadyRoomClear == true) return;
 
         switch (roomRule.roomType)
         {
@@ -259,7 +252,7 @@ public class RoomController : MonoBehaviour
 
     private void Set_Completed()
     {
-        roomRule.isAlreadyRoomClear = true;
+        isAlreadyRoomClear = true;
 
         // Gate
         for (int i = 0; i < inRoom_AllGate.Count; i++) 
@@ -270,7 +263,7 @@ public class RoomController : MonoBehaviour
             }
         }
 
-        StageManager.instance.SetSetSpriteClearly();
+        SetClearModeVisualSprites();
         StageManager.instance.SetSetAnimClearly();
 
         roomRule.Set_Completed();

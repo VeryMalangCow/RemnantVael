@@ -21,7 +21,6 @@ public class RoomRuleController : MonoBehaviour
     [Header("-- Type")]
     [SerializeField] public eRoomType roomType;
     [SerializeField] public eEnemy enemyType = eEnemy.Normal;
-    [SerializeField] public bool isAlreadyRoomClear = false;
 
     [Space(10)]
     [Header("=== Parent TF")]

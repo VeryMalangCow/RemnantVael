@@ -52,6 +52,7 @@ MonoBehaviour:
   targetObject: {fileID: 6859774968522112722}
   thisSr: {fileID: 7365551938847441409}
   targetRange: 0.6
+  isSortingMover: 0
 --- !u!61 &5352055190413400012
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -300,6 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8989408546113632210}
   - component: {fileID: 7365551938847441409}
+  - component: {fileID: 2294400114742582749}
   m_Layer: 8
   m_Name: U (0)
   m_TagString: Untagged
@@ -374,3 +376,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2294400114742582749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100184318820791588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisSr: {fileID: 0}
+  isClearVisualMode: 1
+  spriteIndex: 0

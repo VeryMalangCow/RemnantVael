@@ -53,6 +53,7 @@ MonoBehaviour:
   targetObject: {fileID: 6859774968522112722}
   thisSr: {fileID: 4834008912342362400}
   targetRange: 0.6
+  isSortingMover: 0
 --- !u!61 &5352055190413400012
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -457,4 +458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteKey: 
+  thisSr: {fileID: 0}
+  isClearVisualMode: 1
+  spriteIndex: 0

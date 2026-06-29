@@ -16,21 +16,12 @@ public static class RuntimeRoomProcessor
         RoomVisualSprite[] visualSprites =
             roomRoot.GetComponentsInChildren<RoomVisualSprite>(true);
 
-        RoomVisualMaterial[] visualMaterials =
-            roomRoot.GetComponentsInChildren<RoomVisualMaterial>(true);
-
-        result.TotalCount = visualSprites.Length + visualMaterials.Length;
+        result.TotalCount = visualSprites.Length;
 
         foreach (RoomVisualSprite visualSprite in visualSprites)
         {
             ProcessVisualSprite(visualSprite, result);
         }
-
-        foreach (RoomVisualMaterial visualMaterial in visualMaterials)
-        {
-            ProcessVisualMaterial(visualMaterial, result);
-        }
-
     }
 
     private static void ProcessVisualSprite(RoomVisualSprite controller, BakeResult result)
@@ -61,13 +52,4 @@ public static class RuntimeRoomProcessor
         result.SuccessCount++;
     }
 
-    private static void ProcessVisualMaterial(RoomVisualMaterial controller, BakeResult result)
-    {
-        if (controller == null)
-            return;
-
-        controller.SetData();
-
-        result.SuccessCount++;
-    }
 }

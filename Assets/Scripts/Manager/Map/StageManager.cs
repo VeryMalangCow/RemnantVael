@@ -1969,7 +1969,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         currentAllRoomController.Clear();
         currentAllEntranceRoomController.Clear();
 
-        currentSetSprites.Clear();
         currentSetAnims.Clear();
 
         currentRoomController = null;
@@ -2023,7 +2022,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Nav
     [SerializeField] private NavMeshSurface navMesh;
 
-    private HashSet<RoomVisualMaterial> currentSetSprites = new HashSet<RoomVisualMaterial>();
     private HashSet<BuildSetAnimController> currentSetAnims = new HashSet<BuildSetAnimController>();
 
     public StageData currentStageData => stageObjectGenerator.currentStageData;
@@ -2044,7 +2042,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         if (targetRoom == null) yield break;
 
         // 필요없는 유닛 제거
-        currentSetSprites.Clear();
         currentSetAnims.Clear();
 
         // 현재 방 선택
@@ -2141,28 +2138,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Visual
 
-    public void AddSetSprite(RoomVisualMaterial setSprite)
-        => currentSetSprites.Add(setSprite);
-    
-    public void AddSetAnim(BuildSetAnimController setAnim)
-        => currentSetAnims.Add(setAnim);
-
-    public void SetSetSpriteClearly()
-    {
-        if (currentSetSprites == null || currentSetSprites.Count <= 0) return;
-
-        foreach (RoomVisualMaterial setSprite in currentSetSprites)
-        {
-            if (DevTool.Get_ComponentTType(setSprite.gameObject, out SpriteRenderer sr))
-            {
-                int index = stageObjectGenerator.currentStageData.stageThemeSO.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
-                if (index == -1)
-                { UnityEngine.Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = stageObjectGenerator.currentStageData.stageThemeSO.mapMaterialClear[index];
-            }
-        }
-    }
-    
     public void SetSetAnimClearly()
     {
         if (currentSetAnims == null || currentSetAnims.Count <= 0) return;

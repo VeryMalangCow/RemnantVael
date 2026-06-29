@@ -166,7 +166,6 @@ GameObject:
   - component: {fileID: 2545417290506596609}
   - component: {fileID: 6431130664222279258}
   - component: {fileID: 8947138048879588301}
-  - component: {fileID: 727204516459177349}
   - component: {fileID: 2019433481106841677}
   m_Layer: 6
   m_Name: Target
@@ -254,21 +253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &727204516459177349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945861353772175884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisSr: {fileID: 0}
-  spriteIndex: 0
-  spriteKey: 
 --- !u!114 &2019433481106841677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,5 +266,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisSr: {fileID: 0}
+  isClearVisualMode: 1
   spriteIndex: 0
-  spriteKey: 
