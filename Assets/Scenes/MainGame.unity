@@ -6238,11 +6238,10 @@ MonoBehaviour:
   stagePrefab: {fileID: 11400000, guid: 56c47a3709e20ac4d9ddfa9d88766cbe, type: 2}
   stageIcon: {fileID: 11400000, guid: 9a44da07aefc56843a33772112800dd6, type: 2}
   stageTheme:
-    lobbyStageData:
-      stageThemeSO: {fileID: 11400000, guid: 09c8368078f79c5439780900ae5c7ca0, type: 2}
-    allStageData:
-    - stageThemeSO: {fileID: 11400000, guid: 6c09827e069840846815653420de3fd3, type: 2}
-    - stageThemeSO: {fileID: 11400000, guid: 7358c8b71cb744a4bbc769353e2856ac, type: 2}
+    lobbyStageThemeSO: {fileID: 11400000, guid: 09c8368078f79c5439780900ae5c7ca0, type: 2}
+    allStageThemeSOs:
+    - {fileID: 11400000, guid: 6c09827e069840846815653420de3fd3, type: 2}
+    - {fileID: 11400000, guid: 7358c8b71cb744a4bbc769353e2856ac, type: 2}
     passageMiddleMaterialArr:
     - {fileID: 2100000, guid: 55264e190318654408539c732bde9c75, type: 2}
     fieldObjPrefabs:

@@ -5,16 +5,55 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-[System.Serializable]
-public class StageData
+public class AllPassageMiddleSpriteData
 {
-    public StageThemeSO stageThemeSO;
+    private Dictionary<string, EachPassageMiddleSpriteData> passageMiddleSpriteDict;
 
-    public StageMapSprite mapSpriteReso;
-
-    public void Offset(MapResoElement[] reso)
+    public AllPassageMiddleSpriteData(MapResoElement[] allSprite)
     {
-        mapSpriteReso.Offset(reso);
+        passageMiddleSpriteDict = new Dictionary<string, EachPassageMiddleSpriteData>();
+        for (int i = 0; i < allSprite.Length; i++)
+        {
+            string[] fullName = allSprite[i].sprite.name.Split("_");
+
+            passageMiddleSpriteDict.Add(
+                $"{fullName[1]}_{fullName[3]}_{fullName[5]}",
+                new EachPassageMiddleSpriteData(allSprite[i].sprite, allSprite[i].materialIndex));
+        }
+    }
+
+    public Sprite Get_CorrectSprite(string key, out int materialIndex)
+    {
+        materialIndex = -1;
+        if (passageMiddleSpriteDict.ContainsKey(key))
+        {
+            EachPassageMiddleSpriteData data = passageMiddleSpriteDict[key];
+            materialIndex = data.Get_MaterialIndex();
+            return data.Get_Sprite();
+        }
+        return null;
+    }
+}
+
+public class EachPassageMiddleSpriteData
+{
+    private Sprite sprite;
+    private int materialIndex;
+
+    public EachPassageMiddleSpriteData(Sprite sprite, int materialIndex)
+    {
+        this.sprite = sprite;
+        this.materialIndex = materialIndex;
+    }
+
+    public Sprite Get_Sprite()
+    {
+        return sprite;
+    }
+
+    public int Get_MaterialIndex()
+    {
+        return materialIndex;
     }
 }
 
@@ -26,28 +65,6 @@ public class StageDoorAnim
     public int materialIndex;
 }
 
-[System.Serializable]
-public class StageMapSprite
-{
-    [Header("=== Sprtie: Based on the outer surface")]
-
-    public Dictionary<string, SpriteMaterial> mapSprite = new Dictionary<string, SpriteMaterial>();
-
-    public void Offset(MapResoElement[] reso)
-    {
-        for (int i = 0; i < reso.Length; i++)
-        {
-            if (reso[i].sprite.name.Length > 5)
-            {
-                if (reso[i].sprite.name[5] == 'A') continue;
-
-                mapSprite.Add(
-                    reso[i].sprite.name.Substring(5, reso[i].sprite.name.Length - 5),
-                    new SpriteMaterial(reso[i].sprite, reso[i].materialIndex));
-            }
-        }
-    }
-}
 
 [System.Serializable]
 public class StageGridGenerator
@@ -1157,8 +1174,8 @@ public class StageGridGenerator
 [System.Serializable]
 public class StageTheme
 {
-    [SerializeField] public StageData lobbyStageData;
-    [SerializeField] public List<StageData> allStageData;
+    [SerializeField] public StageThemeSO lobbyStageThemeSO;
+    [SerializeField] public List<StageThemeSO> allStageThemeSOs;
     [SerializeField] public Material[] passageMiddleMaterialArr;
     [HideInInspector] public AllPassageMiddleSpriteData passageMiddleSpriteData; 
 
@@ -1177,14 +1194,7 @@ public class StageTheme
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
 #endif
-        // Offset
-        lobbyStageData.Offset(GetAsset_MapReso("Sprite/Map/", "MapLobby"));
-
         SetMapReso();
-        for (int i = 0; i < allStageData.Count; i++)
-        {
-            allStageData[i].Offset(stageMapReso[i]);
-        }
         // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
         passageMiddleSpriteData = new AllPassageMiddleSpriteData(passageMapReso);
 
@@ -1197,13 +1207,12 @@ public class StageTheme
 
     // Get
 
-    public SpriteMaterial GetRandomFieldObjSprite(StageData stageData, int typeId)
+    public SpriteMaterial GetRandomFieldObjSprite(StageThemeSO stageThemeSO, int typeId)
     {
-        StageThemeSO stageTheme = stageData.stageThemeSO;
-        if (stageData.stageThemeSO.stageId == 99)
+        if (stageThemeSO.stageId == 99)
             return null;
 
-        SpriteMaterial[] objSprites = stageTheme.fieldObjSprites[typeId].array;
+        SpriteMaterial[] objSprites = stageThemeSO.fieldObjSprites[typeId].array;
         return objSprites[UnityEngine.Random.Range(0, objSprites.Length)];
     }
 
@@ -1222,7 +1231,6 @@ public class StageTheme
         string passageName = $"MapPassage/";
         passageMapReso = GetAsset_MapReso(path, passageName);
     }
-
 
     #region Get Asset
 
@@ -1268,13 +1276,13 @@ public class StageObjectGenerator
     public List<EntranceRuleController> currentAllEntranceRoomController { get; private set; } = new List<EntranceRuleController>();
 
     // Stage Data
-    public StageData currentStageData { get; private set; }
-    private StageData beforeStageData;
-    private StageData afterStageData;
+    public StageThemeSO currentStageThemeSO { get; private set; }
+    private StageThemeSO beforeStageThemeSO;
+    private StageThemeSO afterStageThemeSO;
 
-    public int currentStageId { get { return currentStageData != null ? currentStageData.stageThemeSO.stageId : -1; } }
-    public int beforeStageId { get { return beforeStageData != null ? beforeStageData.stageThemeSO.stageId : -1; } }
-    public int afterStageId { get { return afterStageData != null ? afterStageData.stageThemeSO.stageId : -1; } }
+    public int currentStageId { get { return currentStageThemeSO != null ? currentStageThemeSO.stageId : -1; } }
+    public int beforeStageId { get { return beforeStageThemeSO != null ? beforeStageThemeSO.stageId : -1; } }
+    public int afterStageId { get { return afterStageThemeSO != null ? afterStageThemeSO.stageId : -1; } }
 
     #endregion
 
@@ -1296,8 +1304,8 @@ public class StageObjectGenerator
     {
         ResetData();
 
-        currentStageData = GetStageData(stageTheme, stageId);
-        if (currentStageData == null) yield break;
+        currentStageThemeSO = GetStageThemeSO(stageTheme, stageId);
+        if (currentStageThemeSO == null) yield break;
 
         // 로비 시작 방
         if (stageId == 99)
@@ -1306,7 +1314,7 @@ public class StageObjectGenerator
         }
         else // 전투 스테이지 시작 방
         {
-            yield return GenerateGamePlayStage(currentStageData, allRoomGrids);
+            yield return GenerateGamePlayStage(allRoomGrids);
             EliteEnemyController.isDroppedBossKeycard = false;
         }
 
@@ -1350,8 +1358,8 @@ public class StageObjectGenerator
 #if UNITY_EDITOR
         UnityEngine.Debug.Log($"{beforeStageId} -> {afterStageId}");
 #endif
-        beforeStageData = GetStageData(stageTheme, this.beforeStageId);
-        afterStageData = GetStageData(stageTheme, this.afterStageId);
+        beforeStageThemeSO = GetStageThemeSO(stageTheme, beforeStageId);
+        afterStageThemeSO = GetStageThemeSO(stageTheme, afterStageId);
 
         // Gen
         GenPassageRoom(afterStageId);
@@ -1430,7 +1438,7 @@ public class StageObjectGenerator
 
     #region Generate - GamePlay
 
-    private IEnumerator GenerateGamePlayStage(StageData stageData, List<StageGridGenerator.RoomGrid> allRoomGrids)
+    private IEnumerator GenerateGamePlayStage(List<StageGridGenerator.RoomGrid> allRoomGrids)
     {
 #if UNITY_EDITOR
         Stopwatch sw = new Stopwatch();
@@ -1743,30 +1751,31 @@ public class StageObjectGenerator
 
     // 올바른 Stage Data 구하기
 
-    public StageData GetStageData(StageTheme stageTheme, int stageId)
+    public StageThemeSO GetStageThemeSO(StageTheme stageTheme, int stageId)
     {
         if (stageTheme == null)
             return null;
 
         // Lobby
         if (stageId == 99)
-            return stageTheme.lobbyStageData;
+            return stageTheme.lobbyStageThemeSO;
 
         // Game
-        StageData stageData = stageTheme.allStageData[stageId];
-        if (stageId == stageData.stageThemeSO.stageId)
-            return stageData;
+        StageThemeSO stageThemeSO = stageTheme.allStageThemeSOs[stageId];
+        if (stageId == stageThemeSO.stageId)
+            return stageThemeSO;
 
         // 만약 Id가 올바르지않다면 순회해서 탐색
-        for (int i = 0; i < stageTheme.allStageData.Count; i++)
+        for (int i = 0; i < stageTheme.allStageThemeSOs.Count; i++)
         {
-            stageData = stageTheme.allStageData[i];
-            if (stageData.stageThemeSO.stageId == stageId)
-                return stageData;
+            stageThemeSO = stageTheme.allStageThemeSOs[i];
+            if (stageThemeSO.stageId == stageId)
+                return stageThemeSO;
         }
 
         return null;
     }
+
 
     // 생성 전에, 전 스테이지 정보 데이터 초기화
     private void ResetData()
@@ -1775,8 +1784,8 @@ public class StageObjectGenerator
 
         MainGameUIManager.instance.hud.MinimapView.AllRemoveMinimapCell();
 
-        beforeStageData = null;
-        afterStageData = null;
+        beforeStageThemeSO = null;
+        afterStageThemeSO = null;
     }
 
     #endregion
@@ -1786,21 +1795,24 @@ public class StageObjectGenerator
     private void SetLobbyRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
     {
         currentAllRoomController.Add(room);
-        room.Offset(roomRule, instanceId, typeId, gridPos, stageTheme.lobbyStageData.stageThemeSO);
+        room.Offset(roomRule, instanceId, typeId, gridPos, stageTheme.lobbyStageThemeSO);
+        room.InitVisualSprite();
     }
 
     private void SetGamePlayRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
     {
         currentAllRoomController.Add(room);
-        room.Offset(roomRule, instanceId, typeId, gridPos, currentStageData.stageThemeSO);
+        room.Offset(roomRule, instanceId, typeId, gridPos, currentStageThemeSO);
+        room.InitVisualSprite();
 
         room.Spawn_FieldObj();
     }
 
-    private void SetPassageRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
+    private void SetPassageRoomToWorld(PassageRoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
     {
         currentAllRoomController.Add(room);
-        room.Offset(roomRule, instanceId, typeId, gridPos, beforeStageData.stageThemeSO, afterStageData.stageThemeSO);
+        room.Offset(roomRule, instanceId, typeId, gridPos, beforeStageThemeSO, afterStageThemeSO);
+        room.InitPassageVisualSprite();
     }
 
 
@@ -1829,34 +1841,18 @@ public class StageObjectGenerator
         sr.material = stageTheme.passageMiddleMaterialArr[materialIndex];
     }
 
-    public void Set_BeforeMapSprite(SpriteRenderer sr, string spriteKey)
-        => Set_MapClearSprite(beforeStageData, sr, spriteKey);
-
-
-    public void Set_AfterMapSprite(SpriteRenderer sr, string spriteKey)
-        => Set_MapClearSprite(afterStageData, sr, spriteKey);
-
-    private void Set_MapClearSprite(StageData stageData, SpriteRenderer sr, string spriteKey)
-    {
-        if (!stageData.mapSpriteReso.mapSprite.ContainsKey(spriteKey)) { UnityEngine.Debug.Log(spriteKey); return; }
-
-        SpriteMaterial spriteMatrial = stageData.mapSpriteReso.mapSprite[spriteKey];
-        sr.sprite = spriteMatrial.sprite;
-        sr.material = stageData.stageThemeSO.mapMaterialClear[spriteMatrial.materialIndex];
-    }
-
     #endregion
 
     #region Anim
 
     public void Set_StageDoorAnim(GateController gate, SpriteRenderer sr, Vector2Int doorDir)
     {
-        List<StageDoorAnim> doorAnim = currentStageData.stageThemeSO.mapDoorAnim;
+        List<StageDoorAnim> doorAnim = currentStageThemeSO.mapDoorAnim;
         for (int i = 0; i < doorAnim.Count; i++)
             if (doorAnim[i].dir == doorDir)
             {
                 gate.ac = doorAnim[i].doorAnim;
-                sr.material = currentStageData.stageThemeSO.mapMaterialUnclear[doorAnim[i].materialIndex];
+                sr.material = currentStageThemeSO.mapMaterialUnclear[doorAnim[i].materialIndex];
             }
     }
 
@@ -2016,7 +2012,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Nav
     [SerializeField] private NavMeshSurface navMesh;
 
-    public StageData currentStageData => stageObjectGenerator.currentStageData;
+    public StageThemeSO currentStageData => stageObjectGenerator.currentStageThemeSO;
     public RoomController currentRoomController;
 
     #endregion

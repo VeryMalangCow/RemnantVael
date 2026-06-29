@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BuildPassageSpriteController : MonoBehaviour
+public class RoomPassageVisualSprite : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer thisSr;
     [SerializeField] private int spriteIndex;
@@ -22,7 +22,7 @@ public class BuildPassageSpriteController : MonoBehaviour
         Vector2 tileSize = thisSr.size;
         SpriteMaterial spriteMaterial = stageThemeSO.stageAllSprites[spriteIndex];
         thisSr.sprite = spriteMaterial.sprite;
-        thisSr.material = stageThemeSO.mapMaterialUnclear[spriteMaterial.materialIndex];
+        thisSr.material = stageThemeSO.mapMaterialClear[spriteMaterial.materialIndex];
         thisSr.size = tileSize;
     }
 }

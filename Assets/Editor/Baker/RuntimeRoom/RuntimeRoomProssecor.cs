@@ -16,8 +16,8 @@ public static class RuntimeRoomProcessor
         RoomVisualSprite[] visualSprites =
             roomRoot.GetComponentsInChildren<RoomVisualSprite>(true);
 
-        BuildPassageSpriteController[] passageVisualSprites =
-            roomRoot.GetComponentsInChildren<BuildPassageSpriteController>(true);
+        RoomPassageVisualSprite[] passageVisualSprites =
+            roomRoot.GetComponentsInChildren<RoomPassageVisualSprite>(true);
 
 
         result.TotalCount = visualSprites.Length + passageVisualSprites.Length;
@@ -26,7 +26,7 @@ public static class RuntimeRoomProcessor
         foreach (RoomVisualSprite visualSprite in visualSprites)
             ProcessVisualSprite(visualSprite, result);
 
-        foreach (BuildPassageSpriteController passageVisualSprite in passageVisualSprites)
+        foreach (RoomPassageVisualSprite passageVisualSprite in passageVisualSprites)
             ProcessPassageVisualSprite(passageVisualSprite, result);
     }
 
@@ -57,7 +57,7 @@ public static class RuntimeRoomProcessor
 
         result.SuccessCount++;
     }
-    private static void ProcessPassageVisualSprite(BuildPassageSpriteController controller, BakeResult result)
+    private static void ProcessPassageVisualSprite(RoomPassageVisualSprite controller, BakeResult result)
     {
         if (controller == null)
             return;

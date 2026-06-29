@@ -4204,62 +4204,6 @@ public class MapResoElement
 
 #endregion
 
-#region Class : Passage : Middle
-
-public class AllPassageMiddleSpriteData
-{
-    private Dictionary<string, EachPassageMiddleSpriteData> passageMiddleSpriteDict;
-
-    public AllPassageMiddleSpriteData(MapResoElement[] allSprite)
-    {
-        passageMiddleSpriteDict = new Dictionary<string, EachPassageMiddleSpriteData>();
-        for (int i = 0; i < allSprite.Length; i++)
-        {
-            string[] fullName = allSprite[i].sprite.name.Split("_");
-
-            passageMiddleSpriteDict.Add(
-                $"{fullName[1]}_{fullName[3]}_{fullName[5]}",
-                new EachPassageMiddleSpriteData(allSprite[i].sprite, allSprite[i].materialIndex));
-        }
-    }
-
-    public Sprite Get_CorrectSprite(string key, out int materialIndex)
-    {
-        materialIndex = -1;
-        if (passageMiddleSpriteDict.ContainsKey(key))
-        {
-            EachPassageMiddleSpriteData data = passageMiddleSpriteDict[key];
-            materialIndex = data.Get_MaterialIndex();
-            return data.Get_Sprite();
-        }
-        return null;
-    }
-}
-
-public class EachPassageMiddleSpriteData
-{
-    private Sprite sprite;
-    private int materialIndex;
-
-    public EachPassageMiddleSpriteData(Sprite sprite, int materialIndex)
-    {
-        this.sprite = sprite;
-        this.materialIndex = materialIndex;
-    }
-
-    public Sprite Get_Sprite()
-    {
-        return sprite;
-    }
-
-    public int Get_MaterialIndex()
-    {
-        return materialIndex;
-    }
-}
-
-#endregion
-
 
 #region Class : AllyUpgrade : Card
 

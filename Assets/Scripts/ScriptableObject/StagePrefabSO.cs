@@ -28,7 +28,7 @@ public class StagePrefabSO : ScriptableObject
     [Space(10)]
     [Header("-- Passage")]
     [Header("* Room")]
-    public RoomController roomPassagePrefab;
+    public PassageRoomController roomPassagePrefab;
     [Header("* Rule")]
     public PassageRuleController roomPassageRulePrefab;
 

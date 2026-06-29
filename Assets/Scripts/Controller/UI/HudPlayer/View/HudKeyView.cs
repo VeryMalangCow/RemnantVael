@@ -48,7 +48,6 @@ public class HudKeyView : MonoBehaviour
         {
             if (keyItemImgList[i].gameObject.activeSelf && keyItemImgList[i].sprite == ResourceManager.instance.Get_KeyCardSprite(id))
             {
-                UnityEngine.Debug.Log("¤·¤·");
                 seq.Append(keyItemImgList[i].transform.DOScale(1.3f, 0.1f));
                 seq.Append(keyItemImgList[i].transform.DOScale(1f, 0.3f));
 

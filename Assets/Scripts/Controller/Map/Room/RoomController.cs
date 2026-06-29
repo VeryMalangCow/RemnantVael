@@ -40,7 +40,7 @@ public class RoomController : MonoBehaviour
 
 
     // Visual
-    private StageThemeSO stageThemeSO;
+    protected StageThemeSO stageThemeSO;
     private List<RoomVisualSprite> clearModeVisualSprites;
 
     // Rule
@@ -78,20 +78,13 @@ public class RoomController : MonoBehaviour
         roomRule.Offset();
 
         this.stageThemeSO = stageThemeSO;
-
-        InitVisualSprite();
-    }
-
-    public void Offset(RoomRuleController rule, int instanceId, int typeId, Vector2Int worldGridPivot, StageThemeSO beforeStageThemeSO, StageThemeSO afterStageThemeSO)
-    {
-
     }
 
     #endregion
 
     #region Visual
 
-    private void InitVisualSprite()
+    public void InitVisualSprite()
     {
         clearModeVisualSprites = new List<RoomVisualSprite>();
         Transform[] allChildren = GetComponentsInChildren<Transform>(true);
@@ -108,6 +101,9 @@ public class RoomController : MonoBehaviour
 
     private void SetClearModeVisualSprites()
     {
+        if (clearModeVisualSprites == null || clearModeVisualSprites.Count == 0)
+            return;
+
         for (int i = 0; i < clearModeVisualSprites.Count; i++)
         {
             clearModeVisualSprites[i].SetClearMaterial(stageThemeSO);
