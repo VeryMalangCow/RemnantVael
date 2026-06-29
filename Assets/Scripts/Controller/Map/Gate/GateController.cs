@@ -116,7 +116,7 @@ public class GateController : StaticDepthController, IInteract
 
 
     // ¹® ¿­±â/´Ý±â
-    public void Set_Open()
+    public void SetOpen()
     {
         isOpen = true;
         
@@ -177,7 +177,7 @@ public class GateController : StaticDepthController, IInteract
                     player.UseKeyCard(needKeyCardId);
                     needKeyCardId = -1;
                     parterGate.needKeyCardId = -1;
-                    Set_Open();
+                    SetOpen();
 
                     PlayerManager.instance.playerController.SetInteractable();
                 }

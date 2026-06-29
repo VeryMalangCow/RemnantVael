@@ -38,9 +38,9 @@ public class VaultRuleController : RoomRuleController
 
     #region Set
 
-    public override void Set_Completed()
+    public override void Complete()
     {
-        base.Set_Completed();
+        base.Complete();
 
         SetOn_Vault();
     }

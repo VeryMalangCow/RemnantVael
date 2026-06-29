@@ -113,7 +113,7 @@ public class RoomRuleController : MonoBehaviour
 
     #region Completed
 
-    public virtual void Set_Completed()
+    public virtual void Complete()
     {
         SetOn_Shop();
 
@@ -135,7 +135,7 @@ public class RoomRuleController : MonoBehaviour
 
     #region Kill All
 
-    public void Set_KillAll()
+    public void KillAll()
     {
         Spawn_AllEnemy();
 

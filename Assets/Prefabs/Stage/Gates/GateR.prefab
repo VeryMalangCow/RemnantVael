@@ -1942,7 +1942,6 @@ GameObject:
   - component: {fileID: 1452908469283397974}
   - component: {fileID: 7945775018822342157}
   - component: {fileID: 20901119375000835}
-  - component: {fileID: 2912261947319735155}
   - component: {fileID: 6694519030789709039}
   - component: {fileID: 1764751439533702885}
   - component: {fileID: 1753946334138248236}
@@ -2040,18 +2039,6 @@ MonoBehaviour:
   thisSr: {fileID: 7945775018822342157}
   targetRange: 0
   isSortingMover: 0
---- !u!114 &2912261947319735155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6431063067678409307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbee95f176445ce4b9bd03f308fc6c1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6694519030789709039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2098,7 +2085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisSr: {fileID: 0}
-  isClearVisualMode: 0
+  isClearVisualMode: 1
   spriteIndex: 0
 --- !u!1 &7072867564415691283
 GameObject:

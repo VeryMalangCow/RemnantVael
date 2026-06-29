@@ -1820,25 +1820,12 @@ public class StageObjectGenerator
         sr.material = stageTheme.passageMiddleMaterialArr[materialIndex];
     }
 
-    public void Set_CurrentMapSprite(SpriteRenderer sr, string spriteKey)
-        => Set_MapUnclearSprite(currentStageData, sr, spriteKey);
-
-
     public void Set_BeforeMapSprite(SpriteRenderer sr, string spriteKey)
         => Set_MapClearSprite(beforeStageData, sr, spriteKey);
 
 
     public void Set_AfterMapSprite(SpriteRenderer sr, string spriteKey)
         => Set_MapClearSprite(afterStageData, sr, spriteKey);
-
-    private void Set_MapUnclearSprite(StageData stageData, SpriteRenderer sr, string spriteKey)
-    {
-        if (!stageData.mapSpriteReso.mapSprite.ContainsKey(spriteKey)) { UnityEngine.Debug.Log(spriteKey); return; }
-
-        SpriteMaterial spriteMatrial = stageData.mapSpriteReso.mapSprite[spriteKey];
-        sr.sprite = spriteMatrial.sprite;
-        sr.material = stageData.stageThemeSO.mapMaterialUnclear[spriteMatrial.materialIndex];
-    }
 
     private void Set_MapClearSprite(StageData stageData, SpriteRenderer sr, string spriteKey)
     {
@@ -1969,8 +1956,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         currentAllRoomController.Clear();
         currentAllEntranceRoomController.Clear();
 
-        currentSetAnims.Clear();
-
         currentRoomController = null;
     }
 
@@ -2022,8 +2007,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Nav
     [SerializeField] private NavMeshSurface navMesh;
 
-    private HashSet<BuildSetAnimController> currentSetAnims = new HashSet<BuildSetAnimController>();
-
     public StageData currentStageData => stageObjectGenerator.currentStageData;
     public RoomController currentRoomController;
 
@@ -2040,9 +2023,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     private IEnumerator StartCurrentRoomCor(RoomController targetRoom)
     {
         if (targetRoom == null) yield break;
-
-        // 필요없는 유닛 제거
-        currentSetAnims.Clear();
 
         // 현재 방 선택
         currentRoomController = targetRoom;
@@ -2133,27 +2113,6 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
             MainGameUIManager.instance.hud.MinimapView.Set_State();
         }
     }
-
-    #endregion
-
-    #region Visual
-
-    public void SetSetAnimClearly()
-    {
-        if (currentSetAnims == null || currentSetAnims.Count <= 0) return;
-
-        foreach (BuildSetAnimController setAnim in currentSetAnims)
-        {
-            if (DevTool.Get_ComponentTType(setAnim.gameObject, out SpriteRenderer sr))
-            {
-                int index = stageObjectGenerator.currentStageData.stageThemeSO.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
-                if (index == -1)
-                { UnityEngine.Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = stageObjectGenerator.currentStageData.stageThemeSO.mapMaterialClear[index];
-            }
-        }
-    }
-
 
     #endregion
 

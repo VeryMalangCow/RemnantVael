@@ -200,10 +200,10 @@ public class RoomController : MonoBehaviour
 
         switch (roomRule.roomType)
         {
-            case eRoomType.Completed: Set_Completed(); break;
-            case eRoomType.KillAll: Set_KillAll(); break;
-            case eRoomType.Safe: Set_Safe(); break;
-            case eRoomType.Prison: Set_Prison(); break;
+            case eRoomType.Completed: Complete(); break;
+            case eRoomType.KillAll: KillAll(); break;
+            case eRoomType.Safe: Safe(); break;
+            case eRoomType.Prison: Prison(); break;
 
             default: break;
         }
@@ -227,30 +227,30 @@ public class RoomController : MonoBehaviour
         Play_RoomState();
     }
 
-    private void Set_KillAll()
+    private void KillAll()
     {
         SoundManager.instance.Play_2D_SFX_Room("Start_KillAll");
 
-        roomRule.Set_KillAll();
+        roomRule.KillAll();
     }
 
-    private void Set_Safe()
+    private void Safe()
     {
         SoundManager.instance.Play_2D_SFX_Room("Start_Safe");
 
         roomRule.roomType = eRoomType.Completed;
-        Set_Completed();
+        Complete();
     }
 
-    private void Set_Prison()
+    private void Prison()
     {
         SoundManager.instance.Play_2D_SFX_Room("Start_Prison");
 
         roomRule.roomType = eRoomType.Completed;
-        Set_Completed();
+        Complete();
     }
 
-    private void Set_Completed()
+    private void Complete()
     {
         isAlreadyRoomClear = true;
 
@@ -259,14 +259,13 @@ public class RoomController : MonoBehaviour
         {
             if (inRoom_AllGate[i].parterGate != null && !inRoom_AllGate[i].isOpen)
             {
-                inRoom_AllGate[i].Set_Open();
+                inRoom_AllGate[i].SetOpen();
             }
         }
 
         SetClearModeVisualSprites();
-        StageManager.instance.SetSetAnimClearly();
 
-        roomRule.Set_Completed();
+        roomRule.Complete();
     }
 
     #endregion
