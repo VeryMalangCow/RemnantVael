@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StagePrefabSet", menuName = "ScriptableObject/StagePrefabSet")]
+[CreateAssetMenu(fileName = "StagePrefabSO", menuName = "ScriptableObject/StagePrefabSO")]
 public class StagePrefabSO : ScriptableObject
 {
     [Header("=== Prefab")]

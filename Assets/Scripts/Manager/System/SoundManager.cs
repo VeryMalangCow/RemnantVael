@@ -7,6 +7,9 @@ public class SoundManager : PersistentSingleton<SoundManager>
 {
     #region Value
 
+
+    public static int kindOfMapAmount = 2;
+
     #region - Inspector
 
     [Space(20)]
@@ -221,7 +224,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         Add_BGM(stagePath, "Stage_99");
 
-        for (int i = 0; i < StageTheme.kindOfMapAmount; i++)
+        for (int i = 0; i < kindOfMapAmount; i++)
             Add_BGM(stagePath, $"Stage_{DevTool.Get_LengthString(i, 2)}");
 
 

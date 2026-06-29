@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StageIconSet", menuName = "ScriptableObject/StageIconSet")]
+[CreateAssetMenu(fileName = "StageIconSO", menuName = "ScriptableObject/StageIconSO")]
 public class StageIconSO : ScriptableObject
 {
     public CoupleData<Sprite> vault_Icon;

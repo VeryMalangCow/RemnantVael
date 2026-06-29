@@ -6242,12 +6242,10 @@ MonoBehaviour:
     allStageThemeSOs:
     - {fileID: 11400000, guid: 6c09827e069840846815653420de3fd3, type: 2}
     - {fileID: 11400000, guid: 7358c8b71cb744a4bbc769353e2856ac, type: 2}
+    allStagePassageThemeSOs:
+    - {fileID: 11400000, guid: d045e1400b6e9a54f8cff71ecd27c281, type: 2}
     passageMiddleMaterialArr:
     - {fileID: 2100000, guid: 55264e190318654408539c732bde9c75, type: 2}
-    fieldObjPrefabs:
-    - {fileID: -8838655692115979413, guid: 3be7e8b2f7867924c978f02106ade6f0, type: 3}
-    - {fileID: -8838655692115979413, guid: 2f9130e5077dfea4ab1852f6b207cd56, type: 3}
-    - {fileID: -8838655692115979413, guid: f25ad301187a9e6459148252dd6df936, type: 3}
   stageGridGenerator:
     stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
     saveDataManager: {fileID: 657936137}

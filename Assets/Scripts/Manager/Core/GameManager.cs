@@ -4185,25 +4185,6 @@ public class SatelliteCenterController : SatelliteController
 
 #endregion
 
-#region Class : Map Reso
-
-
-[System.Serializable]
-public class MapResoElement
-{
-    public Sprite sprite;
-    public int materialIndex;
-
-    public MapResoElement(Sprite sprite, int materialIndex)
-    {
-        this.sprite = sprite;
-        this.materialIndex = materialIndex;
-    }
-}
-
-
-#endregion
-
 
 #region Class : AllyUpgrade : Card
 

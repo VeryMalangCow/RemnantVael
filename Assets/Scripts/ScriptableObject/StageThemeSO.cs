@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StageThemeSet", menuName = "ScriptableObject/StageThemeSet")]
+[CreateAssetMenu(fileName = "StageThemeSO", menuName = "ScriptableObject/StageThemeSO")]
 public class StageThemeSO : ScriptableObject
 {
     public int stageId;
@@ -29,3 +29,12 @@ public class SpriteMaterial
         this.materialIndex = materialIndex;
     }
 }
+
+[System.Serializable]
+public class StageDoorAnim
+{
+    public Vector2Int dir;
+    public AnimationClip doorAnim;
+}
+
+

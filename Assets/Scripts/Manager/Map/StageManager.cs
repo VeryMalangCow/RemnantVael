@@ -5,66 +5,37 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class AllPassageMiddleSpriteData
+#if UNITY_EDITOR
+
+[Serializable]
+public class SerializableDict<T1, T2>
 {
-    private Dictionary<string, EachPassageMiddleSpriteData> passageMiddleSpriteDict;
+    public List<SerializableData<T1, T2>> data = new List<SerializableData<T1, T2>>();
 
-    public AllPassageMiddleSpriteData(MapResoElement[] allSprite)
+    public void SetDict(Dictionary<T1, T2> dict)
     {
-        passageMiddleSpriteDict = new Dictionary<string, EachPassageMiddleSpriteData>();
-        for (int i = 0; i < allSprite.Length; i++)
-        {
-            string[] fullName = allSprite[i].sprite.name.Split("_");
+        data.Clear();
 
-            passageMiddleSpriteDict.Add(
-                $"{fullName[1]}_{fullName[3]}_{fullName[5]}",
-                new EachPassageMiddleSpriteData(allSprite[i].sprite, allSprite[i].materialIndex));
+        foreach (var item in dict)
+        {
+            data.Add(new SerializableData<T1, T2>(item.Key, item.Value));
         }
     }
-
-    public Sprite Get_CorrectSprite(string key, out int materialIndex)
-    {
-        materialIndex = -1;
-        if (passageMiddleSpriteDict.ContainsKey(key))
-        {
-            EachPassageMiddleSpriteData data = passageMiddleSpriteDict[key];
-            materialIndex = data.Get_MaterialIndex();
-            return data.Get_Sprite();
-        }
-        return null;
-    }
 }
 
-public class EachPassageMiddleSpriteData
+[Serializable]
+public class SerializableData<T1, T2>
 {
-    private Sprite sprite;
-    private int materialIndex;
-
-    public EachPassageMiddleSpriteData(Sprite sprite, int materialIndex)
+    public T1 key;
+    public T2 value;
+    public SerializableData(T1 _key, T2 _value)
     {
-        this.sprite = sprite;
-        this.materialIndex = materialIndex;
-    }
-
-    public Sprite Get_Sprite()
-    {
-        return sprite;
-    }
-
-    public int Get_MaterialIndex()
-    {
-        return materialIndex;
+        key = _key;
+        value = _value;
     }
 }
 
-[System.Serializable]
-public class StageDoorAnim
-{
-    public Vector2Int dir;
-    public AnimationClip doorAnim;
-    public int materialIndex;
-}
-
+#endif
 
 [System.Serializable]
 public class StageGridGenerator
@@ -1176,24 +1147,13 @@ public class StageTheme
 {
     [SerializeField] public StageThemeSO lobbyStageThemeSO;
     [SerializeField] public List<StageThemeSO> allStageThemeSOs;
-    [SerializeField] public Material[] passageMiddleMaterialArr;
-    [HideInInspector] public AllPassageMiddleSpriteData passageMiddleSpriteData; 
-
-    private MapResoElement[] passageMapReso;
-
-    private static int eachKindOfMapAmount = 2;
-    public static int kindOfMapAmount = 2;
-    public static int kindOfFieldObjType = 3;
-
+    [SerializeField] public List<StagePassageThemeSO> allStagePassageThemeSOs;
 
     public IEnumerator Initialize()
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
 #endif
-        SetMapReso();
-        // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
-        passageMiddleSpriteData = new AllPassageMiddleSpriteData(passageMapReso);
 
 #if UNITY_EDITOR
         sw.Stop();
@@ -1212,46 +1172,6 @@ public class StageTheme
         SpriteMaterial[] objSprites = stageThemeSO.fieldObjSprites[typeId].array;
         return objSprites[UnityEngine.Random.Range(0, objSprites.Length)];
     }
-
-    private void SetMapReso()
-    {
-        string path = $"Sprite/Map/";
-
-        List<MapResoElement[]> resos = new List<MapResoElement[]>();
-        for (int i = 0; i < kindOfMapAmount; i++)
-        {
-            string stageName = $"Map{DevTool.Get_LengthString(i, 2)}";
-            resos.Add(GetAsset_MapReso("Sprite/Map/", stageName));
-        }
-
-        string passageName = $"MapPassage/";
-        passageMapReso = GetAsset_MapReso(path, passageName);
-    }
-
-    #region Get Asset
-
-    private T[] GetAsset_Arr<T>(string path, string fileName = "") where T : UnityEngine.Object
-        => Resources.LoadAll<T>(path + fileName);
-
-    private MapResoElement[] GetAsset_MapReso(string path, string name)
-    {
-        List<MapResoElement> mapResoElements = new List<MapResoElement>();
-
-        for (int i = 0; i < eachKindOfMapAmount; i++)
-        {
-            Sprite[] spriteArr = GetAsset_Arr<Sprite>(path + name + "/", $"{name}_{DevTool.Get_LengthString(i, 3)}");
-
-            for (int j = 0; j < spriteArr.Length; j++)
-            {
-                mapResoElements.Add(new MapResoElement(spriteArr[j], i));
-            }
-        }
-
-        return mapResoElements.ToArray();
-    }
-
-    #endregion
-
 }
 
 [System.Serializable]
@@ -1745,8 +1665,7 @@ public class StageObjectGenerator
 
     #region Data
 
-    // 올바른 Stage Data 구하기
-
+    // 올바른 Stage Theme SO 구하기
     public StageThemeSO GetStageThemeSO(StageTheme stageTheme, int stageId)
     {
         if (stageTheme == null)
@@ -1767,6 +1686,22 @@ public class StageObjectGenerator
             stageThemeSO = stageTheme.allStageThemeSOs[i];
             if (stageThemeSO.stageId == stageId)
                 return stageThemeSO;
+        }
+
+        return null;
+    }
+
+    // 올바른 Passage Stage Theme SO 구하기
+    public StagePassageThemeSO GetStagePassageThemeSO(StageTheme stageTheme, int beforeStageId, int afterStageId)
+    {
+        if (stageTheme == null)
+            return null;
+
+        for (int i = 0; i < stageTheme.allStagePassageThemeSOs.Count; i++)
+        {
+            var passageThemeSO = stageTheme.allStagePassageThemeSOs[i];
+            if (passageThemeSO.beforeStageId == beforeStageId && passageThemeSO.afterStageId == afterStageId)
+                return passageThemeSO;
         }
 
         return null;
@@ -1807,7 +1742,10 @@ public class StageObjectGenerator
     private void SetPassageRoomToWorld(PassageRoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
     {
         currentAllRoomController.Add(room);
-        room.Offset(roomRule, instanceId, typeId, gridPos, beforeStageThemeSO, afterStageThemeSO);
+        room.Offset(roomRule, instanceId, typeId, gridPos, 
+            beforeStageThemeSO, 
+            afterStageThemeSO, 
+            GetStagePassageThemeSO(stageTheme, beforeStageId, afterStageId));
         room.InitPassageVisualSprite();
     }
 
@@ -1826,30 +1764,17 @@ public class StageObjectGenerator
     #endregion
 
 
-    #region Sprite
-
-    public void Set_PassageMiddleSprite(SpriteRenderer sr, string key)
-    {
-        Sprite data = stageTheme.passageMiddleSpriteData.Get_CorrectSprite(key, out int materialIndex);
-        if (data == null) return;
-
-        sr.sprite = data;
-        sr.material = stageTheme.passageMiddleMaterialArr[materialIndex];
-    }
-
-    #endregion
-
     #region Anim
 
-    public void Set_StageDoorAnim(GateController gate, SpriteRenderer sr, Vector2Int doorDir)
+    public AnimationClip GetCurrentStageDoorAnim(Vector2Int doorDir)
     {
-        List<StageDoorAnim> doorAnim = currentStageThemeSO.mapDoorAnim;
-        for (int i = 0; i < doorAnim.Count; i++)
-            if (doorAnim[i].dir == doorDir)
-            {
-                gate.ac = doorAnim[i].doorAnim;
-                sr.material = currentStageThemeSO.mapMaterialUnclear[doorAnim[i].materialIndex];
-            }
+        List<StageDoorAnim> anims = currentStageThemeSO.mapDoorAnim;
+        for (int i = 0; i < anims.Count; i++)
+        {
+            if (anims[i].dir == doorDir)
+                return anims[i].doorAnim;
+        }
+        return null;
     }
 
     #endregion
@@ -1995,9 +1920,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #region Field Obj
 
     public SpriteMaterial GetRandomFieldObjSprite(int typeId)
-    {
-        return stageTheme.GetRandomFieldObjSprite(currentStageData, typeId);
-    }
+        => stageTheme.GetRandomFieldObjSprite(currentStageData, typeId);
+    
     public DestructibleObjectController GetRandomFieldObjPrefab() 
         => stagePrefab.fieldObjPrefabs[UnityEngine.Random.Range(0, stagePrefab.fieldObjPrefabs.Length)];
 
