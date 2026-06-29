@@ -21,9 +21,11 @@ public class RoomVisualSprite : MonoBehaviour
     // 초기 설정
     public void SetSprite(StageThemeSO stageThemeSO)
     {
+        Vector2 tileSize = thisSr.size;
         SpriteMaterial spriteMaterial = stageThemeSO.stageAllSprites[spriteIndex];
         thisSr.sprite = spriteMaterial.sprite;
         thisSr.material = stageThemeSO.mapMaterialUnclear[spriteMaterial.materialIndex];
+        thisSr.size = tileSize;
     }
 
     // 클리어
