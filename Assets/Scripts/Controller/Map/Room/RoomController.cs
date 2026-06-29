@@ -445,7 +445,7 @@ public class RoomController : MonoBehaviour
 
     private void EachSpawn_FieldObj(Vector2 pos)
     {
-        DestructibleObjectController ddoc = Instantiate(StageManager.instance.StageTheme.GetRandomFieldObjPrefab());
+        DestructibleObjectController ddoc = Instantiate(StageManager.instance.GetRandomFieldObjPrefab());
         if (ddoc == null)
             return;
 

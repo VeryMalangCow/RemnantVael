@@ -1179,15 +1179,12 @@ public class StageTheme
     [SerializeField] public Material[] passageMiddleMaterialArr;
     [HideInInspector] public AllPassageMiddleSpriteData passageMiddleSpriteData; 
 
-    private MapResoElement[][] stageMapReso;
     private MapResoElement[] passageMapReso;
 
     private static int eachKindOfMapAmount = 2;
     public static int kindOfMapAmount = 2;
     public static int kindOfFieldObjType = 3;
 
-    [SerializeField] private DestructibleObjectController[] fieldObjPrefabs;
-    public DestructibleObjectController GetRandomFieldObjPrefab() => fieldObjPrefabs[UnityEngine.Random.Range(0, fieldObjPrefabs.Length)];
 
     public IEnumerator Initialize()
     {
@@ -1226,7 +1223,6 @@ public class StageTheme
             string stageName = $"Map{DevTool.Get_LengthString(i, 2)}";
             resos.Add(GetAsset_MapReso("Sprite/Map/", stageName));
         }
-        stageMapReso = resos.ToArray();
 
         string passageName = $"MapPassage/";
         passageMapReso = GetAsset_MapReso(path, passageName);
@@ -2002,6 +1998,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         return stageTheme.GetRandomFieldObjSprite(currentStageData, typeId);
     }
+    public DestructibleObjectController GetRandomFieldObjPrefab() 
+        => stagePrefab.fieldObjPrefabs[UnityEngine.Random.Range(0, stagePrefab.fieldObjPrefabs.Length)];
 
     #endregion
 

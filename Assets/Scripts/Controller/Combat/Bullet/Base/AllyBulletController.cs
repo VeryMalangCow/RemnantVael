@@ -30,16 +30,7 @@ public class AllyBulletController : BulletController
 
     protected override void RemoveObject()
     {
-        if (currentAliveTime <= 0f) return;
-
-        //BulletManager.instance.RemovePlayerBullet(this);
-
-        SetOff_Trail();
-        SetOff_Light();
-
-        Reset_State();
-
-        gameObject.SetActive(false);
+        BulletManager.instance.RemoveAllyBullet(this);
     }
 
 

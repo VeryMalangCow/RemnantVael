@@ -48,4 +48,10 @@ public class StagePrefabSO : ScriptableObject
     public VaultUpgradeOperatorController vaultUpgradeOperPrefab;
     public PrisonPayOperatorController prisonPayOperPrefab;
     public PrisonPuzzleOperatorController prisonPuzzleOperPrefab;
+
+    [Space(10)]
+    [Header("=== Field Obj")]
+    [SerializeField] public DestructibleObjectController[] fieldObjPrefabs;
+
+
 }
