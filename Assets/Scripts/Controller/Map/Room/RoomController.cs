@@ -82,6 +82,11 @@ public class RoomController : MonoBehaviour
         InitVisualSprite();
     }
 
+    public void Offset(RoomRuleController rule, int instanceId, int typeId, Vector2Int worldGridPivot, StageThemeSO beforeStageThemeSO, StageThemeSO afterStageThemeSO)
+    {
+
+    }
+
     #endregion
 
     #region Visual
@@ -89,7 +94,7 @@ public class RoomController : MonoBehaviour
     private void InitVisualSprite()
     {
         clearModeVisualSprites = new List<RoomVisualSprite>();
-        Transform[] allChildren = GetComponentsInChildren<Transform>();
+        Transform[] allChildren = GetComponentsInChildren<Transform>(true);
         foreach (Transform child in allChildren)
         {
             if (child.TryGetComponent(out RoomVisualSprite visualSprite))

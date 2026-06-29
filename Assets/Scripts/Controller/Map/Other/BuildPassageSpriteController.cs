@@ -2,39 +2,27 @@ using UnityEngine;
 
 public class BuildPassageSpriteController : MonoBehaviour
 {
-    #region Value
-
-    [Space(20)]
-    [Header("<><><><><> Build Sprite")]
-    [SerializeField] private string spriteKey;
+    [SerializeField] protected SpriteRenderer thisSr;
+    [SerializeField] private int spriteIndex;
     [SerializeField] private bool isBeforeMap = true;
+    public bool IsBeforeMap { get { return isBeforeMap; } }
 
-    #endregion
-
-    #region Offset
-
-    private void Offset()
+#if UNITY_EDITOR
+    public void SetData(int index)
     {
-        if (DevTool.Get_ComponentTType(gameObject, out SpriteRenderer sr))
-        {
-            if (spriteKey == "")
-                spriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
-
-            if (isBeforeMap)
-                StageManager.instance.stageObjectGenerator.Set_BeforeMapSprite(sr, spriteKey);
-            else
-                StageManager.instance.stageObjectGenerator.Set_AfterMapSprite(sr, spriteKey);
-        }
+        thisSr = GetComponent<SpriteRenderer>();
+        spriteIndex = index;
     }
 
-    #endregion
+#endif
 
-    #region Framework
-
-    private void Start()
+    // 초기 설정
+    public void SetSprite(StageThemeSO stageThemeSO)
     {
-        Offset();
+        Vector2 tileSize = thisSr.size;
+        SpriteMaterial spriteMaterial = stageThemeSO.stageAllSprites[spriteIndex];
+        thisSr.sprite = spriteMaterial.sprite;
+        thisSr.material = stageThemeSO.mapMaterialUnclear[spriteMaterial.materialIndex];
+        thisSr.size = tileSize;
     }
-
-    #endregion
 }

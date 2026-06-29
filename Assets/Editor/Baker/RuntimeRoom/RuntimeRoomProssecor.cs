@@ -16,12 +16,18 @@ public static class RuntimeRoomProcessor
         RoomVisualSprite[] visualSprites =
             roomRoot.GetComponentsInChildren<RoomVisualSprite>(true);
 
-        result.TotalCount = visualSprites.Length;
+        BuildPassageSpriteController[] passageVisualSprites =
+            roomRoot.GetComponentsInChildren<BuildPassageSpriteController>(true);
+
+
+        result.TotalCount = visualSprites.Length + passageVisualSprites.Length;
+
 
         foreach (RoomVisualSprite visualSprite in visualSprites)
-        {
             ProcessVisualSprite(visualSprite, result);
-        }
+
+        foreach (BuildPassageSpriteController passageVisualSprite in passageVisualSprites)
+            ProcessPassageVisualSprite(passageVisualSprite, result);
     }
 
     private static void ProcessVisualSprite(RoomVisualSprite controller, BakeResult result)
@@ -51,5 +57,31 @@ public static class RuntimeRoomProcessor
 
         result.SuccessCount++;
     }
+    private static void ProcessPassageVisualSprite(BuildPassageSpriteController controller, BakeResult result)
+    {
+        if (controller == null)
+            return;
 
+        SpriteRenderer sr = controller.GetComponent<SpriteRenderer>();
+
+        if (sr == null)
+        {
+            result.AddWarning($"{controller.name} : Missing SpriteRenderer.");
+            return;
+        }
+
+        if (!RuntimeRoomBakeUtility.TryParseSpriteIndex(sr.sprite, out int index))
+        {
+            result.AddWarning($"{controller.name} : Invalid Sprite Name.");
+
+            sr.sprite = null;
+            return;
+        }
+
+        controller.SetData(index);
+
+        sr.sprite = null;
+
+        result.SuccessCount++;
+    }
 }

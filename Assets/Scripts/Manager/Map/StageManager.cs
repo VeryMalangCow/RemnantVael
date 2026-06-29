@@ -1473,7 +1473,6 @@ public class StageObjectGenerator
 
     #region Generate - GamePlay - Room
 
-
     // 矫累 规 积己
     private void GenStartRoom(StageGridGenerator.RoomGrid grid, int instanceId, Vector2Int pos)
     {
@@ -1580,13 +1579,17 @@ public class StageObjectGenerator
 
     }
 
+    #endregion
+
+    #region Generate - Passage - Room
+
     // 烹肺 规 积己
     private void GenPassageRoom(int nextStageId)
     {
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPassagePrefab, stageParentTf);
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomPassageRulePrefab, room.gameObject.transform);
 
-        SetGamePlayRoomToWorld(room, roomRule, 0, 1, Vector2Int.zero);
+        SetPassageRoomToWorld(room, roomRule, 0, 1, Vector2Int.zero);
 
         roomRule.Set_ElevatorData(nextStageId);
     }
@@ -1792,6 +1795,12 @@ public class StageObjectGenerator
         room.Offset(roomRule, instanceId, typeId, gridPos, currentStageData.stageThemeSO);
 
         room.Spawn_FieldObj();
+    }
+
+    private void SetPassageRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
+    {
+        currentAllRoomController.Add(room);
+        room.Offset(roomRule, instanceId, typeId, gridPos, beforeStageData.stageThemeSO, afterStageData.stageThemeSO);
     }
 
 
