@@ -75,7 +75,7 @@ public class PrisonController : InteractableBuildController
 
     private void Offset_Comp()
     {
-        dangerIcon.sprite = ResourceManager.instance.Get_PrisonRankSprite(rating);
+        dangerIcon.sprite = StaticResourceManager.instance.BuildPrefab.prisonPrefab.rateIcons[rating];
 
         dangerTxt = DevTool.Get_ComponentTType(dangerIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text _dangerTxt) ? _dangerTxt : null;
         typeTxt = DevTool.Get_ComponentTType(typeIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text _typeTxt) ? _typeTxt : null;
@@ -154,11 +154,11 @@ public class PrisonController : InteractableBuildController
 
     private void Set_AnimValue()
     {
-        onOffAc = ResourceManager.instance.prison_OnOffAC;
-        onOffAc_Upside = ResourceManager.instance.prison_OnOffUpsideAC;
-        onOffStateAc = ResourceManager.instance.prison_StateAC;
+        onOffAc = StaticResourceManager.instance.BuildPrefab.prisonPrefab.onOffAnimation; 
+        onOffAc_Upside = StaticResourceManager.instance.BuildPrefab.prisonPrefab.onOffUpsideAnimation;
+        onOffStateAc = StaticResourceManager.instance.BuildPrefab.prisonPrefab.stateAnimation;
 
-        onOffMaterial = ResourceManager.instance.Get_CoupleBuildMaterial("PrisonOff", "PrisonOn");
+        onOffMaterial = StaticResourceManager.instance.BuildPrefab.prisonPrefab.material;
     }
 
     private void Set_Rating(int rate)

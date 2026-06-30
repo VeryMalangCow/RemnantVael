@@ -114,7 +114,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_Core();
         Offset_Sprite_AllyCard();
         Offset_Sprite_AllyRequest();
-        Offset_Sprite_Prison();
         Offset_Sprite_Ally();
         Offset_Sprite_PuzzleNSC();
         Offset_Sprite_Minimap();
@@ -130,11 +129,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Anim_Static();
         Offset_Anim_Module();
         Offset_Anim_Keycard();
-        Offset_Anim_PlayerShop();
-        Offset_Anim_AllyShop();
-        Offset_Anim_Prison();
-        Offset_Anim_Operator();
-        Offset_Anim_Converter();
         Offset_Anim_Core();
     }
 
@@ -369,7 +363,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         #region Building
 
         string buildingPath = path + "Building/";
-        prisonRateIconArr = new Sprite[5]; // 5
         Sprite[] building000Sprites = GetAsset_Arr<Sprite>(buildingPath, "Building_000");
         for (int i = 0; i < building000Sprites.Length; i++)
         {
@@ -417,9 +410,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
             { "Enemy_Explosion", GetAsset<Material>(enemyPath, "Enemy00_000") },
 
-            { "Build_Durablity", GetAsset<Material>(buildPath, "Build_000") },
-            { "Build_PrisonOff", GetAsset<Material>(buildPath, "Build_001") },
-            { "Build_PrisonOn", GetAsset<Material>(buildPath, "Build_002") }
+            { "Build_Durablity", GetAsset<Material>(buildPath, "Build_000") }
         };
 
     }
@@ -428,8 +419,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public Material Get_ModuleMaterial(string name) => staticMaterialDict[$"Module_{name}"];
     public Material Get_EnemyMaterial(string name) => staticMaterialDict[$"Enemy_{name}"];
     public Material Get_BuildMaterial(string name) => staticMaterialDict[$"Build_{name}"];
-    public CoupleData<Material> Get_CoupleBuildMaterial(string baseName, string specialName)
-        => new CoupleData<Material>(Get_BuildMaterial(baseName), Get_BuildMaterial(specialName));
 
     #endregion
     #region Static (Anim)
@@ -1614,194 +1603,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public Sprite Get_NSCAnswerSprite(int shapeIndex, int numIndex) => allNscAnswerSpriteSet[shapeIndex].allAnswerSet[numIndex];
 
     #endregion
-
-
-
-
-    #region Shop - BU & MU (Anim)
-
-    // Value
-    [HideInInspector] public CoupleData<AnimationClip> buShop_OnOffAC { get; private set; }
-    [HideInInspector] public AnimationClip buShop_BrokenAC { get; private set; }
-    [HideInInspector] public CoupleData<AnimationClip> muShop_OnOffAC { get; private set; }
-    [HideInInspector] public AnimationClip muShop_BrokenAC { get; private set; }
-
-
-    [HideInInspector] public AnimationClip brokenStateAC { get; private set; }
-    [HideInInspector] public CoupleData<AnimationClip> needChargeBettery_OnOffStateAC { get; private set; }
-
-    // Offset
-    private void Offset_Anim_PlayerShop()
-    {
-        string path = "Anim/";
-
-        string shopPath = path + "Building/Shop/";
-
-        string buPath = shopPath + "BU/";
-        buShop_OnOffAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(buPath, "Clip_BUShop_Off"), GetAsset<AnimationClip>(buPath, "Clip_BUShop_Off"));
-        buShop_BrokenAC = GetAsset<AnimationClip>(buPath, "Clip_BUShop_Broken");
-
-        string muPath = shopPath + "MU/";
-        muShop_OnOffAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(muPath, "Clip_MUShop_Off"), GetAsset<AnimationClip>(muPath, "Clip_MUShop_Off"));
-        muShop_BrokenAC = GetAsset<AnimationClip>(muPath, "Clip_MUShop_Broken");
-
-        brokenStateAC = GetAsset<AnimationClip>(shopPath, "Clip_Broken");
-        needChargeBettery_OnOffStateAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(shopPath, "Clip_NeedEC"), GetAsset<AnimationClip>(shopPath, "Clip_Upgrade"));
-    }
-
-    #endregion
-
-    #region Shop - ABU & AMU (Anim)
-
-    // Value
-    [HideInInspector] public CoupleData<AnimationClip> allyBuShop_OnOffAC { get; private set; }
-    [HideInInspector] public AnimationClip allyBuShop_BrokenAC { get; private set; }
-    [HideInInspector] public CoupleData<AnimationClip> allyMuShop_OnOffAC { get; private set; }
-    [HideInInspector] public AnimationClip allyMuShop_BrokenAC { get; private set; }
-
-    // Offset
-    private void Offset_Anim_AllyShop()
-    {
-        string path = "Anim/";
-
-        string shopPath = path + "Building/AllyShop/";
-
-        string buPath = shopPath + "BU/";
-        allyBuShop_OnOffAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(buPath, "Clip_AllyBUShop_Off"), GetAsset<AnimationClip>(buPath, "Clip_AllyBUShop_Off"));
-        allyBuShop_BrokenAC = GetAsset<AnimationClip>(buPath, "Clip_AllyBUShop_Broken");
-
-        string muPath = shopPath + "MU/";
-        allyMuShop_OnOffAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Off"), GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Off"));
-        allyMuShop_BrokenAC = GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Broken");
-    }
-
-    #endregion
-
-    #region Prison (Sprite)
-
-    // Value
-    [HideInInspector] private Sprite[] prisonRateIconArr;
-
-    // Offset
-    private void Offset_Sprite_Prison()
-    {
-        string path = "Sprite/";
-        string buildingPath = path + "Building/";
-        prisonRateIconArr = new Sprite[5]; // 5
-        Sprite[] building000Sprites = GetAsset_Arr<Sprite>(buildingPath, "Building_000");
-        for (int i = 0; i < building000Sprites.Length; i++)
-        {
-            Sprite sprite = building000Sprites[i];
-
-            if (Get_InSpriteName(sprite, "Building000_DangerRate", out int index))
-                prisonRateIconArr[index - 1] = sprite;
-        }
-    }
-
-    // Get
-    public Sprite Get_PrisonRankSprite(int id) => prisonRateIconArr[id];
-
-    #endregion
-    #region Prison (Anim)
-
-    // Value 
-    [SerializeField] public CoupleData<AnimationClip> prison_OnOffAC { get; private set; }
-    [SerializeField] public CoupleData<AnimationClip> prison_OnOffUpsideAC { get; private set; }
-
-    [SerializeField] public CoupleData<AnimationClip> prison_StateAC { get; private set; }
-
-    // Offset
-    private void Offset_Anim_Prison()
-    {
-        string path = "Anim/";
-
-        string prisonPath = path + "Building/Prison/";
-
-        string prisonName = "Clip_Prison";
-        string iconName = "Clip_Icon_";
-
-        string downName = "_Downside";
-        string upName = "_Upside";
-        string lockName = "Lock";
-        string UnlockName = "Unlock";
-
-        prison_OnOffAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(prisonPath, $"{prisonName}{lockName}{downName}"), GetAsset<AnimationClip>(prisonPath, $"{prisonName}{UnlockName}{downName}"));
-        prison_OnOffUpsideAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(prisonPath, $"{prisonName}{lockName}{upName}"), GetAsset<AnimationClip>(prisonPath, $"{prisonName}{UnlockName}{upName}"));
-
-        prison_StateAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(prisonPath, $"{iconName}{lockName}"), GetAsset<AnimationClip>(prisonPath, $"{iconName}{UnlockName}"));
-    }
-
-    // Get
-
-    #endregion
-
-    #region Operator (Anim)
-
-    // Value
-    [SerializeField] public CoupleData<AnimationClip> operator_OnOffAC { get; private set; }
-    [SerializeField] public AnimationClip operator_RepairAC { get; private set; }
-    [SerializeField] public AnimationClip operator_RerollAC { get; private set; }
-    [SerializeField] public AnimationClip operator_UpgradeAC { get; private set; }
-    [SerializeField] public AnimationClip operator_AllyAC { get; private set; }
-
-    [SerializeField] public CoupleData<AnimationClip> operator_LightAC { get; private set; }
-
-    // Offset
-    private void Offset_Anim_Operator()
-    {
-        string path = "Anim/";
-
-        string OperPath = path + "Building/Operator/";
-
-        string operName = "Clip_Operator";
-        operator_OnOffAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(OperPath, $"{operName}Off"), GetAsset<AnimationClip>(OperPath, $"{operName}On"));
-
-        string iconName = "Clip_Icon_";
-        operator_RepairAC = GetAsset<AnimationClip>(OperPath, $"{iconName}Repair");
-        operator_RerollAC = GetAsset<AnimationClip>(OperPath, $"{iconName}Reroll");
-        operator_UpgradeAC = GetAsset<AnimationClip>(OperPath, $"{iconName}Upgrade");
-        operator_AllyAC = GetAsset<AnimationClip>(OperPath, $"{iconName}Ally");
-
-        operator_LightAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(OperPath, $"Clip_LightOff"), GetAsset<AnimationClip>(OperPath, $"Clip_LightOn"));
-    }
-
-    #endregion
-
-    #region Shop - Converter (Material & Anim)
-
-    // Value
-    [HideInInspector] private List<AnimationClip> converterResoList;
-
-    // Offset
-    private void Offset_Anim_Converter()
-    {
-        string animPath = "Anim/Building/Converter/";
-
-        string converterAnimName = "Clip_Converter_";
-        converterResoList = new List<AnimationClip>();
-
-        converterResoList.Add(GetAsset<AnimationClip>(animPath, converterAnimName + "PremiumCredit"));
-        converterResoList.Add(GetAsset<AnimationClip>(animPath, converterAnimName + "ProtoCore"));
-        converterResoList.Add(GetAsset<AnimationClip>(animPath, converterAnimName + "EtherCore"));
-        converterResoList.Add(GetAsset<AnimationClip>(animPath, converterAnimName + "OriginCore"));
-    }
-
-    // Get
-    public AnimationClip Get_ConverterReso(int id) => converterResoList[id];
-
-    #endregion
-
-
 
 
 

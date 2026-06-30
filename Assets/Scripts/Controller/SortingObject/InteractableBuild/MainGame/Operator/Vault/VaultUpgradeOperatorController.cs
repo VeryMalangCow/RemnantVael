@@ -35,7 +35,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         base.Set_AnimValue();
 
-        iconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_UpgradeAC, 1f), 1f);
+        iconStateAnim.Set_Anim(new State_Anim(StaticResourceManager.instance.BuildPrefab.vaultUpgradeOperPrefab.animation, 1f), 1f);
     }
 
     public override void Set_TargetBuild(VaultController targetVault)

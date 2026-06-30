@@ -34,6 +34,7 @@ public class VaultController : DestructibleBuildController
     protected override void Offset()
     {
         Set_AnimValue();
+        thisSr.material = StaticResourceManager.instance.BuildPrefab.vaultPrefab.material;
 
         base.Offset();
     }
@@ -66,10 +67,10 @@ public class VaultController : DestructibleBuildController
     {
         var vaultPrefab = StaticResourceManager.instance.BuildPrefab.vaultPrefab;
         onOffAc = new CoupleData<AnimationClip>(null, vaultPrefab.onAnimations[currentGrade]);
-        onOffStateAc = vaultPrefab.stateIconAC;
+        onOffStateAc = vaultPrefab.stateIconAnimation;
 
         brokenAc = vaultPrefab.brokenAnimations[currentGrade];
-        brokenStateAc = vaultPrefab.stateIconAC.typeBase;
+        brokenStateAc = vaultPrefab.stateIconAnimation.typeBase;
     }
 
     public void Set_Upgrade()

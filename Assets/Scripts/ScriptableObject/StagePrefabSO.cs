@@ -32,34 +32,6 @@ public class StagePrefabSO : ScriptableObject
     [Header("* Rule")]
     public PassageRuleController roomPassageRulePrefab;
 
-
-
-
-
-    [Space(10)]
-    [Header("=== Build")]
-    public BaseUpgradeController buPrefab;
-    public ModuleUpgradeController muPrefab;
-    public AllyBaseUpgradeController abuPrefab;
-    public AllyModuleUpgradeController amuPrefab;
-    public PrisonController[] prisonPrefabs;
-
-    [Space(10)]
-    [Header("=== Cvt")]
-    public PreminumCreditCvtController preminumCreditCvtPrefab;
-    public ProtoCoreCvtController protoCoreCvtPrefab;
-    public EtherCoreCvtController EtherCoreCvtPrefab;
-    public OriginCoreCvtController originCoreCvtPrefab;
-
-
-    [Space(10)]
-    [Header("=== Oper")]
-    public RepairOperatorController repairOperPrefab;
-    public VaultRerollOperatorController vaultRerollOperPrefab;
-    public VaultUpgradeOperatorController vaultUpgradeOperPrefab;
-    public PrisonPayOperatorController prisonPayOperPrefab;
-    public PrisonPuzzleOperatorController prisonPuzzleOperPrefab;
-
     [Space(10)]
     [Header("=== Field Obj")]
     [SerializeField] public DestructibleObjectController[] fieldObjPrefabs;

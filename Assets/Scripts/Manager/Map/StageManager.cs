@@ -1580,9 +1580,9 @@ public class StageObjectGenerator
 #endif
         roomRule.SetVault(
             UnityEngine.Object.Instantiate(DevTool.Get_RandomInList(buildPrefab.vaultPrefab.prefabs)),
-            UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab, roomRule.inRoom_RepairOperactorParentTf),
-            UnityEngine.Object.Instantiate(stagePrefab.vaultRerollOperPrefab, roomRule.inRoom_RerollOperactorParentTf),
-            UnityEngine.Object.Instantiate(stagePrefab.vaultUpgradeOperPrefab, roomRule.inRoom_UpgradeOperactorParentTf));
+            UnityEngine.Object.Instantiate(buildPrefab.repairOperPrefab.prefab, roomRule.inRoom_RepairOperactorParentTf),
+            UnityEngine.Object.Instantiate(buildPrefab.vaultRerollOperPrefab.prefab, roomRule.inRoom_RerollOperactorParentTf),
+            UnityEngine.Object.Instantiate(buildPrefab.vaultUpgradeOperPrefab.prefab, roomRule.inRoom_UpgradeOperactorParentTf));
 #if UNITY_EDITOR
         sw.Stop(); 
         generatorLogger += $"<color=orange>Object</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
@@ -1636,12 +1636,12 @@ public class StageObjectGenerator
 
         if (data.usableBU)
             roomRule.SetBuShop(
-                UnityEngine.Object.Instantiate(stagePrefab.buPrefab),
-                UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab));
+                UnityEngine.Object.Instantiate(buildPrefab.buPrefab.prefab),
+                UnityEngine.Object.Instantiate(buildPrefab.repairOperPrefab.prefab));
         if (data.usableMU)
             roomRule.SetMuShop(
-                UnityEngine.Object.Instantiate(stagePrefab.muPrefab),
-                UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab));
+                UnityEngine.Object.Instantiate(buildPrefab.muPrefab.prefab),
+                UnityEngine.Object.Instantiate(buildPrefab.repairOperPrefab.prefab));
 #if UNITY_EDITOR
         sw.Stop();
         generatorLogger += $"<color=orange>Object (BU + MU)</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
@@ -1694,12 +1694,12 @@ public class StageObjectGenerator
 
         if (data.usableABU)
             roomRule.SetAbuShop(
-                UnityEngine.Object.Instantiate(stagePrefab.abuPrefab),
-                UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab));
+                UnityEngine.Object.Instantiate(buildPrefab.abuPrefab.prefab),
+                UnityEngine.Object.Instantiate(buildPrefab.repairOperPrefab.prefab));
         if (data.usableAMU)
             roomRule.SetAmuShop(
-                UnityEngine.Object.Instantiate(stagePrefab.amuPrefab),
-                UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab));
+                UnityEngine.Object.Instantiate(buildPrefab.amuPrefab.prefab),
+                UnityEngine.Object.Instantiate(buildPrefab.repairOperPrefab.prefab));
 #if UNITY_EDITOR
         sw.Stop();
         generatorLogger += $"<color=orange>Object</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
@@ -1751,9 +1751,9 @@ public class StageObjectGenerator
         sw.Restart();
 #endif
         roomRule.SetPrison(
-            UnityEngine.Object.Instantiate(stagePrefab.prisonPrefabs[prisonTypeId]),
-            UnityEngine.Object.Instantiate(stagePrefab.prisonPayOperPrefab),
-            UnityEngine.Object.Instantiate(stagePrefab.prisonPuzzleOperPrefab));
+            UnityEngine.Object.Instantiate(buildPrefab.prisonPrefab.prefabs[prisonTypeId]),
+            UnityEngine.Object.Instantiate(buildPrefab.prisonPayOperPrefab.prefab),
+            UnityEngine.Object.Instantiate(buildPrefab.prisonPuzzleOperPrefab.prefab));
 #if UNITY_EDITOR
         sw.Stop();
         generatorLogger += $"<color=orange>Object</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";

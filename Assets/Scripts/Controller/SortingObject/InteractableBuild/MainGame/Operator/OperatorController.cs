@@ -46,8 +46,9 @@ public abstract class OperatorController : InteractableBuildController, IInterac
 
     protected virtual void Set_AnimValue()
     {
-        onOffAc = ResourceManager.instance.operator_OnOffAC;
-        onOffStateAc = ResourceManager.instance.operator_LightAC;
+        var prefab = StaticResourceManager.instance.BuildPrefab;
+        onOffAc = prefab.operOnOffAnimation;
+        onOffStateAc = prefab.operLightAnimation;
     }
 
     public void Set_TargetBuildBroken()

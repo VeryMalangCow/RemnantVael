@@ -36,11 +36,16 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
     {
         Set_LanguageTxt();
 
-        onOffAc = ResourceManager.instance.allyMuShop_OnOffAC;
-        onOffStateAc = ResourceManager.instance.needChargeBettery_OnOffStateAC;
+        var prefab = StaticResourceManager.instance.BuildPrefab;
+        var amuPrefab = StaticResourceManager.instance.BuildPrefab.amuPrefab;
 
-        brokenAc = ResourceManager.instance.allyMuShop_BrokenAC;
-        brokenStateAc = ResourceManager.instance.brokenStateAC;
+        onOffAc = amuPrefab.onOffAniamtion;
+        onOffStateAc = prefab.needChargeBetteryOnOffStateAnimation;
+
+        brokenAc = amuPrefab.brokenAnimation;
+        brokenStateAc = prefab.brokenStateAnimation;
+
+        thisSr.material = amuPrefab.material;
 
         base.Offset();
     }

@@ -28,11 +28,16 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        onOffAc = ResourceManager.instance.buShop_OnOffAC;
-        onOffStateAc = ResourceManager.instance.needChargeBettery_OnOffStateAC;
+        var prefab = StaticResourceManager.instance.BuildPrefab;
+        var buPrefab = StaticResourceManager.instance.BuildPrefab.buPrefab;
 
-        brokenAc = ResourceManager.instance.buShop_BrokenAC;
-        brokenStateAc = ResourceManager.instance.brokenStateAC;
+        onOffAc = buPrefab.onOffAniamtion;
+        onOffStateAc = prefab.needChargeBetteryOnOffStateAnimation;
+
+        brokenAc = buPrefab.brokenAnimation;
+        brokenStateAc = prefab.brokenStateAnimation;
+
+        thisSr.material = buPrefab.material;
 
         base.Offset();
     }

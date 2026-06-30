@@ -28,11 +28,16 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        onOffAc = ResourceManager.instance.muShop_OnOffAC;
-        onOffStateAc = ResourceManager.instance.needChargeBettery_OnOffStateAC;
+        var prefab = StaticResourceManager.instance.BuildPrefab;
+        var muPrefab = StaticResourceManager.instance.BuildPrefab.muPrefab;
 
-        brokenAc = ResourceManager.instance.muShop_BrokenAC;
-        brokenStateAc = ResourceManager.instance.brokenStateAC;
+        onOffAc = muPrefab.onOffAniamtion;
+        onOffStateAc = prefab.needChargeBetteryOnOffStateAnimation;
+
+        brokenAc = muPrefab.brokenAnimation;
+        brokenStateAc = prefab.brokenStateAnimation;
+
+        thisSr.material = muPrefab.material;
 
         base.Offset();
     }
