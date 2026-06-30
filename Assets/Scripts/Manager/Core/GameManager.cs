@@ -5049,31 +5049,20 @@ public class PlayerVisual<T>
 [System.Serializable]
 public class ConverterReso
 {
-    public List<EachConverterReso> converterResoList;
+    public List<AnimationClip> converterResoList;
 
     public ConverterReso()
     {
-        converterResoList = new List<EachConverterReso>();
+        converterResoList = new List<AnimationClip>();
     }
 
-    public void Add(EachConverterReso reso)
+    public void Add(AnimationClip reso)
     {
         converterResoList.Add(reso);
     }
 }
 
-[System.Serializable]
-public class EachConverterReso
-{
-    public AnimationClip ac;
-    public Material material;
 
-    public EachConverterReso(AnimationClip ac, Material material)
-    {
-        this.ac = ac;
-        this.material = material;
-    }
-}
 
 #endregion
 

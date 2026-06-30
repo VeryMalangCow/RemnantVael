@@ -42,6 +42,14 @@ public class StagePrefabSO : ScriptableObject
     public PrisonController[] prisonPrefabs;
 
     [Space(10)]
+    [Header("=== Cvt")]
+    public PreminumCreditCvtController preminumCreditCvtPrefab;
+    public ProtoCoreCvtController protoCoreCvtPrefab;
+    public EtherCoreCvtController EtherCoreCvtPrefab;
+    public OriginCoreCvtController originCoreCvtPrefab;
+
+
+    [Space(10)]
     [Header("=== Oper")]
     public RepairOperatorController repairOperPrefab;
     public VaultRerollOperatorController vaultRerollOperPrefab;
@@ -52,6 +60,4 @@ public class StagePrefabSO : ScriptableObject
     [Space(10)]
     [Header("=== Field Obj")]
     [SerializeField] public DestructibleObjectController[] fieldObjPrefabs;
-
-
 }

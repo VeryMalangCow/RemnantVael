@@ -1822,34 +1822,24 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Shop - Converter (Material & Anim)
 
     // Value
-    [HideInInspector] private ConverterReso converterReso;
+    [HideInInspector] private List<AnimationClip> converterResoList;
 
     // Offset
     private void Offset_Anim_Converter()
     {
-        string materialPath = "Material/Build/";
         string animPath = "Anim/Building/Converter/";
 
         string converterAnimName = "Clip_Converter_";
-        string converterMaterialName = "Build_003";
-        converterReso = new ConverterReso();
+        converterResoList = new List<AnimationClip>();
 
-        converterReso.Add(new EachConverterReso(
-            GetAsset<AnimationClip>(animPath, converterAnimName + "PremiumCredit"),
-            GetAsset<Material>(materialPath, converterMaterialName)));
-        converterReso.Add(new EachConverterReso(
-            GetAsset<AnimationClip>(animPath, converterAnimName + "ProtoCore"),
-            GetAsset<Material>(materialPath, converterMaterialName)));
-        converterReso.Add(new EachConverterReso(
-            GetAsset<AnimationClip>(animPath, converterAnimName + "EtherCore"),
-            GetAsset<Material>(materialPath, converterMaterialName)));
-        converterReso.Add(new EachConverterReso(
-            GetAsset<AnimationClip>(animPath, converterAnimName + "OriginCore"),
-            GetAsset<Material>(materialPath, converterMaterialName)));
+        converterResoList.Add(GetAsset<AnimationClip>(animPath, converterAnimName + "PremiumCredit"));
+        converterResoList.Add(GetAsset<AnimationClip>(animPath, converterAnimName + "ProtoCore"));
+        converterResoList.Add(GetAsset<AnimationClip>(animPath, converterAnimName + "EtherCore"));
+        converterResoList.Add(GetAsset<AnimationClip>(animPath, converterAnimName + "OriginCore"));
     }
 
     // Get
-    public EachConverterReso Get_ConverterReso(int id) => converterReso.converterResoList[id];
+    public AnimationClip Get_ConverterReso(int id) => converterResoList[id];
 
     #endregion
 
