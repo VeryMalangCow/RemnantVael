@@ -48,6 +48,7 @@ public abstract class OperatorController : InteractableBuildController, IInterac
     {
         var prefab = StaticResourceManager.instance.BuildPrefab;
         onOffAc = prefab.operOnOffAnimation;
+        thisSr.material = prefab.operMaterial;
         onOffStateAc = prefab.operLightAnimation;
     }
 

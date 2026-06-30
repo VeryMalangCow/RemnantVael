@@ -18,7 +18,8 @@ public class BuildPrefabSO : ScriptableObject
     [Space(40)]
 
     public CoupleData<AnimationClip> operOnOffAnimation;
-    public CoupleData<AnimationClip> operLightAnimation; 
+    public CoupleData<AnimationClip> operLightAnimation;
+    public Material operMaterial;
     [Space(10)]
     public OperatorBuild<RepairOperatorController> repairOperPrefab;
     public OperatorBuild<VaultRerollOperatorController> vaultRerollOperPrefab;
@@ -90,6 +91,7 @@ public class OperatorBuild<T>
 {
     public T prefab;
     public AnimationClip animation;
+    public Material material;
 }
 
 [Serializable]
@@ -97,4 +99,5 @@ public class ConverterBuild<T>
 {
     public T prefab;
     public AnimationClip animation;
+    public Material material;
 }

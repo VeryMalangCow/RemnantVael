@@ -19,7 +19,9 @@ public class PrisonOperatorController : OperatorController
     {
         base.Set_AnimValue();
 
-        iconStateAnim.Set_Anim(new State_Anim(StaticResourceManager.instance.BuildPrefab.prisonPuzzleOperPrefab.animation, 1f), 1f);
+        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPuzzleOperPrefab;
+        iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
+        thisSr.material = prefab.material;
     }
 
     public virtual void Set_TargetBuild(PrisonController targetPrison)

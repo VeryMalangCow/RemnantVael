@@ -19,5 +19,6 @@ public abstract class ConverterController : SortingObjectController
         var prefab = StaticResourceManager.instance.BuildPrefab.GetConverter(id);
         ac = prefab.animation;
         DevTool.Set_Anim(ref aoc, at, ac);
+        thisSr.material = prefab.material;
     }
 }

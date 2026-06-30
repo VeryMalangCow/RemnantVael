@@ -94,33 +94,44 @@ MonoBehaviour:
   operOnOffAnimation:
     typeBase: {fileID: 7400000, guid: bcb3c17b5304bed4da82c5051bec1bb6, type: 2}
     typeSpecial: {fileID: 7400000, guid: 9ab7bb10d28890b468206898313b65cd, type: 2}
+  operMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   operLightAnimation:
     typeBase: {fileID: 7400000, guid: 384479d6d73bac7428b68fda2a7d2996, type: 2}
     typeSpecial: {fileID: 7400000, guid: c5d6fe57ff9fb874090d558ffa2bfd77, type: 2}
+  operIconMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   repairOperPrefab:
     prefab: {fileID: 1248777847252891641, guid: a52794494980df442a6685865c19674b, type: 3}
     animation: {fileID: 7400000, guid: ae65eb126b8a09a4e8c21cd9507c7c8d, type: 2}
+    material: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   vaultRerollOperPrefab:
     prefab: {fileID: 947837347572156946, guid: ee83beb77b674c44eaa658cff9b1b899, type: 3}
     animation: {fileID: 7400000, guid: ceae7b7b1a1ada64b9abd264865b082c, type: 2}
+    material: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   vaultUpgradeOperPrefab:
     prefab: {fileID: 5893029927452776160, guid: 07c41729688314b4598ff66a28e5f300, type: 3}
     animation: {fileID: 7400000, guid: 66df5fa07be7572449b16403111df3a8, type: 2}
+    material: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   prisonPayOperPrefab:
     prefab: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
     animation: {fileID: 7400000, guid: 41f4516de64a84649a6b1e7bc84e73c0, type: 2}
+    material: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   prisonPuzzleOperPrefab:
     prefab: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
     animation: {fileID: 7400000, guid: 41f4516de64a84649a6b1e7bc84e73c0, type: 2}
+    material: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   preminumCreditCvtPrefab:
     prefab: {fileID: 3877924021739045383, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
     animation: {fileID: 7400000, guid: 14e4de62f6a70db49bcca3c765d95b65, type: 2}
+    material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
   protoCoreCvtPrefab:
     prefab: {fileID: 8555788858629977981, guid: 180c42a74d86342499dd9c081645095c, type: 3}
     animation: {fileID: 7400000, guid: 86de40357d020964888f6fe693e35d4c, type: 2}
+    material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
   EtherCoreCvtPrefab:
     prefab: {fileID: 5007123960313476061, guid: 9645881953bac4e46a545d41d0819eda, type: 3}
     animation: {fileID: 7400000, guid: cde880e5f1060734fb13fe878064d508, type: 2}
+    material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
   originCoreCvtPrefab:
     prefab: {fileID: 5692620112427304978, guid: d0572a6b6cf5e0341ad1776ca89b5fbe, type: 3}
     animation: {fileID: 7400000, guid: 3c98f21a94d04b54c8cea3ea12a9c27d, type: 2}
+    material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
