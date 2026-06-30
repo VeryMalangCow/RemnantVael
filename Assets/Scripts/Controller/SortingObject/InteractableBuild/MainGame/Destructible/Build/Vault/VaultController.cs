@@ -64,11 +64,12 @@ public class VaultController : DestructibleBuildController
 
     private void Set_AnimValue()
     {
-        onOffAc = ResourceManager.instance.Get_VaultAnim(currentGrade);
-        onOffStateAc = ResourceManager.instance.vault_StateAC;
+        var vaultPrefab = StaticResourceManager.instance.BuildPrefab.vaultPrefab;
+        onOffAc = new CoupleData<AnimationClip>(null, vaultPrefab.onAnimations[currentGrade]);
+        onOffStateAc = vaultPrefab.stateIconAC;
 
-        brokenAc = ResourceManager.instance.Get_VaultBrokenAnim(currentGrade);
-        brokenStateAc = ResourceManager.instance.vault_StateAC.typeBase;
+        brokenAc = vaultPrefab.brokenAnimations[currentGrade];
+        brokenStateAc = vaultPrefab.stateIconAC.typeBase;
     }
 
     public void Set_Upgrade()

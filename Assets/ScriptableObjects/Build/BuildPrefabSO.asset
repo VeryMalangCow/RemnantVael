@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38242d637266764db4c0646952fa497, type: 3}
+  m_Name: BuildPrefabSO
+  m_EditorClassIdentifier: 
+  vaultPrefab:
+    prefabs:
+    - {fileID: 6217917494651744050, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
+    - {fileID: 114888182504759569, guid: ee4da6a03b0a7f342bbe8b19563d73d9, type: 3}
+    - {fileID: 843154509398518699, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
+    onAnimations:
+    - {fileID: 7400000, guid: e423d6b8c38da204c943e43604e4a8d6, type: 2}
+    - {fileID: 7400000, guid: a4e21d9c4a19b1f42bd263a6f414e025, type: 2}
+    - {fileID: 7400000, guid: d79a39396b7c6a94d9866bfd0a38633b, type: 2}
+    - {fileID: 7400000, guid: 85a1df4d38d1cac4190cb8ecfcfac255, type: 2}
+    - {fileID: 7400000, guid: c2f070267700bf744a35e6c1a23daa74, type: 2}
+    brokenAnimations:
+    - {fileID: 7400000, guid: f2c5543e367eca14e87c39798fb991fb, type: 2}
+    - {fileID: 7400000, guid: 8a8a385901c556a4dae371a940cdb342, type: 2}
+    - {fileID: 7400000, guid: 624f2ebc4470ed94aa0358614cd873df, type: 2}
+    - {fileID: 7400000, guid: 59a372e4a6c7a094783390dd452679d2, type: 2}
+    - {fileID: 7400000, guid: 5a8b81a9005c4584e90382b3300eedbd, type: 2}
+    moduleIconAC: {fileID: 7400000, guid: ea95a027d7eda204f86655b1c6da4514, type: 2}
+    betteryShardIconAC: {fileID: 7400000, guid: d12ed5751e6341240be07ec74e33ff3f, type: 2}
+    jouleIconAC: {fileID: 7400000, guid: d1853ff69a1ea6d4e9f2aed528b46a64, type: 2}
+    stateIconAC:
+      typeBase: {fileID: 7400000, guid: 562065cf5e5d68743aeb531a01f17412, type: 2}
+      typeSpecial: {fileID: 7400000, guid: 309f2027ffe43bd438d0cee771f8e2a5, type: 2}
+    material: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
+  buPrefab: {fileID: 0}
+  muPrefab: {fileID: 0}
+  abuPrefab: {fileID: 0}
+  amuPrefab: {fileID: 0}
+  prisonPrefabs: []
+  preminumCreditCvtPrefab: {fileID: 0}
+  protoCoreCvtPrefab: {fileID: 0}
+  EtherCoreCvtPrefab: {fileID: 0}
+  originCoreCvtPrefab: {fileID: 0}
+  repairOperPrefab: {fileID: 0}
+  vaultRerollOperPrefab: {fileID: 0}
+  vaultUpgradeOperPrefab: {fileID: 0}
+  prisonPayOperPrefab: {fileID: 0}
+  prisonPuzzleOperPrefab: {fileID: 0}

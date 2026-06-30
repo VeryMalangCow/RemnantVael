@@ -52,7 +52,7 @@ public class MinimapCellEUIController : ElementUIController
                 room.RoomVecWorld[0].x * intervalMm.Get_Base(isNormal),
                 room.RoomVecWorld[0].y * intervalMm.Get_Base(isNormal));
         }
-        CoupleData<Sprite> sprite = StageManager.instance.StageIcon.GetMinimapIcon(room.roomRule);
+        CoupleData<Sprite> sprite = StaticResourceManager.instance.StageIcon.GetMinimapIcon(room.roomRule);
 
         if (sprite != null)
         {

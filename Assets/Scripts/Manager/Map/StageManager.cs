@@ -4,39 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.Scripting;
 
-#if UNITY_EDITOR
-
-[Serializable]
-public class SerializableDict<T1, T2>
-{
-    public List<SerializableData<T1, T2>> data = new List<SerializableData<T1, T2>>();
-
-    public void SetDict(Dictionary<T1, T2> dict)
-    {
-        data.Clear();
-
-        foreach (var item in dict)
-        {
-            data.Add(new SerializableData<T1, T2>(item.Key, item.Value));
-        }
-    }
-}
-
-[Serializable]
-public class SerializableData<T1, T2>
-{
-    public T1 key;
-    public T2 value;
-    public SerializableData(T1 _key, T2 _value)
-    {
-        key = _key;
-        value = _value;
-    }
-}
-
-#endif
 
 [System.Serializable]
 public class StageGridGenerator
@@ -1192,6 +1160,7 @@ public class StageObjectGenerator
     [SerializeField] private Transform stageParentTf;
 
     private StagePrefabSO stagePrefab;
+    private BuildPrefabSO buildPrefab;
     private StageTheme stageTheme;
 
     // Cell Size
@@ -1217,9 +1186,10 @@ public class StageObjectGenerator
 
     #region Init
 
-    public IEnumerator Initialize(StagePrefabSO stagePrefab, StageTheme stageTheme)
+    public IEnumerator Initialize(StagePrefabSO stagePrefab, BuildPrefabSO buildPrefab, StageTheme stageTheme)
     {
         this.stagePrefab = stagePrefab;
+        this.buildPrefab = buildPrefab;
         this.stageTheme = stageTheme;
         yield return null;
     }
@@ -1609,7 +1579,7 @@ public class StageObjectGenerator
         sw.Restart();
 #endif
         roomRule.SetVault(
-            UnityEngine.Object.Instantiate(DevTool.Get_RandomInList(stagePrefab.vaultPrefabs)),
+            UnityEngine.Object.Instantiate(DevTool.Get_RandomInList(buildPrefab.vaultPrefab.prefabs)),
             UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab, roomRule.inRoom_RepairOperactorParentTf),
             UnityEngine.Object.Instantiate(stagePrefab.vaultRerollOperPrefab, roomRule.inRoom_RerollOperactorParentTf),
             UnityEngine.Object.Instantiate(stagePrefab.vaultUpgradeOperPrefab, roomRule.inRoom_UpgradeOperactorParentTf));
@@ -2137,7 +2107,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         yield return stageTheme.Initialize();
         yield return stageGridGenerator.Initialize();
-        yield return stageObjectGenerator.Initialize(stagePrefab, stageTheme);
+        StaticResourceManager staticReso = StaticResourceManager.instance;
+        yield return stageObjectGenerator.Initialize(staticReso.StagePrefab, staticReso.BuildPrefab, stageTheme);
 
         yield return GenerateStageCor(targetStageId);
     }
@@ -2146,10 +2117,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #region Stage Resource - Variable
     
-    [SerializeField] private StagePrefabSO stagePrefab;
-    [SerializeField] private StageIconSO stageIcon;
     [SerializeField] private StageTheme stageTheme;
-    public StageIconSO StageIcon { get { return stageIcon; } }
     public StageTheme StageTheme { get { return stageTheme; } }
 
     #endregion
@@ -2283,8 +2251,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     public SpriteMaterial GetRandomFieldObjSprite(int typeId)
         => stageTheme.GetRandomFieldObjSprite(currentStageData, typeId);
     
-    public DestructibleObjectController GetRandomFieldObjPrefab() 
-        => stagePrefab.fieldObjPrefabs[UnityEngine.Random.Range(0, stagePrefab.fieldObjPrefabs.Length)];
+    public DestructibleObjectController GetRandomFieldObjPrefab()
+    {
+        var fieldObjs = StaticResourceManager.instance.StagePrefab.fieldObjPrefabs;
+        return fieldObjs[UnityEngine.Random.Range(0, fieldObjs.Length)];
+    }
 
     #endregion
 
@@ -2412,9 +2383,10 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public VaultController GetVaultCorrectType(Type typeVault)
     {
-        for (int i = 0; i < stagePrefab.vaultPrefabs.Length; i++)
+        var vaults = StaticResourceManager.instance.BuildPrefab.vaultPrefab.prefabs;
+        for (int i = 0; i < vaults.Length; i++)
         {
-            VaultController vault = stagePrefab.vaultPrefabs[i];
+            VaultController vault = vaults[i];
             if (vault.GetType() == typeVault)
                 return vault;
         }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -133,7 +132,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Anim_Keycard();
         Offset_Anim_PlayerShop();
         Offset_Anim_AllyShop();
-        Offset_Anim_Vault();
         Offset_Anim_Prison();
         Offset_Anim_Operator();
         Offset_Anim_Converter();
@@ -1617,6 +1615,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+
+
+
     #region Shop - BU & MU (Anim)
 
     // Value
@@ -1652,6 +1653,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     #endregion
+
     #region Shop - ABU & AMU (Anim)
 
     // Value
@@ -1677,50 +1679,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Off"), GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Off"));
         allyMuShop_BrokenAC = GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Broken");
     }
-
-    #endregion
-
-    #region Vault (Anim)
-
-    // Value
-    [HideInInspector] private CoupleData<AnimationClip>[] vault_AC;
-    [HideInInspector] private AnimationClip[] vault_BrokenAC;
-
-    [HideInInspector] public AnimationClip vault_ModuleIconAC { get; private set; }
-    [HideInInspector] public AnimationClip vault_BSIconAC { get; private set; }
-    [HideInInspector] public AnimationClip vault_JIconAC { get; private set; }
-    
-    [HideInInspector] public CoupleData<AnimationClip> vault_StateAC { get; private set; }
-
-    // Offset
-    private void Offset_Anim_Vault()
-    {
-        string path = "Anim/";
-
-        string vaultPath = path + "Building/Vault/";
-
-        vault_AC = new CoupleData<AnimationClip>[5];
-        vault_BrokenAC = new AnimationClip[5];
-        for (int i = 0; i < vault_AC.Length; i++)
-        {
-            AnimationClip ac = GetAsset<AnimationClip>(vaultPath, $"Clip_Vault_G{i}");
-            vault_AC[i] = new CoupleData<AnimationClip>(ac, ac);
-
-            vault_BrokenAC[i] = GetAsset<AnimationClip>(vaultPath, $"Clip_Vault_G{i}_Broken");
-        }
-
-        string iconName = "Clip_Vault_Icon_";
-        vault_ModuleIconAC = GetAsset<AnimationClip>(vaultPath, $"{iconName}Module");
-        vault_BSIconAC = GetAsset<AnimationClip>(vaultPath, $"{iconName}BetteryShard");
-        vault_JIconAC = GetAsset<AnimationClip>(vaultPath, $"{iconName}Joule");
-
-        vault_StateAC = new CoupleData<AnimationClip>(
-            GetAsset<AnimationClip>(vaultPath, $"Clip_VaultEmpty_State"), GetAsset<AnimationClip>(vaultPath, $"Clip_Vault_State"));
-    }
-
-    // Get
-    public CoupleData<AnimationClip> Get_VaultAnim(int grade) => vault_AC[grade];
-    public AnimationClip Get_VaultBrokenAnim(int grade) => vault_BrokenAC[grade];
 
     #endregion
 
@@ -1842,6 +1800,10 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public AnimationClip Get_ConverterReso(int id) => converterResoList[id];
 
     #endregion
+
+
+
+
 
     #region Minimap (Sprite)
 

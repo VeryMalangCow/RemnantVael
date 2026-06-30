@@ -6235,7 +6235,6 @@ MonoBehaviour:
   initOrder: 14
   initPregressText: Stage & Map Setting...
   targetStageId: 0
-  stagePrefab: {fileID: 11400000, guid: 56c47a3709e20ac4d9ddfa9d88766cbe, type: 2}
   stageIcon: {fileID: 11400000, guid: 9a44da07aefc56843a33772112800dd6, type: 2}
   stageTheme:
     lobbyStageThemeSO: {fileID: 11400000, guid: 09c8368078f79c5439780900ae5c7ca0, type: 2}
@@ -14930,6 +14929,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f609b5832575b4742a00d64f83f7b9ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1659159583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1659159584}
+  - component: {fileID: 1659159585}
+  m_Layer: 0
+  m_Name: '#StaticResourceManager'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1659159584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659159583}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1659159585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659159583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc5e53934937734f8f8564b3e4a27d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stagePrefab: {fileID: 11400000, guid: 56c47a3709e20ac4d9ddfa9d88766cbe, type: 2}
+  stageIcon: {fileID: 11400000, guid: 9a44da07aefc56843a33772112800dd6, type: 2}
+  buildPrefab: {fileID: 11400000, guid: 9fedfd798edb6094ba9735c756cbf1fa, type: 2}
 --- !u!1 &1666940253
 GameObject:
   m_ObjectHideFlags: 0
@@ -15251,6 +15297,7 @@ MonoBehaviour:
   initalizeingTxt: {fileID: 839987172}
   preAwakePersistentSingletons:
   - {fileID: 1246149680}
+  - {fileID: 1659159583}
   - {fileID: 531879978}
   - {fileID: 657936136}
   - {fileID: 981150851}
@@ -19664,6 +19711,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1246149682}
+  - {fileID: 1659159584}
   - {fileID: 531879980}
   - {fileID: 657936138}
   - {fileID: 981150853}

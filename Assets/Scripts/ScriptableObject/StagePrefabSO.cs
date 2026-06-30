@@ -32,9 +32,12 @@ public class StagePrefabSO : ScriptableObject
     [Header("* Rule")]
     public PassageRuleController roomPassageRulePrefab;
 
+
+
+
+
     [Space(10)]
     [Header("=== Build")]
-    public VaultController[] vaultPrefabs;
     public BaseUpgradeController buPrefab;
     public ModuleUpgradeController muPrefab;
     public AllyBaseUpgradeController abuPrefab;

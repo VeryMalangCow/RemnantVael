@@ -22,7 +22,7 @@ public class JouleVaultController : VaultController
 
     protected override void Offset()
     {
-        iconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.vault_JIconAC));
+        iconStateAnim.Set_Anim(new State_Anim(StaticResourceManager.instance.BuildPrefab.vaultPrefab.jouleIconAC));
         currentAmountByGrade = amountByGrade[currentGrade];
 
         base.Offset();
