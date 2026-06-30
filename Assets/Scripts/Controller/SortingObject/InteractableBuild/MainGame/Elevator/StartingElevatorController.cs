@@ -1,4 +1,5 @@
 
+
 public class StartingElevatorController : ElevatorController
 {
     #region Tween
@@ -17,6 +18,7 @@ public class StartingElevatorController : ElevatorController
 
         // Sound
         SoundManager.instance.Set_MasterVolume(0f, 1f, 2.5f);
+
     }
 
     protected override void Tween_Complete()
@@ -40,22 +42,14 @@ public class StartingElevatorController : ElevatorController
         // Intetactable Anno Panel
         MainGameUIManager.instance.interactAnnoUi.Set_VisualCG(true);
 
+/*      
         if (StageManager.instance.targetStageId == 1)
         {
             MainGameUIManager.instance.Play_EndGameProd();
         }
+*/
     }
 
     #endregion
 
-    #region Offset
-
-    protected override void Offset()
-    {
-        base.Offset();
-
-        Play_MoveToTarget();
-    }
-
-    #endregion
 }

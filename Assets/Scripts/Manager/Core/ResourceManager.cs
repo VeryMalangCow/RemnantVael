@@ -1497,7 +1497,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public string Get_MapName(int id) => mapName_Data.Get_Word(id);
     public string Get_MapDesc(int id) => mapDesc_Data.Get_Word(id);
 
-    public List<int> Get_CorrectIndexList(int pastIndex)
+    public List<int> GetCorrectIndexList(int pastIndex)
     {
         if (mapNextIndex_Data.ContainsKey(pastIndex))
             return mapNextIndex_Data[pastIndex];

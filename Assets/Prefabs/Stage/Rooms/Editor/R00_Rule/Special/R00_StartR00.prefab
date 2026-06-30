@@ -3909,7 +3909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2234060382953184247}
-  - component: {fileID: 8811059131841986343}
+  - component: {fileID: 975145093797381103}
   m_Layer: 0
   m_Name: R00_StartR00
   m_TagString: Untagged
@@ -3940,7 +3940,7 @@ Transform:
   - {fileID: 6316570959573844000}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8811059131841986343
+--- !u!114 &975145093797381103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3949,18 +3949,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8671702513593221327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa86854a669a8b46b2c272682d5669a, type: 3}
+  m_Script: {fileID: 11500000, guid: ffaac3392ade0b64d824a70a0126e20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roomVec:
   - {x: 0, y: 0}
   roomType: 0
   enemyType: 0
-  isAlreadyRoomClear: 0
   inRoom_ObstacleParentTF: {fileID: 5083685775733296416}
   inRoom_EnemySpawnParentTF: {fileID: 6316570959573844000}
   inRoom_FieldObjSpawnerParentTF: {fileID: 0}
   inRoom_AllObstacle: []
+  elevator: {fileID: 9156153764731593383}
 --- !u!1 &8700667360421185181
 GameObject:
   m_ObjectHideFlags: 0
@@ -4153,3 +4153,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4995045585254079196, guid: aeea25273b5debe4eb0d689b9305ee03, type: 3}
   m_PrefabInstance: {fileID: 2767767405455117235}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9156153764731593383 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6446943119293294868, guid: aeea25273b5debe4eb0d689b9305ee03, type: 3}
+  m_PrefabInstance: {fileID: 2767767405455117235}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaecb041079dfb4ab3b55735534c603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

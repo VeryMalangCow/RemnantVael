@@ -3027,7 +3027,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeba613c2500f84b803fc5d173f8548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteKey: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
 --- !u!1 &2618953924411607581
 GameObject:
   m_ObjectHideFlags: 0
@@ -5025,7 +5026,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeba613c2500f84b803fc5d173f8548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteKey: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
 --- !u!1 &4934482994672199029
 GameObject:
   m_ObjectHideFlags: 0
@@ -7853,7 +7855,8 @@ MonoBehaviour:
   inRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
   inRoom_FieldObjSpawnerParentTF: {fileID: 0}
   inRoom_AllObstacle: []
-  inRoom_Elevator: {fileID: 7291476705608644717}
+  startingElevator: {fileID: 6095842621851089624}
+  endingElevator: {fileID: 7291476705608644717}
 --- !u!1 &8759345447633609366
 GameObject:
   m_ObjectHideFlags: 0
@@ -8740,6 +8743,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4995045585254079196, guid: aeea25273b5debe4eb0d689b9305ee03, type: 3}
   m_PrefabInstance: {fileID: 1000058659243201484}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6095842621851089624 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6446943119293294868, guid: aeea25273b5debe4eb0d689b9305ee03, type: 3}
+  m_PrefabInstance: {fileID: 1000058659243201484}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaecb041079dfb4ab3b55735534c603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7180341719431823808 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7945861353772175884, guid: aeea25273b5debe4eb0d689b9305ee03, type: 3}

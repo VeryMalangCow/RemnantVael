@@ -35,7 +35,7 @@ public class ElevatorController : StaticDepthController
 
     #region Elevator
 
-    protected virtual void Play_MoveToTarget()
+    public virtual void Play_MoveToTarget()
     {
         DevTool.Play_Tween(
             this.transform.DOLocalMove(new Vector2(this.transform.localPosition.x, endYPos), 3f),

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using LeTai.TrueShadow;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,6 +10,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Scripting;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -1735,7 +1737,27 @@ public class SerializableArray<T>
     public T[] array;
 }
 
+public static class CustomGC
+{
+    private static ulong gcTimeSlice = 8_000_000;
 
+    public static IEnumerator CollectAsync()
+    {
+#if UNITY_EDITOR
+        int frame = 0;
+#endif
+        while (GarbageCollector.CollectIncremental(gcTimeSlice))
+        {
+#if UNITY_EDITOR
+            frame++;
+#endif
+            yield return null;
+        }
+#if UNITY_EDITOR
+        Debug.Log($"<color=black>Custom GC Collect : {frame} frame</color> / {gcTimeSlice / 1_000_000f} ms");
+#endif
+    }
+}
 
 #region ========== CLASS
 

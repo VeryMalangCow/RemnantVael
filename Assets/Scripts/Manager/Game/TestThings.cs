@@ -60,6 +60,10 @@ public class TestThings : MonoBehaviour
             isUltraMode = !isUltraMode;
             Set_UltraModeGO(isUltraMode);
 
+            var player = PlayerManager.instance.playerController;
+            player.baseWeapon.baseDamage.buffedState = 150f;
+            player.walkSpeed.actualState = 15;
+
             Debug.Log("Alpha6: Ultra Mode " + isUltraMode);
         }
     }

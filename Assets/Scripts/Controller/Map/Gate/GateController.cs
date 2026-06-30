@@ -270,7 +270,6 @@ public class GateController : StaticDepthController, IInteract
     public void Set_NeedKeyCard(int id)
     {
         needKeyCardId = id;
-
     }
 
     #endregion

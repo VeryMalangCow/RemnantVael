@@ -9,7 +9,8 @@ public class PassageRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== Elevator")]
-    [SerializeField] private EndingElevatorController inRoom_Elevator;
+    [SerializeField] public StartingElevatorController startingElevator;
+    [SerializeField] private EndingElevatorController endingElevator;
 
     #endregion
 
@@ -39,16 +40,16 @@ public class PassageRuleController : RoomRuleController
 
     private void SetOn_Elevator()
     {
-        if (inRoom_Elevator != null &&
-            !inRoom_Elevator.isOn)
+        if (endingElevator != null &&
+            !endingElevator.isOn)
         {
-            inRoom_Elevator.isOn = true;
+            endingElevator.isOn = true;
         }
     }
 
     public void Set_ElevatorData(int nextStageIndex)
     {
-        inRoom_Elevator.Set_Data(nextStageIndex, false);
+        endingElevator.Set_Data(nextStageIndex, false);
     }
 
     #endregion

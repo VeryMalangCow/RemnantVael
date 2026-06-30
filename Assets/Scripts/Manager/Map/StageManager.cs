@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 #if UNITY_EDITOR
 
@@ -1239,25 +1240,29 @@ public class StageObjectGenerator
         if (stageId == 99)
         {
             yield return GenerateLobbyStage();
-            TryConnectLobbyGate();
         }
         else // 전투 스테이지 시작 방
         {
             yield return GenerateGamePlayStage(allRoomGrids);
             EliteEnemyController.isDroppedBossKeycard = false;
-            TryConnectGate(allRoomGrids);
         }
 
         // Entrance 활성화
-        List<int> indexList = ResourceManager.instance.Get_CorrectIndexList(stageId);
+        List<int> indexList = ResourceManager.instance.GetCorrectIndexList(stageId);
 
         if (indexList.Count > 1)
             indexList = DevTool.Get_ShuffledList(indexList);
 
         for (int i = 0; i < indexList.Count; i++)
+        {
             currentAllEntranceRoomController[i].Set_ElevatorData(indexList[i]);
+        }
 
         // 게이트 활성화
+        if (stageId == 99)
+            TryConnectLobbyGate();
+        else
+            TryConnectGate(allRoomGrids);
 
         // UI 셋
         MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
@@ -2190,14 +2195,30 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         RemoveStageObject();
         yield return stageObjectGenerator.GenStage(stageTheme, targetStageId, stageGridGenerator.allRoomGrids);
 
+        yield return CustomGC.CollectAsync();
+
         StartCurrentRoom(currentAllRoomController[0]);
+
+
+
+        if (currentAllRoomController[0].roomRule is StartRuleController start)
+        {
+            start.elevator.Play_MoveToTarget();
+        }
     }
     private IEnumerator GeneratePassageRoomObjects(int afterStageID)
     {
         RemoveStageObject();
         yield return stageObjectGenerator.GenPassageStage(targetStageId, afterStageID);
 
+        yield return CustomGC.CollectAsync();
+
         StartCurrentRoom(currentAllRoomController[0]);
+
+        if (currentAllRoomController[0].roomRule is PassageRuleController passage)
+        {
+            passage.startingElevator.Play_MoveToTarget();
+        }
     }
 
     private void RemoveStageObject()

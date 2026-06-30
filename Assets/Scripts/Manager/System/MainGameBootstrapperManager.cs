@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using System.Diagnostics;
 using UnityEngine.Scripting;
 
 public class MainGameBootstrapperManager : MonoBehaviour
@@ -58,21 +57,7 @@ public class MainGameBootstrapperManager : MonoBehaviour
 
         initalizeingGo.gameObject.SetActive(false);
 
-        ulong gcTimeSlice = 8_000_000;
-#if UNITY_EDITOR
-        int frame = 0;
-#endif
-        while (GarbageCollector.CollectIncremental(gcTimeSlice))
-        {
-#if UNITY_EDITOR
-            frame++;
-#endif
-            yield return null;
-        }
-#if UNITY_EDITOR
-        UnityEngine.Debug.Log($"<color=black>END => GC COLLECT : {frame} frame</color> / {gcTimeSlice / 1_000_000f} ms");
-#endif
-        yield return null;
+        yield return CustomGC.CollectAsync();
 
         EndProdInit();
     }
