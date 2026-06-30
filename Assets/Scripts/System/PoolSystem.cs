@@ -135,6 +135,8 @@ public class PoolSystem<T> where T : MonoBehaviour, IPoolable
         // free¿¡ Ãß°¡
         freeIndices.Push(obj.PoolIndex);
 
+        obj.transform.SetParent(parentTf, false);
+
         obj.SetActiveOff();
     }
 
@@ -169,6 +171,14 @@ public class PoolSystem<T> where T : MonoBehaviour, IPoolable
             if (obj == null)
                 break;
             list.Add(obj);
+        }
+    }
+
+    public void ReturnAll()
+    {
+        for (int i = activeIndices.Count - 1; i >= 0; i--)
+        {
+            Enqueue(objs[activeIndices[i]]);
         }
     }
 }

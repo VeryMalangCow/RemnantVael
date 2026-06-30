@@ -24,6 +24,13 @@ public class ExplosionManager : Singleton<ExplosionManager>, IMainGameInitialize
         enabled = true;
     }
 
+    // Return
+    public void ReturnAll()
+    {
+        playerExplosionPool.ReturnAll();
+        allyExplosionPool.ReturnAll();
+        enemyExplosionPool.ReturnAll();
+    }
 
 
     #region Player

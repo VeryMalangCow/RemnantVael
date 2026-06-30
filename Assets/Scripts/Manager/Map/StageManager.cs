@@ -2192,14 +2192,13 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     private IEnumerator GenerateRoomObjects(int targetStageId)
     {
+        ReturnAllPoolObject();
         RemoveStageObject();
         yield return stageObjectGenerator.GenStage(stageTheme, targetStageId, stageGridGenerator.allRoomGrids);
 
         yield return CustomGC.CollectAsync();
 
         StartCurrentRoom(currentAllRoomController[0]);
-
-
 
         if (currentAllRoomController[0].roomRule is StartRuleController start)
         {
@@ -2208,6 +2207,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     }
     private IEnumerator GeneratePassageRoomObjects(int afterStageID)
     {
+        ReturnAllPoolObject();
         RemoveStageObject();
         yield return stageObjectGenerator.GenPassageStage(targetStageId, afterStageID);
 
@@ -2219,6 +2219,15 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         {
             passage.startingElevator.Play_MoveToTarget();
         }
+    }
+
+    private void ReturnAllPoolObject()
+    {
+        BulletManager.instance.ReturnAll();
+        DropItemManager.instance.ReturnAll();
+        VFXManager.instance.ReturnAll();
+        AttackerManager.instance.ReturnAll();
+        ExplosionManager.instance.ReturnAll();
     }
 
     private void RemoveStageObject()

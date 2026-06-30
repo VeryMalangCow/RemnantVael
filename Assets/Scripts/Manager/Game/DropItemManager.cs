@@ -68,7 +68,20 @@ public class DropItemManager : Singleton<DropItemManager>, IMainGameInitializer
         for (int i = activeIndices.Count - 1; i >= 0; i--)
             objs[activeIndices[i]].HandleSpread(dt);
     }
-    
+
+    // Return All
+    public void ReturnAll()
+    {
+        joulePool.ReturnAll();
+        betteryShardPool.ReturnAll();
+        moduleShardPool.ReturnAll();
+        overriderPool.ReturnAll();
+        creditPool.ReturnAll();
+        modulePool.ReturnAll();
+        keycardItemPool.ReturnAll();
+        coreItemPool.ReturnAll();
+    }
+
     // Spawn & Remove
     public JouleController SpawnJoule() => joulePool.Dequeue();
     public void RemoveJoule(JouleController item) => joulePool.Enqueue(item);

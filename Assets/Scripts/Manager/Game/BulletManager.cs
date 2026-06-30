@@ -25,7 +25,6 @@ public class BulletManager : Singleton<BulletManager>, IMainGameInitializer
     [SerializeField] private PoolSystem<PlayerBulletController> module000BulletPool;
     [SerializeField] private PoolSystem<PlayerBulletController> module001BulletPool;
 
-
     // Init
     public IEnumerator Initialize()
     {
@@ -76,6 +75,21 @@ public class BulletManager : Singleton<BulletManager>, IMainGameInitializer
 
         for (int i = activeIndices.Count - 1; i >= 0; i--)
             objs[activeIndices[i]].PlayInAlive(dt);
+    }
+
+    // Return All
+    public void ReturnAll()
+    {
+        playerBulletPool.ReturnAll();
+        playerMissilePool.ReturnAll();
+
+        enemyBulletPool.ReturnAll();
+
+        allyBulletPool.ReturnAll();
+        allyDroppingBombPool.ReturnAll();
+
+        module000BulletPool.ReturnAll();
+        module001BulletPool.ReturnAll();
     }
 
     #region Player Bullet

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackerManager : Singleton<AttackerManager>, IMainGameInitializer
@@ -26,6 +25,13 @@ public class AttackerManager : Singleton<AttackerManager>, IMainGameInitializer
         enabled = true;
     }
 
+
+    // Return
+    public void ReturnAll()
+    {
+        playerAttackerPool.ReturnAll();
+        enemyAttackerPool.ReturnAll();
+    }
 
 
     #region Player

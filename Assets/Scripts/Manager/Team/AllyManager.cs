@@ -94,8 +94,7 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 
     #endregion
 
-    #region Init
-
+    // Init
     public IEnumerator Initialize()
     {
         yield return gruntAllyPool.InitAsync(fieldAllyParentTf, 8, 8f);
@@ -155,9 +154,6 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
         enabled = true;
     }
 
-    #endregion
-
-
     // Centralized Update
     private void Update()
     {
@@ -200,8 +196,6 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
                 allTotemeList[i].Active_Buff();
     }
 
-
-   
 
     // Centralized FixedUpdate
     private void FixedUpdate()

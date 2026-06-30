@@ -58,6 +58,18 @@ public class VFXManager : Singleton<VFXManager>, IMainGameInitializer
             objs[activeIndices[i]].HandleCheckingEndAnim();
     }
 
+    // Return All
+    public void ReturnAll()
+    {
+        deadParticlePool.ReturnAll();
+        afterImgPool.ReturnAll();
+        explosionImgPool.ReturnAll();
+        onlyOnceAnimatorPool.ReturnAll();
+        areaSpoterPool.ReturnAll();
+
+        dmgTxtPool.ReturnAll();
+        buffIconPool.ReturnAll();
+    }
 
     #region Vfx
 
