@@ -46,6 +46,7 @@ public class RoomRuleController : MonoBehaviour
     [HideInInspector] private InteractableBuildController inRoom_ShopBuild;
 
     [HideInInspector] protected int needKeyCardId = -1;
+    public void SetLobbyDontNeedKey() { needKeyCardId = -1; }
 
     #endregion
 

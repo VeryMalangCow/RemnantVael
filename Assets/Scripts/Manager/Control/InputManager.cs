@@ -64,7 +64,7 @@ public class InputManager : Singleton<InputManager>, IMainGameInitializer
 
         Stopwatch sw = new Stopwatch();
         sw.Start();
-        Set_AllPointer(false);
+        Set_AllPointer(true, false);
         sw.Stop();
         UnityEngine.Debug.Log($"InputManager : <color=orange>Pointer(Mouse)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
         yield return null;
@@ -138,6 +138,7 @@ public class InputManager : Singleton<InputManager>, IMainGameInitializer
 
     public void Set_AllPointer(bool aim, bool mouse)
     {
+        UnityEngine.Debug.Log($"Aim : {aim} / mouse : {mouse}");
         Set_AimPointer(aim);
         Set_MousePointer(mouse);
     }

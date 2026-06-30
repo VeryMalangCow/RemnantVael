@@ -165,7 +165,7 @@ public class GateController : StaticDepthController, IInteract
         {
             if (parterGate.thisRoom.roomRule is EntranceRuleController erc && erc.Get_ElevatorData() == 2)
             {
-                Debug.Log("FOR NEOWIZ QUEST: 02 스테이지는 미구현");
+                Debug.Log("02 스테이지는 미구현");
                 return;
             }
             if (needKeyCardId != -1)

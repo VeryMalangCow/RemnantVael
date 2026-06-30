@@ -553,6 +553,12 @@ public class StageGridGenerator
         return true;
     }
 
+    // Cast Elite Room
+    private bool CastEliteRoom()
+    {
+        return true;
+    }
+
     #endregion
 
     #region Special Room
@@ -1142,6 +1148,7 @@ public class StageGridGenerator
 #endif
 }
 
+
 [System.Serializable]
 public class StageTheme
 {
@@ -1174,6 +1181,7 @@ public class StageTheme
     }
 }
 
+
 [System.Serializable]
 public class StageObjectGenerator
 {
@@ -1200,6 +1208,10 @@ public class StageObjectGenerator
     public int beforeStageId { get { return beforeStageThemeSO != null ? beforeStageThemeSO.stageId : -1; } }
     public int afterStageId { get { return afterStageThemeSO != null ? afterStageThemeSO.stageId : -1; } }
 
+
+#if UNITY_EDITOR
+    private string generatorLogger;
+#endif
     #endregion
 
     #region Init
@@ -1227,11 +1239,13 @@ public class StageObjectGenerator
         if (stageId == 99)
         {
             yield return GenerateLobbyStage();
+            TryConnectLobbyGate();
         }
         else // 전투 스테이지 시작 방
         {
             yield return GenerateGamePlayStage(allRoomGrids);
             EliteEnemyController.isDroppedBossKeycard = false;
+            TryConnectGate(allRoomGrids);
         }
 
         // Entrance 활성화
@@ -1244,7 +1258,6 @@ public class StageObjectGenerator
             currentAllEntranceRoomController[i].Set_ElevatorData(indexList[i]);
 
         // 게이트 활성화
-        TryConnectGate(allRoomGrids);
 
         // UI 셋
         MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
@@ -1278,7 +1291,7 @@ public class StageObjectGenerator
         afterStageThemeSO = GetStageThemeSO(stageTheme, afterStageId);
 
         // Gen
-        GenPassageRoom(afterStageId);
+        yield return GenPassageRoom(afterStageId);
 
         // 게이트 활성화
         ResetAllGateState();
@@ -1301,28 +1314,15 @@ public class StageObjectGenerator
     // Lobby 스테이지 생성
     private IEnumerator GenerateLobbyStage()
     {
-        int instanceId = 0;
-
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew();
+        generatorLogger = "Lobby Generate\n";
 #endif
-        GenLobbyStartRoom(roomTypeId: 0, instanceId++, Vector2Int.zero);
+        yield return GenLobbyStartRoom(0, 0, Vector2Int.zero);
+        yield return GenLobbyEntranceRoom(1, Vector2Int.up);
 #if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"Generate : Lobby Stage : Center : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
+        UnityEngine.Debug.Log(generatorLogger);
+        generatorLogger = null;
 #endif
-        yield return null;
-
-
-#if UNITY_EDITOR
-        sw.Restart();
-#endif
-        GenLobbyEntranceRoom(instanceId++, Vector2Int.up);
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"Generate : Lobby Stage : Center : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms");
-#endif
-        yield return null;
     }
 
     #endregion
@@ -1330,24 +1330,80 @@ public class StageObjectGenerator
     #region Generate - Lobby - Room
 
     // 로비 방 생성
-    private void GenLobbyStartRoom(int roomTypeId, int instanceId, Vector2Int pos)
+    private IEnumerator GenLobbyStartRoom(int roomTypeId, int instanceId, Vector2Int pos)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew(); 
+        generatorLogger += "<color=yellow>Center</color>\n";
+#endif
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
-        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomRuleLobbyPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomRuleLobbyPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         SetLobbyRoomToWorld(room, roomRule, instanceId, 0, pos);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
     }
 
-    private void GenLobbyEntranceRoom(int instanceId, Vector2Int pos)
+    private IEnumerator GenLobbyEntranceRoom(int instanceId, Vector2Int pos)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+        generatorLogger += "<color=yellow>Entrance</color>\n";
+#endif
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomLobbyEntrancePrefab, stageParentTf);
-        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomEntranceRuleLobbyPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomEntranceRuleLobbyPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         currentAllEntranceRoomController.Add(roomRule);
 
         roomRule.Set_EntranceRuleInLobby();
 
         SetLobbyRoomToWorld(room, roomRule, instanceId, 0, pos);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
     }
 
     #endregion
@@ -1357,39 +1413,32 @@ public class StageObjectGenerator
     private IEnumerator GenerateGamePlayStage(List<StageGridGenerator.RoomGrid> allRoomGrids)
     {
 #if UNITY_EDITOR
-        Stopwatch sw = new Stopwatch();
-        string s = "";
+        generatorLogger = "GamePlay Generate\n";
 #endif
-        int instanceId = 0, entranceId = 0, i;
+        int entranceId = 0, i;
         for (i = 0; i < allRoomGrids.Count; i++)
         {
-#if UNITY_EDITOR
-            sw.Restart();
-#endif
             StageGridGenerator.RoomGrid grid = allRoomGrids[i];
             Vector2Int pivot = grid.roomPos[0];
             switch (grid.roomType)
             {
-                case StageGridGenerator.RoomGridType.normal: GenNormalRoom(grid, instanceId++, pivot); break;
-                case StageGridGenerator.RoomGridType.start: GenStartRoom(grid, instanceId++, pivot); break;
-                case StageGridGenerator.RoomGridType.boss: GenEntranceRoom(grid, instanceId++, pivot, entranceId++); break;
-                case StageGridGenerator.RoomGridType.vault: GenVaultRoom(grid, instanceId++, pivot); break;
-                case StageGridGenerator.RoomGridType.baseShop: GenShopRoom(grid, instanceId++, pivot); break;
-                case StageGridGenerator.RoomGridType.allyShop: GenAllyShopRoom(grid, instanceId++, pivot); break;
-                case StageGridGenerator.RoomGridType.stPrison: GenPrisonRoom(grid, instanceId++, pivot, 0); break;
-                case StageGridGenerator.RoomGridType.utPrison: GenPrisonRoom(grid, instanceId++, pivot, 1); break;
-                case StageGridGenerator.RoomGridType.ntPrison: GenPrisonRoom(grid, instanceId++, pivot, 2); break;
+                case StageGridGenerator.RoomGridType.normal: yield return GenNormalRoom(grid, pivot); break;
+                case StageGridGenerator.RoomGridType.start: yield return GenStartRoom(grid, pivot); break;
+                case StageGridGenerator.RoomGridType.boss: yield return GenEntranceRoom(grid, pivot, entranceId++); break;
+                case StageGridGenerator.RoomGridType.vault: yield return GenVaultRoom(grid, pivot); break;
+                case StageGridGenerator.RoomGridType.baseShop: yield return GenShopRoom(grid, pivot); break;
+                case StageGridGenerator.RoomGridType.allyShop: yield return GenAllyShopRoom(grid, pivot); break;
+                case StageGridGenerator.RoomGridType.stPrison: yield return GenPrisonRoom(grid, pivot, 0); break;
+                case StageGridGenerator.RoomGridType.utPrison: yield return GenPrisonRoom(grid, pivot, 1); break;
+                case StageGridGenerator.RoomGridType.ntPrison: yield return GenPrisonRoom(grid, pivot, 2); break;
             }
 
-#if UNITY_EDITOR
-            sw.Stop();
-            s += $"<color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
-#endif
-            yield return null;
         }
         EliteEnemyController.isDroppedBossKeycard = false;
+
 #if UNITY_EDITOR
-        UnityEngine.Debug.Log($"Generate : GamePlay Stage : {s}");
+        UnityEngine.Debug.Log(generatorLogger);
+        generatorLogger = null;
 #endif
     }
 
@@ -1398,62 +1447,216 @@ public class StageObjectGenerator
     #region Generate - GamePlay - Room
 
     // 시작 방 생성
-    private void GenStartRoom(StageGridGenerator.RoomGrid grid, int instanceId, Vector2Int pos)
+    private IEnumerator GenStartRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew(); 
+        generatorLogger += "<color=yellow>Start</color>\n";
+#endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
-        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomStartPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
-        SetGamePlayRoomToWorld(room, roomRule, instanceId, gridTypeId, pos);
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomStartPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms \n\n";
+#endif
+        yield return null;
     }
 
     // 기본 방 생성
-    private void GenNormalRoom(StageGridGenerator.RoomGrid grid, int instanceId, Vector2Int pos)
+    private IEnumerator GenNormalRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew(); 
+        generatorLogger += "<color=yellow>Normal</color>\n";
+#endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
-        var roomRule = UnityEngine.Object.Instantiate(GetCorrectRandomRoomRule(gridTypeId), room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
-        SetGamePlayRoomToWorld(room, roomRule, instanceId, gridTypeId, pos);
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        var roomRule = UnityEngine.Object.Instantiate(GetCorrectRandomRoomRule(gridTypeId), room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
     }
 
     // 통과 방 생성
-    private void GenEntranceRoom(StageGridGenerator.RoomGrid grid, int instanceId, Vector2Int pos, int entranceId)
+    private IEnumerator GenEntranceRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos, int entranceId)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew(); 
+        generatorLogger += "<color=yellow>Entrance</color>\n";
+#endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
-        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomEntrancePrefabs[entranceId], room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomEntrancePrefabs[entranceId], room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         currentAllEntranceRoomController.Add(roomRule);
 
-        SetGamePlayRoomToWorld(room, roomRule, instanceId, gridTypeId, pos);
+        SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
     }
 
     // 금고 방 생성
-    private void GenVaultRoom(StageGridGenerator.RoomGrid grid, int instanceId, Vector2Int pos)
+    private IEnumerator GenVaultRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew(); 
+        generatorLogger += "<color=yellow>Vault</color>\n";
+#endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomVaultPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
-        SetGamePlayRoomToWorld(room, roomRule, instanceId, gridTypeId, pos);
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         roomRule.SetVault(
             UnityEngine.Object.Instantiate(DevTool.Get_RandomInList(stagePrefab.vaultPrefabs)),
             UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab, roomRule.inRoom_RepairOperactorParentTf),
             UnityEngine.Object.Instantiate(stagePrefab.vaultRerollOperPrefab, roomRule.inRoom_RerollOperactorParentTf),
             UnityEngine.Object.Instantiate(stagePrefab.vaultUpgradeOperPrefab, roomRule.inRoom_UpgradeOperactorParentTf));
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Object</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
+
     }
 
     // 상점 방 생성
-    private void GenShopRoom(StageGridGenerator.RoomGrid grid, int instanceId, Vector2Int pos)
+    private IEnumerator GenShopRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew(); 
+        generatorLogger += "<color=yellow>Shop</color>\n";
+#endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomShopPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
-        SetGamePlayRoomToWorld(room, roomRule, instanceId, gridTypeId, pos);
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         GameProgressJsonData data = SaveDataManager.instance.jsonData.gameProgressData;
 
         if (data.usableBU)
@@ -1464,17 +1667,54 @@ public class StageObjectGenerator
             roomRule.SetMuShop(
                 UnityEngine.Object.Instantiate(stagePrefab.muPrefab),
                 UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab));
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Object (BU + MU)</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
     }
 
     // 동료 상점 방 생성
-    private void GenAllyShopRoom(StageGridGenerator.RoomGrid grid, int instanceId, Vector2Int pos)
+    private IEnumerator GenAllyShopRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew(); 
+        generatorLogger += "<color=yellow>AllyShop</color>\n";
+#endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomAllyShopPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
-        SetGamePlayRoomToWorld(room, roomRule, instanceId, gridTypeId, pos);
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         GameProgressJsonData data = SaveDataManager.instance.jsonData.gameProgressData;
 
         if (data.usableABU)
@@ -1485,22 +1725,65 @@ public class StageObjectGenerator
             roomRule.SetAmuShop(
                 UnityEngine.Object.Instantiate(stagePrefab.amuPrefab),
                 UnityEngine.Object.Instantiate(stagePrefab.repairOperPrefab));
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Object</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
+
+
     }
 
     // 감옥 방 생성
-    private void GenPrisonRoom(StageGridGenerator.RoomGrid grid, int instanceId, Vector2Int pos, int prisonTypeId)
+    private IEnumerator GenPrisonRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos, int prisonTypeId)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+        generatorLogger += "<color=yellow>Prison</color>\n";
+#endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
+#if UNITY_EDITOR
+        sw.Stop(); 
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomPrisonPrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
 
-        SetGamePlayRoomToWorld(room, roomRule, instanceId, gridTypeId, pos);
 
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         roomRule.SetPrison(
             UnityEngine.Object.Instantiate(stagePrefab.prisonPrefabs[prisonTypeId]),
             UnityEngine.Object.Instantiate(stagePrefab.prisonPayOperPrefab),
             UnityEngine.Object.Instantiate(stagePrefab.prisonPuzzleOperPrefab));
-
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Object</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
     }
 
     #endregion
@@ -1508,14 +1791,45 @@ public class StageObjectGenerator
     #region Generate - Passage - Room
 
     // 통로 방 생성
-    private void GenPassageRoom(int nextStageId)
+    private IEnumerator GenPassageRoom(int nextStageId)
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+        generatorLogger = "Passage Generate\n";
+        generatorLogger += "<color=yellow>Passage</color>\n";
+#endif
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPassagePrefab, stageParentTf);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomPassageRulePrefab, room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
 
         SetPassageRoomToWorld(room, roomRule, 0, 1, Vector2Int.zero);
 
         roomRule.Set_ElevatorData(nextStageId);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+#if UNITY_EDITOR
+        UnityEngine.Debug.Log(generatorLogger);
+        generatorLogger = null;
+#endif
     }
 
 
@@ -1537,6 +1851,33 @@ public class StageObjectGenerator
                 gate.Set_ExistDoorState(false, null);
             }
         }
+    }
+
+
+    // 로비 게이트 초기화
+    private void TryConnectLobbyGate()
+    {
+        ResetAllGateState();
+
+        if (currentAllRoomController == null || currentAllRoomController.Count < 2)
+            return;
+
+        ConnectGate(
+            currentAllRoomController[0], Vector2Int.zero, Vector2Int.up,
+            currentAllRoomController[1], Vector2Int.zero, Vector2Int.down);
+    }
+
+    private void ConnectGate(
+        RoomController roomA, Vector2Int gatePosA, Vector2Int gateDirA, 
+        RoomController roomB, Vector2Int gatePosB, Vector2Int gateDirB)
+    {
+        GateController gateA = FindGate(roomA, gatePosA, gateDirA);
+        GateController gateB = FindGate(roomB, gatePosB, gateDirB);
+
+        if (gateA == null || gateB == null)
+            return;
+
+        ConnectGatePair(gateA, gateB);
     }
 
     // 게이트 연결 시도
@@ -1599,20 +1940,6 @@ public class StageObjectGenerator
                 ConnectGatePair(gate, partnerGate);
             }
         }
-    }
-
-    // id를 통해 Room 찾기
-    private RoomController GetRoomById(int instanceId)
-    {
-        if (instanceId < 0 || instanceId >= currentAllRoomController.Count)
-        {
-#if UNITY_EDITOR
-            UnityEngine.Debug.LogWarning($"RoomController를 찾을 수 없습니다. instanceId: {instanceId}");
-#endif
-            return null;
-        }
-
-        return currentAllRoomController[instanceId];
     }
 
     // Room 내부 Gate 찾기
@@ -1712,6 +2039,7 @@ public class StageObjectGenerator
     private void ResetData()
     {
         currentAllRoomController.Clear();
+        currentAllEntranceRoomController.Clear();
 
         MainGameUIManager.instance.hud.MinimapView.AllRemoveMinimapCell();
 
@@ -1728,6 +2056,8 @@ public class StageObjectGenerator
         currentAllRoomController.Add(room);
         room.Offset(roomRule, instanceId, typeId, gridPos, stageTheme.lobbyStageThemeSO);
         room.InitVisualSprite();
+
+        roomRule.SetLobbyDontNeedKey();
     }
 
     private void SetGamePlayRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
@@ -1779,6 +2109,7 @@ public class StageObjectGenerator
 
     #endregion
 }
+
 
 public class StageManager : Singleton<StageManager>, IMainGameInitializer
 {
@@ -1949,7 +2280,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     private IEnumerator StartCurrentRoomCor(RoomController targetRoom)
     {
-        if (targetRoom == null) yield break;
+        if (targetRoom == null)
+        {
+            UnityEngine.Debug.LogWarning("TargetRoom is NULL");
+            yield break;
+        }
 
         // 현재 방 선택
         currentRoomController = targetRoom;

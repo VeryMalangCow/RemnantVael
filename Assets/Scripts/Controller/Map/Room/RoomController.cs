@@ -9,7 +9,7 @@ public class RoomController : MonoBehaviour
     // Id
     public int id { get; private set; }
     public int roomTypeId { get; private set; }
-    private bool isAlreadyRoomClear  = false;
+    private bool isRoomClear  = false;
 
     [Space(10)]
     [Header("=== Pos")]
@@ -197,7 +197,7 @@ public class RoomController : MonoBehaviour
 
     public void Play_RoomState()
     {
-        if (isAlreadyRoomClear == true) return;
+        if (isRoomClear == true) return;
 
         switch (roomRule.roomType)
         {
@@ -253,7 +253,7 @@ public class RoomController : MonoBehaviour
 
     private void Complete()
     {
-        isAlreadyRoomClear = true;
+        isRoomClear = true;
 
         // Gate
         for (int i = 0; i < inRoom_AllGate.Count; i++) 
