@@ -1,10 +1,10 @@
+using DG.Tweening;
 using NavMeshPlus.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
 
 [System.Serializable]
 public class StageGridGenerator
@@ -18,6 +18,7 @@ public class StageGridGenerator
         public int maxRoomAmount;
         public RoomPercent[] percents;
         public BossRoomIndex[] bossIndices;
+        public int eliteAmount;
         public int[] eliteIndices;
     }
 
@@ -57,12 +58,14 @@ public class StageGridGenerator
 
         public List<GateGrid> gates;
 
-        public RoomGrid(int instanceId, int typeId, int roomPosLenght, RoomGridType roomType)
+        public int eliteIndex = -1;
+
+        public RoomGrid(int instanceId, int typeId, int roomPosLength, RoomGridType roomType)
         {
             this.instanceId = instanceId;
             this.typeId = typeId;
-            this.roomPos = new Vector2Int[roomPosLenght];
-            gates = new List<GateGrid>();
+            this.roomPos = new Vector2Int[roomPosLength];
+            this.gates = new List<GateGrid>();
             this.roomType = roomType;
         }
     }
@@ -74,15 +77,6 @@ public class StageGridGenerator
         public BossRoomGrid(int instanceId, int typeId, int roomPosLenght, RoomGridType roomType, BossRoomIndex bossRoomIndex) : base(instanceId, typeId, roomPosLenght, roomType)
         {
             this.bossRoomIndex = bossRoomIndex;
-        }
-    }
-
-    public class EliteRoomGrid : RoomGrid
-    {
-        public int eliteIndex;
-        public EliteRoomGrid(int instanceId, int typeId, int roomPosLenght, RoomGridType roomType, int eliteIndex) : base(instanceId, typeId, roomPosLenght, roomType)
-        {
-            this.eliteIndex = eliteIndex;
         }
     }
 
@@ -124,7 +118,7 @@ public class StageGridGenerator
 
     public enum RoomGridType
     {
-        start, normal, vault, baseShop, allyShop, stPrison, utPrison, ntPrison, boss
+        start, normal, vault, baseShop, allyShop, stPrison, utPrison, ntPrison, elite, boss
     }
 
     #endregion
@@ -134,6 +128,7 @@ public class StageGridGenerator
     [Header("=== Rule")]
     [SerializeField] private TextAsset stageRuleCSV;
 #if UNITY_EDITOR
+    [Header("=== Editor Tool")]
     [SerializeField] private SaveDataManager saveDataManager;
     [SerializeField] private int testTargetStageId;
 #endif
@@ -185,8 +180,12 @@ public class StageGridGenerator
         Vector2Int.down
     };
 
-    // 보스 방
+    // Boss
     private List<BossRoomIndex> bossRoomIndices = new List<BossRoomIndex>(4);
+
+    // Elite
+    private List<RoomGrid> eliteRoomCandidateRoomCache = new List<RoomGrid>(4);
+    private List<int> eliteRoomIndices = new List<int>(4);
 
     #endregion
 
@@ -275,7 +274,7 @@ public class StageGridGenerator
         }
 
         string[] cols = lines[lineIndex].Trim().Split(",");
-        int eliteIndexColumn = roomTypeAmount + 6;
+        int eliteIndexColumn = roomTypeAmount + 7;
         if (cols.Length <= eliteIndexColumn)
         {
             UnityEngine.Debug.LogError($"StageRule CSV 컬럼 부족. stageId: {stageId}");
@@ -290,17 +289,20 @@ public class StageGridGenerator
         for (int i = 0; i < roomTypeAmount; i++)
             rule.percents[i] = new RoomPercent(i, float.TryParse(cols[i + 3], out float typePercent) ? typePercent : 0);
 
+        // 보스 방 숫자만큼에 랜덤한 BossIndices 초기화
         string[] bossIndices = cols[roomTypeAmount + 4].Trim().Split("/");
         string[] nextStageIndices = cols[roomTypeAmount + 5].Trim().Split("/");
 
-        if (bossIndices.Length != nextStageIndices.Length)
+        if (bossIndices.Length < nextStageIndices.Length)
         {
-            UnityEngine.Debug.LogError($"StageRule CSV에 Boss Index와 NextStageIndex가 맞지않음");
+            UnityEngine.Debug.LogError($"StageRule CSV에 NextStageIndex가 Boss 종류보다 많습니다.");
             return false;
         }
+
+        Shuffle(bossIndices);
+
         int bossRoomAmount = bossIndices.Length;
         rule.bossIndices = new BossRoomIndex[bossRoomAmount];
-
         int bossIndex, nextStageIndex;
         for (int i = 0; i < bossRoomAmount; i++)
         {
@@ -309,12 +311,46 @@ public class StageGridGenerator
             rule.bossIndices[i] = new BossRoomIndex(bossIndex, nextStageIndex);
         }
 
-        string[] eliteIndices = cols[roomTypeAmount + 6].Trim().Split("/");
-        rule.eliteIndices = new int[eliteIndices.Length];
-        for (int i = 0; i < rule.eliteIndices.Length; i++)
+        // Elite
+        int eliteAmount = int.TryParse(cols[roomTypeAmount + 6].Trim(), out int _eliteAmount) ? _eliteAmount : -1;
+        rule.eliteAmount = eliteAmount;
+        string[] eliteIndices = cols[roomTypeAmount + 7].Trim().Split("/");
+        if (eliteAmount > eliteIndices.Length)
+        {
+            UnityEngine.Debug.LogError($"StageRule CSV에 Elite Room 요청보다 Elite 종류가 적습니다.");
+            return false;
+        }
+
+        Shuffle(eliteIndices);
+        rule.eliteIndices = new int[eliteAmount];
+        for (int i = 0; i < eliteAmount; i++)
             rule.eliteIndices[i] = int.TryParse(eliteIndices[i], out int eliteIndex) ? eliteIndex : -1;
 
         return true;
+    }
+
+    public void Shuffle<T>(T[] array)
+    {
+        if (array == null || array.Length <= 1)
+            return;
+
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, i + 1);
+            (array[i], array[randomIndex]) = (array[randomIndex], array[i]);
+        }
+    }
+
+    public void Shuffle<T>(List<T> list)
+    {
+        if (list == null || list.Count <= 1)
+            return;
+
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, i + 1);
+            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+        }
     }
 
     #endregion
@@ -348,8 +384,17 @@ public class StageGridGenerator
             {
                 if (GenerateSpecialRoomGrid(nextRoomId))
                 {
-                    GenerateGateGrid();
-                    success = true;
+                    if (GenerateEliteRoomGrid())
+                    {
+                        GenerateGateGrid();
+                        success = true;
+                    }
+#if UNITY_EDITOR
+                    else
+                    {
+                        UnityEngine.Debug.Log("<color=red>Room Elite Grid Generate FAIL</color>");
+                    }
+#endif
                 }
 #if UNITY_EDITOR
                 else
@@ -392,6 +437,12 @@ public class StageGridGenerator
             {
                 var data = boss.bossRoomIndex;
                 UnityEngine.Debug.Log($"Boss: {data.bossIndex} / nextStage: {data.nextStageIndex}");
+            }
+
+            if (allRoomGrids[i].roomType == RoomGridType.elite)
+            {
+                var data = allRoomGrids[i].eliteIndex;
+                UnityEngine.Debug.Log($"<color=cyan{allRoomGrids[i].eliteIndex}</color>");
             }
         }
     }
@@ -916,6 +967,7 @@ public class StageGridGenerator
 
         tempSpecialRooms.AddRange(specialRooms);
 
+        // Boss
         bossRoomIndices.Clear();
 
         if (bossRoomIndices.Capacity < targetStageRule.bossIndices.Length)
@@ -923,8 +975,67 @@ public class StageGridGenerator
 
         for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
             bossRoomIndices.Add(targetStageRule.bossIndices[i]);
+
+        // Elite
+        eliteRoomIndices.Clear();
+
+        if (eliteRoomIndices.Capacity < targetStageRule.eliteIndices.Length)
+            eliteRoomIndices.Capacity = targetStageRule.eliteIndices.Length;
+
+        for (int i = 0; i < targetStageRule.eliteIndices.Length; i++)
+            eliteRoomIndices.Add(targetStageRule.eliteIndices[i]);
     }
 
+
+    #endregion
+
+    #region Elite Room
+
+    // Elite Room Set
+    private bool GenerateEliteRoomGrid()
+    {
+        if (targetStageRule.eliteAmount <= 0)
+            return true;
+
+        eliteRoomCandidateRoomCache.Clear();
+
+        // 조건을 만족하는 Normal Room 수집
+        for (int i = 0; i < allRoomGrids.Count; i++)
+        {
+            RoomGrid room = allRoomGrids[i];
+
+            if (!IsValidEliteRoom(room))
+                continue;
+
+            eliteRoomCandidateRoomCache.Add(room);
+        }
+
+        if (eliteRoomCandidateRoomCache.Count < targetStageRule.eliteAmount)
+            return false;
+
+        Shuffle(eliteRoomCandidateRoomCache);
+        for (int i = 0; i < targetStageRule.eliteAmount; i++)
+        {
+            RoomGrid room = eliteRoomCandidateRoomCache[i];
+            room.roomType = RoomGridType.elite;
+            room.eliteIndex = eliteRoomIndices[eliteRoomIndices.Count - 1];
+            eliteRoomIndices.RemoveAt(eliteRoomIndices.Count - 1);
+        }
+
+        return true;
+    }
+
+    // 엘리트 적 방 조건에 맞는가
+    private bool IsValidEliteRoom(RoomGrid room)
+    {
+        if (room.roomType != RoomGridType.normal)
+            return false;
+
+        if (room.typeId != 0)
+            return false;
+
+        return true;
+    }
 
     #endregion
 
@@ -1193,8 +1304,11 @@ public class StageGridGenerator
         {
             if (GenerateSpecialRoomGrid(nextRoomId))
             {
-                GenerateGateGrid();
-                return true;
+                if (GenerateEliteRoomGrid())
+                {
+                    GenerateGateGrid();
+                    return true;
+                }
             }
         }
 
@@ -1476,6 +1590,7 @@ public class StageObjectGenerator
             {
                 case StageGridGenerator.RoomGridType.normal: yield return GenNormalRoom(grid, pivot); break;
                 case StageGridGenerator.RoomGridType.start: yield return GenStartRoom(grid, pivot); break;
+                case StageGridGenerator.RoomGridType.elite: yield return GenEliteRoom(grid, pivot); break;
                 case StageGridGenerator.RoomGridType.boss: yield return GenEntranceRoom(grid, pivot, entranceId++); break;
                 case StageGridGenerator.RoomGridType.vault: yield return GenVaultRoom(grid, pivot); break;
                 case StageGridGenerator.RoomGridType.baseShop: yield return GenShopRoom(grid, pivot); break;
@@ -1573,6 +1688,51 @@ public class StageObjectGenerator
 #endif
         yield return null;
     }
+
+    // 엘리트 적 방 생성
+    private IEnumerator GenEliteRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
+    {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+        generatorLogger += "<color=yellow>Elite</color>\n";
+#endif
+        int gridTypeId = grid.typeId;
+        var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        var roomRule = UnityEngine.Object.Instantiate(GetCorrectRandomEliteRoomRule(), room.gameObject.transform);
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
+#endif
+        yield return null;
+
+
+#if UNITY_EDITOR
+        sw.Restart();
+#endif
+        SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+
+        if (grid.eliteIndex != -1)
+        {
+            roomRule.SetElite(grid.eliteIndex);
+        }
+
+#if UNITY_EDITOR
+        sw.Stop();
+        generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
+#endif
+        yield return null;
+    }
+
 
     // 통과 방 생성
     private IEnumerator GenEntranceRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos, int entranceId)
@@ -2147,6 +2307,13 @@ public class StageObjectGenerator
     private RoomRuleController GetCorrectRandomRoomRule(int typeId)
     {
         RoomRuleController[] roomRuleList = stagePrefab.roomRulePrefabs[typeId].array;
+        return roomRuleList[UnityEngine.Random.Range(0, roomRuleList.Length)];
+    }
+
+    // 인덱스가 같은 RoomEliteRule 찾기
+    private RoomRuleController GetCorrectRandomEliteRoomRule()
+    {
+        RoomRuleController[] roomRuleList = stagePrefab.roomElitePrefabs;
         return roomRuleList[UnityEngine.Random.Range(0, roomRuleList.Length)];
     }
 

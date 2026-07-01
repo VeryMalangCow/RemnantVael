@@ -53,6 +53,10 @@ MonoBehaviour:
     - {fileID: 7484158713688760736, guid: 7081c122776341441b90d7ad7005d3b2, type: 3}
     - {fileID: 1743292342990984430, guid: 51b2eb3cdffb30c468a8d270098b7e48, type: 3}
   roomStartPrefab: {fileID: 8000800825091035099, guid: 10bf0ce69f8e08e40af0016d687fe706, type: 3}
+  roomElitePrefabs:
+  - {fileID: 7870566586486413299, guid: bf09d5f6c0fe3564884dda2b2787365e, type: 3}
+  - {fileID: 2608065406897887165, guid: 20345d3a63694ab4bab23f754faffd9d, type: 3}
+  - {fileID: 2779200691289312181, guid: 29afa7fc2fddba24c83e330dfdea6b62, type: 3}
   roomEntrancePrefabs:
   - {fileID: 8036042727304064747, guid: a6fd5e2983dec7445bd266ce4708bfb0, type: 3}
   - {fileID: 4936998006877841946, guid: 4804331466d7cd5499b25832fbf5f9c6, type: 3}
@@ -62,27 +66,6 @@ MonoBehaviour:
   roomPrisonPrefab: {fileID: 4056666045400819882, guid: d7c2dd373b55c974cb0b25c12034a168, type: 3}
   roomPassagePrefab: {fileID: 5651667900662966698, guid: 8222378b00408a44b85a4f43dd2f1c7c, type: 3}
   roomPassageRulePrefab: {fileID: 5057008729851650903, guid: 1f227af2becabab429f22c74265c27b0, type: 3}
-  vaultPrefabs:
-  - {fileID: 114888182504759569, guid: ee4da6a03b0a7f342bbe8b19563d73d9, type: 3}
-  - {fileID: 843154509398518699, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
-  - {fileID: 6217917494651744050, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
-  buPrefab: {fileID: 5830729734699832537, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
-  muPrefab: {fileID: 4104660094863163793, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
-  abuPrefab: {fileID: 1008028800653928466, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
-  amuPrefab: {fileID: 5302830401716886137, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
-  prisonPrefabs:
-  - {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
-  - {fileID: 5179974300967090457, guid: 37f1dfe24e381e841b3f63695875b308, type: 3}
-  - {fileID: 2784090784048974333, guid: f991a10c2348b56429f7dd5d07204c96, type: 3}
-  preminumCreditCvtPrefab: {fileID: 3877924021739045383, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
-  protoCoreCvtPrefab: {fileID: 8555788858629977981, guid: 180c42a74d86342499dd9c081645095c, type: 3}
-  EtherCoreCvtPrefab: {fileID: 5007123960313476061, guid: 9645881953bac4e46a545d41d0819eda, type: 3}
-  originCoreCvtPrefab: {fileID: 5692620112427304978, guid: d0572a6b6cf5e0341ad1776ca89b5fbe, type: 3}
-  repairOperPrefab: {fileID: 1248777847252891641, guid: a52794494980df442a6685865c19674b, type: 3}
-  vaultRerollOperPrefab: {fileID: 947837347572156946, guid: ee83beb77b674c44eaa658cff9b1b899, type: 3}
-  vaultUpgradeOperPrefab: {fileID: 5893029927452776160, guid: 07c41729688314b4598ff66a28e5f300, type: 3}
-  prisonPayOperPrefab: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
-  prisonPuzzleOperPrefab: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
   fieldObjPrefabs:
   - {fileID: -8838655692115979413, guid: 3be7e8b2f7867924c978f02106ade6f0, type: 3}
   - {fileID: -8838655692115979413, guid: 2f9130e5077dfea4ab1852f6b207cd56, type: 3}

@@ -199,4 +199,28 @@ public class RoomRuleController : MonoBehaviour
     }
 
     #endregion
+
+    public void SetBoss(int id)
+    {
+        for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
+        {
+            var spot = inRoom_AllEnemySpawn[i];
+            if (spot.Get_EnemyType() == eEnemy.Boss)
+            {
+                spot.SetSpawnID(id);
+            }
+        }
+    }
+
+    public void SetElite(int id)
+    {
+        for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
+        {
+            var spot = inRoom_AllEnemySpawn[i];
+            if (spot.Get_EnemyType() == eEnemy.Elite)
+            {
+                spot.SetSpawnID(id);
+            }
+        }
+    }
 }

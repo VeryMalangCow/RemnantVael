@@ -12,6 +12,7 @@ public class StageGeneratePreviewEditor : Editor
     private static Dictionary<StageGridGenerator.RoomGridType, Color> clrDict = new Dictionary<StageGridGenerator.RoomGridType, Color> 
     {
         { StageGridGenerator.RoomGridType.normal, new Color(0.8f, 0.8f, 0.8f) },
+        { StageGridGenerator.RoomGridType.elite, new Color(0.75f, 0.5f, 1.0f) },
         { StageGridGenerator.RoomGridType.boss, new Color(0.5f, 0.0f, 1.0f) },
         { StageGridGenerator.RoomGridType.vault, new Color(1.0f, 0.5f, 0.0f) },
         { StageGridGenerator.RoomGridType.baseShop, new Color(0.0f, 1.0f, 0.0f) },
@@ -51,6 +52,7 @@ public class StageGeneratePreviewEditor : Editor
 
         DrawLegendItem(startClr, "Start Room");
         DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.normal], "Normal Room");
+        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.elite], "Elite Room");
         DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.boss], "Boss Room");
         DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.vault], "Vault Room");
         DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.baseShop], "BaseShop Room");

@@ -19,6 +19,7 @@ public class StagePrefabSO : ScriptableObject
     [Header("* Rule")]
     public SerializableArray<RoomRuleController>[] roomRulePrefabs;
     public StartRuleController roomStartPrefab;
+    public RoomRuleController[] roomElitePrefabs;
     public EntranceRuleController[] roomEntrancePrefabs;
     public VaultRuleController roomVaultPrefab;
     public ShopRuleController roomShopPrefab;
