@@ -167,21 +167,7 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_CardBGMark(int typeId)
     {
-        switch(typeId)
-        {
-            case 0:
-                bgMarkImg.sprite = ResourceManager.instance.Get_STPrisonIcon(false);
-                break;
-            case 1:
-                bgMarkImg.sprite = ResourceManager.instance.Get_UTPrisonIcon(false);
-                break;
-            case 2:
-                bgMarkImg.sprite = ResourceManager.instance.Get_NTPrisonIcon(false);
-                break;
-
-            default:
-                break;
-        }
+        bgMarkImg.sprite = StaticResourceManager.instance.BuildPrefab.prisonPrefab.builds[typeId].teamIcon.typeSpecial;
     }
 
     #endregion

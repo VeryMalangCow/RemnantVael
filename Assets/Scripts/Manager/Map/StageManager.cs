@@ -1751,7 +1751,7 @@ public class StageObjectGenerator
         sw.Restart();
 #endif
         roomRule.SetPrison(
-            UnityEngine.Object.Instantiate(buildPrefab.prisonPrefab.prefabs[prisonTypeId]),
+            UnityEngine.Object.Instantiate(buildPrefab.prisonPrefab.builds[prisonTypeId].prefab),
             UnityEngine.Object.Instantiate(buildPrefab.prisonPayOperPrefab.prefab),
             UnityEngine.Object.Instantiate(buildPrefab.prisonPuzzleOperPrefab.prefab));
 #if UNITY_EDITOR

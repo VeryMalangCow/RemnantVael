@@ -1268,13 +1268,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
     [HideInInspector] private Sprite[] allySprite_Data;
 
-    [HideInInspector] private CoupleData<Sprite> strikeTeamIcon = new CoupleData<Sprite>(null, null);
-    [HideInInspector] private CoupleData<Sprite> uplinkTeamIcon = new CoupleData<Sprite>(null, null);
-    [HideInInspector] private CoupleData<Sprite> neoTeamIcon = new CoupleData<Sprite>(null, null);
-
-    [HideInInspector] public PrisonAllySprite strikeTeamAllySprites { get; private set; }
-    [HideInInspector] public PrisonAllySprite uplinkTeamAllySprites { get; private set; }
-    [HideInInspector] public PrisonAllySprite neoTeamAllySprites { get; private set; }
 
     // Offset
     private void Offset_Sprite_Ally()
@@ -1284,36 +1277,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         string allyPath = path + "Ally/";
 
         allySprite_Data = GetAsset_Arr<Sprite>(allyPath, "Ally_001");
-
-        string buildingPath = path + "Building/";
-        Sprite[] building000Sprites = GetAsset_Arr<Sprite>(buildingPath, "Building_000");
-        for (int i = 0; i < building000Sprites.Length; i++)
-        {
-            Sprite sprite = building000Sprites[i];
-
-            if (Get_InSpriteName(sprite, strikeTeamIcon, "Building000_StrikeTeamMark_", "Small", "Big"))
-                continue;
-            else if (Get_InSpriteName(sprite, uplinkTeamIcon, "Building000_UplinkTeamMark_", "Small", "Big"))
-                continue;
-            else if (Get_InSpriteName(sprite, neoTeamIcon, "Building000_NeoTeamMark_", "Small", "Big"))
-                continue;
-        }
-
-        strikeTeamAllySprites = new PrisonAllySprite();
-        uplinkTeamAllySprites = new PrisonAllySprite();
-        neoTeamAllySprites = new PrisonAllySprite();
-        Sprite[] ally000Sprites = GetAsset_Arr<Sprite>(allyPath, "Ally_000");
-        for (int i = 0; i < ally000Sprites.Length; i++)
-        {
-            Sprite sprite = ally000Sprites[i];
-
-            if (Get_InSpriteName(sprite, strikeTeamAllySprites, "Ally000_ST_InPrison_"))
-                continue;
-            if (Get_InSpriteName(sprite, uplinkTeamAllySprites, "Ally000_UT_InPrison_"))
-                continue;
-            if (Get_InSpriteName(sprite, neoTeamAllySprites, "Ally000_NT_InPrison_"))
-                continue;
-        }
     }
 
     // Get
@@ -1353,11 +1316,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         int index = System.Array.IndexOf(directionOrder, dir);
         return index >= 0 ? index : int.MaxValue;
     }
-
-
-    public Sprite Get_STPrisonIcon(bool isBase) => strikeTeamIcon.Get_Base(isBase);
-    public Sprite Get_UTPrisonIcon(bool isBase) => uplinkTeamIcon.Get_Base(isBase);
-    public Sprite Get_NTPrisonIcon(bool isBase) => neoTeamIcon.Get_Base(isBase);
 
 
     #endregion

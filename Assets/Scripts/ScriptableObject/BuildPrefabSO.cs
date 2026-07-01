@@ -82,14 +82,26 @@ public class DestructableBuild<T>
 [Serializable]
 public class PrisonBuild
 {
-    public PrisonController[] prefabs;
+    public PrisonEachBuild[] builds;
+
     public Sprite[] rateIcons;
     public CoupleData<AnimationClip> onOffAnimation;
     public CoupleData<AnimationClip> onOffUpsideAnimation;
     public CoupleData<AnimationClip> stateAnimation;
     public CoupleData<Material> material;
     public Material iconMaterial;
+    public Material allyMaterial;
+
+    [Serializable]
+    public class PrisonEachBuild
+    {
+        public PrisonController prefab;
+        public PrisonAllySprite allySprite;
+        public CoupleData<Sprite> teamIcon;
+    }
 }
+
+
 
 [Serializable]
 public class OperatorBuild<T>

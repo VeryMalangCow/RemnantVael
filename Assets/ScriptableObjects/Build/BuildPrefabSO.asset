@@ -75,10 +75,34 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
     iconMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   prisonPrefab:
-    prefabs:
-    - {fileID: 1439034170157584949, guid: c707c792fe9baf74688100c43d7f852b, type: 3}
-    - {fileID: 5868786432457530061, guid: 38a5d8c2f2ae2c84a82b3770702fc12e, type: 3}
-    - {fileID: 8263820326644979311, guid: 2a655c49d4410364f9cb148320fe19ad, type: 3}
+    builds:
+    - prefab: {fileID: 1439034170157584949, guid: c707c792fe9baf74688100c43d7f852b, type: 3}
+      allySprite:
+        bind: {fileID: 306943780, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        fall: {fileID: 1426368537, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        stand: {fileID: -1003898951, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        salute: {fileID: -1924550454, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+      teamIcon:
+        typeBase: {fileID: 336949551, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+        typeSpecial: {fileID: 1032012468, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+    - prefab: {fileID: 5868786432457530061, guid: 38a5d8c2f2ae2c84a82b3770702fc12e, type: 3}
+      allySprite:
+        bind: {fileID: 2088213254, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        fall: {fileID: -1836539650, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        stand: {fileID: 140839510, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        salute: {fileID: 1461411430, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+      teamIcon:
+        typeBase: {fileID: -872969422, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+        typeSpecial: {fileID: -169264779, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+    - prefab: {fileID: 8263820326644979311, guid: 2a655c49d4410364f9cb148320fe19ad, type: 3}
+      allySprite:
+        bind: {fileID: -108991560, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        fall: {fileID: -953435688, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        stand: {fileID: 2034139335, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+        salute: {fileID: -2015462578, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+      teamIcon:
+        typeBase: {fileID: 863555199, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+        typeSpecial: {fileID: 2006006726, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
     rateIcons:
     - {fileID: 1319849266, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
     - {fileID: -1063222384, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
@@ -98,6 +122,7 @@ MonoBehaviour:
       typeBase: {fileID: 2100000, guid: f3771b62a007a8648aa61b96f08c895c, type: 2}
       typeSpecial: {fileID: 2100000, guid: 2a2a3079596044d46bf17c9cd6719978, type: 2}
     iconMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
+    allyMaterial: {fileID: 2100000, guid: b69e168e880c2da4a86a76f1a0b68723, type: 2}
   operOnOffAnimation:
     typeBase: {fileID: 7400000, guid: bcb3c17b5304bed4da82c5051bec1bb6, type: 2}
     typeSpecial: {fileID: 7400000, guid: 9ab7bb10d28890b468206898313b65cd, type: 2}

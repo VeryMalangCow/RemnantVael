@@ -5,12 +5,15 @@ public class NeoTeamPrisonController : PrisonController
 
     private void Offset_TypeIconTxt()
     {
-        typeIcon.sprite = ResourceManager.instance.Get_NTPrisonIcon(false);
+        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+        var build = prefab.builds[2];
+        typeIcon.sprite = build.teamIcon.typeSpecial;
+        allySprites = build.allySprite;
 
-        allySprites = ResourceManager.instance.neoTeamAllySprites;
         for (int i = 0; i < prisonAllySrList.Count; i++)
         {
             prisonAllySrList[i].sprite = allySprites.bind;
+            prisonAllySrList[i].material = prefab.allyMaterial;
         }
     }
 
