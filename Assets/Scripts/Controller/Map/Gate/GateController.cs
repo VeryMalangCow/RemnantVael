@@ -163,7 +163,7 @@ public class GateController : StaticDepthController, IInteract
     {
         if (isOpen && parterGate != null)
         {
-            if (parterGate.thisRoom.roomRule is EntranceRuleController erc && erc.Get_ElevatorData() == 2)
+            if (parterGate.thisRoom.roomRule is EntranceRuleController erc && erc.GetElevatorData() == 2)
             {
                 Debug.Log("02 스테이지는 미구현");
                 return;
@@ -280,7 +280,7 @@ public class GateController : StaticDepthController, IInteract
     {
         if (DevTool.Can_CastingTType(parterGate.thisRoom.roomRule, out EntranceRuleController erc))
         {
-            int index = erc.Get_ElevatorData();
+            int index = erc.GetElevatorData();
             nextMapIconSr.sprite = ResourceManager.instance.Get_StageIcon(index);
             nextMapIconSr.gameObject.SetActive(true);
         }

@@ -14,4 +14,9 @@ public class EnemySpawnContoller : MonoBehaviour
     {
         return spawnId;
     }
+
+    public void SetSpawnID(int spawnId)
+    {
+        this.spawnId = spawnId;
+    }
 }

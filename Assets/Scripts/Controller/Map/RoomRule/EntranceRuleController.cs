@@ -30,14 +30,30 @@ public class EntranceRuleController : RoomRuleController
     {
         base.Complete();
 
-        SetOn_Elevator();
+        SetOnElevator();
+    }
+
+    #endregion
+
+    #region Boss
+
+    public void SetBoss(int id)
+    {
+        for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
+        {
+            var spot = inRoom_AllEnemySpawn[i];
+            if (spot.Get_EnemyType() == eEnemy.Boss)
+            {
+                spot.SetSpawnID(id);
+            }
+        }
     }
 
     #endregion
 
     #region Elevator
 
-    private void SetOn_Elevator()
+    private void SetOnElevator()
     {
         if (inRoom_Elevator != null &&
             !inRoom_Elevator.isOn)
@@ -46,17 +62,17 @@ public class EntranceRuleController : RoomRuleController
         }
     }
 
-    public void Set_ElevatorData(int nextStageIndex)
+    public void SetElevatorData(int nextStageIndex)
     {
         inRoom_Elevator.Set_Data(nextStageIndex, true);
     }
 
-    public int Get_ElevatorData()
+    public int GetElevatorData()
     {
         return inRoom_Elevator.Get_Data();
     }
 
-    public bool IsOn_Elevator()
+    public bool IsOnElevator()
     {
         return inRoom_Elevator.isOn;
     }
@@ -65,7 +81,7 @@ public class EntranceRuleController : RoomRuleController
 
     #region Lobby
 
-    public void Set_EntranceRuleInLobby()
+    public void SetEntranceRuleInLobby()
     {
         needKeyCardId = -1;
     }

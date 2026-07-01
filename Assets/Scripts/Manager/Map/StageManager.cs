@@ -17,8 +17,22 @@ public class StageGridGenerator
         public int minRoomAmount;
         public int maxRoomAmount;
         public RoomPercent[] percents;
-        public int[] bossIndices;
+        public BossRoomIndex[] bossIndices;
+        public int[] eliteIndices;
     }
+
+    public struct BossRoomIndex
+    {
+        public int bossIndex;
+        public int nextStageIndex;
+
+        public BossRoomIndex(int bossIndex, int nextStageIndex)
+        {
+            this.bossIndex = bossIndex;
+            this.nextStageIndex = nextStageIndex;
+        }
+    }
+
 
     public struct RoomPercent
     {
@@ -50,6 +64,25 @@ public class StageGridGenerator
             this.roomPos = new Vector2Int[roomPosLenght];
             gates = new List<GateGrid>();
             this.roomType = roomType;
+        }
+    }
+
+    public class BossRoomGrid : RoomGrid
+    {
+        public BossRoomIndex bossRoomIndex;
+
+        public BossRoomGrid(int instanceId, int typeId, int roomPosLenght, RoomGridType roomType, BossRoomIndex bossRoomIndex) : base(instanceId, typeId, roomPosLenght, roomType)
+        {
+            this.bossRoomIndex = bossRoomIndex;
+        }
+    }
+
+    public class EliteRoomGrid : RoomGrid
+    {
+        public int eliteIndex;
+        public EliteRoomGrid(int instanceId, int typeId, int roomPosLenght, RoomGridType roomType, int eliteIndex) : base(instanceId, typeId, roomPosLenght, roomType)
+        {
+            this.eliteIndex = eliteIndex;
         }
     }
 
@@ -152,6 +185,9 @@ public class StageGridGenerator
         Vector2Int.down
     };
 
+    // 보스 방
+    private List<BossRoomIndex> bossRoomIndices = new List<BossRoomIndex>(4);
+
     #endregion
 
     #region Init
@@ -239,8 +275,8 @@ public class StageGridGenerator
         }
 
         string[] cols = lines[lineIndex].Trim().Split(",");
-        int bossIndexColumn = roomTypeAmount + 4;
-        if (cols.Length <= bossIndexColumn)
+        int eliteIndexColumn = roomTypeAmount + 6;
+        if (cols.Length <= eliteIndexColumn)
         {
             UnityEngine.Debug.LogError($"StageRule CSV 컬럼 부족. stageId: {stageId}");
             return false;
@@ -255,9 +291,28 @@ public class StageGridGenerator
             rule.percents[i] = new RoomPercent(i, float.TryParse(cols[i + 3], out float typePercent) ? typePercent : 0);
 
         string[] bossIndices = cols[roomTypeAmount + 4].Trim().Split("/");
-        rule.bossIndices = new int[bossIndices.Length];
-        for (int i = 0; i < rule.bossIndices.Length; i++)
-            rule.bossIndices[i] = int.TryParse(bossIndices[i], out int bossIndex) ? bossIndex : -1;
+        string[] nextStageIndices = cols[roomTypeAmount + 5].Trim().Split("/");
+
+        if (bossIndices.Length != nextStageIndices.Length)
+        {
+            UnityEngine.Debug.LogError($"StageRule CSV에 Boss Index와 NextStageIndex가 맞지않음");
+            return false;
+        }
+        int bossRoomAmount = bossIndices.Length;
+        rule.bossIndices = new BossRoomIndex[bossRoomAmount];
+
+        int bossIndex, nextStageIndex;
+        for (int i = 0; i < bossRoomAmount; i++)
+        {
+            bossIndex = int.TryParse(bossIndices[i], out int _bossIndex) ? _bossIndex : -1;
+            nextStageIndex = int.TryParse(nextStageIndices[i], out int _nextStageIndex) ? _nextStageIndex : -1;
+            rule.bossIndices[i] = new BossRoomIndex(bossIndex, nextStageIndex);
+        }
+
+        string[] eliteIndices = cols[roomTypeAmount + 6].Trim().Split("/");
+        rule.eliteIndices = new int[eliteIndices.Length];
+        for (int i = 0; i < rule.eliteIndices.Length; i++)
+            rule.eliteIndices[i] = int.TryParse(eliteIndices[i], out int eliteIndex) ? eliteIndex : -1;
 
         return true;
     }
@@ -331,6 +386,14 @@ public class StageGridGenerator
         UnityEngine.Debug.Log("<color=green>ROOM GENERATE COMPLETE</color>");
 #endif
         ClearGridCaches();
+        for (int i = 0; i < allRoomGrids.Count; i++)
+        {
+            if (allRoomGrids[i] is BossRoomGrid boss)
+            {
+                var data = boss.bossRoomIndex;
+                UnityEngine.Debug.Log($"Boss: {data.bossIndex} / nextStage: {data.nextStageIndex}");
+            }
+        }
     }
 
     private void BuildSpecialRooms(GameProgressJsonData saveData)
@@ -347,7 +410,8 @@ public class StageGridGenerator
         {
             for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
             {
-                if (targetStageRule.bossIndices[i] != -1)
+                var indexData = targetStageRule.bossIndices[i];
+                if (indexData.bossIndex != -1 && indexData.nextStageIndex != -1)
                     specialRooms.Add(new ReserveRoom(3, RoomGridType.boss));
             }
         }
@@ -694,6 +758,8 @@ public class StageGridGenerator
         }
     }
 
+
+    // 실제 기본 위치에 배치 시도
     private bool TryPlaceSpecialRoomAtBasePos(int type, Vector2Int basePos, int instanceId, RoomGridType roomType)
     {
         int i;
@@ -713,7 +779,17 @@ public class StageGridGenerator
             return false;
 
         // 3. 실제 방 추가
-        RoomGrid room = new RoomGrid(instanceId, type, existLength, roomType);
+        RoomGrid room;
+        if (roomType == RoomGridType.boss)
+        {
+            room = new BossRoomGrid(instanceId, type, existLength, roomType, bossRoomIndices[bossRoomIndices.Count - 1]);
+            bossRoomIndices.RemoveAt(bossRoomIndices.Count - 1);
+        }
+        else
+        {
+            room = new RoomGrid(instanceId, type, existLength, roomType);
+        }
+
         allRoomGrids.Add(room);
 
         for (i = 0; i < existLength; i++)
@@ -741,6 +817,8 @@ public class StageGridGenerator
         return true;
     }
 
+
+    // 후보 중에 배치 시도
     private bool TryPlaceSpecialRoomAtCandidate(ReserveRoom reserveRoom, Vector2Int candidatePos, int instanceId)
     {
         int type = reserveRoom.typeId;
@@ -759,6 +837,7 @@ public class StageGridGenerator
 
         return false;
     }
+
 
     // 방 배치
     private bool TryPlaceBossRoom(ReserveRoom reserveRoom, int instanceId)
@@ -827,7 +906,7 @@ public class StageGridGenerator
         }
     }
 
-    // temp Special Rooms 를 복사
+    // temp Special Rooms 를 복사 및 Boss Index 복사
     private void ResetTempSpecialRooms()
     {
         tempSpecialRooms.Clear();
@@ -836,6 +915,14 @@ public class StageGridGenerator
             tempSpecialRooms.Capacity = specialRooms.Count;
 
         tempSpecialRooms.AddRange(specialRooms);
+
+        bossRoomIndices.Clear();
+
+        if (bossRoomIndices.Capacity < targetStageRule.bossIndices.Length)
+            bossRoomIndices.Capacity = targetStageRule.bossIndices.Length;
+
+        for (int i = 0; i < targetStageRule.bossIndices.Length; i++)
+            bossRoomIndices.Add(targetStageRule.bossIndices[i]);
     }
 
 
@@ -1217,17 +1304,6 @@ public class StageObjectGenerator
             EliteEnemyController.isDroppedBossKeycard = false;
         }
 
-        // Entrance 활성화
-        List<int> indexList = ResourceManager.instance.GetCorrectIndexList(stageId);
-
-        if (indexList.Count > 1)
-            indexList = DevTool.Get_ShuffledList(indexList);
-
-        for (int i = 0; i < indexList.Count; i++)
-        {
-            currentAllEntranceRoomController[i].Set_ElevatorData(indexList[i]);
-        }
-
         // 게이트 활성화
         if (stageId == 99)
             TryConnectLobbyGate();
@@ -1371,7 +1447,8 @@ public class StageObjectGenerator
 #endif
         currentAllEntranceRoomController.Add(roomRule);
 
-        roomRule.Set_EntranceRuleInLobby();
+        roomRule.SetEntranceRuleInLobby();
+        roomRule.SetElevatorData(0);
 
         SetLobbyRoomToWorld(room, roomRule, instanceId, 0, pos);
 #if UNITY_EDITOR
@@ -1530,6 +1607,13 @@ public class StageObjectGenerator
         currentAllEntranceRoomController.Add(roomRule);
 
         SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+
+        if (grid is StageGridGenerator.BossRoomGrid bossGrid)
+        {
+            var indexData = bossGrid.bossRoomIndex;
+            roomRule.SetElevatorData(indexData.nextStageIndex);
+            roomRule.SetBoss(indexData.bossIndex);
+        }
 #if UNITY_EDITOR
         sw.Stop(); 
         generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";

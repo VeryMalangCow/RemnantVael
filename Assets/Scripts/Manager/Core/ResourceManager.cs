@@ -1384,7 +1384,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // Value
-    [HideInInspector] private Dictionary<int, List<int>> mapNextIndex_Data;
 
     [HideInInspector] private WordSet_Just mapName_Data;
     [HideInInspector] private WordSet_Just mapDesc_Data;
@@ -1394,61 +1393,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private void Offset_CSV_Map()
     {
         string path = "CSV/Map/";
-        mapNextIndex_Data = Offset_MapNextIndex(path, "MapEntranceIndex_CSV");
         mapName_Data = GetAsset_WordData(path, "MapName_CSV");
         mapDesc_Data = GetAsset_WordData(path, "MapDesc_CSV");
     }
 
-    private Dictionary<int, List<int>> Offset_MapNextIndex(string path, string fileName)
-    {
-        Dictionary<int, List<int>> result = new Dictionary<int, List<int>>();
-
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
-
-        for (int i = 1; i < stringList.Length; i++)
-        {
-            if (stringList[i][0] == "") break;
-
-            int pastIndex = int.Parse(stringList[i][0]);
-            int nextIndex = int.Parse(stringList[i][1]);
-
-            List<int> indexList = new List<int>();
-            if (Is_ExistMapIndex(result, pastIndex, out List<int> mapNextIndex)) // 이미 존재한다면
-            {
-                mapNextIndex.Add(nextIndex);
-            }
-            else // 존재하지 않는다면
-            {
-                result.Add(pastIndex, new List<int> { nextIndex });
-            }
-        }
-
-        return result;
-    }
-
-    private bool Is_ExistMapIndex(Dictionary<int, List<int>> allMapNextIndex, int pastIndex, out List<int> mapNextIndex)
-    {
-        mapNextIndex = null;
-        if (allMapNextIndex.ContainsKey(pastIndex))
-        {
-            mapNextIndex = allMapNextIndex[pastIndex];
-            return true;
-        }
-        return false;
-    }
-
-
     // Get
     public string Get_MapName(int id) => mapName_Data.Get_Word(id);
     public string Get_MapDesc(int id) => mapDesc_Data.Get_Word(id);
-
-    public List<int> GetCorrectIndexList(int pastIndex)
-    {
-        if (mapNextIndex_Data.ContainsKey(pastIndex))
-            return mapNextIndex_Data[pastIndex];
-
-        return null;
-    }
 
     #endregion
 

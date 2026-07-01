@@ -41,7 +41,7 @@ public class RoomRuleController : MonoBehaviour
 
     #region - Hide
 
-    [HideInInspector] private List<EnemySpawnContoller> inRoom_AllEnemySpawn;
+    [HideInInspector] protected List<EnemySpawnContoller> inRoom_AllEnemySpawn;
     [HideInInspector] public List<SortingObjectController> inRoom_AllObstacle;
     [HideInInspector] private InteractableBuildController inRoom_ShopBuild;
 
