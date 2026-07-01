@@ -15,6 +15,8 @@ public class PrisonController : InteractableBuildController
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] private Collider2D col;
+    [SerializeField] private SpriteRenderer floorSr;
+    public SpriteRenderer FloorSr => floorSr;
 
     [Space(10)]
     [Header("=== Grade")]
@@ -23,18 +25,26 @@ public class PrisonController : InteractableBuildController
     [Space(10)]
     [Header("=== Extra Upside")]
     [SerializeField] private SpriteRenderer upsideSr;
+    public SpriteRenderer UpsideSr => upsideSr;
     [SerializeField] private Animator upsideAt;
 
     [Space(10)]
     [Header("=== Extra Icon")]
     [SerializeField] private SortingGroup extraSg;
+    [SerializeField] private SpriteRenderer middleLineSr;
+    public SpriteRenderer MiddleLineSr => middleLineSr;
     [SerializeField] private SpriteRenderer dangerIcon;
+    public SpriteRenderer DangerIconSr => dangerIcon;
     [SerializeField] protected SpriteRenderer typeIcon;
+    public SpriteRenderer TypeIconSr => typeIcon;
+
+    [SerializeField] private TMP_Text dangerTxt;
+    [SerializeField] protected TMP_Text typeTxt;
 
     [Space(10)]
     [Header("=== Ally")]
     [SerializeField] private SortingGroup allySg;
-
+    
     [Space(10)]
     [Header("=== Operator")]
     [SerializeField] public PrisonPuzzleOperatorController puzzleOper;
@@ -48,10 +58,6 @@ public class PrisonController : InteractableBuildController
     [HideInInspector] private AnimatorOverrideController upsideAoc;
     [HideInInspector] private CoupleData<Material> onOffMaterial;
 
-    // Extra State
-    [HideInInspector] private TMP_Text dangerTxt;
-    [HideInInspector] protected TMP_Text typeTxt;
-
     // Ally
     [HideInInspector] protected int allyAmount = 0; 
     [HideInInspector] protected List<Transform> prisonAllAllyTfList = new List<Transform>();
@@ -60,10 +66,23 @@ public class PrisonController : InteractableBuildController
     [HideInInspector] protected List<SpriteRenderer> prisonAllyShadowList = new List<SpriteRenderer>();
     [HideInInspector] protected PrisonAllySprite allySprites;
 
+#if UNITY_EDITOR
+    public List<SpriteRenderer> allySrs;
+#endif
+
     [HideInInspector] private static List<int> percentPrisonGrade = new List<int>
     { 5, 4, 3, 2, 1 };
 
     #endregion
+
+#if UNITY_EDITOR
+    public void SetBakeTxt()
+    {
+        dangerTxt.text = "";
+        typeTxt.text = "";
+    }
+
+#endif
 
     #region Offset
 
@@ -76,9 +95,6 @@ public class PrisonController : InteractableBuildController
     private void Offset_Comp()
     {
         dangerIcon.sprite = StaticResourceManager.instance.BuildPrefab.prisonPrefab.rateIcons[rating];
-
-        dangerTxt = DevTool.Get_ComponentTType(dangerIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text _dangerTxt) ? _dangerTxt : null;
-        typeTxt = DevTool.Get_ComponentTType(typeIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text _typeTxt) ? _typeTxt : null;
 
         prisonAllAllyTfList = DevTool.Get_ChildList<Transform>(allySg.gameObject.transform);
 
@@ -154,11 +170,17 @@ public class PrisonController : InteractableBuildController
 
     private void Set_AnimValue()
     {
-        onOffAc = StaticResourceManager.instance.BuildPrefab.prisonPrefab.onOffAnimation; 
-        onOffAc_Upside = StaticResourceManager.instance.BuildPrefab.prisonPrefab.onOffUpsideAnimation;
-        onOffStateAc = StaticResourceManager.instance.BuildPrefab.prisonPrefab.stateAnimation;
+        var prisonPrefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
 
-        onOffMaterial = StaticResourceManager.instance.BuildPrefab.prisonPrefab.material;
+        onOffAc = prisonPrefab.onOffAnimation; 
+        onOffAc_Upside = prisonPrefab.onOffUpsideAnimation;
+        onOffStateAc = prisonPrefab.stateAnimation;
+
+        onOffMaterial = prisonPrefab.material;
+
+        StateAnim.sr.material = prisonPrefab.iconMaterial;
+        dangerIcon.material = prisonPrefab.iconMaterial;
+        typeIcon.material = prisonPrefab.iconMaterial;
     }
 
     private void Set_Rating(int rate)

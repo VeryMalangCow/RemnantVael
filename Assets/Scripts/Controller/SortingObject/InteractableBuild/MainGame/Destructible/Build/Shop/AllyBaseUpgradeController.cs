@@ -46,6 +46,7 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
         brokenStateAc = prefab.brokenStateAnimation;
 
         thisSr.material = abuPrefab.material;
+        stateAnim.sr.material = abuPrefab.iconMaterial;
 
         base.Offset();
     }

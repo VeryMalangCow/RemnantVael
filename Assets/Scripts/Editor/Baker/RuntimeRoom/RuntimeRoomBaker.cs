@@ -15,7 +15,7 @@ public static class RuntimeRoomBaker
     private const string EditorRoot = "Assets/Prefabs/Stage/Rooms/Editor";
     private const string PrefabFilter = "t:Prefab";
 
-    [MenuItem("Tools/Bake Runtime Room")]
+    [MenuItem("Tools/Baker/Room/Bake Runtime Room")]
     private static void BakeSelectedRoom()
     {
         GameObject prefab = Selection.activeObject as GameObject;
@@ -30,7 +30,7 @@ public static class RuntimeRoomBaker
         BakeLogger.Log(result);
     }
 
-    [MenuItem("Tools/Bake Runtime All Rooms")]
+    [MenuItem("Tools/Baker/Room/Bake Runtime All Rooms")]
     private static void BakeAllRooms()
     {
         string[] guids = AssetDatabase.FindAssets(PrefabFilter, new[] { EditorRoot });

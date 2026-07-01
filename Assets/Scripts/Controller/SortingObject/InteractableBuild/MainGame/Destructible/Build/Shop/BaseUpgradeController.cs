@@ -38,6 +38,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
         brokenStateAc = prefab.brokenStateAnimation;
 
         thisSr.material = buPrefab.material;
+        stateAnim.sr.material = buPrefab.iconMaterial;
 
         base.Offset();
     }

@@ -12,11 +12,23 @@ public abstract class OperatorController : InteractableBuildController, IInterac
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] protected StateAnimController iconStateAnim;
+    public StateAnimController IconStateAnim => iconStateAnim;
 
+    [SerializeField] protected SpriteRenderer annoIcon;
+    public SpriteRenderer AnnoIconSr => annoIcon;
     [SerializeField] protected SortingGroup paySg;
     [SerializeField] protected TMP_Text payTxt;
 
     #endregion
+
+#if UNITY_EDITOR
+    public void SetPayTxt()
+    {
+        if (payTxt != null)
+            payTxt.text = "";
+    }
+
+#endif
 
     #region Offset
 
@@ -47,9 +59,12 @@ public abstract class OperatorController : InteractableBuildController, IInterac
     protected virtual void Set_AnimValue()
     {
         var prefab = StaticResourceManager.instance.BuildPrefab;
+
         onOffAc = prefab.operOnOffAnimation;
-        thisSr.material = prefab.operMaterial;
         onOffStateAc = prefab.operLightAnimation;
+
+        thisSr.material = prefab.operMaterial;
+        stateAnim.sr.material = prefab.operIconMaterial;
     }
 
     public void Set_TargetBuildBroken()

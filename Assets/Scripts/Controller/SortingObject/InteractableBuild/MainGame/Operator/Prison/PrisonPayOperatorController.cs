@@ -17,6 +17,19 @@ public class PrisonPayOperatorController : PrisonOperatorController
         payTxt.text = Get_NeedPay().ToString();
     }
 
+    protected override void Set_AnimValue()
+    {
+        base.Set_AnimValue();
+
+        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPayOperPrefab;
+
+        iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
+        iconStateAnim.sr.material = prefab.panelMaterial;
+
+        annoIcon.sprite = prefab.annoIcon;
+        annoIcon.material = prefab.annoMaterial;
+    }
+
     #endregion
 
     #region Get

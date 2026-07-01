@@ -15,14 +15,6 @@ public class PrisonOperatorController : OperatorController
 
     #region Set
 
-    protected override void Set_AnimValue()
-    {
-        base.Set_AnimValue();
-
-        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPuzzleOperPrefab;
-        iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
-        thisSr.material = prefab.material;
-    }
 
     public virtual void Set_TargetBuild(PrisonController targetPrison)
     {

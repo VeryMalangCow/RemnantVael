@@ -44,8 +44,12 @@ public class RepairOperatorController : OperatorController
         base.Set_AnimValue();
 
         var prefab = StaticResourceManager.instance.BuildPrefab.repairOperPrefab;
+
         iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
-        thisSr.material = prefab.material;
+        iconStateAnim.sr.material = prefab.panelMaterial;
+
+        annoIcon.sprite = prefab.annoIcon;
+        annoIcon.material = prefab.annoMaterial;
     }
 
     public void Set_TargetBuild(DestructibleBuildController targetBuild)

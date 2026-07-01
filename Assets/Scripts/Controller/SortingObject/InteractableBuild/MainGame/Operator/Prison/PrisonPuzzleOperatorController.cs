@@ -9,6 +9,18 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
         base.Offset();
         Set_Language();
     }
+    protected override void Set_AnimValue()
+    {
+        base.Set_AnimValue();
+
+        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPuzzleOperPrefab; 
+
+        iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
+        iconStateAnim.sr.material = prefab.panelMaterial;
+
+        annoIcon.sprite = prefab.annoIcon;
+        annoIcon.material = prefab.annoMaterial;
+    }
 
     #endregion
 

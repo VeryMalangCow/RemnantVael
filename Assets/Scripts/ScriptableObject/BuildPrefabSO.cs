@@ -20,6 +20,7 @@ public class BuildPrefabSO : ScriptableObject
     public CoupleData<AnimationClip> operOnOffAnimation;
     public CoupleData<AnimationClip> operLightAnimation;
     public Material operMaterial;
+    public Material operIconMaterial;
     [Space(10)]
     public OperatorBuild<RepairOperatorController> repairOperPrefab;
     public OperatorBuild<VaultRerollOperatorController> vaultRerollOperPrefab;
@@ -62,6 +63,8 @@ public class VaultBuild
     public CoupleData<AnimationClip> stateIconAnimation;
     [Space(10)]
     public Material material;
+    public Material panelMaterial;
+    public Material iconMaterial;
 }
 
 [Serializable]
@@ -73,6 +76,7 @@ public class DestructableBuild<T>
     public AnimationClip brokenAnimation;
     [Space(10)]
     public Material material;
+    public Material iconMaterial;
 }
 
 [Serializable]
@@ -84,6 +88,7 @@ public class PrisonBuild
     public CoupleData<AnimationClip> onOffUpsideAnimation;
     public CoupleData<AnimationClip> stateAnimation;
     public CoupleData<Material> material;
+    public Material iconMaterial;
 }
 
 [Serializable]
@@ -91,7 +96,9 @@ public class OperatorBuild<T>
 {
     public T prefab;
     public AnimationClip animation;
-    public Material material;
+    public Material panelMaterial;
+    public Sprite annoIcon;
+    public Material annoMaterial;
 }
 
 [Serializable]

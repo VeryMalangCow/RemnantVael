@@ -11,6 +11,7 @@ public class InteractableBuildController : SortingObjectController
     [Space(10)]
     [Header("=== Controller")]
     [SerializeField] protected StateAnimController stateAnim;
+    public StateAnimController StateAnim => stateAnim;
 
     [Space(10)]
     [Header("=== State")]

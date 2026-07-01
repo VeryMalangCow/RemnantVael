@@ -14,7 +14,8 @@ public class VaultController : DestructibleBuildController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] protected StateAnimController iconStateAnim;
+    [SerializeField] protected StateAnimController panelStateAnim;
+    public StateAnimController PanelStateAnim => panelStateAnim;
 
     [Space(10)]
     [Header("=== Grade")]
@@ -34,8 +35,11 @@ public class VaultController : DestructibleBuildController
     protected override void Offset()
     {
         Set_AnimValue();
-        thisSr.material = StaticResourceManager.instance.BuildPrefab.vaultPrefab.material;
 
+        var prefab = StaticResourceManager.instance.BuildPrefab.vaultPrefab;
+        thisSr.material = prefab.material;
+        stateAnim.sr.material = prefab.iconMaterial;
+        panelStateAnim.sr.material = prefab.panelMaterial;
         base.Offset();
     }
 
@@ -48,7 +52,7 @@ public class VaultController : DestructibleBuildController
         base.SetSortingOrder(sortingOrder);
 
         // Vault의 안에 아이콘이 보이는 이미지
-        iconStateAnim.sr.sortingOrder = sortingOrder - 1;
+        panelStateAnim.sr.sortingOrder = sortingOrder - 1;
     }
 
     #endregion

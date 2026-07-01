@@ -38,6 +38,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         brokenStateAc = prefab.brokenStateAnimation;
 
         thisSr.material = muPrefab.material;
+        stateAnim.sr.material = muPrefab.iconMaterial;
 
         base.Offset();
     }

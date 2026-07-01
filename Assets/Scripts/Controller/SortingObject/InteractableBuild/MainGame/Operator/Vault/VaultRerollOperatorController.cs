@@ -37,10 +37,13 @@ public class VaultRerollOperatorController : VaultOperatorController
         base.Set_AnimValue();
 
         var prefab = StaticResourceManager.instance.BuildPrefab.vaultRerollOperPrefab;
-        iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
-        thisSr.material = prefab.material;
-    }
 
+        iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
+        iconStateAnim.sr.material = prefab.panelMaterial;
+
+        annoIcon.sprite = prefab.annoIcon;
+        annoIcon.material = prefab.annoMaterial;
+    }
     public override void Set_TargetBuild(VaultController targetVault)
     {
         base.Set_TargetBuild(targetVault);
