@@ -5,7 +5,7 @@ public class EnemySpawnContoller : MonoBehaviour
     [SerializeField] private eEnemy enemyType;
     [SerializeField] private int spawnId;
 
-    public eEnemy Get_EnemyType()
+    public eEnemy GetEnemyType()
     {
         return enemyType;
     }

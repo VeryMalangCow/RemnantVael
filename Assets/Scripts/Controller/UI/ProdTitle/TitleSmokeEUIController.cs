@@ -155,7 +155,7 @@ public class TitleSmokeEUIController : ElementUIController
     // 랜덤 스프라이트
     private Sprite Get_RandomSprite()
     {
-        return smokeSpriteList[Random.Range(0, smokeSpriteList.Count - 1)];
+        return smokeSpriteList[Random.Range(0, smokeSpriteList.Count)];
     }
 
     #endregion

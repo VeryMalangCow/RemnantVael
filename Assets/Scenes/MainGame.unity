@@ -6439,7 +6439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
-  targetStageId: 0
+  targetStageId: 99
   stageTheme:
     lobbyStageThemeSO: {fileID: 11400000, guid: 09c8368078f79c5439780900ae5c7ca0, type: 2}
     allStageThemeSOs:
@@ -6451,6 +6451,9 @@ MonoBehaviour:
     stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
     saveDataManager: {fileID: 657936137}
     testTargetStageId: 0
+  currentStageBossEnemyIndices: 
+  currentStageEliteEnemyIndices: 
+  currentStageNormalEnemyIndices: 
   stageObjectGenerator:
     stageParentTf: {fileID: 1948256983}
   navMesh: {fileID: 535791893}
@@ -12332,28 +12335,27 @@ MonoBehaviour:
   hittedAC_0: {fileID: 7400000, guid: 6af0f636d94b34f41822b97c0843c8ca, type: 2}
   hittedAC_1: {fileID: 7400000, guid: c871472990cbec34cb198596439ad843, type: 2}
   hittedAC_2: {fileID: 7400000, guid: ad2333be6b080184da375f3e13c7316e, type: 2}
-  normalEnemyPools:
-  - prefab: {fileID: 848216773187047800, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
-    parentTf: {fileID: 0}
-  - prefab: {fileID: 848216773187047800, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
-    parentTf: {fileID: 0}
-  - prefab: {fileID: 848216773187047800, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
-    parentTf: {fileID: 0}
-  - prefab: {fileID: 848216773187047800, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
-    parentTf: {fileID: 0}
-  normalEnemyParentTf: {fileID: 1149777724}
-  eliteEnemyPools:
-  - prefab: {fileID: 2232013880238854159, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
-    parentTf: {fileID: 0}
-  - prefab: {fileID: 2232013880238854159, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
-    parentTf: {fileID: 0}
-  - prefab: {fileID: 2232013880238854159, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
-    parentTf: {fileID: 0}
-  eliteEnemyParentTf: {fileID: 2075431383}
-  bossEnemyPools:
-  - prefab: {fileID: 1586031869316449163, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
-    parentTf: {fileID: 0}
-  bossEnemyParentTf: {fileID: 217165031}
+  normalEnemyPoolSet:
+    updateList: []
+    parentTf: {fileID: 1149777724}
+  eliteEnemyPoolSet:
+    updateList: []
+    parentTf: {fileID: 2075431383}
+  bossEnemyPoolSet:
+    updateList: []
+    parentTf: {fileID: 217165031}
+  normalEnemyPrefabs:
+  - {fileID: 848216773187047800, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+  - {fileID: 848216773187047800, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
+  - {fileID: 848216773187047800, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
+  - {fileID: 848216773187047800, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
+  eliteEnemyPrefabs:
+  - {fileID: 2232013880238854159, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
+  - {fileID: 2232013880238854159, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
+  - {fileID: 2232013880238854159, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
+  bossEnemyPrefabs:
+  - {fileID: 1586031869316449163, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
+  - {fileID: 1586031869316449163, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
   currentEnemyList: []
 --- !u!1 &1367558787
 GameObject:

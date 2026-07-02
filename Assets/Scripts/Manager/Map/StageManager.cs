@@ -1,4 +1,3 @@
-using DG.Tweening;
 using NavMeshPlus.Components;
 using System;
 using System.Collections;
@@ -6,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class StageGridGenerator
 {
     #region Class & Struct
@@ -17,9 +16,16 @@ public class StageGridGenerator
         public int minRoomAmount;
         public int maxRoomAmount;
         public RoomPercent[] percents;
+
+        // Boss Enemy
         public BossRoomIndex[] bossIndices;
+
+        // Elite Enemy
         public int eliteAmount;
         public int[] eliteIndices;
+
+        // Normal Enemy
+        public int[] enemyIndices;
     }
 
     public struct BossRoomIndex
@@ -265,6 +271,11 @@ public class StageGridGenerator
             return false;
         }
 
+        int i;
+
+        #region Room
+
+        // 방의 확률과 개수 구하기
         string[] lines = stageRuleCSV.text.Split("\n");
         int lineIndex = stageId + 1;
         if (lineIndex < 0 || lineIndex >= lines.Length)
@@ -274,8 +285,8 @@ public class StageGridGenerator
         }
 
         string[] cols = lines[lineIndex].Trim().Split(",");
-        int eliteIndexColumn = roomTypeAmount + 7;
-        if (cols.Length <= eliteIndexColumn)
+        int lastIndexColumn = roomTypeAmount + 8;
+        if (cols.Length <= lastIndexColumn)
         {
             UnityEngine.Debug.LogError($"StageRule CSV 컬럼 부족. stageId: {stageId}");
             return false;
@@ -286,8 +297,12 @@ public class StageGridGenerator
         if (rule.maxRoomAmount < rule.minRoomAmount) rule.maxRoomAmount = rule.minRoomAmount;
 
         rule.percents = new RoomPercent[roomTypeAmount];
-        for (int i = 0; i < roomTypeAmount; i++)
+        for (i = 0; i < roomTypeAmount; i++)
             rule.percents[i] = new RoomPercent(i, float.TryParse(cols[i + 3], out float typePercent) ? typePercent : 0);
+
+        #endregion
+
+        #region Boss Enemy + NextStage
 
         // 보스 방 숫자만큼에 랜덤한 BossIndices 초기화
         string[] bossIndices = cols[roomTypeAmount + 4].Trim().Split("/");
@@ -304,12 +319,16 @@ public class StageGridGenerator
         int bossRoomAmount = bossIndices.Length;
         rule.bossIndices = new BossRoomIndex[bossRoomAmount];
         int bossIndex, nextStageIndex;
-        for (int i = 0; i < bossRoomAmount; i++)
+        for (i = 0; i < bossRoomAmount; i++)
         {
             bossIndex = int.TryParse(bossIndices[i], out int _bossIndex) ? _bossIndex : -1;
             nextStageIndex = int.TryParse(nextStageIndices[i], out int _nextStageIndex) ? _nextStageIndex : -1;
             rule.bossIndices[i] = new BossRoomIndex(bossIndex, nextStageIndex);
         }
+
+        #endregion
+
+        #region Elite Enemy
 
         // Elite
         int eliteAmount = int.TryParse(cols[roomTypeAmount + 6].Trim(), out int _eliteAmount) ? _eliteAmount : -1;
@@ -323,35 +342,25 @@ public class StageGridGenerator
 
         Shuffle(eliteIndices);
         rule.eliteIndices = new int[eliteAmount];
-        for (int i = 0; i < eliteAmount; i++)
+        for (i = 0; i < eliteAmount; i++)
             rule.eliteIndices[i] = int.TryParse(eliteIndices[i], out int eliteIndex) ? eliteIndex : -1;
+
+        #endregion
+
+        #region Normal Enemy
+
+        // Enemy
+
+        string[] enemyIndices = cols[roomTypeAmount + 8].Trim().Split("/");
+        rule.enemyIndices = new int[enemyIndices.Length];
+        for (i = 0; i < enemyIndices.Length; i++)
+            rule.enemyIndices[i] = int.TryParse(enemyIndices[i], out int enemyIndex) ? enemyIndex : -1;
+
+        #endregion
 
         return true;
     }
 
-    public void Shuffle<T>(T[] array)
-    {
-        if (array == null || array.Length <= 1)
-            return;
-
-        for (int i = array.Length - 1; i > 0; i--)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, i + 1);
-            (array[i], array[randomIndex]) = (array[randomIndex], array[i]);
-        }
-    }
-
-    public void Shuffle<T>(List<T> list)
-    {
-        if (list == null || list.Count <= 1)
-            return;
-
-        for (int i = list.Count - 1; i > 0; i--)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, i + 1);
-            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
-        }
-    }
 
     #endregion
 
@@ -442,7 +451,7 @@ public class StageGridGenerator
             if (allRoomGrids[i].roomType == RoomGridType.elite)
             {
                 var data = allRoomGrids[i].eliteIndex;
-                UnityEngine.Debug.Log($"<color=cyan{allRoomGrids[i].eliteIndex}</color>");
+                UnityEngine.Debug.Log($"<color=cyan>{allRoomGrids[i].eliteIndex}</color>");
             }
         }
     }
@@ -1239,6 +1248,34 @@ public class StageGridGenerator
 
     #endregion
 
+    #region Shuffle
+    public static void Shuffle<T>(T[] array)
+    {
+        if (array == null || array.Length <= 1)
+            return;
+
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, i + 1);
+            (array[i], array[randomIndex]) = (array[randomIndex], array[i]);
+        }
+    }
+
+    public static void Shuffle<T>(List<T> list)
+    {
+        if (list == null || list.Count <= 1)
+            return;
+
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, i + 1);
+            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+        }
+    }
+
+
+    #endregion
+
     #endregion
 
 #if UNITY_EDITOR
@@ -1319,7 +1356,7 @@ public class StageGridGenerator
 }
 
 
-[System.Serializable]
+[Serializable]
 public class StageTheme
 {
     [SerializeField] public StageThemeSO lobbyStageThemeSO;
@@ -1352,7 +1389,7 @@ public class StageTheme
 }
 
 
-[System.Serializable]
+[Serializable]
 public class StageObjectGenerator
 {
     #region Variable
@@ -1379,6 +1416,8 @@ public class StageObjectGenerator
     public int beforeStageId { get { return beforeStageThemeSO != null ? beforeStageThemeSO.stageId : -1; } }
     public int afterStageId { get { return afterStageThemeSO != null ? afterStageThemeSO.stageId : -1; } }
 
+    // Enemy
+    private List<int> normalEnemyIndices;
 
 #if UNITY_EDITOR
     private string generatorLogger;
@@ -1400,7 +1439,7 @@ public class StageObjectGenerator
     #region Generate
 
     // Lobby Or GamePlay 스테이지 생성
-    public IEnumerator GenStage(StageTheme stageTheme, int stageId, List<StageGridGenerator.RoomGrid> allRoomGrids)
+    public IEnumerator GenStage(StageTheme stageTheme, int stageId, List<StageGridGenerator.RoomGrid> allRoomGrids, List<int> normalEnemyIndices)
     {
         ResetData();
 
@@ -1414,6 +1453,9 @@ public class StageObjectGenerator
         }
         else // 전투 스테이지 시작 방
         {
+            if (normalEnemyIndices != null) 
+                this.normalEnemyIndices = normalEnemyIndices;
+
             yield return GenerateGamePlayStage(allRoomGrids);
             EliteEnemyController.isDroppedBossKeycard = false;
         }
@@ -1581,8 +1623,9 @@ public class StageObjectGenerator
 #if UNITY_EDITOR
         generatorLogger = "GamePlay Generate\n";
 #endif
-        int entranceId = 0, i;
-        for (i = 0; i < allRoomGrids.Count; i++)
+
+        int entranceId = 0;
+        for (int i = 0; i < allRoomGrids.Count; i++)
         {
             StageGridGenerator.RoomGrid grid = allRoomGrids[i];
             Vector2Int pivot = grid.roomPos[0];
@@ -1682,6 +1725,9 @@ public class StageObjectGenerator
         sw.Restart();
 #endif
         SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
+
+        roomRule.SetEnemyId(normalEnemyIndices);
+
 #if UNITY_EDITOR
         sw.Stop();
         generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
@@ -1721,10 +1767,7 @@ public class StageObjectGenerator
 #endif
         SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
 
-        if (grid.eliteIndex != -1)
-        {
-            roomRule.SetElite(grid.eliteIndex);
-        }
+        roomRule.SetEnemyId(normalEnemyIndices, eliteId: grid.eliteIndex);
 
 #if UNITY_EDITOR
         sw.Stop();
@@ -1772,7 +1815,7 @@ public class StageObjectGenerator
         {
             var indexData = bossGrid.bossRoomIndex;
             roomRule.SetElevatorData(indexData.nextStageIndex);
-            roomRule.SetBoss(indexData.bossIndex);
+            roomRule.SetEnemyId(normalEnemyIndices, bossId: indexData.bossIndex);
         }
 #if UNITY_EDITOR
         sw.Stop(); 
@@ -2378,6 +2421,11 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     [SerializeField] private StageGridGenerator stageGridGenerator;
     public StageGridGenerator StageGridGenerator { get { return stageGridGenerator; } }
 
+    // Enemy
+    private List<int> currentStageBossEnemyIndices = new List<int>(2);
+    private List<int> currentStageEliteEnemyIndices = new List<int>(4);
+    private List<int> currentStageNormalEnemyIndices = new List<int>(8);
+
     #endregion
 
     #region Stage Grid Generator - Generate
@@ -2396,6 +2444,62 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     #endregion
 
+    #region Stage Grid Generator - Enemy
+
+    private void SetEnemyIndices()
+    {
+
+        SetBossEnemyIndices();
+        SetEliteEnemyIndices();
+        SetNormalEnemyIndices();
+    }
+
+    private void SetBossEnemyIndices()
+    {
+        currentStageBossEnemyIndices.Clear();
+        var bossRoom = stageGridGenerator.targetStageRule.bossIndices;
+
+        if (currentStageBossEnemyIndices.Capacity < bossRoom.Length)
+            currentStageBossEnemyIndices.Capacity = bossRoom.Length;
+
+        for (int i = 0; i < bossRoom.Length; i++)
+        {
+            if (bossRoom[i].bossIndex != -1)
+                currentStageBossEnemyIndices.Add(bossRoom[i].bossIndex);
+        }
+    }
+    
+    private void SetEliteEnemyIndices()
+    {
+        currentStageEliteEnemyIndices.Clear();
+        var eliteRoom = stageGridGenerator.targetStageRule.eliteIndices;
+
+        if (currentStageEliteEnemyIndices.Capacity < eliteRoom.Length)
+            currentStageEliteEnemyIndices.Capacity = eliteRoom.Length;
+
+        for (int i = 0; i < eliteRoom.Length; i++)
+        {
+            if (eliteRoom[i] != -1)
+                currentStageEliteEnemyIndices.Add(eliteRoom[i]);
+        }
+    }
+    
+    private void SetNormalEnemyIndices()
+    {
+        currentStageNormalEnemyIndices.Clear();
+        var bossRoom = stageGridGenerator.targetStageRule.enemyIndices;
+
+        if (currentStageNormalEnemyIndices.Capacity < bossRoom.Length)
+            currentStageNormalEnemyIndices.Capacity = bossRoom.Length;
+
+        for (int i = 0; i < bossRoom.Length; i++)
+        {
+            if (bossRoom[i] != -1)
+                currentStageNormalEnemyIndices.Add(bossRoom[i]);
+        }
+    }
+
+    #endregion
 
     #region Stage Object Generator - Variable
 
@@ -2413,8 +2517,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         ReturnAllPoolObject();
         RemoveStageObject();
-        yield return stageObjectGenerator.GenStage(stageTheme, targetStageId, stageGridGenerator.allRoomGrids);
-
+        yield return stageObjectGenerator.GenStage(stageTheme, targetStageId, stageGridGenerator.allRoomGrids, currentStageNormalEnemyIndices);
         yield return CustomGC.CollectAsync();
 
         StartCurrentRoom(currentAllRoomController[0]);
@@ -2479,8 +2582,14 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     private IEnumerator GenerateStageCor(int targetStageId)
     {
+        yield return EnemyManager.instance.DestoryEnemyPoolsAsync();
+
         if (targetStageId != 99)
+        {
             yield return GenerateGridRoomData(targetStageId);
+            SetEnemyIndices();
+            yield return EnemyManager.instance.SetEnemyPoolsAsync(currentStageNormalEnemyIndices, currentStageEliteEnemyIndices, currentStageBossEnemyIndices);
+        }
 
         yield return GenerateRoomObjects(targetStageId);
     }
@@ -2492,6 +2601,8 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public IEnumerator GeneratePassageStageCor(int afterStageID)
     {
+        yield return EnemyManager.instance.DestoryEnemyPoolsAsync();
+
         yield return GeneratePassageRoomObjects(afterStageID);
     }
 

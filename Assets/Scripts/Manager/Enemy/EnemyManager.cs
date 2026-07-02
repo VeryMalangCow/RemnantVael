@@ -1,9 +1,86 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class EnemyPoolSet<T> where T : EnemyController, IPoolable
+{
+    public Dictionary<int, PoolSystem<T>> dict = new Dictionary<int, PoolSystem<T>>();
+    public List<PoolSystem<T>> updateList = new List<PoolSystem<T>>();
+    public Transform parentTf;
+
+    // 생성
+    public IEnumerator SetEnemyPoolAsync(T[] prefabs, List<int> enemyIndices, int size, float limitMsPerFrame = 8f)
+    {
+        for (int i = 0; i < enemyIndices.Count; i++)
+        {
+            int index = enemyIndices[i];
+            if (index == -1)
+                continue;
+
+            T prefab = prefabs[index];
+            PoolSystem<T> pool = new PoolSystem<T>();
+
+            Debug.Log($"prefab:{prefab.name}\nparentTf:{parentTf.name}\nsize:{size}\nlimitMsPerFrame:{limitMsPerFrame}");
+            yield return pool.InitAsync(prefab, parentTf, size, limitMsPerFrame);
+            dict.Add(index, pool);
+            updateList.Add(pool);
+            yield return null;
+        }
+    }
+
+    // 제거
+    public IEnumerator DestoryEnemyPoolAsync()
+    {
+        // 프리펩 모두 삭제
+        foreach (var enemyPool in dict)
+            yield return enemyPool.Value.DestroyAsync();
+
+        dict.Clear();
+        updateList.Clear();
+        
+    }
+
+    // Update
+    public void HandleUpdate(float dt)
+    {
+        for (int i = 0; i < updateList.Count; i++)
+        {
+            var pool = updateList[i];
+            var objs = pool.objs;
+            var activeIndices = pool.activeIndices;
+
+            for (int j = activeIndices.Count - 1; j >= 0; j--)
+            {
+                // Skill
+                objs[activeIndices[j]].HandleChargeSkill(dt);
+                // Look Player
+                objs[activeIndices[j]].HandleLookAtTarget();
+            }
+        }
+    }
+
+    public void HandleFixedUpdate(float dt)
+    {
+        for (int i = 0; i < updateList.Count; i++)
+        {
+            var pool = updateList[i];
+            var objs = pool.objs;
+            var activeIndices = pool.activeIndices;
+
+            for (int j = activeIndices.Count - 1; j >= 0; j--)
+            {
+                // Movement
+                objs[activeIndices[j]].HandleMovement(dt);
+            }
+        }
+    }
+
+}
+
 public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
-{  
+{
     public int InitOrder { get { return initOrder; } }
     [SerializeField] private int initOrder;
     public string InitPregressText { get { return initPregressText; } }
@@ -37,13 +114,17 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     [SerializeField] public AnimationClip hittedAC_2;
 
     [Space(10)]
-    [Header("=== Pool")]
-    [SerializeField] private List<PoolSystem<NormalEnemyController>> normalEnemyPools;
-    [SerializeField] private Transform normalEnemyParentTf;
-    [SerializeField] private List<PoolSystem<EliteEnemyController>> eliteEnemyPools;
-    [SerializeField] private Transform eliteEnemyParentTf;
-    [SerializeField] private List<PoolSystem<BossEnemyController>> bossEnemyPools;
-    [SerializeField] private Transform bossEnemyParentTf;
+    [Header("=== PoolSet")]
+    [SerializeField] private EnemyPoolSet<NormalEnemyController> normalEnemyPoolSet;
+    [SerializeField] private EnemyPoolSet<EliteEnemyController> eliteEnemyPoolSet;
+    [SerializeField] private EnemyPoolSet<BossEnemyController> bossEnemyPoolSet;
+
+
+    [Space(10)]
+    [Header("=== Prefab (Before Addressable)")]
+    [SerializeField] private NormalEnemyController[] normalEnemyPrefabs;
+    [SerializeField] private EliteEnemyController[] eliteEnemyPrefabs;
+    [SerializeField] private BossEnemyController[] bossEnemyPrefabs;
 
     // Current
     [HideInInspector] public List<EnemyController> currentEnemyList = new List<EnemyController>();
@@ -54,90 +135,62 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
 
     public IEnumerator Initialize()
     {
-        for (int i = 0; i < normalEnemyPools.Count; i++)
-            yield return normalEnemyPools[i].InitAsync(normalEnemyParentTf, 16, 8f);
-        for (int i = 0; i < eliteEnemyPools.Count; i++)
-            yield return eliteEnemyPools[i].InitAsync(eliteEnemyParentTf, 4, 8f);
-        for (int i = 0; i < bossEnemyPools.Count; i++)
-            yield return bossEnemyPools[i].InitAsync(bossEnemyParentTf, 2, 8f);
-
         yield return null;
 
         enabled = true;
     }
 
-    // Centralized Update
+    // Pool Dict 객체 값 -> 삽입 및 생성
+    public IEnumerator SetEnemyPoolsAsync(List<int> normalEnemyIndices, List<int> eliteEnemyIndices, List<int> bossEnemyIndices)
+    {
+        Debug.Log("<color=magenta> Enemy Pool Generate </color>");
+        yield return normalEnemyPoolSet.SetEnemyPoolAsync(normalEnemyPrefabs, normalEnemyIndices, 8);
+        yield return eliteEnemyPoolSet.SetEnemyPoolAsync(eliteEnemyPrefabs, eliteEnemyIndices, 2);
+        yield return bossEnemyPoolSet.SetEnemyPoolAsync(bossEnemyPrefabs, bossEnemyIndices, 1);
+    }
+
+    // Pool Dict 객체 값 -> 삭제 및 데이터 초기화
+    public IEnumerator DestoryEnemyPoolsAsync()
+    {
+        Debug.Log("<color=magenta> Enemy Pool Destroy </color>");
+
+        yield return normalEnemyPoolSet.DestoryEnemyPoolAsync();
+        yield return eliteEnemyPoolSet.DestoryEnemyPoolAsync();
+        yield return bossEnemyPoolSet.DestoryEnemyPoolAsync();
+    }
+
+
+    // Centralized
     private void Update()
     {
-        HandleChargeSkill();
-    }
-
-    private void HandleChargeSkill()
-    {
         float dt = Time.deltaTime;
-        for (int i = 0; i < normalEnemyPools.Count; i++)
-            HandleChargeSkill(normalEnemyPools[i], dt);
-        for (int i = 0; i < eliteEnemyPools.Count; i++)
-            HandleChargeSkill(eliteEnemyPools[i], dt);
-        for (int i = 0; i < bossEnemyPools.Count; i++)
-            HandleChargeSkill(bossEnemyPools[i], dt);
+        normalEnemyPoolSet.HandleUpdate(dt);
+        eliteEnemyPoolSet.HandleUpdate(dt);
+        bossEnemyPoolSet.HandleUpdate(dt);
     }
 
-    private void HandleChargeSkill<T>(PoolSystem<T> pool, float dt) where T : EnemyController
-    {
-        var objs = pool.objs;
-        var activeIndices = pool.activeIndices;
-
-        for (int i = activeIndices.Count - 1; i >= 0; i--)
-        {
-            objs[activeIndices[i]].HandleChargeSkill(dt);
-            objs[activeIndices[i]].HandleLookAtTarget();
-        }
-    }
-
-
-    // Centralized FixedUpdate
     private void FixedUpdate()
     {
-        HandleMovement();
-    }
-
-    private void HandleMovement()
-    {
         float fdt = Time.fixedDeltaTime;
-
-        for (int i = 0; i < normalEnemyPools.Count; i++)
-            HandleMovement(normalEnemyPools[i], fdt);
-        for (int i = 0; i < eliteEnemyPools.Count; i++)
-            HandleMovement(eliteEnemyPools[i], fdt);
-        for (int i = 0; i < bossEnemyPools.Count; i++)
-            HandleMovement(bossEnemyPools[i], fdt);
+        normalEnemyPoolSet.HandleFixedUpdate(fdt);
+        eliteEnemyPoolSet.HandleFixedUpdate(fdt);
+        bossEnemyPoolSet.HandleFixedUpdate(fdt);
     }
 
-    private void HandleMovement<T>(PoolSystem<T> pool, float fdt) where T : EnemyController
-    {
-        var objs = pool.objs;
-        var activeIndices = pool.activeIndices;
-
-        for (int i = activeIndices.Count - 1; i >= 0; i--)
-        {
-            objs[activeIndices[i]].HandleMovement(fdt);
-        }
-    }
 
     #region Spawn & Remove
 
     // Normal
-    public NormalEnemyController SpawnNormalEnemy(int enemyId) => normalEnemyPools[enemyId].Dequeue();
-    public void RemoveNormalEnemy(NormalEnemyController enemy, int enemyId) => normalEnemyPools[enemyId].Enqueue(enemy);
+    public NormalEnemyController SpawnNormalEnemy(int enemyId) => normalEnemyPoolSet.dict[enemyId].Dequeue();
+    public void RemoveNormalEnemy(NormalEnemyController enemy, int enemyId) => normalEnemyPoolSet.dict[enemyId].Enqueue(enemy);
 
     // Elite
-    public EliteEnemyController SpawnEliteEnemy(int enemyId) => eliteEnemyPools[enemyId].Dequeue();
-    public void RemoveEliteEnemy(EliteEnemyController enemy, int enemyId) => eliteEnemyPools[enemyId].Enqueue(enemy);
+    public EliteEnemyController SpawnEliteEnemy(int enemyId) => eliteEnemyPoolSet.dict[enemyId].Dequeue();
+    public void RemoveEliteEnemy(EliteEnemyController enemy, int enemyId) => eliteEnemyPoolSet.dict[enemyId].Enqueue(enemy);
 
     // Boss
-    public BossEnemyController SpawnBossEnemy(int enemyId) => bossEnemyPools[enemyId].Dequeue();
-    public void RemoveBossEnemy(BossEnemyController enemy, int enemyId) => bossEnemyPools[enemyId].Enqueue(enemy);
+    public BossEnemyController SpawnBossEnemy(int enemyId) => bossEnemyPoolSet.dict[enemyId].Dequeue();
+    public void RemoveBossEnemy(BossEnemyController enemy, int enemyId) => bossEnemyPoolSet.dict[enemyId].Enqueue(enemy);
 
 
     public EnemyController SpawnEnemy(eEnemy type, int enemyId)
@@ -187,8 +240,8 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
 
     #region Prod
 
-    public Sprite GetEliteProdSprite(int id) => eliteEnemyPools[id].Prefab.battleProdSprite;
-    public Sprite GetBossProdSprite(int id) => bossEnemyPools[id].Prefab.battleProdSprite;
+    public Sprite GetEliteProdSprite(int id) => eliteEnemyPoolSet.dict[id].Prefab.battleProdSprite;
+    public Sprite GetBossProdSprite(int id) => bossEnemyPoolSet.dict[id].Prefab.battleProdSprite;
 
     #endregion
 
@@ -197,7 +250,7 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // 가장 가까운 적 찾기
     public EnemyController Get_ClosestEnemy(GameObject targetGO)
     {
-        if (currentEnemyList.Count == 0) return null; 
+        if (currentEnemyList.Count == 0) return null;
 
         return DevTool.Get_ComponentTType<EnemyController>(
             DevTool.Get_ClosetGO(
@@ -220,7 +273,7 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // 가장 먼 적 찾기
     public EnemyController Get_FurthestEnemy(GameObject targetGO)
     {
-        if (currentEnemyList.Count == 0) return null; 
+        if (currentEnemyList.Count == 0) return null;
 
         return DevTool.Get_ComponentTType<EnemyController>(
             DevTool.Get_FurthestGO(
@@ -231,7 +284,7 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // 일정 구역 내 모든 적 찾기 (가까운 순서대로)
     public List<EnemyController> Get_CloserEnemies(GameObject targetGO, float maxDis)
     {
-        if (currentEnemyList.Count == 0) return null; 
+        if (currentEnemyList.Count == 0) return null;
 
         return DevTool.Get_ComponentTTypeList<EnemyController>(
             DevTool.Get_CloserGOList(
@@ -241,7 +294,7 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // 일정 구역 외 모든 적 찾기 (먼 순서대로)
     public List<EnemyController> Get_FurtherEnemies(GameObject targetGO, float minDis)
     {
-        if (currentEnemyList.Count == 0) return null; 
+        if (currentEnemyList.Count == 0) return null;
 
         return DevTool.Get_ComponentTTypeList<EnemyController>(
            DevTool.Get_FurtherGOList(
@@ -275,7 +328,7 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
         currentBossEnemy = bossEnemy;
         Set_SpecialEnemyHUD();
     }
-    
+
     public void SetOff_BossEnemy()
     {
         currentBossEnemy = null;
@@ -294,10 +347,10 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
             currentBossEnemy.Set_HUDPanelPos();
             index++;
         }
-        
+
         for (int i = 0; i < currentEliteEnemyList.Count; i++)
         {
-            currentEliteEnemyList[i].Set_HUDPanelPos(index); 
+            currentEliteEnemyList[i].Set_HUDPanelPos(index);
             index++;
         }
     }

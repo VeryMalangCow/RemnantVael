@@ -79,7 +79,7 @@ public class RoomRuleController : MonoBehaviour
 
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
-            if (inRoom_AllEnemySpawn[i].Get_EnemyType() == eEnemy.Elite)
+            if (inRoom_AllEnemySpawn[i].GetEnemyType() == eEnemy.Elite)
             {
                 eliteEnemyId = inRoom_AllEnemySpawn[i].Get_SpawnID();
                 return true;
@@ -98,7 +98,7 @@ public class RoomRuleController : MonoBehaviour
 
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
-            if (inRoom_AllEnemySpawn[i].Get_EnemyType() == eEnemy.Boss)
+            if (inRoom_AllEnemySpawn[i].GetEnemyType() == eEnemy.Boss)
             {
                 bossEnemyId = inRoom_AllEnemySpawn[i].Get_SpawnID();
                 return true;
@@ -156,9 +156,13 @@ public class RoomRuleController : MonoBehaviour
     {
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
+            if (inRoom_AllEnemySpawn[i] == null) Debug.Log("enemy is null");
+
             Vector2 spawnPos = inRoom_AllEnemySpawn[i].transform.position;
 
-            EnemyController enemy = EnemyManager.instance.SpawnEnemy(inRoom_AllEnemySpawn[i].Get_EnemyType(), inRoom_AllEnemySpawn[i].Get_SpawnID());
+            EnemyController enemy = EnemyManager.instance.SpawnEnemy(inRoom_AllEnemySpawn[i].GetEnemyType(), inRoom_AllEnemySpawn[i].Get_SpawnID());
+
+            if (enemy == null) Debug.Log("enemy is null");
 
             enemy.transform.position = spawnPos;
             enemy.gameObject.SetActive(true);
@@ -205,7 +209,7 @@ public class RoomRuleController : MonoBehaviour
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
             var spot = inRoom_AllEnemySpawn[i];
-            if (spot.Get_EnemyType() == eEnemy.Boss)
+            if (spot.GetEnemyType() == eEnemy.Boss)
             {
                 spot.SetSpawnID(id);
             }
@@ -217,10 +221,42 @@ public class RoomRuleController : MonoBehaviour
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
             var spot = inRoom_AllEnemySpawn[i];
-            if (spot.Get_EnemyType() == eEnemy.Elite)
+            if (spot.GetEnemyType() == eEnemy.Elite)
             {
                 spot.SetSpawnID(id);
             }
         }
+    }
+
+    public void SetEnemyId(List<int> normalEnemyIndices = null, int eliteId = -1, int bossId = -1)
+    {
+        if (inRoom_AllEnemySpawn == null || inRoom_AllEnemySpawn.Count == 0)
+            return;
+
+        string s = "";
+        for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
+        {
+            var spot = inRoom_AllEnemySpawn[i];
+            if (spot == null)
+                continue;
+
+            
+            var type = spot.GetEnemyType();
+            if (type == eEnemy.Normal && normalEnemyIndices != null)
+            {
+                int id = normalEnemyIndices[Random.Range(0, normalEnemyIndices.Count)];
+                s += $"<color=magenta>{id}</color> / ";
+                spot.SetSpawnID(id);
+            }
+            else if (type == eEnemy.Boss && bossId != -1)
+            {
+                spot.SetSpawnID(bossId);
+            }
+            else if (type == eEnemy.Elite && eliteId != -1)
+            {
+                spot.SetSpawnID(eliteId);
+            }
+        }
+        Debug.Log(s);
     }
 }

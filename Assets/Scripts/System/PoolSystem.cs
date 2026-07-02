@@ -12,12 +12,18 @@ public class PoolSystem<T> where T : MonoBehaviour, IPoolable
 
     public T[] objs { get; private set; }
     private Stack<int> freeIndices;
-    public List<int> activeIndices { get; private set; }
+    public List<int> activeIndices { get; private set; } = new List<int>();
 
     // 코루틴 기반 순차 생성 (초기화 스파이크 방지 -> 초기에만 실행될 것)
-    public IEnumerator InitAsync(Transform _parentTf, int size, float maxMsPerFrame = 1f)
+    public IEnumerator InitAsync(T prefab, Transform parentTf, int size, float maxMsPerFrame = 1f)
     {
-        parentTf = _parentTf;
+        this.prefab = prefab;
+        yield return InitAsync(parentTf, size, maxMsPerFrame);
+    }
+
+    public IEnumerator InitAsync(Transform parentTf, int size, float maxMsPerFrame = 1f)
+    {
+        this.parentTf = parentTf;
         yield return InitAsync(size, maxMsPerFrame);
     }
 
@@ -174,12 +180,42 @@ public class PoolSystem<T> where T : MonoBehaviour, IPoolable
         }
     }
 
+    // 모두 복귀 시키기
     public void ReturnAll()
     {
         for (int i = activeIndices.Count - 1; i >= 0; i--)
         {
             Enqueue(objs[activeIndices[i]]);
         }
+    }
+
+    // 객체 삭제
+    public IEnumerator DestroyAsync(float maxMsPerFrame = 1f)
+    {
+        ReturnAll();
+
+        Stopwatch sw = Stopwatch.StartNew();
+
+        for (int i = 0; i < objs.Length; i++)
+        {
+            if (objs[i] != null)
+            {
+                Object.Destroy(objs[i].gameObject);
+                objs[i] = null;
+            }
+
+            if (sw.Elapsed.TotalMilliseconds >= maxMsPerFrame)
+            {
+                yield return null;
+                sw.Restart();
+            }
+        }
+
+        objs = null;
+        freeIndices = null;
+        activeIndices = null;
+        prefab = null;
+        parentTf = null;
     }
 }
 
