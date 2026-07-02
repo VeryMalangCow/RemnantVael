@@ -9,17 +9,17 @@ public class StageGeneratePreviewEditor : Editor
     private const float PreviewHeight = 240f;
     private const float Padding = 12f;
 
-    private static Dictionary<StageGridGenerator.RoomGridType, Color> clrDict = new Dictionary<StageGridGenerator.RoomGridType, Color> 
+    private static Dictionary<RoomGridType, Color> clrDict = new Dictionary<RoomGridType, Color> 
     {
-        { StageGridGenerator.RoomGridType.normal, new Color(0.8f, 0.8f, 0.8f) },
-        { StageGridGenerator.RoomGridType.elite, new Color(0.75f, 0.5f, 1.0f) },
-        { StageGridGenerator.RoomGridType.boss, new Color(0.5f, 0.0f, 1.0f) },
-        { StageGridGenerator.RoomGridType.vault, new Color(1.0f, 0.5f, 0.0f) },
-        { StageGridGenerator.RoomGridType.baseShop, new Color(0.0f, 1.0f, 0.0f) },
-        { StageGridGenerator.RoomGridType.allyShop, new Color(0.0f, 0.5f, 0.0f) },
-        { StageGridGenerator.RoomGridType.stPrison, new Color(1.0f, 0.0f, 0.0f) },
-        { StageGridGenerator.RoomGridType.utPrison, new Color(1.0f, 1.0f, 0.0f) },
-        { StageGridGenerator.RoomGridType.ntPrison, new Color(0.0f, 1.0f, 1.0f) },
+        { RoomGridType.normal, new Color(0.8f, 0.8f, 0.8f) },
+        { RoomGridType.elite, new Color(0.75f, 0.5f, 1.0f) },
+        { RoomGridType.boss, new Color(0.5f, 0.0f, 1.0f) },
+        { RoomGridType.vault, new Color(1.0f, 0.5f, 0.0f) },
+        { RoomGridType.baseShop, new Color(0.0f, 1.0f, 0.0f) },
+        { RoomGridType.allyShop, new Color(0.0f, 0.5f, 0.0f) },
+        { RoomGridType.stPrison, new Color(1.0f, 0.0f, 0.0f) },
+        { RoomGridType.utPrison, new Color(1.0f, 1.0f, 0.0f) },
+        { RoomGridType.ntPrison, new Color(0.0f, 1.0f, 1.0f) },
     };
 
     private static Color startClr = new Color(1f, 1f, 1f);
@@ -51,15 +51,15 @@ public class StageGeneratePreviewEditor : Editor
         EditorGUILayout.LabelField("Room Type", EditorStyles.boldLabel);
 
         DrawLegendItem(startClr, "Start Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.normal], "Normal Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.elite], "Elite Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.boss], "Boss Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.vault], "Vault Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.baseShop], "BaseShop Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.allyShop], "AllyShop Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.stPrison], "ST Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.utPrison], "UT Room");
-        DrawLegendItem(clrDict[StageGridGenerator.RoomGridType.ntPrison], "NT Room");
+        DrawLegendItem(clrDict[RoomGridType.normal], "Normal Room");
+        DrawLegendItem(clrDict[RoomGridType.elite], "Elite Room");
+        DrawLegendItem(clrDict[RoomGridType.boss], "Boss Room");
+        DrawLegendItem(clrDict[RoomGridType.vault], "Vault Room");
+        DrawLegendItem(clrDict[RoomGridType.baseShop], "BaseShop Room");
+        DrawLegendItem(clrDict[RoomGridType.allyShop], "AllyShop Room");
+        DrawLegendItem(clrDict[RoomGridType.stPrison], "ST Room");
+        DrawLegendItem(clrDict[RoomGridType.utPrison], "UT Room");
+        DrawLegendItem(clrDict[RoomGridType.ntPrison], "NT Room");
 
         EditorGUILayout.EndVertical();
 
@@ -103,7 +103,7 @@ public class StageGeneratePreviewEditor : Editor
 
 
 
-    private void DrawRoomPreview(IReadOnlyList<StageGridGenerator.RoomGrid> rooms)
+    private void DrawRoomPreview(IReadOnlyList<RoomGrid> rooms)
     {
         Rect previewRect = EditorGUILayout.GetControlRect(
             false,
@@ -168,7 +168,7 @@ public class StageGeneratePreviewEditor : Editor
 
 
 
-    private void DrawRoomBlock(StageGridGenerator.RoomGrid roomData, int minX, int maxY, float startX, float startY, float cellSize)
+    private void DrawRoomBlock(RoomGrid roomData, int minX, int maxY, float startX, float startY, float cellSize)
     {
         if (roomData == null || roomData.roomPos == null)
             return;
@@ -266,7 +266,7 @@ public class StageGeneratePreviewEditor : Editor
         }
     }
 
-    private void GetBounds(IReadOnlyList<StageGridGenerator.RoomGrid> rooms, out int minX, out int maxX, out int minY, out int maxY)
+    private void GetBounds(IReadOnlyList<RoomGrid> rooms, out int minX, out int maxX, out int minY, out int maxY)
     {
         minX = int.MaxValue;
         maxX = int.MinValue;
@@ -313,7 +313,7 @@ public class StageGeneratePreviewEditor : Editor
 
 
     private void DrawRoomGates(
-        StageGridGenerator.RoomGrid roomData,
+        RoomGrid roomData,
         int minX,
         int maxY,
         float startX,
@@ -325,7 +325,7 @@ public class StageGeneratePreviewEditor : Editor
 
         for (int i = 0; i < roomData.gates.Count; i++)
         {
-            StageGridGenerator.GateGrid gate = roomData.gates[i];
+            GateGrid gate = roomData.gates[i];
 
             Rect cellRect = GetCellRect(
                 gate.pos,

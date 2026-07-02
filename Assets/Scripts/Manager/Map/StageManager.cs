@@ -4,6 +4,123 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
+
+#region Class & Struct
+
+// 방 그리드
+public class RoomGrid
+{
+    public int instanceId;
+    public int typeId;
+    public Vector2Int[] roomPos;
+    public RoomGridType roomType;
+
+    public List<GateGrid> gates;
+
+    public int eliteIndex = -1;
+
+    public RoomGrid(int instanceId, int typeId, int roomPosLength, RoomGridType roomType)
+    {
+        this.instanceId = instanceId;
+        this.typeId = typeId;
+        this.roomPos = new Vector2Int[roomPosLength];
+        this.gates = new List<GateGrid>();
+        this.roomType = roomType;
+    }
+
+
+    public RoomGrid(RoomGrid other)
+    {
+        instanceId = other.instanceId;
+        typeId = other.typeId;
+        roomType = other.roomType;
+
+        roomPos = (Vector2Int[])other.roomPos.Clone();
+
+        gates = new List<GateGrid>(other.gates.Count);
+        for (int i = 0; i < other.gates.Count; i++)
+            gates.Add(new GateGrid(other.gates[i]));
+    }
+}
+
+public class BossRoomGrid : RoomGrid
+{
+    public BossRoomIndex bossRoomIndex;
+
+    public BossRoomGrid(int instanceId, int typeId, int roomPosLenght, RoomGridType roomType, BossRoomIndex bossRoomIndex) : base(instanceId, typeId, roomPosLenght, roomType)
+    {
+        this.bossRoomIndex = bossRoomIndex;
+    }
+
+    public BossRoomGrid(BossRoomGrid other): base(other)
+    {
+        bossRoomIndex = other.bossRoomIndex;
+    }
+}
+
+public struct BossRoomIndex
+{
+    public int bossIndex;
+    public int nextStageIndex;
+
+    public BossRoomIndex(int bossIndex, int nextStageIndex)
+    {
+        this.bossIndex = bossIndex;
+        this.nextStageIndex = nextStageIndex;
+    }
+}
+
+
+// 게이트 그리드
+public class GateGrid
+{
+    public Vector2Int pos;
+    public Vector2Int dir;
+
+    public int ownerRoom;
+    public int connectedRoom;
+
+    public GateGrid connectedGate;
+    public GateGrid(Vector2Int pos, Vector2Int dir, int ownerRoom, int connectedRoom)
+    {
+        this.pos = pos;
+        this.dir = dir;
+
+        this.ownerRoom = ownerRoom;
+        this.connectedRoom = connectedRoom;
+
+        this.connectedGate = null;
+    }
+
+    public GateGrid(GateGrid other)
+    {
+        pos = other.pos;
+        dir = other.dir;
+        connectedRoom = other.connectedRoom;
+    }
+}
+
+
+// 예약 방 구조
+public struct ReserveRoom
+{
+    public int typeId;
+    public RoomGridType roomType;
+
+    public ReserveRoom(int typeId, RoomGridType roomType)
+    {
+        this.typeId = typeId;
+        this.roomType = roomType;
+    }
+}
+
+public enum RoomGridType
+{
+    start, normal, vault, baseShop, allyShop, stPrison, utPrison, ntPrison, elite, boss
+}
+
+#endregion
 
 [Serializable]
 public class StageGridGenerator
@@ -28,19 +145,6 @@ public class StageGridGenerator
         public int[] enemyIndices;
     }
 
-    public struct BossRoomIndex
-    {
-        public int bossIndex;
-        public int nextStageIndex;
-
-        public BossRoomIndex(int bossIndex, int nextStageIndex)
-        {
-            this.bossIndex = bossIndex;
-            this.nextStageIndex = nextStageIndex;
-        }
-    }
-
-
     public struct RoomPercent
     {
         public int typeIndex;
@@ -51,80 +155,6 @@ public class StageGridGenerator
             this.typeIndex = typeIndex;
             this.percent = percent;
         }
-    }
-
-
-    // 방 그리드
-    public class RoomGrid
-    {
-        public int instanceId;
-        public int typeId;
-        public Vector2Int[] roomPos;
-        public RoomGridType roomType;
-
-        public List<GateGrid> gates;
-
-        public int eliteIndex = -1;
-
-        public RoomGrid(int instanceId, int typeId, int roomPosLength, RoomGridType roomType)
-        {
-            this.instanceId = instanceId;
-            this.typeId = typeId;
-            this.roomPos = new Vector2Int[roomPosLength];
-            this.gates = new List<GateGrid>();
-            this.roomType = roomType;
-        }
-    }
-
-    public class BossRoomGrid : RoomGrid
-    {
-        public BossRoomIndex bossRoomIndex;
-
-        public BossRoomGrid(int instanceId, int typeId, int roomPosLenght, RoomGridType roomType, BossRoomIndex bossRoomIndex) : base(instanceId, typeId, roomPosLenght, roomType)
-        {
-            this.bossRoomIndex = bossRoomIndex;
-        }
-    }
-
-
-    // 게이트 그리드
-    public class GateGrid
-    {
-        public Vector2Int pos;
-        public Vector2Int dir;
-
-        public int ownerRoom;
-        public int connectedRoom;
-
-        public GateGrid connectedGate;
-        public GateGrid(Vector2Int pos, Vector2Int dir, int ownerRoom, int connectedRoom)
-        {
-            this.pos = pos;
-            this.dir = dir;
-
-            this.ownerRoom = ownerRoom;
-            this.connectedRoom = connectedRoom;
-
-            this.connectedGate = null;
-        }
-    }
-
-    // 예약 방 구조
-    public struct ReserveRoom
-    {
-        public int typeId;
-        public RoomGridType roomType;
-
-        public ReserveRoom(int typeId, RoomGridType roomType)
-        {
-            this.typeId = typeId;
-            this.roomType = roomType;
-        }
-    }
-
-    public enum RoomGridType
-    {
-        start, normal, vault, baseShop, allyShop, stPrison, utPrison, ntPrison, elite, boss
     }
 
     #endregion
@@ -192,6 +222,12 @@ public class StageGridGenerator
     // Elite
     private List<RoomGrid> eliteRoomCandidateRoomCache = new List<RoomGrid>(4);
     private List<int> eliteRoomIndices = new List<int>(4);
+
+
+#if UNITY_EDITOR
+    private readonly StageGridSnapshotRecorder snapshotRecorder = new();
+    public StageGridSnapshotRecorder SnapshotRecorder => snapshotRecorder;
+#endif
 
     #endregion
 
@@ -369,6 +405,9 @@ public class StageGridGenerator
     // Generate <All Type Room>
     private IEnumerator GenerateRoomGrid()
     {
+#if UNITY_EDITOR
+        snapshotRecorder.Clear();
+#endif
         int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
         BuildSpecialRooms(SaveDataManager.instance.jsonData.gameProgressData);
 
@@ -396,6 +435,9 @@ public class StageGridGenerator
                     if (GenerateEliteRoomGrid())
                     {
                         GenerateGateGrid();
+#if UNITY_EDITOR
+                        RecordSnapshot(StageGridSnapshotStep.Complete);
+#endif
                         success = true;
                     }
 #if UNITY_EDITOR
@@ -643,12 +685,13 @@ public class StageGridGenerator
         for (i = 0; i < existLength; i++)
             roundPositions.Remove(tempAddExistPositions[i]);
 
-        return true;
-    }
+#if UNITY_EDITOR
+        RecordSnapshot(
+            StageGridSnapshotStep.Normal,
+            room.instanceId,
+            pos);
+#endif
 
-    // Cast Elite Room
-    private bool CastEliteRoom()
-    {
         return true;
     }
 
@@ -663,6 +706,11 @@ public class StageGridGenerator
         int nextRoomId = startRoomId;
 
         CollectSpecialCandidatePositions();
+
+#if UNITY_EDITOR
+        RecordSnapshot(StageGridSnapshotStep.SpecialCandidate);
+#endif
+
         BuildSortedSpecialCandidateListByDistance();
 
         // 1. 보스방 먼저 배치
@@ -874,6 +922,15 @@ public class StageGridGenerator
         // 5. 특수방 후보 리스트에서 불가능해진 좌표 제거
         InvalidateSpecialCandidatesAroundPlacedRoom(existLength, roundLength);
 
+#if UNITY_EDITOR
+        RecordSnapshot(
+            roomType == RoomGridType.boss
+                ? StageGridSnapshotStep.BossRoom
+                : StageGridSnapshotStep.SpecialRoom,
+            room.instanceId,
+            basePos);
+#endif
+
         return true;
     }
 
@@ -1031,6 +1088,10 @@ public class StageGridGenerator
             eliteRoomIndices.RemoveAt(eliteRoomIndices.Count - 1);
         }
 
+#if UNITY_EDITOR
+        RecordSnapshot(StageGridSnapshotStep.EliteRoom);
+#endif
+
         return true;
     }
 
@@ -1061,6 +1122,10 @@ public class StageGridGenerator
         }
 
         ConnectFacingGates();
+
+#if UNITY_EDITOR
+        RecordSnapshot(StageGridSnapshotStep.Gate);
+#endif
     }
 
     // 하나의 Room에서 연결 구조 계산
@@ -1278,6 +1343,7 @@ public class StageGridGenerator
 
     #endregion
 
+    // Generate
 #if UNITY_EDITOR
 
     public void GenerateGridRoomDataTest() // Test
@@ -1293,15 +1359,17 @@ public class StageGridGenerator
             return;
 
         allRoomGrids.Clear();
-        int maxSuccess = 1000;
+        int maxSuccess = 100;
         int currentSuccess = 0;
         int currentFail = 0;
 
-        int maxTotalTry = 10000;
+        int maxTotalTry = 1000;
         int totalTry = 0;
 
         while (maxSuccess > currentSuccess && totalTry < maxTotalTry)
         {
+            snapshotRecorder.Clear();
+
             totalTry++;
             bool success = GenerateRoomGridTest();
             if (success)
@@ -1352,6 +1420,16 @@ public class StageGridGenerator
         return false;
     }
 
+#endif
+
+    // Record (Snapshot)
+#if UNITY_EDITOR
+    private void RecordSnapshot(StageGridSnapshotStep step, int targetRoomId = -1,
+        Vector2Int focusPosition = default, string description = "")
+    {
+        snapshotRecorder.Record(step, allRoomGrids, targetRoomId,
+            focusPosition, description);
+    }
 #endif
 }
 
@@ -1422,7 +1500,7 @@ public class StageObjectGenerator
 #if UNITY_EDITOR
     private string generatorLogger;
 #endif
-    #endregion
+#endregion
 
     #region Init
 
@@ -1439,7 +1517,7 @@ public class StageObjectGenerator
     #region Generate
 
     // Lobby Or GamePlay 스테이지 생성
-    public IEnumerator GenStage(StageTheme stageTheme, int stageId, List<StageGridGenerator.RoomGrid> allRoomGrids, List<int> normalEnemyIndices)
+    public IEnumerator GenStage(StageTheme stageTheme, int stageId, List<RoomGrid> allRoomGrids, List<int> normalEnemyIndices)
     {
         ResetData();
 
@@ -1618,7 +1696,7 @@ public class StageObjectGenerator
 
     #region Generate - GamePlay
 
-    private IEnumerator GenerateGamePlayStage(List<StageGridGenerator.RoomGrid> allRoomGrids)
+    private IEnumerator GenerateGamePlayStage(List<RoomGrid> allRoomGrids)
     {
 #if UNITY_EDITOR
         generatorLogger = "GamePlay Generate\n";
@@ -1627,20 +1705,20 @@ public class StageObjectGenerator
         int entranceId = 0;
         for (int i = 0; i < allRoomGrids.Count; i++)
         {
-            StageGridGenerator.RoomGrid grid = allRoomGrids[i];
+            RoomGrid grid = allRoomGrids[i];
             Vector2Int pivot = grid.roomPos[0];
             switch (grid.roomType)
             {
-                case StageGridGenerator.RoomGridType.normal: yield return GenNormalRoom(grid, pivot); break;
-                case StageGridGenerator.RoomGridType.start: yield return GenStartRoom(grid, pivot); break;
-                case StageGridGenerator.RoomGridType.elite: yield return GenEliteRoom(grid, pivot); break;
-                case StageGridGenerator.RoomGridType.boss: yield return GenEntranceRoom(grid, pivot, entranceId++); break;
-                case StageGridGenerator.RoomGridType.vault: yield return GenVaultRoom(grid, pivot); break;
-                case StageGridGenerator.RoomGridType.baseShop: yield return GenShopRoom(grid, pivot); break;
-                case StageGridGenerator.RoomGridType.allyShop: yield return GenAllyShopRoom(grid, pivot); break;
-                case StageGridGenerator.RoomGridType.stPrison: yield return GenPrisonRoom(grid, pivot, 0); break;
-                case StageGridGenerator.RoomGridType.utPrison: yield return GenPrisonRoom(grid, pivot, 1); break;
-                case StageGridGenerator.RoomGridType.ntPrison: yield return GenPrisonRoom(grid, pivot, 2); break;
+                case RoomGridType.normal: yield return GenNormalRoom(grid, pivot); break;
+                case RoomGridType.start: yield return GenStartRoom(grid, pivot); break;
+                case RoomGridType.elite: yield return GenEliteRoom(grid, pivot); break;
+                case RoomGridType.boss: yield return GenEntranceRoom(grid, pivot, entranceId++); break;
+                case RoomGridType.vault: yield return GenVaultRoom(grid, pivot); break;
+                case RoomGridType.baseShop: yield return GenShopRoom(grid, pivot); break;
+                case RoomGridType.allyShop: yield return GenAllyShopRoom(grid, pivot); break;
+                case RoomGridType.stPrison: yield return GenPrisonRoom(grid, pivot, 0); break;
+                case RoomGridType.utPrison: yield return GenPrisonRoom(grid, pivot, 1); break;
+                case RoomGridType.ntPrison: yield return GenPrisonRoom(grid, pivot, 2); break;
             }
 
         }
@@ -1657,7 +1735,7 @@ public class StageObjectGenerator
     #region Generate - GamePlay - Room
 
     // 시작 방 생성
-    private IEnumerator GenStartRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
+    private IEnumerator GenStartRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew(); 
@@ -1695,7 +1773,7 @@ public class StageObjectGenerator
     }
 
     // 기본 방 생성
-    private IEnumerator GenNormalRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
+    private IEnumerator GenNormalRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew(); 
@@ -1736,7 +1814,7 @@ public class StageObjectGenerator
     }
 
     // 엘리트 적 방 생성
-    private IEnumerator GenEliteRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
+    private IEnumerator GenEliteRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
@@ -1778,7 +1856,7 @@ public class StageObjectGenerator
 
 
     // 통과 방 생성
-    private IEnumerator GenEntranceRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos, int entranceId)
+    private IEnumerator GenEntranceRoom(RoomGrid grid, Vector2Int pos, int entranceId)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew(); 
@@ -1811,7 +1889,7 @@ public class StageObjectGenerator
 
         SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
 
-        if (grid is StageGridGenerator.BossRoomGrid bossGrid)
+        if (grid is BossRoomGrid bossGrid)
         {
             var indexData = bossGrid.bossRoomIndex;
             roomRule.SetElevatorData(indexData.nextStageIndex);
@@ -1825,7 +1903,7 @@ public class StageObjectGenerator
     }
 
     // 금고 방 생성
-    private IEnumerator GenVaultRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
+    private IEnumerator GenVaultRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew(); 
@@ -1879,7 +1957,7 @@ public class StageObjectGenerator
     }
 
     // 상점 방 생성
-    private IEnumerator GenShopRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
+    private IEnumerator GenShopRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew(); 
@@ -1937,7 +2015,7 @@ public class StageObjectGenerator
     }
 
     // 동료 상점 방 생성
-    private IEnumerator GenAllyShopRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos)
+    private IEnumerator GenAllyShopRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew(); 
@@ -1997,7 +2075,7 @@ public class StageObjectGenerator
     }
 
     // 감옥 방 생성
-    private IEnumerator GenPrisonRoom(StageGridGenerator.RoomGrid grid, Vector2Int pos, int prisonTypeId)
+    private IEnumerator GenPrisonRoom(RoomGrid grid, Vector2Int pos, int prisonTypeId)
     {
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
@@ -2143,7 +2221,7 @@ public class StageObjectGenerator
     }
 
     // 게이트 연결 시도
-    private void TryConnectGate(List<StageGridGenerator.RoomGrid> allRoomGrids)
+    private void TryConnectGate(List<RoomGrid> allRoomGrids)
     {
         if (allRoomGrids == null || allRoomGrids.Count == 0)
             return;
@@ -2152,7 +2230,7 @@ public class StageObjectGenerator
 
         for (int i = 0; i < allRoomGrids.Count; i++)
         {
-            StageGridGenerator.RoomGrid grid = allRoomGrids[i];
+            RoomGrid grid = allRoomGrids[i];
 
             if (grid.instanceId < 0 || grid.instanceId >= currentAllRoomController.Count)
                 continue;
@@ -2161,7 +2239,7 @@ public class StageObjectGenerator
 
             for (int j = 0; j < grid.gates.Count; j++)
             {
-                StageGridGenerator.GateGrid gateGrid = grid.gates[j];
+                GateGrid gateGrid = grid.gates[j];
 
                 if (gateGrid.connectedGate == null)
                     continue;
@@ -2178,14 +2256,14 @@ public class StageObjectGenerator
                 if (gate.parterGate != null)
                     continue;
 
-                StageGridGenerator.RoomGrid connectedGrid = allRoomGrids[gateGrid.connectedRoom];
+                RoomGrid connectedGrid = allRoomGrids[gateGrid.connectedRoom];
 
                 if (connectedGrid.instanceId < 0 || connectedGrid.instanceId >= currentAllRoomController.Count)
                     continue;
 
                 RoomController connectedRoom = currentAllRoomController[connectedGrid.instanceId];
 
-                StageGridGenerator.GateGrid partnerGateGrid = gateGrid.connectedGate;
+                GateGrid partnerGateGrid = gateGrid.connectedGate;
 
                 // 연결된 방 기준 로컬 게이트 좌표
                 Vector2Int partnerLocalGatePos = partnerGateGrid.pos - connectedGrid.roomPos[0];
