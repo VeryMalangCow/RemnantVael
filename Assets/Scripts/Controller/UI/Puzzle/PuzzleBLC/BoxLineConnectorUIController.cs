@@ -169,7 +169,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_AllInnerColor(ResourceManager.instance.unlockedClr);
+        Set_AllInnerColor(StaticResourceManager.instance.BuildPrefab.prisonPrefab.unlockedClr);
 
         // Selecting
         selectingBoxCellEui = null;
@@ -200,7 +200,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
         for (int i = 0; i < allBoxConnectionEui.Length; i++)
             allBoxConnectionEui[i].SetActive(false);
 
-        Set_AllInnerColor(ResourceManager.instance.lockedClr);
+        Set_AllInnerColor(StaticResourceManager.instance.BuildPrefab.prisonPrefab.lockedClr);
 
         // Selecting
         selectingBoxCellEui = null;

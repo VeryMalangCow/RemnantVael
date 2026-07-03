@@ -8,18 +8,24 @@ public class ExplosionManager : Singleton<ExplosionManager>, IMainGameInitialize
     [SerializeField] private int initOrder;
     public string InitPregressText { get { return initPregressText; } }
     [SerializeField] private string initPregressText;
-    
+
     // Pool
-    [SerializeField] private PoolSystem<PlayerExplosionController> playerExplosionPool;
-    [SerializeField] private PoolSystem<AllyExplosionController> allyExplosionPool;
-    [SerializeField] private PoolSystem<EnemyExplosionController> enemyExplosionPool;
+    [Space(10)]
+    [SerializeField] private Transform playerExplosionTf;
+    [SerializeField] private Transform alluExplosionTf;
+    [SerializeField] private Transform enemyExplosionTf;
+
+    private PoolSystem<PlayerExplosionController> playerExplosionPool = new PoolSystem<PlayerExplosionController>();
+    private PoolSystem<AllyExplosionController> allyExplosionPool = new PoolSystem<AllyExplosionController>();
+    private PoolSystem<EnemyExplosionController> enemyExplosionPool = new PoolSystem<EnemyExplosionController>();
 
     // Init
     public IEnumerator Initialize()
     {
-        yield return playerExplosionPool.InitAsync(16, 8f);
-        yield return allyExplosionPool.InitAsync(16, 8f);
-        yield return enemyExplosionPool.InitAsync(16, 8f);
+        var prefab = StaticResourceManager.instance.ExplosionPrefab;
+        yield return playerExplosionPool.InitAsync(prefab.playerEplosionPrefab, playerExplosionTf, 16, 8f);
+        yield return allyExplosionPool.InitAsync(prefab.allyEplosionPrefab, alluExplosionTf, 16, 8f);
+        yield return enemyExplosionPool.InitAsync(prefab.enemyEplosionPrefab, enemyExplosionTf, 16, 8f);
 
         enabled = true;
     }

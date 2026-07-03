@@ -108,9 +108,10 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
+        Color clr = StaticResourceManager.instance.BuildPrefab.prisonPrefab.unlockedClr;
         for (int i = 0; i < allNscPanelEui.Length; i++)
         {
-            allNscPanelEui[i].Set_InnerColor(ResourceManager.instance.unlockedClr);
+            allNscPanelEui[i].Set_InnerColor(clr);
         }
     }
 
@@ -125,7 +126,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
             allNscPanelEui[i].Set_RollValueRandom();
             allNscPanelEui[i].Set_RandomAnswer();
 
-            allNscPanelEui[i].Set_InnerColor(ResourceManager.instance.lockedClr);
+            allNscPanelEui[i].Set_InnerColor(StaticResourceManager.instance.BuildPrefab.prisonPrefab.lockedClr);
         }
     }
 

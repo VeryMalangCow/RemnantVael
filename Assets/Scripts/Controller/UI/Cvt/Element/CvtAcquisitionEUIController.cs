@@ -149,7 +149,7 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     public void Play_SuccessComp()
     {
-        afterIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(true);
+        afterIconImg.sprite = StaticResourceManager.instance.BuildPrefab.cvtMaterialConditionIcon.typeSpecial;
         Play_AfterImg();
 
         Sequence seq = DOTween.Sequence();
@@ -160,7 +160,7 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     public void Play_FailComp()
     {
-        afterIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(false);
+        afterIconImg.sprite = StaticResourceManager.instance.BuildPrefab.cvtMaterialConditionIcon.typeBase;
         Play_AfterImg();
     }
 

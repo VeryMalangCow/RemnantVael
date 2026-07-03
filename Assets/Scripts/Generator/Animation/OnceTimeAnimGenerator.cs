@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class OnceTimeAnimGenerator : MonoBehaviour
 {
+    private Material enemyHittedExplosionMaterial;
+
+    private void Start()
+    {
+        enemyHittedExplosionMaterial = StaticResourceManager.instance.ExplosionPrefab.enemyHittedVfxMaterial;
+    }
+
     #region Player Attack
 
     // 적에게 공격이 명중했을 경우 (공격자 기준)
@@ -29,7 +36,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
         State_TF2D tf = new State_TF2D(
             spawnPos, DevTool.Get_FlipRotation(rot), Vector2.one);
         State_Sprite sprite = new State_Sprite(
-            ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
+            enemyHittedExplosionMaterial, Color.white);
 
         Gen_OOA().Start_Anim(anim, tf, sprite);
     }
@@ -47,7 +54,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
             State_TF2D tf = new State_TF2D(
                 spawnPos, DevTool.Add_RotZValue(rot, i == 0 ? -45 : 45), Vector2.one);
             State_Sprite sprite = new State_Sprite(
-                ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
+                enemyHittedExplosionMaterial, Color.white);
 
             Gen_OOA().Start_Anim(anim, tf, sprite);
         }
@@ -62,7 +69,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
         State_TF2D tf = new State_TF2D(
             spawnPos, DevTool.Add_RotZValue(Quaternion.identity, DevTool.Get_RandomValueBaseZero(45f)), Vector2.one * 2f);
         State_Sprite sprite = new State_Sprite(
-            ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
+            enemyHittedExplosionMaterial, Color.white);
 
         Gen_OOA().Start_Anim(anim, tf, sprite);
     }

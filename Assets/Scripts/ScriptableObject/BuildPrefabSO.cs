@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BuildPrefabSO", menuName = "ScriptableObject/BuildPrefabSO")]
@@ -29,11 +28,12 @@ public class BuildPrefabSO : ScriptableObject
     public OperatorBuild<PrisonPuzzleOperatorController> prisonPuzzleOperPrefab;
 
     [Space(40)]
-
+    public CoupleData<Sprite> cvtMaterialConditionIcon;
     public ConverterBuild<ConverterController> preminumCreditCvtPrefab;
     public ConverterBuild<ConverterController> protoCoreCvtPrefab;
     public ConverterBuild<ConverterController> EtherCoreCvtPrefab;
     public ConverterBuild<ConverterController> originCoreCvtPrefab;
+
     public ConverterBuild<ConverterController> GetConverter(int id)
     {
         switch (id)
@@ -45,8 +45,15 @@ public class BuildPrefabSO : ScriptableObject
 
             default: return null;
         }
-    } 
+    }
 
+    [Space(40)]
+    public Sprite durablityFrameSprite;
+    public Sprite durablityInnerSprite;
+
+    [Space(40)]
+    public Material explosionMaterial;
+    public Material durabilityMaterial;
 }
 
 [Serializable]
@@ -91,6 +98,10 @@ public class PrisonBuild
     public CoupleData<Material> material;
     public Material iconMaterial;
     public Material allyMaterial;
+    [Space(10)]
+    public Sprite spaceBarSprite;
+    public Color lockedClr;
+    public Color unlockedClr;
 
     [Serializable]
     public class PrisonEachBuild

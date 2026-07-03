@@ -48,12 +48,16 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     public void Set_AllStart(float currentCountdown, string secondString)
     {
-        DevTool.SetColor(ResourceManager.instance.lockedClr, failureAnnoTxt);
-        DevTool.SetColor(ResourceManager.instance.unlockedClr, successAnnoTxt);
+        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+        Color unlockClr = prefab.unlockedClr;
+        Color lockClr = prefab.lockedClr;
 
-        DevTool.SetColor(ResourceManager.instance.lockedClr, countdownPaneltyTxt);
+        DevTool.SetColor(unlockClr, failureAnnoTxt);
+        DevTool.SetColor(unlockClr, successAnnoTxt);
 
-        DevTool.SetColor(ResourceManager.instance.lockedClr, countdownTxt);
+        DevTool.SetColor(unlockClr, countdownPaneltyTxt);
+
+        DevTool.SetColor(unlockClr, countdownTxt);
         DevTool.Set_AlphaColor(countdownPaneltyTxt, 0f);
 
         unlockAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(28).Replace("\\n", "\n");

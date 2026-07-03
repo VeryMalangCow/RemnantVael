@@ -48,9 +48,17 @@ public class DestructibleBuildController : InteractableBuildController
     private void Offset_Durablity()
     {
         currentDur = maxDur;
+
+        Sprite frameSprite = StaticResourceManager.instance.BuildPrefab.durablityFrameSprite;
+        Material frameMaterial = StaticResourceManager.instance.BuildPrefab.durabilityMaterial;
+
+        Sprite innerSprite = StaticResourceManager.instance.BuildPrefab.durablityInnerSprite;
+        Material innerMaterial = StaticResourceManager.instance.BuildPrefab.durabilityMaterial;
+
         for (int i = 0; i < maxDur; i++)
         {
-            Gen_EachInnerUI(i, Gen_EachFrameUI(i).transform);
+
+            Gen_EachInnerUI(i, Gen_EachFrameUI(i, frameSprite, frameMaterial).transform, innerSprite, innerMaterial);
         }
     }
 
@@ -155,27 +163,16 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Gen
 
-    private SpriteRenderer Gen_EachFrameUI(int index)
+    private SpriteRenderer Gen_EachFrameUI(int index, Sprite sprite, Material material)
     {
-        SpriteRenderer frameSr = DevTool.Gen_Component_SR(
-                durParentTf,
-                "DurablityFrame_" + index,
-                ResourceManager.instance.buildingDurFrame,
-                ResourceManager.instance.Get_BuildMaterial("Durablity"),
-                stateAnim.sr.sortingOrder - 1);
-
+        SpriteRenderer frameSr = DevTool.Gen_Component_SR(durParentTf, "DurablityFrame_" + index, sprite, material, stateAnim.sr.sortingOrder - 1);
         Set_FrameUIPos(index, frameSr);
         return frameSr;
     }
 
-    private SpriteRenderer Gen_EachInnerUI(int index, Transform parentTf)
+    private SpriteRenderer Gen_EachInnerUI(int index, Transform parentTf, Sprite sprite, Material material)
     {
-        SpriteRenderer innerSr = DevTool.Gen_Component_SR(
-                parentTf,
-                "DurablityInner_" + index,
-                ResourceManager.instance.buildingDurInner,
-                ResourceManager.instance.Get_BuildMaterial("Durablity"),
-                stateAnim.sr.sortingOrder);
+        SpriteRenderer innerSr = DevTool.Gen_Component_SR(parentTf, "DurablityInner_" + index, sprite, material, stateAnim.sr.sortingOrder);
         Set_InnerUIPos(innerSr);
         return innerSr;
     }

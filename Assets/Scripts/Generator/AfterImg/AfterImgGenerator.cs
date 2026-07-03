@@ -74,6 +74,7 @@ public class AfterImgGenerator : MonoBehaviour
         afterSr.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
 
         afterSr.sprite = sr.sprite;
+        afterSr.material = sr.material;
         afterSr.sortingOrder = sr.sortingOrder - 1;
         afterSr.color = clr;
         afterSr.gameObject.transform.position = sr.transform.position;

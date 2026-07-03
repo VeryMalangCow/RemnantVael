@@ -37,6 +37,11 @@ public class VFXManager : Singleton<VFXManager>, IMainGameInitializer
         yield return dmgTxtPool.InitAsync(32, 8f);
         yield return buffIconPool.InitAsync(32, 8f);
 
+        player_ExplImgGenerator.gameObject.SetActive(true);
+        build_ExplImgGenerator.gameObject.SetActive(true);
+        enemy_ExplImgGenerator.gameObject.SetActive(true);
+        onceTime_AnimGenerator.gameObject.SetActive(true);
+
         yield return null;
 
         enabled = true;

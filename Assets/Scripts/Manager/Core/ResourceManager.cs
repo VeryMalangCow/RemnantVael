@@ -106,7 +106,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_Sprite()
     {
-        Offset_Sprite_Static();
         Offset_Sprite_Cutscene();
         Offset_Sprite_Dialogue();
         Offset_Sprite_Info();
@@ -117,11 +116,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_Ally();
         Offset_Sprite_PuzzleNSC();
         Offset_Sprite_Minimap();
-    }
-
-    private void Offset_Material()
-    {
-        Offset_Material_Static();
     }
 
     private void Offset_Anim()
@@ -137,7 +131,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Other();
         Offset_CSV();
         Offset_Sprite();
-        Offset_Material();
         Offset_Anim();
     }
 
@@ -298,127 +291,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public string[] Get_AllyRandomName(int id) => randomName_Data.Get_Words(id);
     public int Get_AllAllyRandomNameAmount() => randomName_Data.Get_Amount();
-
-    #endregion
-    #region Static (Sprite)
-
-    // Value
-    [HideInInspector] private Sprite[] enemyPhaseSpriteArr;
-    [HideInInspector] public Sprite buildingDurFrame { get; private set; }
-    [HideInInspector] public Sprite buildingDurInner { get; private set; }
-
-    [HideInInspector] public Sprite spaceBarSprite { get; private set; }
-    [HideInInspector] public Sprite mlbSprite { get; private set; }
-    [HideInInspector] public Sprite mrbSprite { get; private set; }
-
-    [HideInInspector] public Color lockedClr { get; private set; }
-    [HideInInspector] public Color unlockedClr;
-
-    [HideInInspector] public CoupleData<Sprite> cvtMaterialConditionIcon { get; private set; }
-
-    // Offset
-    private void Offset_Sprite_Static()
-    {
-        string path = "Sprite/";
-
-        #region Module UI
-
-        string moduleUIPath = path + "UI/ModuleUI/";
-        Sprite[] moduleUISprites = GetAsset_Arr<Sprite>(moduleUIPath, "ModuleUI_000");
-        cvtMaterialConditionIcon = new CoupleData<Sprite>(null, null);
-        for (int i = 0; i < moduleUISprites.Length; i++)
-        {
-            Sprite sprite = moduleUISprites[i];
-
-            if (sprite.name == "ModuleUI_Input_SpaceBar")
-                spaceBarSprite = sprite;
-            else if (sprite.name == "ModuleUI_MLB")
-                mlbSprite = sprite;
-            else if (sprite.name == "ModuleUI_MRB")
-                mrbSprite = sprite;
-
-            else if (sprite.name == "ModuleUI_13s_X")
-                cvtMaterialConditionIcon.typeBase = sprite;
-            else if (sprite.name == "ModuleUI_13s_O")
-                cvtMaterialConditionIcon.typeSpecial = sprite;
-        }
-
-        #endregion
-
-        #region Enemy
-
-        string enemyPath = path + "Enemy/";
-        enemyPhaseSpriteArr = new Sprite[3]; // 3
-        Sprite[] enemySprites = GetAsset_Arr<Sprite>(enemyPath, "Enemy00_000");
-        for (int i = 0; i < enemySprites.Length; i++)
-        {
-            Sprite sprite = enemySprites[i];
-
-            if (Get_InSpriteName(sprite, "Enemy_Icon_BossPhase_", out int index0))
-                enemyPhaseSpriteArr[index0] = sprite;
-        }
-
-        #endregion
-
-        #region Building
-
-        string buildingPath = path + "Building/";
-        Sprite[] building000Sprites = GetAsset_Arr<Sprite>(buildingPath, "Building_000");
-        for (int i = 0; i < building000Sprites.Length; i++)
-        {
-            Sprite sprite = building000Sprites[i];
-
-            if (sprite.name == "Building000_Durablity_Frame")
-                buildingDurFrame = sprite;
-            else if (sprite.name == "Building000_Durablity_Inner")
-                buildingDurInner = sprite;
-        }
-
-        #endregion
-
-        #region Color
-
-        ColorUtility.TryParseHtmlString("#C388FF", out Color lockedClr);
-        this.lockedClr = lockedClr;
-        ColorUtility.TryParseHtmlString("#FFFFFF", out Color unlockedClr);
-        this.unlockedClr = unlockedClr;
-
-        #endregion
-    }
-
-    // Get
-    public Sprite Get_BossPhaseSprite(int id) => enemyPhaseSpriteArr[id];
-
-    #endregion
-    #region Static (Material)
-
-    // Value
-    [HideInInspector] private Dictionary<string, Material> staticMaterialDict;
-
-    // Offset
-    private void Offset_Material_Static()
-    {
-        string path = "Material/";
-        string modulePath = path + "Module/";
-        string enemyPath = path + "Enemy/";
-        string buildPath = path + "Build/";
-
-        staticMaterialDict = new Dictionary<string, Material>()
-        {
-            { "Module_Explosion", GetAsset<Material>(modulePath, "Module_000_Explosion") },
-            { "Module_Hitted", GetAsset<Material>(modulePath, "Module_000_Hitted") },
-
-            { "Enemy_Explosion", GetAsset<Material>(enemyPath, "Enemy00_000") },
-
-            { "Build_Durablity", GetAsset<Material>(buildPath, "Build_000") }
-        };
-
-    }
-
-    // Get
-    public Material Get_ModuleMaterial(string name) => staticMaterialDict[$"Module_{name}"];
-    public Material Get_EnemyMaterial(string name) => staticMaterialDict[$"Enemy_{name}"];
-    public Material Get_BuildMaterial(string name) => staticMaterialDict[$"Build_{name}"];
 
     #endregion
     #region Static (Anim)

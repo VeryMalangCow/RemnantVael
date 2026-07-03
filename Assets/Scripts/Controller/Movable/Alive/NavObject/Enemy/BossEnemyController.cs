@@ -96,9 +96,9 @@ public class BossEnemyController : EnemyController
             Debug.Log("Boss Phase :" + actualCurrentPhase.thisPhase);
             // Play new Pattern by Phase
             StartCoroutine(Set_NewPhase(actualCurrentPhase));
-            
+
             // Icon
-            hudIcon.sprite = ResourceManager.instance.Get_BossPhaseSprite(actualCurrentPhase.thisPhase);
+            hudIcon.sprite = StaticResourceManager.instance.EnemyPrefab.enemyPhaseSprites[actualCurrentPhase.thisPhase];
             
             // Particle
             for (int i = 0; i < auraParticleGoList.Count; i++)

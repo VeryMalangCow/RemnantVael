@@ -4412,6 +4412,8 @@ MonoBehaviour:
   stagePrefab: {fileID: 11400000, guid: 56c47a3709e20ac4d9ddfa9d88766cbe, type: 2}
   stageIcon: {fileID: 11400000, guid: 9a44da07aefc56843a33772112800dd6, type: 2}
   buildPrefab: {fileID: 11400000, guid: 9fedfd798edb6094ba9735c756cbf1fa, type: 2}
+  enemyPrefab: {fileID: 11400000, guid: 43ed3a26209fd714a8357fcdd00ea663, type: 2}
+  explosionPrefab: {fileID: 11400000, guid: 47501166232b11f4e96b35f13ff78aff, type: 2}
 --- !u!4 &1081156649
 Transform:
   m_ObjectHideFlags: 0
@@ -4930,7 +4932,6 @@ MonoBehaviour:
   uplinkTeamString: 
   neoTeamString: 
   allyCardRateArr: []
-  unlockedClr: {r: 0, g: 0, b: 0, a: 0}
   keycardOutlineColorArr: []
 --- !u!4 &1463225871
 Transform:

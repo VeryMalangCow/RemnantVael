@@ -9,7 +9,14 @@ public class BuildExplImgGenerator : ExplosionImgGenerator
     [Header("<><><><><> Build")]
     [SerializeField] private List<Sprite> smokeSpriteList;
 
+    private Material explosionMaterial;
+
     #endregion
+
+    private void Start()
+    {
+        explosionMaterial = StaticResourceManager.instance.BuildPrefab.explosionMaterial;
+    }
 
     #region Build
 
@@ -19,7 +26,7 @@ public class BuildExplImgGenerator : ExplosionImgGenerator
         Gen_ExplImg_Circle(
             new ExplState(
                 new ExplState_Base(spawnPos, 24),
-                new ExplState_Sprite(smokeSpriteList, ResourceManager.instance.Get_ModuleMaterial("Explosion")),
+                new ExplState_Sprite(smokeSpriteList, explosionMaterial),
                 new ExplState_MoveAndScale(Vector2.zero, dis: 0.5f, scale: 1.0f, time: 0.075f, 0.025f),
                 new ExplState_MoveAndScale(Vector2.zero, dis: 1.2f, scale: 0.2f, time: 1.000f, 0.500f)));
     }
@@ -35,7 +42,7 @@ public class BuildExplImgGenerator : ExplosionImgGenerator
         Gen_ExplImg_Circle(
             new ExplState(
                 new ExplState_Base(spawnPos, 8),
-                new ExplState_Sprite(smokeSpriteList, ResourceManager.instance.Get_ModuleMaterial("Explosion")),
+                new ExplState_Sprite(smokeSpriteList, explosionMaterial),
                 new ExplState_MoveAndScale(Vector2.zero, dis: 0.25f, scale: 1.0f, time: 0.075f, 0.025f),
                 new ExplState_MoveAndScale(Vector2.zero, dis: 0.6f, scale: 0.2f, time: 1.000f, 0.500f)));
     }

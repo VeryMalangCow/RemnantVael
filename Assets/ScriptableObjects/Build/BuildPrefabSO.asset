@@ -123,6 +123,9 @@ MonoBehaviour:
       typeSpecial: {fileID: 2100000, guid: 2a2a3079596044d46bf17c9cd6719978, type: 2}
     iconMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
     allyMaterial: {fileID: 2100000, guid: b69e168e880c2da4a86a76f1a0b68723, type: 2}
+    spaceBarSprite: {fileID: -324453934, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    lockedClr: {r: 0.7647059, g: 0.53333336, b: 1, a: 1}
+    unlockedClr: {r: 1, g: 1, b: 1, a: 1}
   operOnOffAnimation:
     typeBase: {fileID: 7400000, guid: bcb3c17b5304bed4da82c5051bec1bb6, type: 2}
     typeSpecial: {fileID: 7400000, guid: 9ab7bb10d28890b468206898313b65cd, type: 2}
@@ -161,6 +164,9 @@ MonoBehaviour:
     panelMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
     annoIcon: {fileID: -1861517136, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
     annoMaterial: {fileID: 2100000, guid: 05c8548b31878a04ebef99554aa067c4, type: 2}
+  cvtMaterialConditionIcon:
+    typeBase: {fileID: -365479874, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    typeSpecial: {fileID: 1473322856, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   preminumCreditCvtPrefab:
     prefab: {fileID: 153570787937944512, guid: cfbba6fd9c0a6cb4eb97a7f87fd9aa4a, type: 3}
     animation: {fileID: 7400000, guid: 14e4de62f6a70db49bcca3c765d95b65, type: 2}
@@ -177,3 +183,7 @@ MonoBehaviour:
     prefab: {fileID: 6155403576657399224, guid: 6bed88d6c77b2a645b69567bd58bd08d, type: 3}
     animation: {fileID: 7400000, guid: 3c98f21a94d04b54c8cea3ea12a9c27d, type: 2}
     material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
+  durablityFrameSprite: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  durablityInnerSprite: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  explosionMaterial: {fileID: 2100000, guid: 05c8548b31878a04ebef99554aa067c4, type: 2}
+  durabilityMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}

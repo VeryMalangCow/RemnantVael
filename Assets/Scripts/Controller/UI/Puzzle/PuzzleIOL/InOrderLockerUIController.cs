@@ -150,7 +150,7 @@ public class InOrderLockerUIController : PuzzleUIController
         readyPanelEui.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(35));
 
         Set_AllDefault();
-        Set_InnerColor(ResourceManager.instance.lockedClr);
+        Set_InnerColor(StaticResourceManager.instance.BuildPrefab.prisonPrefab.lockedClr);
         Set_InteractableAmount(cellAmount);
     }
 
@@ -158,7 +158,7 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_InnerColor(ResourceManager.instance.unlockedClr);
+        Set_InnerColor(StaticResourceManager.instance.BuildPrefab.prisonPrefab.unlockedClr);
     }
 
     #endregion

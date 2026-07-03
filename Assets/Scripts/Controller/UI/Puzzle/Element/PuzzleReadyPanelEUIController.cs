@@ -73,12 +73,14 @@ public class PuzzleReadyPanelEUIController : ElementUIController
 
     public void Set_AllStart(float currentCountdown, string secondString)
     {
+        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+
         // Ready
         readyCg.alpha = 1f;
         readyCg.gameObject.SetActive(true);
         readyAnnoTxt.text = $"<< {ResourceManager.instance.Get_StaticWord(90)} >>";
         readyTimeLimitTxt.text = $"{(int)currentCountdown}{secondString}";
-        readyInputAnnoImg.sprite = ResourceManager.instance.spaceBarSprite;
+        readyInputAnnoImg.sprite = prefab.spaceBarSprite;
         readyKeyAnnoTxt.text = $"{ResourceManager.instance.Get_StaticWord(88)} : {ResourceManager.instance.Get_StaticWord(89)} & {ResourceManager.instance.Get_StaticWord(85)}";
 
         warningRt.anchoredPosition = new Vector2(ruleWarningXRtPos.typeBase, warningRt.anchoredPosition.y);
@@ -91,14 +93,16 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         readyKeyAnnoRt.localScale = Vector2.one;
 
         // Rule (Left)
-        DevTool.SetColor(ResourceManager.instance.unlockedClr, ruleTxt);
-        DevTool.SetColor(ResourceManager.instance.unlockedClr, ruleDescTxt);
+        Color unlockClr = prefab.unlockedClr;
+        DevTool.SetColor(unlockClr, ruleTxt);
+        DevTool.SetColor(unlockClr, ruleDescTxt);
 
         ruleTxt.text = $"< {ResourceManager.instance.Get_StaticWord(94)} >";
 
         // Warning (Right)
-        DevTool.SetColor(ResourceManager.instance.lockedClr, warningTxt);
-        DevTool.SetColor(ResourceManager.instance.lockedClr, warningDescTxt);
+        Color lockClr = prefab.lockedClr;
+        DevTool.SetColor(lockClr, warningTxt);
+        DevTool.SetColor(lockClr, warningDescTxt);
 
         warningTxt.text = $"< {ResourceManager.instance.Get_StaticWord(93)} >";
         warningDescTxt.text = ResourceManager.instance.Get_StaticDesc(32).Replace("\\n", "\n");

@@ -224,7 +224,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
             timePanelEui.Play_SuccessAnno(1f, 1f);
-            DevTool.SetColor(ResourceManager.instance.unlockedClr, timePanelEui.countdownTxt);
+            DevTool.SetColor(StaticResourceManager.instance.BuildPrefab.prisonPrefab.unlockedClr, timePanelEui.countdownTxt);
             StartCoroutine(Play_Unlock_Complete_Cor());
 
             return true;
