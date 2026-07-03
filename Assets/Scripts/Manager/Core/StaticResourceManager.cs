@@ -21,4 +21,8 @@ public class StaticResourceManager : PersistentSingleton<StaticResourceManager>
     [SerializeField] private ExplosionPrefabSO explosionPrefab;
     public ExplosionPrefabSO ExplosionPrefab => explosionPrefab;
 
+    [Header("=== Item")]
+    [SerializeField] private ItemIconSO itemIcon;
+    public ItemIconSO ItemIcon => itemIcon;
+
 }

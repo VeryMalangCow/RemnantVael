@@ -22,16 +22,12 @@ MonoBehaviour:
   mapDoorAnim:
   - dir: {x: 0, y: -1}
     doorAnim: {fileID: 7400000, guid: 1c249b8fb21ab16409ac647a74f9d435, type: 2}
-    materialIndex: 0
   - dir: {x: -1, y: 0}
     doorAnim: {fileID: 7400000, guid: 32209fc59e5378e47ae11db329627db5, type: 2}
-    materialIndex: 0
   - dir: {x: 1, y: 0}
     doorAnim: {fileID: 7400000, guid: 68c4705b95683d6438092d027ff0fd4f, type: 2}
-    materialIndex: 0
   - dir: {x: 0, y: 1}
     doorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
-    materialIndex: 0
   stageTextures:
   - {fileID: 2800000, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
   - {fileID: 2800000, guid: 360a250d42332ea4480df4cfb9f7b559, type: 3}

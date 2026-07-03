@@ -38,7 +38,7 @@ public class StandbyPlayerMUEUIController : ElementUIController
         rankImg.gameObject.SetActive(true);
 
         iconImg.sprite = moduleState.thisItemData.itemIcon;
-        rankImg.sprite = ResourceManager.instance.Get_RankIcon(moduleState.thisItemData.rank);
+        rankImg.sprite = StaticResourceManager.instance.ItemIcon.rankIcons[moduleState.thisItemData.rank - 1];
 
         nameTxt.text = ResourceManager.instance.Get_ModuleName(moduleState.thisItemData.id);
     }

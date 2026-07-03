@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 
 public class EachTunerEUIController : ElementUIController
@@ -37,7 +38,7 @@ public class EachTunerEUIController : ElementUIController
     public void Set_UI(AllyEachTunerData eachTunerData)
     {
         img.sprite = AllyManager.instance.Get_BUIcon(eachTunerData.type); // Icon
-        rankImg.sprite = ResourceManager.instance.Get_RankIcon(eachTunerData.rank); // Rank
+        rankImg.sprite = StaticResourceManager.instance.ItemIcon.rankIcons[eachTunerData.rank - 1]; // Rank
 
         Color frameClr = ResourceManager.instance.Get_AllyCardColor(eachTunerData.rank - 1);
         frameImg.color = frameClr;
@@ -47,7 +48,7 @@ public class EachTunerEUIController : ElementUIController
     public void Set_UI(AllyEachBaseTunerData eachTunerData)
     {
         img.sprite = AllyManager.instance.Get_BUIcon(eachTunerData.type); // Icon
-        rankImg.sprite = ResourceManager.instance.Get_RankIcon(eachTunerData.rank); // Rank
+        rankImg.sprite = StaticResourceManager.instance.ItemIcon.rankIcons[eachTunerData.rank - 1];; // Rank
 
         Color frameClr = ResourceManager.instance.Get_AllyCardColor(eachTunerData.rank - 1);
         frameImg.color = frameClr;

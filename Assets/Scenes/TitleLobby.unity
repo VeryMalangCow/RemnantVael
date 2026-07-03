@@ -4414,6 +4414,7 @@ MonoBehaviour:
   buildPrefab: {fileID: 11400000, guid: 9fedfd798edb6094ba9735c756cbf1fa, type: 2}
   enemyPrefab: {fileID: 11400000, guid: 43ed3a26209fd714a8357fcdd00ea663, type: 2}
   explosionPrefab: {fileID: 11400000, guid: 47501166232b11f4e96b35f13ff78aff, type: 2}
+  itemIcon: {fileID: 11400000, guid: 905eb4b7cd44a2347810e16abdce2858, type: 2}
 --- !u!4 &1081156649
 Transform:
   m_ObjectHideFlags: 0
@@ -4932,6 +4933,9 @@ MonoBehaviour:
   uplinkTeamString: 
   neoTeamString: 
   allyCardRateArr: []
+  moduleItemSprite_Data: []
+  moduleSynhronySpritet_Data: []
+  rankIconArr: []
   keycardOutlineColorArr: []
 --- !u!4 &1463225871
 Transform:

@@ -93,7 +93,7 @@ public class DescMUEUIController : ElementUIController
     private void SetOn_Rank(int rank)
     {
         currentRankImg.color = new Color(1, 1, 1, 1);
-        currentRankImg.sprite = ResourceManager.instance.Get_DescRankIcon(rank);
+        currentRankImg.sprite = StaticResourceManager.instance.ItemIcon.descRankIcons[rank];
         currentRankTxt.text = extraString_Rank;
         currentActualRankTxt.text = rank.ToString();
     }

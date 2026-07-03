@@ -109,8 +109,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_Cutscene();
         Offset_Sprite_Dialogue();
         Offset_Sprite_Info();
-        Offset_Sprite_ModuleItem();
-        Offset_Sprite_Core();
         Offset_Sprite_AllyCard();
         Offset_Sprite_AllyRequest();
         Offset_Sprite_Ally();
@@ -757,7 +755,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         ItemData[] data = new ItemData[moduleBaseList_Data.Length];
         for (int i = 0; i < data.Length; i++)
         {
-            data[i] = new ItemData(i, moduleItemSprite_Data[i],
+            data[i] = new ItemData(i, StaticResourceManager.instance.ItemIcon.moduleItemSprites[i],
                 moduleBaseList_Data[i].moduleMainChip[0],
                 moduleBaseList_Data[i].moduleMainChip[1],
                 moduleBaseList_Data[i].moduleMainChip[2]);
@@ -772,7 +770,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         MainChipData[] data = new MainChipData[mainChipName_Data.Get_Amount()];
         for (int i = 0; i < data.Length; i++)
         {
-            data[i] = new MainChipData(i, moduleSynhronySpritet_Data[i]);
+            data[i] = new MainChipData(i, StaticResourceManager.instance.ItemIcon.moduleSynhronySprites[i]);
 
             Set_DataLanguage(data[i], i);
         }
@@ -807,43 +805,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         return mainChipData;
     }
-
-    #endregion
-    #region Item - Module (Sprite)
-
-    // Value
-    [HideInInspector] private Sprite[] moduleItemSprite_Data;
-    [HideInInspector] private Sprite[] moduleSynhronySpritet_Data;
-
-    [HideInInspector] private Sprite[] rankIconArr;
-    [HideInInspector] private Sprite[] descRankIconArr;
-
-    // Offset
-    private void Offset_Sprite_ModuleItem()
-    {
-        string path = "Sprite/UI/MU/";
-        moduleItemSprite_Data = GetAsset_Arr<Sprite>(path, "MUItemUI_000");
-        moduleSynhronySpritet_Data = GetAsset_Arr<Sprite>(path, "MUSynchronyUI_000");
-
-        rankIconArr = new Sprite[5]; // 5
-        descRankIconArr = new Sprite[5]; // 5
-
-        Sprite[] allMUUI = GetAsset_Arr<Sprite>(path, "MUUI_000");
-        for (int i = 0; i < allMUUI.Length; i++)
-        {
-            Sprite sprite = allMUUI[i];
-
-            if (Get_InSpriteName(sprite, "MUUI_Rank_", out int index0))
-                rankIconArr[index0 - 1] = sprite;
-            else if (Get_InSpriteName(sprite, "MUUI_DescRank_", out int index1))
-                descRankIconArr[index1 - 1] = sprite;
-            
-        }
-    }
-
-    // Get
-    public Sprite Get_RankIcon(int rank) => rankIconArr[rank - 1];
-    public Sprite Get_DescRankIcon(int rank) => descRankIconArr[rank - 1];
 
     #endregion
     #region Item - Module (Anim)
@@ -895,36 +856,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
-    #region Item - Core (Sprite)
-
-    // Value
-    [HideInInspector] private Dictionary<int, Sprite> coreSpriteDict;
-
-    // Offset
-    private void Offset_Sprite_Core()
-    {
-        string path = "Sprite/";
-
-        string modulePath = path + "Module/";
-        coreSpriteDict = new Dictionary<int, Sprite>();
-        Sprite[] moduleSprites = GetAsset_Arr<Sprite>(modulePath, "Module_000");
-        for (int i = 0; i < moduleSprites.Length; i++)
-        {
-            Sprite sprite = moduleSprites[i];
-
-            if (sprite.name == "Module_ProtoCore")
-                coreSpriteDict.Add(1, sprite);
-            else if (sprite.name == "Module_EtherCore")
-                coreSpriteDict.Add(2, sprite);
-            else if (sprite.name == "Module_OriginCore")
-                coreSpriteDict.Add(3, sprite);
-        }
-    }
-
-    // Get
-    public Sprite Get_CoreSprite(int id) => coreSpriteDict[id];
-
-    #endregion
     #region Item - Core (Anim)
 
     // Value

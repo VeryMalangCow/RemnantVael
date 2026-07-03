@@ -5396,14 +5396,14 @@ public struct ItemData_UIVisual
     {
         this.icon = icon;
         this.rank = rank;
-        rankIcon = ResourceManager.instance.Get_RankIcon(this.rank);
+        rankIcon = StaticResourceManager.instance.ItemIcon.rankIcons[this.rank - 1];
     }
 
     public ItemData_UIVisual(ItemData itemData)
     {
         icon = itemData.itemIcon;
         rank = itemData.rank;
-        rankIcon = ResourceManager.instance.Get_RankIcon(rank);
+        rankIcon = StaticResourceManager.instance.ItemIcon.rankIcons[rank - 1];
     }
 }
 

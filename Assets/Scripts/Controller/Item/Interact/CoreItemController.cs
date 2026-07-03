@@ -15,7 +15,7 @@ public class CoreItemController : InteractItemController
         base.id = id;
 
         DevTool.Set_Anim(ref aoc, at, ResourceManager.instance.coreOutlineAC);
-        thisSr.sprite = ResourceManager.instance.Get_CoreSprite(base.id);
+        thisSr.sprite = StaticResourceManager.instance.ItemIcon.coreSprites[base.id - 1];
         at.speed = 1f;
     }
 
