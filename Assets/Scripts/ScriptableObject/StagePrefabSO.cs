@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StagePrefabSO", menuName = "ScriptableObject/StagePrefabSO")]
@@ -35,5 +36,7 @@ public class StagePrefabSO : ScriptableObject
 
     [Space(10)]
     [Header("=== Field Obj")]
-    [SerializeField] public DestructibleObjectController[] fieldObjPrefabs;
+    public DestructibleObjectController[] fieldObjPrefabs;
+
 }
+

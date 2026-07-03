@@ -70,3 +70,104 @@ MonoBehaviour:
   - {fileID: -8838655692115979413, guid: 3be7e8b2f7867924c978f02106ade6f0, type: 3}
   - {fileID: -8838655692115979413, guid: 2f9130e5077dfea4ab1852f6b207cd56, type: 3}
   - {fileID: -8838655692115979413, guid: f25ad301187a9e6459148252dd6df936, type: 3}
+  minimapIcons:
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 476855026, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1569914105, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: -1451701448, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1700199474, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    spritePivot: {x: 0.5, y: 0.5}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 1810412846, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 2006052592, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1495227505, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1051798293, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    spritePivot: {x: 0.25, y: 0.5}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 660787810, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -946666839, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1557905055, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1621447173, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 0, y: 1}
+    spritePivot: {x: 0.5, y: 0.25}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 1003430231, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -570641346, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1078000194, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -353351920, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    spritePivot: {x: 0.25, y: 0.25}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: -1027038445, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 1116852838, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1669839144, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1535159325, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: -1}
+    spritePivot: {x: 0.25, y: 0.75}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: -1527273314, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 1274739206, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1279793552, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1702724244, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    spritePivot: {x: 0.25, y: 0.25}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 1540350132, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1927201559, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: -796665567, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -464208805, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    spritePivot: {x: 0.25, y: 0.25}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: -1297130982, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 1585164469, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1287868922, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 377588081, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 1, y: 1}
+    spritePivot: {x: 0.25, y: 0.25}
+  lobbyStageIcon: {fileID: -545570758, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  stageIcons:
+  - {fileID: -1530078879, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -16964757, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -869181761, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -121950165, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -693597725, guid: 637ede47422025b48bd24c3773722caa, type: 3}

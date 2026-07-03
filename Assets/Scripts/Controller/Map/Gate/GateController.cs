@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class GateController : StaticDepthController, IInteract
@@ -281,7 +282,7 @@ public class GateController : StaticDepthController, IInteract
         if (DevTool.Can_CastingTType(parterGate.thisRoom.roomRule, out EntranceRuleController erc))
         {
             int index = erc.GetElevatorData();
-            nextMapIconSr.sprite = ResourceManager.instance.Get_StageIcon(index);
+            nextMapIconSr.sprite = StaticResourceManager.instance.StageIcon.GetStageIcon(index);
             nextMapIconSr.gameObject.SetActive(true);
         }
         else

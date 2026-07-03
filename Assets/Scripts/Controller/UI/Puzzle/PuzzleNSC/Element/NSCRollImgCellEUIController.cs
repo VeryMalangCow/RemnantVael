@@ -38,11 +38,11 @@ public class NSCRollImgCellEUIController : NSCRollCellEUIController
         switch (nscType)
         {
             case eNSCPuzzleType.Shape:
-                rollSpriteList = ResourceManager.instance.nsc_shapeSpriteArr;
+                rollSpriteList = StaticResourceManager.instance.BuildPrefab.prisonPrefab.nscShapeSpriteArr;
                 break;
 
             case eNSCPuzzleType.Num:
-                rollSpriteList = ResourceManager.instance.nsc_numSpriteArr;
+                rollSpriteList = StaticResourceManager.instance.BuildPrefab.prisonPrefab.nscNumSpriteArr;
                 break;
 
             default:

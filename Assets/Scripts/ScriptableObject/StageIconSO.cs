@@ -5,6 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StageIconSO", menuName = "ScriptableObject/StageIconSO")]
 public class StageIconSO : ScriptableObject
 {
+    [Space(10)]
+    [Header("=== Minimap")]
+    public MinimapIcon[] minimapIcons;
+
+    [Space(10)]
+    [Header("=== Icon")]
     public CoupleData<Sprite> vault_Icon;
     public CoupleData<Sprite> elevator_Icon;
     public CoupleData<Sprite> shop_Icon;
@@ -12,6 +18,10 @@ public class StageIconSO : ScriptableObject
     public CoupleData<Sprite> st_Prison_Icon;
     public CoupleData<Sprite> ut_Prison_Icon;
     public CoupleData<Sprite> nt_Prison_Icon;
+
+
+    public Sprite lobbyStageIcon;
+    public Sprite[] stageIcons;
 
     public Dictionary<Type, CoupleData<Sprite>> iconDict = null;
 
@@ -57,5 +67,27 @@ public class StageIconSO : ScriptableObject
         return null;
     }
 
+    public Sprite GetStageIcon(int id)
+    {
+        if (id == 99)
+            return lobbyStageIcon;
 
+        return stageIcons[id];
+    }
+
+}
+
+[System.Serializable]
+public class MinimapIcon
+{
+    public CouplePair<Sprite> minimapElementIcon;
+    public Vector2Int[] roomVec;
+    public Vector2 spritePivot;
+
+    public MinimapIcon(CouplePair<Sprite> pair, Vector2Int[] roomVec, Vector2 pivot)
+    {
+        minimapElementIcon = pair;
+        this.roomVec = roomVec;
+        spritePivot = pivot;
+    }
 }

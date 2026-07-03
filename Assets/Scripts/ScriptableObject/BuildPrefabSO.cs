@@ -110,8 +110,22 @@ public class PrisonBuild
         public PrisonAllySprite allySprite;
         public CoupleData<Sprite> teamIcon;
     }
+
+    [Space(10)]
+    public Sprite[] nscNumSpriteArr;
+    public Sprite[] nscShapeSpriteArr;
+    public Color[] nscClrArr;
+    public Sprite nscClrSprite;
+
+    public SerializableArray<Sprite>[] allNscAnswerSprites;
 }
 
+[System.Serializable]
+public class NSCAnswerSpriteSet
+{
+    public int shapeIndex;
+    public Sprite[] allAnswerSet;
+}
 
 
 [Serializable]

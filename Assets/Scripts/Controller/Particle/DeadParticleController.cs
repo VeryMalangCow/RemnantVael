@@ -60,10 +60,11 @@ public class DeadParticleController : MovableDepthController, IPoolable
 
     #region Set
 
-    private void Set_StartState(Sprite sprite, Vector2 shadowSize)
+    private void Set_StartState(DeadParticleElement data)
     {
-        thisSr.sprite = sprite;
-        shadowSr.transform.localScale = shadowSize;
+        thisSr.sprite = data.sprite;
+        thisSr.material = data.material;
+        shadowSr.transform.localScale = data.shadowSize;
     }
 
     #endregion
@@ -81,10 +82,10 @@ public class DeadParticleController : MovableDepthController, IPoolable
 
     #region Play
 
-    public void Play_DeadParticle(Sprite sprite, Vector2 shadowSize, Vector2 spawnPos, float startY, float throwDis, float durTime, float disappointTime)
+    public void Play_DeadParticle(DeadParticleElement data, Vector2 spawnPos, float startY, float throwDis, float durTime, float disappointTime)
     {
         Reset_State();
-        Set_StartState(sprite, shadowSize);
+        Set_StartState(data);
 
         StartCoroutine(Play_DeadParticle_Cor(spawnPos, startY, throwDis, durTime, disappointTime));
     }

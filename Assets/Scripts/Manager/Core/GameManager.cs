@@ -2010,6 +2010,7 @@ public class CurrentKnockbackState
 public class DeadParticleElement
 {
     public Sprite sprite;
+    public Material material;
     public Vector2 shadowSize;
 }
 
@@ -4983,21 +4984,6 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 #region Class : UI
 
 [System.Serializable]
-public class MinimapIcon
-{
-    public CouplePair<Sprite> minimapElementIcon;
-    public Vector2Int[] roomVec;
-    public Vector2 spritePivot;
-
-    public MinimapIcon(CouplePair<Sprite> pair, Vector2Int[] roomVec, Vector2 pivot)
-    {
-        minimapElementIcon = pair;
-        this.roomVec = roomVec;
-        spritePivot = pivot;
-    }
-}
-
-[System.Serializable]
 public class LanguageTxt
 {
     public int id;
@@ -5076,18 +5062,6 @@ public class PrisonAllySprite
     public Sprite fall;
     public Sprite stand;
     public Sprite salute;
-}
-
-#endregion
-
-
-#region Class : Puzzle : NSC
-
-[System.Serializable]
-public class NSCAnswerSpriteSet
-{
-    public int shapeIndex;
-    public Sprite[] allAnswerSet;
 }
 
 #endregion

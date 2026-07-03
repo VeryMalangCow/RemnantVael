@@ -93,8 +93,10 @@ public class NSCPanelEUIController : ElementUIController
         colorRollEui.answerIndex = Random.Range(0, colorRollEui.Get_IndexAmount());
         numRollEui.answerIndex = Random.Range(0, numRollEui.Get_IndexAmount());
 
-        answerImg.sprite = ResourceManager.instance.Get_NSCAnswerSprite(shapeRollEui.answerIndex, numRollEui.answerIndex);
-        answerImg.color = ResourceManager.instance.nsc_colorArr[colorRollEui.answerIndex];
+        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+
+        answerImg.sprite = prefab.allNscAnswerSprites[shapeRollEui.answerIndex].array[numRollEui.answerIndex];
+        answerImg.color = prefab.nscClrArr[colorRollEui.answerIndex];
 
         for (int i = 0; i < allRollEui.Count; i++)
             allRollEui[i].Set_NoLock();

@@ -59,6 +59,7 @@ MonoBehaviour:
   targetObject: {fileID: 8603897730151291316}
   thisSr: {fileID: 7051792676472209556}
   targetRange: 0.6
+  isSortingMover: 0
   rb: {fileID: 7671391899007426867}
   accelerationSpeed: 12
   isDead: 0
@@ -66,14 +67,15 @@ MonoBehaviour:
     value: 0
   currentHP:
     value: 0
-  currentEP:
-    value: 0
   brokenParticleData:
   - sprite: {fileID: -1973428488, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   particleThrowDis: 2
   sg: {fileID: 8138059332026427226}

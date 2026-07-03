@@ -37,9 +37,9 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
         switch (nscType)
         {
             case eNSCPuzzleType.Color:
-                rollClrArr = ResourceManager.instance.nsc_colorArr;
+                rollClrArr = StaticResourceManager.instance.BuildPrefab.prisonPrefab.nscClrArr;
                 for (int i = 0; i < rollImgList.Count; i++)
-                    rollImgList[i].sprite = ResourceManager.instance.nsc_colorSprite;
+                    rollImgList[i].sprite = StaticResourceManager.instance.BuildPrefab.prisonPrefab.nscClrSprite;
                 break;
 
             default:

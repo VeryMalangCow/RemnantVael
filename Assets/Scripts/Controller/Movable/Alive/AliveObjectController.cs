@@ -138,8 +138,7 @@ public abstract class AliveObjectController : MovableObjectController
             DeadParticleController particle = VFXManager.instance.SpawnDeadParticle();
             particle.transform.SetParent(StageManager.instance.currentRoomController.transform);
 
-            particle.Play_DeadParticle(
-                brokenParticleData[i].sprite, brokenParticleData[i].shadowSize, transform.position,
+            particle.Play_DeadParticle(brokenParticleData[i], transform.position,
                 startY: targetRange, throwDis: particleThrowDis, durTime: 1.5f, disappointTime: 3f);
         }
     }

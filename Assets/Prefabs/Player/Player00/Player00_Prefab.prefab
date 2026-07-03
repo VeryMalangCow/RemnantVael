@@ -990,8 +990,7 @@ MonoBehaviour:
     - 2
     - 3.5
     - 10
-    actualState:
-      value: 10
+    actualState: 0
     currentLevel:
       value: 0
   muzzleSpeed:
@@ -1001,8 +1000,7 @@ MonoBehaviour:
     - 0.4
     - 0.7
     - 2
-    actualState:
-      value: 2
+    actualState: 0
     currentLevel:
       value: 0
   rof:
@@ -1012,8 +1010,7 @@ MonoBehaviour:
     - 0.6
     - 1.2
     - 2
-    actualState:
-      value: 5
+    actualState: 0
     currentLevel:
       value: 0
   cc:
@@ -1023,8 +1020,7 @@ MonoBehaviour:
     - 0.025
     - 0.04
     - 0.075
-    actualState:
-      value: 0.1
+    actualState: 0
     currentLevel:
       value: 0
   cd:
@@ -1034,8 +1030,7 @@ MonoBehaviour:
     - 0.15
     - 0.2
     - 0.35
-    actualState:
-      value: 1.5
+    actualState: 0
     currentLevel:
       value: 0
   accRate:
@@ -1045,8 +1040,7 @@ MonoBehaviour:
     - 1
     - 1.75
     - 3.25
-    actualState:
-      value: 87
+    actualState: 0
     currentLevel:
       value: 0
   kbPower:
@@ -1056,8 +1050,7 @@ MonoBehaviour:
     - 1
     - 1.5
     - 2
-    actualState:
-      value: 5
+    actualState: 0
     currentLevel:
       value: 0
   bulletSpawnTfList:
@@ -1556,43 +1549,41 @@ MonoBehaviour:
     value: 0
   currentHP:
     value: 0
-  currentEP:
-    value: 100
   brokenParticleData:
   - sprite: {fileID: 498605500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    material: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
     shadowSize: {x: 0.4, y: 0.2}
   - sprite: {fileID: 1353051295, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+    material: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
     shadowSize: {x: 0.5, y: 0.25}
   - sprite: {fileID: -1437216109, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+    material: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
     shadowSize: {x: 0.5, y: 0.25}
   - sprite: {fileID: 1243472912, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    material: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: -885338135, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    material: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: 1450471267, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    material: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: 308885252, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    material: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: -147571887, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    material: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   particleThrowDis: 1
+  moduleShard: 0
+  overrider: 0
+  credit: 0
   nameId: 0
   baseWeapon: {fileID: 1781130902238718875}
   skillWeapon: {fileID: 2333396969492081116}
   dash: {fileID: 8889954111637353817}
   rbLower: {fileID: 6070200958351899230}
   afterImgGenerator: {fileID: 4030414932115461039}
-  avoidChance:
-    baseState: 0.01
-    upgradeValueByLevelRange:
-    - 0.01
-    - 0.02
-    - 0.035
-    - 0.06
-    actualState:
-      value: 0.01
-    currentLevel:
-      value: 0
   maxEP:
     baseState: 100
     upgradeValueByLevelRange:
@@ -1600,8 +1591,17 @@ MonoBehaviour:
     - 20
     - 35
     - 100
-    actualState:
-      value: 100
+    actualState: 0
+    currentLevel:
+      value: 0
+  avoidChance:
+    baseState: 0.01
+    upgradeValueByLevelRange:
+    - 0.01
+    - 0.02
+    - 0.035
+    - 0.06
+    actualState: 0
     currentLevel:
       value: 0
   takingDmgMultiple:
@@ -1611,8 +1611,7 @@ MonoBehaviour:
     - -0.035
     - -0.05
     - -0.07
-    actualState:
-      value: 1
+    actualState: 0
     currentLevel:
       value: 0
   spawnESMultiple:
@@ -1622,8 +1621,7 @@ MonoBehaviour:
     - 0.2
     - 0.3
     - 0.5
-    actualState:
-      value: 1
+    actualState: 0
     currentLevel:
       value: 0
   needEP_ForSkillMultiple:
@@ -1633,8 +1631,7 @@ MonoBehaviour:
     - -0.04
     - -0.06
     - -0.12
-    actualState:
-      value: 1
+    actualState: 0
     currentLevel:
       value: 0
   walkSpeed:
@@ -1644,8 +1641,7 @@ MonoBehaviour:
     - 0.3
     - 0.5
     - 1
-    actualState:
-      value: 3
+    actualState: 0
     currentLevel:
       value: 0
   walkSpeedWhenShotMultiple:
@@ -1655,8 +1651,7 @@ MonoBehaviour:
     - 0.06
     - 0.09
     - 0.13
-    actualState:
-      value: 0.3
+    actualState: 0
     currentLevel:
       value: 0
   bodySg: {fileID: 1155340779573617180}
@@ -1842,36 +1837,8 @@ MonoBehaviour:
     thisParentTF: {fileID: 6423599216468934238}
   movementAs: {fileID: 2884303428552650349}
   movementState: 1
-  currentBoostLv:
-    value: 0
   shieldElements: []
   currentBuffs: []
-  currentInteractableGoList: []
-  currentBetteryShard:
-    value: 0
-  currentBettery:
-    value: 0
-  currentChargedBettery:
-    value: 0
-  currentModuleShard:
-    value: 0
-  currentOverrider:
-    value: 0
-  currentCredit:
-    value: 0
-  strikeTeamPresence:
-    value: 0
-  uplinkTeamPresence:
-    value: 0
-  neoTeamPresence:
-    value: 0
-  needIntervalPresence: 5
-  needStrikeTeamPresence:
-    value: 0
-  needUplinkTeamPresence:
-    value: 0
-  needNeoTeamPresence:
-    value: 0
 --- !u!114 &8889954111637353817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1892,8 +1859,7 @@ MonoBehaviour:
     - 0.5
     - 0.7
     - 1.2
-    actualState:
-      value: 5
+    actualState: 0
     currentLevel:
       value: 0
 --- !u!114 &4030414932115461039
@@ -2785,15 +2751,13 @@ MonoBehaviour:
     - -0.3
     - -0.45
     - -0.9
-    actualState:
-      value: 6
+    actualState: 0
     currentLevel:
       value: 0
   tier:
     baseState: 0
     upgradeValueByLevelRange: 01000000010000000100000001000000
-    actualState:
-      value: 0
+    actualState: 0
     currentLevel:
       value: 0
   power:
@@ -2803,8 +2767,7 @@ MonoBehaviour:
     - 0.5
     - 0.7
     - 1.2
-    actualState:
-      value: 5
+    actualState: 0
     currentLevel:
       value: 0
   playerController: {fileID: 0}
@@ -3146,15 +3109,13 @@ MonoBehaviour:
     - -0.4
     - -0.6
     - -1
-    actualState:
-      value: 8
+    actualState: 0
     currentLevel:
       value: 0
   tier:
     baseState: 0
     upgradeValueByLevelRange: 01000000010000000100000001000000
-    actualState:
-      value: 0
+    actualState: 0
     currentLevel:
       value: 0
   power:
@@ -3164,8 +3125,7 @@ MonoBehaviour:
     - 0.15
     - 0.2
     - 0.4
-    actualState:
-      value: 1.5
+    actualState: 0
     currentLevel:
       value: 0
   playerController: {fileID: 0}

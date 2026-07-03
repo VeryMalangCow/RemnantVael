@@ -118,24 +118,30 @@ MonoBehaviour:
     value: 0
   currentHP:
     value: 0
-  currentEP:
-    value: 0
   brokenParticleData:
   - sprite: {fileID: -1666094639, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.4, y: 0.2}
   - sprite: {fileID: 755008558, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.5, y: 0.25}
   - sprite: {fileID: -471157717, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.4, y: 0.2}
   - sprite: {fileID: -471157717, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.4, y: 0.2}
   - sprite: {fileID: 751338603, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.2, y: 0.1}
   - sprite: {fileID: 751338603, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.2, y: 0.1}
   - sprite: {fileID: 394434684, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.2, y: 0.1}
   - sprite: {fileID: 394434684, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.2, y: 0.1}
   particleThrowDis: 2
   sg: {fileID: 8138059332026427226}
