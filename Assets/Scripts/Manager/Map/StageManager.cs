@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -53,7 +54,7 @@ public class BossRoomGrid : RoomGrid
         this.bossRoomIndex = bossRoomIndex;
     }
 
-    public BossRoomGrid(BossRoomGrid other): base(other)
+    public BossRoomGrid(BossRoomGrid other) : base(other)
     {
         bossRoomIndex = other.bossRoomIndex;
     }
@@ -229,10 +230,11 @@ public class StageGridGenerator
     public StageGridSnapshotRecorder SnapshotRecorder => snapshotRecorder;
 
     private void RecordSnapshot(StageGridSnapshotStep step, int targetRoomId = -1,
-    Vector2Int focusPosition = default, string description = "")
+        Vector2Int focusPosition = default, string description = "",
+        List<Vector2Int> candidates = null)
     {
         snapshotRecorder.Record(step, allRoomGrids, targetRoomId,
-            focusPosition, description);
+            focusPosition, description, candidates);
     }
 #endif
 
@@ -708,6 +710,10 @@ public class StageGridGenerator
         foreach (Vector2Int basePos in baseCandidateSetCache)
             baseCandidateListCache.Add(basePos);
 
+#if UNITY_EDITOR
+        RecordSnapshot(StageGridSnapshotStep.NormalCandidate, instanceId, Vector2Int.zero, "Candidate Generated", baseCandidateListCache);
+#endif
+
         // 후보들을 순회
         while (baseCandidateListCache.Count > 0)
         {
@@ -772,10 +778,7 @@ public class StageGridGenerator
             roundPositions.Remove(tempAddExistPositions[i]);
 
 #if UNITY_EDITOR
-        RecordSnapshot(
-            StageGridSnapshotStep.Normal,
-            room.instanceId,
-            pos);
+        RecordSnapshot(StageGridSnapshotStep.Normal, room.instanceId, pos);
 #endif
 
         return true;
@@ -792,11 +795,6 @@ public class StageGridGenerator
         int nextRoomId = startRoomId;
 
         CollectSpecialCandidatePositions();
-
-#if UNITY_EDITOR
-        RecordSnapshot(StageGridSnapshotStep.SpecialCandidate);
-#endif
-
         BuildSortedSpecialCandidateListByDistance();
 
         // 1. 보스방 먼저 배치
@@ -984,6 +982,10 @@ public class StageGridGenerator
             room = new RoomGrid(instanceId, type, existLength, roomType);
         }
 
+#if UNITY_EDITOR
+        RecordSnapshot(StageGridSnapshotStep.SpecialCandidate, -1, default, "Special Candidate Generated", specialCandidateSetCache.ToList());
+#endif
+
         allRoomGrids.Add(room);
 
         for (i = 0; i < existLength; i++)
@@ -1009,12 +1011,7 @@ public class StageGridGenerator
         InvalidateSpecialCandidatesAroundPlacedRoom(existLength, roundLength);
 
 #if UNITY_EDITOR
-        RecordSnapshot(
-            roomType == RoomGridType.boss
-                ? StageGridSnapshotStep.BossRoom
-                : StageGridSnapshotStep.SpecialRoom,
-            room.instanceId,
-            basePos);
+        RecordSnapshot(roomType == RoomGridType.boss ? StageGridSnapshotStep.BossRoom : StageGridSnapshotStep.SpecialRoom, room.instanceId, basePos);
 #endif
 
         return true;
@@ -1210,10 +1207,10 @@ public class StageGridGenerator
         ConnectFacingGates();
 
 #if UNITY_EDITOR
-        RecordSnapshot(StageGridSnapshotStep.Gate);
+        RecordSnapshot(StageGridSnapshotStep.Gate, -1, default, "Generate Gate");
 #endif
     }
-
+    
     // 하나의 Room에서 연결 구조 계산
     private void SetRoomGateGrid(RoomGrid room)
     {
@@ -1497,7 +1494,7 @@ public class StageObjectGenerator
 #if UNITY_EDITOR
     private string generatorLogger;
 #endif
-#endregion
+    #endregion
 
     #region Init
 
@@ -1528,7 +1525,7 @@ public class StageObjectGenerator
         }
         else // 전투 스테이지 시작 방
         {
-            if (normalEnemyIndices != null) 
+            if (normalEnemyIndices != null)
                 this.normalEnemyIndices = normalEnemyIndices;
 
             yield return GenerateGamePlayStage(allRoomGrids);
@@ -1615,7 +1612,7 @@ public class StageObjectGenerator
     private IEnumerator GenLobbyStartRoom(int roomTypeId, int instanceId, Vector2Int pos)
     {
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew(); 
+        Stopwatch sw = Stopwatch.StartNew();
         generatorLogger += "<color=yellow>Center</color>\n";
 #endif
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[roomTypeId], stageParentTf);
@@ -1667,7 +1664,7 @@ public class StageObjectGenerator
 #endif
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomEntranceRuleLobbyPrefab, room.gameObject.transform);
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
@@ -1735,7 +1732,7 @@ public class StageObjectGenerator
     private IEnumerator GenStartRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew(); 
+        Stopwatch sw = Stopwatch.StartNew();
         generatorLogger += "<color=yellow>Start</color>\n";
 #endif
         int gridTypeId = grid.typeId;
@@ -1773,7 +1770,7 @@ public class StageObjectGenerator
     private IEnumerator GenNormalRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew(); 
+        Stopwatch sw = Stopwatch.StartNew();
         generatorLogger += "<color=yellow>Normal</color>\n";
 #endif
         int gridTypeId = grid.typeId;
@@ -1856,13 +1853,13 @@ public class StageObjectGenerator
     private IEnumerator GenEntranceRoom(RoomGrid grid, Vector2Int pos, int entranceId)
     {
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew(); 
+        Stopwatch sw = Stopwatch.StartNew();
         generatorLogger += "<color=yellow>Entrance</color>\n";
 #endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
@@ -1873,7 +1870,7 @@ public class StageObjectGenerator
 #endif
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomEntrancePrefabs[entranceId], room.gameObject.transform);
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
@@ -1893,7 +1890,7 @@ public class StageObjectGenerator
             roomRule.SetEnemyId(normalEnemyIndices, bossId: indexData.bossIndex);
         }
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
 #endif
         yield return null;
@@ -1903,13 +1900,13 @@ public class StageObjectGenerator
     private IEnumerator GenVaultRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew(); 
+        Stopwatch sw = Stopwatch.StartNew();
         generatorLogger += "<color=yellow>Vault</color>\n";
 #endif
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
@@ -1931,7 +1928,7 @@ public class StageObjectGenerator
 #endif
         SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
@@ -1946,7 +1943,7 @@ public class StageObjectGenerator
             UnityEngine.Object.Instantiate(buildPrefab.vaultRerollOperPrefab.prefab, roomRule.inRoom_RerollOperactorParentTf),
             UnityEngine.Object.Instantiate(buildPrefab.vaultUpgradeOperPrefab.prefab, roomRule.inRoom_UpgradeOperactorParentTf));
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Object</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms\n\n";
 #endif
         yield return null;
@@ -1957,7 +1954,7 @@ public class StageObjectGenerator
     private IEnumerator GenShopRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew(); 
+        Stopwatch sw = Stopwatch.StartNew();
         generatorLogger += "<color=yellow>Shop</color>\n";
 #endif
         int gridTypeId = grid.typeId;
@@ -2015,7 +2012,7 @@ public class StageObjectGenerator
     private IEnumerator GenAllyShopRoom(RoomGrid grid, Vector2Int pos)
     {
 #if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew(); 
+        Stopwatch sw = Stopwatch.StartNew();
         generatorLogger += "<color=yellow>AllyShop</color>\n";
 #endif
         int gridTypeId = grid.typeId;
@@ -2032,7 +2029,7 @@ public class StageObjectGenerator
 #endif
         var roomRule = UnityEngine.Object.Instantiate(stagePrefab.roomAllyShopPrefab, room.gameObject.transform);
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Rule</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
@@ -2043,7 +2040,7 @@ public class StageObjectGenerator
 #endif
         SetGamePlayRoomToWorld(room, roomRule, grid.instanceId, gridTypeId, pos);
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Init</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
@@ -2081,7 +2078,7 @@ public class StageObjectGenerator
         int gridTypeId = grid.typeId;
         var room = UnityEngine.Object.Instantiate(stagePrefab.roomPrefabs[gridTypeId], stageParentTf);
 #if UNITY_EDITOR
-        sw.Stop(); 
+        sw.Stop();
         generatorLogger += $"<color=orange>Room</color> <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color>ms / ";
 #endif
         yield return null;
@@ -2205,7 +2202,7 @@ public class StageObjectGenerator
     }
 
     private void ConnectGate(
-        RoomController roomA, Vector2Int gatePosA, Vector2Int gateDirA, 
+        RoomController roomA, Vector2Int gatePosA, Vector2Int gateDirA,
         RoomController roomB, Vector2Int gatePosB, Vector2Int gateDirB)
     {
         GateController gateA = FindGate(roomA, gatePosA, gateDirA);
@@ -2409,9 +2406,9 @@ public class StageObjectGenerator
     private void SetPassageRoomToWorld(PassageRoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
     {
         currentAllRoomController.Add(room);
-        room.Offset(roomRule, instanceId, typeId, gridPos, 
-            beforeStageThemeSO, 
-            afterStageThemeSO, 
+        room.Offset(roomRule, instanceId, typeId, gridPos,
+            beforeStageThemeSO,
+            afterStageThemeSO,
             GetStagePassageThemeSO(stageTheme, beforeStageId, afterStageId));
         room.InitPassageVisualSprite();
     }
@@ -2485,7 +2482,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #endregion
 
     #region Stage Resource - Variable
-    
+
     [SerializeField] private StageTheme stageTheme;
     public StageTheme StageTheme { get { return stageTheme; } }
 
@@ -2543,7 +2540,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 currentStageBossEnemyIndices.Add(bossRoom[i].bossIndex);
         }
     }
-    
+
     private void SetEliteEnemyIndices()
     {
         currentStageEliteEnemyIndices.Clear();
@@ -2558,7 +2555,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
                 currentStageEliteEnemyIndices.Add(eliteRoom[i]);
         }
     }
-    
+
     private void SetNormalEnemyIndices()
     {
         currentStageNormalEnemyIndices.Clear();
@@ -2687,7 +2684,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public SpriteMaterial GetRandomFieldObjSprite(int typeId)
         => stageTheme.GetRandomFieldObjSprite(currentStageData, typeId);
-    
+
     public DestructibleObjectController GetRandomFieldObjPrefab()
     {
         var fieldObjs = StaticResourceManager.instance.StagePrefab.fieldObjPrefabs;

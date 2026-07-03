@@ -19,10 +19,12 @@ public class StageGridSnapshotRecorder
     }
 
     public void Record(StageGridSnapshotStep step, List<RoomGrid> rooms, int targetRoomId = -1,
-        Vector2Int focusPosition = default, string description = "")
+        Vector2Int focusPosition = default, string description = "",
+        List<Vector2Int> candidates = null)
     {
         snapshots.Add(new StageGridSnapshot(snapshots.Count, step, rooms, targetRoomId,
-            focusPosition, description));
+            focusPosition, description,
+            candidates));
     }
 
     public StageGridSnapshot Get(int index)

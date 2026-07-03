@@ -14,11 +14,13 @@ public class StageGridSnapshot
     public Vector2Int focusPosition;
     public string description;
 
+    public List<Vector2Int> candidatePositions = new();
 
     public int roomCount { get; }
 
     public StageGridSnapshot(int snapshotIndex, StageGridSnapshotStep step, List<RoomGrid> sourceRooms, int targetRoomId = -1, 
-        Vector2Int focusPosition = default, string description = "")
+        Vector2Int focusPosition = default, string description = "",
+        List<Vector2Int> candidates = null)
     {
         this.snapshotIndex = snapshotIndex;
         this.step = step;
@@ -32,6 +34,9 @@ public class StageGridSnapshot
 
         for (int i = 0; i < roomCount; i++)
             rooms.Add(Clone(sourceRooms[i]));
+
+        if (candidates != null)
+            candidatePositions = new List<Vector2Int>(candidates);
     }
 
     private static RoomGrid Clone(RoomGrid room)
@@ -41,11 +46,12 @@ public class StageGridSnapshot
 
         return new RoomGrid(room);
     }
+
 }
 
 public enum StageGridSnapshotStep
 {
-    None, Normal, SpecialCandidate, BossRoom, SpecialRoom, EliteRoom, Gate, Complete
+    None, Normal, NormalCandidate, SpecialRoom, SpecialCandidate, BossRoom, EliteRoom, Gate, Complete
 }
 
 #endif

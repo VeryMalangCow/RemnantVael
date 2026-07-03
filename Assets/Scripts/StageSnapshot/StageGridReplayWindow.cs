@@ -11,12 +11,13 @@ public class StageGridReplayWindow : EditorWindow
 
 
     private float zoom = 2f;
+    private float baseCellSize = 28f;
     private int currentIndex;
     
-    [MenuItem("Tools/Stage/Grid Replay")]
+    [MenuItem("Tools/Stage/Stage Grid Replay")]
     private static void Open()
     {
-        GetWindow<StageGridReplayWindow>("Grid Replay");
+        GetWindow<StageGridReplayWindow>("Stage Grid Replay");
     }
 
     private void OnGUI()
@@ -98,16 +99,17 @@ public class StageGridReplayWindow : EditorWindow
         if (snapshot == null)
             return;
 
-        Rect rect = GUILayoutUtility.GetRect(300, 400);
+        Rect rect = GUILayoutUtility.GetRect(800, 800);
 
         EditorGUI.DrawRect(rect, new Color(0.15f, 0.15f, 0.15f));
 
+        DrawCandidates(rect, snapshot);
         DrawRooms(rect, snapshot);
     }
 
     private void DrawRooms(Rect rect, StageGridSnapshot snapshot)
     {
-        float cellSize = 28f * zoom;
+        float cellSize = baseCellSize * zoom;
         Vector2 center = rect.center;
 
         foreach (RoomGrid room in snapshot.rooms)
@@ -169,19 +171,52 @@ public class StageGridReplayWindow : EditorWindow
         switch (room.roomType)
         {
             case RoomGridType.start:
-                return Color.green;
+                return new Color(1f, 1f, 1f);
 
             case RoomGridType.normal:
-                return Color.gray;
+                return new Color(0.8f, 0.8f, 0.8f);
 
             case RoomGridType.elite:
-                return Color.yellow;
+                return new Color(0.75f, 0.5f, 1.0f);
 
             case RoomGridType.boss:
-                return Color.red;
+                return new Color(0.5f, 0.0f, 1.0f);
 
-            default:
-                return Color.cyan;
+            default: // Special
+                return new Color(1.0f, 0.5f, 0.0f);
+        }
+    }
+
+    private void DrawCandidates(Rect rect, StageGridSnapshot snapshot)
+    {
+        if (snapshot.candidatePositions == null || snapshot.candidatePositions.Count == 0)
+            return;
+
+        float cellSize = baseCellSize * zoom;
+        Vector2 center = rect.center;
+        Color color = color = new Color(1f, 1f, 1f, 0.15f);
+        if (snapshot.step == StageGridSnapshotStep.SpecialCandidate)
+            color = new Color(1.0f, 0.5f, 0.0f, 0.15f);
+        
+
+        foreach (Vector2Int pos in snapshot.candidatePositions)
+        {
+            Rect cell = new Rect(
+                center.x + pos.x * cellSize,
+                center.y - pos.y * cellSize,
+                cellSize,
+                cellSize);
+
+            float padding = cellSize * 0.35f;
+
+            Rect smallRect = new Rect(
+                cell.x + padding,
+                cell.y + padding,
+                cell.width - padding * 2f,
+                cell.height - padding * 2f
+            );
+
+            EditorGUI.DrawRect(smallRect, color); // ghost white
         }
     }
 }
