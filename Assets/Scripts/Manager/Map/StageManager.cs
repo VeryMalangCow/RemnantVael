@@ -223,10 +223,96 @@ public class StageGridGenerator
     private List<RoomGrid> eliteRoomCandidateRoomCache = new List<RoomGrid>(4);
     private List<int> eliteRoomIndices = new List<int>(4);
 
-
+    // Record (Snapshot)
 #if UNITY_EDITOR
     private readonly StageGridSnapshotRecorder snapshotRecorder = new();
     public StageGridSnapshotRecorder SnapshotRecorder => snapshotRecorder;
+
+    private void RecordSnapshot(StageGridSnapshotStep step, int targetRoomId = -1,
+    Vector2Int focusPosition = default, string description = "")
+    {
+        snapshotRecorder.Record(step, allRoomGrids, targetRoomId,
+            focusPosition, description);
+    }
+#endif
+
+    // Generate
+#if UNITY_EDITOR
+
+    public void GenerateGridRoomDataTest() // Test
+    {
+        InitRoomData();
+
+        TestGenerateGridData();
+    }
+
+    private void TestGenerateGridData()
+    {
+        if (!SetStageRule(targetStageRule, testTargetStageId))
+            return;
+
+        allRoomGrids.Clear();
+        int maxSuccess = 100;
+        int currentSuccess = 0;
+        int currentFail = 0;
+
+        int maxTotalTry = 1000;
+        int totalTry = 0;
+
+        while (maxSuccess > currentSuccess && totalTry < maxTotalTry)
+        {
+            snapshotRecorder.Clear();
+
+            totalTry++;
+            bool success = GenerateRoomGridTest();
+            if (success)
+            {
+                currentSuccess++;
+            }
+            else
+            {
+                currentFail++;
+            }
+        }
+        UnityEngine.Debug.Log(
+            $"Try:[<color=gray>{totalTry}</color>] " +
+            $"Fail:[<color=red>{currentFail}</color>] " +
+            $"Success:[<color=blue>{currentSuccess}</color>] " +
+            $"Average:[<color=yellow>1 in {((float)totalTry / currentSuccess):F2}</color>] " +
+            $"Percent:[<color=yellow>{((float)currentSuccess / totalTry) * 100f:F2}%</color>]");
+    }
+
+    private bool GenerateRoomGridTest()
+    {
+        ClearGridCaches();
+        allRoomGrids.Clear();
+
+        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
+        BuildSpecialRooms(saveDataManager.jsonData.gameProgressData);
+
+        int targetNormalRoomAmount = targetRoomAmount - specialRooms.Count;
+        if (targetNormalRoomAmount <= 0)
+        {
+            UnityEngine.Debug.Log($"일반 방 개수가 부족 / targetRoomAmount: {targetRoomAmount}, specialRooms: {specialRooms.Count}");
+            return false;
+        }
+
+        ResetTempSpecialRooms();
+        if (GenerateNormalRoomGrid(targetNormalRoomAmount, out int nextRoomId))
+        {
+            if (GenerateSpecialRoomGrid(nextRoomId))
+            {
+                if (GenerateEliteRoomGrid())
+                {
+                    GenerateGateGrid();
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 #endif
 
     #endregion
@@ -1342,95 +1428,6 @@ public class StageGridGenerator
     #endregion
 
     #endregion
-
-    // Generate
-#if UNITY_EDITOR
-
-    public void GenerateGridRoomDataTest() // Test
-    {
-        InitRoomData();
-
-        TestGenerateGridData();
-    }
-
-    private void TestGenerateGridData()
-    {
-        if (!SetStageRule(targetStageRule, testTargetStageId))
-            return;
-
-        allRoomGrids.Clear();
-        int maxSuccess = 100;
-        int currentSuccess = 0;
-        int currentFail = 0;
-
-        int maxTotalTry = 1000;
-        int totalTry = 0;
-
-        while (maxSuccess > currentSuccess && totalTry < maxTotalTry)
-        {
-            snapshotRecorder.Clear();
-
-            totalTry++;
-            bool success = GenerateRoomGridTest();
-            if (success)
-            {
-                currentSuccess++;
-            }
-            else
-            {
-                currentFail++;
-            }
-        }
-        UnityEngine.Debug.Log(
-            $"Try:[<color=gray>{totalTry}</color>] " +
-            $"Fail:[<color=red>{currentFail}</color>] " +
-            $"Success:[<color=blue>{currentSuccess}</color>] " +
-            $"Average:[<color=yellow>1 in {((float)totalTry / currentSuccess):F2}</color>] " +
-            $"Percent:[<color=yellow>{((float)currentSuccess / totalTry) * 100f:F2}%</color>]");
-    }
-
-    private bool GenerateRoomGridTest()
-    {
-        ClearGridCaches();
-        allRoomGrids.Clear();
-
-        int targetRoomAmount = UnityEngine.Random.Range(targetStageRule.minRoomAmount, targetStageRule.maxRoomAmount + 1);
-        BuildSpecialRooms(saveDataManager.jsonData.gameProgressData);
-
-        int targetNormalRoomAmount = targetRoomAmount - specialRooms.Count;
-        if (targetNormalRoomAmount <= 0)
-        {
-            UnityEngine.Debug.Log($"일반 방 개수가 부족 / targetRoomAmount: {targetRoomAmount}, specialRooms: {specialRooms.Count}");
-            return false;
-        }
-
-        ResetTempSpecialRooms();
-        if (GenerateNormalRoomGrid(targetNormalRoomAmount, out int nextRoomId))
-        {
-            if (GenerateSpecialRoomGrid(nextRoomId))
-            {
-                if (GenerateEliteRoomGrid())
-                {
-                    GenerateGateGrid();
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-#endif
-
-    // Record (Snapshot)
-#if UNITY_EDITOR
-    private void RecordSnapshot(StageGridSnapshotStep step, int targetRoomId = -1,
-        Vector2Int focusPosition = default, string description = "")
-    {
-        snapshotRecorder.Record(step, allRoomGrids, targetRoomId,
-            focusPosition, description);
-    }
-#endif
 }
 
 

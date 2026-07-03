@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class StageGridReplayWindow : EditorWindow
 {
     private StageManager stageManager;
     private StageGridSnapshotRecorder recorder;
+
 
     private float zoom = 2f;
     private int currentIndex;
@@ -96,7 +98,7 @@ public class StageGridReplayWindow : EditorWindow
         if (snapshot == null)
             return;
 
-        Rect rect = GUILayoutUtility.GetRect(400, 400);
+        Rect rect = GUILayoutUtility.GetRect(300, 400);
 
         EditorGUI.DrawRect(rect, new Color(0.15f, 0.15f, 0.15f));
 
@@ -105,26 +107,61 @@ public class StageGridReplayWindow : EditorWindow
 
     private void DrawRooms(Rect rect, StageGridSnapshot snapshot)
     {
-        const float baseCellSize = 28f;
-        float cellSize = baseCellSize * zoom;
-
+        float cellSize = 28f * zoom;
         Vector2 center = rect.center;
 
         foreach (RoomGrid room in snapshot.rooms)
         {
+            HashSet<Vector2Int> cells = new HashSet<Vector2Int>(room.roomPos);
+
             Color color = GetRoomColor(room);
 
             foreach (Vector2Int pos in room.roomPos)
             {
+                Vector2Int left = pos + Vector2Int.left;
+                Vector2Int right = pos + Vector2Int.right;
+                Vector2Int up = pos + Vector2Int.up;
+                Vector2Int down = pos + Vector2Int.down;
+
+                bool hasLeft = cells.Contains(left);
+                bool hasRight = cells.Contains(right);
+                bool hasUp = cells.Contains(up);
+                bool hasDown = cells.Contains(down);
+
                 Rect cell = new Rect(
                     center.x + pos.x * cellSize,
                     center.y - pos.y * cellSize,
-                    cellSize - 2,
-                    cellSize - 2);
+                    cellSize,
+                    cellSize);
 
-                EditorGUI.DrawRect(cell, color);
+                DrawOutline(cell, color, hasLeft, hasRight, hasUp, hasDown);
             }
         }
+    }
+
+    private void DrawOutline(Rect rect, Color fill, bool left, bool right, bool up, bool down)
+    {
+        EditorGUI.DrawRect(rect, fill);
+
+        Color outline = Color.black;
+
+        float t = 1f; // thickness
+
+        // LEFT
+        if (!left)
+            EditorGUI.DrawRect(new Rect(rect.x, rect.y, t, rect.height), outline);
+
+        // RIGHT
+        if (!right)
+            EditorGUI.DrawRect(new Rect(rect.xMax - t, rect.y, t, rect.height), outline);
+
+        // TOP
+        if (!up)
+            EditorGUI.DrawRect(new Rect(rect.x, rect.y, rect.width, t), outline);
+
+        // BOTTOM
+        if (!down)
+            EditorGUI.DrawRect(new Rect(rect.x, rect.yMax - t, rect.width, t), outline);
     }
 
     private Color GetRoomColor(RoomGrid room)
