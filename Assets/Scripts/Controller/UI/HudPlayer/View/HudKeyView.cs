@@ -33,7 +33,7 @@ public class HudKeyView : MonoBehaviour
         {
             if (keyItem.Value == 0) continue;
 
-            keyItemImgList[index].sprite = ResourceManager.instance.Get_KeyCardSprite(keyItem.Key);
+            keyItemImgList[index].sprite = StaticResourceManager.instance.ItemIcon.keycardIcons[keyItem.Key].sprite;
             keyItemAmountTxtList[index].text = keyItem.Value.ToString();
             keyItemImgList[index].gameObject.SetActive(true);
 
@@ -46,7 +46,7 @@ public class HudKeyView : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         for (int i = 0; i < keyItemImgList.Count; i++)
         {
-            if (keyItemImgList[i].gameObject.activeSelf && keyItemImgList[i].sprite == ResourceManager.instance.Get_KeyCardSprite(id))
+            if (keyItemImgList[i].gameObject.activeSelf && keyItemImgList[i].sprite == StaticResourceManager.instance.ItemIcon.keycardIcons[id].sprite)
             {
                 seq.Append(keyItemImgList[i].transform.DOScale(1.3f, 0.1f));
                 seq.Append(keyItemImgList[i].transform.DOScale(1f, 0.3f));

@@ -119,9 +119,10 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_Sprite(int typeId, AllyCardData data)
     {
-        frameImg.sprite = ResourceManager.instance.Get_AllyCardFrame(data.rank);
-        lightImg.sprite = ResourceManager.instance.Get_AllyCardLight(data.rank);
-        bgImg.sprite = ResourceManager.instance.Get_AllyCardBG(data.rank);
+        var set = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[data.rank];
+        frameImg.sprite = set.frame;
+        lightImg.sprite = set.light;
+        bgImg.sprite = set.bg;
 
         iconImg.sprite = AllyManager.instance.Get_CardIcon(typeId, data.id);
 
@@ -130,11 +131,12 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_SpriteNull()
     {
-        frameImg.sprite = ResourceManager.instance.Get_AllyCardFrame(0);
-        lightImg.sprite = ResourceManager.instance.Get_AllyCardFrame(0);
-        bgImg.sprite = ResourceManager.instance.Get_AllyCardBG(0);
+        var set = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[0];
+        frameImg.sprite = set.frame;
+        lightImg.sprite = set.light;
+        bgImg.sprite = set.bg;
 
-        iconImg.sprite = ResourceManager.instance.allyNullIcon;
+        iconImg.sprite = StaticResourceManager.instance.AllyPrefab.allyNullIcon; 
 
         lightSeq.timeScale = 1;
     }
@@ -144,9 +146,11 @@ public class AllyCardEUIController : OwnBtnEUIController
         nameTxt.text = data.name.Replace("\\n", "\n");
         descTxt.text = data.desc.Replace("\\n", "\n");
 
+        var clr = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[data.rank].clr;
+
         rankTxt.text = ResourceManager.instance.allyCardRateArr[data.rank];
-        rankTxt.color = ResourceManager.instance.Get_AllyCardColor(data.rank);
-        bgImg.color = ResourceManager.instance.Get_AllyCardColor(data.rank);
+        rankTxt.color = clr;
+        bgImg.color = clr;
 
         AllyCardData preCardData = AllyManager.instance.Get_PreAllyCardData(typeId, data);
         preNameTxt.text = preCardData != null ? $"-({preCardData.name})->" : "";
@@ -159,8 +163,9 @@ public class AllyCardEUIController : OwnBtnEUIController
         descTxt.text = "NULL";
 
         rankTxt.text = "NULL";
-        rankTxt.color = ResourceManager.instance.Get_AllyCardColor(0);
-        bgImg.color = ResourceManager.instance.Get_AllyCardColor(0);
+        var clr = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[0].clr;
+        rankTxt.color = clr;
+        bgImg.color = clr;
 
         preNameTxt.gameObject.SetActive(false);
     }

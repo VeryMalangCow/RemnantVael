@@ -308,7 +308,7 @@ public class EnemyBuffController : MonoBehaviour
         pec.Add_HittedObjectList(enemy);
         pec.Set_State(
             Get_ExlposionState(dmgType, dmg, statusIndex),
-            ac: ResourceManager.instance.explosionAC,
+            ac: StaticResourceManager.instance.ExplosionPrefab.explosionAnimation,
             Get_SpawnTF(statusExplosionSize),
             enemy.targetRange);
     }

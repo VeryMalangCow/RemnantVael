@@ -123,7 +123,7 @@ public class GateController : StaticDepthController, IInteract
         
         if (!Can_Open_ByKeycard())
         {
-            keyCardIconSr.sprite = ResourceManager.instance.Get_KeyCardSprite(needKeyCardId);
+            keyCardIconSr.sprite = StaticResourceManager.instance.ItemIcon.keycardIcons[needKeyCardId].sprite;
             keyCardIconSr.gameObject.SetActive(true);
         }
         else

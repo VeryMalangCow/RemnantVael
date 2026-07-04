@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ItemIconSO))]
-public class ItemIconSOEditor : Editor
+[CustomEditor(typeof(AllyPrefabSO))]
+public class AllyPrefabSOEditor : Editor
 {
     public override void OnInspectorGUI()
     {
@@ -12,51 +12,53 @@ public class ItemIconSOEditor : Editor
 
         EditorGUILayout.Space(12);
 
-        ItemIconSO iconSO = (ItemIconSO)target;
+        AllyPrefabSO iconSO = (AllyPrefabSO)target;
 
-        if (GUILayout.Button("Collect Item Sprites"))
+        if (GUILayout.Button("Collect Card Sprites"))
         {
-            Undo.RecordObject(iconSO, "Collect Item Sprites");
+            Undo.RecordObject(iconSO, "Collect Card Sprites");
 
-            CollectModuleItemSprites(iconSO);
-            CollectModuleSynhronySprites(iconSO);
+            CollectAllyCardSprites(iconSO);
 
             EditorUtility.SetDirty(iconSO);
             AssetDatabase.SaveAssets();
         }
     }
 
-    private void CollectModuleItemSprites(ItemIconSO iconSO)
+    private void CollectAllyCardSprites(AllyPrefabSO iconSO)
     {
-        if (CollectSprites(iconSO.moduleItemTextures, iconSO.moduleItemSprites, "MUUI_Item_", out string wariningLog_ModuleItem))
-            Debug.Log($"Module Item Sprites 수집 완료: {iconSO.moduleItemSprites.Count}개 / Prefix: MUUI_Item_");
-        else
-            Debug.LogWarning(wariningLog_ModuleItem, iconSO);
+        var leng = iconSO.allyCardTextures;
+        iconSO.allyCardIcons = new SerializableArray<Sprite>[leng.Length];
+        for (int i = 0; i < leng.Length; i++)
+        {
+            Texture2D[] texture = iconSO.allyCardTextures[i].array;
+            iconSO.allyCardIcons[i] = new SerializableArray<Sprite>();
+            if (CollectSprites(texture, out List<Sprite> spriteList, out string wariningLog_ModuleItem))
+            {
+                iconSO.allyCardIcons[i].array = spriteList.ToArray();
+                Debug.Log($"Ally Card Sprites 수집 완료: {iconSO.allyCardIcons[i].array.Length}개");
+            }
+            else
+            {
+                Debug.LogWarning(wariningLog_ModuleItem, iconSO);
+            }
+        }
+
     }
 
-    private void CollectModuleSynhronySprites(ItemIconSO iconSO)
+    private bool CollectSprites(Texture2D[] textureArray, out List<Sprite> spriteList, out string warningLog)
     {
-        if (CollectSprites(iconSO.moduleSynhronyTextures, iconSO.moduleSynhronySprites, "MUUI_Synhrony_", out string wariningLog_ModuleSynhrony))
-            Debug.Log($"Module Synhrony Sprites 수집 완료: {iconSO.moduleItemSprites.Count}개 / Prefix: MUUI_Synhrony_");
-        else
-            Debug.LogWarning(wariningLog_ModuleSynhrony, iconSO);
-    }
-
-    private bool CollectSprites(Texture2D[] textureArray, List<Sprite> spriteList, string prefix, out string warningLog)
-    {
+        spriteList = new List<Sprite>();
         warningLog = "";
         if (textureArray == null || textureArray.Length == 0)
         {
-            warningLog = "Module Item Textures가 비어있습니다.";
+            warningLog = "Textures가 비어있습니다.";
             return false;
         }
 
-        if (spriteList == null) spriteList = new List<Sprite>();
-        else spriteList.Clear();
-
         if (!CollectSubSprites(textureArray, spriteList, out warningLog))
             return false;
-       
+
         return true;
     }
 
@@ -95,4 +97,5 @@ public class ItemIconSOEditor : Editor
         return true;
     }
 }
+
 #endif

@@ -14,9 +14,12 @@ public class KeycardItemController : InteractItemController
     {
         base.id = id;
 
-        thisSr.sprite = ResourceManager.instance.Get_KeyCardSprite(base.id);
-        animSr.color = ResourceManager.instance.Get_KeycardColor(base.id);
-        DevTool.Set_Anim(ref aoc, at, ResourceManager.instance.keycardOutlineAC);
+        var reso = StaticResourceManager.instance.ItemIcon;
+        var icons = reso.keycardIcons;
+
+        thisSr.sprite = icons[id].sprite;
+        animSr.color = icons[id].clr;
+        DevTool.Set_Anim(ref aoc, at, reso.keycardOutlineAnimation);
         at.speed = 1.1f;
     }
 

@@ -54,7 +54,7 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
         var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
 
         DevTool.SetColor(prefab.lockedClr, failureTxt);
-        DevTool.SetColor(prefab.unlockedClr, successTxt);
+        DevTool.SetColor(PrisonBuild.unlockedClr, successTxt);
 
         tryUnlockTxt.text = ResourceManager.instance.Get_StaticWord(85);
         inputTxt.text = ResourceManager.instance.Get_StaticWord(88);

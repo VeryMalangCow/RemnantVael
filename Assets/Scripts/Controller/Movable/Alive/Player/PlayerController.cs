@@ -243,7 +243,7 @@ public class PlayerController : AliveObjectController
 
         baseSeq.SetLoops(-1, LoopType.Yoyo);
 
-        StaticResourceManager.instance.BuildPrefab.prisonPrefab.unlockedClr = Get_CorrectColor(eDamageType.Energy, false);
+        PrisonBuild.unlockedClr = Get_CorrectColor(eDamageType.Energy, false);
 
         // Item
         chargedBettery = 0;
@@ -269,7 +269,8 @@ public class PlayerController : AliveObjectController
     {
         keycardDict = new Dictionary<int, int>();
 
-        for (int i = 0; i < ResourceManager.instance.Get_KeycardAmount(); i++)
+        int amount = StaticResourceManager.instance.ItemIcon.keycardIcons.Length;
+        for (int i = 0; i < amount; i++)
             keycardDict.Add(i, 0);
 
         dash.Offset();

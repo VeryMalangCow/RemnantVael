@@ -158,7 +158,7 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_InnerColor(StaticResourceManager.instance.BuildPrefab.prisonPrefab.unlockedClr);
+        Set_InnerColor(PrisonBuild.unlockedClr);
     }
 
     #endregion

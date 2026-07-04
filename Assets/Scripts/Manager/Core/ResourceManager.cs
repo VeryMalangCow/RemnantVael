@@ -109,17 +109,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_Cutscene();
         Offset_Sprite_Dialogue();
         Offset_Sprite_Info();
-        Offset_Sprite_AllyCard();
-        Offset_Sprite_AllyRequest();
         Offset_Sprite_Ally();
-    }
-
-    private void Offset_Anim()
-    {
-        Offset_Anim_Static();
-        Offset_Anim_Module();
-        Offset_Anim_Keycard();
-        Offset_Anim_Core();
     }
 
     public void Offset()
@@ -127,7 +117,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Other();
         Offset_CSV();
         Offset_Sprite();
-        Offset_Anim();
     }
 
     #endregion
@@ -287,32 +276,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public string[] Get_AllyRandomName(int id) => randomName_Data.Get_Words(id);
     public int Get_AllAllyRandomNameAmount() => randomName_Data.Get_Amount();
-
-    #endregion
-    #region Static (Anim)
-
-    // Value
-    [HideInInspector] public AnimationClip explosionAC { get; private set; }
-    [HideInInspector] private AnimationClip[] attributeExplosionACArr;
-
-    // Offset
-    private void Offset_Anim_Static()
-    {
-        string path = "Anim/";
-
-        string explosionPath = path + "Explosion/";
-
-        explosionAC = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion");
-
-        attributeExplosionACArr = new AnimationClip[4];
-        attributeExplosionACArr[0] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Fire");
-        attributeExplosionACArr[1] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Cold");
-        attributeExplosionACArr[2] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Electicity");
-        attributeExplosionACArr[3] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Corrosion");
-    }
-
-    // Get
-    public AnimationClip Get_AttributeExplosionAC(int id) => attributeExplosionACArr[id];
 
     #endregion
 
@@ -807,73 +770,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     #endregion
-    #region Item - Module (Anim)
-
-    // Value
-    [HideInInspector] private AnimationClip[] moduleOutlineACs;
-
-    // Offset
-    private void Offset_Anim_Module()
-    {
-        string path = "Anim/";
-
-        string modulePath = path + "Module/";
-
-        moduleOutlineACs = new AnimationClip[5]; // 5
-        for (int i = 0; i < moduleOutlineACs.Length; i++)
-            moduleOutlineACs[i] = GetAsset<AnimationClip>(modulePath, $"Clip_ModuleItemOutline_R{i + 1}");
-    }
-
-    // Get
-    public AnimationClip Get_ModuleOutlineAC(int rank) => moduleOutlineACs[rank];
-
-    #endregion
-
-    #region Item - Keycard (Anim & Color)
-
-    // Value
-    [HideInInspector] public AnimationClip keycardOutlineAC { get; private set; }
-    [HideInInspector] public Color[] keycardOutlineColorArr;
-
-    // Offset
-    private void Offset_Anim_Keycard()
-    {
-        string path = "Anim/";
-
-        string modulePath = path + "Module/";
-
-        keycardOutlineAC = GetAsset<AnimationClip>(modulePath, "Clip_KeycardOutline");
-        keycardOutlineColorArr = new Color[5];
-        ColorUtility.TryParseHtmlString("#FF727F", out keycardOutlineColorArr[0]);
-        ColorUtility.TryParseHtmlString("#FFF49B", out keycardOutlineColorArr[1]);
-        ColorUtility.TryParseHtmlString("#A0FFFC", out keycardOutlineColorArr[2]);
-        ColorUtility.TryParseHtmlString("#A0FF99", out keycardOutlineColorArr[3]);
-        ColorUtility.TryParseHtmlString("#99FFD0", out keycardOutlineColorArr[4]);
-    }
-
-    // Get
-    public Color Get_KeycardColor(int id) => keycardOutlineColorArr[id];
-
-    #endregion
-
-    #region Item - Core (Anim)
-
-    // Value
-    [SerializeField] public AnimationClip coreOutlineAC { get; private set; }
-
-    // Offset
-    private void Offset_Anim_Core()
-    {
-        string path = "Anim/";
-
-        string modulePath = path + "Module/";
-
-        coreOutlineAC = GetAsset<AnimationClip>(modulePath, "Clip_CoreOutline");
-    }
-
-    // Get
-
-    #endregion
 
     #region AllyCard (CSV)
 
@@ -952,114 +848,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         return result.ToArray();
     }
-
-    #endregion
-    #region AllyCard (Sprite & Color)
-
-    // Value
-    [HideInInspector] private Sprite[][] allyCardIcon_Data;
-
-    [HideInInspector] private static readonly int stIconAmount = 1;
-    [HideInInspector] private static readonly int utIconAmount = 1;
-    [HideInInspector] private static readonly int ntIconAmount = 1;
-
-    [HideInInspector] private Sprite[] allyCardFrameArr;
-    [HideInInspector] private Sprite[] allyCardLightArr;
-    [HideInInspector] private Sprite[] allyCardBGArr;
-
-    [HideInInspector] private Color[] allyCardColorArr;
-    [HideInInspector] public Sprite allyNullIcon { get; private set; }
-
-    [HideInInspector] private Sprite[] keyCardSpriteArr;
-
-    // Offset
-    private void Offset_Sprite_AllyCard()
-    {
-        string path = "Sprite/";
-
-        allyCardIcon_Data = new Sprite[][]
-        {
-            GetAsset_AllyCardIcon(stIconAmount, "ST"),
-            GetAsset_AllyCardIcon(utIconAmount, "UT"),
-            GetAsset_AllyCardIcon(ntIconAmount, "NT")
-        };
-
-        string allyCardPath = path + "UI/Ally/";
-
-        Sprite[] allyCardFrameSprites = GetAsset_Arr<Sprite>(allyCardPath, "AllyCardFrame_000");
-        allyCardFrameArr = new Sprite[6]; // 6
-        allyCardLightArr = new Sprite[6];
-        allyCardBGArr = new Sprite[6];
-        for (int i = 0; i < allyCardFrameSprites.Length; i++)
-        {
-            Sprite sprite = allyCardFrameSprites[i];
-
-            if (Get_InSpriteName(sprite, "AllyCardFrame_000_Frame_", out int indexf))
-                allyCardFrameArr[indexf] = sprite;
-            else if (Get_InSpriteName(sprite, "AllyCardFrame_000_Light_", out int indexl))
-                allyCardLightArr[indexl] = sprite;
-            else if (Get_InSpriteName(sprite, "AllyCardFrame_000_BG_", out int indexB))
-                allyCardBGArr[indexB] = sprite;
-        }
-
-
-        allyCardColorArr = new Color[6]; // Keycard Color: 6
-        ColorUtility.TryParseHtmlString("#FFFFFF", out allyCardColorArr[0]);
-        ColorUtility.TryParseHtmlString("#D4FACA", out allyCardColorArr[1]);
-        ColorUtility.TryParseHtmlString("#64F9F8", out allyCardColorArr[2]);
-        ColorUtility.TryParseHtmlString("#B366FD", out allyCardColorArr[3]);
-        ColorUtility.TryParseHtmlString("#FE4C31", out allyCardColorArr[4]);
-        ColorUtility.TryParseHtmlString("#FFFFE1", out allyCardColorArr[5]);
-
-        keyCardSpriteArr = new Sprite[5]; // Keycard: 5
-        string moduleUiPath = path + "UI/ModuleUI/";
-
-        Sprite[] moduleUiSprites = GetAsset_Arr<Sprite>(moduleUiPath, "ModuleUI_000");
-        for (int i = 0; i < moduleUiSprites.Length; i++)
-        {
-            Sprite sprite = moduleUiSprites[i];
-
-            if (sprite.name == "ModuleUI_Icon_NullCard")
-                allyNullIcon = sprite;
-            else if (Get_InSpriteName(sprite, "ModuleUI_KeyCard_", out string s))
-            {
-                switch (s)
-                {
-                    case "Boss": keyCardSpriteArr[0] = sprite; break;
-                    case "Vault": keyCardSpriteArr[1] = sprite; break;
-                    case "Prison": keyCardSpriteArr[2] = sprite; break;
-                    case "Shop": keyCardSpriteArr[3] = sprite; break;
-                    case "AllyShop": keyCardSpriteArr[4] = sprite; break;
-
-                    default: break;
-                }
-            }
-        }
-    }
-
-    private Sprite[] GetAsset_AllyCardIcon(int spriteAmount, string typeName)
-    {
-        List<Sprite> result = new List<Sprite>();
-        for (int i = 0; i < spriteAmount; i++)
-        {
-            result.AddRange(
-                GetAsset_Arr<Sprite>(
-                    $"Sprite/UI/Ally/",
-                    $"AllyCardIcon_{typeName}_{DevTool.Get_LengthString(i, 3)}"));
-        }
-        return result.ToArray();
-    }
-
-    // Get
-    public Sprite[] Get_AllyCardSpriteIcon(int type) => allyCardIcon_Data[type];
-
-    public Sprite Get_AllyCardFrame(int rank) => allyCardFrameArr[rank];
-    public Sprite Get_AllyCardLight(int rank) => allyCardLightArr[rank];
-    public Sprite Get_AllyCardBG(int rank) => allyCardBGArr[rank];
-
-    public Color Get_AllyCardColor(int rank) => allyCardColorArr[rank];
-    public Sprite Get_KeyCardSprite(int id) => keyCardSpriteArr[id];
-    public int Get_KeycardAmount() => keyCardSpriteArr.Length;
 
     #endregion
 
@@ -1141,43 +929,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public string Get_RequestName(int id) => requestName_Data.Get_Word(id);
     public string Get_RequestCompleteDesc(int id) => requestCompleteDesc_Data.Get_Word(id);
     public string Get_RequestFailDesc(int id) => requestFailDesc_Data.Get_Word(id);
-
-    #endregion
-    #region AllyRequest (Sprite)
-
-    // Value
-    [HideInInspector] private Sprite[] requestRankSpriteList;
-    [HideInInspector] private Dictionary<string, Sprite> requestRewardDict;
-
-    // Offset
-    private void Offset_Sprite_AllyRequest()
-    {
-        string path = "Sprite/";
-
-        string moduleUIPath = path + "UI/ModuleUI/";
-        Sprite[] moduleUISprites = GetAsset_Arr<Sprite>(moduleUIPath, "ModuleUI_000");
-        requestRankSpriteList = new Sprite[5];
-        requestRewardDict = new Dictionary<string, Sprite>();
-        for (int i = 0; i < moduleUISprites.Length; i++)
-        {
-            Sprite sprite = moduleUISprites[i];
-
-            if (Get_InSpriteName(sprite, "ModuleUI_RequestRank_", out int index))
-                requestRankSpriteList[index] = sprite;
-
-            else if (sprite.name == "ModuleUI_13s_BC")
-                requestRewardDict.Add("BC", sprite);
-            else if (sprite.name == "ModuleUI_13s_Credit")
-                requestRewardDict.Add("Credit", sprite);
-            else if (sprite.name == "ModuleUI_13s_EP")
-                requestRewardDict.Add("EP", sprite);
-        }
-
-    }
-
-    // Get
-    public Sprite Get_AllyRequestRank(int rank) => requestRankSpriteList[rank];
-    public Sprite Get_AllyRequestReward(string type) => requestRewardDict[type];
 
     #endregion
 

@@ -93,7 +93,7 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         readyKeyAnnoRt.localScale = Vector2.one;
 
         // Rule (Left)
-        Color unlockClr = prefab.unlockedClr;
+        Color unlockClr = PrisonBuild.unlockedClr;
         DevTool.SetColor(unlockClr, ruleTxt);
         DevTool.SetColor(unlockClr, ruleDescTxt);
 

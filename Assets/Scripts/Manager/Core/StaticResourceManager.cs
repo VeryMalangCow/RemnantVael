@@ -17,6 +17,10 @@ public class StaticResourceManager : PersistentSingleton<StaticResourceManager>
     [SerializeField] private EnemyPrefabSO enemyPrefab;
     public EnemyPrefabSO EnemyPrefab => enemyPrefab;
 
+    [Header("=== Ally")]
+    [SerializeField] private AllyPrefabSO allyPrefab;
+    public AllyPrefabSO AllyPrefab => allyPrefab;
+
     [Header("=== Combat")]
     [SerializeField] private ExplosionPrefabSO explosionPrefab;
     public ExplosionPrefabSO ExplosionPrefab => explosionPrefab;

@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExplosionPrefabSO", menuName = "ScriptableObject/ExplosionPrefabSO")]
 public class ExplosionPrefabSO : ScriptableObject
 {
+    public AnimationClip explosionAnimation;
+    public AnimationClip[] attributeExplosionAnimations;
+
     [Space(10)]
     [Header("=== Player")]
     public PlayerExplosionController playerEplosionPrefab;

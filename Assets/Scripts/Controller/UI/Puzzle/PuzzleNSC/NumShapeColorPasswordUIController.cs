@@ -108,7 +108,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Color clr = StaticResourceManager.instance.BuildPrefab.prisonPrefab.unlockedClr;
+        Color clr = PrisonBuild.unlockedClr;
         for (int i = 0; i < allNscPanelEui.Length; i++)
         {
             allNscPanelEui[i].Set_InnerColor(clr);

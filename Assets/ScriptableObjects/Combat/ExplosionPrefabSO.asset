@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47419b7f4b43d4c41898d0b7d493fa79, type: 3}
   m_Name: ExplosionPrefabSO
   m_EditorClassIdentifier: 
+  explosionAnimation: {fileID: 7400000, guid: 9caa685e3f9cfdb44a1eb1c8622c9b14, type: 2}
+  attributeExplosionAnimations:
+  - {fileID: 7400000, guid: 100332c32a24cf8418b9b4fc4096bfc8, type: 2}
+  - {fileID: 7400000, guid: 793ed81aea83f57438005540518adff5, type: 2}
+  - {fileID: 7400000, guid: fe0885ffb88b46e43ae1332bd3e0eda9, type: 2}
+  - {fileID: 7400000, guid: 27f1b7f5d78352847af837270bbf9714, type: 2}
   playerEplosionPrefab: {fileID: 1834705992122296350, guid: e502bef22cc08a54295e688e2ba80666, type: 3}
   allyEplosionPrefab: {fileID: 2135592944930765446, guid: cc5f08912ea1231458da9db1522f4d10, type: 3}
   enemyEplosionPrefab: {fileID: 8350683347677216643, guid: 088fa6673bd0bbf4db5b15dfe3b7037a, type: 3}

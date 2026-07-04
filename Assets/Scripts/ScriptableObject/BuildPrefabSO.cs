@@ -101,7 +101,7 @@ public class PrisonBuild
     [Space(10)]
     public Sprite spaceBarSprite;
     public Color lockedClr;
-    public Color unlockedClr;
+    public static Color unlockedClr;
 
     [Serializable]
     public class PrisonEachBuild

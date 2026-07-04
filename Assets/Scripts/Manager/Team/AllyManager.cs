@@ -108,18 +108,19 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 
         yield return allyTotemePool.InitAsync(16, 8f);
 
-        Stopwatch sw = new Stopwatch();
-
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        var prefab = StaticResourceManager.instance.AllyPrefab;
         // Card Data
-        sw.Start();
         st_allAllyCardData = ResourceManager.instance.Get_StrikeTeam_AllAllyCardData();
         ut_allAllyCardData = ResourceManager.instance.Get_UplinkTeam_AllAllyCardData();
         nt_allAllyCardData = ResourceManager.instance.Get_NeoTeam_AllAllyCardData();
 
         // Icon
-        st_cardIconArr = ResourceManager.instance.Get_AllyCardSpriteIcon(0);
-        ut_cardIconArr = ResourceManager.instance.Get_AllyCardSpriteIcon(1);
-        nt_cardIconArr = ResourceManager.instance.Get_AllyCardSpriteIcon(2);
+        st_cardIconArr = prefab.allyCardIcons[0].array;
+        ut_cardIconArr = prefab.allyCardIcons[1].array;
+        nt_cardIconArr = prefab.allyCardIcons[2].array;
 
         // Arr
         allAllyCardData = new AllyCardData[][] { st_allAllyCardData, ut_allAllyCardData, nt_allAllyCardData };
@@ -147,8 +148,10 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
         for (int i = 0; i < stateTypeList.Count; i++)
             tunerTypeMultipleValueDict.Add(stateTypeList[i], tunerMultipleValueByType[i]);
 
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"AllyManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
 
         enabled = true;
