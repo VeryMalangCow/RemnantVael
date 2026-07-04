@@ -28,8 +28,8 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        var prefab = StaticResourceManager.instance.BuildPrefab;
-        var buPrefab = StaticResourceManager.instance.BuildPrefab.buPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso;
+        var buPrefab = StaticResourceManager.instance.BuildReso.buPrefab;
 
         onOffAc = buPrefab.onOffAniamtion;
         onOffStateAc = prefab.needChargeBetteryOnOffStateAnimation;

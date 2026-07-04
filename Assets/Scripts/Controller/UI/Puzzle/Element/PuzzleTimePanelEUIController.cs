@@ -48,7 +48,7 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     public void Set_AllStart(float currentCountdown, string secondString)
     {
-        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso.prisonPrefab;
         Color unlockClr = PrisonBuild.unlockedClr;
         Color lockClr = prefab.lockedClr;
 

@@ -5,7 +5,7 @@ public class UplinkTeamPrisonController : PrisonController
 
     private void Offset_TypeIconTxt()
     {
-        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso.prisonPrefab;
         var build = prefab.builds[1];
         typeIcon.sprite = build.teamIcon.typeSpecial;
         allySprites = build.allySprite;

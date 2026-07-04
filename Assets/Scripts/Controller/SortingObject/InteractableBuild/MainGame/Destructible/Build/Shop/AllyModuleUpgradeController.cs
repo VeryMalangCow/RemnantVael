@@ -36,8 +36,8 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
     {
         Set_LanguageTxt();
 
-        var prefab = StaticResourceManager.instance.BuildPrefab;
-        var amuPrefab = StaticResourceManager.instance.BuildPrefab.amuPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso;
+        var amuPrefab = StaticResourceManager.instance.BuildReso.amuPrefab;
 
         onOffAc = amuPrefab.onOffAniamtion;
         onOffStateAc = prefab.needChargeBetteryOnOffStateAnimation;

@@ -23,7 +23,7 @@ public class AllyDroppingBombController : DroppingBombController
         AllyExplosionController aec = ExplosionManager.instance.SpawnAllyExplosion();
         aec.Set_State(
             Get_ExlposionState(),
-            ac: StaticResourceManager.instance.ExplosionPrefab.explosionAnimation,
+            ac: StaticResourceManager.instance.ExplosionReso.explosionAnimation,
             Get_SpawnTF(),
             this.targetRange);
     }

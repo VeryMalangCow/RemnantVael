@@ -100,7 +100,7 @@ public class MissileBulletController : PlayerBulletController
         PlayerExplosionController pec = ExplosionManager.instance.SpawnPlayerExplosion();
         pec.Set_State(
             Get_ExlposionState(),
-            ac: StaticResourceManager.instance.ExplosionPrefab.explosionAnimation,
+            ac: StaticResourceManager.instance.ExplosionReso.explosionAnimation,
             Get_SpawnTF(),
             this.targetRange);
     }

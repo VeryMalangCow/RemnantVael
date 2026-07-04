@@ -15,7 +15,7 @@ public class BuildExplImgGenerator : ExplosionImgGenerator
 
     private void Start()
     {
-        explosionMaterial = StaticResourceManager.instance.BuildPrefab.explosionMaterial;
+        explosionMaterial = StaticResourceManager.instance.BuildReso.explosionMaterial;
     }
 
     #region Build

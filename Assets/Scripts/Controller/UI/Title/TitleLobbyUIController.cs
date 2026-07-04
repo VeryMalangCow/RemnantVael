@@ -283,8 +283,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     private void Start()
     {
-        Set_UIElementTS(true);
-
         Set_CurrentBtn(startBtn);
     }
 
@@ -294,40 +292,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         Set_UIElementTF(movingPower);
     }
 
-
-    #endregion
-
-    #region UI Element (TS)
-
-    private void Set_UIElementTS(bool isLoop)
-    {
-        for (int i = 0; i < allTitleTsEui.Count; i++)
-        {
-            int index = i;
-            TitleTSElement trueShadowElementSet = allTitleTsEui[index];
-            Get_EachUIElementTS(trueShadowElementSet.thisTSList, trueShadowElementSet.max, trueShadowElementSet.min, trueShadowElementSet.durTime, isLoop);
-        }
-    }
-
-
-    private void Get_EachUIElementTS(List<TrueShadow> tsList, float max, float min, float durTime, bool loop = true)
-    {
-        for (int i = 0; i < tsList.Count; i++)
-        {
-            int index = i;
-
-            tsList[index].Size = min;
-
-            Tween tween = DOTween.To(
-                () => tsList[index].Size,
-                x => tsList[index].Size = x,
-                max, durTime * 0.5f)
-                .SetEase(Ease.Linear);
-
-            if (loop)
-                tween.SetLoops(-1, LoopType.Yoyo);
-        }
-    }
 
     #endregion
 

@@ -38,9 +38,9 @@ public class EachTunerEUIController : ElementUIController
     public void Set_UI(AllyEachTunerData eachTunerData)
     {
         img.sprite = AllyManager.instance.Get_BUIcon(eachTunerData.type); // Icon
-        rankImg.sprite = StaticResourceManager.instance.ItemIcon.rankIcons[eachTunerData.rank - 1]; // Rank
+        rankImg.sprite = StaticResourceManager.instance.ItemReso.rankIcons[eachTunerData.rank - 1]; // Rank
 
-        var clr = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[eachTunerData.rank - 1].clr;
+        var clr = StaticResourceManager.instance.AllyReso.allyCardSpriteSets[eachTunerData.rank - 1].clr;
         frameImg.color = clr;
         arrowImg.color = clr;
     }
@@ -48,9 +48,9 @@ public class EachTunerEUIController : ElementUIController
     public void Set_UI(AllyEachBaseTunerData eachTunerData)
     {
         img.sprite = AllyManager.instance.Get_BUIcon(eachTunerData.type); // Icon
-        rankImg.sprite = StaticResourceManager.instance.ItemIcon.rankIcons[eachTunerData.rank - 1];; // Rank
+        rankImg.sprite = StaticResourceManager.instance.ItemReso.rankIcons[eachTunerData.rank - 1];; // Rank
 
-        var clr = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[eachTunerData.rank - 1].clr;
+        var clr = StaticResourceManager.instance.AllyReso.allyCardSpriteSets[eachTunerData.rank - 1].clr;
         frameImg.color = clr;
         arrowImg.color = clr;
     }

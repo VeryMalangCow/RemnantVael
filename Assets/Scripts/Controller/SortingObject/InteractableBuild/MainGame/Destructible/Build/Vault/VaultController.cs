@@ -36,7 +36,7 @@ public class VaultController : DestructibleBuildController
     {
         Set_AnimValue();
 
-        var prefab = StaticResourceManager.instance.BuildPrefab.vaultPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso.vaultPrefab;
         thisSr.material = prefab.material;
         stateAnim.sr.material = prefab.iconMaterial;
         panelStateAnim.sr.material = prefab.panelMaterial;
@@ -69,7 +69,7 @@ public class VaultController : DestructibleBuildController
 
     private void Set_AnimValue()
     {
-        var vaultPrefab = StaticResourceManager.instance.BuildPrefab.vaultPrefab;
+        var vaultPrefab = StaticResourceManager.instance.BuildReso.vaultPrefab;
         onOffAc = new CoupleData<AnimationClip>(null, vaultPrefab.onAnimations[currentGrade]);
         onOffStateAc = vaultPrefab.stateIconAnimation;
 

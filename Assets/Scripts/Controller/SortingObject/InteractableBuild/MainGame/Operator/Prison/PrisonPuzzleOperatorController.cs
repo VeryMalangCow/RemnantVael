@@ -13,7 +13,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
     {
         base.Set_AnimValue();
 
-        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPuzzleOperPrefab; 
+        var prefab = StaticResourceManager.instance.BuildReso.prisonPuzzleOperPrefab; 
 
         iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
         iconStateAnim.sr.material = prefab.panelMaterial;

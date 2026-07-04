@@ -92,7 +92,7 @@ public class CvtMaterialEUIController : ElementUIController
 
     public void Set_Condition(bool can)
     {
-        conditionIconImg.sprite = StaticResourceManager.instance.BuildPrefab.cvtMaterialConditionIcon.Get_Special(can);
+        conditionIconImg.sprite = StaticResourceManager.instance.BuildReso.cvtMaterialConditionIcon.Get_Special(can);
         lineCg.alpha = can ? 1f : 0.2f;
     }
 

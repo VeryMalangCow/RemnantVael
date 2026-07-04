@@ -23,7 +23,7 @@ public class BetteryShardVaultController : VaultController
     protected override void Offset()
     {
 
-        panelStateAnim.Set_Anim(new State_Anim(StaticResourceManager.instance.BuildPrefab.vaultPrefab.betteryShardIconAnimation));
+        panelStateAnim.Set_Anim(new State_Anim(StaticResourceManager.instance.BuildReso.vaultPrefab.betteryShardIconAnimation));
         currentAmountByGrade = amountByGrade[currentGrade];
 
         base.Offset();

@@ -718,7 +718,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         ItemData[] data = new ItemData[moduleBaseList_Data.Length];
         for (int i = 0; i < data.Length; i++)
         {
-            data[i] = new ItemData(i, StaticResourceManager.instance.ItemIcon.moduleItemSprites[i],
+            data[i] = new ItemData(i, StaticResourceManager.instance.ItemReso.moduleItemSprites[i],
                 moduleBaseList_Data[i].moduleMainChip[0],
                 moduleBaseList_Data[i].moduleMainChip[1],
                 moduleBaseList_Data[i].moduleMainChip[2]);
@@ -733,7 +733,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         MainChipData[] data = new MainChipData[mainChipName_Data.Get_Amount()];
         for (int i = 0; i < data.Length; i++)
         {
-            data[i] = new MainChipData(i, StaticResourceManager.instance.ItemIcon.moduleSynhronySprites[i]);
+            data[i] = new MainChipData(i, StaticResourceManager.instance.ItemReso.moduleSynhronySprites[i]);
 
             Set_DataLanguage(data[i], i);
         }

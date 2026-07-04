@@ -14,7 +14,7 @@ public class CoreItemController : InteractItemController
     {
         base.id = id;
 
-        var icons = StaticResourceManager.instance.ItemIcon;
+        var icons = StaticResourceManager.instance.ItemReso;
         DevTool.Set_Anim(ref aoc, at, icons.coreShiningAnimation);
         thisSr.sprite = icons.coreSprites[base.id - 1];
         at.speed = 1f;

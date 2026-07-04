@@ -49,7 +49,7 @@ public class AllyExplosionController : ExplosionController
             {
                 atList[i].gameObject.SetActive(true);
 
-                DevTool.Set_Anim(ref Get_IndexAOC(i), atList[i], StaticResourceManager.instance.ExplosionPrefab.attributeExplosionAnimations[i]);
+                DevTool.Set_Anim(ref Get_IndexAOC(i), atList[i], StaticResourceManager.instance.ExplosionReso.attributeExplosionAnimations[i]);
                 atList[i].speed = animSpeed;
             }
             else

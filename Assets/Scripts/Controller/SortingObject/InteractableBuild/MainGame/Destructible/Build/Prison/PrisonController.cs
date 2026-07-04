@@ -94,7 +94,7 @@ public class PrisonController : InteractableBuildController
 
     private void Offset_Comp()
     {
-        dangerIcon.sprite = StaticResourceManager.instance.BuildPrefab.prisonPrefab.rateIcons[rating];
+        dangerIcon.sprite = StaticResourceManager.instance.BuildReso.prisonPrefab.rateIcons[rating];
 
         prisonAllAllyTfList = DevTool.Get_ChildList<Transform>(allySg.gameObject.transform);
 
@@ -170,7 +170,7 @@ public class PrisonController : InteractableBuildController
 
     private void Set_AnimValue()
     {
-        var prisonPrefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+        var prisonPrefab = StaticResourceManager.instance.BuildReso.prisonPrefab;
 
         onOffAc = prisonPrefab.onOffAnimation; 
         onOffAc_Upside = prisonPrefab.onOffUpsideAnimation;

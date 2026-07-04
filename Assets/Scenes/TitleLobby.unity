@@ -4409,13 +4409,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc5e53934937734f8f8564b3e4a27d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stagePrefab: {fileID: 11400000, guid: 56c47a3709e20ac4d9ddfa9d88766cbe, type: 2}
-  stageIcon: {fileID: 11400000, guid: 9a44da07aefc56843a33772112800dd6, type: 2}
-  buildPrefab: {fileID: 11400000, guid: 9fedfd798edb6094ba9735c756cbf1fa, type: 2}
-  enemyPrefab: {fileID: 11400000, guid: 43ed3a26209fd714a8357fcdd00ea663, type: 2}
-  allyPrefab: {fileID: 11400000, guid: 9000d4477edcacf4b91645a3da5c36fa, type: 2}
-  explosionPrefab: {fileID: 11400000, guid: 47501166232b11f4e96b35f13ff78aff, type: 2}
-  itemIcon: {fileID: 11400000, guid: 905eb4b7cd44a2347810e16abdce2858, type: 2}
+  stageReso: {fileID: 11400000, guid: 56c47a3709e20ac4d9ddfa9d88766cbe, type: 2}
+  buildReso: {fileID: 11400000, guid: 9fedfd798edb6094ba9735c756cbf1fa, type: 2}
+  enemyReso: {fileID: 11400000, guid: 43ed3a26209fd714a8357fcdd00ea663, type: 2}
+  allyReso: {fileID: 11400000, guid: 9000d4477edcacf4b91645a3da5c36fa, type: 2}
+  explosionReso: {fileID: 11400000, guid: 47501166232b11f4e96b35f13ff78aff, type: 2}
+  itemReso: {fileID: 11400000, guid: 905eb4b7cd44a2347810e16abdce2858, type: 2}
 --- !u!4 &1081156649
 Transform:
   m_ObjectHideFlags: 0

@@ -347,7 +347,6 @@ GameObject:
   - component: {fileID: 8673867036256076916}
   - component: {fileID: 1419446323905814215}
   - component: {fileID: 4348940887915727209}
-  - component: {fileID: 2432650260857992607}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -485,36 +484,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2432650260857992607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216220028185681564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 2
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &264118831494138050
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +572,6 @@ GameObject:
   - component: {fileID: 4414343128761387246}
   - component: {fileID: 2220973260953407271}
   - component: {fileID: 5224493657870878091}
-  - component: {fileID: 3290156350949143713}
   m_Layer: 5
   m_Name: ResetBtn (1)
   m_TagString: Untagged
@@ -729,36 +697,6 @@ MonoBehaviour:
   rt: {fileID: 0}
   ownerUIController: {fileID: 0}
   btn: {fileID: 0}
---- !u!114 &3290156350949143713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331880017035137778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &333101996107124281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1778,7 +1716,6 @@ GameObject:
   - component: {fileID: 1794834909284860464}
   - component: {fileID: 7604465765685382950}
   - component: {fileID: 160240660040629501}
-  - component: {fileID: 6262012484775687139}
   m_Layer: 5
   m_Name: Img_Moon
   m_TagString: Untagged
@@ -1843,36 +1780,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6262012484775687139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056411317204204430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 1000
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &1072676264372788524
 GameObject:
   m_ObjectHideFlags: 0
@@ -5500,7 +5407,6 @@ GameObject:
   - component: {fileID: 5846394054867833987}
   - component: {fileID: 779459436854707432}
   - component: {fileID: 2875945370265636641}
-  - component: {fileID: 3449608305599550253}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5638,36 +5544,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3449608305599550253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2597423885423195747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 2
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &2602162763959765544
 GameObject:
   m_ObjectHideFlags: 0
@@ -5755,7 +5631,6 @@ GameObject:
   - component: {fileID: 2078432230471936964}
   - component: {fileID: 8430354880122622637}
   - component: {fileID: 2606474169855299512}
-  - component: {fileID: 2563496576333518248}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5893,36 +5768,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2563496576333518248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2614974111593702569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 2
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &2639720527348377695
 GameObject:
   m_ObjectHideFlags: 0
@@ -6310,7 +6155,6 @@ GameObject:
   - component: {fileID: 1397597876206515080}
   - component: {fileID: 2085247587414640167}
   - component: {fileID: 5572580855176957842}
-  - component: {fileID: 5536323811470637231}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -6448,36 +6292,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5536323811470637231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2926050715402859418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 2
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &2973158841280313373
 GameObject:
   m_ObjectHideFlags: 0
@@ -6823,7 +6637,6 @@ GameObject:
   - component: {fileID: 572140157545978145}
   - component: {fileID: 4862421553175854639}
   - component: {fileID: 4551475978672122676}
-  - component: {fileID: 4215255557447232188}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -6961,36 +6774,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4215255557447232188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3088166177322470184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 2
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &3138338259351134318
 GameObject:
   m_ObjectHideFlags: 0
@@ -7719,12 +7502,12 @@ MonoBehaviour:
     movingPowerY: 1.5
   allTitleTsEui:
   - thisTSList:
-    - {fileID: 6262012484775687139}
+    - {fileID: 0}
     min: 1000
     max: 1300
     durTime: 8
   - thisTSList:
-    - {fileID: 6296023966668898676}
+    - {fileID: 0}
     min: 500
     max: 750
     durTime: 6
@@ -9197,7 +8980,6 @@ GameObject:
   - component: {fileID: 7736012444120877179}
   - component: {fileID: 7371695414005369533}
   - component: {fileID: 2735399774207857423}
-  - component: {fileID: 6296023966668898676}
   m_Layer: 5
   m_Name: Img_Tower
   m_TagString: Untagged
@@ -9262,36 +9044,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6296023966668898676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4124819384974000778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 500
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &4164572479997828591
 GameObject:
   m_ObjectHideFlags: 0
@@ -10050,7 +9802,6 @@ GameObject:
   - component: {fileID: 4510256663933598963}
   - component: {fileID: 3196546947459614737}
   - component: {fileID: 4364228333386893262}
-  - component: {fileID: 2702125107961431238}
   m_Layer: 5
   m_Name: ResetBtn
   m_TagString: Untagged
@@ -10176,36 +9927,6 @@ MonoBehaviour:
   rt: {fileID: 0}
   ownerUIController: {fileID: 0}
   btn: {fileID: 0}
---- !u!114 &2702125107961431238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4553669946772732630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &4576992929259268964
 GameObject:
   m_ObjectHideFlags: 0
@@ -10331,7 +10052,6 @@ GameObject:
   - component: {fileID: 4250980506395737913}
   - component: {fileID: 6811477577591802226}
   - component: {fileID: 51782969715762994}
-  - component: {fileID: 1234510812340521342}
   m_Layer: 5
   m_Name: OptionBtn
   m_TagString: Untagged
@@ -10458,36 +10178,6 @@ MonoBehaviour:
   rt: {fileID: 0}
   ownerUIController: {fileID: 0}
   btn: {fileID: 0}
---- !u!114 &1234510812340521342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688158266326376147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &4700903445245614296
 GameObject:
   m_ObjectHideFlags: 0
@@ -13107,7 +12797,6 @@ GameObject:
   - component: {fileID: 8166953404389926067}
   - component: {fileID: 2078121994726223120}
   - component: {fileID: 5319794449652578983}
-  - component: {fileID: 2664962433343375794}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -13245,36 +12934,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2664962433343375794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5905478935855460093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 2
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &5935737334313408014
 GameObject:
   m_ObjectHideFlags: 0
@@ -14711,7 +14370,6 @@ GameObject:
   - component: {fileID: 1900651779712725793}
   - component: {fileID: 2590743738021285161}
   - component: {fileID: 715960441282352285}
-  - component: {fileID: 6770877649863612683}
   m_Layer: 5
   m_Name: ResetBtn (2)
   m_TagString: Untagged
@@ -14837,36 +14495,6 @@ MonoBehaviour:
   rt: {fileID: 0}
   ownerUIController: {fileID: 0}
   btn: {fileID: 0}
---- !u!114 &6770877649863612683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6621166580735847302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &6633018920631726603
 GameObject:
   m_ObjectHideFlags: 0
@@ -15103,7 +14731,6 @@ GameObject:
   - component: {fileID: 8761806369102953568}
   - component: {fileID: 2159776244436193569}
   - component: {fileID: 2004593141687681073}
-  - component: {fileID: 8558756585921751405}
   m_Layer: 5
   m_Name: Selected
   m_TagString: Untagged
@@ -15168,36 +14795,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8558756585921751405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6807148575043247845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &6807979298206188021
 GameObject:
   m_ObjectHideFlags: 0
@@ -16035,7 +15632,6 @@ GameObject:
   - component: {fileID: 7207692441446033153}
   - component: {fileID: 6619997877263818077}
   - component: {fileID: 1972818067324591947}
-  - component: {fileID: 357202450438918490}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -16173,36 +15769,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &357202450438918490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7172632056414804361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 2
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &7176341256060889775
 GameObject:
   m_ObjectHideFlags: 0
@@ -17041,7 +16607,6 @@ GameObject:
   - component: {fileID: 7257585385139805916}
   - component: {fileID: 3315126287364635372}
   - component: {fileID: 272147085251828283}
-  - component: {fileID: 2161726132441383376}
   m_Layer: 5
   m_Name: StartBtn
   m_TagString: Untagged
@@ -17168,36 +16733,6 @@ MonoBehaviour:
   rt: {fileID: 0}
   ownerUIController: {fileID: 0}
   btn: {fileID: 0}
---- !u!114 &2161726132441383376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7454982625726709805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &7455252725308042298
 GameObject:
   m_ObjectHideFlags: 0
@@ -19875,7 +19410,6 @@ GameObject:
   - component: {fileID: 4400458199561582956}
   - component: {fileID: 8584762468296820243}
   - component: {fileID: 2216882043768022424}
-  - component: {fileID: 3812033591550401473}
   m_Layer: 5
   m_Name: QuitBtn
   m_TagString: Untagged
@@ -20002,36 +19536,6 @@ MonoBehaviour:
   rt: {fileID: 0}
   ownerUIController: {fileID: 0}
   btn: {fileID: 0}
---- !u!114 &3812033591550401473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8833952586824666876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &8881396668910909311
 GameObject:
   m_ObjectHideFlags: 0
@@ -20882,6 +20386,38 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6099662972365120952, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+      propertyPath: backBtn
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099662972365120952, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+      propertyPath: applyBtn
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099662972365120952, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+      propertyPath: fpsPanelEui
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099662972365120952, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+      propertyPath: languagePanelEui
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099662972365120952, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+      propertyPath: bgmVolumePanelEui
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099662972365120952, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+      propertyPath: sfxVolumePanelEui
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099662972365120952, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+      propertyPath: resolutionPanelEui
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099662972365120952, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+      propertyPath: screenModePanelEui
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7911337210696337305, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -20919,6 +20455,11 @@ PrefabInstance:
     - {fileID: 4430788984155178189, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
     - {fileID: 8800491524265303030, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
     - {fileID: 2724519839975313609, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+    - {fileID: 6746857178657131862, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+    - {fileID: 1968077811111680253, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+    - {fileID: 8730958892756936189, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+    - {fileID: 6804136514864444066, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
+    - {fileID: 7105753425308647068, guid: 52d78679e039f57478c152b6f1850ad6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

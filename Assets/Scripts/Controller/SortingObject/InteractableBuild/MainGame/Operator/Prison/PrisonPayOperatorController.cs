@@ -21,7 +21,7 @@ public class PrisonPayOperatorController : PrisonOperatorController
     {
         base.Set_AnimValue();
 
-        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPayOperPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso.prisonPayOperPrefab;
 
         iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
         iconStateAnim.sr.material = prefab.panelMaterial;

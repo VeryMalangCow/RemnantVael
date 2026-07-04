@@ -49,11 +49,11 @@ public class DestructibleBuildController : InteractableBuildController
     {
         currentDur = maxDur;
 
-        Sprite frameSprite = StaticResourceManager.instance.BuildPrefab.durablityFrameSprite;
-        Material frameMaterial = StaticResourceManager.instance.BuildPrefab.durabilityMaterial;
+        Sprite frameSprite = StaticResourceManager.instance.BuildReso.durablityFrameSprite;
+        Material frameMaterial = StaticResourceManager.instance.BuildReso.durabilityMaterial;
 
-        Sprite innerSprite = StaticResourceManager.instance.BuildPrefab.durablityInnerSprite;
-        Material innerMaterial = StaticResourceManager.instance.BuildPrefab.durabilityMaterial;
+        Sprite innerSprite = StaticResourceManager.instance.BuildReso.durablityInnerSprite;
+        Material innerMaterial = StaticResourceManager.instance.BuildReso.durabilityMaterial;
 
         for (int i = 0; i < maxDur; i++)
         {

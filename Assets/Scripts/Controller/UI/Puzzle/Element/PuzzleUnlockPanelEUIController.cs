@@ -41,7 +41,7 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
         successTxt = DevTool.Get_ComponentTType(successCg.transform.GetChild(0).gameObject, out TMP_Text sTxt) ? sTxt : null;
 
         // Key Img
-        inputImg.sprite = StaticResourceManager.instance.BuildPrefab.prisonPrefab.spaceBarSprite;
+        inputImg.sprite = StaticResourceManager.instance.BuildReso.prisonPrefab.spaceBarSprite;
         inputImg.SetNativeSize();
     }
 
@@ -51,7 +51,7 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
 
     public void Set_AllStart(bool canSuccess)
     {
-        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso.prisonPrefab;
 
         DevTool.SetColor(prefab.lockedClr, failureTxt);
         DevTool.SetColor(PrisonBuild.unlockedClr, successTxt);

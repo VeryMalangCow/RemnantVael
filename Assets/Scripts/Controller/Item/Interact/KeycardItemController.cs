@@ -14,7 +14,7 @@ public class KeycardItemController : InteractItemController
     {
         base.id = id;
 
-        var reso = StaticResourceManager.instance.ItemIcon;
+        var reso = StaticResourceManager.instance.ItemReso;
         var icons = reso.keycardIcons;
 
         thisSr.sprite = icons[id].sprite;

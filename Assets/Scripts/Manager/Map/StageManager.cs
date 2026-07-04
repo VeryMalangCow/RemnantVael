@@ -1469,8 +1469,8 @@ public class StageObjectGenerator
     // Comp
     [SerializeField] private Transform stageParentTf;
 
-    private StagePrefabSO stagePrefab;
-    private BuildPrefabSO buildPrefab;
+    private StageResoSO stagePrefab;
+    private BuildResoSO buildPrefab;
     private StageTheme stageTheme;
 
     // Cell Size
@@ -1498,7 +1498,7 @@ public class StageObjectGenerator
 
     #region Init
 
-    public IEnumerator Initialize(StagePrefabSO stagePrefab, BuildPrefabSO buildPrefab, StageTheme stageTheme)
+    public IEnumerator Initialize(StageResoSO stagePrefab, BuildResoSO buildPrefab, StageTheme stageTheme)
     {
         this.stagePrefab = stagePrefab;
         this.buildPrefab = buildPrefab;
@@ -2474,7 +2474,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
         yield return stageTheme.Initialize();
         yield return stageGridGenerator.Initialize();
         StaticResourceManager staticReso = StaticResourceManager.instance;
-        yield return stageObjectGenerator.Initialize(staticReso.StagePrefab, staticReso.BuildPrefab, stageTheme);
+        yield return stageObjectGenerator.Initialize(staticReso.StageReso, staticReso.BuildReso, stageTheme);
 
         yield return GenerateStageCor(targetStageId);
     }
@@ -2687,7 +2687,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public DestructibleObjectController GetRandomFieldObjPrefab()
     {
-        var fieldObjs = StaticResourceManager.instance.StagePrefab.fieldObjPrefabs;
+        var fieldObjs = StaticResourceManager.instance.StageReso.fieldObjPrefabs;
         return fieldObjs[UnityEngine.Random.Range(0, fieldObjs.Length)];
     }
 
@@ -2817,7 +2817,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
 
     public VaultController GetVaultCorrectType(Type typeVault)
     {
-        var vaults = StaticResourceManager.instance.BuildPrefab.vaultPrefab.prefabs;
+        var vaults = StaticResourceManager.instance.BuildReso.vaultPrefab.prefabs;
         for (int i = 0; i < vaults.Length; i++)
         {
             VaultController vault = vaults[i];

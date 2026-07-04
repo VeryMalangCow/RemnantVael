@@ -22,7 +22,7 @@ public class ModuleVaultController : VaultController
 
     protected override void Offset()
     {
-        panelStateAnim.Set_Anim(new State_Anim(StaticResourceManager.instance.BuildPrefab.vaultPrefab.moduleIconAnimation));
+        panelStateAnim.Set_Anim(new State_Anim(StaticResourceManager.instance.BuildReso.vaultPrefab.moduleIconAnimation));
         currentPercentByGrade = percentByGrade[currentGrade];
 
         base.Offset();

@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be2e099212cf104b94f87397cca26b7, type: 3}
+  m_Name: ItemResoSO
+  m_EditorClassIdentifier: 
+  rankIcons:
+  - {fileID: -2071839289, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: 1624950903, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: 216245208, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: -589924007, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: -1684214863, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  descRankIcons:
+  - {fileID: -1597416641, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: -449346525, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: -43159055, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: 299157854, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: 631822970, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  moduleItemTextures:
+  - {fileID: 2800000, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  moduleItemSprites:
+  - {fileID: 991301374, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: -1689976493, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: 2021351045, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: -566749013, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: -1625873778, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: -1614071151, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: -633244790, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: -1111915552, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: 2128266069, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: 1883727116, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: -203577424, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  - {fileID: 1788927395, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+  moduleSynhronyTextures:
+  - {fileID: 2800000, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  moduleSynhronySprites:
+  - {fileID: 333023930, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: 903425916, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: -414604945, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: -1050326659, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: -1791113919, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: -1430685819, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: -2108108662, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: -629456520, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: 861525154, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: -2071802656, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  - {fileID: -1052040401, guid: 5b4d8429ea98aa74bb03a98a53091be0, type: 3}
+  moduleOutlineAnimations:
+  - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
+  - {fileID: 7400000, guid: 0759e410f7a365843a010e663dcb0ede, type: 2}
+  - {fileID: 7400000, guid: b5c82c38202ccea49aeb4f80244bd688, type: 2}
+  - {fileID: 7400000, guid: fda530e94e5c23e47a1672a32ac5098e, type: 2}
+  - {fileID: 7400000, guid: 384b1af2a10c9d948aebf6e7b86da252, type: 2}
+  coreSprites:
+  - {fileID: -1609351845, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  - {fileID: 286137507, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  - {fileID: 118361644, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  coreShiningAnimation: {fileID: 7400000, guid: 85952a4c3f7a20a49b5096db45d80602, type: 2}
+  keycardIcons:
+  - sprite: {fileID: 1110492473, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    clr: {r: 1, g: 0.44705883, b: 0.49803922, a: 1}
+  - sprite: {fileID: 1228292069, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    clr: {r: 1, g: 0.95686275, b: 0.60784316, a: 1}
+  - sprite: {fileID: -1364629468, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    clr: {r: 0.627451, g: 1, b: 0.9882353, a: 1}
+  - sprite: {fileID: -2136574193, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    clr: {r: 0.627451, g: 1, b: 0.6, a: 1}
+  - sprite: {fileID: -513438669, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    clr: {r: 0.6, g: 1, b: 0.8156863, a: 1}
+  keycardOutlineAnimation: {fileID: 7400000, guid: 8e08fca8fee45e44d9cba4199d2fbaa3, type: 2}

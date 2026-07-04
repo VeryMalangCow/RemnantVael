@@ -36,8 +36,8 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        var prefab = StaticResourceManager.instance.BuildPrefab;
-        var abuPrefab = StaticResourceManager.instance.BuildPrefab.abuPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso;
+        var abuPrefab = StaticResourceManager.instance.BuildReso.abuPrefab;
 
         onOffAc = abuPrefab.onOffAniamtion;
         onOffStateAc = prefab.needChargeBetteryOnOffStateAnimation;

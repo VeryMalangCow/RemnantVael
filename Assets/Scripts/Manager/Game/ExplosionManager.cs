@@ -22,7 +22,7 @@ public class ExplosionManager : Singleton<ExplosionManager>, IMainGameInitialize
     // Init
     public IEnumerator Initialize()
     {
-        var prefab = StaticResourceManager.instance.ExplosionPrefab;
+        var prefab = StaticResourceManager.instance.ExplosionReso;
         yield return playerExplosionPool.InitAsync(prefab.playerEplosionPrefab, playerExplosionTf, 16, 8f);
         yield return allyExplosionPool.InitAsync(prefab.allyEplosionPrefab, alluExplosionTf, 16, 8f);
         yield return enemyExplosionPool.InitAsync(prefab.enemyEplosionPrefab, enemyExplosionTf, 16, 8f);

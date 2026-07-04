@@ -111,7 +111,7 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 #if UNITY_EDITOR
         Stopwatch sw = Stopwatch.StartNew();
 #endif
-        var prefab = StaticResourceManager.instance.AllyPrefab;
+        var prefab = StaticResourceManager.instance.AllyReso;
         // Card Data
         st_allAllyCardData = ResourceManager.instance.Get_StrikeTeam_AllAllyCardData();
         ut_allAllyCardData = ResourceManager.instance.Get_UplinkTeam_AllAllyCardData();

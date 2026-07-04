@@ -269,7 +269,7 @@ public class PlayerController : AliveObjectController
     {
         keycardDict = new Dictionary<int, int>();
 
-        int amount = StaticResourceManager.instance.ItemIcon.keycardIcons.Length;
+        int amount = StaticResourceManager.instance.ItemReso.keycardIcons.Length;
         for (int i = 0; i < amount; i++)
             keycardDict.Add(i, 0);
 

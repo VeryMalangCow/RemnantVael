@@ -119,7 +119,7 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_Sprite(int typeId, AllyCardData data)
     {
-        var set = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[data.rank];
+        var set = StaticResourceManager.instance.AllyReso.allyCardSpriteSets[data.rank];
         frameImg.sprite = set.frame;
         lightImg.sprite = set.light;
         bgImg.sprite = set.bg;
@@ -131,12 +131,12 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_SpriteNull()
     {
-        var set = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[0];
+        var set = StaticResourceManager.instance.AllyReso.allyCardSpriteSets[0];
         frameImg.sprite = set.frame;
         lightImg.sprite = set.light;
         bgImg.sprite = set.bg;
 
-        iconImg.sprite = StaticResourceManager.instance.AllyPrefab.allyNullIcon; 
+        iconImg.sprite = StaticResourceManager.instance.AllyReso.allyNullIcon; 
 
         lightSeq.timeScale = 1;
     }
@@ -146,7 +146,7 @@ public class AllyCardEUIController : OwnBtnEUIController
         nameTxt.text = data.name.Replace("\\n", "\n");
         descTxt.text = data.desc.Replace("\\n", "\n");
 
-        var clr = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[data.rank].clr;
+        var clr = StaticResourceManager.instance.AllyReso.allyCardSpriteSets[data.rank].clr;
 
         rankTxt.text = ResourceManager.instance.allyCardRateArr[data.rank];
         rankTxt.color = clr;
@@ -163,7 +163,7 @@ public class AllyCardEUIController : OwnBtnEUIController
         descTxt.text = "NULL";
 
         rankTxt.text = "NULL";
-        var clr = StaticResourceManager.instance.AllyPrefab.allyCardSpriteSets[0].clr;
+        var clr = StaticResourceManager.instance.AllyReso.allyCardSpriteSets[0].clr;
         rankTxt.color = clr;
         bgImg.color = clr;
 
@@ -172,7 +172,7 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_CardBGMark(int typeId)
     {
-        bgMarkImg.sprite = StaticResourceManager.instance.BuildPrefab.prisonPrefab.builds[typeId].teamIcon.typeSpecial;
+        bgMarkImg.sprite = StaticResourceManager.instance.BuildReso.prisonPrefab.builds[typeId].teamIcon.typeSpecial;
     }
 
     #endregion

@@ -35,7 +35,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         base.Set_AnimValue();
 
-        var prefab = StaticResourceManager.instance.BuildPrefab.vaultUpgradeOperPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso.vaultUpgradeOperPrefab;
 
         iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
         iconStateAnim.sr.material = prefab.panelMaterial; 

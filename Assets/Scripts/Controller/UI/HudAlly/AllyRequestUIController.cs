@@ -66,7 +66,7 @@ public class AllyRequestUIController : MonoBehaviour
         completeDescTxt.text = request.Get_CompleteDesc();
         failDescTxt.text = request.Get_FailDesc();
 
-        var prefab = StaticResourceManager.instance.AllyPrefab;
+        var prefab = StaticResourceManager.instance.AllyReso;
         diffcultyImg.sprite = prefab.requestRankSprites[request.Get_Rank()];
         diffcultyExtraTxt.text = $"{(request.Get_Rank() + 1)}";
 

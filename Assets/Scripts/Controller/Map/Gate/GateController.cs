@@ -123,7 +123,7 @@ public class GateController : StaticDepthController, IInteract
         
         if (!Can_Open_ByKeycard())
         {
-            keyCardIconSr.sprite = StaticResourceManager.instance.ItemIcon.keycardIcons[needKeyCardId].sprite;
+            keyCardIconSr.sprite = StaticResourceManager.instance.ItemReso.keycardIcons[needKeyCardId].sprite;
             keyCardIconSr.gameObject.SetActive(true);
         }
         else
@@ -282,7 +282,7 @@ public class GateController : StaticDepthController, IInteract
         if (DevTool.Can_CastingTType(parterGate.thisRoom.roomRule, out EntranceRuleController erc))
         {
             int index = erc.GetElevatorData();
-            nextMapIconSr.sprite = StaticResourceManager.instance.StageIcon.GetStageIcon(index);
+            nextMapIconSr.sprite = StaticResourceManager.instance.StageReso.GetStageIcon(index);
             nextMapIconSr.gameObject.SetActive(true);
         }
         else

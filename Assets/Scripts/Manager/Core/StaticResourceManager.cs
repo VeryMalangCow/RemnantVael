@@ -2,31 +2,18 @@ using UnityEngine;
 
 public class StaticResourceManager : PersistentSingleton<StaticResourceManager>
 {
-    [Header("=== Stage")]
-    [SerializeField] private StagePrefabSO stagePrefab;
-    [SerializeField] private StageIconSO stageIcon;
-    public StagePrefabSO StagePrefab => stagePrefab;
-    public StageIconSO StageIcon => stageIcon;
+    [SerializeField] private StageResoSO stageReso;
+    [SerializeField] private BuildResoSO buildReso;
+    [SerializeField] private EnemyResoSO enemyReso;
+    [SerializeField] private AllyResoSO allyReso;
+    [SerializeField] private ExplosionResoSO explosionReso;
+    [SerializeField] private ItemResoSO itemReso;
 
-
-    [Header("=== Build")]
-    [SerializeField] private BuildPrefabSO buildPrefab;
-    public BuildPrefabSO BuildPrefab => buildPrefab;
-
-    [Header("=== Enemy")]
-    [SerializeField] private EnemyPrefabSO enemyPrefab;
-    public EnemyPrefabSO EnemyPrefab => enemyPrefab;
-
-    [Header("=== Ally")]
-    [SerializeField] private AllyPrefabSO allyPrefab;
-    public AllyPrefabSO AllyPrefab => allyPrefab;
-
-    [Header("=== Combat")]
-    [SerializeField] private ExplosionPrefabSO explosionPrefab;
-    public ExplosionPrefabSO ExplosionPrefab => explosionPrefab;
-
-    [Header("=== Item")]
-    [SerializeField] private ItemIconSO itemIcon;
-    public ItemIconSO ItemIcon => itemIcon;
+    public StageResoSO StageReso => stageReso;
+    public BuildResoSO BuildReso => buildReso;
+    public EnemyResoSO EnemyReso => enemyReso;
+    public AllyResoSO AllyReso => allyReso;
+    public ExplosionResoSO ExplosionReso => explosionReso;
+    public ItemResoSO ItemReso => itemReso;
 
 }

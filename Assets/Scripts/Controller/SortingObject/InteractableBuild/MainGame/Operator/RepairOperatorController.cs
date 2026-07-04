@@ -43,7 +43,7 @@ public class RepairOperatorController : OperatorController
     {
         base.Set_AnimValue();
 
-        var prefab = StaticResourceManager.instance.BuildPrefab.repairOperPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso.repairOperPrefab;
 
         iconStateAnim.Set_Anim(new State_Anim(prefab.animation, 1f), 1f);
         iconStateAnim.sr.material = prefab.panelMaterial;

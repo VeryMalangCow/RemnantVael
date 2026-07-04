@@ -79,7 +79,7 @@ public class HudMinimapView : MonoBehaviour
     public void SetOnMapIcon(int stageId)
     {
         stageIcon.gameObject.SetActive(true);
-        stageIcon.sprite = StaticResourceManager.instance.StageIcon.GetStageIcon(stageId);
+        stageIcon.sprite = StaticResourceManager.instance.StageReso.GetStageIcon(stageId);
     }
 
     public void SetOffMapIcon()

@@ -73,7 +73,7 @@ public class PuzzleReadyPanelEUIController : ElementUIController
 
     public void Set_AllStart(float currentCountdown, string secondString)
     {
-        var prefab = StaticResourceManager.instance.BuildPrefab.prisonPrefab;
+        var prefab = StaticResourceManager.instance.BuildReso.prisonPrefab;
 
         // Ready
         readyCg.alpha = 1f;

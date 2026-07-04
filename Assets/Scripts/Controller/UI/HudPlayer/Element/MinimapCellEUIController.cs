@@ -31,7 +31,7 @@ public class MinimapCellEUIController : ElementUIController
     public void Offset(RoomController room, bool isNormal)
     {
         // From/To RCs
-        MinimapIcon minimapReso = StaticResourceManager.instance.StageIcon.minimapIcons[room.roomTypeId];
+        MinimapIcon minimapReso = StaticResourceManager.instance.StageReso.minimapIcons[room.roomTypeId];
 
         CoupleData<Sprite> thisSprites = minimapReso.minimapElementIcon.Get_Base(isNormal);
         ref MinimapCellEUIController target = ref (isNormal ? ref room.thisMME : ref room.thisIMME);
@@ -52,7 +52,7 @@ public class MinimapCellEUIController : ElementUIController
                 room.RoomVecWorld[0].x * intervalMm.Get_Base(isNormal),
                 room.RoomVecWorld[0].y * intervalMm.Get_Base(isNormal));
         }
-        CoupleData<Sprite> sprite = StaticResourceManager.instance.StageIcon.GetMinimapIcon(room.roomRule);
+        CoupleData<Sprite> sprite = StaticResourceManager.instance.StageReso.GetMinimapIcon(room.roomRule);
 
         if (sprite != null)
         {
