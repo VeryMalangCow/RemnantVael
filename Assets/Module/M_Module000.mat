@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player00_000
+  m_Name: M_Module000
   m_Shader: {fileID: -6465566751694194690, guid: 139ac6e302fda2245b74575f8c30928c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: 41b11eb251f0a834cb7dd1143e663f29, type: 3}
+        m_Texture: {fileID: 2800000, guid: a6b1db47a712a73499a51d1971a4a9db, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+        m_Texture: {fileID: 2800000, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -76,7 +76,7 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     m_Colors:
-    - _Color: {r: 0, g: 2.126856, b: 4.237096, a: 1}
+    - _Color: {r: 2.9960787, g: 2.9960787, b: 2.9960787, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -9,18 +9,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 {
     #region File
 
-    #region T
-
-    private T[] GetAsset_Arr<T>(string path, string fileName = "") where T : UnityEngine.Object
-        => Resources.LoadAll<T>(path + fileName);
-
-    private T GetAsset<T>(string path, string fileName) where T : UnityEngine.Object
-        => Resources.Load<T>(path + fileName);
-
-    #endregion
-
-    #region CSV
-
     [HideInInspector] private static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
     [HideInInspector] private static string WORD_SPLIT_RE = @",";
 
@@ -59,8 +47,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         }
         return result.ToArray();
     }
-
-    #endregion
 
     #endregion
 

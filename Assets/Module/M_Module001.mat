@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ModuleUI_001_Title
+  m_Name: M_Module001
   m_Shader: {fileID: -6465566751694194690, guid: 139ac6e302fda2245b74575f8c30928c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: 86cf9058fefce4d4a8f45f495a66ab65, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4c25dd0670f88b54c9d9a13a44f89fbf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 3c9bb1ed23e2e074592a2a7733c09307, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4724d752921d4bb4bb2e633dfd1d2b86, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -76,7 +76,7 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     m_Colors:
-    - _Color: {r: 2.2722268, g: 1.6915462, b: 5.3523555, a: 1}
+    - _Color: {r: 1.0592737, g: 1.0592737, b: 1.0592737, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

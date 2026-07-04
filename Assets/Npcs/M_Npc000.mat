@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bullet_Trail
+  m_Name: M_Npc000
   m_Shader: {fileID: -6465566751694194690, guid: 139ac6e302fda2245b74575f8c30928c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: a89f9215413f2034582e2d583eed68b4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9ab2e65c8dd3b2c429782a79ea5781bf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 79ce2f0f9e0bb564e9c7fd0c4706bf5a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9aef2498974a1334e835fde5b542e311, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -76,7 +76,7 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     m_Colors:
-    - _Color: {r: 47.937256, g: 47.937256, b: 47.937256, a: 1}
+    - _Color: {r: 5.9921575, g: 5.9921575, b: 5.9921575, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
