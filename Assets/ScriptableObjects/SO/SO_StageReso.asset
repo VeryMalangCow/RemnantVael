@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329c4b726eabe144aa7ec659ad30f765, type: 3}
+  m_Name: SO_StageReso
+  m_EditorClassIdentifier: 
+  roomLobbyEntrancePrefab: {fileID: 1008034119922393202, guid: 646dc9bb41fc1d34c8b985eedf196a5e, type: 3}
+  roomRuleLobbyPrefab: {fileID: 54930179985621434, guid: 212d1ec866a662c438c24d3e1eee5d82, type: 3}
+  roomEntranceRuleLobbyPrefab: {fileID: 4294857530491062263, guid: 7a4178700728cda42943cb860b8a7a1e, type: 3}
+  roomPrefabs:
+  - {fileID: 5431402486895092973, guid: 4b2a5d04245a52b408b3beb88827aa32, type: 3}
+  - {fileID: 30552976422514747, guid: b5fc938263021cf4bad6901a98dc3203, type: 3}
+  - {fileID: 5669788570679408829, guid: 03d95aca670f9ee498f78c83a1bab735, type: 3}
+  - {fileID: 2047644370504362780, guid: 7984b3e38b865d046914e0c7960972cc, type: 3}
+  - {fileID: 4860834918263134008, guid: 85b74090a3c8bf146a596abe79d4cab9, type: 3}
+  - {fileID: 2285549181385495578, guid: 16f4077a9a3a05546acfcf5105599d93, type: 3}
+  - {fileID: 1445045135914784940, guid: 24f58672b380c3147b9dfbbfc437c434, type: 3}
+  - {fileID: 58302249299098817, guid: a91c0ae140f3a9a4098e0c1a2ff4a18b, type: 3}
+  roomRulePrefabs:
+  - array:
+    - {fileID: 4872293821947380099, guid: b2a9d5ce62bb33e42909f58a7da90cdf, type: 3}
+    - {fileID: 3153792070163267314, guid: 3e29012797607f14bb2a48437907aed8, type: 3}
+    - {fileID: 5474426076621073884, guid: 02598e7a42bddbb4593d18d28841d383, type: 3}
+    - {fileID: 5738888295671933888, guid: c5e620963b527e84f8180e3d98b0f843, type: 3}
+    - {fileID: 2568899525402531752, guid: fcd712f0a301475478da9844cba67e4e, type: 3}
+  - array:
+    - {fileID: 6984894543039313918, guid: e438d002c6972074185fea59024c14de, type: 3}
+    - {fileID: 8954408171716193530, guid: 7bc285f14756a4442b72167f87478b4f, type: 3}
+  - array:
+    - {fileID: 1578422686618388954, guid: fe363f2c38094a246bbeb30442073bef, type: 3}
+    - {fileID: 8030876840541501109, guid: e4781b9c715edff4a8c2b74e497e10d9, type: 3}
+  - array:
+    - {fileID: 1630714771622026685, guid: 6d9ad2bf1587e734d91856b1f6222ca1, type: 3}
+    - {fileID: 559995847324425172, guid: e6d87bfc93d99d646b3bf4d3ce771c3b, type: 3}
+  - array:
+    - {fileID: 2231559744577682837, guid: e65cdde95a990d74c847e98011eaf5ff, type: 3}
+    - {fileID: 4446935798243295726, guid: d0c2c8fc4d991864cbcd9717cec7a553, type: 3}
+  - array:
+    - {fileID: 1429951621483988555, guid: f3d612e5f555f5d4dbdcab3123ab0b9b, type: 3}
+    - {fileID: 8713447625164600242, guid: 2a6b838963315764a945beccd7ee2244, type: 3}
+  - array:
+    - {fileID: 5591378270846795984, guid: 5c2f6b34028895e4d9f7a478a5e79336, type: 3}
+    - {fileID: 5590072827174930870, guid: 772a586f602c93e469eaf3c6a9726d09, type: 3}
+  - array:
+    - {fileID: 7484158713688760736, guid: 7081c122776341441b90d7ad7005d3b2, type: 3}
+    - {fileID: 1743292342990984430, guid: 51b2eb3cdffb30c468a8d270098b7e48, type: 3}
+  roomStartPrefab: {fileID: 8000800825091035099, guid: 10bf0ce69f8e08e40af0016d687fe706, type: 3}
+  roomElitePrefabs:
+  - {fileID: 7870566586486413299, guid: bf09d5f6c0fe3564884dda2b2787365e, type: 3}
+  - {fileID: 2608065406897887165, guid: 20345d3a63694ab4bab23f754faffd9d, type: 3}
+  - {fileID: 2779200691289312181, guid: 29afa7fc2fddba24c83e330dfdea6b62, type: 3}
+  roomEntrancePrefabs:
+  - {fileID: 8036042727304064747, guid: a6fd5e2983dec7445bd266ce4708bfb0, type: 3}
+  - {fileID: 4936998006877841946, guid: 4804331466d7cd5499b25832fbf5f9c6, type: 3}
+  roomVaultPrefab: {fileID: 3105383165726817420, guid: 4aeeedd49b0c6f24091ef3874ce308f4, type: 3}
+  roomShopPrefab: {fileID: 4725962489307178401, guid: 7ee99def9d6f45449866214094b83b11, type: 3}
+  roomAllyShopPrefab: {fileID: 6519770534596835441, guid: aae224e444cd0cb428e808bcfe87d75d, type: 3}
+  roomPrisonPrefab: {fileID: 4056666045400819882, guid: d7c2dd373b55c974cb0b25c12034a168, type: 3}
+  roomPassagePrefab: {fileID: 5651667900662966698, guid: 8222378b00408a44b85a4f43dd2f1c7c, type: 3}
+  roomPassageRulePrefab: {fileID: 5057008729851650903, guid: 1f227af2becabab429f22c74265c27b0, type: 3}
+  fieldObjPrefabs:
+  - {fileID: -8838655692115979413, guid: 3be7e8b2f7867924c978f02106ade6f0, type: 3}
+  - {fileID: -8838655692115979413, guid: 2f9130e5077dfea4ab1852f6b207cd56, type: 3}
+  - {fileID: -8838655692115979413, guid: f25ad301187a9e6459148252dd6df936, type: 3}
+  minimapIcons:
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 476855026, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1569914105, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: -1451701448, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1700199474, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    spritePivot: {x: 0.5, y: 0.5}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 1810412846, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 2006052592, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1495227505, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1051798293, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    spritePivot: {x: 0.25, y: 0.5}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 660787810, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -946666839, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1557905055, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1621447173, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 0, y: 1}
+    spritePivot: {x: 0.5, y: 0.25}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 1003430231, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -570641346, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1078000194, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -353351920, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    spritePivot: {x: 0.25, y: 0.25}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: -1027038445, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 1116852838, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1669839144, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1535159325, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: -1}
+    spritePivot: {x: 0.25, y: 0.75}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: -1527273314, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 1274739206, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1279793552, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1702724244, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    spritePivot: {x: 0.25, y: 0.25}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: 1540350132, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -1927201559, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: -796665567, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: -464208805, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    spritePivot: {x: 0.25, y: 0.25}
+  - minimapElementIcon:
+      typeBase:
+        typeBase: {fileID: -1297130982, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 1585164469, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      typeSpecial:
+        typeBase: {fileID: 1287868922, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        typeSpecial: {fileID: 377588081, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    roomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 1, y: 1}
+    spritePivot: {x: 0.25, y: 0.25}
+  vault_Icon:
+    typeBase: {fileID: -290701738, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    typeSpecial: {fileID: -1483903491, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  elevator_Icon:
+    typeBase: {fileID: 58754797, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    typeSpecial: {fileID: -609947336, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  shop_Icon:
+    typeBase: {fileID: -57570492, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    typeSpecial: {fileID: -1992303690, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  allyShop_Icon:
+    typeBase: {fileID: 2035667602, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    typeSpecial: {fileID: 1433479093, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  st_Prison_Icon:
+    typeBase: {fileID: -554058987, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    typeSpecial: {fileID: 1653280872, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  ut_Prison_Icon:
+    typeBase: {fileID: -1512498375, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    typeSpecial: {fileID: 24279070, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  nt_Prison_Icon:
+    typeBase: {fileID: -111883568, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    typeSpecial: {fileID: 2030984323, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  lobbyStageIcon: {fileID: -545570758, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  stageIcons:
+  - {fileID: -1530078879, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -16964757, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -869181761, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -121950165, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -693597725, guid: 637ede47422025b48bd24c3773722caa, type: 3}

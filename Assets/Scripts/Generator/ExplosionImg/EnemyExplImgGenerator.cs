@@ -14,7 +14,7 @@ public class EnemyExplImgGenerator : ExplosionImgGenerator
     #endregion
     private void Start()
     {
-        explosionMaterial = StaticResourceManager.instance.ExplosionReso.enemyExplosionMaterial;
+        explosionMaterial = StaticResourceManager.instance.EnemyReso.explosionMaterial;
     }
 
 

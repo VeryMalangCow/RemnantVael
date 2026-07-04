@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae570371b6e4ed14890c12813b8703e4, type: 3}
+  m_Name: SO_EnemyReso
+  m_EditorClassIdentifier: 
+  enemyPhaseSprites:
+  - {fileID: -1533359489, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  - {fileID: 154245012, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  - {fileID: -1813370868, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  hittedVfxMaterial: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
+  explosionMaterial: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}

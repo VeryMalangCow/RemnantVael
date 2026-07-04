@@ -6,7 +6,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
 
     private void Start()
     {
-        enemyHittedExplosionMaterial = StaticResourceManager.instance.ExplosionReso.enemyHittedVfxMaterial;
+        enemyHittedExplosionMaterial = StaticResourceManager.instance.EnemyReso.hittedVfxMaterial;
     }
 
     #region Player Attack

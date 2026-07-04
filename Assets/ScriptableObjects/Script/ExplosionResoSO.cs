@@ -17,8 +17,4 @@ public class ExplosionResoSO : ScriptableObject
     [Space(10)]
     [Header("=== Enemy")]
     public EnemyExplosionController enemyEplosionPrefab;
-
-    public Material enemyHittedVfxMaterial;
-
-    public Material enemyExplosionMaterial;
 }
