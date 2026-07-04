@@ -4415,6 +4415,7 @@ MonoBehaviour:
   allyReso: {fileID: 11400000, guid: 9000d4477edcacf4b91645a3da5c36fa, type: 2}
   explosionReso: {fileID: 11400000, guid: 47501166232b11f4e96b35f13ff78aff, type: 2}
   itemReso: {fileID: 11400000, guid: 905eb4b7cd44a2347810e16abdce2858, type: 2}
+  eventReso: {fileID: 11400000, guid: ad62111994bf259468f9d7ecdd064a96, type: 2}
 --- !u!4 &1081156649
 Transform:
   m_ObjectHideFlags: 0
@@ -4933,6 +4934,7 @@ MonoBehaviour:
   uplinkTeamString: 
   neoTeamString: 
   allyCardRateArr: []
+  cutsceneSprite_Data: []
 --- !u!4 &1463225871
 Transform:
   m_ObjectHideFlags: 0

@@ -106,9 +106,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_Sprite()
     {
-        Offset_Sprite_Cutscene();
-        Offset_Sprite_Dialogue();
-        Offset_Sprite_Info();
         Offset_Sprite_Ally();
     }
 
@@ -499,22 +496,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     #endregion
-    #region Cutscene (Sprite)
-
-
-    [HideInInspector] private Sprite[] cutsceneSprite_Data;
-
-    // Offset
-    private void Offset_Sprite_Cutscene()
-    {
-        string path = "Sprite/UI/Cutscene/";
-        cutsceneSprite_Data = GetAsset_Arr<Sprite>(path, "CutsceneSet_00");
-    }
-
-    // Get
-    public Sprite Get_CutsceneImg(int id) => cutsceneSprite_Data[id];
-
-    #endregion
 
     #region Dialogue (CSV)
 
@@ -601,26 +582,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     #endregion
-    #region Dialogue (Sprite)
-
-    // Value
-    [HideInInspector] private Dictionary<string, Sprite> dialogueCharSprite_Data;
-
-    // Offset
-    private void Offset_Sprite_Dialogue()
-    {
-        string path = "Sprite/UI/Dialogue/";
-
-        dialogueCharSprite_Data = new Dictionary<string, Sprite>();
-        Sprite[] sprites = GetAsset_Arr<Sprite>(path, "CharacterSet_000");
-        for (int i = 0; i < sprites.Length; i++)
-            dialogueCharSprite_Data.Add(sprites[i].name, sprites[i]);
-    }
-
-    // Get
-    public Sprite Get_DialogueCharImg(string id) => dialogueCharSprite_Data[id];
-
-    #endregion
 
     #region Info (CSV)
 
@@ -640,22 +601,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public string Get_InfoName(int id) => infoName_Data.Get_Word(id);
     public WordSet_Just Get_InfoDetail(int id) => infoDetail_Data[id];
-
-    #endregion
-    #region Info (Sprite)
-
-    // Value
-    [HideInInspector] private Sprite[] infoSprite_Data;
-
-    // Offset
-    private void Offset_Sprite_Info()
-    {
-        string path = "Sprite/UI/Info/";
-        infoSprite_Data = GetAsset_Arr<Sprite>(path, "Info_00");
-    }
-
-    // Get
-    public Sprite Get_InfoImg(int id) => infoSprite_Data[id];
 
     #endregion
 

@@ -5800,11 +5800,11 @@ MonoBehaviour:
       languageID: 1
       screenMode: 0
       resolutionMode: 2
-      fps: 3
+      fps: 2
       bgmVolume: 0.5
       sfxVolume: 0.5
     gameProgressData:
-      currentProgressing: 0
+      currentProgressing: -1
       usableVault: 1
       usableBU: 1
       usableMU: 1
@@ -6431,7 +6431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
-  targetStageId: 0
+  targetStageId: 99
   stageTheme:
     lobbyStageThemeSO: {fileID: 11400000, guid: 09c8368078f79c5439780900ae5c7ca0, type: 2}
     allStageThemeSOs:
@@ -15409,6 +15409,7 @@ MonoBehaviour:
   allyReso: {fileID: 11400000, guid: 9000d4477edcacf4b91645a3da5c36fa, type: 2}
   explosionReso: {fileID: 11400000, guid: 47501166232b11f4e96b35f13ff78aff, type: 2}
   itemReso: {fileID: 11400000, guid: 905eb4b7cd44a2347810e16abdce2858, type: 2}
+  eventReso: {fileID: 11400000, guid: ad62111994bf259468f9d7ecdd064a96, type: 2}
 --- !u!1 &1665693982
 GameObject:
   m_ObjectHideFlags: 0

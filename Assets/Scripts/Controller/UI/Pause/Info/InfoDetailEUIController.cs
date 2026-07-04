@@ -33,7 +33,7 @@ public class InfoDetailEUIController : ElementUIController
         WordSet_Just data = ResourceManager.instance.Get_InfoDetail(id);
 
         nameTxt.text = ResourceManager.instance.Get_InfoName(id);
-        img.sprite = ResourceManager.instance.Get_InfoImg(id);
+        img.sprite = StaticResourceManager.instance.EventReso.infoSprites[id];
         descTxt.text = data.Get_Word(0).Replace("<el>", "\n").Replace("<c>", ",");
         inputOrInstrucTxt.text = data.Get_Word(1);
     }

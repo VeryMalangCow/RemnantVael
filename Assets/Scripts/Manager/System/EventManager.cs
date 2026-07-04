@@ -65,6 +65,9 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
     [Header("=== Current")]
     [SerializeField] private EventData currentEvent = null;
 
+
+    private Dictionary<string, Dictionary<string, Sprite>> dialogueSpriteDict;
+
     #endregion
 
     #region Init
@@ -72,7 +75,21 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
     {
         Stopwatch sw = new Stopwatch();
         sw.Start();
+
         imgQueueSet.Offset();
+        dialogueSpriteDict = new Dictionary<string, Dictionary<string, Sprite>>();
+        Sprite[] sprites = StaticResourceManager.instance.EventReso.dialogueSprites;
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            Sprite sprite = sprites[i];
+            string[] s = sprite.name.Split("_");
+            if (!dialogueSpriteDict.ContainsKey(s[0]))
+            {
+                dialogueSpriteDict.Add(s[0], new Dictionary<string, Sprite>());
+            }
+            dialogueSpriteDict[s[0]].Add(s[1], sprite);
+        }
+
         sw.Stop();
         UnityEngine.Debug.Log($"EventManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 
@@ -394,7 +411,10 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
             string imgId = currentDialogue.imgID.StartsWith("Player") ?
                 currentDialogue.imgID.Replace("Player", $"Player{DevTool.Get_LengthString(PlayerManager.instance.playerController.Get_ID(), 2)}") :
                 currentDialogue.imgID;
-            targetDialogueComp.dialogueImg.sprite = ResourceManager.instance.Get_DialogueCharImg(imgId);
+
+            string[] imgString = imgId.Split("_");
+
+            targetDialogueComp.dialogueImg.sprite = dialogueSpriteDict[imgString[0]][imgString[1]];
 
             // Name
             targetDialogueComp.nameTxt.text = ReplaceNPlaceholders(currentDialogue.name);
@@ -485,7 +505,7 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
             Image img = imgQueueSet.Get_T();
             img.gameObject.SetActive(true);
             img.color = new Color(1f, 1f, 1f, 0f);
-            img.sprite = ResourceManager.instance.Get_CutsceneImg(currentCutscene.id);
+            img.sprite = StaticResourceManager.instance.EventReso.cutsceneSprites[currentCutscene.id];
 
             // Script
             seq = DOTween.Sequence();
