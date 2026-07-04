@@ -53,9 +53,6 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
     [HideInInspector] private AllyState allyState = new AllyState();
     [HideInInspector] public AllyState getAllyState { get { return allyState; } }
 
-    // Reso
-    [HideInInspector] public Dictionary<string, AllySpriteSet> allySpriteSetDict;
-
     // Name
     [HideInInspector] private HashSet<int> usedAllyName = new HashSet<int>();
 
@@ -126,17 +123,6 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
         allAllyCardData = new AllyCardData[][] { st_allAllyCardData, ut_allAllyCardData, nt_allAllyCardData };
         allGottenAllyCards = new HashSet<int>[] { st_gottenAllyCards, ut_gottenAllyCards, nt_gottenAllyCards };
         allIconArr = new Sprite[][] { st_cardIconArr, ut_cardIconArr, nt_cardIconArr };
-
-        // Sprite
-        allySpriteSetDict = new Dictionary<string, AllySpriteSet>
-        {
-            { "Assult", new AllySpriteSet("Assult") },
-
-            { "Ignis", new AllySpriteSet("Ignis") },
-            { "Glacia", new AllySpriteSet("Glacia") },
-            { "Volt", new AllySpriteSet("Volt") },
-            { "Tox", new AllySpriteSet("Tox") }
-        };
 
         allyState = new AllyState();
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootingAllyController : FieldUnitAllyController
@@ -25,6 +26,8 @@ public class ShootingAllyController : FieldUnitAllyController
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] private Transform bulletSpawnTF;
+    [SerializeField] private string allyName;
+    [SerializeField] private DirectionalImgController dirGunImg;
 
     [Space(10)]
     [Header("=== Trail")]
@@ -46,6 +49,14 @@ public class ShootingAllyController : FieldUnitAllyController
     #endregion
 
     #endregion
+
+    protected override void Offset()
+    {
+        base.Offset();
+
+        var reso = StaticResourceManager.instance.AllyReso.GetAllyGunSpriteSet(allyName);
+        dirGunImg.SetDir(reso.gun, reso.material);
+    }
 
     #region Handle
 

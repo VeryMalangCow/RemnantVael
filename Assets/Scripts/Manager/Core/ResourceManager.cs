@@ -104,16 +104,10 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_CSV_Tuner();
     }
 
-    private void Offset_Sprite()
-    {
-        Offset_Sprite_Ally();
-    }
-
     public void Offset()
     {
         Offset_Other();
         Offset_CSV();
-        Offset_Sprite();
     }
 
     #endregion
@@ -796,64 +790,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
-    #region Ally (Sprite)
-
-    // Value
-    private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
-    [HideInInspector] private Sprite[] allySprite_Data;
-
-
-    // Offset
-    private void Offset_Sprite_Ally()
-    {
-        string path = "Sprite/";
-
-        string allyPath = path + "Ally/";
-
-        allySprite_Data = GetAsset_Arr<Sprite>(allyPath, "Ally_001");
-    }
-
-    // Get
-    public List<Sprite> Get_AllySprite(string name, string type)
-    {
-        List<Sprite> result = new List<Sprite>();
-
-        int stringLength = 7 + name.Length + type.Length;
-
-        // 맞는 아트 리소스 가져오기
-        for (int i = 0; i < allySprite_Data.Length; i++)
-        {
-            if (allySprite_Data[i].name.Length >= stringLength &&
-                allySprite_Data[i].name.Substring(0, stringLength) == $"Ally_{name}_{type}_")
-            {
-                result.Add(allySprite_Data[i]);
-            }
-        }
-
-        // 방향에 따라 알맞는 순서 맞추기
-        return Get_SortSpritesByDirection(result);
-    }
-
-    public static List<Sprite> Get_SortSpritesByDirection(List<Sprite> sprites)
-    {
-        return sprites
-            .OrderBy(sprite => Get_DirectionIndex(sprite.name))
-            .ToList();
-    }
-
-    private static int Get_DirectionIndex(string spriteName)
-    {
-        // 예: "Sprite_Head_UL" → "UL" 추출
-        string[] parts = spriteName.Split('_');
-        string dir = parts[parts.Length - 1];
-
-        int index = System.Array.IndexOf(directionOrder, dir);
-        return index >= 0 ? index : int.MaxValue;
-    }
-
-
-    #endregion
-
     #region AllyRequest (CSV)
 
     // Value
@@ -1015,34 +951,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         }
 
         return new WordSet_WithClr(elementDict);
-    }
-
-    #endregion
-
-    #region GetAsset_SpriteName
-
-    private bool Get_InSpriteName(Sprite sprite, string name, out int index)
-    {
-        index = -1;
-        if (sprite.name.Length > name.Length && sprite.name.StartsWith(name))
-        {
-            if (int.TryParse(sprite.name.Replace(name, ""), out index))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private bool Get_InSpriteName(Sprite sprite, string name, out string index)
-    {
-        index = "";
-        if (sprite.name.Length > name.Length && sprite.name.StartsWith(name))
-        {
-            index = sprite.name.Replace(name, "");
-            return true;
-        }
-        return false;
     }
 
     #endregion

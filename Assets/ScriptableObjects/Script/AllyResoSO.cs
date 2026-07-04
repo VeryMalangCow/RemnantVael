@@ -4,6 +4,48 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AllyPrefabSO", menuName = "ScriptableObject/AllyPrefabSO")]
 public class AllyResoSO : ScriptableObject
 {
+    [Header("=== Ally")]
+    public static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
+    public AllySpriteSet gruntSpriteSet;
+    public AllySpriteSet ignisSpriteSet;
+    public AllySpriteSet glaciaSpriteSet;
+    public AllySpriteSet voltSpriteSet;
+    public AllySpriteSet toxSpriteSet;
+    public AllySpriteSet GetAllySpriteSet(string name)
+    {
+        switch (name)
+        {
+            case "Grunt": return gruntSpriteSet;
+            case "Ignis": return ignisSpriteSet;
+            case "Glacia": return glaciaSpriteSet;
+            case "Volt": return voltSpriteSet;
+            case "Tox": return toxSpriteSet;
+
+            default: return null;
+        }
+    }
+
+    [Header("=== Ally Gun")]
+    public AllyGunSpriteSet gruntGunSpriteSet;
+    public AllyGunSpriteSet ignisGunSpriteSet;
+    public AllyGunSpriteSet glaciaGunSpriteSet;
+    public AllyGunSpriteSet voltGunSpriteSet;
+    public AllyGunSpriteSet toxGunSpriteSet;
+    public AllyGunSpriteSet GetAllyGunSpriteSet(string name)
+    {
+        switch (name)
+        {
+            case "Grunt": return gruntGunSpriteSet;
+            case "Ignis": return ignisGunSpriteSet;
+            case "Glacia": return glaciaGunSpriteSet;
+            case "Volt": return voltGunSpriteSet;
+            case "Tox": return toxGunSpriteSet;
+
+            default: return null;
+        }
+    }
+
+
     [Header("=== Ally Card")]
     public SerializableArray<Texture2D>[] allyCardTextures;
     public SerializableArray<Sprite>[] allyCardIcons;
@@ -38,3 +80,20 @@ public class AllyCardSpriteSet
     public Color clr;
 }
 
+[System.Serializable]
+public class AllySpriteSet
+{
+    public List<Sprite> allyIdle;
+    public List<Sprite> allyMove;
+    public List<Sprite> allyAttack;
+
+    public Material material;
+}
+
+[System.Serializable]
+public class AllyGunSpriteSet
+{
+    public List<Sprite> gun;
+
+    public Material material;
+}

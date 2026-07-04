@@ -4594,27 +4594,6 @@ public class AllyBuffState : AllyState
 
 #endregion
 
-
-#region Class : Ally Sprite
-
-[System.Serializable]
-public class AllySpriteSet
-{
-    public List<Sprite> allyIdle;
-    public List<Sprite> allyMove;
-    public List<Sprite> allyAttack;
-
-    public AllySpriteSet(string name)
-    {
-        allyIdle = ResourceManager.instance.Get_AllySprite(name, "Idle");
-        allyMove = ResourceManager.instance.Get_AllySprite(name, "Move");
-        allyAttack = ResourceManager.instance.Get_AllySprite(name, "Attack");
-    }
-}
-
-#endregion
-
-
 #region Class : Ally Request
 
 public class AllyCompleteList<T> where T : IWhen_Request

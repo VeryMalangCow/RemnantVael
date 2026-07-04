@@ -57,14 +57,13 @@ MonoBehaviour:
   targetObject: {fileID: 8901846497403385796}
   thisSr: {fileID: 3509543857521266894}
   targetRange: 0.5
+  isSortingMover: 0
   rb: {fileID: 7751130478170212446}
   accelerationSpeed: 12
   isDead: 0
   currentSP:
     value: 0
   currentHP:
-    value: 0
-  currentEP:
     value: 0
   brokenParticleData: []
   particleThrowDis: 1
@@ -155,6 +154,8 @@ MonoBehaviour:
   bulletObjSize: {x: 1, y: 1}
   bulletColSize: {x: 0.13, y: 0.13}
   bulletSpawnTF: {fileID: 1521131796336763097}
+  allyName: Volt
+  dirGunImg: {fileID: 1147342360905754676}
   trailTime: 0.8
   trailStartWidth: 0.05
   lightIntensity: 0.5
@@ -336,6 +337,7 @@ MonoBehaviour:
   targetObject: {fileID: 7357743068536337124}
   thisSr: {fileID: 3373301920055886677}
   targetRange: 0.5
+  isSortingMover: 0
 --- !u!1 &2980044196522441332
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,7 +877,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8f900456d17802b44a9de7830f10b1c7, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -896,7 +898,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1745578017, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -904,7 +906,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1147342360905754676
@@ -921,15 +923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotTargetTf: {fileID: 8546946258805197552}
   comp: {fileID: 3373301920055886677}
-  dirList:
-  - {fileID: 1779051288, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -14212541, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -2041570404, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 1601942260, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -1641209575, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 1745578017, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 291841374, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 668347480, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  dirList: []
 --- !u!1 &8901846497403385796
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,7 +978,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0d728959a415f3445a74b9300e83dd75, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1005,7 +999,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 83583626, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1013,7 +1007,7 @@ SpriteRenderer:
   m_Size: {x: 0.68, y: 0.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &8140379498466177624
@@ -1036,6 +1030,7 @@ MonoBehaviour:
     allyIdle: []
     allyMove: []
     allyAttack: []
+    material: {fileID: 0}
 --- !u!1001 &5035661316127046950
 PrefabInstance:
   m_ObjectHideFlags: 0

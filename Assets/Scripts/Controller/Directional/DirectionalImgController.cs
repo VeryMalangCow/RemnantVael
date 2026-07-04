@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniRx;
+using System.Collections.Generic;
 
 public class DirectionalImgController : DirectionalController<Sprite, SpriteRenderer>
 {
@@ -17,4 +18,9 @@ public class DirectionalImgController : DirectionalController<Sprite, SpriteRend
 
     #endregion
 
+    public void SetDir(List<Sprite> sprites, Material material)
+    {
+        dirList = sprites;
+        comp.material = material;
+    }
 }
