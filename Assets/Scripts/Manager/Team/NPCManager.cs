@@ -13,7 +13,7 @@ public class NPCManager : Singleton<NPCManager>, IMainGameInitializer
     [SerializeField] private string initPregressText;
 
 
-    [SerializeField] public List<NPCController> allNpcs;
+    [SerializeField] public List<NpcController> allNpcs;
 
     #endregion
 
@@ -37,9 +37,9 @@ public class NPCManager : Singleton<NPCManager>, IMainGameInitializer
 
     #region Get
 
-    public NPCController Get_CorrectNPC(int id)
+    public NpcController Get_CorrectNPC(int id)
     {
-        return IDController.Get_CorrectIDObject<NPCController>(id, new List<IDController>(allNpcs));
+        return IDController.Get_CorrectIDObject<NpcController>(id, new List<IDController>(allNpcs));
     }
 
     #endregion

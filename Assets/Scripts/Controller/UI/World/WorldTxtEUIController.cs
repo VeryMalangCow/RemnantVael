@@ -1,5 +1,4 @@
 using DG.Tweening;
-using LeTai.TrueShadow;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +8,6 @@ public class WorldTxtEUIController : ElementUIController, IPoolable
 
     [SerializeField] private Canvas canvas;
     [SerializeField] private TMP_Text txt;
-    [SerializeField] private TrueShadow ts;
 
     [HideInInspector] private static readonly float normalSize = 18;
     [HideInInspector] private static readonly float criticalSize = 26;
@@ -71,7 +69,6 @@ public class WorldTxtEUIController : ElementUIController, IPoolable
 
         this.txt.text = txt;
         this.txt.color = txtClr;
-        ts.Color = tsClr; 
         this.transform.position = setPos;
         this.txt.fontSize = fontSize;
     }

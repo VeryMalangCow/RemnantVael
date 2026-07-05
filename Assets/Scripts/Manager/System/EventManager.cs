@@ -276,7 +276,7 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
         {
             if (_event.targetType == "NPC") // NPC 등 목표가 들어갈 부분
             {
-                NPCController npc = NPCManager.instance.Get_CorrectNPC(_event.targetId);
+                NpcController npc = NPCManager.instance.Get_CorrectNPC(_event.targetId);
                 if (npc != null)
                 {
                     Vector2 npcPos = npc.transform.position;
