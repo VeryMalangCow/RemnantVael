@@ -15,7 +15,7 @@ Build Bake 전체 과정을 관리하는 오케스트레이터 역할
 /// <summary> Build Prefab을 Runtime용 Prefab으로 Bake </summary>
 public static class RuntimeBuildBaker
 {
-    private const string EditorRoot = "Assets/BuildObjects/Prefabs/Editor";
+    private const string EditorRoot = "Assets/Build/Prefab/Editor";
     private const string PrefabFilter = "t:Prefab";
 
     [MenuItem("Tools/Baker/Build/Bake Runtime Build")]

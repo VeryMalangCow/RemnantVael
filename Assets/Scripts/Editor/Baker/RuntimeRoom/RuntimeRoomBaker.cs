@@ -12,7 +12,7 @@ Tools/Bake Runtime All Rooms 메뉴를 통해 Editor 폴더의 모든 Room 프리팹을 Bake
 /// <summary> Room Prefab을 Runtime용 Prefab으로 Bake </summary>
 public static class RuntimeRoomBaker
 {
-    private const string EditorRoot = "Assets/Stages/Rooms/Editor";
+    private const string EditorRoot = "Assets/Stage/Room/Prefab/Editor";
     private const string PrefabFilter = "t:Prefab";
 
     [MenuItem("Tools/Baker/Room/Bake Runtime Room")]
