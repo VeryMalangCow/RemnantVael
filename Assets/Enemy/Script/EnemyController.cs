@@ -49,10 +49,6 @@ public abstract class EnemyController : NavObjectController, IPoolable
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> orderOfPriorityEnemyPatternList;
     [SerializeField] protected ContinuousEnemyPattern specialPattern;
 
-    [Space(10)]
-    [Header("=== Sound")]
-    [SerializeField] private ASQueueSet audioQueueSet;
-
     #endregion
 
     #region - Hide
@@ -178,7 +174,6 @@ public abstract class EnemyController : NavObjectController, IPoolable
     private void Offset_Controller()
     {
         buff.Offset(this);
-        audioQueueSet.Offset();
     }
 
     #endregion
@@ -469,9 +464,9 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
         // »ç¿îµå
         if (!isDead)
-        { SoundManager.instance.PlayEnemySfx(Get_AS(), "Hitted"); }
+        { SoundManager.instance.PlayEnemySfx(transform.position, "Hitted"); }
         else
-        { SoundManager.instance.PlayEnemySfx("Killed"); }
+        { SoundManager.instance.PlayEnemySfx(transform.position, "Killed"); }
     }
 
     #endregion
@@ -554,8 +549,6 @@ public abstract class EnemyController : NavObjectController, IPoolable
     protected override void Set_Die()
     {
         base.Set_Die();
-
-        audioQueueSet.StopAll();
 
         Set_Die_GenItem();
         Set_Die_Effect();
@@ -733,13 +726,4 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     #endregion
 
-    #region Sound
-
-    public AudioSource Get_AS()
-    {
-        return audioQueueSet.Get_T();
-    }
-
-
-    #endregion
 }

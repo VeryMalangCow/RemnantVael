@@ -143,7 +143,7 @@ public class EnemyPattern_Thrust : EnemyPattern
             enemy.Set_MoveSpeed(speed);
         }
 
-        SoundManager.instance.PlayEnemyAttackSfxRandom(enemy.Get_AS(), "Thrust");
+        SoundManager.instance.PlayEnemyAttackSfxRandom(transform.position, "Thrust");
     }
 
     private void Play_ActualPattern_Each(DepthController depth, Vector2 targetDir)

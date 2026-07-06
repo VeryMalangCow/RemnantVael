@@ -145,7 +145,8 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         currentCountdown += paneltyTime;
         timePanelEui.Set_Panelty(paneltyTime, secondString);
-        SoundManager.instance.PlayBuildSfx("Damaged");
+        if (usingPrison != null)
+            SoundManager.instance.PlayBuildSfx(usingPrison.transform.position, "Damaged");
     }
 
     #endregion

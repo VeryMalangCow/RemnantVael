@@ -74,7 +74,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
 
             PlayerManager.instance.playerController.UseChargedBettery(1);
             isOn = true;
-            SoundManager.instance.PlayBuildSfx("PowerOn");
+            SoundManager.instance.PlayBuildSfx(transform.position, "PowerOn");
         }
     }
 

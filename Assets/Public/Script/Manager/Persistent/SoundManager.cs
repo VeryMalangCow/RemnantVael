@@ -46,10 +46,6 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
 
 
-    private Dictionary<string, AudioClip> sfxAudioDict = new Dictionary<string, AudioClip>();
-
-
-
     #region Bgm
 
     // TitleLobby
@@ -119,66 +115,58 @@ public class SoundManager : PersistentSingleton<SoundManager>
     #region Sfx
 
     // Player
-    public void PlayPlayerSfx(AudioSource audioSource, string name)
-    {
-        audioSource.PlayOneShot(playerAudioDict[name]);
-    }
-    public void PlayPlayerSfx(string name)
+    public void PlayPlayerSfx(Vector2 pos, string name)
     {
         thisSfxASQueueSet.Get_T().PlayOneShot(playerAudioDict[name]);
     }
 
-    public void PlayPlayerRandomThemeSfx(AudioSource audioSource, string name)
+    public void PlayPlayerRandomThemeSfx(Vector2 pos, string name)
     {
         List<AudioClip> clips = playerThemeAudioDict[name];
-        audioSource.PlayOneShot(clips[Random.Range(0, clips.Count - 1)]);
+        thisSfxASQueueSet.Get_T().PlayOneShot(clips[Random.Range(0, clips.Count - 1)]);
     }
 
     // Enemy
-    public void PlayEnemySfx(AudioSource audioSource, string name)
-    {
-        audioSource.PlayOneShot(enemyAudioDict[name]);
-    }
-    public void PlayEnemySfx(string name)
+    public void PlayEnemySfx(Vector2 pos, string name)
     {
         thisSfxASQueueSet.Get_T().PlayOneShot(enemyAudioDict[name]);
     }
 
 
     // Enemy Attack
-    public void PlayEnemyAttackSfxRandom(AudioSource audioSource, string name)
+    public void PlayEnemyAttackSfxRandom(Vector2 pos, string name)
     {
         List<AudioClip> clips = enemyAttackAudioDict[name];
-        audioSource.PlayOneShot(clips[Random.Range(0, clips.Count - 1)]);
+        thisSfxASQueueSet.Get_T().PlayOneShot(clips[Random.Range(0, clips.Count - 1)]);
     }
 
     // Status
-    public void PlayStatusSfx(string name)
+    public void PlayStatusSfx(Vector2 pos, string name)
     {
         thisSfxASQueueSet.Get_T().PlayOneShot(statusAudioDict[name]);
     }
 
     // Explosion
-    public void PlayExplosionSfx(AudioSource audioSource)
+    public void PlayExplosionSfx(Vector2 pos)
     {
-        audioSource.PlayOneShot(explosionAudioClip);
+        thisSfxASQueueSet.Get_T().PlayOneShot(explosionAudioClip);
     }
 
     // Item
-    public void PlayItemSfxRandom(AudioSource audioSource, string name)
+    public void PlayItemSfxRandom(Vector2 pos, string name)
     {
         List<AudioClip> clips = itemAudioDict[name];
-        audioSource.PlayOneShot(clips[Random.Range(0, clips.Count - 1)]);
+        thisSfxASQueueSet.Get_T().PlayOneShot(clips[Random.Range(0, clips.Count - 1)]);
     }
 
     // Build
-    public void PlayBuildSfx(string name)
+    public void PlayBuildSfx(Vector2 pos, string name)
     {
         thisSfxASQueueSet.Get_T().PlayOneShot(buildAudioDict[name]);
     }
 
     // Room
-    public void PlayRoomSfx(string name)
+    public void PlayRoomSfx(Vector2 pos, string name)
     {
         thisSfxASQueueSet.Get_T().PlayOneShot(roomAudioDict[name]);
     }

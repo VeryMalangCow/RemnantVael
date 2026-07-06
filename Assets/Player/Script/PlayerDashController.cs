@@ -85,7 +85,7 @@ public class PlayerDashController : MonoBehaviour
             // 마우스 방향으로 대시
             //BookCaculateVec = InputManager.Instance.DirFromPlayerPos.normalized;
 
-            SoundManager.instance.PlayPlayerSfx(playerController.Get_AS(), "Dash");
+            SoundManager.instance.PlayPlayerSfx(transform.position, "Dash");
             booked = true;
         }
 

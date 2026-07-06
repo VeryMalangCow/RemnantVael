@@ -146,7 +146,6 @@ public class PlayerController : AliveObjectController
 
     [Space(10)]
     [Header("=== Sound")]
-    [SerializeField] private ASQueueSet audioQueueSet;
     [SerializeField] private AudioSource movementAs;
 
     #endregion
@@ -277,7 +276,6 @@ public class PlayerController : AliveObjectController
         sg = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
         shadowSr = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
 
-        audioQueueSet.Offset(); 
         movementAs.volume = 0.2f;
     }
 
@@ -607,7 +605,7 @@ public class PlayerController : AliveObjectController
         if (keycardDict.ContainsKey(keyCardID))
         {
             keycardDict[keyCardID] = Mathf.Max(keycardDict[keyCardID] - amount, 0);
-            SoundManager.instance.PlayBuildSfx("UseKeycard");
+            SoundManager.instance.PlayBuildSfx(transform.position, "UseKeycard");
             OnKeycardChanged?.Invoke(keycardDict);
         }
     }
@@ -1321,7 +1319,7 @@ public class PlayerController : AliveObjectController
     {
         base.Set_Die();
 
-        SoundManager.instance.PlayPlayerSfx("Killed");
+        SoundManager.instance.PlayPlayerSfx(transform.position, "Killed");
 
         EventManager.instance.Set_Input(false);
 
@@ -1343,13 +1341,13 @@ public class PlayerController : AliveObjectController
         if (DevTool.Is_ChanceSuccess(avoidChance.actualState))
         {
             Play_Avoid();
-            SoundManager.instance.PlayPlayerSfx(audioQueueSet.Get_T(), "Avoid");
+            SoundManager.instance.PlayPlayerSfx(transform.position, "Avoid");
             return true;
         }
         else
         {
             SetOn_Invincible();
-            SoundManager.instance.PlayPlayerSfx(audioQueueSet.Get_T(), "Hitted");
+            SoundManager.instance.PlayPlayerSfx(transform.position, "Hitted");
             return false;
         }
     }
@@ -1425,16 +1423,6 @@ public class PlayerController : AliveObjectController
     {
         trail.emitting = false;
         trail.Clear();
-    }
-
-    #endregion
-
-
-    #region Sound
-
-    public AudioSource Get_AS()
-    {
-        return audioQueueSet.Get_T();
     }
 
     #endregion

@@ -126,7 +126,7 @@ public class EnemyPattern_Range : EnemyPattern
         Vector2 targetDir = DevTool.Get_DirForPlayer(enemy);
 
         Play_ActualPattern(targetDir);
-        SoundManager.instance.PlayEnemyAttackSfxRandom(enemy.Get_AS(), "Bullet");
+        SoundManager.instance.PlayEnemyAttackSfxRandom(transform.position, "Bullet");
 
         #endregion
 

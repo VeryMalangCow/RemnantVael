@@ -20,7 +20,6 @@ public abstract class ExplosionController : StaticDepthController, IPoolable
     [SerializeField] private Animator at;
     [SerializeField] protected CircleCollider2D col;
     [SerializeField] protected Light2D light2d;
-    [SerializeField] private AudioSource _as;
 
     [Space(10)]
     [Header("=== State")]
@@ -130,12 +129,12 @@ public abstract class ExplosionController : StaticDepthController, IPoolable
 
     private void SetOn_State()
     {
-        SoundManager.instance.PlayExplosionSfx(_as);
+        SoundManager.instance.PlayExplosionSfx(transform.position);
 
-        if (state.isFire) SoundManager.instance.PlayStatusSfx("Fire");
-        if (state.isCold) SoundManager.instance.PlayStatusSfx("Cold");
-        if (state.isElectricity) SoundManager.instance.PlayStatusSfx("Electricity");
-        if (state.isCorrosion) SoundManager.instance.PlayStatusSfx("Corrosion");
+        if (state.isFire) SoundManager.instance.PlayStatusSfx(transform.position, "Fire");
+        if (state.isCold) SoundManager.instance.PlayStatusSfx(transform.position, "Cold");
+        if (state.isElectricity) SoundManager.instance.PlayStatusSfx(transform.position, "Electricity");
+        if (state.isCorrosion) SoundManager.instance.PlayStatusSfx(transform.position, "Corrosion");
 
         StartCoroutine(Start_Play_Cor());
     }
