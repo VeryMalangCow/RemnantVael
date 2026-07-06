@@ -100,7 +100,7 @@ public class DeadParticleController : MovableDepthController, IPoolable
 
         Play_Disappoint(disappointTime).OnComplete(() =>
             {
-                VFXManager.instance.RemoveDeadParticle(this);
+                VfxManager.instance.RemoveDeadParticle(this);
             });
     }
 

@@ -47,9 +47,9 @@ public class AllyBulletController : BulletController
     {
         if (DevTool.Can_Collding(col, "Enemy", out EnemyController enemy))
         {
-            VFXManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
+            VfxManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
                 targetObject.transform.position, transform.rotation);
-            VFXManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
+            VfxManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
                 targetObject.transform.position, state.isCritical, transform.rotation);
 
             PlayerManager.instance.cameraController.Play_HitEnemyAnim();

@@ -81,7 +81,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
 
     private OnceTimeAnimController Gen_OOA()
     {
-        OnceTimeAnimController otac = VFXManager.instance.SpawnOnlyOnceAnim();
+        OnceTimeAnimController otac = VfxManager.instance.SpawnOnlyOnceAnim();
         otac.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
         return otac;
     }

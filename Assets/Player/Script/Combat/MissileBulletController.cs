@@ -80,9 +80,9 @@ public class MissileBulletController : PlayerBulletController
         switch (poolingString)
         {
             case "MissileBullet":
-                VFXManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
+                VfxManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
                     targetObject.transform.position, state.dmgState.dmgType, state.isCritical, 1.8f);
-                VFXManager.instance.player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
+                VfxManager.instance.player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
                     PlayerManager.instance.playerController.Get_ID(), targetObject.transform.position, state.dmgState.dmgType, state.isCritical);
                 break;
 

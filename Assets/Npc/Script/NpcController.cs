@@ -17,7 +17,7 @@ public class NpcController : MovableObjectController
     {
         base.OnEnable();
 
-        DevTool.Add_InList(NPCManager.instance.allNpcs, this);
+        DevTool.Add_InList(NpcManager.instance.allNpcs, this);
         AddSortingLayer();
     }
 

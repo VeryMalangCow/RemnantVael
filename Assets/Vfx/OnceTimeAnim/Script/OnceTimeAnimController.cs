@@ -65,7 +65,7 @@ public class OnceTimeAnimController : MonoBehaviour, IPoolable
         thisAnimator.speed = 0f;
         thisAnimator.enabled = false;
 
-        VFXManager.instance.RemoveOnlyOnceAnim(this);
+        VfxManager.instance.RemoveOnlyOnceAnim(this);
     }
 
     #endregion

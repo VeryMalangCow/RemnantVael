@@ -64,7 +64,7 @@ public class AfterImgGenerator : MonoBehaviour
     // Each Gen Img
     private void Gen_Img(SpriteRenderer sr, Color clr)
     {
-        PoolableSpriteRenderer poolableSr = VFXManager.instance.SpawnAfterImg();
+        PoolableSpriteRenderer poolableSr = VfxManager.instance.SpawnAfterImg();
         if (poolableSr == null)
         {
             Debug.Log("<color=red>poolableSr is NULL</color>");
@@ -82,7 +82,7 @@ public class AfterImgGenerator : MonoBehaviour
         afterSr.DOFade(0f, stayDur)
             .OnComplete(() => 
             {
-                VFXManager.instance.RemoveAfterImg(poolableSr);
+                VfxManager.instance.RemoveAfterImg(poolableSr);
             });
     }
 

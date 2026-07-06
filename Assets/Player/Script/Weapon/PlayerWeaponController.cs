@@ -141,7 +141,7 @@ public class PlayerWeaponController : PlayerSolarController
         ModuleItemManager.instance.ActiveSync_Fire(bullet);
 
         // Æø¹ß ÀÌÆåÆ®   
-        VFXManager.instance.player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
+        VfxManager.instance.player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
             player.Get_ID(),
             (Vector2)targetSpawnDepth.targetObject.transform.position + (dir * 0.1f),
             dir,

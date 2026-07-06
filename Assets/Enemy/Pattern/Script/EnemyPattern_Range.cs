@@ -170,7 +170,7 @@ public class EnemyPattern_Range : EnemyPattern
         bullet.SetOn_TrailState(trailTime, trailStartWidth, trailGradient);
 
         // Effect
-        VFXManager.instance.enemy_ExplImgGenerator.Expl_Enemy_Shoot(
+        VfxManager.instance.enemy_ExplImgGenerator.Expl_Enemy_Shoot(
             (Vector2)depth.targetObject.transform.position + (targetDir * 0.3f),
             targetDir, shootExplAmount);
     }

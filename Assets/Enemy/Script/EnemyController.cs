@@ -503,7 +503,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
                 Set_CurrentSP_Zero();
             }
 
-            VFXManager.instance.SpawnDmgTxtCanvas().Offset_ByShieldDmg(
+            VfxManager.instance.SpawnDmgTxtCanvas().Offset_ByShieldDmg(
                     (Vector2)targetObject.transform.position + new Vector2(uiX, 0.2f),
                     uiTxt, isCritical);
         }
@@ -528,7 +528,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     private void Take_Damaged_Physics(float dmgValue, bool isCritical)
     {
         // UI
-        VFXManager.instance.SpawnDmgTxtCanvas().Offset_ByPhysicDmg(
+        VfxManager.instance.SpawnDmgTxtCanvas().Offset_ByPhysicDmg(
             (Vector2)targetObject.transform.position + new Vector2(-0.2f, 0.2f),
             dmgValue, isCritical);
 
@@ -539,7 +539,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     private void Take_Damaged_Energy(float dmgValue, bool isCritical)
     {
         // UI
-        VFXManager.instance.SpawnDmgTxtCanvas().Offset_ByEnergyDmg(
+        VfxManager.instance.SpawnDmgTxtCanvas().Offset_ByEnergyDmg(
             (Vector2)targetObject.transform.position + new Vector2(-0.2f, 0.2f),
             dmgValue, isCritical);
 
@@ -592,8 +592,8 @@ public abstract class EnemyController : NavObjectController, IPoolable
     {
         // Effect
         PlayerManager.instance.cameraController.Play_KillAnim(dur: 0.2f);
-        VFXManager.instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(targetObject.transform.position);
-        VFXManager.instance.enemy_ExplImgGenerator.Expl_Enemy(targetObject.transform.position);
+        VfxManager.instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(targetObject.transform.position);
+        VfxManager.instance.enemy_ExplImgGenerator.Expl_Enemy(targetObject.transform.position);
     }
 
     private void Set_Die_Data()

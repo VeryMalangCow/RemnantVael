@@ -1358,7 +1358,7 @@ public class PlayerController : AliveObjectController
     private void Play_Avoid()
     {
         PlayerManager.instance.cameraController.Play_AvoidAnim(invincibleTime);
-        VFXManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, targetObject.transform.position);
+        VfxManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, targetObject.transform.position);
         MainGameUIManager.instance.hud.HittedView.PlayAvoidPlayInfo(invincibleTime);
     }
     

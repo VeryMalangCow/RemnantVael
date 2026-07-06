@@ -93,9 +93,9 @@ public class PlayerBulletController : BulletController
     {
         if (DevTool.Can_Collding(col, "Enemy", out EnemyController ec))
         {
-            VFXManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
+            VfxManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
                 targetObject.transform.position, transform.rotation);
-            VFXManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
+            VfxManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
                 targetObject.transform.position, state.isCritical, transform.rotation);
 
             PlayerManager.instance.cameraController.Play_HitEnemyAnim();
@@ -112,9 +112,9 @@ public class PlayerBulletController : BulletController
         switch (poolingString)
         {
             case "PlayerBullet": // �⺻ź
-                VFXManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
+                VfxManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
                     targetObject.transform.position, state.dmgState.dmgType, state.isCritical, 1.0f);
-                VFXManager.instance.player_ExplImgGenerator.Expl_Player_ObjectDestroy(
+                VfxManager.instance.player_ExplImgGenerator.Expl_Player_ObjectDestroy(
                     PlayerManager.instance.playerController.Get_ID(), targetObject.transform.position, state.dmgState.dmgType, state.isCritical);
                 break;
 
