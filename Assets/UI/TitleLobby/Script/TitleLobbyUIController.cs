@@ -1,5 +1,4 @@
 using DG.Tweening;
-using LeTai.TrueShadow;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +23,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [Space(10)]
     [Header("=== Element")]
     [SerializeField] private List<TitleElement> allTitleEui;
-    [SerializeField] private List<TitleTSElement> allTitleTsEui;
 
     [Space(5)]
     [Header("-- Smoke")]

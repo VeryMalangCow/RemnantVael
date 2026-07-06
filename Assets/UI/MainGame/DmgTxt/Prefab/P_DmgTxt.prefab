@@ -220,7 +220,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6097657694171192256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,4 +252,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 8508751915373872776}
   txt: {fileID: 4466040119933893321}
-  ts: {fileID: 0}

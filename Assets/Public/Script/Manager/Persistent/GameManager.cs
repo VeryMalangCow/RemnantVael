@@ -1,5 +1,4 @@
 using DG.Tweening;
-using LeTai.TrueShadow;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1770,33 +1769,6 @@ public class TitleElement
 
     public float movingPowerX;
     public float movingPowerY;
-}
-
-[System.Serializable]
-public class TitleTSTFElement
-{
-    public Transform thisTSParentTF;
-
-    public float min;
-    public float max;
-
-    public float durTime;
-
-    public List<TrueShadow> Get_TargetTSList()
-    {
-        return DevTool.Get_ChildList<TrueShadow>(thisTSParentTF);
-    }
-}
-
-[System.Serializable]
-public class TitleTSElement
-{
-    public List<TrueShadow> thisTSList;
-
-    public float min;
-    public float max;
-
-    public float durTime;
 }
 
 #endregion
