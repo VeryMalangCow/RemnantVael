@@ -31,7 +31,7 @@ public class DestructibleObjectController : SortingObjectController
     public void Destruct()
     {
         VfxManager.instance.build_ExplImgGenerator.Expl_FieldObj(targetObject.gameObject.transform.position);
-        SoundManager.instance.Play_2D_SFX_Build("BreakFieldObj");
+        SoundManager.instance.PlayBuildSfx("BreakFieldObj");
         Destroy(gameObject);
     }
 

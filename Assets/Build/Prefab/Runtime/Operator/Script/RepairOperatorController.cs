@@ -97,7 +97,7 @@ public class RepairOperatorController : OperatorController
         // Play
         targetBuild.Play_Size();
 
-        SoundManager.instance.Play_2D_SFX_Build("Repair");
+        SoundManager.instance.PlayBuildSfx("Repair");
     }
 
     #endregion

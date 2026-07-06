@@ -17,7 +17,7 @@ public class StartingElevatorController : ElevatorController
         MainGameUIManager.instance.Play_OffLoadingIcon(3f);
 
         // Sound
-        SoundManager.instance.Set_MasterVolume(0f, 1f, 2.5f);
+        SoundManager.instance.SetMasterVolume(0f, 1f, 2.5f);
 
     }
 

@@ -607,7 +607,7 @@ public class PlayerController : AliveObjectController
         if (keycardDict.ContainsKey(keyCardID))
         {
             keycardDict[keyCardID] = Mathf.Max(keycardDict[keyCardID] - amount, 0);
-            SoundManager.instance.Play_2D_SFX_Build("UseKeycard");
+            SoundManager.instance.PlayBuildSfx("UseKeycard");
             OnKeycardChanged?.Invoke(keycardDict);
         }
     }
@@ -1321,7 +1321,7 @@ public class PlayerController : AliveObjectController
     {
         base.Set_Die();
 
-        SoundManager.instance.Play_2D_SFX_Player("Killed");
+        SoundManager.instance.PlayPlayerSfx("Killed");
 
         EventManager.instance.Set_Input(false);
 
@@ -1343,13 +1343,13 @@ public class PlayerController : AliveObjectController
         if (DevTool.Is_ChanceSuccess(avoidChance.actualState))
         {
             Play_Avoid();
-            SoundManager.instance.Play_2D_SFX_Player(audioQueueSet.Get_T(), "Avoid");
+            SoundManager.instance.PlayPlayerSfx(audioQueueSet.Get_T(), "Avoid");
             return true;
         }
         else
         {
             SetOn_Invincible();
-            SoundManager.instance.Play_2D_SFX_Player(audioQueueSet.Get_T(), "Hitted");
+            SoundManager.instance.PlayPlayerSfx(audioQueueSet.Get_T(), "Hitted");
             return false;
         }
     }

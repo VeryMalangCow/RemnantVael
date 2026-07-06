@@ -1545,7 +1545,7 @@ public class StageObjectGenerator
         MainGameUIManager.instance.hud.MinimapView.SetStageDescription();
 
         // Sound (BGM) 시작
-        SoundManager.instance.Play_2D_BGM_Stage(currentStageId);
+        SoundManager.instance.PlayCurrentStageBgm();
 
         // 로비는 시작 엘레베이터가 없기에 직접 인풋 키기
         if (stageId == 99)

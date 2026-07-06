@@ -4,17 +4,28 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StageThemeSO", menuName = "ScriptableObject/StageThemeSO")]
 public class StageThemeSO : ScriptableObject
 {
+    [Header("=== Data")]
     public int stageId;
 
+    [Space(30)]
+    [Header("=== Material")]
     public List<Material> mapMaterialUnclear;
     public List<Material> mapMaterialClear;
+
+    [Space(30)]
+    [Header("=== Anim")]
     public List<StageDoorAnim> mapDoorAnim;
 
+    [Space(30)]
+    [Header("=== Sprite")]
     public Texture2D[] stageTextures;
 
     public List<SpriteMaterial> stageAllSprites;
     public SerializableArray<SpriteMaterial>[] fieldObjSprites;
 
+    [Space(10)]
+    [Header("=== Sound")]
+    public AudioClip stageBgm;
 }
 
 [System.Serializable]

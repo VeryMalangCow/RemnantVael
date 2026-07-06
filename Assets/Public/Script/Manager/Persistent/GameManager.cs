@@ -44,8 +44,8 @@ public class GameManager : PersistentSingleton<GameManager>
 
         Set_Screen(savedData.resolutionMode, savedData.screenMode);
         Set_FPS(savedData.fps);
-        SoundManager.instance.Set_BgmVolume(savedData.bgmVolume);
-        SoundManager.instance.Set_SfxVolume(savedData.sfxVolume);
+        SoundManager.instance.SetBgmVolume(savedData.bgmVolume);
+        SoundManager.instance.SetSfxVolume(savedData.sfxVolume);
     }
 
     public void Set_Screen(eResolution resolutionMode, eScreenMode screenMode)
@@ -2458,7 +2458,7 @@ public class BUShopData<T>
     {
         if (Can_Buy())
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
+            SoundManager.instance.PlayUiSfx("Approve");
 
             // Dur
             BaseUpgradeController.usingShop.Take_Damage(spawnItem: false, soundOn: false);

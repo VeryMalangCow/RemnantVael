@@ -87,7 +87,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
         targetVault.Play_Size();
 
         // Sound
-        SoundManager.instance.Play_2D_SFX_Build("Enchance");
+        SoundManager.instance.PlayBuildSfx("Enchance");
     }
 
     #endregion

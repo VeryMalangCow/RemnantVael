@@ -339,7 +339,7 @@ public class AllyProfileDetailView : MonoBehaviour
         profileDetailExtraIsOpen = true;
 
         // Sound
-        SoundManager.instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.PlayUiSfx("Click01");
 
         return seq;
     }

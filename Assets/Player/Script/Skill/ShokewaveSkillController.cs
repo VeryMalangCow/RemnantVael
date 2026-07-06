@@ -61,7 +61,7 @@ public class ShockwaveSkillController : ActiveSkillController
         BuffManager.instance.Gain_Buff(0);
 
         // »ç¿îµå
-        SoundManager.instance.Play_2D_SFX_Combat(playerController.Get_AS(), "Explosion");
+        SoundManager.instance.PlayExplosionSfx(playerController.Get_AS());
 
         yield return new WaitForSeconds(jugeAndTweenTime);
 

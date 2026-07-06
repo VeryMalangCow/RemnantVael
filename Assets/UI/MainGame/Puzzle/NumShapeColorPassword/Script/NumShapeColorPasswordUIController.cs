@@ -219,7 +219,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
             !isInteractable)
             return false;
 
-        SoundManager.instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.PlayUiSfx("Click01");
 
         if (rollDown)
             selectingRollCellEui.Play_RollForDown();

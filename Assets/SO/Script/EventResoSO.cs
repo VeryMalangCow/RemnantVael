@@ -9,6 +9,7 @@ public class EventResoSO : ScriptableObject
     [Space(10)]
     public Texture2D[] dialogueTextures;
     public Sprite[] dialogueSprites;
+    public AudioClip[] cutsceneAudios;
     [Space(10)]
     public Texture2D[] infoTextures;
     public Sprite[] infoSprites;

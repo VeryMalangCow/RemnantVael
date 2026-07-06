@@ -9,6 +9,7 @@ public class StaticResourceManager : PersistentSingleton<StaticResourceManager>
     [SerializeField] private ExplosionResoSO explosionReso;
     [SerializeField] private ItemResoSO itemReso;
     [SerializeField] private EventResoSO eventReso;
+    [SerializeField] private SoundResoSO soundReso;
 
     public StageResoSO StageReso => stageReso;
     public BuildResoSO BuildReso => buildReso;
@@ -17,5 +18,6 @@ public class StaticResourceManager : PersistentSingleton<StaticResourceManager>
     public ExplosionResoSO ExplosionReso => explosionReso;
     public ItemResoSO ItemReso => itemReso;
     public EventResoSO EventReso => eventReso;
+    public SoundResoSO SoundReso => soundReso;
 
 }

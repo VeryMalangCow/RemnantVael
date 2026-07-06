@@ -198,7 +198,7 @@ public class PrisonController : InteractableBuildController
     public virtual void Set_Unlock()
     {
         // Sound
-        SoundManager.instance.Play_2D_SFX_Build("PrisonUnlock");
+        SoundManager.instance.PlayBuildSfx("PrisonUnlock");
 
         Set_UnlockData();
         StartCoroutine(Play_Unlock_Cor());

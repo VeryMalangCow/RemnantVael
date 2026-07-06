@@ -469,9 +469,9 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
         // »ç¿îµå
         if (!isDead)
-        { SoundManager.instance.Play_2D_SFX_Enemy(Get_AS(), "Hitted"); }
+        { SoundManager.instance.PlayEnemySfx(Get_AS(), "Hitted"); }
         else
-        { SoundManager.instance.Play_2D_SFX_Enemy("Killed"); }
+        { SoundManager.instance.PlayEnemySfx("Killed"); }
     }
 
     #endregion

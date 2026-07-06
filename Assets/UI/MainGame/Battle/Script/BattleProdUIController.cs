@@ -45,7 +45,7 @@ public class BattleProdUIController : UIController
         Sprite playerSprite = player.battleProdSprite;
         string playerName = ResourceManager.instance.Get_PlayerName(player.GetNameID);
 
-        SoundManager.instance.Play_2D_SFX_UI("StartBattleProd");
+        SoundManager.instance.PlayUiSfx("StartBattleProd");
 
         battleProd_Cg.gameObject.SetActive(true);
 

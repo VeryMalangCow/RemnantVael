@@ -120,7 +120,7 @@ public class PlayerWeaponController : PlayerSolarController
         // Audio
 
         // Sound
-        SoundManager.instance.Play_2D_SFX_Player_Random(
+        SoundManager.instance.PlayPlayerRandomSfx(
             player.Get_AS(), player.Get_ID(), "Shot", 2);
     }
 

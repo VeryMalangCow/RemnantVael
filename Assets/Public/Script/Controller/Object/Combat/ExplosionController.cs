@@ -130,12 +130,12 @@ public abstract class ExplosionController : StaticDepthController, IPoolable
 
     private void SetOn_State()
     {
-        SoundManager.instance.Play_2D_SFX_Combat(_as, "Explosion");
+        SoundManager.instance.PlayExplosionSfx(_as);
 
-        if (state.isFire) SoundManager.instance.Play_2D_SFX_Status("Fire");
-        if (state.isCold) SoundManager.instance.Play_2D_SFX_Status("Cold");
-        if (state.isElectricity) SoundManager.instance.Play_2D_SFX_Status("Electricity");
-        if (state.isCorrosion) SoundManager.instance.Play_2D_SFX_Status("Corrosion");
+        if (state.isFire) SoundManager.instance.PlayStatusSfx("Fire");
+        if (state.isCold) SoundManager.instance.PlayStatusSfx("Cold");
+        if (state.isElectricity) SoundManager.instance.PlayStatusSfx("Electricity");
+        if (state.isCorrosion) SoundManager.instance.PlayStatusSfx("Corrosion");
 
         StartCoroutine(Start_Play_Cor());
     }

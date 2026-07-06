@@ -172,7 +172,7 @@ public class PauseUIController : SinglePanelUIController
     {
         base.SetOnThisPanel();
 
-        SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
+        SoundManager.instance.PlayUiSfx("Reject");
         PlayerManager.instance.cameraController.Stop_SlowMotion();
         Time.timeScale = 0f;
     }
@@ -181,7 +181,7 @@ public class PauseUIController : SinglePanelUIController
     {
         base.SetOff_ThisPanel();
 
-        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.PlayUiSfx("Approve");
         Time.timeScale = 1f;
     }
 
@@ -259,14 +259,14 @@ public class PauseUIController : SinglePanelUIController
         else if (currentBtn == returnBtn)
         {
             UnityEngine.Debug.Log("Pause 클릭");
-            SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
+            SoundManager.instance.PlayUiSfx("Reject");
             EventManager.instance.Set_Input(false);
             LoadingSceneManager.instance.Play_LoadScene("MainGame");
         }
         else if (currentBtn == quitBtn)
         {
             UnityEngine.Debug.Log("Pause 클릭");
-            SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
+            SoundManager.instance.PlayUiSfx("Reject");
             EventManager.instance.Set_Input(false);
             LoadingSceneManager.instance.Play_LoadScene("TitleLobby");
         }
@@ -307,14 +307,14 @@ public class PauseUIController : SinglePanelUIController
     {
         if (currentBtn == lrSlidingEui.leftBtn)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             lrSlidingEui.Change_Left();
             optionView.warningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (currentBtn == lrSlidingEui.rightBtn)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             lrSlidingEui.Change_Right();
             optionView.warningTxt.gameObject.SetActive(true);
             return true;
@@ -327,14 +327,14 @@ public class PauseUIController : SinglePanelUIController
     {
         if (currentBtn == scrollEui.leftBtn)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             scrollEui.Dec();
             optionView.warningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (currentBtn == scrollEui.rightBtn)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             scrollEui.Inc();
             optionView.warningTxt.gameObject.SetActive(true);
             return true;
@@ -396,15 +396,15 @@ public class PauseUIController : SinglePanelUIController
     {
         if (!optionView.warningTxt.gameObject.activeSelf) return;
 
-        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.PlayUiSfx("Approve");
 
         ResourceManager.instance.Set_LanguageFont(optionView.languagePanelEui.Get_CurrentIndex());
         GameManager.instance.Set_Screen(
             (eResolution)optionView.resolutionPanelEui.Get_CurrentIndex(),
             (eScreenMode)optionView.screenModePanelEui.Get_CurrentIndex());
         GameManager.instance.Set_FPS((eFPS)optionView.fpsPanelEui.Get_CurrentIndex());
-        SoundManager.instance.Set_BgmVolume(optionView.bgmVolumePanelEui.Get_Value());
-        SoundManager.instance.Set_SfxVolume(optionView.sfxVolumePanelEui.Get_Value());
+        SoundManager.instance.SetBgmVolume(optionView.bgmVolumePanelEui.Get_Value());
+        SoundManager.instance.SetSfxVolume(optionView.sfxVolumePanelEui.Get_Value());
 
         SaveDataManager.instance.Save_OptionJsonData();
     }
@@ -454,7 +454,7 @@ public class PauseUIController : SinglePanelUIController
 
     private void SetOn_Panel(OutMainGameUIType type, RectTransform rt)
     {
-        SoundManager.instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.PlayUiSfx("Click01");
 
         isInteractTweening = true;
         currentType = type;
@@ -474,7 +474,7 @@ public class PauseUIController : SinglePanelUIController
 
     private void SetOff_Panel(RectTransform rt)
     {
-        SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
+        SoundManager.instance.PlayUiSfx("Reject");
 
         if (isInteractTweening) return;
         isInteractTweening = true;

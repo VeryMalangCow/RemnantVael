@@ -141,7 +141,7 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     private IEnumerator Play_LoadSceneAsync_Cor(string sceneName)
     {
         // Sound
-        SoundManager.instance.Set_MasterVolume(1f, 0f, 1f);
+        SoundManager.instance.SetMasterVolume(1f, 0f, 1f);
         cogwheelSeq.Play();
         slidingImgSeq.Play();
 
@@ -171,7 +171,7 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
         Set_InstanceNull(SceneManager.GetActiveScene().name);
 
         // Sound
-        SoundManager.instance.Set_MasterVolume(0f, 1f, 1f);
+        SoundManager.instance.SetMasterVolume(0f, 1f, 1f);
         yield return new WaitForSecondsRealtime(0.6f);
 
         cogwheelSeq.Pause();

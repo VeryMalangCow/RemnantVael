@@ -93,7 +93,7 @@ public class PauseStateView : MonoBehaviour
 
     public void Change_Panel()
     {
-        SoundManager.instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.PlayUiSfx("Click01");
         SetPanel(!isBuPanelOn);
     }
 

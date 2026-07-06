@@ -119,7 +119,7 @@ public class RoomRuleController : MonoBehaviour
         SetOn_Shop();
 
         if (!SoundManager.isPlayingBaseBGM)
-            SoundManager.instance.CastBGM_ToBase();
+            SoundManager.instance.CastBgmToBase();
     }
 
     private void SetOn_Shop()
@@ -142,13 +142,13 @@ public class RoomRuleController : MonoBehaviour
 
         if (enemyType == eEnemy.Elite && SoundManager.isPlayingBaseBGM)
         {
-            SoundManager.instance.CastBGM_ToExtra();
-            SoundManager.instance.Play_2D_ExtraBGM("Elite");
+            SoundManager.instance.CastBgmToExtra();
+            SoundManager.instance.PlayEliteEnemyBattleBgm();
         }
         else if (enemyType == eEnemy.Boss && SoundManager.isPlayingBaseBGM)
         {
-            SoundManager.instance.CastBGM_ToExtra();
-            SoundManager.instance.Play_2D_ExtraBGM("Boss");
+            SoundManager.instance.CastBgmToExtra();
+            SoundManager.instance.PlayBossEnemyBattleBgm();
         }
     }
 

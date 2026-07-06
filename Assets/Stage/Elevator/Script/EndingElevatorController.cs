@@ -71,7 +71,7 @@ public class EndingElevatorController : ElevatorController, IInteract
         MainGameUIManager.instance.interactAnnoUi.Set_VisualCG(false);
 
         // Sound
-        SoundManager.instance.Set_MasterVolume(1f, 0f, 2.5f);
+        SoundManager.instance.SetMasterVolume(1f, 0f, 2.5f);
     }
 
     protected override void Tween_Complete()

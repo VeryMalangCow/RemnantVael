@@ -81,7 +81,7 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
         {
             PlayerManager.instance.playerController.UseChargedBettery(1);
             isOn = true;
-            SoundManager.instance.Play_2D_SFX_Build("PowerOn");
+            SoundManager.instance.PlayBuildSfx("PowerOn");
         }
     }
 

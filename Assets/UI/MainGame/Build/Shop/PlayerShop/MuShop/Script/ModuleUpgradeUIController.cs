@@ -856,7 +856,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 }
             }
 
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             return true;
         }
         return false;
@@ -879,7 +879,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 synergyPanelGo.SetActive(false);
             }
 
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
 
             return true;
         }
@@ -891,7 +891,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (currentBtn is SynergySlotEUIController synergySlot && synergySlots.Contains(synergySlot))
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
 
             synergyDescsParentTf.gameObject.SetActive(true);
             selectedSynergySlot = synergySlot;
@@ -983,7 +983,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             dragItemEui.gameObject.SetActive(true);
             dragItemEui.Set_Data(currentItemBtn);
 
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
 
             isDragging = true;
         }
@@ -995,7 +995,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         dragItemEui.gameObject.SetActive(false);
 
-        SoundManager.instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.PlayUiSfx("Click01");
 
         isDragging = false;
 
@@ -1060,7 +1060,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         ModuleItemManager.instance.Set_Equip(equipSlotIndex, new CoupleData<int>(itemEui.slot.col, itemEui.slot.row));
 
         // 사운드
-        SoundManager.instance.Play_2D_SFX_UI("Equip");
+        SoundManager.instance.PlayUiSfx("Equip");
     }
 
     // 장착 해제
@@ -1071,7 +1071,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         ModuleItemManager.instance.Set_UnEquip(index);
 
         // 사운드
-        SoundManager.instance.Play_2D_SFX_UI("Unequip");
+        SoundManager.instance.PlayUiSfx("Unequip");
 
         currentItemBtn = null;
         currentBtn = null;
@@ -1220,7 +1220,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         ModuleItemManager.instance.Remove_ModuleState(index);
 
         // 사운드
-        SoundManager.instance.Play_2D_SFX_UI("Decomposition");
+        SoundManager.instance.PlayUiSfx("Decomposition");
 
         // 기타 UI와 정보 초기화
         Reset_ForgeElementPanel();
@@ -1248,7 +1248,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         ModuleItemManager.instance.Remove_ModuleState(indexList);
 
         // 사운드
-        SoundManager.instance.Play_2D_SFX_UI("Fusion");
+        SoundManager.instance.PlayUiSfx("Fusion");
 
         // 기타 UI와 정보 초기화
         Reset_ForgeElementPanel();
@@ -1268,7 +1268,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         ModuleItemManager.instance.Gain_ModuleState();
 
         // 사운드
-        SoundManager.instance.Play_2D_SFX_UI("Make");
+        SoundManager.instance.PlayUiSfx("Make");
 
         Check_MakeAnno();
     }

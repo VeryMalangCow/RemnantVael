@@ -111,7 +111,7 @@ public class AllyShopUIController : ShopUIController
         profileDetailEui.SetOn_Panel(ally);
         profileDetailEui.Play_ProfileExtraY_CloseAndOpen(0, allyProfileEui);
 
-        SoundManager.instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.PlayUiSfx("Click01");
     }
 
     // Interact

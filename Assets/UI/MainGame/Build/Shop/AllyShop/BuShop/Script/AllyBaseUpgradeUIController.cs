@@ -192,7 +192,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             canBuyArrowGo.gameObject.SetActive(Can_Buy());
 
             // 사운드
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
         }
 
         Set_ChargedBetteryUI(PlayerManager.instance.playerController.chargedBettery, needChargedBettery);
@@ -281,7 +281,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
                 Play_UseTxt(overriderUseTxt, needOverrider, 30f);
 
                 // 사운드
-                SoundManager.instance.Play_2D_SFX_UI("Reroll");
+                SoundManager.instance.PlayUiSfx("Reroll");
 
                 return true;
             }
@@ -355,7 +355,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         Set_TunerUI(index);
 
         // 사운드
-        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.PlayUiSfx("Approve");
     }
 
     #endregion

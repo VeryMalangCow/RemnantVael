@@ -216,9 +216,9 @@ public class RoomController : MonoBehaviour
         {
             case eRoomType.KillAll:
                 if (roomRule.enemyType == eEnemy.Normal) 
-                     SoundManager.instance.Play_2D_SFX_Room("Complete_KillAll"); 
+                     SoundManager.instance.PlayRoomSfx("CompleteKillAll"); 
                 else
-                    SoundManager.instance.Play_2D_SFX_Room("BattleWin");
+                    SoundManager.instance.PlayRoomSfx("BattleWin");
                 break;
 
             default: break;
@@ -230,14 +230,14 @@ public class RoomController : MonoBehaviour
 
     private void KillAll()
     {
-        SoundManager.instance.Play_2D_SFX_Room("Start_KillAll");
+        SoundManager.instance.PlayRoomSfx("StartKillAll");
 
         roomRule.KillAll();
     }
 
     private void Safe()
     {
-        SoundManager.instance.Play_2D_SFX_Room("Start_Safe");
+        SoundManager.instance.PlayRoomSfx("StartSafe");
 
         roomRule.roomType = eRoomType.Completed;
         Complete();
@@ -245,7 +245,7 @@ public class RoomController : MonoBehaviour
 
     private void Prison()
     {
-        SoundManager.instance.Play_2D_SFX_Room("Start_Prison");
+        SoundManager.instance.PlayRoomSfx("StartPrison");
 
         roomRule.roomType = eRoomType.Completed;
         Complete();

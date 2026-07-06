@@ -122,7 +122,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         readyPanelEui.Set_AllStart(currentCountdown, secondString);
 
         // Sound
-        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.PlayUiSfx("Approve");
     }
 
     protected virtual void Set_AllComplete()
@@ -134,7 +134,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     protected virtual void Set_AllFailure()
     {
         // Sound
-        SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
+        SoundManager.instance.PlayUiSfx("Reject");
     }
 
     #endregion
@@ -145,7 +145,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         currentCountdown += paneltyTime;
         timePanelEui.Set_Panelty(paneltyTime, secondString);
-        SoundManager.instance.Play_2D_SFX_Build("Damaged");
+        SoundManager.instance.PlayBuildSfx("Damaged");
     }
 
     #endregion
@@ -168,7 +168,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     private void Play_ReadyToStart(float durTime)
     {
         isReady = false;
-        SoundManager.instance.Play_2D_SFX_UI("Click_00");
+        SoundManager.instance.PlayUiSfx("Click00");
 
         readyPanelEui.Play_ReadyToStart(durTime)
             .OnComplete(() =>
@@ -222,7 +222,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
         if (canSuccess)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
+            SoundManager.instance.PlayUiSfx("Approve");
             timePanelEui.Play_SuccessAnno(1f, 1f);
             DevTool.SetColor(PrisonBuild.unlockedClr, timePanelEui.countdownTxt);
             StartCoroutine(Play_Unlock_Complete_Cor());
@@ -231,7 +231,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         }
         else
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_00");
+            SoundManager.instance.PlayUiSfx("Click00");
             timePanelEui.Play_FailureAnno(1f, 1f);
             Set_Panelty(-0.5f);
 

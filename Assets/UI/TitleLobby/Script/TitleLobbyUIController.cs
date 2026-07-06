@@ -380,7 +380,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         }
 
         if (soundSfxName != "")
-            SoundManager.instance.Play_2D_SFX_UI(soundSfxName);
+            SoundManager.instance.PlayUiSfx(soundSfxName);
     }
 
     public void Try_OutInteract()
@@ -500,14 +500,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (currentBtn == lrSlidingEui.leftBtn)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             lrSlidingEui.Change_Left();
             optionUi.warningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (currentBtn == lrSlidingEui.rightBtn)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             lrSlidingEui.Change_Right();
             optionUi.warningTxt.gameObject.SetActive(true);
             return true;
@@ -522,14 +522,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (currentBtn == scrollEui.leftBtn)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             scrollEui.Dec();
             optionUi.warningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (currentBtn == scrollEui.rightBtn)
         {
-            SoundManager.instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.PlayUiSfx("Click01");
             scrollEui.Inc();
             optionUi.warningTxt.gameObject.SetActive(true);
             return true;
@@ -551,8 +551,8 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
             (eResolution)optionUi.resolutionPanelEui.Get_CurrentIndex(),
             (eScreenMode)optionUi.screenModePanelEui.Get_CurrentIndex());
         GameManager.instance.Set_FPS((eFPS)optionUi.fpsPanelEui.Get_CurrentIndex());
-        SoundManager.instance.Set_BgmVolume(optionUi.bgmVolumePanelEui.Get_Value());
-        SoundManager.instance.Set_SfxVolume(optionUi.sfxVolumePanelEui.Get_Value());
+        SoundManager.instance.SetBgmVolume(optionUi.bgmVolumePanelEui.Get_Value());
+        SoundManager.instance.SetSfxVolume(optionUi.sfxVolumePanelEui.Get_Value());
 
         SaveDataManager.instance.Save_OptionJsonData();
     }

@@ -84,7 +84,7 @@ public class VaultRerollOperatorController : VaultOperatorController
         targetVault.Play_Size();
 
         // Sound
-        SoundManager.instance.Play_2D_SFX_Build("Replacement");
+        SoundManager.instance.PlayBuildSfx("Replacement");
     }
 
     #endregion

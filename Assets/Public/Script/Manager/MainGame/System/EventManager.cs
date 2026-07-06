@@ -60,6 +60,7 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
     [SerializeField] private TMP_Text cutsceneTxt;
     [SerializeField] private Image cutsceneNextImg;
     [HideInInspector] private List<CutsceneElement> currentCutscenes;
+    
 
     [Space(10)]
     [Header("=== Current")]
@@ -472,7 +473,7 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
     {
         if (isPlayingCutscene) return; 
 
-        SoundManager.instance.Play_2D_BGM_Cutscene(_event.targetSoundId);
+        SoundManager.instance.PlayCutsceneBgm(_event.targetSoundId);
 
         isPlayingCutscene = true;
         currentCutscenes = ResourceManager.instance.Get_CorrectCutsceneElementList(_event.targetCutsceneId);
@@ -565,7 +566,7 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
 
         isPlayingCutscene = false;
 
-        SoundManager.instance.Play_2D_BGM_Stage(StageManager.instance.targetStageId);
+        SoundManager.instance.PlayCurrentStageBgm();
     }
 
     #endregion

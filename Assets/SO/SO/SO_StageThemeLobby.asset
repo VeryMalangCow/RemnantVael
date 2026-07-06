@@ -22,16 +22,12 @@ MonoBehaviour:
   mapDoorAnim:
   - dir: {x: 0, y: -1}
     doorAnim: {fileID: 7400000, guid: d5c5a5503aa5a7a43a5282ebc66ad54b, type: 2}
-    materialIndex: 0
   - dir: {x: -1, y: 0}
     doorAnim: {fileID: 7400000, guid: c10c6ff3cfb780547a625e9ed52e095d, type: 2}
-    materialIndex: 0
   - dir: {x: 1, y: 0}
     doorAnim: {fileID: 7400000, guid: fa88c644bb2c7b6499776c1db667f480, type: 2}
-    materialIndex: 0
   - dir: {x: 0, y: 1}
     doorAnim: {fileID: 7400000, guid: 655745c9192f3e149b5c0cc6ad4e851a, type: 2}
-    materialIndex: 0
   stageTextures:
   - {fileID: 2800000, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
   - {fileID: 2800000, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
@@ -207,3 +203,4 @@ MonoBehaviour:
   - sprite: {fileID: 1647661446, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
     materialIndex: 1
   fieldObjSprites: []
+  stageBgm: {fileID: 8300000, guid: adfd0da2135820c4ca05cf4d818c7973, type: 3}

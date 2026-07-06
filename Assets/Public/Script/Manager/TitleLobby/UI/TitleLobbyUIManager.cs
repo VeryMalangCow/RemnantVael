@@ -122,10 +122,10 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     private void Start_FirstPlay()
     {
-        SoundManager.instance.Play_2D_BGM_Title();
+        SoundManager.instance.PlayTitleLobbyBgm();
 
         // Sound
-        SoundManager.instance.Set_MasterVolume(0f, 1f, 1f);
+        SoundManager.instance.SetMasterVolume(0f, 1f, 1f);
 
         if (screenCG == null && screenCanvas.TryGetComponent(out CanvasGroup CG))
         {

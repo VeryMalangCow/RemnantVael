@@ -208,7 +208,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
     private void Set_SelectingIncludeValue(IOLCellEUIController cellEui)
     {
-        SoundManager.instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.PlayUiSfx("Click01");
 
         int targetCellEUIIndex = -1;
         for (int i = 0; i < allIolCell.Length; i++)
