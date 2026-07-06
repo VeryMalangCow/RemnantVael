@@ -333,27 +333,27 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         if (currentBtn == startBtn)
         {
-            soundSfxName = "Click_Approve";
+            soundSfxName = "Approve";
             Play_Starting();
         }
         else if (currentBtn == optionBtn)
         {
-            soundSfxName = "Click_01";
+            soundSfxName = "Click01";
             SetOn_OptionPanel();
         }
         else if (currentBtn == optionUi.backBtn)
         {
-            soundSfxName = "Click_Reject";
+            soundSfxName = "Reject";
             SetOff_OptionPanel();
         }
         else if (currentBtn == optionUi.applyBtn)
         {
-            soundSfxName = "Click_Approve";
+            soundSfxName = "Approve";
             Set_OptionValueApply();
         }
         else if (currentBtn == quitBtn)
         {
-            soundSfxName = "Click_Reject";
+            soundSfxName = "Reject";
             Application.Quit();
         }
 

@@ -995,9 +995,9 @@ MonoBehaviour:
   masterAudioMixer: {fileID: 24100000, guid: f4fe09b156f3b524c802c439d5c704f9, type: 2}
   thisBaseBgmAudioSource: {fileID: 1024529728}
   thisExtraBgmAudioSource: {fileID: 1046942486}
+  bgmVolume: 0.5
   thisSfxASQueueSet:
     thisParentTF: {fileID: 2011945290}
-  bgmVolume: 0.5
   sfxVolume: 0.5
 --- !u!4 &203924968
 Transform:
@@ -4416,6 +4416,7 @@ MonoBehaviour:
   explosionReso: {fileID: 11400000, guid: 47501166232b11f4e96b35f13ff78aff, type: 2}
   itemReso: {fileID: 11400000, guid: 905eb4b7cd44a2347810e16abdce2858, type: 2}
   eventReso: {fileID: 11400000, guid: ad62111994bf259468f9d7ecdd064a96, type: 2}
+  soundReso: {fileID: 11400000, guid: d9fd3f0c0108cca46bcc741005207593, type: 2}
 --- !u!4 &1081156649
 Transform:
   m_ObjectHideFlags: 0
@@ -4934,7 +4935,6 @@ MonoBehaviour:
   uplinkTeamString: 
   neoTeamString: 
   allyCardRateArr: []
-  cutsceneSprite_Data: []
 --- !u!4 &1463225871
 Transform:
   m_ObjectHideFlags: 0

@@ -5768,7 +5768,7 @@ MonoBehaviour:
       bgmVolume: 0.5
       sfxVolume: 0.5
     gameProgressData:
-      currentProgressing: -1
+      currentProgressing: 0
       usableVault: 1
       usableBU: 1
       usableMU: 1
@@ -6377,7 +6377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
-  targetStageId: 99
+  targetStageId: 0
   stageTheme:
     lobbyStageThemeSO: {fileID: 11400000, guid: 09c8368078f79c5439780900ae5c7ca0, type: 2}
     allStageThemeSOs:
@@ -11522,9 +11522,9 @@ MonoBehaviour:
   masterAudioMixer: {fileID: 24100000, guid: f4fe09b156f3b524c802c439d5c704f9, type: 2}
   thisBaseBgmAudioSource: {fileID: 873966628}
   thisExtraBgmAudioSource: {fileID: 1751991367}
+  bgmVolume: 0.5
   thisSfxASQueueSet:
     thisParentTF: {fileID: 1418501140}
-  bgmVolume: 0.5
   sfxVolume: 0.5
 --- !u!1 &1262417008
 GameObject:
@@ -15248,6 +15248,7 @@ MonoBehaviour:
   explosionReso: {fileID: 11400000, guid: 47501166232b11f4e96b35f13ff78aff, type: 2}
   itemReso: {fileID: 11400000, guid: 905eb4b7cd44a2347810e16abdce2858, type: 2}
   eventReso: {fileID: 11400000, guid: ad62111994bf259468f9d7ecdd064a96, type: 2}
+  soundReso: {fileID: 11400000, guid: d9fd3f0c0108cca46bcc741005207593, type: 2}
 --- !u!1 &1665693982
 GameObject:
   m_ObjectHideFlags: 0
