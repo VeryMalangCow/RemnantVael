@@ -373,6 +373,7 @@ public class HudController : UIController
         boostView.TabOn(tabInteractDurTime);
         tabItemView.TabOn(tabInteractDurTime);
         minimapView.TabOn(tabInteractDurTime);
+        SkillView.TabOn(tabInteractDurTime);
     }
 
     public void SetOff_TabInteract()
@@ -385,6 +386,7 @@ public class HudController : UIController
         boostView.TabOff(tabInteractDurTime);
         tabItemView.TabOff(tabInteractDurTime);
         minimapView.TabOff(tabInteractDurTime);
+        SkillView.TabOff(tabInteractDurTime);
     }
 
     #endregion
