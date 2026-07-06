@@ -4927,31 +4927,6 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 #endregion
 
 
-#region Class : UI
-
-[System.Serializable]
-public class LanguageTxt
-{
-    public int id;
-    public TMP_FontAsset[] fontAssets;
-
-    public LanguageTxt(int id, TMP_FontAsset[] fontAssets)
-    {
-        this.id = id;
-        this.fontAssets = fontAssets;
-    }
-}
-
-[System.Serializable]
-public class SpriteTypeName
-{
-    public string name;
-    public Sprite sprite;
-}
-
-#endregion
-
-
 #region Class : Visual
 
 [System.Serializable]

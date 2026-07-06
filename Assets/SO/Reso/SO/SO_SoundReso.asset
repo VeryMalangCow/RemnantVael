@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722416eb8eba2a44db37bc5b12c41e9c, type: 3}
+  m_Name: SO_SoundReso
+  m_EditorClassIdentifier: 
+  titleLobbyBgm: {fileID: 8300000, guid: c3e9933918cbdbb41997ce96fcbb6edd, type: 3}
+  eliteEnemyBattleBgm: {fileID: 8300000, guid: b917fba6632f96848b670672a57905bd, type: 3}
+  bossEnemyBattleBgm: {fileID: 8300000, guid: 5ff2c3438fe347447841229b89ab7180, type: 3}
+  playerSfxs:
+  - {fileID: 8300000, guid: 244dc3ca19d17bb4ba7dd47f8eb8943b, type: 3}
+  - {fileID: 8300000, guid: e3696edfab7ecd041bae7137ddf8af31, type: 3}
+  - {fileID: 8300000, guid: ad127d54f0528374fa7ac026c98698be, type: 3}
+  - {fileID: 8300000, guid: 324d1549861e1b846a48b70be10aa18b, type: 3}
+  enemySfxs:
+  - {fileID: 8300000, guid: c0fee3edb1a12e14093bcc6ca89813e9, type: 3}
+  - {fileID: 8300000, guid: 76de3fc8122a2ff4fbb6e40e84e943b0, type: 3}
+  enemyAttackSfxs:
+  - {fileID: 8300000, guid: 278d335a20839ac4a9db9dd904247973, type: 3}
+  - {fileID: 8300000, guid: 87b19c857a167e84faeab1186f52c83e, type: 3}
+  - {fileID: 8300000, guid: 53af9eb3f01df1d4bbe530b31a44f86b, type: 3}
+  - {fileID: 8300000, guid: ef8c05cb3844eda4fbb73f1bd0e6af7e, type: 3}
+  - {fileID: 8300000, guid: ce1f6a6a28dd29241840148b28154e68, type: 3}
+  - {fileID: 8300000, guid: 77b1ecfa64019b942a5041dc7a643261, type: 3}
+  explosionAudioSfx: {fileID: 8300000, guid: 269c7b66c205a3c47b438980267d4120, type: 3}
+  statusSfxs:
+  - {fileID: 8300000, guid: ed673579c21a0db41af5c05d51a728c3, type: 3}
+  - {fileID: 8300000, guid: c9f2d48008a4e4a44a6a94927d5bd16d, type: 3}
+  - {fileID: 8300000, guid: fe7a48fe6dcc2c34fba6f080862aaf35, type: 3}
+  - {fileID: 8300000, guid: 4c5a9d4628d9a5c4e8a68e9ab7ba2e6b, type: 3}
+  itemSfxs:
+  - {fileID: 8300000, guid: c6351a36afda98e4caa8b98929126fcb, type: 3}
+  - {fileID: 8300000, guid: 870a9b1cc05b0b345bfd7e556e6e9044, type: 3}
+  - {fileID: 8300000, guid: 40444d67f927e4949aa5fceb1df84391, type: 3}
+  - {fileID: 8300000, guid: 466ab5e309c623d42843e3bf0af6836b, type: 3}
+  buildSfxs:
+  - {fileID: 8300000, guid: dd778a5d6c7ad3146b579f1ea36ae310, type: 3}
+  - {fileID: 8300000, guid: 18a93f5594bbe3b47a3b55997ae6b66b, type: 3}
+  - {fileID: 8300000, guid: b08afe74e105da641af525fe8a7d3e64, type: 3}
+  - {fileID: 8300000, guid: 1a7719335dafd624d8719876f5d32e28, type: 3}
+  - {fileID: 8300000, guid: 1fc6067190d91f947a5e917a65e02816, type: 3}
+  - {fileID: 8300000, guid: 0532f4865ad39d74bb6b8b58fb317597, type: 3}
+  - {fileID: 8300000, guid: 1f3dd6f6c151b16419c0a4eaac8f02c0, type: 3}
+  - {fileID: 8300000, guid: 0c46b64dd39113642af7f30a1ad95602, type: 3}
+  - {fileID: 8300000, guid: 8772bcd0cd50fb5448a89d0d939e9b9a, type: 3}
+  roomSfxs:
+  - {fileID: 8300000, guid: dd7c3f90d96109441a4fb5a5e1b30ae5, type: 3}
+  - {fileID: 8300000, guid: 66b36f992b3b3d443bf35413ab8a145a, type: 3}
+  - {fileID: 8300000, guid: c6357cfb3c698d0449ee5f9360c093ed, type: 3}
+  - {fileID: 8300000, guid: d08fc13ce9e7009428de31c73ba006b8, type: 3}
+  - {fileID: 8300000, guid: 303449a3aec46944e87bb5cd3d025c2d, type: 3}
+  uiSfxs:
+  - {fileID: 8300000, guid: d0a8403ec16312649a716b6fd4a0d81d, type: 3}
+  - {fileID: 8300000, guid: 3197a5416b562d3488e2b34c2b3e43a0, type: 3}
+  - {fileID: 8300000, guid: 6369be55b572d94449baf40c9cc29b1c, type: 3}
+  - {fileID: 8300000, guid: 5b71c57e55b072f48828fd2bae1b335b, type: 3}
+  - {fileID: 8300000, guid: d36415ee560c2a14caf16af1bcc940d5, type: 3}
+  - {fileID: 8300000, guid: a82b8544833ad0b4394ed6ba1fd82971, type: 3}
+  - {fileID: 8300000, guid: 6212fb680314f844c931dab311d9144a, type: 3}
+  - {fileID: 8300000, guid: 5ef2a315f0c18cf4aa1bb551d1500e46, type: 3}
+  - {fileID: 8300000, guid: 9e01f6efe0a5ec543bd2e0f8ac24f509, type: 3}
+  - {fileID: 8300000, guid: 8daf16ae576bf494bac16922229990dc, type: 3}
+  - {fileID: 8300000, guid: 2cf2b7024398c3e49aa8c417f120effb, type: 3}
+  - {fileID: 8300000, guid: 25b7bb612c8de684094492129a7024da, type: 3}

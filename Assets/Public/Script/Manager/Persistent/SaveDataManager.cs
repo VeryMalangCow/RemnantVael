@@ -10,9 +10,6 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     // id, amount
     public event Action<int, int> OnHighItemChanged;
 
-    [Header("=== Data")]
-    [SerializeField] public List<GameObject> characterPrefabs;
-
     [Header("=== Path")]
     [SerializeField] private string jsonFilePath = "Json";
     [SerializeField] private string characterPath = "CharacterData";
@@ -20,6 +17,12 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     [SerializeField] private string optionPath = "OptionData";
     [SerializeField] private string gameProgressPath = "GameProgressData";
     [SerializeField] private string infoPath = "InfoData";
+
+    [SerializeField] private TextAsset defaultCharacterFile;
+    [SerializeField] private TextAsset defaultItemFile;
+    [SerializeField] private TextAsset defaultOptionFile;
+    [SerializeField] private TextAsset defaultGameProgressFile;
+    [SerializeField] private TextAsset defaultInfoFile;
 
     [Space(30)]
     [SerializeField] public JsonData jsonData;
@@ -108,30 +111,11 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
         jsonData = new JsonData();
 
-        jsonData.characterData =
-            TryLoad_EachJsonData<SerializationList<EachCharacterJsonData>>(
-                this.characterPath,
-                Get_Default_CharacterData()).listData;
-
-        jsonData.itemData =
-            TryLoad_EachJsonData<SerializationList<EachItemJsonData>>(
-                this.itemPath,
-                Get_Default_ItemData()).listData;
-
-        jsonData.optionData =
-            TryLoad_EachJsonData<OptionJsonData>(
-                this.optionPath,
-                Get_Default_OptionData());
-
-        jsonData.gameProgressData =
-            TryLoad_EachJsonData<GameProgressJsonData>(
-                this.gameProgressPath,
-                Get_Default_GameProgressData());
-
-        jsonData.infoData =
-            TryLoad_EachJsonData<SerializationList<EachInfoJsonData>>(
-                this.infoPath,
-                Get_Default_InfoData()).listData;
+        jsonData.characterData = TryLoad_EachJsonData<SerializationList<EachCharacterJsonData>>(this.characterPath, defaultCharacterFile.text).listData;
+        jsonData.itemData = TryLoad_EachJsonData<SerializationList<EachItemJsonData>>(this.itemPath, defaultItemFile.text).listData;
+        jsonData.optionData = TryLoad_EachJsonData<OptionJsonData>(this.optionPath, defaultOptionFile.text);
+        jsonData.gameProgressData = TryLoad_EachJsonData<GameProgressJsonData>(this.gameProgressPath, defaultGameProgressFile.text);
+        jsonData.infoData = TryLoad_EachJsonData<SerializationList<EachInfoJsonData>>(this.infoPath, defaultInfoFile.text).listData;
     }
 
     #region TryLoad (Each Module)
@@ -162,25 +146,11 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     {
         dataPath = Path.Combine(Application.persistentDataPath, jsonFilePath);
 
-        TryReset_EachJsonData<SerializationList<EachCharacterJsonData>>(
-            this.characterPath,
-            Get_Default_CharacterData());
-
-        TryReset_EachJsonData<SerializationList<EachItemJsonData>>(
-            this.itemPath,
-            Get_Default_ItemData());
-
-        TryReset_EachJsonData<OptionJsonData>(
-            this.optionPath,
-            Get_Default_OptionData());
-
-        TryReset_EachJsonData<GameProgressJsonData>(
-            this.gameProgressPath,
-            Get_Default_GameProgressData());
-
-        TryReset_EachJsonData<SerializationList<EachInfoJsonData>>(
-            this.infoPath,
-            Get_Default_InfoData());
+        TryReset_EachJsonData<SerializationList<EachCharacterJsonData>>(this.characterPath, defaultCharacterFile.text);
+        TryReset_EachJsonData<SerializationList<EachItemJsonData>>(this.itemPath, defaultItemFile.text);
+        TryReset_EachJsonData<OptionJsonData>(this.optionPath, defaultOptionFile.text);
+        TryReset_EachJsonData<GameProgressJsonData>(this.gameProgressPath, defaultGameProgressFile.text);
+        TryReset_EachJsonData<SerializationList<EachInfoJsonData>>(this.infoPath, defaultInfoFile.text);
     }
 
     #region TryReset (Each Module)
@@ -212,20 +182,6 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
             Directory.CreateDirectory(dir);
         }
     }
-
-    #endregion
-
-    #region Get
-
-    private string Get_Default_CharacterData() => Resources.Load<TextAsset>($"Json/Default{characterPath}").text;
-
-    private string Get_Default_ItemData() => Resources.Load<TextAsset>($"Json/Default{itemPath}").text;
-
-    private string Get_Default_OptionData() => Resources.Load<TextAsset>($"Json/Default{optionPath}").text;
-
-    private string Get_Default_GameProgressData() => Resources.Load<TextAsset>($"Json/Default{gameProgressPath}").text;
-
-    private string Get_Default_InfoData() => Resources.Load<TextAsset>($"Json/Default{infoPath}").text;
 
     #endregion
 

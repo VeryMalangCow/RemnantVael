@@ -228,7 +228,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
         Debug.Log("SoundManager : Offset Complete");
     }
 
-    private void Offset()
+    public void Offset()
     {
         int i;
         string[] names;

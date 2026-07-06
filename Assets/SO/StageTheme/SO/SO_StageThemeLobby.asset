@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d077c6be6129c468a6bc1c8c85538b, type: 3}
+  m_Name: SO_StageThemeLobby
+  m_EditorClassIdentifier: 
+  stageId: 99
+  mapMaterialUnclear:
+  - {fileID: 2100000, guid: 8f88455681ebf204ab1bec4124f2e8a5, type: 2}
+  - {fileID: 2100000, guid: d00759d6f63313746a8d499ed6169b9f, type: 2}
+  mapMaterialClear:
+  - {fileID: 2100000, guid: 3409bf52a3cc81e46984db08eb5e30d1, type: 2}
+  - {fileID: 2100000, guid: d58d9fae558fe2346a62ed1ddc81c4d6, type: 2}
+  mapDoorAnim:
+  - dir: {x: 0, y: -1}
+    doorAnim: {fileID: 7400000, guid: d5c5a5503aa5a7a43a5282ebc66ad54b, type: 2}
+  - dir: {x: -1, y: 0}
+    doorAnim: {fileID: 7400000, guid: c10c6ff3cfb780547a625e9ed52e095d, type: 2}
+  - dir: {x: 1, y: 0}
+    doorAnim: {fileID: 7400000, guid: fa88c644bb2c7b6499776c1db667f480, type: 2}
+  - dir: {x: 0, y: 1}
+    doorAnim: {fileID: 7400000, guid: 655745c9192f3e149b5c0cc6ad4e851a, type: 2}
+  stageTextures:
+  - {fileID: 2800000, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+  - {fileID: 2800000, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+  stageAllSprites:
+  - sprite: {fileID: -646720798, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 621473509, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1843585237, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -568427992, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1877794647, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 344062834, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1663116318, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1870492775, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -161761600, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -834330365, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -586455300, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 288836193, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1355900300, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -645406220, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1130624566, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -943828320, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -468466198, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 806043112, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1393329386, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -140448976, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -2053042934, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 2003031484, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1270006647, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1656530155, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 426197423, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 209552619, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 571279082, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 596451157, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -958936281, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 249624983, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 951225858, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 553636214, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1080469877, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 690935177, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1198281659, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1514695140, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -782990716, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1902394708, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 737674106, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1009941347, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -908808301, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 96025666, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -305518939, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -2103820453, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 94443978, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1119260431, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -786445416, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1625222093, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -1143751088, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1547283054, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -795998766, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -282893769, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -462453184, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1148350928, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -195730204, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -945614401, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -864786057, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 758134325, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -2118214780, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1890157211, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 487662476, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -642200939, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: 1247981843, guid: 02bb05c13d38d3b4c92c6715fd6b6156, type: 3}
+    materialIndex: 0
+  - sprite: {fileID: -589583410, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -361455258, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -1052169092, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -1308435981, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -430084006, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1927203976, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -1632151703, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 745159895, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1793176974, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -1480347548, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1349676907, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1509238595, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1138959698, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -1665592472, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1714918830, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1076996630, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -903164777, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1566653567, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: -668223007, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1048232967, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 354283741, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  - sprite: {fileID: 1647661446, guid: aec29928c6568484794f2a2ad76a8c10, type: 3}
+    materialIndex: 1
+  fieldObjSprites: []
+  stageBgm: {fileID: 8300000, guid: adfd0da2135820c4ca05cf4d818c7973, type: 3}

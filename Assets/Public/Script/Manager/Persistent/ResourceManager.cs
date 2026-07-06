@@ -70,11 +70,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region Offset
 
-    private void Offset_Other()
-    {
-        Offset_SDF();
-    }
-
     private void Offset_CSV()
     {
         Offset_CSV_Static();
@@ -92,17 +87,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public void Offset()
     {
-        Offset_Other();
         Offset_CSV();
     }
 
     #endregion
 
 
-    #region SDF + Language
-
-    // SDF
-    [HideInInspector] public LanguageTxt[] languageTxtArr;
+    #region Language
 
     // 언어 변경을 위한 컴포넌트
     [HideInInspector] private HashSet<LanguageTxtController> allLanguageTxtControllers = new HashSet<LanguageTxtController>();
@@ -115,30 +106,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] public string uplinkTeamString;
     [HideInInspector] public string neoTeamString;
     [HideInInspector] public string[] allyCardRateArr;
-
-    private void Offset_SDF()
-    {
-        string sdfPath = "SDF/";
-
-        List<LanguageTxt> result = new List<LanguageTxt>();
-        for (int i = 0; i < GameManager.kindOfLanguage.Length; i++)
-            result.Add(new LanguageTxt(i, GetAsset_SDF(sdfPath, GameManager.kindOfLanguage[i], 3)));
-
-        languageTxtArr = result.ToArray();
-    }
-
-    private TMP_FontAsset[] GetAsset_SDF(string path, string type, int amount)
-    {
-        List<TMP_FontAsset> result = new List<TMP_FontAsset>();
-        for (int i = 0; i < amount; i++)
-        {
-            string name = $"{type}_{i}_SDF";
-            result.Add(Resources.Load<TMP_FontAsset>(path + name));
-        }
-
-        return result.ToArray();
-    }
-
 
     public void Add_LanguageTxt(LanguageTxtController langTxt)
     {
