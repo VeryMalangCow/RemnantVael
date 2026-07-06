@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -8,12 +6,12 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 {
     #region Value
 
-    #region - Inspector
-
+    // Init
     public int InitOrder { get { return initOrder; } }
     [SerializeField] private int initOrder;
     public string InitPregressText { get { return initPregressText; } }
     [SerializeField] private string initPregressText;
+
 
     [Header("=== TF")]
     [SerializeField] private Transform playerSpawnParentTF;
@@ -22,20 +20,17 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     [Header("=== Class")]
     [SerializeField] public CameraController cameraController;
 
-    [Header("=== Target Enemy")]
-    [SerializeField] private GameObject playerPingFramePrefab;
-
-    #endregion
-
-    #region - Hide
-
-    [HideInInspector] public PlayerController playerController;
-    [HideInInspector] public static int kindOfPlayerAmount = 1;
-
+    [Header("=== Ping")]
+    [SerializeField] private PingController playerPingFramePrefab;
     [HideInInspector] private PingController playerPing;
     [HideInInspector] private EnemyController pingedEnemy;
 
-    #endregion
+    [Header("=== Theme (Temp)")]
+    [SerializeField] private PlayerThemeSO[] playerThemes;
+    public PlayerThemeSO targetPlayerTheme { get; private set; }
+    public PlayerController playerController { get; private set; }
+    public static int kindOfPlayerAmount = 1;
+
 
     #endregion
 
@@ -47,7 +42,8 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         Stopwatch sw = new Stopwatch();
         sw.Start();
 #endif
-        Gen_Player(out AimController aim, out AimRoundController aimRound);
+        SetPlayerTheme(0);
+        GenPlayer(out AimController aim, out AimRoundController aimRound);
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"PlayerManager: <color=orange>Generate</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -57,7 +53,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 #if UNITY_EDITOR
         sw.Restart();
 #endif
-        playerPing = DevTool.Get_ComponentTType<PingController>(Gen_PlayerTargetEnemyGO());
+        playerPing = GenPlayerPing();
         SetOff_PingEnemy();
 
         InputManager.instance.aimController = aim;
@@ -79,22 +75,24 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 
     #endregion
 
-    #region Gen
-
-    private PlayerController Gen_Player(out AimController aim, out AimRoundController aimRound)
+    private void SetPlayerTheme(int targetId)
     {
-        PlayerController pc = this.playerController =
-            DevTool.Get_ComponentTType<PlayerController>(
-                Instantiate(GameManager.instance.designatedPlayerPrefab, playerSpawnParentTF));
-        aim = DevTool.Get_ComponentTType<AimController>(
-            Instantiate(playerController.aimPrefab, playerSpawnParentTF));
-        aimRound = DevTool.Get_ComponentTType<AimRoundController>(
-            Instantiate(playerController.aimRoundPrefab, playerController.transform));
-
-        return pc;
+        targetPlayerTheme = playerThemes[targetId]; 
+        SoundManager.instance.SetPlayerThemeDict(targetPlayerTheme);
     }
 
-    private GameObject Gen_PlayerTargetEnemyGO()
+    #region Gen
+
+    private PlayerController GenPlayer(out AimController aim, out AimRoundController aimRound)
+    {
+        playerController = Instantiate(targetPlayerTheme.player, playerSpawnParentTF);
+        aim = Instantiate(playerController.aimPrefab, playerSpawnParentTF);
+        aimRound = Instantiate(playerController.aimRoundPrefab, playerController.transform);
+        
+        return playerController;
+    }
+
+    private PingController GenPlayerPing()
     {
         return Instantiate(playerPingFramePrefab, playerPingFrameSpawnTF);
     }

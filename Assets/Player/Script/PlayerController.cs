@@ -139,8 +139,8 @@ public class PlayerController : AliveObjectController
     [SerializeField] private CoupleData<Sprite> changeState_BoostUpDown;
     [SerializeField] private CoupleData<Sprite> changeState_Skill;
 
-    [SerializeField] public GameObject aimPrefab;
-    [SerializeField] public GameObject aimRoundPrefab;
+    [SerializeField] public AimController aimPrefab;
+    [SerializeField] public AimRoundController aimRoundPrefab;
 
     [SerializeField] public Sprite battleProdSprite;
 

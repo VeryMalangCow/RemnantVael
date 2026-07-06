@@ -40,6 +40,8 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     private Dictionary<string, AudioClip> uiAudioDict = new Dictionary<string, AudioClip>(12);
 
+    private Dictionary<string, List<AudioClip>> playerThemeAudioDict = new Dictionary<string, List<AudioClip>>();
+
     public static bool isPlayingBaseBGM = true;
 
 
@@ -126,6 +128,11 @@ public class SoundManager : PersistentSingleton<SoundManager>
         thisSfxASQueueSet.Get_T().PlayOneShot(playerAudioDict[name]);
     }
 
+    public void PlayPlayerRandomThemeSfx(AudioSource audioSource, string name)
+    {
+        List<AudioClip> clips = playerThemeAudioDict[name];
+        audioSource.PlayOneShot(clips[Random.Range(0, clips.Count - 1)]);
+    }
 
     // Enemy
     public void PlayEnemySfx(AudioSource audioSource, string name)
@@ -224,8 +231,6 @@ public class SoundManager : PersistentSingleton<SoundManager>
     #endregion
 
 
-    #region Framework
-
     protected override void Awake()
     {
         //Singleton
@@ -234,10 +239,6 @@ public class SoundManager : PersistentSingleton<SoundManager>
         Offset();
         Debug.Log("SoundManager : Offset Complete");
     }
-
-    #endregion
-
-    #region Offset
 
     private void Offset()
     {
@@ -321,25 +322,6 @@ public class SoundManager : PersistentSingleton<SoundManager>
         }
 
 
-
-        string basePath = "Sound/Source/";
-        string sfxPath = basePath + "SFX/";
-
-
-        string playerPath = sfxPath + "Player/";
-
-        string player00Path = playerPath + "Player00/";
-
-        // Shot Type Amount
-        for (i = 0; i < 2; i++)
-            Add_SFX(player00Path, $"Player00_Shot_{DevTool.Get_LengthString(i, 2)}");
-        
-        // Missile Shot Type Amount
-        for (i = 0; i < 2; i++)
-            Add_SFX(player00Path, $"Player00_MShot_{DevTool.Get_LengthString(i, 2)}");
-        
-        #endregion
-
         thisBaseBgmAudioSource.volume = 1f;
         thisBaseBgmAudioSource.Play();
         thisExtraBgmAudioSource.volume = 0f;
@@ -348,13 +330,22 @@ public class SoundManager : PersistentSingleton<SoundManager>
         thisSfxASQueueSet.Offset();
     }
 
-
-    void Add_SFX(string path, string name) => sfxAudioDict.Add(name, Resources.Load<AudioClip>(path + name));
-
-
-    // Player
-    public void PlayPlayerRandomSfx(AudioSource audioSource, int id, string name, int amount)
+    public void SetPlayerThemeDict(PlayerThemeSO playerTheme)
     {
-        audioSource.PlayOneShot(sfxAudioDict[$"Player{DevTool.Get_LengthString(id, 2)}_{name}_{DevTool.Get_LengthString(Random.Range(0, amount), 2)}"]);
+        playerThemeAudioDict.Clear();
+
+        string[] names;
+        for (int i = 0; i < playerTheme.audios.Length; i++)
+        {
+            names = playerTheme.audios[i].name.Split('_');
+            string name = names[1];
+            if (!playerThemeAudioDict.ContainsKey(name))
+                playerThemeAudioDict.Add(name, new List<AudioClip>());
+
+            playerThemeAudioDict[name].Add(playerTheme.audios[i]);
+        }
     }
+
+
+
 }

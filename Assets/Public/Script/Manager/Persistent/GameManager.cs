@@ -17,11 +17,6 @@ public class GameManager : PersistentSingleton<GameManager>
 {
     #region Value
 
-
-    [Space(10)]
-    [Header("=== Passing Data")]
-    [SerializeField] public GameObject designatedPlayerPrefab;
-
     [Space(10)]
     [Header("=== Intro")]
     [SerializeField] public bool wasWatched = false;

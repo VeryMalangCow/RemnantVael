@@ -79,8 +79,7 @@ public class MissileSkillController : ActiveSkillController
             PlayerManager.instance.cameraController.Play_ShotAnim(shotDelay, bulletState.dmgState.dmg * 0.5f);
 
             // Sound
-            SoundManager.instance.PlayPlayerRandomSfx(
-                playerController.Get_AS(), playerController.Get_ID(), "MShot", 2);
+            SoundManager.instance.PlayPlayerRandomThemeSfx(playerController.Get_AS(), "MissileShot");
         }
 
     }

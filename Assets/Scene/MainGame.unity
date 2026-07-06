@@ -10769,7 +10769,9 @@ MonoBehaviour:
   playerSpawnParentTF: {fileID: 940494672}
   playerPingFrameSpawnTF: {fileID: 1961615626}
   cameraController: {fileID: 1970976550}
-  playerPingFramePrefab: {fileID: 3822166797168538110, guid: 6f61bcde71fffdf40aa91ae796beef9c, type: 3}
+  playerPingFramePrefab: {fileID: 5939186333744072550, guid: 6f61bcde71fffdf40aa91ae796beef9c, type: 3}
+  playerThemes:
+  - {fileID: 11400000, guid: efdbba1864725144cac648583b486681, type: 2}
   playerController: {fileID: 0}
 --- !u!1 &1168812488
 GameObject:

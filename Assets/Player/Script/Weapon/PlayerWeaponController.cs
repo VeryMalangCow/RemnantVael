@@ -120,8 +120,7 @@ public class PlayerWeaponController : PlayerSolarController
         // Audio
 
         // Sound
-        SoundManager.instance.PlayPlayerRandomSfx(
-            player.Get_AS(), player.Get_ID(), "Shot", 2);
+        SoundManager.instance.PlayPlayerRandomThemeSfx(player.Get_AS(), "Shot");
     }
 
     // 사격 (한발마다)
