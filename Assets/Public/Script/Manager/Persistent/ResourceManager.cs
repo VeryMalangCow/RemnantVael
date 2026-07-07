@@ -67,7 +67,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public void Offset()
     {
-        Offset_CSV_Static();
         Offset_CSV_Event();
         Offset_CSV_Cutscene();
         Offset_CSV_Dialogue();
@@ -133,39 +132,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     }
 
-
-    #endregion
-
-    #region Static (CSV)
-
-    // Value
-    [HideInInspector] private WordSet_Just playerName_Data;
-    [HideInInspector] private WordSet_Just enemyName_Data;
-
-    [HideInInspector] private WordSet_WithClr properNoun_Data;
-    [HideInInspector] private WordSet_Just randomName_Data;
-
-    // Offset
-    private void Offset_CSV_Static()
-    {
-        string path = "CSV/Static/";
-
-        playerName_Data = GetAsset_WordData(path, "PlayerName_CSV");
-        enemyName_Data = GetAsset_WordData(path, "EnemyName_CSV");
-
-        properNoun_Data = GetAsset_WordData_Clr(path, "ProperNoun_CSV");
-        randomName_Data = GetAsset_WordData(path, "RandomName_CSV");
-    }
-
-
-    // Get
-    public string Get_PlayerName(int id) => playerName_Data.Get_Word(id);
-    public string Get_EnemyName(int id) => enemyName_Data.Get_Word(id);
-
-    public string Get_ProperNounWord(int id) => properNoun_Data.Get_Word(id);
-
-    public string[] Get_AllyRandomName(int id) => randomName_Data.Get_Words(id);
-    public int Get_AllAllyRandomNameAmount() => randomName_Data.Get_Amount();
 
     #endregion
 
@@ -831,7 +797,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private WordSet_WithClr GetAsset_WordData_Clr(string path, string fileName)
     {
-        Dictionary<int, WordElement_WithClr> elementDict = new Dictionary<int, WordElement_WithClr>();
+        Dictionary<int, ColorLanguageSet> elementDict = new Dictionary<int, ColorLanguageSet>();
 
         string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
@@ -846,7 +812,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             for (int j = 0; j < GameManager.kindOfLanguage.Length; j++)
                 nameList.Add(stringList[i][j + 2]);
 
-            elementDict.Add(id, new WordElement_WithClr(id, clrHex, nameList.ToArray()));
+            elementDict.Add(id, new ColorLanguageSet(id, clrHex, nameList.ToArray()));
         }
 
         return new WordSet_WithClr(elementDict);

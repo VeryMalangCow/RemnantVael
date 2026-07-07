@@ -481,7 +481,7 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
             safeInt++;
             if (safeInt > 100) break; 
 
-            randomIndex = Random.Range(0, ResourceManager.instance.Get_AllAllyRandomNameAmount());
+            randomIndex = Random.Range(0, StaticResourceManager.instance.randomNames.GetAmount());
             if (!usedAllyName.Contains(randomIndex))
             {
                 usedAllyName.Add(randomIndex);
@@ -497,7 +497,7 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
         if (id == -1) 
             return null;
 
-        return ResourceManager.instance.Get_AllyRandomName(id);
+        return StaticResourceManager.instance.randomNames.GetLanguages(id);
     }
 
     public void Set_Language()

@@ -2756,7 +2756,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         MainGameUIManager.instance.battleProdUi.Play_BattleOnProd(
             EnemyManager.instance.GetEliteProdSprite(id),
-            ResourceManager.instance.Get_EnemyName(id),
+            StaticResourceManager.instance.enemyNames.GetLanguage(id),
             out float durTime);
 
         StartCoroutine(StartBattleRoom(gate, durTime));
@@ -2766,7 +2766,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         MainGameUIManager.instance.battleProdUi.Play_BattleOnProd(
             EnemyManager.instance.GetBossProdSprite(id),
-            ResourceManager.instance.Get_EnemyName(id),
+            StaticResourceManager.instance.enemyNames.GetLanguage(id),
             out float durTime);
 
         StartCoroutine(StartBattleRoom(gate, durTime));

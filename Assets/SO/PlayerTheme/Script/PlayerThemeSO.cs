@@ -12,4 +12,11 @@ public class PlayerThemeSO : ScriptableObject
     [Space(30)]
     [Header("=== Audio")]
     public AudioClip[] audios;
+
+    [Space(30)]
+    [Header("=== CSV")]
+    public TextAsset nameCsv;
+
+    public string[] GetNames()
+        => CSVReader.GetCsvLine(nameCsv.text, 1);
 }

@@ -28,6 +28,10 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     [Header("=== Theme (Temp)")]
     [SerializeField] private PlayerThemeSO[] playerThemes;
     public PlayerThemeSO targetPlayerTheme { get; private set; }
+    public string[] playerNames;
+
+
+
     public PlayerController playerController { get; private set; }
     public static int kindOfPlayerAmount = 1;
 
@@ -79,6 +83,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     {
         targetPlayerTheme = playerThemes[targetId]; 
         SoundManager.instance.SetPlayerThemeDict(targetPlayerTheme);
+        playerNames = targetPlayerTheme.GetNames();
     }
 
     #region Gen

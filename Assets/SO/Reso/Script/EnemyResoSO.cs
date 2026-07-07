@@ -8,4 +8,8 @@ public class EnemyResoSO : ScriptableObject
     public Material hittedVfxMaterial;
 
     public Material explosionMaterial;
+
+    [Space(30)]
+    [Header("=== CSV")]
+    public TextAsset enemyNameCsv;
 }

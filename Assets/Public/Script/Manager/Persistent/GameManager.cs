@@ -4961,47 +4961,6 @@ public class PrisonAllySprite
 #endregion
 
 
-#region Class : CSV : Word
-
-
-
-
-
-[System.Serializable]
-public class WordSet_WithClr : WordSet<WordElement_WithClr>
-{
-    public WordSet_WithClr(Dictionary<int, WordElement_WithClr> dict) : base(dict)
-    { }
-
-    public override string Get_Word(int id)
-    {
-        if (allWord.ContainsKey(id))
-        {
-            WordElement_WithClr data = allWord[id];
-            return $"<color=#{data.clrHex}><b>\"{data.words[GameManager.languageID]}\"</color></b>";
-        }
-        else
-        {
-            return "";
-        }
-    }
-}
-
-
-
-
-[System.Serializable]
-public class WordElement_WithClr : WordElement_Just
-{
-    public string clrHex;
-
-    public WordElement_WithClr(int id, string clrHex, string[] names) : base(id, names)
-    {
-        this.clrHex = clrHex;
-    }
-}
-
-#endregion
 
 #region Class : CSV : ModuleInfo
 

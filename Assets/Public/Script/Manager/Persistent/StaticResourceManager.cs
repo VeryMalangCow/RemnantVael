@@ -28,6 +28,9 @@ public class StaticResourceManager : PersistentSingleton<StaticResourceManager>
 
     public LanguageSet staticWords { get; private set; }
     public LanguageSet staticDescs { get; private set; }
+    public LanguageSet randomNames { get; private set; }
+    public LanguageColorSet properNouns { get; private set; }
+    public LanguageSet enemyNames { get; private set; }
 
     protected override void Awake()
     {
@@ -35,10 +38,13 @@ public class StaticResourceManager : PersistentSingleton<StaticResourceManager>
 
         staticWords = new LanguageSet(CSVReader.GetLanguageSet(languageFontReso.staticWordCsv));
         staticDescs = new LanguageSet(CSVReader.GetLanguageSet(languageFontReso.staticDescCsv));
-
+        randomNames = new LanguageSet(CSVReader.GetLanguageSet(languageFontReso.randomNameCsv));
+        properNouns = new LanguageColorSet(CSVReader.GetLanguageColorSet(languageFontReso.properNounCsv));
+        enemyNames = new LanguageSet(CSVReader.GetLanguageSet(enemyReso.enemyNameCsv));
     }
 }
 
+// Language
 public class LanguageSet
 {
     protected Dictionary<int, string[]> allLanguage;
@@ -63,7 +69,48 @@ public class LanguageSet
 
         return null;
     }
+
+    public int GetAmount()
+        => allLanguage.Count;
+    
 }
+
+// language + Color(Hex)
+public class LanguageColorSet
+{
+    protected Dictionary<int, ColorStringArray> allLanguage;
+
+    public LanguageColorSet(Dictionary<int, ColorStringArray> dict)
+    {
+        allLanguage = dict;
+    }
+
+    public string GetLanguage(int id)
+    {
+        if (allLanguage.ContainsKey(id))
+        {
+            ColorStringArray data = allLanguage[id];
+            return $"<color=#{data.clrHex}><b>\"{data.strings[GameManager.languageID]}\"</color></b>";
+        }
+
+        return "";
+    }
+}
+
+public class ColorStringArray
+{
+    public string clrHex;
+    public string[] strings;
+
+    public ColorStringArray(string clrHex, string[] strings)
+    {
+        this.clrHex = clrHex;
+        this.strings = strings;
+    }
+}
+
+
+
 
 
 
@@ -113,5 +160,37 @@ public class WordElement_Just
     public WordElement_Just(int id, string[] words)
     {
         this.words = words;
+    }
+}
+
+
+[System.Serializable]
+public class WordSet_WithClr : WordSet<ColorLanguageSet>
+{
+    public WordSet_WithClr(Dictionary<int, ColorLanguageSet> dict) : base(dict)
+    { }
+
+    public override string Get_Word(int id)
+    {
+        if (allWord.ContainsKey(id))
+        {
+            ColorLanguageSet data = allWord[id];
+            return $"<color=#{data.clrHex}><b>\"{data.words[GameManager.languageID]}\"</color></b>";
+        }
+        else
+        {
+            return "";
+        }
+    }
+}
+
+[System.Serializable]
+public class ColorLanguageSet : WordElement_Just
+{
+    public string clrHex;
+
+    public ColorLanguageSet(int id, string clrHex, string[] names) : base(id, names)
+    {
+        this.clrHex = clrHex;
     }
 }

@@ -635,7 +635,7 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
             if (sb == null) sb = new StringBuilder(s.Length + 16);
             sb.Append(s, pos, idx - pos); // 패턴 앞부분 복사
 
-            string replacement = ResourceManager.instance.Get_ProperNounWord(val);
+            string replacement = StaticResourceManager.instance.properNouns.GetLanguage(val);
             sb.Append(replacement);
 
             pos = i + 1; // ')' 다음 위치로 진행

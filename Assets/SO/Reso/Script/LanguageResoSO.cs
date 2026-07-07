@@ -7,6 +7,8 @@ public class LanguageResoSO : ScriptableObject
     public static int languageAmount = 2;
     public TextAsset staticWordCsv;
     public TextAsset staticDescCsv;
+    public TextAsset randomNameCsv;
+    public TextAsset properNounCsv;
 
     public LanguageTxt[] LanguageTxts;
 }
