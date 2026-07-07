@@ -41,6 +41,20 @@ public class ItemResoSO : ScriptableObject
     [Header("=== Keycard")]
     public keycardIcon[] keycardIcons;
     public AnimationClip keycardOutlineAnimation;
+
+
+
+
+    [Space(30)]
+    public TextAsset ModuleCsv;
+    [Space(10)]
+    public TextAsset moduleNameCsv;
+    public TextAsset moduleDescCsv;
+    public TextAsset moduleDescEquipCsv;
+    [Space(10)]
+    public TextAsset mainChipNameCsv;
+    public TextAsset mainChipDescCsv;
+    public TextAsset mainChipDescAllyCsv;
 }
 
 [System.Serializable]

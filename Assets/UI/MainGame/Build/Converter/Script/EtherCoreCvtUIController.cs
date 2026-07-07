@@ -42,7 +42,6 @@ public class EtherCoreCvtUIController : ConverterUIController
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Ether Core</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
-        SetLanguageTxt();
         yield return null;
     }
 

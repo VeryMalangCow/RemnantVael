@@ -22,7 +22,6 @@ public class EnemyPoolSet<T> where T : EnemyController, IPoolable
             T prefab = prefabs[index];
             PoolSystem<T> pool = new PoolSystem<T>();
 
-            Debug.Log($"prefab:{prefab.name}\nparentTf:{parentTf.name}\nsize:{size}\nlimitMsPerFrame:{limitMsPerFrame}");
             yield return pool.InitAsync(prefab, parentTf, size, limitMsPerFrame);
             dict.Add(index, pool);
             updateList.Add(pool);
@@ -143,7 +142,6 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // Pool Dict 객체 값 -> 삽입 및 생성
     public IEnumerator SetEnemyPoolsAsync(List<int> normalEnemyIndices, List<int> eliteEnemyIndices, List<int> bossEnemyIndices)
     {
-        Debug.Log("<color=magenta> Enemy Pool Generate </color>");
         yield return normalEnemyPoolSet.SetEnemyPoolAsync(normalEnemyPrefabs, normalEnemyIndices, 8);
         yield return eliteEnemyPoolSet.SetEnemyPoolAsync(eliteEnemyPrefabs, eliteEnemyIndices, 2);
         yield return bossEnemyPoolSet.SetEnemyPoolAsync(bossEnemyPrefabs, bossEnemyIndices, 1);
@@ -152,8 +150,6 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // Pool Dict 객체 값 -> 삭제 및 데이터 초기화
     public IEnumerator DestoryEnemyPoolsAsync()
     {
-        Debug.Log("<color=magenta> Enemy Pool Destroy </color>");
-
         yield return normalEnemyPoolSet.DestoryEnemyPoolAsync();
         yield return eliteEnemyPoolSet.DestoryEnemyPoolAsync();
         yield return bossEnemyPoolSet.DestoryEnemyPoolAsync();

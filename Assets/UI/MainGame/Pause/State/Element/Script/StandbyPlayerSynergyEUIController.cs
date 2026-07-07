@@ -46,7 +46,7 @@ public class StandbyPlayerSynergyEUIController : ElementUIController
 
         iconImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(id).thisIcon;
         amountImg.sprite = MainGameUIManager.instance.muUi.synergyTierFrames[rank];
-        nameTxt.text = ResourceManager.instance.Get_SynergyName(id);
+        nameTxt.text = ModuleItemManager.instance.GetMainChipName(id);
         amountTxt.text = amount.ToString();
     }
 

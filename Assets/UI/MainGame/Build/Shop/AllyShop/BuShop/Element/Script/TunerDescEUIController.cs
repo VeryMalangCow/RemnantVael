@@ -27,7 +27,7 @@ public class TunerDescEUIController : ElementUIController
     {
         // Name Txt
         int index = AllyManager.stateTypeList.IndexOf(data.type);
-        nameTxt.text = ResourceManager.instance.Get_TunerDescName(index);
+        nameTxt.text = AllyManager.instance.tunerStateName.GetLanguage(index);
 
         // Value Txt
         string valueTxt = $"{DevTool.Get_RoundFloatString((100f * AllyManager.Get_AllyTunerStateMultiple(data.type) * data.rank))}%</color>";

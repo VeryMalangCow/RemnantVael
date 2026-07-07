@@ -65,15 +65,10 @@ public class HudMinimapView : MonoBehaviour
 
     public void SetStageDescription()
     {
-        stageNameTxt.DOText(
-            ResourceManager.instance.Get_MapName(
-                StageManager.instance.targetStageId), 0.5f)
-            .OnPlay(() => { stageNameTxt.text = ""; });
-
-        stageDescTxt.DOText(
-            ResourceManager.instance.Get_MapDesc(
-                StageManager.instance.targetStageId), 0.5f)
-            .OnPlay(() => { stageDescTxt.text = ""; });
+        if (GameManager.languageID == -1) return;
+        var data = StageManager.instance.stageObjectGenerator;
+        stageNameTxt.DOText(data.stageNames[GameManager.languageID], 0.5f).OnPlay(() => { stageNameTxt.text = ""; });
+        stageDescTxt.DOText(data.stageDescs[GameManager.languageID], 0.5f).OnPlay(() => { stageDescTxt.text = ""; });
     }
 
     public void SetOnMapIcon(int stageId)

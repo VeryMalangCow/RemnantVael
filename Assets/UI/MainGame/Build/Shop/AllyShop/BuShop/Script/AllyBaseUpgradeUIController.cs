@@ -128,8 +128,6 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         buyBtnEui.ownerUIController = this;
         buyBtnEui.Offset();
 
-        SetLanguageTxt();
-
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>DataSet</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");

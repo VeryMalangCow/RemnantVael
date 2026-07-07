@@ -36,8 +36,6 @@ public class PremiumCreditCvtUIController : ConverterUIController
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Premium Credit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
-
-        SetLanguageTxt();
         yield return null;
     }
 

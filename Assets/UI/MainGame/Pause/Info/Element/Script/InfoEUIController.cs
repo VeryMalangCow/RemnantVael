@@ -14,7 +14,7 @@ public class InfoEUIController : OwnBtnEUIController
 
     public void Set_LanguageTxt()
     {
-        nameTxt.text = ResourceManager.instance.Get_InfoName(Convert.ToInt32(this.gameObject.name));
+        nameTxt.text = StaticResourceManager.instance.infoNames.GetLanguage(Convert.ToInt32(gameObject.name));
     }
 
     #endregion

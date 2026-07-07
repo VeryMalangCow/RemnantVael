@@ -13,4 +13,8 @@ public class EventResoSO : ScriptableObject
     [Space(10)]
     public Texture2D[] infoTextures;
     public Sprite[] infoSprites;
+    [Space(10)]
+    public TextAsset infoNameCsv;
+    public TextAsset infoDescCsv;
+    public TextAsset infoKeyCsv;
 }

@@ -30,12 +30,12 @@ public class InfoDetailEUIController : ElementUIController
 
     public void Set_LanguageTxt()
     {
-        WordSet_Just data = ResourceManager.instance.Get_InfoDetail(id);
+        var reso = StaticResourceManager.instance;
 
-        nameTxt.text = ResourceManager.instance.Get_InfoName(id);
+        nameTxt.text = reso.infoNames.GetLanguage(id);
         img.sprite = StaticResourceManager.instance.EventReso.infoSprites[id];
-        descTxt.text = data.Get_Word(0).Replace("<el>", "\n").Replace("<c>", ",");
-        inputOrInstrucTxt.text = data.Get_Word(1);
+        descTxt.text = reso.infoDescs.GetLanguage(id).Replace("<el>", "\n").Replace("<c>", ",");
+        inputOrInstrucTxt.text = reso.infoKeys.GetLanguage(id);
     }
 
     #endregion

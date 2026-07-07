@@ -52,8 +52,6 @@ public class DurablityEUIController : ElementUIController
 
     public override void Offset()
     {
-        Set_LanguageTxt();
-
         fillImgList = new List<Image>();
         for (int i = 0; i < fillImgListParentTf.childCount; i++)
         {

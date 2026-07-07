@@ -53,6 +53,9 @@ public class AllyResoSO : ScriptableObject
     public AllyCardSpriteSet[] allyCardSpriteSets;
     public Sprite allyNullIcon;
 
+    [Header("=== Tuner")]
+    public List<Sprite> tunerTypeIcons;
+
     [Header("=== Requset")]
     public Sprite[] requestRankSprites;
     public Sprite bcSprite;
@@ -69,6 +72,21 @@ public class AllyResoSO : ScriptableObject
             default: return null;
         }
     }
+
+    [Space(30)]
+    [Header("=== CSV")]
+    [Header("-- Request")]
+    public TextAsset requestNameCsv;
+    public TextAsset requestFailureCsv;
+    public TextAsset requestSuccessCsv;
+
+    [Header("-- Card")]
+    public AllyCardCsv stCsv;
+    public AllyCardCsv utCsv;
+    public AllyCardCsv ntCsv;
+
+    [Header("-- Tuner")]
+    public TextAsset tunerStateCsv;
 }
 
 [System.Serializable]
@@ -96,4 +114,12 @@ public class AllyGunSpriteSet
     public List<Sprite> gun;
 
     public Material material;
+}
+
+[System.Serializable]
+public class AllyCardCsv
+{
+    public TextAsset csv;
+    public TextAsset nameCsv;
+    public TextAsset descCsv;
 }

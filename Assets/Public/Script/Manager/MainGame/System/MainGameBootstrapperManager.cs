@@ -57,6 +57,9 @@ public class MainGameBootstrapperManager : MonoBehaviour
 
         initalizeingGo.gameObject.SetActive(false);
 
+        GameManager.instance.Set_BaseOption();
+        MainGameUIManager.instance.hud.MinimapView.SetStageDescription();
+
         yield return CustomGC.CollectAsync();
 
         EndProdInit();

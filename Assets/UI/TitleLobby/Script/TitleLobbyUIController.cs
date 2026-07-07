@@ -224,7 +224,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         };
 
         optionUi.Offset(this);
-        SetLanguageTxt();
     }
 
     #endregion
@@ -549,7 +548,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         optionUi.warningTxt.gameObject.SetActive(false);
 
-        ResourceManager.instance.Set_LanguageFont(optionUi.languagePanelEui.Get_CurrentIndex());
+        ResourceManager.instance.SetLanguageFont(optionUi.languagePanelEui.Get_CurrentIndex());
         GameManager.instance.Set_Screen(
             (eResolution)optionUi.resolutionPanelEui.Get_CurrentIndex(),
             (eScreenMode)optionUi.screenModePanelEui.Get_CurrentIndex());

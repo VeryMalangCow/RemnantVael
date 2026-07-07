@@ -272,7 +272,6 @@ public class HudController : UIController
 #endif
         yield return null;
 
-        SetLanguageTxt();
         gameObject.SetActive(true); 
 
         yield return null;

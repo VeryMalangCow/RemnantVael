@@ -26,6 +26,13 @@ public class StageThemeSO : ScriptableObject
     [Space(10)]
     [Header("=== Sound")]
     public AudioClip stageBgm;
+
+    [Space(10)]
+    [Header("=== CSV")]
+    public TextAsset stageCsv;
+
+    public string[] GetStageNames() => CSVReader.GetCsvLine(stageCsv.text, 1);
+    public string[] GetStageDescs() => CSVReader.GetCsvLine(stageCsv.text, 2);
 }
 
 [System.Serializable]

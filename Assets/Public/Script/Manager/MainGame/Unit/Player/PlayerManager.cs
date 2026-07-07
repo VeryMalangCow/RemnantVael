@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
@@ -29,12 +30,14 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     [SerializeField] private PlayerThemeSO[] playerThemes;
     public PlayerThemeSO targetPlayerTheme { get; private set; }
     public string[] playerNames;
-
+    public PlayerSkillLanguageSet[] skillLanguageSets { get; private set; }
+    
 
 
     public PlayerController playerController { get; private set; }
+    
     public static int kindOfPlayerAmount = 1;
-
+    public static readonly int skillAmount = 3;
 
     #endregion
 
@@ -83,7 +86,11 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     {
         targetPlayerTheme = playerThemes[targetId]; 
         SoundManager.instance.SetPlayerThemeDict(targetPlayerTheme);
+
         playerNames = targetPlayerTheme.GetNames();
+        skillLanguageSets = new PlayerSkillLanguageSet[2];
+        skillLanguageSets[0] = new PlayerSkillLanguageSet(targetPlayerTheme.GetSkillNames(0), targetPlayerTheme.GetSkillDescs(0));
+        skillLanguageSets[1] = new PlayerSkillLanguageSet(targetPlayerTheme.GetSkillNames(1), targetPlayerTheme.GetSkillDescs(1));
     }
 
     #region Gen
@@ -155,4 +162,28 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     }
 
     #endregion
+}
+
+public class PlayerSkillLanguageSet
+{
+    public string[] skillName;
+    public string[][] skillDesc;
+
+    public PlayerSkillLanguageSet(string[] skillName, string[][] skillDesc)
+    {
+        this.skillName = skillName;
+        this.skillDesc = skillDesc;
+    }
+
+    public string GetNameLanguage() => skillName[GameManager.languageID];
+    public string[] GetDescLanguage()
+    {
+        string[] result = new string[PlayerManager.skillAmount];
+        for (int i = 0; i < PlayerManager.skillAmount; i++)
+        {
+            string[] skill = skillDesc[i];
+            result[i] = skill[GameManager.languageID];
+        }
+        return result;
+    }
 }

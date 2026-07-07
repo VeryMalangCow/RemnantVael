@@ -286,7 +286,6 @@ public class BaseUpgradeUIController : PlayerShopUIController
         sw.Restart();
 #endif
         SetColor(mainClr, subClr);
-        SetLanguageTxt();
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Visual</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -477,6 +476,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
     {
         var words = StaticResourceManager.instance.staticWords;
         var descs = StaticResourceManager.instance.staticDescs;
+        var skills = PlayerManager.instance.skillLanguageSets;
 
         // Label
         labelName = $"{words.GetLanguage(26)} {words.GetLanguage(2)}";
@@ -488,8 +488,9 @@ public class BaseUpgradeUIController : PlayerShopUIController
             words.GetLanguage(29),
             words.GetLanguage(30),
             words.GetLanguage(31),
-            ResourceManager.instance.Get_SkillName(PlayerManager.instance.playerController.Get_ID(), 0),
-            ResourceManager.instance.Get_SkillName(PlayerManager.instance.playerController.Get_ID(), 1)
+
+            skills[0].GetNameLanguage(),
+            skills[1].GetNameLanguage()
         };
 
         // Shop
@@ -513,14 +514,14 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            skillShopList[i].skill_CooltimeShop.Set_LanguageTxt(words.GetLanguage(45), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 0));
-            skillShopList[i].skill_PowerShop.Set_LanguageTxt(words.GetLanguage(18), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 1));
-            skillShopList[i].skill_TierShop.Set_LanguageTxt(words.GetLanguage(17), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 2));
+            skillShopList[i].skill_CooltimeShop.Set_LanguageTxt(words.GetLanguage(45), PlayerManager.instance.skillLanguageSets[i].GetDescLanguage()[0]);
+            skillShopList[i].skill_PowerShop.Set_LanguageTxt(words.GetLanguage(18), PlayerManager.instance.skillLanguageSets[i].GetDescLanguage()[1]);
+            skillShopList[i].skill_TierShop.Set_LanguageTxt(words.GetLanguage(17), PlayerManager.instance.skillLanguageSets[i].GetDescLanguage()[2]);
         }
 
         // Desc
         descPanel.Set_LanguageTxt();
 
-        base.SetLanguageTxt();
+        base.SetLanguageTxt(); 
     }
 }

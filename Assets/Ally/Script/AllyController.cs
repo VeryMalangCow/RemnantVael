@@ -253,11 +253,6 @@ public class AllyController : NavObjectController, IPoolable
 
     #region Framework
 
-    private void Awake()
-    {
-        StartNew_Request();
-    }
-
     protected override void OnEnable()
     {
         base.OnEnable();

@@ -80,7 +80,6 @@ public class AllyCardUIController : SinglePanelUIController
 
         selectBtn.Offset();
         selectBtn.ownerUIController = this;
-        SetBaseLanguageTxt();
 
         gameObject.SetActive(false);
 
@@ -257,22 +256,17 @@ public class AllyCardUIController : SinglePanelUIController
 
     #region Set (Language)
 
-    private void SetBaseLanguageTxt()
+    public override void SetLanguageTxt()
     {
+        base.SetLanguageTxt();
+
+        AllyManager.instance.SetLanguageTxt();
         var lang = StaticResourceManager.instance.staticWords;
         cardBookingTxt.SetText(lang.GetLanguage(82));
         selectTxt.SetText(lang.GetLanguage(83));
 
         for (int i = 0; i < rerolls.Length; i++)
             rerolls[i].Set_LanguageTxt();
-    }
-
-    public override void SetLanguageTxt()
-    {
-        base.SetLanguageTxt();
-
-        AllyManager.instance.Set_LanguageTxt();
-        SetBaseLanguageTxt();
     }
 
     #endregion

@@ -233,7 +233,6 @@ public class RoomRuleController : MonoBehaviour
         if (inRoom_AllEnemySpawn == null || inRoom_AllEnemySpawn.Count == 0)
             return;
 
-        string s = "";
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
             var spot = inRoom_AllEnemySpawn[i];
@@ -245,7 +244,6 @@ public class RoomRuleController : MonoBehaviour
             if (type == eEnemy.Normal && normalEnemyIndices != null)
             {
                 int id = normalEnemyIndices[Random.Range(0, normalEnemyIndices.Count)];
-                s += $"<color=magenta>{id}</color> / ";
                 spot.SetSpawnID(id);
             }
             else if (type == eEnemy.Boss && bossId != -1)
@@ -257,6 +255,5 @@ public class RoomRuleController : MonoBehaviour
                 spot.SetSpawnID(eliteId);
             }
         }
-        Debug.Log(s);
     }
 }

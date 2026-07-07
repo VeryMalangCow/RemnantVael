@@ -45,7 +45,6 @@ public class PauseInfoView : MonoBehaviour
             detailEuiArr[i].Offset();
         }
 
-        SetLanguageTxt();
         SetList();
     }
 

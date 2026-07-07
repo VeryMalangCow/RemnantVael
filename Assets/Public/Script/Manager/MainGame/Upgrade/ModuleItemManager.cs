@@ -20,8 +20,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
     #region - Hide
 
     // Data
-    [HideInInspector] public ItemData[] itemDataArr;
-    [HideInInspector] private MainChipData[] mainChipDataArr;
+    [HideInInspector] public ItemData[] itemDataArr = null;
+    [HideInInspector] private MainChipData[] mainChipDataArr = null;
 
     // Module State
     [HideInInspector] public static readonly int rowAmount = 5;
@@ -69,17 +69,43 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
 
     #endregion
 
+    #region Csv
+
+    private ModuleBaseData[] moduleBaseDatas;
+
+    private LanguageSet moduleItemName;
+    private LanguageSet moduleItemDesc;
+    private LanguageSet moduleItemDescEquip;
+
+    private LanguageSet mainChipName;
+    private LanguageSet[] mainChipDescs;
+    private LanguageSet mainChipDescAlly;
+
+
+    #endregion
+
     #endregion
 
     #region Init
 
     public IEnumerator Initialize()
     {
+#if UNITY_EDITOR
         Stopwatch sw = new Stopwatch();
         sw.Start();
+#endif
+        var reso = StaticResourceManager.instance.ItemReso;
 
-        itemDataArr = ResourceManager.instance.Get_ItemDataArr();
-        mainChipDataArr = ResourceManager.instance.Get_MainChipDataArr();
+        moduleBaseDatas = CSVReader.GetModuleBaseDatas(reso.ModuleCsv);
+
+        moduleItemName = CSVReader.GetLanguageSet(reso.moduleNameCsv);
+        moduleItemDesc = CSVReader.GetLanguageSet(reso.moduleDescCsv);
+        moduleItemDescEquip = CSVReader.GetLanguageSet(reso.moduleDescEquipCsv);
+
+        mainChipName = CSVReader.GetLanguageSet(reso.mainChipNameCsv);
+        mainChipDescs = CSVReader.GetLanguageSets(reso.mainChipDescCsv);
+        mainChipDescAlly = CSVReader.GetLanguageSet(reso.mainChipDescAllyCsv);
+
 
         // Inven
         allModuleData = new ModuleState[columnAmount][];
@@ -95,9 +121,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
         fusionIndex = new CoupleData<int>[fusionAmount];
         for (int i = 0; i < fusionAmount; i++)
             fusionIndex[i] = new CoupleData<int>(-1, -1);
-
+#if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"ModuleUpgradeManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return null;
     }
 
@@ -200,10 +227,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
     // 랜덤한 아이템
     public ItemData_Field Get_RandomInteractItem()
     {
-        var data = new ItemData_Field(itemDataArr[Random.Range(0, itemDataArr.Length)]);
+        UnityEngine.Debug.Log(itemDataArr.Length);
+
         //Debug.Log("Module Rank Test");
         //data.Rank = 5;
-        return data;
+        return new ItemData_Field(itemDataArr[Random.Range(0, itemDataArr.Length)]);
     }
 
     #endregion
@@ -956,7 +984,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
 
     public void Set_DataLanguage()
     {
+        itemDataArr = GetItemDatas();
         Set_ItemDataLanguage();
+
+        mainChipDataArr = GetMainChipDatas();
         Set_MainChipDataLanguage();
 
         MainGameUIManager.instance.muUi.SetEquipedUI(allModuleData, equippedIndex);
@@ -964,23 +995,92 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
 
     private void Set_ItemDataLanguage()
     {
-        for (int i = 0; i < itemDataArr.Length; i++)
-            ResourceManager.instance.Set_DataLanguage(itemDataArr[i], i);
-
         for (int i = 0; i < columnAmount; i++)
+        {
             for (int j = 0; j < rowAmount; j++)
+            {
                 if (allModuleData[i][j] != null)
                 {
                     allModuleData[i][j].thisItemData.Set_LanguageTxt(itemDataArr[allModuleData[i][j].thisItemData.id]);
                 }
+            }
+        }
     }
 
     private void Set_MainChipDataLanguage()
     {
         for (int i = 0; i < mainChipDataArr.Length; i++)
-            ResourceManager.instance.Set_DataLanguage(mainChipDataArr[i], i);
+            SetDataLanguage(mainChipDataArr[i], i);
     }
 
 
     #endregion
+
+    public string GetModuleName(int id) => moduleItemName.GetLanguage(id);
+    public string GetMainChipName(int id) => mainChipName.GetLanguage(id);
+    public string GetMainChipDescAlly(int id) => mainChipDescAlly.GetLanguage(id);
+
+    private ItemData[] GetItemDatas()
+    {
+        UnityEngine.Debug.Log("<color=magenta>실행!!!</color>");
+        ItemData[] data = new ItemData[moduleBaseDatas.Length];
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            List<int> mainChipIndices = moduleBaseDatas[i].moduleMainChip;
+            data[i] = new ItemData(i, StaticResourceManager.instance.ItemReso.moduleItemSprites[i], mainChipIndices[0], mainChipIndices[1], mainChipIndices[2]);
+
+            Set_DataLanguage(data[i], i);
+        }
+        return data;
+    }
+
+    private ItemData Set_DataLanguage(ItemData itemData, int id)
+    {
+        itemData.name = moduleItemName.GetLanguage(id);
+        itemData.desc = moduleItemDesc.GetLanguage(id);
+        itemData.equipDesc = moduleItemDescEquip.GetLanguage(id);
+
+        return itemData;
+    }
+
+
+
+    private MainChipData[] GetMainChipDatas()
+    {
+        MainChipData[] data = new MainChipData[mainChipName.GetAmount()];
+        for (int i = 0; i < data.Length; i++)
+        {
+            data[i] = new MainChipData(i, StaticResourceManager.instance.ItemReso.moduleSynhronySprites[i]);
+
+            SetDataLanguage(data[i], i);
+        }
+        return data;
+    }
+
+    private MainChipData SetDataLanguage(MainChipData mainChipData, int id)
+    {
+        mainChipData.name = mainChipName.GetLanguage(id);
+        mainChipData.amalgamationDescArr = new string[]
+        {
+            mainChipDescs[id].GetLanguage(0),
+            mainChipDescs[id].GetLanguage(1),
+            mainChipDescs[id].GetLanguage(2)
+        };
+
+        return mainChipData;
+    }
+}
+
+[System.Serializable]
+public class ModuleBaseData
+{
+    public int id;
+    public List<int> moduleMainChip;
+
+    public ModuleBaseData(int id, List<int> mainChip)
+    {
+        this.id = id;
+        moduleMainChip = mainChip;
+    }
 }

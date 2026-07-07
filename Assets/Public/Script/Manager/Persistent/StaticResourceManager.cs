@@ -32,15 +32,24 @@ public class StaticResourceManager : PersistentSingleton<StaticResourceManager>
     public LanguageColorSet properNouns { get; private set; }
     public LanguageSet enemyNames { get; private set; }
 
+    public LanguageSet infoNames { get; private set; }
+    public LanguageSet infoDescs { get; private set; }
+    public LanguageSet infoKeys { get; private set; }
+
+
     protected override void Awake()
     {
         base.Awake();
 
-        staticWords = new LanguageSet(CSVReader.GetLanguageSet(languageFontReso.staticWordCsv));
-        staticDescs = new LanguageSet(CSVReader.GetLanguageSet(languageFontReso.staticDescCsv));
-        randomNames = new LanguageSet(CSVReader.GetLanguageSet(languageFontReso.randomNameCsv));
-        properNouns = new LanguageColorSet(CSVReader.GetLanguageColorSet(languageFontReso.properNounCsv));
-        enemyNames = new LanguageSet(CSVReader.GetLanguageSet(enemyReso.enemyNameCsv));
+        staticWords = CSVReader.GetLanguageSet(languageFontReso.staticWordCsv);
+        staticDescs = CSVReader.GetLanguageSet(languageFontReso.staticDescCsv);
+        randomNames = CSVReader.GetLanguageSet(languageFontReso.randomNameCsv);
+        properNouns = CSVReader.GetLanguageColorSet(languageFontReso.properNounCsv);
+        enemyNames = CSVReader.GetLanguageSet(enemyReso.enemyNameCsv);
+
+        infoNames = CSVReader.GetLanguageSet(EventReso.infoNameCsv);
+        infoDescs = CSVReader.GetLanguageSet(EventReso.infoDescCsv);
+        infoKeys = CSVReader.GetLanguageSet(EventReso.infoKeyCsv);
     }
 }
 

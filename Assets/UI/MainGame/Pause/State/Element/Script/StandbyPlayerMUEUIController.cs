@@ -40,7 +40,7 @@ public class StandbyPlayerMUEUIController : ElementUIController
         iconImg.sprite = moduleState.thisItemData.itemIcon;
         rankImg.sprite = StaticResourceManager.instance.ItemReso.rankIcons[moduleState.thisItemData.rank - 1];
 
-        nameTxt.text = ResourceManager.instance.Get_ModuleName(moduleState.thisItemData.id);
+        nameTxt.text = ModuleItemManager.instance.GetModuleName(moduleState.thisItemData.id);
     }
 
     public void SetColor(Color clr)

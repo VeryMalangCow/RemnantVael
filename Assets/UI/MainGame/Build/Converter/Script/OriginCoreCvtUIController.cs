@@ -40,7 +40,6 @@ public class OriginCoreCvtUIController : ConverterUIController
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Origin Core</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
-        SetLanguageTxt();
         yield return null;
     }
 

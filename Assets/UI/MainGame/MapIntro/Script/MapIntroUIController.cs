@@ -27,8 +27,6 @@ public class MapIntroUIController : UIController
 
     public void Play_IntroLabel()
     {
-        SetLanguageTxt();
-
         Play_Label(downTime: 1.5f, stayTime: 2.5f, upTime: 2f)
             .OnStart(() => { this.gameObject.SetActive(true); })
             .OnComplete(() => { this.gameObject.SetActive(false); });
@@ -62,11 +60,8 @@ public class MapIntroUIController : UIController
     {
         base.SetLanguageTxt();
 
-        int stageId = StageManager.instance.targetStageId;
-
-        Set_Txt(
-            ResourceManager.instance.Get_MapName(stageId),
-            ResourceManager.instance.Get_MapDesc(stageId));
+        var data = StageManager.instance.stageObjectGenerator;
+        Set_Txt(data.stageNames[GameManager.languageID], data.stageDescs[GameManager.languageID]);
     }
 
     #endregion

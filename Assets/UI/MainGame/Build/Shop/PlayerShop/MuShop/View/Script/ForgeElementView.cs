@@ -27,7 +27,7 @@ public abstract class ForgeElementView : MonoBehaviour
     [Space(10)]
     public List<Image> innerImgs;
 
-    public virtual void Offset(ModuleUpgradeUIController ui, OwnBtnEUIController _panelBtn, string btnName, string btnDesc)
+    public virtual void Offset(ModuleUpgradeUIController ui, OwnBtnEUIController _panelBtn)
     {
         panelBtn = _panelBtn;
         panelBtn.Offset();
@@ -40,8 +40,6 @@ public abstract class ForgeElementView : MonoBehaviour
         PanelBtnCG = DevTool.Get_ComponentTType<CanvasGroup>(panelBtn.gameObject);
 
         roleBtnTxtRT = DevTool.Get_ComponentTType<RectTransform>(roleBtnTxt.gameObject);
-
-        Set_LanguageTxt(btnName, btnDesc);
 
         rtTween = roleBtnTxtRT.DOScale(1.15f, 1.0f)
                 .OnPlay(() => { roleBtnTxtRT.localScale = Vector2.one; })

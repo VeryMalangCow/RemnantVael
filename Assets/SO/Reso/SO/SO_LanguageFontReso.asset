@@ -16,15 +16,18 @@ MonoBehaviour:
   staticDescCsv: {fileID: 4900000, guid: 10415a67a826c1c42be1a1e21694f587, type: 3}
   randomNameCsv: {fileID: 4900000, guid: dea176dc027c255499364a189a3300a7, type: 3}
   properNounCsv: {fileID: 4900000, guid: 0282a88cb47d0984aae0b7164da2f4c5, type: 3}
+  infoNameCsv: {fileID: 4900000, guid: a166a1124ef67fd40a6adffdab65de95, type: 3}
+  infoDescCsv: {fileID: 4900000, guid: e6359b023ee7905478390343f1d7e22e, type: 3}
+  infoKeyCsv: {fileID: 4900000, guid: 34cd3ad81705706428e89641a37f4232, type: 3}
   LanguageTxts:
   - id: 0
-    name: 
+    name: Eng
     fontAssets:
     - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
     - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
     - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
   - id: 1
-    name: 
+    name: Kor
     fontAssets:
     - {fileID: 11400000, guid: dab8b3738e323d74a8d2c36e2f20250b, type: 2}
     - {fileID: 11400000, guid: adea29dae5ccacc42b19792897cc3102, type: 2}

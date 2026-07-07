@@ -9,7 +9,7 @@ public class DecompositionView : ForgeElementView
     [SerializeField] private TMP_Text previewGainBc;
 
 
-    public override void Offset(ModuleUpgradeUIController ui, OwnBtnEUIController _panelBtn, string btnName, string btnDesc)
+    public override void Offset(ModuleUpgradeUIController ui, OwnBtnEUIController _panelBtn)
     {
         thisSlot.ownerUIController = ui;
         thisSlot.Offset();
@@ -18,7 +18,7 @@ public class DecompositionView : ForgeElementView
 
         thisSlot.Set_ForgeSelectedTxt(true);
 
-        base.Offset(ui, _panelBtn, btnName, btnDesc);
+        base.Offset(ui, _panelBtn);
     }
 
     public override void ResetPanel()

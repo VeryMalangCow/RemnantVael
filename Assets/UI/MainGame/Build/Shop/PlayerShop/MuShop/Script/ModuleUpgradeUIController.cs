@@ -190,7 +190,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         // 이너 라인, 설명
         equipPanelInnerList = DevTool.Get_ChildList<Image>(equippedInnerParentTf);
-
         equipDescStateTxtList = DevTool.Get_ChildList<TMP_Text>(equippedInnerParentTf);
 
 #if UNITY_EDITOR
@@ -241,7 +240,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #endif
         // decomposition
         decompositionView = Instantiate(decompositionViewPrefab, forgeElementViewParentTf);
-        decompositionView.Offset(this, decompositionPanelBtn, words.GetLanguage(51), descs.GetLanguage(24));
+        decompositionView.Offset(this, decompositionPanelBtn);
 
 #if UNITY_EDITOR
         sw.Stop();
@@ -256,7 +255,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #endif
         // fusion
         fusionView = Instantiate(fusionViewPrefab, forgeElementViewParentTf);
-        fusionView.Offset(this, fusionPanelBtn, words.GetLanguage(52), descs.GetLanguage(25));
+        fusionView.Offset(this, fusionPanelBtn);
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Fusion (Forge)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -270,7 +269,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #endif
         // make
         makeView = Instantiate(makeViewPrefab, forgeElementViewParentTf);
-        makeView.Offset(this, makePanelBtn, words.GetLanguage(53), descs.GetLanguage(26));
+        makeView.Offset(this, makePanelBtn);
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Make (Forge)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -307,8 +306,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         sw.Restart();
 #endif
         SetColor(mainClr, subClr);
-
-        SetLanguageTxt();
 
 #if UNITY_EDITOR
         sw.Stop();

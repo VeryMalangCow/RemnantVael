@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 #region Class & Struct
 
@@ -1491,6 +1490,10 @@ public class StageObjectGenerator
     // Enemy
     private List<int> normalEnemyIndices;
 
+    // Language
+    public string[] stageNames;
+    public string[] stageDescs;
+
 #if UNITY_EDITOR
     private string generatorLogger;
 #endif
@@ -1517,6 +1520,8 @@ public class StageObjectGenerator
 
         currentStageThemeSO = GetStageThemeSO(stageTheme, stageId);
         if (currentStageThemeSO == null) yield break;
+        stageNames = currentStageThemeSO.GetStageNames();
+        stageDescs = currentStageThemeSO.GetStageDescs();
 
         // 로비 시작 방
         if (stageId == 99)
@@ -1539,9 +1544,10 @@ public class StageObjectGenerator
             TryConnectGate(allRoomGrids);
 
         // UI 셋
-        MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
         MainGameUIManager.instance.hud.MinimapView.Gen_Minimap();
         MainGameUIManager.instance.hud.MinimapView.SetOnMapIcon(stageId);
+
+        MainGameUIManager.instance.mapIntroUi.Play_IntroLabel();
         MainGameUIManager.instance.hud.MinimapView.SetStageDescription();
 
         // Sound (BGM) 시작
@@ -2326,6 +2332,7 @@ public class StageObjectGenerator
 
     #region Data
 
+
     // 올바른 Stage Theme SO 구하기
     public StageThemeSO GetStageThemeSO(StageTheme stageTheme, int stageId)
     {
@@ -2683,7 +2690,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #region Field Obj
 
     public SpriteMaterial GetRandomFieldObjSprite(int typeId)
-        => stageTheme.GetRandomFieldObjSprite(currentStageData, typeId);
+        => stageTheme.GetRandomFieldObjSprite(currentStageThemeSO, typeId);
 
     public DestructibleObjectController GetRandomFieldObjPrefab()
     {
@@ -2700,7 +2707,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Nav
     [SerializeField] private NavMeshSurface navMesh;
 
-    public StageThemeSO currentStageData => stageObjectGenerator.currentStageThemeSO;
+    public StageThemeSO currentStageThemeSO => stageObjectGenerator.currentStageThemeSO;
     public RoomController currentRoomController;
 
     #endregion

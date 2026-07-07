@@ -85,8 +85,6 @@ public class DescBUEUIController : ElementUIController
 
         leftLvTxtList = DevTool.Get_ChildList<TMP_Text>(leftLvTxtParentTf);
         leftValueTxtList = DevTool.Get_ChildList<TMP_Text>(leftValueTxtParentTf);
-
-        Set_LanguageTxt();
     }
 
     #endregion

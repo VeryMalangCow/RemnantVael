@@ -2,7 +2,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static ConverterUIController;
 
 public class CvtMaterialEUIController : ElementUIController
 {
@@ -35,13 +34,12 @@ public class CvtMaterialEUIController : ElementUIController
 
     #region Init
 
-    public void Init(CvtMaterialData cvtData)
+    public void Init(ConverterUIController.CvtMaterialData cvtData)
     {
         rt.anchoredPosition = new Vector2(0, cvtData.posY);
         iconImg.sprite = cvtData.icon;
         iconImg.SetNativeSize();
         arrowAngleRt.rotation = Quaternion.Euler(0, 0, cvtData.rotateZ);
-        Set_Language();
     }
 
     #endregion

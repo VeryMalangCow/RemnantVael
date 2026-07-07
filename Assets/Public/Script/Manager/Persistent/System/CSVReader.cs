@@ -7,8 +7,88 @@ public static class CSVReader
     private static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
     private static string WORD_SPLIT_RE = @",";
 
-    
-    public static Dictionary<int, string[]> GetLanguageSet(TextAsset textAsset)
+    public static ModuleBaseData[] GetModuleBaseDatas(TextAsset textAsset)
+    {
+        string[][] csvData = GetCsvData(textAsset.text);
+        ModuleBaseData[] result = new ModuleBaseData[csvData.Length - 1];
+
+        for (int i = 1; i < csvData.Length; i++)
+        {
+            if (csvData[i][0] == "") break;
+
+            int id = int.Parse(csvData[i][0]);
+            int r1mainChip = int.Parse(csvData[i][1]);
+            int r3mainChip = int.Parse(csvData[i][2]);
+            int r5mainChip = int.Parse(csvData[i][3]);
+
+            result[i - 1] = new ModuleBaseData(id, new List<int> { r1mainChip, r3mainChip, r5mainChip });
+        }
+
+        return result;
+    }
+
+    public static AllyCardBaseData[] GetAllyCardBaseDatas(TextAsset textAsset)
+    {
+        string[][] csvData = GetCsvData(textAsset.text);
+        AllyCardBaseData[] result = new AllyCardBaseData[csvData.Length - 1];
+
+        for (int i = 1; i < csvData.Length; i++)
+        {
+            if (csvData[i][0] == "") break;
+
+            int id = int.Parse(csvData[i][0]);
+            int rank = int.Parse(csvData[i][1]);
+            int essentialID = int.Parse(csvData[i][2]);
+
+            result[i - 1] = new AllyCardBaseData(id, rank, essentialID);
+        }
+
+        return result;
+    }
+
+    public static LanguageSet[] GetLanguageSets(TextAsset textAsset)
+    {
+        // ID -> (Index -> Languages)
+        Dictionary<int, Dictionary<int, string[]>> tempDict = new Dictionary<int, Dictionary<int, string[]>>();
+        string[][] csvData = GetCsvData(textAsset.text);
+
+        int maxID = -1;
+
+        for (int i = 1; i < csvData.Length; i++)
+        {
+            // ID
+            if (!int.TryParse(csvData[i][0], out int id))
+                continue;
+
+            // Index
+            if (!int.TryParse(csvData[i][1], out int index))
+                continue;
+
+            if (!tempDict.TryGetValue(id, out Dictionary<int, string[]> languageDict))
+            {
+                languageDict = new Dictionary<int, string[]>();
+                tempDict.Add(id, languageDict);
+            }
+
+            string[] languages = new string[csvData[i].Length - 2];
+            for (int j = 2; j < csvData[i].Length; j++)
+                languages[j - 2] = csvData[i][j];
+
+            languageDict.Add(index, languages);
+
+            if (id > maxID)
+                maxID = id;
+        }
+
+        LanguageSet[] result = new LanguageSet[maxID + 1];
+
+        foreach (var pair in tempDict)
+            result[pair.Key] = new LanguageSet(pair.Value);
+
+        return result;
+    }
+
+    public static LanguageSet GetLanguageSet(TextAsset textAsset)
     {
         Dictionary<int, string[]> csvDict = new Dictionary<int, string[]>();
         string[][] csvData = GetCsvData(textAsset.text);
@@ -28,11 +108,11 @@ public static class CSVReader
             csvDict.Add(id, languages);
         }
 
-        return csvDict;
+        return new LanguageSet(csvDict);
     }
 
 
-    public static Dictionary<int, ColorStringArray> GetLanguageColorSet(TextAsset textAsset)
+    public static LanguageColorSet GetLanguageColorSet(TextAsset textAsset)
     {
         Dictionary<int, ColorStringArray> csvDict = new Dictionary<int, ColorStringArray>();
         string[][] csvData = GetCsvData(textAsset.text);
@@ -53,7 +133,7 @@ public static class CSVReader
             csvDict.Add(id, new ColorStringArray(clrHex, languages));
         }
 
-        return csvDict;
+        return new LanguageColorSet(csvDict);
     }
 
 

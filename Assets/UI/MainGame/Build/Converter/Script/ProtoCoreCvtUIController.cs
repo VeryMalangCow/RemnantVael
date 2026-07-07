@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Diagnostics;
-using UniRx;
 using UnityEngine;
 
 public class ProtoCoreCvtUIController : ConverterUIController
@@ -37,7 +36,6 @@ public class ProtoCoreCvtUIController : ConverterUIController
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Proto Core</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
 #endif
-        SetLanguageTxt();
         yield return null;
     }
 

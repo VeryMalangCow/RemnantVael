@@ -21,7 +21,7 @@ public class GameManager : PersistentSingleton<GameManager>
     [Header("=== Intro")]
     [SerializeField] public bool wasWatched = false;
 
-    public static int languageID = 1;
+    public static int languageID = -1;
     public static eScreenMode screenMode = eScreenMode.fullScreen;
     public static eResolution resolutionMode = eResolution.w1920h1080;
     public static eFPS fps = eFPS.f144;
@@ -35,7 +35,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         OptionJsonData savedData = SaveDataManager.instance.jsonData.optionData;
 
-        ResourceManager.instance.Set_LanguageFont(savedData.languageID);
+        ResourceManager.instance.SetLanguageFont(savedData.languageID);
 
         Set_Screen(savedData.resolutionMode, savedData.screenMode);
         Set_FPS(savedData.fps);
@@ -4148,52 +4148,6 @@ public class SatelliteCenterController : SatelliteController
 
 #endregion
 
-
-#region Class : AllyUpgrade : Card
-
-[System.Serializable]
-public class AllyCardBaseData
-{
-    public int id;
-    public int rank;
-    public int essentialId;
-
-    public AllyCardBaseData(int id, int rank, int essentialID)
-    {
-        this.id = id;
-        this.rank = rank;
-        essentialId = essentialID;
-    }
-}
-
-[System.Serializable]
-public class AllyCardData
-{
-    public int id;
-    public int rank;
-    public int essentialID;
-
-    public string name;
-    public string desc;
-
-    public AllyCardData(AllyCardBaseData baseData, string name, string desc)
-    {
-        id = baseData.id;
-        rank = baseData.rank;
-        essentialID = baseData.essentialId;
-
-        Set_LanguageTxt(name, desc);
-    }
-
-    public void Set_LanguageTxt(string name, string desc)
-    {
-        this.name = name;
-        this.desc = desc;
-    }
-}
-
-#endregion
-
 #region Class : AllyUpgrade : Base(Tuner)
 
 [System.Serializable]
@@ -4801,7 +4755,7 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
 
     #region Get
 
-    public override string Get_Name() { return ResourceManager.instance.Get_RequestName(0); }
+    public override string Get_Name() { return AllyManager.instance.requestName.GetLanguage(0); }
     public override string Get_CompleteDesc() { return ((IWhen_Complete_KillNormalEnemy)this).Get_WhenDesc(); }
     public override string Get_FailDesc() { return ((IWhen_Fail_TakingDamage)this).Get_WhenDesc(); }
 
@@ -4875,7 +4829,7 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 
     #region Get
 
-    public override string Get_Name() { return ResourceManager.instance.Get_RequestName(1); }
+    public override string Get_Name() { return AllyManager.instance.requestName.GetLanguage(1); }
     public override string Get_CompleteDesc() { return ((IWhen_Complete_KillEliteEnemy)this).Get_WhenDesc(); }
     public override string Get_FailDesc() { return ((IWhen_Fail_TakingDamage)this).Get_WhenDesc(); }
 
@@ -4956,25 +4910,6 @@ public class PrisonAllySprite
     public Sprite fall;
     public Sprite stand;
     public Sprite salute;
-}
-
-#endregion
-
-
-
-#region Class : CSV : ModuleInfo
-
-[System.Serializable]
-public class ModuleBaseData
-{
-    public int id;
-    public List<int> moduleMainChip;
-
-    public ModuleBaseData(int id, List<int> mainChip)
-    {
-        this.id = id;
-        moduleMainChip = mainChip;
-    }
 }
 
 #endregion
@@ -5461,13 +5396,13 @@ public interface IWhen_Request
 
 public interface IWhen_Complete_KillNormalEnemy : IWhen_Request 
 {
-    public string Get_WhenDesc() { return ResourceManager.instance.Get_RequestCompleteDesc(0); }
+    public string Get_WhenDesc() { return AllyManager.instance.requestSuccess.GetLanguage(0); }
     public void Add_IWhenList() { AllyRequestManager.instance.Add_RequestComplete("KillNormalEnemy", this); }
     public void Remove_IWhenList() { AllyRequestManager.instance.Remove_RequestComplete("KillNormalEnemy", this); }
 }
 public interface IWhen_Complete_KillEliteEnemy : IWhen_Request
 {
-    public string Get_WhenDesc() { return ResourceManager.instance.Get_RequestCompleteDesc(1); }
+    public string Get_WhenDesc() { return AllyManager.instance.requestSuccess.GetLanguage(1); }
     public void Add_IWhenList() { AllyRequestManager.instance.Add_RequestComplete("KillEliteEnemy", this); }
     public void Remove_IWhenList() { AllyRequestManager.instance.Remove_RequestComplete("KillEliteEnemy", this); }
 }
@@ -5481,13 +5416,13 @@ public interface IWhen_Fail
 
 public interface IWhen_Fail_TakingDamage : IWhen_Fail 
 {
-    public string Get_WhenDesc() { return ResourceManager.instance.Get_RequestFailDesc(0); }
+    public string Get_WhenDesc() { return AllyManager.instance.requestFailure.GetLanguage(0); }
     public void Add_IWhenList() { AllyRequestManager.instance.Add_RequestFail("TakingDamage", this); }
     public void Remove_IWhenList() { AllyRequestManager.instance.Remove_RequestFail("TakingDamage", this); }
 }
 public interface IWhen_Fail_UsingSkill : IWhen_Fail
 {
-    public string Get_WhenDesc() { return ResourceManager.instance.Get_RequestFailDesc(1); }
+    public string Get_WhenDesc() { return AllyManager.instance.requestFailure.GetLanguage(1); }
     public void Add_IWhenList() { AllyRequestManager.instance.Add_RequestFail("UsingSkill", this); }
     public void Remove_IWhenList() { AllyRequestManager.instance.Remove_RequestFail("UsingSkill", this); }
 }

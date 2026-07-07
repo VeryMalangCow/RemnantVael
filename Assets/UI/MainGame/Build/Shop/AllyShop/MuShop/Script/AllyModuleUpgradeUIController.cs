@@ -194,11 +194,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         selectedNoneSyncIdList = new List<int>();
 
         // None Sync
-        noneSyncCanBuyTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(115);
+        
         noneSyneBuyBtn.ownerUIController = this;
         noneSyneBuyBtn.Offset();
-
-        SetLanguageTxt();
 
 #if UNITY_EDITOR
         sw.Stop();
@@ -813,7 +811,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         for (int i = 0; i < pickedPanelSynergyEuiList.Count; i++)
         {
             MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(pickedModuleMainChipId[i]);
-            pickedPanelSynergyEuiList[i].Set_SynergySlot(MDC.id, MDC.thisIcon, ResourceManager.instance.Get_MainChipBaseDesc(MDC.id));
+            pickedPanelSynergyEuiList[i].Set_SynergySlot(MDC.id, MDC.thisIcon, ModuleItemManager.instance.GetMainChipDescAlly(MDC.id));
             pickedPanelSynergyEuiList[i].Set_PlayerSynergyTxt(ModuleItemManager.instance.Get_MainChipAmount(MDC.id));
             pickedPanelSynergyEuiList[i].Set_Select(false);
             pickedPanelSynergyEuiList[i].Set_Lock(pickedModule.isEquipped);
@@ -917,7 +915,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         playerSynergyDescImg.gameObject.SetActive(true);
 
         playerSynergyDescImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(id).thisIcon;
-        playerSynergyDescTxt.text = ResourceManager.instance.Get_MainChipBaseDesc(id);
+        playerSynergyDescTxt.text = ModuleItemManager.instance.GetMainChipDescAlly(id);
     }
 
     #endregion
@@ -983,7 +981,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         buyBtnEui.txt.text = $"{words.GetLanguage(47)} & {words.GetLanguage(105)}";
 
         // Player Sync
-        playerSyncNameTxt.text = $"[ {words.GetLanguage(113)} {words.GetLanguage(50)} ]";
+        playerSyncNameTxt.text = $"[ {words.GetLanguage(113)} {words.GetLanguage(50)} ]"; 
+        noneSyncCanBuyTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(115);
+
         base.SetLanguageTxt();
     }
 

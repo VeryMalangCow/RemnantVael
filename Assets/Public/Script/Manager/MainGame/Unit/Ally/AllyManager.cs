@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
+
+
 public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 {
     #region Value
@@ -13,66 +15,8 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
     public string InitPregressText { get { return initPregressText; } }
     [SerializeField] private string initPregressText;
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Ally Manager")]
-
-    [Space(10)]
-    [Header("=== Reso")]
-
-    [Space(5)]
-    [Header("-- Tuner")]
-    [SerializeField] private List<Sprite> tunerTypeIcon;
-
-    #endregion
-
-    #region - Hide
-
-    // Allies
-    [HideInInspector] public List<AllyController> allAlly = new List<AllyController>();
-
-    // Ally Card Data
-    [HideInInspector] private AllyCardData[] st_allAllyCardData;
-    [HideInInspector] private HashSet<int> st_gottenAllyCards = new HashSet<int>();
-    [HideInInspector] private Sprite[] st_cardIconArr;
-
-    [HideInInspector] private AllyCardData[] ut_allAllyCardData;
-    [HideInInspector] private HashSet<int> ut_gottenAllyCards = new HashSet<int>();
-    [HideInInspector] private Sprite[] ut_cardIconArr;
-
-    [HideInInspector] private AllyCardData[] nt_allAllyCardData;
-    [HideInInspector] private HashSet<int> nt_gottenAllyCards = new HashSet<int>();
-    [HideInInspector] private Sprite[] nt_cardIconArr;
-
-    [HideInInspector] private AllyCardData[][] allAllyCardData = null;
-    [HideInInspector] private HashSet<int>[] allGottenAllyCards = null;
-    [HideInInspector] private Sprite[][] allIconArr = null;
-
-    // Base State
-    [HideInInspector] private AllyState allyState = new AllyState();
-    [HideInInspector] public AllyState getAllyState { get { return allyState; } }
-
-    // Name
-    [HideInInspector] private HashSet<int> usedAllyName = new HashSet<int>();
-
-    // String
-    [HideInInspector]
-    public static readonly List<string> stateTypeList = new List<string> 
-        { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD", "MuzzleSpeed", "KBPower", "Dur" };
-    [HideInInspector]
-    public static List<float> tunerMultipleValueByType = new List<float>
-        { 0.05f, 0.05f, 0.05f, 0.1f, 0.05f, 0.1f, 0.1f, 0.1f, 0.05f };
-
-    // Base Upgrade Data
-    [HideInInspector] public static List<int> tunerTypePercent = new List<int> { 8, 5, 3, 2, 1 };
-    [HideInInspector] private Dictionary<string, Sprite> tunerTypeIconDict;
-
-    [HideInInspector] private static Dictionary<string, float> tunerTypeMultipleValueDict;
-
-    #endregion
-
-
     [SerializeField] private PoolSystem<ShootingAllyController> gruntAllyPool;
     [SerializeField] private PoolSystem<ShootingAllyController> ignisAllyPool;
     [SerializeField] private PoolSystem<ShootingAllyController> glaciaAllyPool;
@@ -89,11 +33,120 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
     private AlwaysCooltimeData totemeTimer = new AlwaysCooltimeData(1f);
     private List<TotemeController> allTotemeList = new List<TotemeController>(32);
 
-    #endregion
+    // Allies
+    [HideInInspector] public List<AllyController> allAlly = new List<AllyController>();
+
+    // Ally Card Data
+    [HideInInspector] private AllyCardData[] stAllyCardDatas;
+    [HideInInspector] private HashSet<int> st_gottenAllyCards = new HashSet<int>();
+    [HideInInspector] private Sprite[] st_cardIconArr;
+
+    [HideInInspector] private AllyCardData[] utAllyCardDatas;
+    [HideInInspector] private HashSet<int> ut_gottenAllyCards = new HashSet<int>();
+    [HideInInspector] private Sprite[] ut_cardIconArr;
+
+    [HideInInspector] private AllyCardData[] ntAllyCardDatas;
+    [HideInInspector] private HashSet<int> nt_gottenAllyCards = new HashSet<int>();
+    [HideInInspector] private Sprite[] nt_cardIconArr;
+
+    [HideInInspector] private AllyCardData[][] allAllyCardData = null;
+    [HideInInspector] private HashSet<int>[] allGottenAllyCards = null;
+    [HideInInspector] private Sprite[][] allIconArr = null;
+
+    // Base State
+    [HideInInspector] private AllyState allyState = new AllyState();
+    [HideInInspector] public AllyState getAllyState { get { return allyState; } }
+
+    // Name
+    [HideInInspector] private HashSet<int> usedAllyName = new HashSet<int>();
+
+    // String
+    [HideInInspector]
+    public static readonly List<string> stateTypeList = new List<string>
+        { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD", "MuzzleSpeed", "KBPower", "Dur" };
+    [HideInInspector]
+    public static List<float> tunerMultipleValueByType = new List<float>
+        { 0.05f, 0.05f, 0.05f, 0.1f, 0.05f, 0.1f, 0.1f, 0.1f, 0.05f };
+
+    // Base Upgrade Data
+    [HideInInspector] public static List<int> tunerTypePercent = new List<int> { 8, 5, 3, 2, 1 };
+    [HideInInspector] private Dictionary<string, Sprite> tunerTypeIconDict;
+
+    [HideInInspector] private static Dictionary<string, float> tunerTypeMultipleValueDict;
+
+    // Card
+    public AllyCardBaseData[] stCardBaseDatas { get; private set; }
+    public AllyCardBaseData[] utCardBaseDatas { get; private set; }
+    public AllyCardBaseData[] ntCardBaseDatas { get; private set; }
+
+    public AllyLanguageSet stLanguage { get; private set; }
+    public AllyLanguageSet utLanguage { get; private set; }
+    public AllyLanguageSet ntLanguage { get; private set; }
+
+    // Request
+    public LanguageSet requestName { get; private set; }
+    public LanguageSet requestFailure { get; private set; }
+    public LanguageSet requestSuccess { get; private set; }
+
+    // Tuner
+    public LanguageSet tunerStateName { get; private set; }
+
+    #endregion          
 
     // Init
     public IEnumerator Initialize()
     {
+#if UNITY_EDITOR
+        Stopwatch sw = Stopwatch.StartNew();
+#endif
+        var reso = StaticResourceManager.instance.AllyReso;
+
+        // Card Data
+        var st = reso.stCsv;
+        stLanguage = new AllyLanguageSet(st.nameCsv, st.descCsv);
+        stCardBaseDatas = CSVReader.GetAllyCardBaseDatas(st.csv);
+
+        var ut = reso.utCsv;
+        utLanguage = new AllyLanguageSet(ut.nameCsv, ut.descCsv);
+        utCardBaseDatas = CSVReader.GetAllyCardBaseDatas(ut.csv);
+
+        var nt = reso.ntCsv;
+        ntLanguage = new AllyLanguageSet(nt.nameCsv, nt.descCsv);
+        ntCardBaseDatas = CSVReader.GetAllyCardBaseDatas(nt.csv);
+
+        // Request
+        requestName = CSVReader.GetLanguageSet(reso.requestNameCsv);
+        requestFailure = CSVReader.GetLanguageSet(reso.requestFailureCsv);
+        requestSuccess = CSVReader.GetLanguageSet(reso.requestSuccessCsv);
+
+        // Tuner
+        tunerStateName = CSVReader.GetLanguageSet(reso.tunerStateCsv);
+
+        // Icon
+        st_cardIconArr = reso.allyCardIcons[0].array;
+        ut_cardIconArr = reso.allyCardIcons[1].array;
+        nt_cardIconArr = reso.allyCardIcons[2].array;
+
+        // Arr
+        allAllyCardData = new AllyCardData[][] { stAllyCardDatas, utAllyCardDatas, ntAllyCardDatas };
+        allGottenAllyCards = new HashSet<int>[] { st_gottenAllyCards, ut_gottenAllyCards, nt_gottenAllyCards };
+        allIconArr = new Sprite[][] { st_cardIconArr, ut_cardIconArr, nt_cardIconArr };
+
+        allyState = new AllyState();
+
+        var tunerIcons = reso.tunerTypeIcons;
+        tunerTypeIconDict = new Dictionary<string, Sprite>();
+        for (int i = 0; i < stateTypeList.Count; i++)
+            tunerTypeIconDict.Add(stateTypeList[i], tunerIcons[i]);
+
+        tunerTypeMultipleValueDict = new Dictionary<string, float>();
+        for (int i = 0; i < stateTypeList.Count; i++)
+            tunerTypeMultipleValueDict.Add(stateTypeList[i], tunerMultipleValueByType[i]);
+
+#if UNITY_EDITOR
+        sw.Stop();
+        UnityEngine.Debug.Log($"AllyManager: <color=orange>CSV</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
+#endif
         yield return gruntAllyPool.InitAsync(fieldAllyParentTf, 8, 8f);
         yield return ignisAllyPool.InitAsync(fieldAllyParentTf, 4, 8f);
         yield return glaciaAllyPool.InitAsync(fieldAllyParentTf, 4, 8f);
@@ -104,41 +157,6 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
         yield return totisAllyPool.InitAsync(noneAllyParentTf, 4, 8f);
 
         yield return allyTotemePool.InitAsync(16, 8f);
-
-#if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew();
-#endif
-        var prefab = StaticResourceManager.instance.AllyReso;
-        // Card Data
-        st_allAllyCardData = ResourceManager.instance.Get_StrikeTeam_AllAllyCardData();
-        ut_allAllyCardData = ResourceManager.instance.Get_UplinkTeam_AllAllyCardData();
-        nt_allAllyCardData = ResourceManager.instance.Get_NeoTeam_AllAllyCardData();
-
-        // Icon
-        st_cardIconArr = prefab.allyCardIcons[0].array;
-        ut_cardIconArr = prefab.allyCardIcons[1].array;
-        nt_cardIconArr = prefab.allyCardIcons[2].array;
-
-        // Arr
-        allAllyCardData = new AllyCardData[][] { st_allAllyCardData, ut_allAllyCardData, nt_allAllyCardData };
-        allGottenAllyCards = new HashSet<int>[] { st_gottenAllyCards, ut_gottenAllyCards, nt_gottenAllyCards };
-        allIconArr = new Sprite[][] { st_cardIconArr, ut_cardIconArr, nt_cardIconArr };
-
-        allyState = new AllyState();
-
-        tunerTypeIconDict = new Dictionary<string, Sprite>();
-        for (int i = 0; i < stateTypeList.Count; i++)
-            tunerTypeIconDict.Add(stateTypeList[i], tunerTypeIcon[i]);
-
-        tunerTypeMultipleValueDict = new Dictionary<string, float>();
-        for (int i = 0; i < stateTypeList.Count; i++)
-            tunerTypeMultipleValueDict.Add(stateTypeList[i], tunerMultipleValueByType[i]);
-
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"AllyManager: <color=orange>DataInit</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
-        yield return null;
 
         enabled = true;
     }
@@ -157,7 +175,7 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
         HandleAlly_AttackCharging(boomaAllyPool, dt);
         HandleAlly_AttackCharging(totisAllyPool, dt);
 
-        HandleToteme_TotemeTimer(dt); 
+        HandleToteme_TotemeTimer(dt);
     }
 
     private void HandleAlly_Shooting<T>(PoolSystem<T> pool, float dt) where T : ShootingAllyController
@@ -211,15 +229,43 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
     #region Pool
 
     // Ally
-    public void SpawnGruntAlly() => gruntAllyPool.Dequeue();
-    public void SpawnIgnisAlly() => ignisAllyPool.Dequeue();
-    public void SpawnGlaciaAlly() => glaciaAllyPool.Dequeue();
-    public void SpawnVoltAlly() => voltAllyPool.Dequeue();
-    public void SpawnToxAlly() => toxAllyPool.Dequeue();
+    public void SpawnGruntAlly() 
+    {
+        var ally = gruntAllyPool.Dequeue();
+        ally.StartNew_Request();
+    }
+    public void SpawnIgnisAlly() 
+    {
+        var ally = ignisAllyPool.Dequeue(); 
+        ally.StartNew_Request();
+    }
+    public void SpawnGlaciaAlly() 
+    {
+        var ally = glaciaAllyPool.Dequeue(); 
+        ally.StartNew_Request();
+    }
+    public void SpawnVoltAlly()
+    {
+        var ally = voltAllyPool.Dequeue(); 
+        ally.StartNew_Request();
+    }
+    public void SpawnToxAlly() 
+    {
+        var ally = toxAllyPool.Dequeue(); 
+        ally.StartNew_Request();
+    }
 
 
-    public void SpawnBoomaAlly() => boomaAllyPool.Dequeue();
-    public void SpawnTotisAlly() => totisAllyPool.Dequeue();
+    public void SpawnBoomaAlly() 
+    {
+        var ally = boomaAllyPool.Dequeue(); 
+        ally.StartNew_Request();
+    }
+    public void SpawnTotisAlly() 
+    {
+        var ally = totisAllyPool.Dequeue(); 
+        ally.StartNew_Request();
+    }
 
 
 
@@ -510,20 +556,85 @@ public class AllyManager : Singleton<AllyManager>, IMainGameInitializer
 
     #region Set (Lang)
 
-    public void Set_LanguageTxt()
+    public void SetLanguageTxt()
     {
-        AllyCardData[] stData = ResourceManager.instance.Get_StrikeTeam_AllAllyCardData();
-        for (int i = 0; i < st_allAllyCardData.Length; i++)
-            st_allAllyCardData[i].Set_LanguageTxt(stData[i].name, stData[i].desc);
+        if (stAllyCardDatas == null) stAllyCardDatas = GetNewAllyCardData(stCardBaseDatas, stLanguage);
+        else SetLanguageAllyCardData(stAllyCardDatas, stLanguage);
 
-        AllyCardData[] utData = ResourceManager.instance.Get_UplinkTeam_AllAllyCardData();
-        for (int i = 0; i < ut_allAllyCardData.Length; i++)
-            ut_allAllyCardData[i].Set_LanguageTxt(utData[i].name, utData[i].desc);
 
-        AllyCardData[] ntData = ResourceManager.instance.Get_NeoTeam_AllAllyCardData();
-        for (int i = 0; i < nt_allAllyCardData.Length; i++)
-            nt_allAllyCardData[i].Set_LanguageTxt(ntData[i].name, ntData[i].desc);
+        if (utAllyCardDatas == null) utAllyCardDatas = GetNewAllyCardData(utCardBaseDatas, utLanguage);
+        else SetLanguageAllyCardData(utAllyCardDatas, utLanguage);
+
+
+        if (ntAllyCardDatas == null) ntAllyCardDatas = GetNewAllyCardData(ntCardBaseDatas, ntLanguage);
+        else SetLanguageAllyCardData(ntAllyCardDatas, ntLanguage);
+    }
+
+    public AllyCardData[] GetNewAllyCardData(AllyCardBaseData[] data, AllyLanguageSet languageSet)
+    {
+        AllyCardData[] result = new AllyCardData[data.Length];
+        for (int i = 0; i < data.Length; i++)
+            result[i] = new AllyCardData(data[i], languageSet.name.GetLanguage(i), languageSet.desc.GetLanguage(i));
+
+        return result;
+    }
+
+    public void SetLanguageAllyCardData(AllyCardData[] data, AllyLanguageSet languageSet)
+    {
+        for (int i = 0; i < data.Length; i++)
+        {
+            data[i].name = languageSet.name.GetLanguage(i);
+            data[i].desc = languageSet.desc.GetLanguage(i);
+        }
     }
 
     #endregion
+}
+public class AllyLanguageSet
+{
+    public LanguageSet name;
+    public LanguageSet desc;
+
+    public AllyLanguageSet(TextAsset nameTextAsset, TextAsset descTextAsset)
+    {
+        name = CSVReader.GetLanguageSet(nameTextAsset);
+        desc = CSVReader.GetLanguageSet(descTextAsset);
+    }
+}
+
+
+[System.Serializable]
+public class AllyCardBaseData
+{
+    public int id;
+    public int rank;
+    public int essentialId;
+
+    public AllyCardBaseData(int id, int rank, int essentialID)
+    {
+        this.id = id;
+        this.rank = rank;
+        essentialId = essentialID;
+    }
+}
+
+[System.Serializable]
+public class AllyCardData
+{
+    public int id;
+    public int rank;
+    public int essentialID;
+
+    public string name;
+    public string desc;
+
+    public AllyCardData(AllyCardBaseData baseData, string name, string desc)
+    {
+        id = baseData.id;
+        rank = baseData.rank;
+        essentialID = baseData.essentialId;
+        this.name = name;
+        this.desc = desc;
+    }
+
 }

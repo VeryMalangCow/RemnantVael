@@ -159,7 +159,6 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
         yield return InitAsync(battleProdUiPrefab, false, delegate (BattleProdUIController ui) { battleProdUi = ui; });
 
-        GameManager.instance.Set_BaseOption();
         yield return null;
 
         PlayerManager.instance.playerController.TestStart();
@@ -252,20 +251,26 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
 
     public void SetLanguageTxt()
     {
+        hud.SetLanguageTxt();
         pauseUi.SetLanguageTxt();
 
         mapIntroUi.SetLanguageTxt();
-        hud.SetLanguageTxt();
         interactAnnoUi.SetLanguageTxt();
+        allyCardUi.SetLanguageTxt();
+
+        ModuleItemManager.instance.Set_DataLanguage();
 
         buUi.SetLanguageTxt();
         muUi.SetLanguageTxt();
-        ModuleItemManager.instance.Set_DataLanguage();
 
         abuUi.SetLanguageTxt();
         amuUi.SetLanguageTxt();
 
-        allyCardUi.SetLanguageTxt();
+
+        premiumCreditCvtUi.SetLanguageTxt();
+        protoCoreCvtUi.SetLanguageTxt();
+        etherCoreCvtUi.SetLanguageTxt();
+        originCoreCvtUi.SetLanguageTxt();
     }
 
     #endregion
