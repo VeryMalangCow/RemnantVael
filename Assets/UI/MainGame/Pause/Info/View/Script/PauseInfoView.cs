@@ -107,8 +107,10 @@ public class PauseInfoView : MonoBehaviour
 
     public void SetLanguageTxt()
     {
-        listTxt.text = ResourceManager.instance.Get_StaticWord(145);
-        detailTxt.text = ResourceManager.instance.Get_StaticWord(144);
+        var words = StaticResourceManager.instance.staticWords;
+
+        listTxt.text = words.GetLanguage(145);
+        detailTxt.text = words.GetLanguage(144);
 
         for (int i = 0; i < listEuiArr.Length; i++)
             listEuiArr[i].Set_LanguageTxt();

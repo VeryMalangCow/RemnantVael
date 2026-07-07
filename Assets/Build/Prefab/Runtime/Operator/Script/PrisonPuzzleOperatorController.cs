@@ -41,7 +41,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
     {
         //base.Get_InteractName();
         canInteract = Can_Interact();
-        return ResourceManager.instance.Get_StaticWord(59);
+        return StaticResourceManager.instance.staticWords.GetLanguage(59);
     }
 
     public override void PlayInteract()
@@ -79,7 +79,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
 
     public void Set_Language()
     {
-        payTxt.text = ResourceManager.instance.Get_StaticWord(59);
+        payTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(59);
     }
 
     #endregion

@@ -80,15 +80,17 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     public void Set_PlayerSynergyTxt(int amount)
     {
+        var desc = StaticResourceManager.instance.staticDescs;
+
         if (amount == -1)
         {
             playerSynergyStackTxt.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-            playerSynergyStackTxt.text = $"( {ResourceManager.instance.Get_StaticDesc(38)} )";
+            playerSynergyStackTxt.text = $"( {desc.GetLanguage(38)} )";
         }
         else
         {
             playerSynergyStackTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-            playerSynergyStackTxt.text = $"( {ResourceManager.instance.Get_StaticDesc(39)}: <size=150%>{amount}</size> )";
+            playerSynergyStackTxt.text = $"( {desc.GetLanguage(39)}: <size=150%>{amount}</size> )";
         }
         
     }

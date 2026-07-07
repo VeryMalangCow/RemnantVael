@@ -21,8 +21,9 @@ public class TunerDetailEUIController : TunerEUIController
 
     public void SetLanguageTxt()
     {
-        positive0_ElementDescEui.increaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
-        positive1_ElementDescEui.increaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
-        negative_ElementDescEui.increaseTxt.text = ResourceManager.instance.Get_StaticWord(109);
+        var words = StaticResourceManager.instance.staticWords;
+        positive0_ElementDescEui.increaseTxt.text = words.GetLanguage(108);
+        positive1_ElementDescEui.increaseTxt.text = words.GetLanguage(108);
+        negative_ElementDescEui.increaseTxt.text = words.GetLanguage(109);
     }
 }

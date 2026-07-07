@@ -139,15 +139,18 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         public void Set_LanguageTxt()
         {
-            warningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
+            var words = StaticResourceManager.instance.staticWords;
+            var descs = StaticResourceManager.instance.staticDescs;
 
-            DevTool.Get_ComponentTType<TMP_Text>(applyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(applyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(91);
-            languagePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(92);
-            screenModePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(140);
-            resolutionPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(137);
-            fpsPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(141);
-            bgmVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(138);
-            sfxVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(139);
+            warningTxt.text = descs.GetLanguage(31);
+
+            DevTool.Get_ComponentTType<TMP_Text>(applyBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(91);
+            languagePanelEui.headerTxt.text = words.GetLanguage(92);
+            screenModePanelEui.headerTxt.text = words.GetLanguage(140);
+            resolutionPanelEui.headerTxt.text = words.GetLanguage(137);
+            fpsPanelEui.headerTxt.text = words.GetLanguage(141);
+            bgmVolumePanelEui.headerTxt.text = words.GetLanguage(138);
+            sfxVolumePanelEui.headerTxt.text = words.GetLanguage(139);
         }
     }
 
@@ -566,9 +569,11 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public override void SetLanguageTxt()
     {
-        startTxt.text = ResourceManager.instance.Get_StaticWord(89);
-        optionTxt.text = ResourceManager.instance.Get_StaticWord(20);
-        quitTxt.text = ResourceManager.instance.Get_StaticWord(21);
+        var words = StaticResourceManager.instance.staticWords;
+
+        startTxt.text =  words.GetLanguage(89);
+        optionTxt.text = words.GetLanguage(20);
+        quitTxt.text = words.GetLanguage(21);
 
         optionUi.Set_LanguageTxt();
     }

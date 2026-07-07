@@ -5,8 +5,9 @@ public class PreminumCreditCvtController : ConverterController, IInteract
 
     public string Get_InteractName(out bool canInteract)
     {
-        canInteract = true;
-        return $"{ResourceManager.instance.Get_StaticWord(124)}\n{ ResourceManager.instance.Get_StaticWord(125)}";
+        canInteract = true; 
+        var langs = StaticResourceManager.instance.staticWords;
+        return $"{langs.GetLanguage(124)}\n{langs.GetLanguage(125)}";
     }
 
     public void PlayInteract()

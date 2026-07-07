@@ -30,7 +30,7 @@ public class KeycardItemController : InteractItemController
     public override string Get_InteractName(out bool canInteract)
     {
         canInteract = true;
-        return ResourceManager.instance.Get_StaticWord(117);
+        return StaticResourceManager.instance.staticWords.GetLanguage(117);
     }
 
     public override void PlayInteract()

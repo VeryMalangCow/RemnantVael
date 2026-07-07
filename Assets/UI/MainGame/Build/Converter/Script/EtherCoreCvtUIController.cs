@@ -64,9 +64,10 @@ public class EtherCoreCvtUIController : ConverterUIController
     {
         base.SetLanguageTxt();
 
+        var words = StaticResourceManager.instance.staticWords;
+
         // Label
-        labelName = ResourceManager.instance.Get_StaticWord(119) + " " +
-            ResourceManager.instance.Get_StaticWord(125);
+        labelName = $"{words.GetLanguage(119)} {words.GetLanguage(125)}";
         labelTxt.text = labelName;
 
         cbCvtMaterialEui.Set_Language();

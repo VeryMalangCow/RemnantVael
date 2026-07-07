@@ -89,29 +89,30 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     public void Set_Language(bool canConvert)
     {
+        var words = StaticResourceManager.instance.staticWords;
         if (convertBtn.gameObject.TryGetComponent(out TMP_Text convertTxt))
         {
-            if (canConvert) 
-                convertTxt.text = ResourceManager.instance.Get_StaticWord(127);
+            if (canConvert)
+                convertTxt.text = words.GetLanguage(127);
             else
-                convertTxt.text = ResourceManager.instance.Get_StaticWord(134);
+                convertTxt.text = words.GetLanguage(134);
         }
 
         if (maxBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text maxTxt))
-            maxTxt.text = ResourceManager.instance.Get_StaticWord(128);
+            maxTxt.text = words.GetLanguage(128);
         if (more10Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text more10Txt))
-            more10Txt.text = ResourceManager.instance.Get_StaticWord(129);
+            more10Txt.text = words.GetLanguage(129);
         if (more1Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text more1Txt))
-            more1Txt.text = ResourceManager.instance.Get_StaticWord(130);
+            more1Txt.text = words.GetLanguage(130);
         if (less1Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text less1Txt))
-            less1Txt.text = ResourceManager.instance.Get_StaticWord(131);
+            less1Txt.text = words.GetLanguage(131);
         if (less10Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text less10Txt))
-            less10Txt.text = ResourceManager.instance.Get_StaticWord(132);
+            less10Txt.text = words.GetLanguage(132);
         if (minBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text minTxt))
-            minTxt.text = ResourceManager.instance.Get_StaticWord(133);
+            minTxt.text = words.GetLanguage(133);
 
-        possessionTxt.text = ResourceManager.instance.Get_StaticWord(121);
-        acquisitionTxt.text = ResourceManager.instance.Get_StaticWord(126);
+        possessionTxt.text = words.GetLanguage(121);
+        acquisitionTxt.text = words.GetLanguage(126);
     }
 
     #endregion

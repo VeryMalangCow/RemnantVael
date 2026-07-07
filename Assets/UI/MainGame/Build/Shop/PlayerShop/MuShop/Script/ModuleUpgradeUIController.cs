@@ -233,12 +233,15 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         yield return inventory_InForge.Gen_AllSlotAndItemAsync(this, 8f);
 
 
+        var words = StaticResourceManager.instance.staticWords;
+        var descs = StaticResourceManager.instance.staticDescs;
+
 #if UNITY_EDITOR
         sw.Restart();
 #endif
         // decomposition
         decompositionView = Instantiate(decompositionViewPrefab, forgeElementViewParentTf);
-        decompositionView.Offset(this, decompositionPanelBtn, ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
+        decompositionView.Offset(this, decompositionPanelBtn, words.GetLanguage(51), descs.GetLanguage(24));
 
 #if UNITY_EDITOR
         sw.Stop();
@@ -253,7 +256,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #endif
         // fusion
         fusionView = Instantiate(fusionViewPrefab, forgeElementViewParentTf);
-        fusionView.Offset(this, fusionPanelBtn, ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
+        fusionView.Offset(this, fusionPanelBtn, words.GetLanguage(52), descs.GetLanguage(25));
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Fusion (Forge)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -267,7 +270,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 #endif
         // make
         makeView = Instantiate(makeViewPrefab, forgeElementViewParentTf);
-        makeView.Offset(this, makePanelBtn, ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
+        makeView.Offset(this, makePanelBtn, words.GetLanguage(53), descs.GetLanguage(26));
 #if UNITY_EDITOR
         sw.Stop();
         UnityEngine.Debug.Log($"<color=yellow>Make (Forge)</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
@@ -1426,31 +1429,34 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     public override void SetLanguageTxt()
     {
+        var words = StaticResourceManager.instance.staticWords;
+        var descs = StaticResourceManager.instance.staticDescs;
+
         // Label
-        labelName = ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
+        labelName = $"{words.GetLanguage(27)} {words.GetLanguage(2)}";
         labelTxt.text = labelName;
 
         // Tab
         tabBtnTxtList = new List<string>
         {
-            ResourceManager.instance.Get_StaticWord(32),
-            ResourceManager.instance.Get_StaticWord(33),
+            words.GetLanguage(32),
+            words.GetLanguage(33),
         };
 
-        amalgamationName = ResourceManager.instance.Get_StaticWord(50);
-        notice_Equiped = ResourceManager.instance.Get_StaticDesc(20);
-        warning_NotSameRank = ResourceManager.instance.Get_StaticDesc(21);
-        warning_NotEnoughItem = ResourceManager.instance.Get_StaticDesc(22);
-        warning_AlreadyMaxLv = ResourceManager.instance.Get_StaticDesc(23);
-        warning_InvenFull = ResourceManager.instance.Get_StaticDesc(27);
+        amalgamationName = words.GetLanguage(50);
+        notice_Equiped = descs.GetLanguage(20);
+        warning_NotSameRank = descs.GetLanguage(21);
+        warning_NotEnoughItem = descs.GetLanguage(22);
+        warning_AlreadyMaxLv = descs.GetLanguage(23);
+        warning_InvenFull = descs.GetLanguage(27);
 
         // Desc
         descPanel.Set_LanguageTxt();
 
         // Forge
-        forgeElementViews[0].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
-        forgeElementViews[1].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
-        forgeElementViews[2].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
+        forgeElementViews[0].Set_LanguageTxt(words.GetLanguage(51), descs.GetLanguage(24));
+        forgeElementViews[1].Set_LanguageTxt(words.GetLanguage(52), descs.GetLanguage(25));
+        forgeElementViews[2].Set_LanguageTxt(words.GetLanguage(53), descs.GetLanguage(26));
 
         // Amalgamation
         DevTool.Set_TxtList(amalgamationTxtList, amalgamationName);

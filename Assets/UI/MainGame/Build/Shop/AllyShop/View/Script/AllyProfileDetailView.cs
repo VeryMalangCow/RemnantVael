@@ -404,12 +404,13 @@ public class AllyProfileDetailView : MonoBehaviour
     // Language
     public void SetLanguageTxt()
     {
+        var words = StaticResourceManager.instance.staticWords;
         // Profile Detail
-        profileDetailTxt.text = ResourceManager.instance.Get_StaticWord(101);
+        profileDetailTxt.text = words.GetLanguage(101);
 
-        string state = ResourceManager.instance.Get_StaticWord(102);
-        string bu = ResourceManager.instance.Get_StaticWord(106);
-        string mu = ResourceManager.instance.Get_StaticWord(27);
+        string state = words.GetLanguage(102);
+        string bu = words.GetLanguage(106);
+        string mu = words.GetLanguage(27);
 
         stateBtnList[0].txt.text = state;
         stateBtnList[1].txt.text = bu;
@@ -419,17 +420,17 @@ public class AllyProfileDetailView : MonoBehaviour
         stateTitleTxtList[1].text = bu;
         stateTitleTxtList[2].text = mu;
 
-        stateEuiList[0].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(12)} >";    // 공격력
-        stateEuiList[1].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(13)} >";    // 연사력
-        stateEuiList[2].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(9)} >";     // 이동속도
-        stateEuiList[3].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(114)} >";    // 크기
-        stateEuiList[4].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(15)} >";    // 치확
-        stateEuiList[5].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(16)} >";     // 치뎀
-        stateEuiList[6].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(43)} >";     // 탄속
-        stateEuiList[7].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(44)} >";     // 넉백 (파워)
-        stateEuiList[8].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(116)} >";     // 지속시간
+        stateEuiList[0].nameTxt.text = $"< {words.GetLanguage(12)} >";    // 공격력
+        stateEuiList[1].nameTxt.text = $"< {words.GetLanguage(13)} >";    // 연사력
+        stateEuiList[2].nameTxt.text = $"< {words.GetLanguage(9)} >";     // 이동속도
+        stateEuiList[3].nameTxt.text = $"< {words.GetLanguage(114)} >";    // 크기
+        stateEuiList[4].nameTxt.text = $"< {words.GetLanguage(15)} >";    // 치확
+        stateEuiList[5].nameTxt.text = $"< {words.GetLanguage(16)} >";     // 치뎀
+        stateEuiList[6].nameTxt.text = $"< {words.GetLanguage(43)} >";     // 탄속
+        stateEuiList[7].nameTxt.text = $"< {words.GetLanguage(44)} >";     // 넉백 (파워)
+        stateEuiList[8].nameTxt.text = $"< {words.GetLanguage(116)} >";     // 지속시간
 
         // Limit
-        stateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.minLimitUpgradeValue} )";
+        stateLimitTxt.text = $"( {words.GetLanguage(107)}: {AllyController.minLimitUpgradeValue} )";
     }
 }

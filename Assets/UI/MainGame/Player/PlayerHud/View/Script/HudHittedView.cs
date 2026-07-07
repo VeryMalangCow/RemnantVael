@@ -68,7 +68,7 @@ public class HudHittedView : MonoBehaviour
     // 피격 정보
     public void PlayHittedPlayInfo(float dmg, float durTime)
     {
-        hittedDmgTxt.text = $"<size=75%>{ResourceManager.instance.Get_StaticWord(74)}:</size> {dmg.ToString("0.0")}";
+        hittedDmgTxt.text = $"<size=75%>{StaticResourceManager.instance.staticWords.GetLanguage(74)}:</size> {dmg.ToString("0.0")}";
         hittedDmgTxt.color = uninteractableClr;
 
         PlayInfo(durTime);
@@ -77,7 +77,7 @@ public class HudHittedView : MonoBehaviour
     // 회피 정보
     public void PlayAvoidPlayInfo(float durTime)
     {
-        hittedDmgTxt.text = $"{ResourceManager.instance.Get_StaticWord(75)}";
+        hittedDmgTxt.text = $"{StaticResourceManager.instance.staticWords.GetLanguage(75)}";
         hittedDmgTxt.color = Color.white;
 
         PlayInfo(durTime);
@@ -103,8 +103,10 @@ public class HudHittedView : MonoBehaviour
     {
         PlayHittedPlayScreen(20, 1f);
 
-        string title = $"< {ResourceManager.instance.Get_StaticDesc(36).Replace("\\n", "\n")} >";
-        string desc = ResourceManager.instance.Get_StaticDesc(37).Replace("\\n", "\n");
+        var descs = StaticResourceManager.instance.staticDescs;
+
+        string title = $"< {descs.GetLanguage(36).Replace("\\n", "\n")} >";
+        string desc = descs.GetLanguage(37).Replace("\\n", "\n");
         paneltyAnnoNameTxt.text = "";
         paneltyAnnoDescTxt.text = "";
 

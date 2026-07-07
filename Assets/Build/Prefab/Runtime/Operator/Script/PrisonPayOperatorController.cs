@@ -57,8 +57,8 @@ public class PrisonPayOperatorController : PrisonOperatorController
     public override string Get_InteractName(out bool canInteract)
     {
         //base.Get_InteractName();
-        canInteract = Can_Interact();
-        return ResourceManager.instance.Get_StaticWord(60);
+        canInteract = Can_Interact(); 
+        return StaticResourceManager.instance.staticWords.GetLanguage(60);
     }
 
     public override void PlayInteract()

@@ -74,7 +74,7 @@ public class RepairOperatorController : OperatorController
     public override string Get_InteractName(out bool canInteract)
     {
         canInteract = Can_Interact();
-        return ResourceManager.instance.Get_StaticWord(56);
+        return StaticResourceManager.instance.staticWords.GetLanguage(56);
     }
 
     public override void PlayInteract()

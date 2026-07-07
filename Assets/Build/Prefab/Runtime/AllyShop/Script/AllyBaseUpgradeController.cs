@@ -58,7 +58,7 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
     public string Get_InteractName(out bool canInteract)
     {
         canInteract = !isBroken;
-        return ResourceManager.instance.Get_StaticWord(99);
+        return StaticResourceManager.instance.staticWords.GetLanguage(99);
     }
 
     public void PlayInteract()
@@ -140,9 +140,11 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
 
     public void Set_LanguageTxt()
     {
-        isBrokenAnno = $"<size=25&>{ResourceManager.instance.Get_StaticWord(24)}: {ResourceManager.instance.Get_StaticDesc(16)}</size>\n\n" +
-            $"{ResourceManager.instance.Get_StaticDesc(17)}\n" +
-            $"<size=50&>{ResourceManager.instance.Get_StaticDesc(18)}</size>";
+        var words = StaticResourceManager.instance.staticWords;
+        var descs = StaticResourceManager.instance.staticDescs;
+
+        isBrokenAnno = $"<size=25&>{words.GetLanguage(24)}: " +
+            $"{descs.GetLanguage(16)}</size>\n\n{descs.GetLanguage(17)}\n<size=50&>{descs.GetLanguage(18)}</size>";
     }
 
     #endregion

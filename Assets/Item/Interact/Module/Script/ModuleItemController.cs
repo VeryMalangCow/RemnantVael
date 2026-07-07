@@ -34,7 +34,7 @@ public class ModuleItemController : InteractItemController
     public override string Get_InteractName(out bool canInteract)
     {
         canInteract = true;
-        return ResourceManager.instance.Get_StaticWord(0);
+        return StaticResourceManager.instance.staticWords.GetLanguage(0);
     }
 
     public override void PlayInteract()

@@ -1694,33 +1694,6 @@ public class DevTool
     }
 
     #endregion
-
-    #region About TrueShadow
-
-    public static int Get_TSChildIndex<T>(T t, int index) where T : MonoBehaviour
-    {
-        return Get_TSChildIndex(t.gameObject, index);
-    }
-
-    public static int Get_TSChildIndex(GameObject go, int index)
-    {
-        return go.transform.GetChild(index).name != $"{go.name}'s Shadow" ?
-            index : index + 1;
-    }
-
-    public static int Get_TSChildIndex(Transform tf, int index)
-    {
-        return tf.GetChild(index).name != $"{tf.gameObject.name}'s Shadow" ?
-            index : index + 1;
-    }
-
-    public static int Get_TSChildIndex(Component comp, int index)
-    {
-        return comp.gameObject.transform.GetChild(index).name != $"{comp.gameObject.name}'s Shadow" ?
-            index : index + 1;
-    }
-
-    #endregion
 }
 
 #endregion
@@ -4990,44 +4963,9 @@ public class PrisonAllySprite
 
 #region Class : CSV : Word
 
-public abstract class WordSet<T>
-{
-    protected Dictionary<int, T> allWord;
-
-    public WordSet(Dictionary<int, T> allWordData)
-    {
-        allWord = allWordData;
-    }
-
-    public Dictionary<int, T> Get_WordData() => allWord;
-    public int Get_Amount() => allWord.Count;
-
-    public abstract string Get_Word(int _ID);
-}
 
 
-[System.Serializable]
-public class WordSet_Just : WordSet<WordElement_Just>
-{
-    public WordSet_Just(Dictionary<int, WordElement_Just> dict) : base(dict) 
-    { }
 
-    public override string Get_Word(int id)
-    {
-        if (allWord.ContainsKey(id))
-            return allWord[id].words[GameManager.languageID];
-
-        return "";
-    }
-
-    public string[] Get_Words(int id)
-    {
-        if (allWord.ContainsKey(id))
-            return allWord[id].words;
-
-        return null;
-    }
-}
 
 [System.Serializable]
 public class WordSet_WithClr : WordSet<WordElement_WithClr>
@@ -5051,18 +4989,6 @@ public class WordSet_WithClr : WordSet<WordElement_WithClr>
 
 
 
-[System.Serializable]
-public class WordElement_Just
-{
-    public int id;
-    public string[] words;
-
-    public WordElement_Just(int id, string[] words)
-    {
-        this.id = id;
-        this.words = words;
-    }
-}
 
 [System.Serializable]
 public class WordElement_WithClr : WordElement_Just

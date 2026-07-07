@@ -13,31 +13,31 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private static string WORD_SPLIT_RE = @",";
 
     // 파일 => 스트링
-    private string Get_FileString(TextAsset textAsset)
+    private static string Get_FileString(TextAsset textAsset)
     {
         return textAsset.text;
     }
 
     // 행 길이 구하기
-    private int Get_FileRowAmount(TextAsset textAsset)
+    private static int Get_FileRowAmount(TextAsset textAsset)
     {
         return Get_AllLine(textAsset).Length;
     }
 
     // 행 받아오기
-    private string[] Get_AllLine(TextAsset textAsset)
+    private static string[] Get_AllLine(TextAsset textAsset)
     {
         return Regex.Split(Get_FileString(textAsset), LINE_SPLIT_RE);
     }
 
     // 열을 쉼표로 나누기
-    private string[] Get_Words(TextAsset textAsset, int _Row)
+    private static string[] Get_Words(TextAsset textAsset, int _Row)
     {
         return Regex.Split(Get_AllLine(textAsset)[_Row], WORD_SPLIT_RE);
     }
 
     // 파일을 이중 리스트(string)으로 변경
-    private string[][] Get_DoubleArr(TextAsset textAsset)
+    private static string[][] Get_DoubleArr(TextAsset textAsset)
     {
         List<string[]> result = new List<string[]>();
         int amount = Get_FileRowAmount(textAsset);
@@ -61,16 +61,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Debug.Log("ResouceManager : Offset Complete");
     }
 
-    private void Start()
-    {
-        Set_LanguageTxt();
-    }
-
     #endregion
 
     #region Offset
 
-    private void Offset_CSV()
+    public void Offset()
     {
         Offset_CSV_Static();
         Offset_CSV_Event();
@@ -85,11 +80,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_CSV_Tuner();
     }
 
-    public void Offset()
-    {
-        Offset_CSV();
-    }
-
     #endregion
 
 
@@ -98,14 +88,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // 언어 변경을 위한 컴포넌트
     [HideInInspector] private HashSet<LanguageTxtController> allLanguageTxtControllers = new HashSet<LanguageTxtController>();
     [HideInInspector] public HashSet<PrisonController> allPrisons = new HashSet<PrisonController>();
-
-    // string
-    [HideInInspector] public string ratingString;
-    [HideInInspector] public string[] prisonRateStringArr;
-    [HideInInspector] public string strikeTeamString;
-    [HideInInspector] public string uplinkTeamString;
-    [HideInInspector] public string neoTeamString;
-    [HideInInspector] public string[] allyCardRateArr;
 
     public void Add_LanguageTxt(LanguageTxtController langTxt)
     {
@@ -123,8 +105,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         GameManager.languageID = langID;
         SaveDataManager.instance.jsonData.optionData.languageID = GameManager.languageID;
 
-        // Change String
-        Set_LanguageTxt();
+        
 
         // Change Font Asset
         foreach (LanguageTxtController ltc in allLanguageTxtControllers)
@@ -152,41 +133,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     }
 
-    private void Set_LanguageTxt()
-    {
-        ratingString = Get_StaticWord(69);
-        prisonRateStringArr = new string[]
-        {
-            Get_StaticWord(64),
-            Get_StaticWord(65),
-            Get_StaticWord(66),
-            Get_StaticWord(67),
-            Get_StaticWord(68)
-        };
-
-        strikeTeamString = $"{Get_StaticWord(61)}<size=85%> ({Get_StaticWord(71)})</size>";
-        uplinkTeamString = $"{Get_StaticWord(62)}<size=85%> ({Get_StaticWord(72)})</size>";
-        neoTeamString = $"{Get_StaticWord(63)}<size=85%> ({Get_StaticWord(73)})</size>";
-
-        allyCardRateArr = new string[]
-        {
-            Get_StaticWord(76),
-            Get_StaticWord(77),
-            Get_StaticWord(78),
-            Get_StaticWord(79),
-            Get_StaticWord(80),
-            Get_StaticWord(81)
-        };
-    }
 
     #endregion
 
     #region Static (CSV)
 
     // Value
-    [HideInInspector] private WordSet_Just staticWord_Data;
-    [HideInInspector] private WordSet_Just staticDesc_Data;
-
     [HideInInspector] private WordSet_Just playerName_Data;
     [HideInInspector] private WordSet_Just enemyName_Data;
 
@@ -198,9 +150,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         string path = "CSV/Static/";
 
-        staticWord_Data = GetAsset_WordData(path, "StaticWord_CSV");
-        staticDesc_Data = GetAsset_WordData(path, "StaticDesc_CSV");
-
         playerName_Data = GetAsset_WordData(path, "PlayerName_CSV");
         enemyName_Data = GetAsset_WordData(path, "EnemyName_CSV");
 
@@ -210,9 +159,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // Get
-    public string Get_StaticWord(int id) => staticWord_Data.Get_Word(id);
-    public string Get_StaticDesc(int id) => staticDesc_Data.Get_Word(id);
-
     public string Get_PlayerName(int id) => playerName_Data.Get_Word(id);
     public string Get_EnemyName(int id) => enemyName_Data.Get_Word(id);
 
@@ -861,7 +807,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return new WordSet_Just(elementDict);
     }
 
-    private WordSet_Just GetAsset_WordData(string path, string fileName)
+    private static WordSet_Just GetAsset_WordData(string path, string fileName)
     {
         Dictionary<int, WordElement_Just> elementDict = new Dictionary<int, WordElement_Just>();
 

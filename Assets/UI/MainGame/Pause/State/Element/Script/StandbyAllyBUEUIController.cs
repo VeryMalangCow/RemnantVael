@@ -127,7 +127,7 @@ public class StandbyAllyBUEUIController : ElementUIController
                 completelyIdList.Contains(allySyncIconEuiArr[i].id));
         }
 
-        extraTxt.text = ResourceManager.instance.Get_StaticWord(142);
+        extraTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(142);
     }
 
     public void Set_Panel(bool isBUPanelOn)

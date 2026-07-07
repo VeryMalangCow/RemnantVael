@@ -49,6 +49,8 @@ public class PuzzleTimePanelEUIController : ElementUIController
     public void Set_AllStart(float currentCountdown, string secondString)
     {
         var prefab = StaticResourceManager.instance.BuildReso.prisonPrefab;
+        var descs = StaticResourceManager.instance.staticDescs;
+
         Color unlockClr = PrisonBuild.unlockedClr;
         Color lockClr = prefab.lockedClr;
 
@@ -60,9 +62,9 @@ public class PuzzleTimePanelEUIController : ElementUIController
         DevTool.SetColor(unlockClr, countdownTxt);
         DevTool.Set_AlphaColor(countdownPaneltyTxt, 0f);
 
-        unlockAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(28).Replace("\\n", "\n");
-        successAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(29).Replace("\\n", "\n");
-        failureAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(30).Replace("\\n", "\n");
+        unlockAnnoTxt.text = descs.GetLanguage(28).Replace("\\n", "\n");
+        successAnnoTxt.text = descs.GetLanguage(29).Replace("\\n", "\n");
+        failureAnnoTxt.text = descs.GetLanguage(30).Replace("\\n", "\n");
         Set_CountdownTxt(currentCountdown, secondString);
     }
 

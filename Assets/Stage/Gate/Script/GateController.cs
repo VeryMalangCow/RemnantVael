@@ -156,7 +156,7 @@ public class GateController : StaticDepthController, IInteract
         else
         {
             canInteract = isOpen && Can_Open_ByKeycard();
-            return ResourceManager.instance.Get_StaticWord(1);
+            return StaticResourceManager.instance.staticWords.GetLanguage(1);
         }
     }
 

@@ -57,8 +57,9 @@ public class HudAllyPresenceView : MonoBehaviour
 
     public void SetLanguage()
     {
+        var words = StaticResourceManager.instance.staticWords;
         for (int i = 0; i < allAllyPresence.Count; i++)
-            allAllyPresence[i].presenceLangTxt.text = $"{ResourceManager.instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.instance.Get_StaticWord(70)}</size>";
+            allAllyPresence[i].presenceLangTxt.text = $"{words.GetLanguage(i + 61)}<size=85%> {words.GetLanguage(70)}</size>";
     }
 
 }

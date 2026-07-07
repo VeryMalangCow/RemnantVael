@@ -75,14 +75,16 @@ public class PauseOptionView : MonoBehaviour
 
     public void SetLanguageTxt()
     {
-        warningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
+        var words = StaticResourceManager.instance.staticWords;
 
-        DevTool.Get_ComponentTType<TMP_Text>(applyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(applyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(91);
-        languagePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(92);
-        screenModePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(140);
-        resolutionPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(137);
-        fpsPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(141);
-        bgmVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(138);
-        sfxVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(139);
+        warningTxt.text = StaticResourceManager.instance.staticDescs.GetLanguage(31);
+
+        DevTool.Get_ComponentTType<TMP_Text>(applyBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(91);
+        languagePanelEui.headerTxt.text = words.GetLanguage(92);
+        screenModePanelEui.headerTxt.text = words.GetLanguage(140);
+        resolutionPanelEui.headerTxt.text = words.GetLanguage(137);
+        fpsPanelEui.headerTxt.text = words.GetLanguage(141);
+        bgmVolumePanelEui.headerTxt.text = words.GetLanguage(138);
+        sfxVolumePanelEui.headerTxt.text = words.GetLanguage(139);
     }
 }

@@ -42,8 +42,8 @@ public class StrikeTeamPrisonController : PrisonController
     public override void Set_LanguageTxt()
     {
         base.Set_LanguageTxt();
-
-        typeTxt.text = $"<size=150%>)</size> {ResourceManager.instance.strikeTeamString}";
+        var lang = StaticResourceManager.instance.staticWords;
+        typeTxt.text = $"<size=150%>)</size> {lang.GetLanguage(61)}<size=85%> ({lang.GetLanguage(71)})</size>";
     }
 
     #endregion

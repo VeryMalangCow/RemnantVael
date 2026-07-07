@@ -114,10 +114,11 @@ public class HudInteractView : MonoBehaviour
 
     public void SetLanguage()
     {
-        interactEnableString = ResourceManager.instance.Get_StaticWord(4);
-        interactDisableString = ResourceManager.instance.Get_StaticWord(5);
-        interacInoperableString = ResourceManager.instance.Get_StaticWord(6);
-        interactNoneString = ResourceManager.instance.Get_StaticWord(7);
+        var words = StaticResourceManager.instance.staticWords;
+        interactEnableString = words.GetLanguage(4);
+        interactDisableString = words.GetLanguage(5);
+        interacInoperableString = words.GetLanguage(6);
+        interactNoneString = words.GetLanguage(7);
         SetInteractableUI(null);
     }
 }

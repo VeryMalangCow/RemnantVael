@@ -59,7 +59,7 @@ public class VaultRerollOperatorController : VaultOperatorController
     {
         //base.Get_InteractName(out bool _CanInteract);
         canInteract = Can_Interact();
-        return ResourceManager.instance.Get_StaticWord(57);
+        return StaticResourceManager.instance.staticWords.GetLanguage(27);
     }
 
     public override void PlayInteract()

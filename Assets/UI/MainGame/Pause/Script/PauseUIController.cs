@@ -413,7 +413,7 @@ public class PauseUIController : SinglePanelUIController
     {
         if (isInteractTweening) return;
 
-        baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(20);
+        baseInteractingPanelTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(20);
         SetOn_Panel(OutMainGameUIType.OptionPanel, optionView.panelRt);
 
         optionView.SetPanel();
@@ -427,7 +427,7 @@ public class PauseUIController : SinglePanelUIController
     {
         if (isInteractTweening) return;
 
-        baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(102);
+        baseInteractingPanelTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(102);
         SetOn_Panel(OutMainGameUIType.StatePanel, stateView.panelRt);
 
         stateView.SetPanel(true);
@@ -442,7 +442,7 @@ public class PauseUIController : SinglePanelUIController
     {
         if (isInteractTweening) return;
 
-        baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(144);
+        baseInteractingPanelTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(144);
         SetOn_Panel(OutMainGameUIType.InfoPanel, infoView.panelRt);
 
         infoView.SetPanel(true);
@@ -501,13 +501,15 @@ public class PauseUIController : SinglePanelUIController
     {
         base.SetLanguageTxt();
 
-        basePanelBtnTxt.text = ResourceManager.instance.Get_StaticWord(22);
-        DevTool.Get_ComponentTType<TMP_Text>(resumeBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(19);
-        DevTool.Get_ComponentTType<TMP_Text>(stateBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(102);
-        DevTool.Get_ComponentTType<TMP_Text>(optionBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(20);
-        DevTool.Get_ComponentTType<TMP_Text>(infoBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(144);
-        DevTool.Get_ComponentTType<TMP_Text>(returnBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(143);
-        DevTool.Get_ComponentTType<TMP_Text>(quitBtn.gameObject.transform.GetChild(0).gameObject).text = ResourceManager.instance.Get_StaticWord(21);
+        var words = StaticResourceManager.instance.staticWords;
+
+        basePanelBtnTxt.text = words.GetLanguage(22);
+        DevTool.Get_ComponentTType<TMP_Text>(resumeBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(19);
+        DevTool.Get_ComponentTType<TMP_Text>(stateBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(102);
+        DevTool.Get_ComponentTType<TMP_Text>(optionBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(20);
+        DevTool.Get_ComponentTType<TMP_Text>(infoBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(144);
+        DevTool.Get_ComponentTType<TMP_Text>(returnBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(143);
+        DevTool.Get_ComponentTType<TMP_Text>(quitBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(21);
 
         optionView.SetLanguageTxt();
         stateView.SetLanguageTxt();
@@ -522,7 +524,7 @@ public class PauseUIController : SinglePanelUIController
 
             default: break;
         }
-        baseInteractingPanelTxt.text = ResourceManager.instance.Get_StaticWord(langId);
+        baseInteractingPanelTxt.text = words.GetLanguage(langId);
     }
 
     #endregion

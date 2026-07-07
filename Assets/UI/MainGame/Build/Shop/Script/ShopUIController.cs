@@ -147,8 +147,8 @@ public class ShopUIController : PanelUIController
         base.SetLanguageTxt();
 
         // Close
-        DevTool.Get_ComponentTType<TMP_Text>(closeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(closeBtn, 0)).gameObject).text =
-            ResourceManager.instance.Get_StaticWord(28);
+        DevTool.Get_ComponentTType<TMP_Text>(closeBtn.gameObject.transform.GetChild(0).gameObject).text =
+            StaticResourceManager.instance.staticWords.GetLanguage(28);
 
         // Dur
         durEui.Set_LanguageTxt();

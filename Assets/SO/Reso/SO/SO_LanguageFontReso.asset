@@ -10,15 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 258bd6ccd75149743955025b49fdd5c6, type: 3}
-  m_Name: SO_FontReso
+  m_Name: SO_LanguageFontReso
   m_EditorClassIdentifier: 
+  staticWordCsv: {fileID: 4900000, guid: b69ee021ab0d5754ca5813cac4f10725, type: 3}
+  staticDescCsv: {fileID: 4900000, guid: 10415a67a826c1c42be1a1e21694f587, type: 3}
   LanguageTxts:
   - id: 0
+    name: 
     fontAssets:
     - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
     - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
     - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
   - id: 1
+    name: 
     fontAssets:
     - {fileID: 11400000, guid: dab8b3738e323d74a8d2c36e2f20250b, type: 2}
     - {fileID: 11400000, guid: adea29dae5ccacc42b19792897cc3102, type: 2}

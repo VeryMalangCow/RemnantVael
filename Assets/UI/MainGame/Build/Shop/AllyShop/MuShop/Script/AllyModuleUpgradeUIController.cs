@@ -194,7 +194,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         selectedNoneSyncIdList = new List<int>();
 
         // None Sync
-        noneSyncCanBuyTxt.text = ResourceManager.instance.Get_StaticWord(115);
+        noneSyncCanBuyTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(115);
         noneSyneBuyBtn.ownerUIController = this;
         noneSyneBuyBtn.Offset();
 
@@ -795,7 +795,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Set_PickedModuleUI()
     {
         string name = $"[ {pickedModule.state.thisItemData.name} ]";
-        if (pickedModule.isEquipped) name += $" <size=75%><color=#7F7F7F>({ResourceManager.instance.Get_StaticWord(112)})</size></color>";
+        if (pickedModule.isEquipped) name += $" <size=75%><color=#7F7F7F>({StaticResourceManager.instance.staticWords.GetLanguage(112)})</size></color>";
         pickedPanelItemNameTxt.text = name;
         pickedPanelItemRankTxt.text = $"<size=70%>(R: {pickedModule.state.thisItemData.rank})</size>";
         pickedPanelItemRankTxt.color = StaticResourceManager.instance.AllyReso.allyCardSpriteSets[pickedModule.state.thisItemData.rank - 1].clr;
@@ -969,19 +969,21 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     public override void SetLanguageTxt()
     {
+        var words = StaticResourceManager.instance.staticWords;
+
         // Label
-        labelName = ResourceManager.instance.Get_StaticWord(95) + " " + ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
+        labelName = $"{words.GetLanguage(95)} {words.GetLanguage(27)} {words.GetLanguage(2)}";
         labelTxt.text = labelName;
 
         // Tuner
-        moduleInventoryTxt.text = ResourceManager.instance.Get_StaticWord(110);
-        moduleDetailTxt.text = ResourceManager.instance.Get_StaticWord(111);
+        moduleInventoryTxt.text = words.GetLanguage(110);
+        moduleDetailTxt.text = words.GetLanguage(111);
 
         // Buy
-        buyBtnEui.txt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
+        buyBtnEui.txt.text = $"{words.GetLanguage(47)} & {words.GetLanguage(105)}";
 
         // Player Sync
-        playerSyncNameTxt.text = $"[ {ResourceManager.instance.Get_StaticWord(113)} {ResourceManager.instance.Get_StaticWord(50)} ]";
+        playerSyncNameTxt.text = $"[ {words.GetLanguage(113)} {words.GetLanguage(50)} ]";
         base.SetLanguageTxt();
     }
 

@@ -27,15 +27,15 @@ public class CoreItemController : InteractItemController
     public override string Get_InteractName(out bool canInteract)
     {
         canInteract = true;
-
+        var lang = StaticResourceManager.instance.staticWords;
         switch (id)
         {
             case 1:
-                return ResourceManager.instance.Get_StaticWord(118);
+                return lang.GetLanguage(118);
             case 2:
-                return ResourceManager.instance.Get_StaticWord(119);
+                return lang.GetLanguage(119);
             case 3:
-                return ResourceManager.instance.Get_StaticWord(120);
+                return lang.GetLanguage(120);
             default:
                 return "";
         }

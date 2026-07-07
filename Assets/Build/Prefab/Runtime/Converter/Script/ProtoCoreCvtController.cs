@@ -6,7 +6,8 @@ public class ProtoCoreCvtController : ConverterController, IInteract
     public string Get_InteractName(out bool canInteract)
     {
         canInteract = true;
-        return $"{ResourceManager.instance.Get_StaticWord(118)}\n{ResourceManager.instance.Get_StaticWord(125)}";
+        var langs = StaticResourceManager.instance.staticWords;
+        return $"{langs.GetLanguage(118)}\n{langs.GetLanguage(125)}";
     }
 
     public void PlayInteract()

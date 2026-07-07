@@ -91,8 +91,10 @@ public class HudTabStateView : MonoBehaviour
 
     public void SetLanguage()
     {
+        var words = StaticResourceManager.instance.staticWords;
+
         playerStatesStringList.Clear();
         for (int i = 8; i <= 16; i++)
-            playerStatesStringList.Add(ResourceManager.instance.Get_StaticWord(i));
+            playerStatesStringList.Add(words.GetLanguage(i));
     }
 }

@@ -259,8 +259,9 @@ public class AllyCardUIController : SinglePanelUIController
 
     private void SetBaseLanguageTxt()
     {
-        cardBookingTxt.SetText(ResourceManager.instance.Get_StaticWord(82));
-        selectTxt.SetText(ResourceManager.instance.Get_StaticWord(83));
+        var lang = StaticResourceManager.instance.staticWords;
+        cardBookingTxt.SetText(lang.GetLanguage(82));
+        selectTxt.SetText(lang.GetLanguage(83));
 
         for (int i = 0; i < rerolls.Length; i++)
             rerolls[i].Set_LanguageTxt();

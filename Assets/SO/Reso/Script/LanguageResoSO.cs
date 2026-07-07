@@ -2,8 +2,12 @@ using TMPro;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FontResoSO", menuName = "ScriptableObject/FontResoSO")]
-public class FontResoSO : ScriptableObject
+public class LanguageResoSO : ScriptableObject
 {
+    public static int languageAmount = 2;
+    public TextAsset staticWordCsv;
+    public TextAsset staticDescCsv;
+
     public LanguageTxt[] LanguageTxts;
 }
 

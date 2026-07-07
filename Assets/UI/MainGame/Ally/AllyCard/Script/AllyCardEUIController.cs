@@ -148,7 +148,7 @@ public class AllyCardEUIController : OwnBtnEUIController
 
         var clr = StaticResourceManager.instance.AllyReso.allyCardSpriteSets[data.rank].clr;
 
-        rankTxt.text = ResourceManager.instance.allyCardRateArr[data.rank];
+        rankTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(76 + data.rank);
         rankTxt.color = clr;
         bgImg.color = clr;
 

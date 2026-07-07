@@ -99,8 +99,9 @@ public class HudSkillView : MonoBehaviour
 
     public void SetLanguage()
     {
+        var words = StaticResourceManager.instance.staticWords;
         skillStatesStringList.Clear();
         for (int i = 17; i <= 18; i++)
-            skillStatesStringList.Add(ResourceManager.instance.Get_StaticWord(i));
+            skillStatesStringList.Add(words.GetLanguage(i));
     }
 }

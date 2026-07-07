@@ -74,14 +74,16 @@ public class PuzzleReadyPanelEUIController : ElementUIController
     public void Set_AllStart(float currentCountdown, string secondString)
     {
         var prefab = StaticResourceManager.instance.BuildReso.prisonPrefab;
-
+        var words = StaticResourceManager.instance.staticWords;
+        var descs = StaticResourceManager.instance.staticDescs;
+        
         // Ready
         readyCg.alpha = 1f;
         readyCg.gameObject.SetActive(true);
-        readyAnnoTxt.text = $"<< {ResourceManager.instance.Get_StaticWord(90)} >>";
+        readyAnnoTxt.text = $"<< {words.GetLanguage(90)} >>";
         readyTimeLimitTxt.text = $"{(int)currentCountdown}{secondString}";
         readyInputAnnoImg.sprite = prefab.spaceBarSprite;
-        readyKeyAnnoTxt.text = $"{ResourceManager.instance.Get_StaticWord(88)} : {ResourceManager.instance.Get_StaticWord(89)} & {ResourceManager.instance.Get_StaticWord(85)}";
+        readyKeyAnnoTxt.text = $"{words.GetLanguage(88)} : {words.GetLanguage(89)} & {words.GetLanguage(85)}";
 
         warningRt.anchoredPosition = new Vector2(ruleWarningXRtPos.typeBase, warningRt.anchoredPosition.y);
         ruleRt.anchoredPosition = new Vector2(-ruleWarningXRtPos.typeBase, ruleRt.anchoredPosition.y);
@@ -97,15 +99,15 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         DevTool.SetColor(unlockClr, ruleTxt);
         DevTool.SetColor(unlockClr, ruleDescTxt);
 
-        ruleTxt.text = $"< {ResourceManager.instance.Get_StaticWord(94)} >";
+        ruleTxt.text = $"< {words.GetLanguage(94)} >";
 
         // Warning (Right)
         Color lockClr = prefab.lockedClr;
         DevTool.SetColor(lockClr, warningTxt);
         DevTool.SetColor(lockClr, warningDescTxt);
 
-        warningTxt.text = $"< {ResourceManager.instance.Get_StaticWord(93)} >";
-        warningDescTxt.text = ResourceManager.instance.Get_StaticDesc(32).Replace("\\n", "\n");
+        warningTxt.text = $"< {words.GetLanguage(93)} >";
+        warningDescTxt.text = descs.GetLanguage(32).Replace("\\n", "\n");
     }
 
     public void Set_RuleDesc(string desc)

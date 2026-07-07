@@ -56,39 +56,38 @@ public class PausePlayerBuStateView : MonoBehaviour
 
     public void SetLanguageTxt()
     {
+        var words = StaticResourceManager.instance.staticWords;
         // DMG, ROF, CC, CD, MS, AR, KB
-        buEuis[0].Set_LanguageTxt(Get(12));
-        buEuis[1].Set_LanguageTxt(Get(13));
-        buEuis[2].Set_LanguageTxt(Get(15));
-        buEuis[3].Set_LanguageTxt(Get(16));
-        buEuis[4].Set_LanguageTxt(Get(43));
-        buEuis[5].Set_LanguageTxt(Get(14));
-        buEuis[6].Set_LanguageTxt(Get(44));
+        buEuis[0].Set_LanguageTxt(words.GetLanguage(12));
+        buEuis[1].Set_LanguageTxt(words.GetLanguage(13));
+        buEuis[2].Set_LanguageTxt(words.GetLanguage(15));
+        buEuis[3].Set_LanguageTxt(words.GetLanguage(16));
+        buEuis[4].Set_LanguageTxt(words.GetLanguage(43));
+        buEuis[5].Set_LanguageTxt(words.GetLanguage(14));
+        buEuis[6].Set_LanguageTxt(words.GetLanguage(44));
 
         // MaxEP, ESValue, SkillCost, Resist
-        buEuis[7].Set_LanguageTxt(Get(8));
-        buEuis[8].Set_LanguageTxt(Get(38));
-        buEuis[9].Set_LanguageTxt(Get(39));
-        buEuis[10].Set_LanguageTxt(Get(37));
+        buEuis[7].Set_LanguageTxt(words.GetLanguage(8));
+        buEuis[8].Set_LanguageTxt(words.GetLanguage(38));
+        buEuis[9].Set_LanguageTxt(words.GetLanguage(39));
+        buEuis[10].Set_LanguageTxt(words.GetLanguage(37));
 
         // WalkS, WalkSWhileS, DashP, AvoidC
-        buEuis[11].Set_LanguageTxt(Get(40));
-        buEuis[12].Set_LanguageTxt(Get(41));
-        buEuis[13].Set_LanguageTxt(Get(10));
-        buEuis[14].Set_LanguageTxt(Get(36));
+        buEuis[11].Set_LanguageTxt(words.GetLanguage(40));
+        buEuis[12].Set_LanguageTxt(words.GetLanguage(41));
+        buEuis[13].Set_LanguageTxt(words.GetLanguage(10));
+        buEuis[14].Set_LanguageTxt(words.GetLanguage(36));
 
         // Skill 00: Cooltime, Power, Tier
-        buEuis[15].Set_LanguageTxt(Get(45));
-        buEuis[16].Set_LanguageTxt(Get(18));
-        buEuis[17].Set_LanguageTxt(Get(17));
+        buEuis[15].Set_LanguageTxt(words.GetLanguage(45));
+        buEuis[16].Set_LanguageTxt(words.GetLanguage(18));
+        buEuis[17].Set_LanguageTxt(words.GetLanguage(17));
 
         // Skill 01: Cooltime, Power, Tier
-        buEuis[18].Set_LanguageTxt(Get(45));
-        buEuis[19].Set_LanguageTxt(Get(18));
-        buEuis[20].Set_LanguageTxt(Get(17));
+        buEuis[18].Set_LanguageTxt(words.GetLanguage(45));
+        buEuis[19].Set_LanguageTxt(words.GetLanguage(18));
+        buEuis[20].Set_LanguageTxt(words.GetLanguage(17));
     }
-
-    string Get(int index) => ResourceManager.instance.Get_StaticWord(index);
 
     public void SetState()
     {

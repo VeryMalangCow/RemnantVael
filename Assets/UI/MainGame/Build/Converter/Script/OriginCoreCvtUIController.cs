@@ -62,9 +62,10 @@ public class OriginCoreCvtUIController : ConverterUIController
     {
         base.SetLanguageTxt();
 
+        var words = StaticResourceManager.instance.staticWords;
+
         // Label
-        labelName = ResourceManager.instance.Get_StaticWord(120) + " " +
-            ResourceManager.instance.Get_StaticWord(125);
+        labelName = $"{words.GetLanguage(120)} {words.GetLanguage(125)}";
         labelTxt.text = labelName;
 
         cbCvtMaterialEui.Set_Language();

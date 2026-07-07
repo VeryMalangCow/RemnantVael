@@ -154,7 +154,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        readyPanelEui.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(33));
+        readyPanelEui.Set_RuleDesc(StaticResourceManager.instance.staticDescs.GetLanguage(33));
 
         Set_AllDefault();
         Set_RandomPuzzleByRate();

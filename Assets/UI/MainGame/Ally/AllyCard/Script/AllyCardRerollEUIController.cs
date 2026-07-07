@@ -26,7 +26,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     public void Set_LanguageTxt()
     {
-        nameTxt.text = ResourceManager.instance.Get_StaticWord(57);
+        nameTxt.text = StaticResourceManager.instance.staticWords.GetLanguage(57);
     }
 
     #endregion
@@ -56,7 +56,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
     {
         string needAmountText = $"x <size=1{needAmount}0%><b>{needAmount}</b></size>";
         if (needAmount == maxNeedAmount)
-            needAmountText += $"<size=75%>({ResourceManager.instance.Get_StaticWord(84)})</size>";
+            needAmountText += $"<size=75%>({StaticResourceManager.instance.staticWords.GetLanguage(84)})</size>";
 
         needAmountTxt.SetText(needAmountText);
     }

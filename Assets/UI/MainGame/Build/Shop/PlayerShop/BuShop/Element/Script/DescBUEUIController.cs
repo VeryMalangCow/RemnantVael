@@ -256,14 +256,16 @@ public class DescBUEUIController : ElementUIController
 
     public void Set_LanguageTxt()
     {
+        var words = StaticResourceManager.instance.staticWords;
+
         // String
-        leftLvTxt.text = ResourceManager.instance.Get_StaticWord(34);
-        leftValueTxt.text = ResourceManager.instance.Get_StaticWord(35);
+        leftLvTxt.text = words.GetLanguage(34);
+        leftValueTxt.text = words.GetLanguage(35);
 
-        rightLvTxt.text = ResourceManager.instance.Get_StaticWord(34);
-        rightValueTxt.text = ResourceManager.instance.Get_StaticWord(35);
+        rightLvTxt.text = words.GetLanguage(34);
+        rightValueTxt.text = words.GetLanguage(35);
 
-        DevTool.Get_ComponentTType<TMP_Text>(completedSignGo.transform.GetChild(DevTool.Get_TSChildIndex(completedSignGo, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(48);
+        DevTool.Get_ComponentTType<TMP_Text>(completedSignGo.transform.GetChild(0).gameObject).text = words.GetLanguage(48);
     }
 
     #endregion

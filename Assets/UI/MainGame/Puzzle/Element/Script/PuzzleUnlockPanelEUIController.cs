@@ -52,14 +52,15 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
     public void Set_AllStart(bool canSuccess)
     {
         var prefab = StaticResourceManager.instance.BuildReso.prisonPrefab;
+        var words = StaticResourceManager.instance.staticWords;
 
         DevTool.SetColor(prefab.lockedClr, failureTxt);
         DevTool.SetColor(PrisonBuild.unlockedClr, successTxt);
 
-        tryUnlockTxt.text = ResourceManager.instance.Get_StaticWord(85);
-        inputTxt.text = ResourceManager.instance.Get_StaticWord(88);
-        successTxt.text = ResourceManager.instance.Get_StaticWord(86);
-        failureTxt.text = ResourceManager.instance.Get_StaticWord(87);
+        tryUnlockTxt.text = words.GetLanguage(85);
+        inputTxt.text = words.GetLanguage(88);
+        successTxt.text = words.GetLanguage(86);
+        failureTxt.text = words.GetLanguage(87);
 
         Play_LineSetChange(canSuccess);
     }

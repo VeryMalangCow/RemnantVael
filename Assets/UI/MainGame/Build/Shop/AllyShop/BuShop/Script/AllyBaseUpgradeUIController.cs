@@ -385,19 +385,21 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     public override void SetLanguageTxt()
     {
+        var words = StaticResourceManager.instance.staticWords;
+
         // Label
-        labelName = ResourceManager.instance.Get_StaticWord(95) + " " + ResourceManager.instance.Get_StaticWord(26) + " " + ResourceManager.instance.Get_StaticWord(2);
+        labelName = $"{words.GetLanguage(95)} {words.GetLanguage(26)} {words.GetLanguage(2)}";;
         labelTxt.text = labelName;
 
         // Tuner
-        tunerDetailTxt.text = ResourceManager.instance.Get_StaticWord(103);
-        tunerListTxt.text = ResourceManager.instance.Get_StaticWord(104);
+        tunerDetailTxt.text = words.GetLanguage(103);
+        tunerListTxt.text = words.GetLanguage(104);
 
         for (int i = 0; i < allTunerEui.Count; i++)
             allTunerEui[i].Set_Language();
 
         // Buy Btn
-        buyBtnEui.txt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
+        buyBtnEui.txt.text = $"{words.GetLanguage(47)} & {words.GetLanguage(105)}";
 
         // Desc
         detailTunerEui.SetLanguageTxt();

@@ -102,8 +102,9 @@ public class CvtMaterialEUIController : ElementUIController
 
     public void Set_Language()
     {
-        possessionTxt.text = ResourceManager.instance.Get_StaticWord(121);
-        necessaryTxt.text = ResourceManager.instance.Get_StaticWord(122);
+        var words = StaticResourceManager.instance.staticWords;
+        possessionTxt.text = words.GetLanguage(121); 
+        necessaryTxt.text = words.GetLanguage(122);
     }
 
     #endregion

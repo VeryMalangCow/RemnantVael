@@ -123,10 +123,12 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     public void Set_LanguageTxt(string name, string desc)
     {
+        var words = StaticResourceManager.instance.staticWords;
+
         skillNameTxt.text = name;
         descTxt.text = desc;
-        DevTool.Get_ComponentTType<TMP_Text>(costImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(costImg, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(46);
-        DevTool.Get_ComponentTType<TMP_Text>(buyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(buyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(47);
+        DevTool.Get_ComponentTType<TMP_Text>(costImg.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(46);
+        DevTool.Get_ComponentTType<TMP_Text>(buyBtn.gameObject.transform.GetChild(0).gameObject).text = words.GetLanguage(47);
     }
 
     #endregion

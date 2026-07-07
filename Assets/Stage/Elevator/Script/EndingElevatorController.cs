@@ -105,7 +105,7 @@ public class EndingElevatorController : ElevatorController, IInteract
     public string Get_InteractName(out bool canInteract)
     {
         canInteract = isOn;
-        return ResourceManager.instance.Get_StaticWord(3);
+        return StaticResourceManager.instance.staticWords.GetLanguage(3);
     }
 
     public void PlayInteract()

@@ -112,8 +112,6 @@ public class PauseStateView : MonoBehaviour
 
     #region Set
 
-    string Get(int index) => ResourceManager.instance.Get_StaticWord(index);
-
     public void SetColor(Color imgClr, Color txtClr)
     {
         playerStateNameTxt.color = imgClr;
@@ -125,9 +123,11 @@ public class PauseStateView : MonoBehaviour
 
     public void SetLanguageTxt()
     {
+        var words = StaticResourceManager.instance.staticWords;
+
         #region Player
 
-        playerStateNameTxt.text = $"<size=70%><color=#808080>{Get(102)} - </color></size><b>[{Get(113)}]</b>";
+        playerStateNameTxt.text = $"<size=70%><color=#808080>{words.GetLanguage(102)} - </color></size><b>[{words.GetLanguage(113)}]</b>";
 
         buStateView.SetLanguageTxt();
 
@@ -136,7 +136,7 @@ public class PauseStateView : MonoBehaviour
         #region Ally
 
         // Ally - BU
-        allyStateNameTxt.text = $"<size=70%><color=#808080>{Get(102)} - </color><color=#FFFFFF></size><b>[{Get(95)}]</b></color>";
+        allyStateNameTxt.text = $"<size=70%><color=#808080>{words.GetLanguage(102)} - </color><color=#FFFFFF></size><b>[{words.GetLanguage(95)}]</b></color>";
 
         #endregion
     }

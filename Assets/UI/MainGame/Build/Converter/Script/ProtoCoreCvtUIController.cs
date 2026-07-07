@@ -54,9 +54,10 @@ public class ProtoCoreCvtUIController : ConverterUIController
     {
         base.SetLanguageTxt();
 
+        var words = StaticResourceManager.instance.staticWords;
+
         // Label
-        labelName = ResourceManager.instance.Get_StaticWord(118) + " " +
-            ResourceManager.instance.Get_StaticWord(125);
+        labelName = $"{words.GetLanguage(118)} {words.GetLanguage(125)}";
         labelTxt.text = labelName;
 
         cbCvtMaterialEui.Set_Language();

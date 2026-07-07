@@ -62,7 +62,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         //base.Get_InteractName(out bool _CanInteract);
         canInteract = Can_Interact();
-        return ResourceManager.instance.Get_StaticWord(58);
+        return StaticResourceManager.instance.staticWords.GetLanguage(58);
     }
 
     public override void PlayInteract()

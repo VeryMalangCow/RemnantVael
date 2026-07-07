@@ -43,8 +43,8 @@ public class UplinkTeamPrisonController : PrisonController
     public override void Set_LanguageTxt()
     {
         base.Set_LanguageTxt();
-
-        typeTxt.text = $"<size=150%>)</size> {ResourceManager.instance.uplinkTeamString}";
+        var lang = StaticResourceManager.instance.staticWords;
+        typeTxt.text = $"<size=150%>)</size> {lang.GetLanguage(62)}<size=85%> ({lang.GetLanguage(72)})</size>";
     }
 
     #endregion

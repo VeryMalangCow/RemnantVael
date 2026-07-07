@@ -172,7 +172,7 @@ public class AllyShopUIController : ShopUIController
         // Profile List (Tab)
         tabBtnTxtList = new List<string>
         {
-            ResourceManager.instance.Get_StaticWord(96)
+            StaticResourceManager.instance.staticWords.GetLanguage(96)
         };
 
         profileDetailEui.SetLanguageTxt();

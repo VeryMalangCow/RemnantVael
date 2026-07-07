@@ -42,8 +42,8 @@ public class NeoTeamPrisonController : PrisonController
     public override void Set_LanguageTxt()
     {
         base.Set_LanguageTxt();
-
-        typeTxt.text = $"<size=150%>)</size> {ResourceManager.instance.neoTeamString}";
+        var lang = StaticResourceManager.instance.staticWords;
+        typeTxt.text = $"<size=150%>)</size> {lang.GetLanguage(63)}<size=85%> ({lang.GetLanguage(73)})</size>";
     }
 
     #endregion
