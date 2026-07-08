@@ -7,6 +7,204 @@ public static class CSVReader
     private static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
     private static string WORD_SPLIT_RE = @",";
 
+    // Event
+    public static EventID[] GetEventIds(TextAsset textAsset)
+    {
+        List<EventID> result = new List<EventID>();
+
+        string[][] stringArr = GetCsvData(textAsset.text);
+
+        for (int i = 1; i < stringArr.Length; i++)
+        {
+            if (stringArr[i][0] == "") break;
+
+            int id = int.Parse(stringArr[i][0]);
+            List<int> idList = new List<int>();
+
+            for (int j = 1; j < stringArr[i].Length; j++)
+            {
+                if (stringArr[i][j] == "" || stringArr[i][j] == null) break;
+
+                idList.Add(int.Parse(stringArr[i][j]));
+            }
+
+            result.Add(new EventID(id, idList.ToArray()));
+        }
+
+        return result.ToArray();
+    }
+    public static EventElement[] GetEventElements(TextAsset textAsset)
+    {
+        List<EventElement> result = new List<EventElement>();
+
+        string[][] stringArr = GetCsvData(textAsset.text);
+
+        for (int i = 1; i < stringArr.Length; i++)
+        {
+            if (stringArr[i][0] == "") break;
+
+            EventElement eventElement = new EventElement();
+
+            int id = int.Parse(stringArr[i][0]);
+            string name = stringArr[i][1];
+
+            // 정지
+            if (name == "Stay")
+            {
+                float targetTime = float.Parse(stringArr[i][2]);
+
+                eventElement = new EventElement_Stay(id, targetTime);
+            }
+            // 바라보기
+            else if (name == "Look")
+            {
+                string[] vectorString = stringArr[i][2].Split("/");
+                Vector2 vector = new Vector2(float.Parse(vectorString[0]), float.Parse(vectorString[1]));
+
+                eventElement = new EventElement_Look(id, vector);
+            }
+            // 이동
+            else if (name == "Move")
+            {
+                int targetId = int.Parse(stringArr[i][2]);
+                string targetType = stringArr[i][3];
+                string[] vectorString = stringArr[i][4].Split("/");
+                Vector2 vector = new Vector2(float.Parse(vectorString[0]), float.Parse(vectorString[1]));
+
+                eventElement = new EventElement_Move(id, targetId, targetType, vector);
+            }
+            // 검은 화면 키기
+            else if (name == "BlackScreenIn")
+            {
+                float targetTime = float.Parse(stringArr[i][2]);
+
+                eventElement = new EventElement_BlackScreenIn(id, targetTime);
+            }
+            // 검은 화면 끄기
+            else if (name == "BlackScreenOut")
+            {
+                float targetTime = float.Parse(stringArr[i][2]);
+
+                eventElement = new EventElement_BlackScreenOut(id, targetTime);
+            }
+            // 다이얼로그
+            else if (name == "Dialogue")
+            {
+                int targetId = int.Parse(stringArr[i][2]);
+
+                eventElement = new EventElement_Dialogue(id, targetId);
+            }
+            // 컷씬
+            else if (name == "Cutscene")
+            {
+                int targetId = int.Parse(stringArr[i][2]);
+                int soundId = int.Parse(stringArr[i][3]);
+
+                eventElement = new EventElement_Cutscene(id, targetId, soundId);
+            }
+
+            result.Add(eventElement);
+        }
+
+        return result.ToArray();
+    }
+
+    // Cutscene
+    public static CutsceneID[] GetCutsceneIds(TextAsset textAsset)
+    {
+        List<CutsceneID> result = new List<CutsceneID>();
+
+        string[][] stringList = GetCsvData(textAsset.text);
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            int id = int.Parse(stringList[i][0]);
+
+            List<int> idList = new List<int>();
+            for (int j = 1; j < stringList[i].Length; j++)
+            {
+                if (stringList[i][j] == "" || stringList[i][j] == null) break;
+
+                int elementId = int.Parse(stringList[i][j]);
+                idList.Add(elementId);
+            }
+
+            result.Add(new CutsceneID(id, idList.ToArray()));
+        }
+
+        return result.ToArray();
+    }
+    public static CutsceneElement[] GetCutsceneElements(TextAsset textAsset)
+    {
+        List<CutsceneElement> result = new List<CutsceneElement>();
+
+        string[][] stringList = GetCsvData(textAsset.text);
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            int id = int.Parse(stringList[i][0]);
+            string script = stringList[i][1];
+
+            result.Add(new CutsceneElement(id, script));
+        }
+
+        return result.ToArray();
+    }
+
+    // Dialogue
+    public static DialogueID[] GetDialogueIds(TextAsset textAsset)
+    {
+        List<DialogueID> result = new List<DialogueID>();
+
+        string[][] stringList = GetCsvData(textAsset.text);
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            int id = int.Parse(stringList[i][0]);
+
+            List<int> idList = new List<int>();
+            for (int j = 1; j < stringList[i].Length; j++)
+            {
+                if (stringList[i][j] == "" || stringList[i][j] == null) break;
+                int elementId = int.Parse(stringList[i][j]);
+                idList.Add(elementId);
+            }
+
+            result.Add(new DialogueID(id, idList.ToArray()));
+        }
+
+        return result.ToArray();
+    }
+    public static DialogueElement[] GetDialogueElements(TextAsset textAsset)
+    {
+        List<DialogueElement> result = new List<DialogueElement>();
+
+        string[][] stringList = GetCsvData(textAsset.text);
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            int id = int.Parse(stringList[i][0]);
+            string name = stringList[i][1];
+            string script = stringList[i][2];
+            string imgId = stringList[i][3];
+            bool isLeft = bool.Parse(stringList[i][4]);
+
+            result.Add(new DialogueElement(id, name, script, imgId, isLeft));
+        }
+
+        return result.ToArray();
+    }
+
+
+    // Module
     public static ModuleBaseData[] GetModuleBaseDatas(TextAsset textAsset)
     {
         string[][] csvData = GetCsvData(textAsset.text);
@@ -27,6 +225,7 @@ public static class CSVReader
         return result;
     }
 
+    // Ally Card
     public static AllyCardBaseData[] GetAllyCardBaseDatas(TextAsset textAsset)
     {
         string[][] csvData = GetCsvData(textAsset.text);
@@ -46,6 +245,8 @@ public static class CSVReader
         return result;
     }
 
+
+    // Language
     public static LanguageSet[] GetLanguageSets(TextAsset textAsset)
     {
         // ID -> (Index -> Languages)
@@ -111,7 +312,6 @@ public static class CSVReader
         return new LanguageSet(csvDict);
     }
 
-
     public static LanguageColorSet GetLanguageColorSet(TextAsset textAsset)
     {
         Dictionary<int, ColorStringArray> csvDict = new Dictionary<int, ColorStringArray>();
@@ -135,8 +335,6 @@ public static class CSVReader
 
         return new LanguageColorSet(csvDict);
     }
-
-
 
 
 
