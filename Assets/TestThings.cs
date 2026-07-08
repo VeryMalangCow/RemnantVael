@@ -66,5 +66,10 @@ public class TestThings : MonoBehaviour
 
             Debug.Log("Alpha6: Ultra Mode " + isUltraMode);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            PlayerManager.targetPlayerId = PlayerManager.targetPlayerId == 0 ? 1 : 0;
+            LoadingSceneManager.instance.Play_LoadScene("MainGame");
+        }
     }
 }

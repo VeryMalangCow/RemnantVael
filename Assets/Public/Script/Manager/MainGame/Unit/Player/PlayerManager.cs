@@ -29,7 +29,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     [Header("=== Theme (Temp)")]
     [SerializeField] private PlayerThemeSO[] playerThemes;
     public PlayerThemeSO targetPlayerTheme { get; private set; }
-    public string[] playerNames;
+    public string[] playerNames { get; private set; }
     public PlayerSkillLanguageSet[] skillLanguageSets { get; private set; }
     
 
@@ -38,6 +38,9 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     
     public static int kindOfPlayerAmount = 1;
     public static readonly int skillAmount = 3;
+
+    // Temp
+    public static int targetPlayerId = 0;
 
     #endregion
 
@@ -49,7 +52,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         Stopwatch sw = new Stopwatch();
         sw.Start();
 #endif
-        SetPlayerTheme(0);
+        SetPlayerTheme(targetPlayerId);
         GenPlayer(out AimController aim, out AimRoundController aimRound);
 #if UNITY_EDITOR
         sw.Stop();

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a8990a84a351a4787c8d0d8c91ed7f, type: 3}
+  m_Name: SO_PlayerTheme01
+  m_EditorClassIdentifier: 
+  id: 1
+  player: {fileID: 8810927924693203331, guid: 2331400255452594b9dc2ec5304dee29, type: 3}
+  audios:
+  - {fileID: 8300000, guid: 94738a9dc9e0c544a9ab761b3a28774e, type: 3}
+  - {fileID: 8300000, guid: 10cde5aaf2241874f9cd38cbda3a53b6, type: 3}
+  - {fileID: 8300000, guid: bbf0edcc4a3c4b046a289debc8ac8a4f, type: 3}
+  - {fileID: 8300000, guid: 1a830638b6ff38c4287605194bf5ea61, type: 3}
+  nameCsv: {fileID: 4900000, guid: 33983c376de13954d92659037a026e61, type: 3}
+  skillNameCsv: {fileID: 4900000, guid: bb1745b990031c846a6c476d80298869, type: 3}
+  skillDescCsv: {fileID: 4900000, guid: 499bcdfe77e42f8479ca06322da8ef7e, type: 3}
