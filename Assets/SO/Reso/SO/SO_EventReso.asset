@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f72c1360a7487f42875f55ae288d11c, type: 3}
   m_Name: SO_EventReso
   m_EditorClassIdentifier: 
+  eventIdCsv: {fileID: 4900000, guid: 778fbd29f1faade439a7284411a5969a, type: 3}
+  eventElementCsv: {fileID: 4900000, guid: 7a208282c6ebc5c459f9944946bea77f, type: 3}
   cutsceneTextures:
   - {fileID: 2800000, guid: cd2b41e0d9edeca459d2cdfe0d0a8587, type: 3}
   cutsceneSprites:
@@ -175,6 +177,12 @@ MonoBehaviour:
   - {fileID: -955888523, guid: cd2b41e0d9edeca459d2cdfe0d0a8587, type: 3}
   - {fileID: -728971724, guid: cd2b41e0d9edeca459d2cdfe0d0a8587, type: 3}
   - {fileID: 76633525, guid: cd2b41e0d9edeca459d2cdfe0d0a8587, type: 3}
+  cutsceneAudios:
+  - {fileID: 8300000, guid: cfc462e5252d8e74da66cfa9d5dab1a1, type: 3}
+  cutsceneIdCsv: {fileID: 4900000, guid: e315a6955e67d8f48841e6133a6f2574, type: 3}
+  cutsceneElementCsvs:
+  - {fileID: 4900000, guid: 9ac63e660cd770d469e90763ae1aedd4, type: 3}
+  - {fileID: 4900000, guid: c42396743617e0343aa2a0ab46ff6338, type: 3}
   dialogueTextures:
   - {fileID: 2800000, guid: 318ada3361e9e01408b77f966494e1d1, type: 3}
   dialogueSprites:
@@ -258,8 +266,10 @@ MonoBehaviour:
   - {fileID: -1600151628, guid: 318ada3361e9e01408b77f966494e1d1, type: 3}
   - {fileID: -2049904549, guid: 318ada3361e9e01408b77f966494e1d1, type: 3}
   - {fileID: 1567052606, guid: 318ada3361e9e01408b77f966494e1d1, type: 3}
-  cutsceneAudios:
-  - {fileID: 8300000, guid: cfc462e5252d8e74da66cfa9d5dab1a1, type: 3}
+  dialogueIdCsv: {fileID: 4900000, guid: 67d3304d62604f14bad75c077374b189, type: 3}
+  dialogueElementCsvs:
+  - {fileID: 4900000, guid: a4ed7914219832b4a8e11db33fa66761, type: 3}
+  - {fileID: 4900000, guid: faf0030fa47fa5545a21e0f007005859, type: 3}
   infoTextures:
   - {fileID: 2800000, guid: 56d7fecffc81371419d6567688031ea1, type: 3}
   infoSprites:

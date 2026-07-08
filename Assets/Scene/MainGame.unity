@@ -3451,17 +3451,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 2
   initPregressText: Ally Setting...
-  tunerTypeIcon:
-  - {fileID: -1080434544, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  - {fileID: -1374723442, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  - {fileID: 1299543531, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  - {fileID: 299411387, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  - {fileID: -749255590, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  - {fileID: 681309432, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  - {fileID: -1043234133, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  - {fileID: -625728284, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  - {fileID: 768085294, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  allAlly: []
   gruntAllyPool:
     prefab: {fileID: -7677951490283658699, guid: 5fac2ad5d44bbd0468b77a8561582ea5, type: 3}
     parentTf: {fileID: 0}
@@ -3488,6 +3477,7 @@ MonoBehaviour:
   allyTotemePool:
     prefab: {fileID: 1527876159234004793, guid: 384d654e20209db47ba14aac6bb038b4, type: 3}
     parentTf: {fileID: 422381123}
+  allAlly: []
 --- !u!114 &355347631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6890,7 +6880,7 @@ MonoBehaviour:
       bgmVolume: 0.5
       sfxVolume: 0.5
     gameProgressData:
-      currentProgressing: 0
+      currentProgressing: -1
       usableVault: 1
       usableBU: 1
       usableMU: 1
@@ -7486,7 +7476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
-  targetStageId: 0
+  targetStageId: 99
   stageTheme:
     lobbyStageThemeSO: {fileID: 11400000, guid: 09c8368078f79c5439780900ae5c7ca0, type: 2}
     allStageThemeSOs:
