@@ -35,7 +35,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         OptionJsonData savedData = SaveDataManager.instance.jsonData.optionData;
 
-        ResourceManager.instance.SetLanguageFont(savedData.languageID);
+        FontManager.instance.SetLanguageFont(savedData.languageID);
 
         Set_Screen(savedData.resolutionMode, savedData.screenMode);
         Set_FPS(savedData.fps);

@@ -138,7 +138,7 @@ public class PrisonController : InteractableBuildController
         Offset_Comp();
         Set_LanguageTxt();
 
-        ResourceManager.instance.allPrisons.Add(this);
+        FontManager.instance.allPrisons.Add(this);
     }
 
     #endregion

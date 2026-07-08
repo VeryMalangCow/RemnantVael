@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ResourceManager : PersistentSingleton<ResourceManager>
+public class FontManager : PersistentSingleton<FontManager>
 {
-    #region Language
-
     // 언어 변경을 위한 컴포넌트
     [HideInInspector] private HashSet<LanguageTxtController> allLanguageTxtControllers = new HashSet<LanguageTxtController>();
     [HideInInspector] public HashSet<PrisonController> allPrisons = new HashSet<PrisonController>();
@@ -60,8 +58,4 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             TitleLobbyUIManager.instance.Set_LanguageTxt();
         }
     }
-
-
-    #endregion
-
 }

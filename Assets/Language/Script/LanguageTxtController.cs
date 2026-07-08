@@ -13,7 +13,7 @@ public class LanguageTxtController : MonoBehaviour
 
     private void Start()
     {
-        ResourceManager.instance.Add_LanguageTxt(this);
+        FontManager.instance.Add_LanguageTxt(this);
     }
 
     #endregion

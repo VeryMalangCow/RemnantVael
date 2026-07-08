@@ -5316,7 +5316,7 @@ MonoBehaviour:
   itemReso: {fileID: 11400000, guid: 905eb4b7cd44a2347810e16abdce2858, type: 2}
   eventReso: {fileID: 11400000, guid: ad62111994bf259468f9d7ecdd064a96, type: 2}
   soundReso: {fileID: 11400000, guid: d9fd3f0c0108cca46bcc741005207593, type: 2}
-  fontReso: {fileID: 11400000, guid: 9583928af6a0ab5439c0a178de856c3c, type: 2}
+  languageFontReso: {fileID: 11400000, guid: 9583928af6a0ab5439c0a178de856c3c, type: 2}
 --- !u!4 &1081156649
 Transform:
   m_ObjectHideFlags: 0
@@ -6340,12 +6340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01426f0a7d6066d4bbf9160f1f16a237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ratingString: 
-  prisonRateStringArr: []
-  strikeTeamString: 
-  uplinkTeamString: 
-  neoTeamString: 
-  allyCardRateArr: []
 --- !u!4 &1463225871
 Transform:
   m_ObjectHideFlags: 0

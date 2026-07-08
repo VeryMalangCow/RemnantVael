@@ -396,7 +396,7 @@ public class PauseUIController : SinglePanelUIController
 
         SoundManager.instance.PlayUiSfx("Approve");
 
-        ResourceManager.instance.SetLanguageFont(optionView.languagePanelEui.Get_CurrentIndex());
+        FontManager.instance.SetLanguageFont(optionView.languagePanelEui.Get_CurrentIndex());
         GameManager.instance.Set_Screen(
             (eResolution)optionView.resolutionPanelEui.Get_CurrentIndex(),
             (eScreenMode)optionView.screenModePanelEui.Get_CurrentIndex());
