@@ -503,9 +503,9 @@ public class EventManager : Singleton<EventManager>, IMainGameInitializer
     // 이벤트 실행 시, 설정 온
     private void SetOn_EventOption()
     {
+        Set_Input(false);
         isPlayingEvent = true;
 
-        Set_Input(false);
         Set_BlackUpDownCover(true);
         Set_AnotherUI(false);
     }
