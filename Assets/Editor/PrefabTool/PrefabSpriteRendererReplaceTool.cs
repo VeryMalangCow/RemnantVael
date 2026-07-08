@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class SpriteRendererReplaceTool : EditorWindow
+public class PrefabSpriteRendererReplaceTool : EditorWindow
 {
     private GameObject prefab;
 
@@ -13,10 +13,10 @@ public class SpriteRendererReplaceTool : EditorWindow
     private Material fromMaterial;
     private Material toMaterial;
 
-    [MenuItem("Tools/Sprite Renderer Replace")]
+    [MenuItem("Tools/Prefab/Sprite Renderer Replace")]
     private static void Open()
     {
-        GetWindow<SpriteRendererReplaceTool>("Sprite Replace");
+        GetWindow<PrefabSpriteRendererReplaceTool>("Sprite Replace");
     }
 
     private void OnGUI()

@@ -9,7 +9,7 @@ public class SpriteNameReplaceTool : EditorWindow
     private string findText = "";
     private string replaceText = "";
 
-    [MenuItem("Tools/Sprite Name Replace")]
+    [MenuItem("Tools/Texture2d/Sprite Name Replace")]
     static void Open()
     {
         GetWindow<SpriteNameReplaceTool>("Sprite Name Replace");

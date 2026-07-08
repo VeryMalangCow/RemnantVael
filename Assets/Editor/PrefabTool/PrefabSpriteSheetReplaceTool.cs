@@ -3,17 +3,17 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-public class SpriteSheetReplaceTool : EditorWindow
+public class PrefabSpriteSheetReplaceTool : EditorWindow
 {
     private GameObject prefab;
 
     private Texture2D sourceTexture;
     private Texture2D targetTexture;
 
-    [MenuItem("Tools/Sprite Sheet Replace")]
+    [MenuItem("Tools/Prefab/Sprite Sheet Replace")]
     private static void Open()
     {
-        GetWindow<SpriteSheetReplaceTool>("Sprite Sheet Replace");
+        GetWindow<PrefabSpriteSheetReplaceTool>("Sprite Sheet Replace");
     }
 
     private void OnGUI()
