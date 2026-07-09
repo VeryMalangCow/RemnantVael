@@ -357,6 +357,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         {
             soundSfxName = "Reject";
             Application.Quit();
+            AddressablesManager.ReleaseAll();
         }
 
         else if (Is_Interact_OptionElement(optionUi.languagePanelEui)) return;

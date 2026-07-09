@@ -1,9 +1,12 @@
+using Cysharp.Threading.Tasks;
 using NavMeshPlus.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 #region Class & Struct
@@ -1431,7 +1434,6 @@ public class StageGridGenerator
 public class StageTheme
 {
     [SerializeField] public StageThemeSO lobbyStageThemeSO;
-    [SerializeField] public List<StageThemeSO> allStageThemeSOs;
     [SerializeField] public List<StagePassageThemeSO> allStagePassageThemeSOs;
 
     public IEnumerator Initialize()
@@ -1511,6 +1513,22 @@ public class StageObjectGenerator
 
     #endregion
 
+    #region Addressables
+
+    private IEnumerator LoadStageThemeSO(int stageId, System.Action<StageThemeSO> onComplete)
+    {
+        StageThemeSO result = null;
+
+        yield return UniTask.ToCoroutine(async () =>
+        {
+            result = await AddressablesManager.LoadAsync<StageThemeSO>(StageAddress.Get(stageId));
+        });
+
+        onComplete?.Invoke(result);
+    }
+
+    #endregion
+
     #region Generate
 
     // Lobby Or GamePlay 스테이지 생성
@@ -1518,7 +1536,9 @@ public class StageObjectGenerator
     {
         ResetData();
 
-        currentStageThemeSO = GetStageThemeSO(stageTheme, stageId);
+        if (currentStageThemeSO != null)
+            AddressablesManager.Release(StageAddress.Get(currentStageThemeSO.stageId));
+        yield return LoadStageThemeSO(stageId, so => currentStageThemeSO = so);
         if (currentStageThemeSO == null) yield break;
         stageNames = currentStageThemeSO.GetStageNames();
         stageDescs = currentStageThemeSO.GetStageDescs();
@@ -1572,8 +1592,10 @@ public class StageObjectGenerator
 #if UNITY_EDITOR
         UnityEngine.Debug.Log($"{beforeStageId} -> {afterStageId}");
 #endif
-        beforeStageThemeSO = GetStageThemeSO(stageTheme, beforeStageId);
-        afterStageThemeSO = GetStageThemeSO(stageTheme, afterStageId);
+        yield return LoadStageThemeSO(beforeStageId, so => beforeStageThemeSO = so);
+        yield return LoadStageThemeSO(afterStageId, so => afterStageThemeSO = so);
+
+        AddressablesManager.Release(StageAddress.Get(currentStageId));
 
         // Gen
         yield return GenPassageRoom(afterStageId);
@@ -2332,31 +2354,15 @@ public class StageObjectGenerator
 
     #region Data
 
-
     // 올바른 Stage Theme SO 구하기
-    public StageThemeSO GetStageThemeSO(StageTheme stageTheme, int stageId)
+    public async Task<StageThemeSO> GetStageThemeSO(int stageId)
     {
-        if (stageTheme == null)
+        StageThemeSO stageThemeSO = await AddressablesManager.LoadAsync<StageThemeSO>(StageAddress.Get(stageId));
+
+        if (stageThemeSO == null)
             return null;
-
-        // Lobby
-        if (stageId == 99)
-            return stageTheme.lobbyStageThemeSO;
-
-        // Game
-        StageThemeSO stageThemeSO = stageTheme.allStageThemeSOs[stageId];
-        if (stageId == stageThemeSO.stageId)
-            return stageThemeSO;
-
-        // 만약 Id가 올바르지않다면 순회해서 탐색
-        for (int i = 0; i < stageTheme.allStageThemeSOs.Count; i++)
-        {
-            stageThemeSO = stageTheme.allStageThemeSOs[i];
-            if (stageThemeSO.stageId == stageId)
-                return stageThemeSO;
-        }
-
-        return null;
+        
+        return stageThemeSO;
     }
 
     // 올바른 Passage Stage Theme SO 구하기
@@ -2384,8 +2390,13 @@ public class StageObjectGenerator
 
         MainGameUIManager.instance.hud.MinimapView.AllRemoveMinimapCell();
 
+        AddressablesManager.Release(StageAddress.Get(beforeStageId));
+        AddressablesManager.Release(StageAddress.Get(afterStageId));
+
         beforeStageThemeSO = null;
         afterStageThemeSO = null;
+
+
     }
 
     #endregion
@@ -2806,7 +2817,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         yield return new WaitForSeconds(0.5f);
 
-        if (EnemyManager.instance.currentEnemyList.Count <= 0)
+        if (EnemyManager.instance.currentEnemies.Count <= 0)
         {
             currentRoomController.PlaySet_RoomStateComplete();
 

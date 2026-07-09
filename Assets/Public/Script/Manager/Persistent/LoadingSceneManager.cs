@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using Cysharp.Threading.Tasks;
 
 public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 {
@@ -140,6 +141,8 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
     private IEnumerator Play_LoadSceneAsync_Cor(string sceneName)
     {
+        AddressablesManager.ReleaseAll();
+
         // Sound
         SoundManager.instance.SetMasterVolume(1f, 0f, 1f);
         cogwheelSeq.Play();

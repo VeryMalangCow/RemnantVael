@@ -1022,7 +1022,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>, IMainGameInitiali
 
     private ItemData[] GetItemDatas()
     {
-        UnityEngine.Debug.Log("<color=magenta>½ÇÇà!!!</color>");
         ItemData[] data = new ItemData[moduleBaseDatas.Length];
 
         for (int i = 0; i < data.Length; i++)

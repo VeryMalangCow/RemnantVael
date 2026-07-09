@@ -126,9 +126,9 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     [SerializeField] private BossEnemyController[] bossEnemyPrefabs;
 
     // Current
-    [HideInInspector] public List<EnemyController> currentEnemyList = new List<EnemyController>();
+    [HideInInspector] public List<EnemyController> currentEnemies = new List<EnemyController>();
 
-    [HideInInspector] private List<EliteEnemyController> currentEliteEnemyList = new List<EliteEnemyController>();
+    [HideInInspector] private List<EliteEnemyController> currentEliteEnemies = new List<EliteEnemyController>();
     [HideInInspector] private BossEnemyController currentBossEnemy = null;
 
 
@@ -143,13 +143,16 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     public IEnumerator SetEnemyPoolsAsync(List<int> normalEnemyIndices, List<int> eliteEnemyIndices, List<int> bossEnemyIndices)
     {
         yield return normalEnemyPoolSet.SetEnemyPoolAsync(normalEnemyPrefabs, normalEnemyIndices, 8);
-        yield return eliteEnemyPoolSet.SetEnemyPoolAsync(eliteEnemyPrefabs, eliteEnemyIndices, 2);
-        yield return bossEnemyPoolSet.SetEnemyPoolAsync(bossEnemyPrefabs, bossEnemyIndices, 1);
+        yield return eliteEnemyPoolSet.SetEnemyPoolAsync(eliteEnemyPrefabs, eliteEnemyIndices, 4);
+        yield return bossEnemyPoolSet.SetEnemyPoolAsync(bossEnemyPrefabs, bossEnemyIndices, 2);
     }
 
     // Pool Dict 객체 값 -> 삭제 및 데이터 초기화
     public IEnumerator DestoryEnemyPoolsAsync()
     {
+        currentEnemies.Clear();
+        currentEliteEnemies.Clear();
+        currentBossEnemy = null;
         yield return normalEnemyPoolSet.DestoryEnemyPoolAsync();
         yield return eliteEnemyPoolSet.DestoryEnemyPoolAsync();
         yield return bossEnemyPoolSet.DestoryEnemyPoolAsync();
@@ -246,21 +249,21 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // 가장 가까운 적 찾기
     public EnemyController Get_ClosestEnemy(GameObject targetGO)
     {
-        if (currentEnemyList.Count == 0) return null;
+        if (currentEnemies.Count == 0) return null;
 
         return DevTool.Get_ComponentTType<EnemyController>(
             DevTool.Get_ClosetGO(
-                DevTool.Get_GOList(currentEnemyList), targetGO));
+                DevTool.Get_GOList(currentEnemies), targetGO));
     }
 
     public EnemyController Get_ClosestEnemy(GameObject targetGO, out float dis)
     {
         dis = 0f;
-        if (currentEnemyList.Count == 0) return null;
+        if (currentEnemies.Count == 0) return null;
 
         EnemyController result = DevTool.Get_ComponentTType<EnemyController>(
             DevTool.Get_ClosetGO(
-                DevTool.Get_GOList(currentEnemyList), targetGO));
+                DevTool.Get_GOList(currentEnemies), targetGO));
 
         dis = Vector2.Distance(targetGO.transform.position, result.gameObject.transform.position);
         return result;
@@ -269,32 +272,32 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // 가장 먼 적 찾기
     public EnemyController Get_FurthestEnemy(GameObject targetGO)
     {
-        if (currentEnemyList.Count == 0) return null;
+        if (currentEnemies.Count == 0) return null;
 
         return DevTool.Get_ComponentTType<EnemyController>(
             DevTool.Get_FurthestGO(
-                DevTool.Get_GOList(currentEnemyList), targetGO));
+                DevTool.Get_GOList(currentEnemies), targetGO));
     }
 
 
     // 일정 구역 내 모든 적 찾기 (가까운 순서대로)
     public List<EnemyController> Get_CloserEnemies(GameObject targetGO, float maxDis)
     {
-        if (currentEnemyList.Count == 0) return null;
+        if (currentEnemies.Count == 0) return null;
 
         return DevTool.Get_ComponentTTypeList<EnemyController>(
             DevTool.Get_CloserGOList(
-                DevTool.Get_GOList(currentEnemyList), targetGO, maxDis));
+                DevTool.Get_GOList(currentEnemies), targetGO, maxDis));
     }
 
     // 일정 구역 외 모든 적 찾기 (먼 순서대로)
     public List<EnemyController> Get_FurtherEnemies(GameObject targetGO, float minDis)
     {
-        if (currentEnemyList.Count == 0) return null;
+        if (currentEnemies.Count == 0) return null;
 
         return DevTool.Get_ComponentTTypeList<EnemyController>(
            DevTool.Get_FurtherGOList(
-               DevTool.Get_GOList(currentEnemyList), targetGO, minDis));
+               DevTool.Get_GOList(currentEnemies), targetGO, minDis));
     }
 
 
@@ -305,14 +308,20 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
 
     public void Add_EliteEnemy(EliteEnemyController eliteEnemy)
     {
-        DevTool.Add_InList(currentEliteEnemyList, eliteEnemy);
+        DevTool.Add_InList(currentEliteEnemies, eliteEnemy);
         Set_SpecialEnemyHUD();
     }
 
     public void Remove_EliteEnemy(EliteEnemyController eliteEnemy)
     {
-        DevTool.Remove_InList(currentEliteEnemyList, eliteEnemy);
+        DevTool.Remove_InList(currentEliteEnemies, eliteEnemy);
         Set_SpecialEnemyHUD();
+    }
+
+    public void ClearEliteEnemy()
+    {
+        currentEliteEnemies.Clear();
+
     }
 
     #endregion
@@ -344,9 +353,9 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
             index++;
         }
 
-        for (int i = 0; i < currentEliteEnemyList.Count; i++)
+        for (int i = 0; i < currentEliteEnemies.Count; i++)
         {
-            currentEliteEnemyList[i].Set_HUDPanelPos(index);
+            currentEliteEnemies[i].Set_HUDPanelPos(index);
             index++;
         }
     }
@@ -357,13 +366,13 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
 
     public void SetOff_AllEnemyPattern()
     {
-        for (int i = 0; i < currentEnemyList.Count; i++)
+        for (int i = 0; i < currentEnemies.Count; i++)
         {
-            currentEnemyList[i].EndAll_Pattern();
+            currentEnemies[i].EndAll_Pattern();
         }
-        for (int i = 0; i < currentEliteEnemyList.Count; i++)
+        for (int i = 0; i < currentEliteEnemies.Count; i++)
         {
-            currentEliteEnemyList[i].EndAll_Pattern();
+            currentEliteEnemies[i].EndAll_Pattern();
         }
         if (currentBossEnemy != null)
         {

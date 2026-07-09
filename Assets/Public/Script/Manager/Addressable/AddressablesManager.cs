@@ -23,7 +23,9 @@ public static class AddressablesManager
     {
         if (string.IsNullOrEmpty(address))
         {
+#if UNITY_EDITOR
             UnityEngine.Debug.LogError("\"Address\" is Null");
+#endif
             return default;
         }
 
@@ -35,8 +37,9 @@ public static class AddressablesManager
                 await handle.ToUniTask();
                 if (handle.Status != AsyncOperationStatus.Succeeded)
                 {
-                    UnityEngine.Debug.LogError($"[Addressables] Load Failed : {address}");
-
+#if UNITY_EDITOR
+                    UnityEngine.Debug.LogError($"<color=007FFF>[Addressables] Load Failed : {address}</color>");
+#endif
                     if (handle.IsValid())
                         Addressables.Release(handle);
 
@@ -45,16 +48,23 @@ public static class AddressablesManager
             }
             catch (System.Exception e)
             {
-                UnityEngine.Debug.LogError($"[Addressables] Load Failed : {address}");
+#if UNITY_EDITOR
+                UnityEngine.Debug.LogError($"<color=#007FFF>[Addressables] Load Failed : {address}</color>");
                 UnityEngine.Debug.LogException(e);
-
+#endif
                 return default;
             }
             loadedAssets[address] = new AssetHandle(handle);
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"<color=#007FFF>[Addressables] Load {address} : RefCount [{loadedAssets[address].RefCount}(Load New)]</color>");
+#endif
             return handle.Result;
         }
 
         asset.RefCount++;
+#if UNITY_EDITOR
+        UnityEngine.Debug.Log($"<color=#007FFF>[Addressables] Load {address} : RefCount [{asset.RefCount - 1} -> {asset.RefCount}]</color>");
+#endif
         return (T)asset.Handle.Result;
     }
 
@@ -62,17 +72,39 @@ public static class AddressablesManager
     {
         if (!loadedAssets.TryGetValue(address, out AssetHandle asset))
         {
+#if UNITY_EDITOR
             UnityEngine.Debug.LogWarning($"[Addressables] Release Failed : {address}");
+#endif
             return;
         }
 
         asset.RefCount--;
 
-        if (asset.RefCount > 0)
-            return;
 
+        if (asset.RefCount > 0)
+        {
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"<color=#007FFF>[Addressables] Release {address} : RefCount [{asset.RefCount + 1} -> {asset.RefCount}]</color>");
+#endif
+            return;
+        }
+
+#if UNITY_EDITOR
+        UnityEngine.Debug.Log($"<color=#007FFF>[Addressables] Release {address} : RefCount [{asset.RefCount}(Release Apply)]</color>");
+#endif
         Addressables.Release(asset.Handle);
         loadedAssets.Remove(address);
+    }
+
+    public static void ReleaseAll()
+    {
+        foreach (AssetHandle asset in loadedAssets.Values)
+        {
+            if (asset.Handle.IsValid())
+                Addressables.Release(asset.Handle);
+        }
+
+        loadedAssets.Clear();
     }
 }
 

@@ -100,7 +100,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     public void SetActiveOn()
     {
         Reset_State();
-        DevTool.Add_InList(EnemyManager.instance.currentEnemyList, this);
+        DevTool.Add_InList(EnemyManager.instance.currentEnemies, this);
         gameObject.SetActive(true);
     }
 
@@ -596,7 +596,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
         hud.Reset_HUD();
 
         // Remove
-        DevTool.Remove_InList(EnemyManager.instance.currentEnemyList, this);
+        DevTool.Remove_InList(EnemyManager.instance.currentEnemies, this);
 
         // Check Room State
         StageManager.instance.CompleteRoomKillAll();
