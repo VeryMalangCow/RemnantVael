@@ -2365,8 +2365,6 @@ public class StageObjectGenerator
         currentAllRoomController.Add(room);
         room.Offset(roomRule, instanceId, typeId, gridPos, currentStageThemeSO);
         room.InitVisualSprite();
-
-        room.Spawn_FieldObj();
     }
 
     private void SetPassageRoomToWorld(PassageRoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)

@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class DestructibleObjectController : SortingObjectController
 {
-    #region Value
-
     [Space(20)]
     [Header("<><><><><> Destructible Obj")]
 
@@ -11,22 +9,12 @@ public class DestructibleObjectController : SortingObjectController
     [Header("=== Index")]
     [SerializeField] private int typeIndex = 0;
 
-    #endregion
-
-    #region Offset
-
-    protected override void Offset()
+    public void SetVisual()
     {
-        base.Offset();
-
         SpriteMaterial spriteMaterial = StageManager.instance.GetRandomFieldObjSprite(typeIndex);
         thisSr.sprite = spriteMaterial.sprite;
         thisSr.material = StageManager.instance.stageObjectGenerator.currentStageThemeSO.mapMaterialClear[spriteMaterial.materialIndex];
     }
-
-    #endregion
-
-    #region Destruct
 
     public void Destruct()
     {
@@ -40,15 +28,10 @@ public class DestructibleObjectController : SortingObjectController
         Destroy(gameObject);
     }
 
-    #endregion
-
-    #region Trigger
-
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Wall" || col.tag == "FieldObj") 
             OnlyDestruct();
     }
 
-    #endregion
 }

@@ -33,10 +33,6 @@ public class RoomRuleController : MonoBehaviour
     [Header("-- Enemy")]
     [SerializeField] private Transform inRoom_EnemySpawnParentTF;
 
-    [Space(5)]
-    [Header("-- Field Obj")]
-    [SerializeField] private Transform inRoom_FieldObjSpawnerParentTF;
-
     #endregion
 
     #region - Hide
@@ -181,25 +177,6 @@ public class RoomRuleController : MonoBehaviour
     public int Get_NeedKeyCardID()
     {
         return needKeyCardId;
-    }
-
-    #endregion
-
-    #region FieldObj
-
-    public List<Vector2> Get_FieldObjPos()
-    {
-        List<FieldObjectSpawnController> fieldObjSpawners = inRoom_FieldObjSpawnerParentTF != null &&
-            inRoom_FieldObjSpawnerParentTF.childCount > 0 ?
-            DevTool.Get_AllChildList<FieldObjectSpawnController>(inRoom_FieldObjSpawnerParentTF) : null;
-
-        List<Vector2> result = new List<Vector2>();
-
-        if (fieldObjSpawners != null)
-            for (int i = 0; i < fieldObjSpawners.Count; i++)
-                result.AddRange(fieldObjSpawners[i].Get_RandomPointsInSector_Self());
-
-        return result;
     }
 
     #endregion

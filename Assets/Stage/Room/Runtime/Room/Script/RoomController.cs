@@ -34,11 +34,6 @@ public class RoomController : MonoBehaviour
     public List<GateController> inRoom_AllGate { get; private set; } = new List<GateController>();
 
 
-    [Space(10)]
-    [Header("=== FieldObj")]
-    [SerializeField] private Transform inRoom_FieldObjSpawnerParentTF;
-
-
     // Visual
     protected StageThemeSO stageThemeSO;
     private List<RoomVisualSprite> clearModeVisualSprites;
@@ -433,42 +428,4 @@ public class RoomController : MonoBehaviour
 
     #endregion
 
-    #region FieldObj
-
-    public void Spawn_FieldObj()
-    {
-        List<Vector2> data = Get_FieldObjPos();
-
-        for (int i = 0; i < data.Count; i++)
-            EachSpawn_FieldObj(data[i]);
-    }
-
-    private void EachSpawn_FieldObj(Vector2 pos)
-    {
-        DestructibleObjectController ddoc = Instantiate(StageManager.instance.GetRandomFieldObjPrefab());
-        if (ddoc == null)
-            return;
-
-        ddoc.gameObject.transform.SetParent(inRoom_FieldObjSpawnerParentTF);
-        ddoc.gameObject.transform.position = pos;
-    }
-
-    private List<Vector2> Get_FieldObjPos()
-    {
-        List<FieldObjectSpawnController> fieldObjSpawners = inRoom_FieldObjSpawnerParentTF != null &&
-            inRoom_FieldObjSpawnerParentTF.childCount > 0 ?
-            DevTool.Get_AllChildList<FieldObjectSpawnController>(inRoom_FieldObjSpawnerParentTF) : null;
-
-        List<Vector2> result = new List<Vector2>();
-
-        if (fieldObjSpawners != null)
-            for (int i = 0; i < fieldObjSpawners.Count; i++)
-                result.AddRange(fieldObjSpawners[i].Get_RandomPointsInSector_Self());
-
-        result.AddRange(roomRule.Get_FieldObjPos());
-
-        return result.Distinct().ToList();
-    }
-
-    #endregion
 }
