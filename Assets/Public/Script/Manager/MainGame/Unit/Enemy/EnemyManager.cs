@@ -50,6 +50,9 @@ public class EnemyPoolSet<T> where T : EnemyController, IPoolable
             var objs = pool.objs;
             var activeIndices = pool.activeIndices;
 
+            if (activeIndices == null) 
+                return;
+
             for (int j = activeIndices.Count - 1; j >= 0; j--)
             {
                 // Skill
@@ -196,17 +199,17 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     {
         if (type == eEnemy.Normal)
         {
-            Debug.Log($"color<red>EnemyDequeue : {type} : {enemyId}");
+            Debug.Log($"<color=red>EnemyDequeue : {type} : {enemyId}</color>");
             return SpawnNormalEnemy(enemyId);
         }
         else if (type == eEnemy.Elite)
         {
-            Debug.Log($"color<red>EnemyDequeue : {type} : {enemyId}");
+            Debug.Log($"<color=red>EnemyDequeue : {type} : {enemyId}</color>");
             return SpawnEliteEnemy(enemyId);
         }
         else if (type == eEnemy.Boss)
         {
-            Debug.Log($"color<red>EnemyDequeue : {type} : {enemyId}");
+            Debug.Log($"<color=red>EnemyDequeue : {type} : {enemyId}</color>");
             return SpawnBossEnemy(enemyId);
         }
 

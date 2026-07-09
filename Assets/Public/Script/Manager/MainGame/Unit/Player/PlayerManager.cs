@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Diagnostics;
@@ -26,8 +27,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
     [HideInInspector] private PingController playerPing;
     [HideInInspector] private EnemyController pingedEnemy;
 
-    [Header("=== Theme (Temp)")]
-    [SerializeField] private PlayerThemeSO[] playerThemes;
+    // Theme
     public PlayerThemeSO targetPlayerTheme { get; private set; }
     public string[] playerNames { get; private set; }
     public PlayerSkillLanguageSet[] skillLanguageSets { get; private set; }
@@ -52,7 +52,7 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
         Stopwatch sw = new Stopwatch();
         sw.Start();
 #endif
-        SetPlayerTheme(targetPlayerId);
+        yield return SetPlayerTheme(targetPlayerId);
         GenPlayer(out AimController aim, out AimRoundController aimRound);
 #if UNITY_EDITOR
         sw.Stop();
@@ -85,15 +85,28 @@ public class PlayerManager : Singleton<PlayerManager>, IMainGameInitializer
 
     #endregion
 
-    private void SetPlayerTheme(int targetId)
+    private IEnumerator SetPlayerTheme(int targetId)
     {
-        targetPlayerTheme = playerThemes[targetId]; 
+        yield return LoadPlayerThemeSO(targetId, so => targetPlayerTheme = so);
+
         SoundManager.instance.SetPlayerThemeDict(targetPlayerTheme);
 
         playerNames = targetPlayerTheme.GetNames();
         skillLanguageSets = new PlayerSkillLanguageSet[2];
         skillLanguageSets[0] = new PlayerSkillLanguageSet(targetPlayerTheme.GetSkillNames(0), targetPlayerTheme.GetSkillDescs(0));
         skillLanguageSets[1] = new PlayerSkillLanguageSet(targetPlayerTheme.GetSkillNames(1), targetPlayerTheme.GetSkillDescs(1));
+    }
+
+    private IEnumerator LoadPlayerThemeSO(int playerId, System.Action<PlayerThemeSO> onComplete)
+    {
+        PlayerThemeSO result = null;
+
+        yield return UniTask.ToCoroutine(async () =>
+        {
+            result = await AddressablesManager.LoadAsync<PlayerThemeSO>(PlayerAddress.Get(playerId));
+        });
+
+        onComplete?.Invoke(result);
     }
 
     #region Gen

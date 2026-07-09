@@ -110,8 +110,15 @@ public static class AddressablesManager
 
 public static class StageAddress
 {
-    public static string Get(int stageId)
-    {
-        return $"StageTheme_{stageId:00}";
-    }
+    public static string Get(int stageId) => $"StageTheme_{stageId:00}";
+}
+
+public static class StagePassageAddress
+{
+    public static string Get(int beforeId, int afterId) => $"StagePassageTheme_{beforeId:00}_{afterId:00}";
+}
+
+public static class PlayerAddress
+{
+    public static string Get(int playerId) => $"PlayerTheme_{playerId:00}";
 }

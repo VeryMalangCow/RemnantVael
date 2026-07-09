@@ -10,16 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: StagePassageTheme
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: StagePassageTheme
   m_Data:
     m_SerializedData: []
-  m_GUID: ad283de70efe1ae44ac4da7a9f00e213
-  m_SerializeEntries: []
+  m_GUID: 6b3bf6e24f7eade458f339d4dce81f22
+  m_SerializeEntries:
+  - m_GUID: d045e1400b6e9a54f8cff71ecd27c281
+    m_Address: StagePassageTheme_00_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: faefb08b24b66134eb26958a3c84b00d, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 21556bf586075a7478d8e580ff4c3b46, type: 2}
-    - {fileID: 11400000, guid: 77d46072ccd605f41aac7a384840485e, type: 2}
+    - {fileID: 11400000, guid: 78e1dd80b9711f9458559de59354a98c, type: 2}
+    - {fileID: 11400000, guid: e6bf231b07453db4d81ded9591d8f94c, type: 2}

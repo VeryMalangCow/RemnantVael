@@ -5,8 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 #region Class & Struct
@@ -1429,39 +1427,6 @@ public class StageGridGenerator
     #endregion
 }
 
-
-[Serializable]
-public class StageTheme
-{
-    [SerializeField] public StageThemeSO lobbyStageThemeSO;
-    [SerializeField] public List<StagePassageThemeSO> allStagePassageThemeSOs;
-
-    public IEnumerator Initialize()
-    {
-#if UNITY_EDITOR
-        Stopwatch sw = Stopwatch.StartNew();
-#endif
-
-#if UNITY_EDITOR
-        sw.Stop();
-        UnityEngine.Debug.Log($"StageManager : <color=orange>SpriteOffset</color> : <color=red>{sw.Elapsed.TotalMilliseconds:F2}</color> ms");
-#endif
-        yield return null;
-    }
-
-    // Get
-
-    public SpriteMaterial GetRandomFieldObjSprite(StageThemeSO stageThemeSO, int typeId)
-    {
-        if (stageThemeSO.stageId == 99)
-            return null;
-
-        SpriteMaterial[] objSprites = stageThemeSO.fieldObjSprites[typeId].array;
-        return objSprites[UnityEngine.Random.Range(0, objSprites.Length)];
-    }
-}
-
-
 [Serializable]
 public class StageObjectGenerator
 {
@@ -1472,7 +1437,6 @@ public class StageObjectGenerator
 
     private StageResoSO stagePrefab;
     private BuildResoSO buildPrefab;
-    private StageTheme stageTheme;
 
     // Cell Size
     public static readonly Vector2Int offsetRoomSize = new Vector2Int(22, 14);
@@ -1484,6 +1448,8 @@ public class StageObjectGenerator
     public StageThemeSO currentStageThemeSO { get; private set; }
     private StageThemeSO beforeStageThemeSO;
     private StageThemeSO afterStageThemeSO;
+
+    private StagePassageThemeSO currentStagePassageThemeSO;
 
     public int currentStageId { get { return currentStageThemeSO != null ? currentStageThemeSO.stageId : -1; } }
     public int beforeStageId { get { return beforeStageThemeSO != null ? beforeStageThemeSO.stageId : -1; } }
@@ -1503,11 +1469,10 @@ public class StageObjectGenerator
 
     #region Init
 
-    public IEnumerator Initialize(StageResoSO stagePrefab, BuildResoSO buildPrefab, StageTheme stageTheme)
+    public IEnumerator Initialize(StageResoSO stagePrefab, BuildResoSO buildPrefab)
     {
         this.stagePrefab = stagePrefab;
         this.buildPrefab = buildPrefab;
-        this.stageTheme = stageTheme;
         yield return null;
     }
 
@@ -1526,13 +1491,24 @@ public class StageObjectGenerator
 
         onComplete?.Invoke(result);
     }
+    private IEnumerator LoadStagePassageThemeSO(int beforeId, int afterId, System.Action<StagePassageThemeSO> onComplete)
+    {
+        StagePassageThemeSO result = null;
+
+        yield return UniTask.ToCoroutine(async () =>
+        {
+            result = await AddressablesManager.LoadAsync<StagePassageThemeSO>(StagePassageAddress.Get(beforeId, afterId));
+        });
+
+        onComplete?.Invoke(result);
+    }
 
     #endregion
 
     #region Generate
 
     // Lobby Or GamePlay 스테이지 생성
-    public IEnumerator GenStage(StageTheme stageTheme, int stageId, List<RoomGrid> allRoomGrids, List<int> normalEnemyIndices)
+    public IEnumerator GenStage(int stageId, List<RoomGrid> allRoomGrids, List<int> normalEnemyIndices)
     {
         ResetData();
 
@@ -2178,7 +2154,7 @@ public class StageObjectGenerator
 #endif
         yield return null;
 
-
+        yield return LoadStagePassageThemeSO(beforeStageId, afterStageId, so => currentStagePassageThemeSO = so);
         SetPassageRoomToWorld(room, roomRule, 0, 1, Vector2Int.zero);
 
         roomRule.Set_ElevatorData(nextStageId);
@@ -2354,33 +2330,6 @@ public class StageObjectGenerator
 
     #region Data
 
-    // 올바른 Stage Theme SO 구하기
-    public async Task<StageThemeSO> GetStageThemeSO(int stageId)
-    {
-        StageThemeSO stageThemeSO = await AddressablesManager.LoadAsync<StageThemeSO>(StageAddress.Get(stageId));
-
-        if (stageThemeSO == null)
-            return null;
-        
-        return stageThemeSO;
-    }
-
-    // 올바른 Passage Stage Theme SO 구하기
-    public StagePassageThemeSO GetStagePassageThemeSO(StageTheme stageTheme, int beforeStageId, int afterStageId)
-    {
-        if (stageTheme == null)
-            return null;
-
-        for (int i = 0; i < stageTheme.allStagePassageThemeSOs.Count; i++)
-        {
-            var passageThemeSO = stageTheme.allStagePassageThemeSOs[i];
-            if (passageThemeSO.beforeStageId == beforeStageId && passageThemeSO.afterStageId == afterStageId)
-                return passageThemeSO;
-        }
-
-        return null;
-    }
-
 
     // 생성 전에, 전 스테이지 정보 데이터 초기화
     private void ResetData()
@@ -2392,11 +2341,10 @@ public class StageObjectGenerator
 
         AddressablesManager.Release(StageAddress.Get(beforeStageId));
         AddressablesManager.Release(StageAddress.Get(afterStageId));
+        AddressablesManager.Release(StagePassageAddress.Get(beforeStageId, afterStageId));
 
         beforeStageThemeSO = null;
         afterStageThemeSO = null;
-
-
     }
 
     #endregion
@@ -2406,7 +2354,7 @@ public class StageObjectGenerator
     private void SetLobbyRoomToWorld(RoomController room, RoomRuleController roomRule, int instanceId, int typeId, Vector2Int gridPos)
     {
         currentAllRoomController.Add(room);
-        room.Offset(roomRule, instanceId, typeId, gridPos, stageTheme.lobbyStageThemeSO);
+        room.Offset(roomRule, instanceId, typeId, gridPos, currentStageThemeSO);
         room.InitVisualSprite();
 
         roomRule.SetLobbyDontNeedKey();
@@ -2427,7 +2375,7 @@ public class StageObjectGenerator
         room.Offset(roomRule, instanceId, typeId, gridPos,
             beforeStageThemeSO,
             afterStageThemeSO,
-            GetStagePassageThemeSO(stageTheme, beforeStageId, afterStageId));
+            currentStagePassageThemeSO);
         room.InitPassageVisualSprite();
     }
 
@@ -2489,22 +2437,15 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Init
     public IEnumerator Initialize()
     {
-        yield return stageTheme.Initialize();
         yield return stageGridGenerator.Initialize();
         StaticResourceManager staticReso = StaticResourceManager.instance;
-        yield return stageObjectGenerator.Initialize(staticReso.StageReso, staticReso.BuildReso, stageTheme);
+        yield return stageObjectGenerator.Initialize(staticReso.StageReso, staticReso.BuildReso);
 
         yield return GenerateStageCor(targetStageId);
     }
 
     #endregion
 
-    #region Stage Resource - Variable
-
-    [SerializeField] private StageTheme stageTheme;
-    public StageTheme StageTheme { get { return stageTheme; } }
-
-    #endregion
 
     #region  Stage Grid Generator - Variable
 
@@ -2607,7 +2548,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     {
         ReturnAllPoolObject();
         RemoveStageObject();
-        yield return stageObjectGenerator.GenStage(stageTheme, targetStageId, stageGridGenerator.allRoomGrids, currentStageNormalEnemyIndices);
+        yield return stageObjectGenerator.GenStage(targetStageId, stageGridGenerator.allRoomGrids, currentStageNormalEnemyIndices);
         yield return CustomGC.CollectAsync();
 
         StartCurrentRoom(currentAllRoomController[0]);
@@ -2699,9 +2640,14 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     #endregion
 
     #region Field Obj
-
     public SpriteMaterial GetRandomFieldObjSprite(int typeId)
-        => stageTheme.GetRandomFieldObjSprite(currentStageThemeSO, typeId);
+    {
+        if (currentStageThemeSO == null || currentStageThemeSO.stageId == 99)
+            return null;
+
+        SpriteMaterial[] objSprites = currentStageThemeSO.fieldObjSprites[typeId].array;
+        return objSprites[UnityEngine.Random.Range(0, objSprites.Length)];
+    }
 
     public DestructibleObjectController GetRandomFieldObjPrefab()
     {
