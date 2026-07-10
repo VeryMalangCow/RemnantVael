@@ -635,7 +635,6 @@ public class StageGridGenerator
 
         existPosDict.Clear();
 
-        int failCount = 0, failMaxLimit = 30;
 
         // 처음방 생성
         if (!TryPlaceNormalRoomAtBasePos(0, Vector2Int.zero, 0))
@@ -647,6 +646,7 @@ public class StageGridGenerator
 
         nextRoomId = 1;
 
+        int failCount = 0, failMaxLimit = 30;
         while (currentRoomAmount < targetRoomAmount)
         {
             bool success = false;
@@ -1022,8 +1022,6 @@ public class StageGridGenerator
     private bool TryPlaceSpecialRoomAtCandidate(ReserveRoom reserveRoom, Vector2Int candidatePos, int instanceId)
     {
         int type = reserveRoom.typeId;
-        // ReserveRoom의 실제 필드명이 다르면 이 부분만 맞춰 바꾸면 됨.
-        // 예: reserveRoom.typeIndex, reserveRoom.roomTypeIndex 등
 
         Vector2Int[] ownGrid = ownGridStaticData[type];
 
