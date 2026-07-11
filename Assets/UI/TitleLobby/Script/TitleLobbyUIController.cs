@@ -356,8 +356,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         else if (currentBtn == quitBtn)
         {
             soundSfxName = "Reject";
-            Application.Quit();
+
             AddressablesManager.ReleaseAll();
+            Resources.UnloadUnusedAssets();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            Application.Quit();
         }
 
         else if (Is_Interact_OptionElement(optionUi.languagePanelEui)) return;
