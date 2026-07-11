@@ -82,7 +82,12 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     private void SetWarningTxt()
     {
-        if (GameManager.languageID == 0)
+        int langId = GameManager.languageID;
+        warningTitleTxt.font = StaticResourceManager.instance.LanguageFontReso.LanguageTxts[langId].fontAssets[0];
+        warningTxt.font = StaticResourceManager.instance.LanguageFontReso.LanguageTxts[langId].fontAssets[0];
+        warningExtraTxt.font = StaticResourceManager.instance.LanguageFontReso.LanguageTxts[langId].fontAssets[0];
+
+        if (langId == 0)
         {
             warningTitleTxt.text =
                 "WARNING";
@@ -101,7 +106,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
                 "This game is an unfinished work and may contain unimplemented features or incomplete content.";
 
         }
-        else if (GameManager.languageID == 1)
+        else if (langId == 1)
         {
             warningTitleTxt.text =
                 "°æ°í¹®";
@@ -132,7 +137,9 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             screenCG = CG;
         }
 
-        if (!GameManager.instance.wasWatched)
+        warningCG.gameObject.SetActive(true);
+
+        if (!GameManager.wasWatched)
         {
             screenCG.alpha = 1f;
             warningCG.alpha = 0f;
@@ -180,7 +187,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             .OnComplete(() =>
             {
                 screenCanvas.gameObject.SetActive(false);
-                GameManager.instance.wasWatched = true;
+                GameManager.wasWatched = true;
 
                 titleLobbyUi.isInIntro = false;
             });

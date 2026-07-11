@@ -19,7 +19,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     [Space(10)]
     [Header("=== Intro")]
-    [SerializeField] public bool wasWatched = false;
+    public static bool wasWatched = false;
 
     public static int languageID = -1;
     public static eScreenMode screenMode = eScreenMode.fullScreen;
