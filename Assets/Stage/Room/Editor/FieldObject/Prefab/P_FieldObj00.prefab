@@ -79,7 +79,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -171,6 +171,7 @@ MonoBehaviour:
   targetObject: {fileID: 7945861353772175884}
   thisSr: {fileID: 6431130664222279258}
   targetRange: 0
+  isSortingMover: 0
   typeIndex: 0
 --- !u!50 &1148140664290578724
 Rigidbody2D:
@@ -277,7 +278,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 0.26923078, y: 0.61538464}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

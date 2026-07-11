@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8268785887636094521, guid: 6a62b95d452bccc46897840841783066, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8671702513593221327, guid: 6a62b95d452bccc46897840841783066, type: 3}
       propertyPath: m_Name
       value: R04_RR00

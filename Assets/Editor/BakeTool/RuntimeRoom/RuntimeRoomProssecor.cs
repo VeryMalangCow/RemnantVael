@@ -56,12 +56,14 @@ public static class RuntimeRoomProcessor
             result.AddWarning($"{controller.name} : Invalid Sprite Name.");
 
             sr.sprite = null;
+            sr.material = null;
             return;
         }
 
         controller.SetData(index);
 
         sr.sprite = null;
+        sr.material = null;
 
         result.SuccessCount++;
     }
@@ -83,12 +85,14 @@ public static class RuntimeRoomProcessor
             result.AddWarning($"{controller.name} : Invalid Sprite Name.");
 
             sr.sprite = null;
+            sr.material = null;
             return;
         }
 
         controller.SetData(index);
 
         sr.sprite = null;
+        sr.material = null;
 
         result.SuccessCount++;
     }
@@ -110,12 +114,14 @@ public static class RuntimeRoomProcessor
             result.AddWarning($"{controller.name} : Invalid Sprite Name.");
 
             sr.sprite = null;
+            sr.material = null;
             return;
         }
 
         controller.SetData(index);
 
         sr.sprite = null;
+        sr.material = null;
 
         result.SuccessCount++;
     }
