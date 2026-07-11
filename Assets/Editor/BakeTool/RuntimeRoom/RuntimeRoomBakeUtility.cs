@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /*
@@ -46,4 +48,5 @@ public static class RuntimeRoomBakeUtility
 
         return int.TryParse(indexString, out index);
     }
+
 }

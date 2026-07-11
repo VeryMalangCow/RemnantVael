@@ -1510,8 +1510,16 @@ public class StageObjectGenerator
     {
         ResetData();
 
-        if (currentStageThemeSO != null)
-            AddressablesManager.Release(StageAddress.Get(currentStageThemeSO.stageId));
+
+
+        yield return Resources.UnloadUnusedAssets();
+
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+        yield return null;
+        yield return null;
+
         yield return LoadStageThemeSO(stageId, so => currentStageThemeSO = so);
         if (currentStageThemeSO == null) yield break;
         stageNames = currentStageThemeSO.GetStageNames();
@@ -1566,10 +1574,17 @@ public class StageObjectGenerator
 #if UNITY_EDITOR
         UnityEngine.Debug.Log($"{beforeStageId} -> {afterStageId}");
 #endif
+
         yield return LoadStageThemeSO(beforeStageId, so => beforeStageThemeSO = so);
         yield return LoadStageThemeSO(afterStageId, so => afterStageThemeSO = so);
 
-        AddressablesManager.Release(StageAddress.Get(currentStageId));
+        yield return Resources.UnloadUnusedAssets();
+
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+        yield return null;
+        yield return null;
 
         // Gen
         yield return GenPassageRoom(afterStageId);
@@ -2337,10 +2352,13 @@ public class StageObjectGenerator
 
         MainGameUIManager.instance.hud.MinimapView.AllRemoveMinimapCell();
 
+        if (currentStageThemeSO != null)
+            AddressablesManager.Release(StageAddress.Get(currentStageThemeSO.stageId));
         AddressablesManager.Release(StageAddress.Get(beforeStageId));
         AddressablesManager.Release(StageAddress.Get(afterStageId));
         AddressablesManager.Release(StagePassageAddress.Get(beforeStageId, afterStageId));
 
+        currentStageThemeSO = null;
         beforeStageThemeSO = null;
         afterStageThemeSO = null;
     }

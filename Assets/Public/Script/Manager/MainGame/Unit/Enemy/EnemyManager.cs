@@ -71,6 +71,9 @@ public class EnemyPoolSet<T> where T : EnemyController, IPoolable
             var objs = pool.objs;
             var activeIndices = pool.activeIndices;
 
+            if (activeIndices == null)
+                return;
+
             for (int j = activeIndices.Count - 1; j >= 0; j--)
             {
                 // Movement

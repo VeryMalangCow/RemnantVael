@@ -7477,13 +7477,6 @@ MonoBehaviour:
   initOrder: 14
   initPregressText: Stage & Map Setting...
   targetStageId: 99
-  stageTheme:
-    lobbyStageThemeSO: {fileID: 11400000, guid: 09c8368078f79c5439780900ae5c7ca0, type: 2}
-    allStageThemeSOs:
-    - {fileID: 11400000, guid: 6c09827e069840846815653420de3fd3, type: 2}
-    - {fileID: 11400000, guid: 7358c8b71cb744a4bbc769353e2856ac, type: 2}
-    allStagePassageThemeSOs:
-    - {fileID: 11400000, guid: d045e1400b6e9a54f8cff71ecd27c281, type: 2}
   stageGridGenerator:
     stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
     saveDataManager: {fileID: 657936137}
@@ -12344,9 +12337,6 @@ MonoBehaviour:
   playerPingFrameSpawnTF: {fileID: 1961615626}
   cameraController: {fileID: 1970976550}
   playerPingFramePrefab: {fileID: 5939186333744072550, guid: 6f61bcde71fffdf40aa91ae796beef9c, type: 3}
-  playerThemes:
-  - {fileID: 11400000, guid: efdbba1864725144cac648583b486681, type: 2}
-  - {fileID: 11400000, guid: adec42881c9f6d146a5d22b3c0a35736, type: 2}
 --- !u!1 &1168812488
 GameObject:
   m_ObjectHideFlags: 0
@@ -13940,7 +13930,7 @@ MonoBehaviour:
   bossEnemyPrefabs:
   - {fileID: 1586031869316449163, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
   - {fileID: 1586031869316449163, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
-  currentEnemyList: []
+  currentEnemies: []
 --- !u!1 &1367558787
 GameObject:
   m_ObjectHideFlags: 0

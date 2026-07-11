@@ -732,7 +732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeba613c2500f84b803fc5d173f8548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteKey: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
 --- !u!1 &551974972916055249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2372,7 +2373,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeba613c2500f84b803fc5d173f8548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteKey: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
 --- !u!1 &1389857941770153419
 GameObject:
   m_ObjectHideFlags: 0
@@ -11188,7 +11190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeba613c2500f84b803fc5d173f8548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteKey: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
 --- !u!1 &6578459715756572178
 GameObject:
   m_ObjectHideFlags: 0
@@ -11242,7 +11245,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ebc0ed9589212f34fb9c3aa4df828ad6, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11263,7 +11266,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -3001
-  m_Sprite: {fileID: 1138959698, guid: 360a250d42332ea4480df4cfb9f7b559, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11271,7 +11274,7 @@ SpriteRenderer:
   m_Size: {x: 24, y: 15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!1 &6588193283146903275
@@ -12008,7 +12011,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edeba613c2500f84b803fc5d173f8548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteKey: 
+  thisSr: {fileID: 0}
+  spriteIndex: 0
 --- !u!1 &7035685579633993002
 GameObject:
   m_ObjectHideFlags: 0
@@ -15677,7 +15681,6 @@ MonoBehaviour:
   inRoom_LowerWallParentTF: {fileID: 5702254176889454791}
   inRoom_UpperGateParentTF: {fileID: 847649996618513574}
   inRoom_LowerGateParentTF: {fileID: 8961871396743658750}
-  inRoom_FieldObjSpawnerParentTF: {fileID: 0}
   thisMME: {fileID: 0}
   thisIMME: {fileID: 0}
 --- !u!1 &8702168778813909545
@@ -16633,7 +16636,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ebc0ed9589212f34fb9c3aa4df828ad6, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16654,7 +16657,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -3001
-  m_Sprite: {fileID: 1138959698, guid: 360a250d42332ea4480df4cfb9f7b559, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -16662,7 +16665,7 @@ SpriteRenderer:
   m_Size: {x: 24, y: 15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!1 &9150098137775923583

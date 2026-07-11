@@ -73,6 +73,11 @@ public static class RuntimeRoomBaker
 
         GameObject instance = PrefabUtility.InstantiatePrefab(sourcePrefab) as GameObject;
 
+        PrefabUtility.UnpackPrefabInstance(
+            instance,
+            PrefabUnpackMode.Completely,
+            InteractionMode.AutomatedAction);
+
         RuntimeRoomProcessor.Process(instance, result);
 
         BakeUtility.EnsureFolderExists(runtimePath);
