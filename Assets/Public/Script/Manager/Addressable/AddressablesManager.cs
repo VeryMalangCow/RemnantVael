@@ -91,8 +91,6 @@ public static class AddressablesManager
         }
 
         asset.RefCount--;
-
-
         if (asset.RefCount > 0)
         {
 #if UNITY_EDITOR
@@ -122,23 +120,25 @@ public static class AddressablesManager
 
 public static class StageAddress
 {
-    public static string Get(int stageId) => $"StageTheme_{stageId:00}";
+    public static string Get(int stageId) 
+        => $"StageTheme_{stageId:00}";
 }
 
 public static class StagePassageAddress
 {
-    public static string Get(int beforeId, int afterId) => $"StagePassageTheme_{beforeId:00}_{afterId:00}";
+    public static string Get(int beforeId, int afterId) 
+        => $"StagePassageTheme_{beforeId:00}_{afterId:00}";
 }
 
 public static class PlayerAddress
 {
-    public static string Get(int playerId) => $"PlayerTheme_{playerId:00}";
+    public static string Get(int playerId) 
+        => $"PlayerTheme_{playerId:00}";
 }
 
 public static class EnemyAddress
 {
     public static string Get(eEnemy enemyType, int enemyId)
-    {
-        return $"{enemyType.ToString()}Enemy_{enemyId:00}";
-    }
+        => $"{enemyType.ToString()}Enemy_{enemyId:00}";
+    
 }
