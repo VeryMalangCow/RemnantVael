@@ -1,10 +1,6 @@
 
 public class NormalEnemyController : EnemyController
 {
-    #region Value
-
-    #endregion
-
     #region Framework
 
     protected override void OnEnable()

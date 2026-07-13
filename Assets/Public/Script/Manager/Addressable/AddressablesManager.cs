@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine;
 
 public static class AddressablesManager
 {
@@ -68,6 +69,17 @@ public static class AddressablesManager
         return (T)asset.Handle.Result;
     }
 
+    public static async UniTask<T> LoadPrefabAsync<T>(string address) where T : Component
+    {
+        GameObject prefab = await LoadAsync<GameObject>(address);
+
+        if (prefab == null)
+            return null;
+
+        return prefab.GetComponent<T>();
+    }
+
+
     public static void Release(string address)
     {
         if (!loadedAssets.TryGetValue(address, out AssetHandle asset))
@@ -121,4 +133,12 @@ public static class StagePassageAddress
 public static class PlayerAddress
 {
     public static string Get(int playerId) => $"PlayerTheme_{playerId:00}";
+}
+
+public static class EnemyAddress
+{
+    public static string Get(eEnemy enemyType, int enemyId)
+    {
+        return $"{enemyType.ToString()}Enemy_{enemyId:00}";
+    }
 }

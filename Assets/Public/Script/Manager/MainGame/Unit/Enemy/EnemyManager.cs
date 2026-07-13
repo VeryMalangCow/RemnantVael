@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,39 +7,53 @@ using UnityEngine;
 [Serializable]
 public class EnemyPoolSet<T> where T : EnemyController, IPoolable
 {
+    public eEnemy enemyType;
     public Dictionary<int, PoolSystem<T>> dict = new Dictionary<int, PoolSystem<T>>();
     public List<PoolSystem<T>> updateList = new List<PoolSystem<T>>();
     public Transform parentTf;
 
-    // 생성
-    public IEnumerator SetEnemyPoolAsync(T[] prefabs, List<int> enemyIndices, int size, float limitMsPerFrame = 8f)
+    // Set Pool
+    public IEnumerator SetEnemyPoolAsync(eEnemy type, List<int> enemyIndices, int size, float limitMsPerFrame = 8f)
     {
+        enemyType = type;
+
         for (int i = 0; i < enemyIndices.Count; i++)
         {
-            int index = enemyIndices[i];
-            if (index == -1)
+            int id = enemyIndices[i];
+            if (id == -1)
                 continue;
 
-            T prefab = prefabs[index];
+            T prefab = null;
+
+            yield return UniTask.ToCoroutine(async () =>
+            { 
+                prefab = await AddressablesManager.LoadPrefabAsync<T>(EnemyAddress.Get(enemyType, id));
+            });
+
             PoolSystem<T> pool = new PoolSystem<T>();
 
             yield return pool.InitAsync(prefab, parentTf, size, limitMsPerFrame);
-            dict.Add(index, pool);
+            dict.Add(id, pool);
             updateList.Add(pool);
             yield return null;
         }
     }
 
-    // 제거
-    public IEnumerator DestoryEnemyPoolAsync()
+    // Release
+    public IEnumerator ReleaseEnenmyPrefabAsyce()
     {
-        // 프리펩 모두 삭제
-        foreach (var enemyPool in dict)
-            yield return enemyPool.Value.DestroyAsync();
+        if (dict == null || dict.Count == 0)
+            yield break;
+
+        foreach (var enemy in dict)
+        {
+            int id = enemy.Value.Prefab.Get_ID();
+            yield return enemy.Value.DestroyAsync();
+            AddressablesManager.Release(EnemyAddress.Get(enemyType, id));
+        }
 
         dict.Clear();
         updateList.Clear();
-        
     }
 
     // Update
@@ -124,13 +139,6 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     [SerializeField] private EnemyPoolSet<EliteEnemyController> eliteEnemyPoolSet;
     [SerializeField] private EnemyPoolSet<BossEnemyController> bossEnemyPoolSet;
 
-
-    [Space(10)]
-    [Header("=== Prefab (Before Addressable)")]
-    [SerializeField] private NormalEnemyController[] normalEnemyPrefabs;
-    [SerializeField] private EliteEnemyController[] eliteEnemyPrefabs;
-    [SerializeField] private BossEnemyController[] bossEnemyPrefabs;
-
     // Current
     [HideInInspector] public List<EnemyController> currentEnemies = new List<EnemyController>();
 
@@ -148,22 +156,21 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // Pool Dict 객체 값 -> 삽입 및 생성
     public IEnumerator SetEnemyPoolsAsync(List<int> normalEnemyIndices, List<int> eliteEnemyIndices, List<int> bossEnemyIndices)
     {
-        yield return normalEnemyPoolSet.SetEnemyPoolAsync(normalEnemyPrefabs, normalEnemyIndices, 8);
-        yield return eliteEnemyPoolSet.SetEnemyPoolAsync(eliteEnemyPrefabs, eliteEnemyIndices, 4);
-        yield return bossEnemyPoolSet.SetEnemyPoolAsync(bossEnemyPrefabs, bossEnemyIndices, 2);
+        yield return normalEnemyPoolSet.SetEnemyPoolAsync(eEnemy.Normal, normalEnemyIndices, 8);
+        yield return eliteEnemyPoolSet.SetEnemyPoolAsync(eEnemy.Elite, eliteEnemyIndices, 4);
+        yield return bossEnemyPoolSet.SetEnemyPoolAsync(eEnemy.Boss, bossEnemyIndices, 2);
     }
-
+ 
     // Pool Dict 객체 값 -> 삭제 및 데이터 초기화
     public IEnumerator DestoryEnemyPoolsAsync()
     {
         currentEnemies.Clear();
         currentEliteEnemies.Clear();
         currentBossEnemy = null;
-        yield return normalEnemyPoolSet.DestoryEnemyPoolAsync();
-        yield return eliteEnemyPoolSet.DestoryEnemyPoolAsync();
-        yield return bossEnemyPoolSet.DestoryEnemyPoolAsync();
+        yield return normalEnemyPoolSet.ReleaseEnenmyPrefabAsyce();
+        yield return eliteEnemyPoolSet.ReleaseEnenmyPrefabAsyce();
+        yield return bossEnemyPoolSet.ReleaseEnenmyPrefabAsyce();
     }
-
 
     // Centralized
     private void Update()

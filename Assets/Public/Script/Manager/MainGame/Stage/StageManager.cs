@@ -1489,6 +1489,7 @@ public class StageObjectGenerator
 
         onComplete?.Invoke(result);
     }
+
     private IEnumerator LoadStagePassageThemeSO(int beforeId, int afterId, System.Action<StagePassageThemeSO> onComplete)
     {
         StagePassageThemeSO result = null;
@@ -1509,8 +1510,6 @@ public class StageObjectGenerator
     public IEnumerator GenStage(int stageId, List<RoomGrid> allRoomGrids, List<int> normalEnemyIndices)
     {
         ResetData();
-
-
 
         yield return Resources.UnloadUnusedAssets();
 

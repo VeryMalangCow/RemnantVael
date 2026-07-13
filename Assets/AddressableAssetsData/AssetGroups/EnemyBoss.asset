@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: EnemyBoss
+  m_EditorClassIdentifier: 
+  m_GroupName: EnemyBoss
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 6c6678a2c842b3f48a4e9bff8cb318b6
+  m_SerializeEntries:
+  - m_GUID: 7c4bf812e1abe444fbbfdf23e5602f73
+    m_Address: BossEnemy_00
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5523555bf014cb94b88ca641c7b66025
+    m_Address: BossEnemy_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: faefb08b24b66134eb26958a3c84b00d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3f137998810c9b540a17654d710a667d, type: 2}
+    - {fileID: 11400000, guid: c396961f14f132f4b85c084f6e1a6ed6, type: 2}

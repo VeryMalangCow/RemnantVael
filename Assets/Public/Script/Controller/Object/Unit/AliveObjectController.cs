@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UniRx;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public abstract class AliveObjectController : MovableObjectController

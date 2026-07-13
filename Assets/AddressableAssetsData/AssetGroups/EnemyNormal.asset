@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: EnemyNormal
+  m_EditorClassIdentifier: 
+  m_GroupName: EnemyNormal
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c1f3250e2830cfc49a5213fc98edd9af
+  m_SerializeEntries:
+  - m_GUID: 3ba0b72f1e0418544903a6413d54126d
+    m_Address: NormalEnemy_00
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cacfcde2b84ce8b4ca7ac8e5fa4d2b25
+    m_Address: NormalEnemy_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e1620e20fd845a4cbe427f055149e24
+    m_Address: NormalEnemy_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82ae2858bc289e949994ce56dd3e5659
+    m_Address: NormalEnemy_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: faefb08b24b66134eb26958a3c84b00d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 992f099cf74490e4797d9144cea77e99, type: 2}
+    - {fileID: 11400000, guid: ecd43590541595347881bb73d7143e29, type: 2}
