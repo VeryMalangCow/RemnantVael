@@ -74,9 +74,9 @@ public class EnemyPattern_Follow : EnemyPattern
     // 거리 조건 충족?
     private bool Can_PlayPattern_ConditionByRange()
     {
-        if (untilForTargetRange && targetRange >= DevTool.Get_DisForPlayer(enemy))
+        if (untilForTargetRange && targetRange >= DevTool.GetDisForPlayer(enemy))
         {
-            if (!ignoreWall && enemy.Is_ExistWall(PlayerManager.instance.playerController.transform))
+            if (!ignoreWall && enemy.IsExistWall(PlayerManager.instance.playerController.transform))
             {
                 return true;
             }

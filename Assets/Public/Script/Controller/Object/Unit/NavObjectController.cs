@@ -69,7 +69,7 @@ public class NavObjectController : AliveObjectController
         moveAtDir = Vector2.zero;
     }
 
-    public bool Is_ExistWall(Transform targetTf)
+    public bool IsExistWall(Transform targetTf)
     {
         return DevTool.Is_Exist_UseLine(this.transform, targetTf, "Wall");
     }

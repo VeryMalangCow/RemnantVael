@@ -1266,7 +1266,7 @@ public class DevTool
         return Get_Dir(tType.gameObject, PlayerManager.instance.playerController.gameObject);
     }
 
-    public static float Get_DisForPlayer<T>(T tType) where T : MonoBehaviour
+    public static float GetDisForPlayer<T>(T tType) where T : MonoBehaviour
     {
         return Get_Dis(tType.gameObject, PlayerManager.instance.playerController.gameObject);
     }

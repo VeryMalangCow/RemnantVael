@@ -81,7 +81,7 @@ public class EnemyPattern_Thrust : EnemyPattern
     {
         if (isSpecialPattern) return true;
 
-        float forPlayerDis = DevTool.Get_DisForPlayer(enemy);
+        float forPlayerDis = DevTool.GetDisForPlayer(enemy);
         if (forPlayerDis >= minRange && forPlayerDis < maxRange)
         {
             return true;
