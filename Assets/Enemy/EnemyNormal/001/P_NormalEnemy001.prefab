@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9119119182518581804}
   - component: {fileID: 7671391899007426867}
   - component: {fileID: 6876125761614079064}
+  - component: {fileID: 4099886677428726391}
   m_Layer: 7
   m_Name: P_NormalEnemy001
   m_TagString: Enemy
@@ -262,6 +263,19 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &4099886677428726391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272305898077013730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1431cb2cc2503a4fa775641c18384cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackParts: []
 --- !u!1 &2027737833063953392
 GameObject:
   m_ObjectHideFlags: 0

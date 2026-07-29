@@ -20,14 +20,20 @@ public class NavObjectController : AliveObjectController
     [HideInInspector] protected float moveSpeed;
 
     [HideInInspector] protected Vector2 moveAtDir = Vector2.zero;
-
-    private readonly NavMeshPath navPath = new();
+    
+    protected NavMeshPath navPath;
 
     #endregion
 
     #endregion
 
     #region Offset
+
+    public override void Offset(int id)
+    {
+        base.Offset(id);
+        navPath = new NavMeshPath();
+    }
 
     #endregion
 

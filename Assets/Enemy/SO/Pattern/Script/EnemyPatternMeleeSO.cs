@@ -26,7 +26,55 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
 
     protected override IEnumerator PlayPattern(EnemyAIContext aiContext)
     {
-        throw new System.NotImplementedException();
+        EnemyController enemy = aiContext.enemy;
+        Transform enemyTf = enemy.transform;
+        Transform playerTf = aiContext.player.transform;
+        Vector2 dir = playerTf.transform.position - enemyTf.transform.position;
+
+        enemy.TryGetComponent(out EnemyPatternMeleeProvider provider);
+        
+        if (provider == null)
+            yield break;
+
+        BeforeVfx(startDelay);
+        yield return new WaitForSeconds(startDelay);
+
+        // Actual Attacl Line
+        SoundManager.instance.PlayEnemyAttackSfxRandom(enemyTf.transform.position, "Sword");
+
+        AfterVfx(endDelay);
+        yield return new WaitForSeconds(endDelay);
+    }
+
+    private void PlayAttack(EnemyController enemy, DepthController depth, Vector2 targetDir)
+    {
+        EnemyAttackerController attacker 
+            = AttackerManager.instance.SpawnEnemyAttacker();
+        attacker.enemy = enemy;
+        float targetShadow 
+            = isShadowRangeByDepthController ? depth.targetRange : 0.6f;
+
+        /*attacker.Set_State(
+            _as,
+            State_Juge(),
+            State_Anim(),
+            State_StartTF(depth.transform.position, targetDir),
+            State_EndTF(depth.transform.position, targetDir),
+            targetShadow);
+*/
+        if (lightOn)
+            attacker.Set_Light(
+                lightSize, jugeAndTweenTime);
+    }
+
+    private void BeforeVfx(float startDelay)
+    {
+
+    }
+
+    private void AfterVfx(float endDelay)
+    {
+
     }
 
 #if UNITY_EDITOR
