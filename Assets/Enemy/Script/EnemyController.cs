@@ -592,7 +592,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     private void Set_Die_Data()
     {
         EndAll_Pattern();
-        End_Nav();
+        EndNav();
         hud.Reset_HUD();
 
         // Remove

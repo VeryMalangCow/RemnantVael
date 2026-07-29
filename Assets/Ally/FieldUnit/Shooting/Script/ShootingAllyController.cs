@@ -188,7 +188,7 @@ public class ShootingAllyController : FieldUnitAllyController
         // 따라가기
         if (Is_FollowState(enemy.transform.position, forEnemyDis, true))
         {
-            Set_NavDir(enemy.transform);
+            SetNavDir(enemy.transform);
             Set_Attacking(false);
             Set_AllyStateMode(eAllyStateMode.Move);
         }

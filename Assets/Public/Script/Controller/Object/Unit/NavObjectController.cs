@@ -21,6 +21,8 @@ public class NavObjectController : AliveObjectController
 
     [HideInInspector] protected Vector2 moveAtDir = Vector2.zero;
 
+    private readonly NavMeshPath navPath = new();
+
     #endregion
 
     #endregion
@@ -36,7 +38,7 @@ public class NavObjectController : AliveObjectController
         moveSpeed = followSpeed;
     }
 
-    public void Set_NavDir(Transform targetTf)
+    public void SetNavDir(Transform targetTf)
     {
         Set_NavDir(targetTf.position);
     }
@@ -53,18 +55,18 @@ public class NavObjectController : AliveObjectController
 
     public Vector2 Get_NextDir(Vector3 currentPos, Vector3 targetPos)
     {
-        NavMeshPath navPath = new NavMeshPath();
-
-        if (!NavMesh.CalculatePath(currentPos, targetPos, NavMesh.AllAreas, navPath) ||
-            navPath.corners.Length < 2)
-        {
+        if (!NavMesh.CalculatePath(currentPos, targetPos, NavMesh.AllAreas, navPath))
             return Vector2.zero;
-        }
 
-        return (navPath.corners[1] - currentPos).normalized;
+        Vector3[] corners = navPath.corners;
+
+        if (corners.Length < 2)
+            return Vector2.zero;
+
+        return (corners[1] - currentPos).normalized;
     }
 
-    public void End_Nav()
+    public void EndNav()
     {
         moveAtDir = Vector2.zero;
     }

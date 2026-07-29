@@ -133,7 +133,7 @@ public class EnemyPattern_Follow : EnemyPattern
         {
             if (Can_PlayPattern())
             {
-                enemy.Set_NavDir(targetPc.transform);
+                enemy.SetNavDir(targetPc.transform);
                 yield return new WaitForSeconds(followInitDelay);
             }
             else
@@ -142,7 +142,7 @@ public class EnemyPattern_Follow : EnemyPattern
             }
 
         }
-        enemy.End_Nav();
+        enemy.EndNav();
 
         #endregion
 
