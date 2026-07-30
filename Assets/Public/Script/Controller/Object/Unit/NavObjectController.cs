@@ -39,7 +39,7 @@ public class NavObjectController : AliveObjectController
 
     #region Nav
 
-    public void Set_MoveSpeed(float followSpeed)
+    public void SetMoveSpeed(float followSpeed)
     {
         moveSpeed = followSpeed;
     }

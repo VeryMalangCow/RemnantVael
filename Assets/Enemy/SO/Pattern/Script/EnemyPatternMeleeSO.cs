@@ -24,7 +24,7 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
     [Header("-- Size")]
     [SerializeField] private Vector2 size;
 
-    protected override IEnumerator PlayPattern(EnemyAIContext aiContext)
+    public override IEnumerator PlayPattern(EnemyAIContext aiContext)
     {
         EnemyController enemy = aiContext.enemy;
         Transform enemyTf = enemy.transform;

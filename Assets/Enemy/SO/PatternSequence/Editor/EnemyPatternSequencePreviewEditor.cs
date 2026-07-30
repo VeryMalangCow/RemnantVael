@@ -40,12 +40,18 @@ public class EnemyPatternSequencePreviewEditor : Editor
         Rect rect2 = EditorGUILayout.GetControlRect(false, 1);
         EditorGUI.DrawRect(rect2, subPreviewNameClr);
 
+        if (SO.Conditions == null || SO.Conditions.Length == 0)
+            return;
+
         foreach (var condition in SO.Conditions)
             TextCondition(condition);
     }
 
     private void TextCondition(EnemyPatternConditionSO conditionSO)
     {
+        if (conditionSO == null)
+            return;
+
         Rect rect = EditorGUILayout.GetControlRect(false, 0f);
 
         var preview = conditionSO.GetPreview();
@@ -66,12 +72,18 @@ public class EnemyPatternSequencePreviewEditor : Editor
         Rect rect2 = EditorGUILayout.GetControlRect(false, 1);
         EditorGUI.DrawRect(rect2, subPreviewNameClr);
 
+        if (SO.Patterns == null || SO.Patterns.Length == 0)
+            return;
+
         foreach (var pattern in SO.Patterns)
             TextPattern(pattern);
     }
 
     private void TextPattern(EnemyPatternSO patternSO)
     {
+        if (patternSO == null)
+            return;
+
         Rect rect = EditorGUILayout.GetControlRect(false, 0f);
         var preview = patternSO.GetPreview();
         TextElement(preview);

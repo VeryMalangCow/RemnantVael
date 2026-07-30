@@ -140,7 +140,7 @@ public class EnemyPattern_Thrust : EnemyPattern
             out Vector2 endPoint))
         {
             enemy.Set_NavDir(endPoint);
-            enemy.Set_MoveSpeed(speed);
+            enemy.SetMoveSpeed(speed);
         }
 
         SoundManager.instance.PlayEnemyAttackSfxRandom(transform.position, "Thrust");
@@ -172,7 +172,7 @@ public class EnemyPattern_Thrust : EnemyPattern
         isThrusting = false;
         dirForTarget = Vector2.zero;
         enemy.Set_NavDir(Vector2.zero);
-        enemy.Set_MoveSpeed(0);
+        enemy.SetMoveSpeed(0);
     }
 
     #endregion

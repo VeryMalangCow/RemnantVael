@@ -44,7 +44,7 @@ public class EliteEnemyController : EnemyController
         EnemyManager.instance.Add_EliteEnemy(this);
 
         // Pattern
-        Start_PatternFromNone();
+        //Start_PatternFromNone();
     }
 
     #endregion

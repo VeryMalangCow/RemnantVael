@@ -126,7 +126,7 @@ public class EnemyPattern_Follow : EnemyPattern
 
         #region Actual
 
-        enemy.Set_MoveSpeed(followingSpeed);
+        enemy.SetMoveSpeed(followingSpeed);
         PlayerController targetPc = PlayerManager.instance.playerController;
 
         while (true)

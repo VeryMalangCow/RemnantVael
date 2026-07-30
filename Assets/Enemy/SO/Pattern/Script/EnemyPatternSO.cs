@@ -8,7 +8,7 @@ public abstract class EnemyPatternSO : ScriptableObject
     [SerializeField] protected float endDelay = 0f;
 
     /// <summary> 실제 패턴 구동 </summary>
-    protected abstract IEnumerator PlayPattern(EnemyAIContext aiContext);
+    public abstract IEnumerator PlayPattern(EnemyAIContext aiContext);
 
 #if UNITY_EDITOR
 

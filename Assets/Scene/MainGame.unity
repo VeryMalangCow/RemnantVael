@@ -12982,7 +12982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8cce342d2e4c74da9aafa6c1684b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wasWatched: 0
 --- !u!4 &1246149682
 Transform:
   m_ObjectHideFlags: 0
@@ -13910,27 +13909,19 @@ MonoBehaviour:
   hittedAC_1: {fileID: 7400000, guid: c871472990cbec34cb198596439ad843, type: 2}
   hittedAC_2: {fileID: 7400000, guid: ad2333be6b080184da375f3e13c7316e, type: 2}
   normalEnemyPoolSet:
+    enemyType: 0
     updateList: []
     parentTf: {fileID: 1149777724}
   eliteEnemyPoolSet:
+    enemyType: 0
     updateList: []
     parentTf: {fileID: 2075431383}
   bossEnemyPoolSet:
+    enemyType: 0
     updateList: []
     parentTf: {fileID: 217165031}
-  normalEnemyPrefabs:
-  - {fileID: 848216773187047800, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
-  - {fileID: 848216773187047800, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
-  - {fileID: 848216773187047800, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
-  - {fileID: 848216773187047800, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
-  eliteEnemyPrefabs:
-  - {fileID: 2232013880238854159, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
-  - {fileID: 2232013880238854159, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
-  - {fileID: 2232013880238854159, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
-  bossEnemyPrefabs:
-  - {fileID: 1586031869316449163, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
-  - {fileID: 1586031869316449163, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
   currentEnemies: []
+  defaultSequenceSO: {fileID: 11400000, guid: 48048a56c54fa9f49ac85e102d25e40f, type: 2}
 --- !u!1 &1367558787
 GameObject:
   m_ObjectHideFlags: 0

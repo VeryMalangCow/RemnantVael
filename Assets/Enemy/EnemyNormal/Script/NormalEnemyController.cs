@@ -8,7 +8,7 @@ public class NormalEnemyController : EnemyController
         base.OnEnable();
 
         // Pattern
-        Start_PatternFromNone();
+        //Start_PatternFromNone();
     }
 
     #endregion

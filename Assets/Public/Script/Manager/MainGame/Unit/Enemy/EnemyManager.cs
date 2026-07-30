@@ -145,6 +145,10 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     [HideInInspector] private List<EliteEnemyController> currentEliteEnemies = new List<EliteEnemyController>();
     [HideInInspector] private BossEnemyController currentBossEnemy = null;
 
+    [Space(10)]
+    [Header("=== Pattern")]
+    [SerializeField] private EnemyPatternSequenceSO defaultSequenceSO;
+    public EnemyPatternSequenceSO DefaultSequenceSO => defaultSequenceSO;
 
     public IEnumerator Initialize()
     {

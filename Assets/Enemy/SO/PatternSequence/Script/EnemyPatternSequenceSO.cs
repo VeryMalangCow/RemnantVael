@@ -1,22 +1,28 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyPatternSetSO", 
+[CreateAssetMenu(fileName = "PatternSequenceSO", 
     menuName = "ScriptableObject/EnemyPatternSO/PatternSet")]
 public class EnemyPatternSequenceSO : ScriptableObject
 {
     [SerializeField] private EnemyPatternConditionSO[] conditions;
     [SerializeField] private EnemyPatternSO[] patterns;
 
-#if UNITY_EDITOR
-    public EnemyPatternSO[] Patterns => patterns;
-    public EnemyPatternConditionSO[] Conditions => conditions;
-#endif
+    public IReadOnlyList<EnemyPatternSO> Patterns => patterns;
+    public IReadOnlyList<EnemyPatternConditionSO> Conditions => conditions;
 
-    public bool CanPlayPattern(EnemyAIContext context)
+
+    public bool IsSatisfied(EnemyAIContext context)
     {
+        if (conditions == null || conditions.Length == 0)
+            return true;
+
         for (int i = 0; i < conditions.Length; i++)
         {
-            if (!conditions[i].CanPlayPattern(context))
+            if (conditions[i] == null)
+                continue;
+
+            if (!conditions[i].IsSatisfied(context))
                 return false;
         }
 

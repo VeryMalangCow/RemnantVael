@@ -3,15 +3,25 @@ using UnityEngine;
 
 public class EnemyPatternSelector
 {
+    [Header("Priority (Lower is Higher)")]
     private List<EnemyPatternEntry> samePriorityPatternsCache = new();
+
+    private EnemyPatternCollectionSO collectionSO;
+    private EnemyPatternSequenceSO defaultSequenceSO;
+
+    public EnemyPatternSelector(EnemyPatternCollectionSO collectionSO, EnemyPatternSequenceSO defaultSequenceSO)
+    {
+        this.collectionSO = collectionSO;
+        this.defaultSequenceSO = defaultSequenceSO;
+    }
 
     // patterns must be sorted by priority.
     /// <summary> Get Playable Pattern From PatternCollectionSO </summary>
-    private EnemyPatternSequenceSO GetPlayablePattern(EnemyPatternCollectionSO SO, EnemyAIContext context)
+    public EnemyPatternSequenceSO GetPlayablePattern(EnemyAIContext context)
     {
-        SetSamePriorityPatterns(SO.patterns, context);
+        SetSamePriorityPatterns(collectionSO.patterns, context);
         var entry = GetPatternEntryByWeight();
-        return entry?.so;
+        return entry?.so ?? defaultSequenceSO;
     }
 
     /// <summary> Set Same Priority Pattarns -> [samePriorityPatternsCache] </summary>
@@ -24,7 +34,7 @@ public class EnemyPatternSelector
 
         for (int i = 0; i < patterns.Count; i++)
         {
-            bool canPlay = patterns[i].so.CanPlayPattern(context);
+            bool canPlay = patterns[i].so.IsSatisfied(context);
 
             if (!selectedPrirority && canPlay)
             {

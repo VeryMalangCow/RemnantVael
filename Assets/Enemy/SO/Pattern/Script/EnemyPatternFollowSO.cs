@@ -14,7 +14,7 @@ public class EnemyPatternFollowSO : EnemyPatternSO
     private static readonly WaitForSeconds followWait = new(followInitDelay);
 
 
-    protected override IEnumerator PlayPattern(EnemyAIContext aiContext)
+    public override IEnumerator PlayPattern(EnemyAIContext aiContext)
     {
         EnemyController enemy = aiContext.enemy;
 
@@ -27,9 +27,11 @@ public class EnemyPatternFollowSO : EnemyPatternSO
         float currentDis;
         bool existWall;
 
+        int wallMask = aiContext.wallLayer;
+
         yield return new WaitForSeconds(startDelay);
 
-        enemy.Set_MoveSpeed(speed);
+        enemy.SetMoveSpeed(speed);
 
         while (true)
         {
@@ -46,7 +48,7 @@ public class EnemyPatternFollowSO : EnemyPatternSO
             {
                 existWall = Physics2D.CircleCast(
                     aPos, rayRadius, dir.normalized, currentDis,
-                    LayerMask.GetMask("Wall")).collider != null;
+                    wallMask).collider != null;
             }
 
             if (currentDis <= dis && !existWall)
@@ -55,6 +57,8 @@ public class EnemyPatternFollowSO : EnemyPatternSO
             enemy.SetNavDir(playerTf);
             yield return followWait;
         }
+
+        enemy.SetMoveSpeed(0);
         enemy.EndNav();
 
         yield return new WaitForSeconds(endDelay);

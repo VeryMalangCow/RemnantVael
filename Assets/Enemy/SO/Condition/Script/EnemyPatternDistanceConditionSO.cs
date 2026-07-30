@@ -8,7 +8,7 @@ public class EnemyPatternDistanceConditionSO : EnemyPatternConditionSO
     [SerializeField] private bool farMode;
     [SerializeField] private float targetRange;
 
-    public override bool CanPlayPattern(EnemyAIContext aiContext)
+    public override bool IsSatisfied(EnemyAIContext aiContext)
     {
         float currentDis = Vector2.Distance(aiContext.player.transform.position, aiContext.enemy.transform.position);
 

@@ -8,10 +8,14 @@ public abstract class EnemyController : NavObjectController, IPoolable
 {
     #region Value
 
-    #region - Inspector
-
     [Space(20)]
     [Header("<><><><><> Enemy")]
+
+    // Pattern
+    [SerializeField] private EnemyPatternCollectionSO patternCollectionSO;
+    private EnemyAIContext aiContext;
+    private EnemyPatternSelector patternSelector;
+    private EnemyPatternRunner patternRunner;
 
     [Space(10)]
     [Header("=== Comp")]
@@ -48,8 +52,6 @@ public abstract class EnemyController : NavObjectController, IPoolable
     [Tooltip("This Order of Priority Equle Index")]
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> orderOfPriorityEnemyPatternList;
     [SerializeField] protected ContinuousEnemyPattern specialPattern;
-
-    #endregion
 
     #region - Hide
 
@@ -88,6 +90,31 @@ public abstract class EnemyController : NavObjectController, IPoolable
     public int ActiveIndex { get; set; } = -1;
 
     #endregion
+
+    #endregion
+
+    #region Pattern
+
+    private void SetEnemyPattern()
+    {
+        aiContext = new EnemyAIContext(
+            player: PlayerManager.instance.playerController,
+            enemy: this);
+
+        patternSelector = new EnemyPatternSelector(
+            collectionSO: patternCollectionSO,
+            defaultSequenceSO: EnemyManager.instance.DefaultSequenceSO);
+
+        patternRunner = new EnemyPatternRunner(
+            patternSelector, 
+            aiContext);
+    }
+
+    private void StartLoopPattern()
+    {
+        StartCoroutine(patternRunner.RunLoop());
+    }
+
     #endregion
 
     #region Pool
@@ -185,6 +212,8 @@ public abstract class EnemyController : NavObjectController, IPoolable
         base.OnEnable();
 
         AddSortingLayer();
+        SetEnemyPattern();
+        StartLoopPattern();
     }
 
     private void OnDisable()
@@ -621,7 +650,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     #endregion
 
-    #region Pattern
+    #region Pattern _ OLD
 
     public void EndAll_Pattern()
     {

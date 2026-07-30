@@ -7,7 +7,7 @@ public class EnemyPatternHasClearSightConditionSO : EnemyPatternConditionSO
     [Header("=== HasClearSight")]
     [SerializeField] private float radius;
 
-    public override bool CanPlayPattern(EnemyAIContext aiContext)
+    public override bool IsSatisfied(EnemyAIContext aiContext)
     {
         Vector2 aPos = aiContext.enemy.transform.position;
         Vector2 bPos = aiContext.player.transform.position;
@@ -22,7 +22,7 @@ public class EnemyPatternHasClearSightConditionSO : EnemyPatternConditionSO
             radius,
             dir / distance,
             distance,
-            LayerMask.GetMask("Wall")).collider == null;
+            aiContext.wallLayer).collider == null;
     }
     
 #if UNITY_EDITOR

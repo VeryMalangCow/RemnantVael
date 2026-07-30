@@ -78,6 +78,7 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   particleThrowDis: 2
+  patternCollectionSO: {fileID: 11400000, guid: d40b3129056164c4f98a8766d93a6187, type: 2}
   sg: {fileID: 6876125761614079064}
   buff: {fileID: 9119119182518581804}
   enemyType: 0
@@ -275,7 +276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1431cb2cc2503a4fa775641c18384cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackParts: []
+  attackDepths: []
+  vfxDepths: []
 --- !u!1 &2027737833063953392
 GameObject:
   m_ObjectHideFlags: 0
