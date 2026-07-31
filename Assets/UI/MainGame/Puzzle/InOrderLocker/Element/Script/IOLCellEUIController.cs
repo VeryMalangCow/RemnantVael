@@ -122,7 +122,7 @@ public class IOLCellEUIController : OwnBtnEUIController
     {
         if (isTweeing || !isInteractable || isOn) return;
 
-        DevTool.Set_KillTween(onOffSeq);
+        DevTool.SetKillTween(onOffSeq);
 
         onOffSeq = DOTween.Sequence();
 
@@ -144,7 +144,7 @@ public class IOLCellEUIController : OwnBtnEUIController
     {
         if (isTweeing || !isInteractable || !isOn) return;
 
-        DevTool.Set_KillTween(onOffSeq);
+        DevTool.SetKillTween(onOffSeq);
 
         onOffSeq = DOTween.Sequence();
 

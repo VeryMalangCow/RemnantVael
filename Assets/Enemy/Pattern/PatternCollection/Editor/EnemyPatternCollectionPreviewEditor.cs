@@ -38,10 +38,10 @@ public class EnemyPatternCollectionPreviewEditor : Editor
     public void TextPatternSequence(EnemyPatternSequenceSO sequenceSO)
     {
         var patterns = sequenceSO.Patterns;
-        for (int i = 0; i < patterns.Length; i++)
+        for (int i = 0; i < patterns.Count; i++)
         {
             TextPatternElement(patterns[i]);
-            if (i != patterns.Length - 1)
+            if (i != patterns.Count - 1)
                 TextArrow();
         }
     }

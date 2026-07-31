@@ -99,7 +99,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     public void Play_Selected(float targetAlpha, float targetScale, float durTime)
     {
-        DevTool.Set_KillTween(signSeq);
+        DevTool.SetKillTween(signSeq);
         signSeq = DOTween.Sequence();
 
         signSeq.Append(signImg.DOFade(targetAlpha, durTime).SetEase(Ease.Linear));
@@ -108,7 +108,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     public void Set_SelectedOff()
     {
-        DevTool.Set_KillTween(signSeq);
+        DevTool.SetKillTween(signSeq);
 
         DevTool.Get_AlphaColor(signImg, 0f);
         signRt.localScale = Vector2.one;

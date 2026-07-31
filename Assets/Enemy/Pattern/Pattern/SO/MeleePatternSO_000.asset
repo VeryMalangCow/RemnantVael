@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDelay: 1.75
   endDelay: 1.25
-  repeatAmount: 1
   animation: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   isShadowRangeByDepthController: 1
   lightOn: 1
@@ -24,3 +23,17 @@ MonoBehaviour:
   spawnDis: 0.7
   endDis: 1.3
   size: {x: 1, y: 1}
+  attakerState:
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 10
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.5
+      kbTime: 1

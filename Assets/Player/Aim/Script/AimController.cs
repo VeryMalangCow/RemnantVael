@@ -77,7 +77,7 @@ public class AimController : StaticDepthController
     {
         targetObject.transform.localRotation = Quaternion.Slerp(
             targetObject.transform.localRotation,
-            DevTool.Get_RotFromDir(InputManager.instance.dirFromPlayerPos), 
+            DevTool.GetRotFromDir(InputManager.instance.dirFromPlayerPos), 
             aimFollowSpeed * deltaTime);
     }
 

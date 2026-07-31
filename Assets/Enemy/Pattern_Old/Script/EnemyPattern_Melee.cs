@@ -151,7 +151,7 @@ public class EnemyPattern_Melee : EnemyPattern
     {
         return new State_TF2D(
             spawnPos + (targetDir * spawnDis),
-            DevTool.Get_RotFromDir(targetDir),
+            DevTool.GetRotFromDir(targetDir),
             Vector2.one);
     }
 
@@ -159,7 +159,7 @@ public class EnemyPattern_Melee : EnemyPattern
     {
         return new AttackerState_EndTF(
             spawnPos + (targetDir * endDis),
-            DevTool.Get_RotFromDir(targetDir),
+            DevTool.GetRotFromDir(targetDir),
             Vector2.one, jugeAndTweenTime);
     }
 
@@ -179,7 +179,7 @@ public class EnemyPattern_Melee : EnemyPattern
 
     private void Play_BeforeEffect(float startDelay)
     {
-        DevTool.Set_KillTween(beforeEffectSeq);
+        DevTool.SetKillTween(beforeEffectSeq);
         beforeEffectSeq = DOTween.Sequence();
 
         startDelay *= 0.8f;
@@ -192,7 +192,7 @@ public class EnemyPattern_Melee : EnemyPattern
 
     private void Play_AfterEffect(float endDelay)
     {
-        DevTool.Set_KillTween(beforeEffectSeq);
+        DevTool.SetKillTween(beforeEffectSeq);
         beforeEffectSeq = DOTween.Sequence();
 
         endDelay *= 0.8f;

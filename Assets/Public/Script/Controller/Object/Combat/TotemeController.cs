@@ -145,7 +145,7 @@ public abstract class TotemeController : DroppingDepthController, IPoolable
     public virtual void Set_State_PosAndRot(BulletState_PosAndRot state_PosAndRot)
     {
         this.transform.position = state_PosAndRot.spawnPos + (state_PosAndRot.dir * state_PosAndRot.dis);
-        this.transform.localRotation = DevTool.Get_RotFromDir(state_PosAndRot.dir);
+        this.transform.localRotation = DevTool.GetRotFromDir(state_PosAndRot.dir);
 
         DevTool.Add_RotZValue(transform, state_PosAndRot.spreadAngle);
     }

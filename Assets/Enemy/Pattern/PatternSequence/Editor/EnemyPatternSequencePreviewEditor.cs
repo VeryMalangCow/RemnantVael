@@ -40,7 +40,7 @@ public class EnemyPatternSequencePreviewEditor : Editor
         Rect rect2 = EditorGUILayout.GetControlRect(false, 1);
         EditorGUI.DrawRect(rect2, subPreviewNameClr);
 
-        if (SO.Conditions == null || SO.Conditions.Length == 0)
+        if (SO.Conditions == null || SO.Conditions.Count == 0)
             return;
 
         foreach (var condition in SO.Conditions)
@@ -72,7 +72,7 @@ public class EnemyPatternSequencePreviewEditor : Editor
         Rect rect2 = EditorGUILayout.GetControlRect(false, 1);
         EditorGUI.DrawRect(rect2, subPreviewNameClr);
 
-        if (SO.Patterns == null || SO.Patterns.Length == 0)
+        if (SO.Patterns == null || SO.Patterns.Count == 0)
             return;
 
         foreach (var pattern in SO.Patterns)

@@ -28,7 +28,7 @@ public class EnemyPatternRunner
 
         var patterns = sequenceSO.Patterns;
 
-        for (int i = 0; i < patterns.Length; i++)
+        for (int i = 0; i < patterns.Count; i++)
         {
             if (patterns[i] == null)
                 continue;

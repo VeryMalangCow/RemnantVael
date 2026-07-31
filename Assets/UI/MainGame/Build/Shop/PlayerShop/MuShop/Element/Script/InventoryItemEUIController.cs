@@ -107,7 +107,7 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
 
     private void Play_Selected(float targetScale, float durTime)
     {
-        DevTool.Set_KillTween(signSeq);
+        DevTool.SetKillTween(signSeq);
         signSeq = DOTween.Sequence();
 
         signSeq.Append(rt.DOScale(targetScale, durTime).SetEase(Ease.Linear));

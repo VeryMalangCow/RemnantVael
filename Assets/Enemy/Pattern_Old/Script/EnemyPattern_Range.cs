@@ -214,7 +214,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private void Play_BeforeEffect(float startDelay)
     {
-        DevTool.Set_KillTween(beforeEffectSeq);
+        DevTool.SetKillTween(beforeEffectSeq);
         beforeEffectSeq = DOTween.Sequence();
 
         startDelay *= 0.8f;
@@ -227,7 +227,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private void Play_AfterEffect(float endDelay)
     {
-        DevTool.Set_KillTween(beforeEffectSeq);
+        DevTool.SetKillTween(beforeEffectSeq);
         beforeEffectSeq = DOTween.Sequence();
 
         endDelay *= 0.8f;

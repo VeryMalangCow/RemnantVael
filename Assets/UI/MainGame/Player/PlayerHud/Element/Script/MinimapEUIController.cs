@@ -236,7 +236,7 @@ public class MinimapEUIController : ElementUIController
 
     public void SetOn_TabInteract(float durTime)
     {
-        DevTool.Set_KillTween(tabSeq);
+        DevTool.SetKillTween(tabSeq);
 
         tabSeq = Play_MinimapTween(
             targetSize: interactableSize_Frame,
@@ -266,7 +266,7 @@ public class MinimapEUIController : ElementUIController
 
     public void SetOff_TabInteract(float durTime)
     {
-        DevTool.Set_KillTween(tabSeq);
+        DevTool.SetKillTween(tabSeq);
         tabSeq = Play_MinimapTween(
             targetSize: normalSize_Frame,
             normalMinimapAlpha: 1f,

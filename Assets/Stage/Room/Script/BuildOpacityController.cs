@@ -123,7 +123,7 @@ public class BuildOpacityController : MonoBehaviour
 
         targetOpactiyValue = alpha;
 
-        DevTool.Set_KillTween(thisSeq);
+        DevTool.SetKillTween(thisSeq);
 
         thisSeq = DOTween.Sequence();
         for (int i = 0; i < setSrList.Count; i++)

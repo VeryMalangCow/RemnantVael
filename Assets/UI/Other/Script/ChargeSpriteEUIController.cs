@@ -52,7 +52,7 @@ public class ChargeSpriteEUIController : ElementUIController
 
     public void Set_Complete(float fadeInTime, float stayTime, float fadeOutTime)
     {
-        DevTool.Set_KillTween(dotweenSeq);
+        DevTool.SetKillTween(dotweenSeq);
         dotweenSeq = DOTween.Sequence();
 
         // Scale

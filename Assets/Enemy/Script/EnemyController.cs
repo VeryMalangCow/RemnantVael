@@ -112,6 +112,9 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     private void StartLoopPattern()
     {
+        if (patternCollectionSO == null)
+            return;
+
         StartCoroutine(patternRunner.RunLoop());
     }
 

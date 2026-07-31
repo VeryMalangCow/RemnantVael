@@ -192,7 +192,7 @@ public class CameraController : MonoBehaviour
 
     public void Stop_SlowMotion()
     {
-        DevTool.Set_KillTween(SlowMotionSeq); 
+        DevTool.SetKillTween(SlowMotionSeq); 
         Time.timeScale = 1;
     }
 

@@ -45,7 +45,7 @@ public class HudMinimapView : MonoBehaviour
     }
     public void TabOn(float durTime)
     {
-        DevTool.SetKillTween(tween);
+        DevTool.SetKillTween<Sequence>(tween);
 
         tween = DOTween.Sequence();
         tween.Join(stageNameTxt.DOFade(0f, durTime));
@@ -55,7 +55,7 @@ public class HudMinimapView : MonoBehaviour
 
     public void TabOff(float durTime)
     {
-        DevTool.SetKillTween(tween);
+        DevTool.SetKillTween<Sequence>(tween);
 
         tween = DOTween.Sequence();
         tween.Join(stageNameTxt.DOFade(1f, durTime));

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9119119182518581804}
   - component: {fileID: 7671391899007426867}
   - component: {fileID: 6876125761614079064}
-  - component: {fileID: 4099886677428726391}
+  - component: {fileID: 4573821773653709229}
   m_Layer: 7
   m_Name: P_NormalEnemy001
   m_TagString: Enemy
@@ -264,7 +264,7 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!114 &4099886677428726391
+--- !u!114 &4573821773653709229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,11 +273,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 272305898077013730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1431cb2cc2503a4fa775641c18384cb, type: 3}
+  m_Script: {fileID: 11500000, guid: fc9e9083bbd1f5547aa5b80db9630034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDepths: []
-  vfxDepths: []
+  attackDepths:
+  - {fileID: 3188852279976695383}
+  - {fileID: 6006018085818984770}
+  weaponSpriteRenderers:
+  - {fileID: 5349680463690700801}
+  - {fileID: 1014013253000611062}
+  weaponVfxClr: {r: 1, g: 0, b: 1, a: 1}
+  weaponVfxSize: 1.5
 --- !u!1 &2027737833063953392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,6 +1108,11 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1874183789220357432, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
   m_PrefabInstance: {fileID: 1209816982843721144}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &1014013253000611062 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2222629274383368526, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+  m_PrefabInstance: {fileID: 1209816982843721144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2049838694462011808 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 916587305532177432, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -1129,6 +1140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &5349680463690700801 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6554919075280264633, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+  m_PrefabInstance: {fileID: 1209816982843721144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5699877514564404238 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6904064703115002294, guid: 2624ebe61065a2c4182be26361acf836, type: 3}

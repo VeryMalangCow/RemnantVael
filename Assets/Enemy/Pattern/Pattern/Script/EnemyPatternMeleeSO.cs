@@ -24,25 +24,35 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
     [Header("-- Size")]
     [SerializeField] private Vector2 size;
 
+    [Header("-- State")]
+    [SerializeField] private AttackerState attakerState;
+
     public override IEnumerator PlayPattern(EnemyAIContext aiContext)
     {
         EnemyController enemy = aiContext.enemy;
         Transform enemyTf = enemy.transform;
         Transform playerTf = aiContext.player.transform;
         Vector2 dir = playerTf.transform.position - enemyTf.transform.position;
-
-        enemy.TryGetComponent(out EnemyPatternMeleeProvider provider);
-        
-        if (provider == null)
+        var module = aiContext.GetModule<EnemyMeleeModule>();
+        if (module == null)
             yield break;
 
-        BeforeVfx(startDelay);
+        module.presenter.PlayVfxOn();
         yield return new WaitForSeconds(startDelay);
 
         // Actual Attacl Line
+        var depths = module.pointer.AttackDepths;
+        for (int i = 0; i< depths.Length; i++)
+        {
+            var depth = depths[i];
+            if (depth == null)
+                continue;
+            PlayAttack(enemy, depth, dir);
+        }
+
         SoundManager.instance.PlayEnemyAttackSfxRandom(enemyTf.transform.position, "Sword");
 
-        AfterVfx(endDelay);
+        module.presenter.PlayVfxOff();
         yield return new WaitForSeconds(endDelay);
     }
 
@@ -51,31 +61,27 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
         EnemyAttackerController attacker 
             = AttackerManager.instance.SpawnEnemyAttacker();
         attacker.enemy = enemy;
-        float targetShadow 
-            = isShadowRangeByDepthController ? depth.targetRange : 0.6f;
 
-        /*attacker.Set_State(
-            _as,
-            State_Juge(),
-            State_Anim(),
-            State_StartTF(depth.transform.position, targetDir),
-            State_EndTF(depth.transform.position, targetDir),
-            targetShadow);
-*/
+        attacker.Set_State(
+            attakerState,
+            new AttackerState_Juge<CircleCollider2D>(size),
+            new State_Anim(animation, animSpeed),
+            new State_TF2D(
+                GetStartPos(depth, targetDir, spawnDis),
+                DevTool.GetRotFromDir(targetDir)),
+            new AttackerState_EndTF(
+                GetStartPos(depth, targetDir, endDis),
+                DevTool.GetRotFromDir(targetDir), 
+                jugeAndTweenTime),
+            isShadowRangeByDepthController ? depth.targetRange : 0.6f);
+
         if (lightOn)
             attacker.Set_Light(
                 lightSize, jugeAndTweenTime);
     }
 
-    private void BeforeVfx(float startDelay)
-    {
-
-    }
-
-    private void AfterVfx(float endDelay)
-    {
-
-    }
+    private Vector2 GetStartPos(DepthController depth, Vector2 targetDir, float addDis)
+        => (Vector2)depth.transform.position + (targetDir * addDis);
 
 #if UNITY_EDITOR
     public override PatternPreviewElement GetPreview()

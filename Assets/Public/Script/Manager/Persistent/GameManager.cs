@@ -982,7 +982,7 @@ public class DevTool
 
     // 좌표값 (Vector2:Dir)
     // => 회전값 (Quaternion:Rot)
-    public static Quaternion Get_RotFromDir(Vector2 dir)
+    public static Quaternion GetRotFromDir(Vector2 dir)
     {
         return Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, dir));
     }
@@ -1176,7 +1176,7 @@ public class DevTool
         { DOTween.Kill(_ID); }
     }
 
-    public static void Set_KillTween(Sequence _Seq)
+    public static void SetKillTween(Sequence _Seq)
     {
         if (_Seq != null && DOTween.IsTweening(_Seq))
         { DOTween.Kill(_Seq); }
@@ -4997,6 +4997,13 @@ public struct State_TF2D
         this.localScale = localScale;
     }
 
+    public State_TF2D(Vector2 pos, Quaternion rot)
+    {
+        this.pos = pos;
+        this.rot = rot;
+        this.localScale = Vector2.one;
+    }
+
     #endregion
 }
 
@@ -5089,6 +5096,15 @@ public struct AttackerState_EndTF
         tf.pos = pos;
         tf.rot = rot;
         tf.localScale = size;
+
+        this.time = time;
+    }
+
+    public AttackerState_EndTF(Vector2 pos, Quaternion rot, float time)
+    {
+        tf.pos = pos;
+        tf.rot = rot;
+        tf.localScale = Vector2.one;
 
         this.time = time;
     }

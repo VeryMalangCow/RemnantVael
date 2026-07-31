@@ -163,7 +163,7 @@ public abstract class BulletController : MovableDepthController, IPoolable
     public virtual void Set_State_PosAndRot(BulletState_PosAndRot state_PosAndRot)
     {
         this.transform.position = state_PosAndRot.spawnPos + (state_PosAndRot.dir * state_PosAndRot.dis);
-        this.transform.localRotation = DevTool.Get_RotFromDir(state_PosAndRot.dir);
+        this.transform.localRotation = DevTool.GetRotFromDir(state_PosAndRot.dir);
 
         DevTool.Add_RotZValue(transform, state_PosAndRot.spreadAngle);
     }
@@ -292,7 +292,7 @@ public abstract class BulletController : MovableDepthController, IPoolable
     protected void Set_RotToTarget(float rotSpeed, float fixedDeltaTime)
     {
         Quaternion fromRot = this.transform.rotation;
-        Quaternion toRot = DevTool.Get_RotFromDir((enemy.transform.position - this.transform.position).normalized);
+        Quaternion toRot = DevTool.GetRotFromDir((enemy.transform.position - this.transform.position).normalized);
 
         this.transform.rotation = Quaternion.Slerp(fromRot, toRot, rotSpeed * fixedDeltaTime);
     }
