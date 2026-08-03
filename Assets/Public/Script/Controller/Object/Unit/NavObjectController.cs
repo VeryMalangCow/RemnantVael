@@ -10,9 +10,6 @@ public class NavObjectController : AliveObjectController
     [Space(20)]
     [Header("<><><><><> Nav")]
 
-    [Space(10)]
-    [Header("=== Temp")]
-
     #endregion
 
     #region - Hide
@@ -29,11 +26,11 @@ public class NavObjectController : AliveObjectController
 
     #region Offset
 
-    public override void Offset(int id)
+    private void Awake()
     {
-        base.Offset(id);
         navPath = new NavMeshPath();
     }
+
 
     #endregion
 

@@ -17,30 +17,24 @@ public abstract class EnemyController : NavObjectController, IPoolable
     private EnemyPatternSelector patternSelector;
     private EnemyPatternRunner patternRunner;
 
-    [Space(10)]
-    [Header("=== Comp")]
+    // Comp
     [SerializeField] private SortingGroup sg;
-    [SerializeField] public EnemyBuffController buff;
+    [SerializeField] private EnemySolarController lookingSatellite;
+    private bool lookable = true;
+    [SerializeField] private RigidbodyAnimSolarController walkingSatellite;
 
-    [Space(10)]
-    [Header("=== State")]
+    // State
     [SerializeField] private eEnemy enemyType;
     [SerializeField] private float maxHP;
     [SerializeField] private float maxEP = 100f;
     [SerializeField] private float chargeEPSpeed = 1f;
 
-    [Space(10)]
-    [Header("=== Item")]
-    [SerializeField] protected EnemyDropItemPercent enemyDropItemPercent;
-
-    [Space(10)]
-    [Header("=== UI")]
+    // Buff
+    [SerializeField] public EnemyBuffController buff;
+    // HUD
     [SerializeField] public EnemyHUDController hud;
-
-    [Space(10)]
-    [Header("=== Satellite")]
-    [SerializeField] private EnemySolarController lookingSatellite;
-    [SerializeField] private RigidbodyAnimSolarController walkingSatellite;
+    // Item Drop
+    [SerializeField] protected EnemyDropItemPercent enemyDropItemPercent;
 
     [Space(10)]
     [Header("=== Ping Data")]
@@ -141,6 +135,27 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     #endregion
 
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        AddSortingLayer();
+        SetEnemyPattern();
+        StartLoopPattern();
+    }
+
+    private void OnDisable()
+    {
+        RemoveSortingLayer();
+    }
+
+    #endregion
+
+
+
+
     #region Offset
 
     protected override void Offset()
@@ -208,23 +223,6 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     #endregion
 
-    #region Framework
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-        AddSortingLayer();
-        SetEnemyPattern();
-        StartLoopPattern();
-    }
-
-    private void OnDisable()
-    {
-        RemoveSortingLayer();
-    }
-
-    #endregion
 
     #region Movement
 
@@ -308,9 +306,12 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     #region Look
 
+    public void SetLookable(bool onOff)
+        => lookable = onOff;
+    
     public void HandleLookAtTarget()
     {
-        if (isDead) return;
+        if (isDead || !lookable) return;
 
         // 바라볼 방향값 계산
         lookAtDir = target != null ? 

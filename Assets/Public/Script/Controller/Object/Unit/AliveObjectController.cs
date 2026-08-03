@@ -10,20 +10,12 @@ public abstract class AliveObjectController : MovableObjectController
 
     [Space(20)]
     [Header("<><><><><> Alive")]
-
-
-    [Space(10)]
-    [Header("=== Dead")]
     [SerializeField] protected bool isDead = false;
 
-    [Space(10)]
-    [Header("=== Point")]
     [SerializeField] protected ReactiveProperty<float> currentSP = new();
     [SerializeField] protected ReactiveProperty<float> currentHP = new();
     public float currentEp { get; private set; } = 0f;
 
-    [Space(10)]
-    [Header("=== Dead Particle")]
     [SerializeField] private List<DeadParticleElement> brokenParticleData;
     [SerializeField] private float particleThrowDis = 1f;
 

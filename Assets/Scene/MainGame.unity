@@ -6880,7 +6880,7 @@ MonoBehaviour:
       bgmVolume: 0.5
       sfxVolume: 0.5
     gameProgressData:
-      currentProgressing: -1
+      currentProgressing: 0
       usableVault: 1
       usableBU: 1
       usableMU: 1
@@ -7476,7 +7476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initOrder: 14
   initPregressText: Stage & Map Setting...
-  targetStageId: 99
+  targetStageId: 0
   stageGridGenerator:
     stageRuleCSV: {fileID: 4900000, guid: 3e9cab5791698524fa24dea7da06eba6, type: 3}
     saveDataManager: {fileID: 657936137}

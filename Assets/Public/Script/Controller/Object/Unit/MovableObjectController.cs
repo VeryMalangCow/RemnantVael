@@ -9,12 +9,7 @@ public class MovableObjectController : MovableDepthController
     [Space(20)]
     [Header("<><><><><> Movable Object")]
 
-    [Space(10)]
-    [Header("=== Component")]
     [SerializeField] public Rigidbody2D rb;
-
-    [Space(10)]
-    [Header("=== Movement")]
     [SerializeField] protected float accelerationSpeed = 12;
 
     [HideInInspector] protected List<CurrentKnockbackState> kbStateList = new List<CurrentKnockbackState>();

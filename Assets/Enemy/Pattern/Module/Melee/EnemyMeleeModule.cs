@@ -11,9 +11,13 @@ public class EnemyMeleeModule : EnemyModule
     public EnemyMeleePointer pointer { get; private set; }
     public EnemyMeleePresenter presenter { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
-        pointer = new EnemyMeleePointer(attackDepths);
-        presenter = new EnemyMeleePresenter(weaponSpriteRenderers, weaponVfxClr, weaponVfxSize);
+        base.Awake();
+
+        pointer = new EnemyMeleePointer(
+            attackDepths);
+        presenter = new EnemyMeleePresenter(
+            weaponSpriteRenderers, weaponVfxClr, weaponVfxSize);
     }
 }

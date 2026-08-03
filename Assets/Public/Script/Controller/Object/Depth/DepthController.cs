@@ -7,8 +7,6 @@ public class DepthController : IDController
     [Space(20)] 
     [Header("<><><><><> Depth")]
 
-    [Space(10)]
-    [Header("=== Shadow")]
     [SerializeField] public GameObject targetObject;
     [SerializeField] public SpriteRenderer thisSr;
     [SerializeField] public float targetRange = 0.4f;

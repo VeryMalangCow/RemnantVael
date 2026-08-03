@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyMeleePresenter : EnemyPresenter
@@ -13,23 +15,23 @@ public class EnemyMeleePresenter : EnemyPresenter
         vfxSize = size;
     }
 
-    public void PlayVfxOn()
+    public void PlayVfxOn(float durTime)
     {
-        PlayVfx(vfxClr, vfxSize);
+        PlayVfx(vfxClr, vfxSize, durTime * 0.8f);
     }
 
-    public void PlayVfxOff()
+    public void PlayVfxOff(float durTime)
     {
-        PlayVfx(Color.white, 1f);
+        PlayVfx(Color.white, 1f, durTime * 0.8f);
     }
 
-    private void PlayVfx(Color clr, float size)
+    private void PlayVfx(Color clr, float size, float durTime = 1f)
     {
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             var sr = spriteRenderers[i];
-            sr.color = clr;
-            sr.transform.localScale = Vector2.one * size;
+            sr.DOColor(clr, durTime);
+            sr.transform.DOScale(size, durTime);
         }
     }
 }

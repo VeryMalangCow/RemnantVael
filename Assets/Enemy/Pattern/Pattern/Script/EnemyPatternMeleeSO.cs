@@ -37,7 +37,8 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
         if (module == null)
             yield break;
 
-        module.presenter.PlayVfxOn();
+        module.presenter.PlayVfxOn(startDelay);
+        enemy.SetLookable(false);
         yield return new WaitForSeconds(startDelay);
 
         // Actual Attacl Line
@@ -52,8 +53,9 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
 
         SoundManager.instance.PlayEnemyAttackSfxRandom(enemyTf.transform.position, "Sword");
 
-        module.presenter.PlayVfxOff();
+        module.presenter.PlayVfxOff(endDelay);
         yield return new WaitForSeconds(endDelay);
+        enemy.SetLookable(true);
     }
 
     private void PlayAttack(EnemyController enemy, DepthController depth, Vector2 targetDir)
