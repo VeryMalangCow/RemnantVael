@@ -26,18 +26,24 @@ public class EnemyPatternCollectionPreviewEditor : Editor
         GUI.contentColor = mainPreviewNameClr;
         EditorGUILayout.LabelField("[ Pattern Preview ]", EditorStyles.boldLabel);
 
+        if (SO.patterns == null || SO.patterns.Count == 0)
+            return;
+
         for (int i = 0; i < SO.patterns.Count; i++)
         {
+            if (SO.patterns[i].so == null)
+                continue;
+
             EditorGUILayout.BeginHorizontal();
             TextPatternSequence(SO.patterns[i].so);
             EditorGUILayout.EndHorizontal();
         }
-
     }
 
     public void TextPatternSequence(EnemyPatternSequenceSO sequenceSO)
     {
         var patterns = sequenceSO.Patterns;
+
         for (int i = 0; i < patterns.Count; i++)
         {
             TextPatternElement(patterns[i]);

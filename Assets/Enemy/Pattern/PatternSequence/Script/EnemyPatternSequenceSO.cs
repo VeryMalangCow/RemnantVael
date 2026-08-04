@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PatternSequenceSO", 
-    menuName = "ScriptableObject/EnemyPatternSO/PatternSet")]
+    menuName = "ScriptableObject/EnemyPatternSO/Sequence")]
 public class EnemyPatternSequenceSO : ScriptableObject
 {
     [SerializeField] private EnemyPatternConditionSO[] conditions;

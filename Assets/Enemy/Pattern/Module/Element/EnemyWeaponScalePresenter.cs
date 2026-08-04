@@ -1,14 +1,13 @@
 using DG.Tweening;
-using System.Collections;
 using UnityEngine;
 
-public class EnemyMeleePresenter : EnemyPresenter
+public class EnemyWeaponScalePresenter
 {
     private SpriteRenderer[] spriteRenderers;
     private Color vfxClr;
     private float vfxSize;
 
-    public EnemyMeleePresenter(SpriteRenderer[] srs, Color clr, float size)
+    public EnemyWeaponScalePresenter(SpriteRenderer[] srs, Color clr, float size)
     {
         spriteRenderers = srs;
         vfxClr = clr;

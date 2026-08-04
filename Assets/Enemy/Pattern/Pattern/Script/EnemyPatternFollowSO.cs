@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FollowPatternSO", 
-    menuName = "ScriptableObject/EnemyPatternSO/PatternElement/Follow")]
+[CreateAssetMenu(fileName = "PatternFollowSO", 
+    menuName = "ScriptableObject/EnemyPatternSO/Pattern/Follow")]
 public class EnemyPatternFollowSO : EnemyPatternSO
 {
     [SerializeField] private float speed;

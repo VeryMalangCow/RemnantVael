@@ -1,30 +1,31 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MeleePatternSO",
-    menuName = "ScriptableObject/EnemyPatternSO/PatternElement/Melee")]
+[CreateAssetMenu(fileName = "PatternMeleeSO",
+    menuName = "ScriptableObject/EnemyPatternSO/Pattern/Melee")]
 public class EnemyPatternMeleeSO : EnemyPatternSO
 {
     [Header("=== Visual")]
-    [Header("-- Anim")]
     [SerializeField] private AnimationClip animation;
-    [SerializeField] private bool isShadowRangeByDepthController = true;
+    [Space(10)]
+    [SerializeField] private bool isShadowRangeByDepthController = true; 
+    [Space(10)]
     [SerializeField] private bool lightOn;
     [SerializeField] private float lightSize;
 
     [Header("=== State")]
-    [Header("-- Time")]
+    [Space(10)]
     [SerializeField] private float jugeAndTweenTime;
     [SerializeField] private float animSpeed;
 
-    [Header("-- Distance")]
+    [Space(10)]
     [SerializeField] private float spawnDis;
     [SerializeField] private float endDis;
 
-    [Header("-- Size")]
+    [Space(10)]
     [SerializeField] private Vector2 size;
 
-    [Header("-- State")]
+    [Space(10)]
     [SerializeField] private AttackerState attakerState;
 
     public override IEnumerator PlayPattern(EnemyAIContext aiContext)
@@ -37,12 +38,12 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
         if (module == null)
             yield break;
 
-        module.presenter.PlayVfxOn(startDelay);
+        module.weaponScalePresenter.PlayVfxOn(startDelay);
         enemy.SetLookable(false);
         yield return new WaitForSeconds(startDelay);
 
         // Actual Attacl Line
-        var depths = module.pointer.AttackDepths;
+        var depths = module.attackPointer.AttackDepths;
         for (int i = 0; i< depths.Length; i++)
         {
             var depth = depths[i];
@@ -53,7 +54,7 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
 
         SoundManager.instance.PlayEnemyAttackSfxRandom(enemyTf.transform.position, "Sword");
 
-        module.presenter.PlayVfxOff(endDelay);
+        module.weaponScalePresenter.PlayVfxOff(endDelay);
         yield return new WaitForSeconds(endDelay);
         enemy.SetLookable(true);
     }
@@ -89,7 +90,7 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
     public override PatternPreviewElement GetPreview()
     {
         return new PatternPreviewElement($"Melee ({animation.name})",
-            new PatternPreviewDetail($"JugeTime: {jugeAndTweenTime}s", Color.red),
+            new PatternPreviewDetail($"Dmg: {attakerState.dmgState.dmg}", Color.red),
             new PatternPreviewDetail($"Size: {size}", Color.green),
             new PatternPreviewDetail($"Dis: {spawnDis} ~ {endDis}", Color.cyan));
     }

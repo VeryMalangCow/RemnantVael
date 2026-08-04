@@ -8,16 +8,14 @@ public class EnemyMeleeModule : EnemyModule
     [SerializeField] private Color weaponVfxClr = Color.black;
     [SerializeField] private float weaponVfxSize = 1.5f;
 
-    public EnemyMeleePointer pointer { get; private set; }
-    public EnemyMeleePresenter presenter { get; private set; }
+    public EnemyAttackPointer attackPointer { get; private set; }
+    public EnemyWeaponScalePresenter weaponScalePresenter { get; private set; }
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
-        pointer = new EnemyMeleePointer(
+        attackPointer = new EnemyAttackPointer(
             attackDepths);
-        presenter = new EnemyMeleePresenter(
+        weaponScalePresenter = new EnemyWeaponScalePresenter(
             weaponSpriteRenderers, weaponVfxClr, weaponVfxSize);
     }
 }

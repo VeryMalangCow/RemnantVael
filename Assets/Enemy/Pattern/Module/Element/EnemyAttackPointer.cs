@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class EnemyMeleePointer : EnemyPointer
+public class EnemyAttackPointer
 {
     private DepthController[] attackDepths;
     public DepthController[] AttackDepths => attackDepths;
 
-    public EnemyMeleePointer(DepthController[] depths)
+    public EnemyAttackPointer(DepthController[] depths)
     {
         attackDepths = depths;
     }
