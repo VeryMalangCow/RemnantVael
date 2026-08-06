@@ -18,11 +18,11 @@ public class EnemyPattern_SectorFormRange : EnemyPattern_Range
 
     protected override void Play_ActualPattern(Vector2 targetDir)
     {
-        float centerAngle = DevTool.Get_AngleFromDir(targetDir);
+        float centerAngle = DevTool.GetAngleFromDir(targetDir);
         for (int i = 0; i < angleList.Count; i++)
         {
             float currentAngle = centerAngle + angleList[i];
-            Vector2 currentDir = DevTool.Get_DirFromAngle(currentAngle);
+            Vector2 currentDir = DevTool.GetDirFromAngle(currentAngle);
             base.Play_ActualPattern(currentDir);
         }
     }

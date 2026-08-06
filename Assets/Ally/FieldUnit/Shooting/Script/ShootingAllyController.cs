@@ -120,7 +120,7 @@ public class ShootingAllyController : FieldUnitAllyController
     private void Play_Attack(AllyBulletController bullet)
     {
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
-        bullet.Set_State(
+        bullet.SetState(
             Get_BulletState(),
             state_PosAndRot: Get_BulletState_PosAndRot(),
             state_Size: Get_BulletState_Size(),

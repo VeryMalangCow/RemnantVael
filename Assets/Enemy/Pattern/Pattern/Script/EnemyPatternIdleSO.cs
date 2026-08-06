@@ -20,7 +20,8 @@ public class EnemyPatternIdleSO : EnemyPatternSO
         return new PatternPreviewElement("Idle",
             new PatternPreviewDetail("-"),
             new PatternPreviewDetail("-"),
-            new PatternPreviewDetail("-"));
+            new PatternPreviewDetail("-"),
+            new PatternPreviewDescription("this is idle which noable choose pattern."));
     }
 #endif
 }

@@ -71,7 +71,10 @@ public class EnemyPatternFollowSO : EnemyPatternSO
         return new PatternPreviewElement("Following",
             new PatternPreviewDetail($"Speed: {speed}", Color.cyan),
             new PatternPreviewDetail($"Dis: {dis}", Color.red),
-            new PatternPreviewDetail($"IgnoreWall: {ignoreWall}"));
+            new PatternPreviewDetail($"IgnoreWall: {ignoreWall}"),
+            new PatternPreviewDescription(ignoreWall ? 
+            $"Chase the player to {dis}m at the speed of {speed} ignoring the wall." :
+            $"Chase the player to {dis}m at the speed of {speed} without ignoring the wall."));
     }
 
 #endif

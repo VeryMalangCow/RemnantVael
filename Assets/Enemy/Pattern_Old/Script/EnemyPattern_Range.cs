@@ -149,8 +149,7 @@ public class EnemyPattern_Range : EnemyPattern
     {
         for (int i = 0; i < spawnDepthList.Count; i++)
             Play_ActualPattern_Each(spawnDepthList[i], 
-                DevTool.Get_DirFromAngle(
-                    DevTool.Get_AngleFromDir(targetDir) + baseAngle));
+                DevTool.GetDirFromAngle(DevTool.GetAngleFromDir(targetDir) + baseAngle));
     }
 
     private void Play_ActualPattern_Each(DepthController depth, Vector2 targetDir)
@@ -158,7 +157,7 @@ public class EnemyPattern_Range : EnemyPattern
         EnemyBulletController bullet = BulletManager.instance.SpawnEnemyBullet();
         bullet.ownEnemy = enemy;
         float targetShadow = depth.targetRange;
-        bullet.Set_State(
+        bullet.SetState(
             this.bulletState,
             State_PosAndRot(depth.transform, targetDir),
             State_Size(),
@@ -166,8 +165,8 @@ public class EnemyPattern_Range : EnemyPattern
             State_Effect(),
             targetShadow);
 
-        bullet.SetOn_LightIntensity(lightIntensity);
-        bullet.SetOn_TrailState(trailTime, trailStartWidth, trailGradient);
+        bullet.SetOnLightIntensity(lightIntensity);
+        bullet.SetOnTrailState(trailTime, trailStartWidth, trailGradient);
 
         // Effect
         VfxManager.instance.enemy_ExplImgGenerator.Expl_Enemy_Shoot(

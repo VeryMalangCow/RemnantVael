@@ -1,7 +1,9 @@
 #if UNITY_EDITOR
 
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static UnityEditor.Rendering.FilterWindow;
 
 [CustomEditor(typeof(EnemyPatternSequenceSO))]
 public class EnemyPatternSequencePreviewEditor : Editor
@@ -9,8 +11,11 @@ public class EnemyPatternSequencePreviewEditor : Editor
     private static Color mainPreviewNameClr = Color.black;
     private static Color subPreviewNameClr = new Color(0.1f, 0.1f, 0.1f, 1f);
     private static Color elementNameClr = Color.white;
+    private static Color descriptionClr = new Color(0.5f, 0.5f, 0.5f, 1f);
 
     private static float detailIntervalX = 80;
+
+    private Dictionary<Object, bool> foldouts = new();
 
     public override void OnInspectorGUI()
     {
@@ -56,6 +61,7 @@ public class EnemyPatternSequencePreviewEditor : Editor
 
         var preview = conditionSO.GetPreview();
         TextElement(preview);
+        FoldOutDescription(conditionSO, preview.desc.desc);
     }
 
 
@@ -87,6 +93,7 @@ public class EnemyPatternSequencePreviewEditor : Editor
         Rect rect = EditorGUILayout.GetControlRect(false, 0f);
         var preview = patternSO.GetPreview();
         TextElement(preview);
+        FoldOutDescription(patternSO, preview.desc.desc);
     }
 
 
@@ -109,6 +116,38 @@ public class EnemyPatternSequencePreviewEditor : Editor
         GUI.contentColor = detail.clr; 
         float width = EditorStyles.label.CalcSize(new GUIContent(detail.name)).x;
         GUILayout.Label(detail.name, GUILayout.Width(width + 10));
+    }
+
+
+    // Foldout Description
+    private void FoldOutDescription(Object SO, string desc)
+    {
+        GUI.contentColor = descriptionClr;
+
+        bool state = GetFoldoutState(SO);
+        state = EditorGUILayout.Foldout(state, "Description");
+
+        foldouts[SO] = state;
+        
+        if (state)
+        {
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.Space(20);
+                GUILayout.Label(desc);
+            }
+        }
+    }
+
+    private bool GetFoldoutState(Object SO)
+    {
+        if (!foldouts.TryGetValue(SO, out bool state))
+        {
+            state = false;
+            foldouts.Add(SO, state);
+        }
+
+        return state;
     }
 }
 

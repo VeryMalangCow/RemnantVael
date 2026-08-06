@@ -386,7 +386,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
         Take_Damaged(
             state, 
             state.isCritical, 
-            DevTool.Get_DirFromAngle(bullet.transform.eulerAngles.z));
+            DevTool.GetDirFromAngle(bullet.transform.eulerAngles.z));
 
         if (state.isStatus)
         {

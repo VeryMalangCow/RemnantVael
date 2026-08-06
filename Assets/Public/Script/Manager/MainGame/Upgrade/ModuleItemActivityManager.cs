@@ -254,7 +254,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             BulletState_Size? size = null;
             State_Anim? anim = null;
 
-            pbc.Set_State(bulletState, posAndRot, size, anim, state_Effect: null, 0.35f);
+            pbc.SetState(bulletState, posAndRot, size, anim, state_Effect: null, 0.35f);
             pbc.Set_Guided(true, rank * rank);
         }
     }

@@ -120,7 +120,7 @@ public class EnemyPattern_Melee : EnemyPattern
         attacker.enemy = enemy;
         float targetShadow = isShadowRangeByDepthController ? depth.targetRange : 0.6f;
         
-        attacker.Set_State(
+        attacker.SetState(
             _as,
             State_Juge(),
             State_Anim(),

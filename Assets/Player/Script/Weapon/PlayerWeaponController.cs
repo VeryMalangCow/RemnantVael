@@ -129,7 +129,7 @@ public class PlayerWeaponController : PlayerSolarController
         Vector2 dir = DevTool.Get_MinFireDir(targetSpawnDepth.transform.position);
 
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
-        bullet.Set_State(
+        bullet.SetState(
             Get_CurrentBulletState(),
             state_PosAndRot: new BulletState_PosAndRot(targetSpawnDepth.transform.position, dir, spreadAngle),
             state_Size: null,

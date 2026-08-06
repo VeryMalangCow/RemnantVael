@@ -8,14 +8,14 @@ public class EnemyRangeModule : EnemyModule
     [SerializeField] private Color weaponVfxClr = Color.black;
     [SerializeField] private float weaponVfxSize = 1.5f;
 
-    public EnemyAttackPointer pointer { get; private set; }
-    public EnemyWeaponScalePresenter presenter { get; private set; }
+    public EnemyAttackPointer attackPointer { get; private set; }
+    public EnemyWeaponScalePresenter weaponScalePresenter { get; private set; }
 
     private void Awake()
     {
-        pointer = new EnemyAttackPointer(
+        attackPointer = new EnemyAttackPointer(
             attackDepths);
-        presenter = new EnemyWeaponScalePresenter(
+        weaponScalePresenter = new EnemyWeaponScalePresenter(
             waeponSpriteRenderers, weaponVfxClr, weaponVfxSize);
     }
 }

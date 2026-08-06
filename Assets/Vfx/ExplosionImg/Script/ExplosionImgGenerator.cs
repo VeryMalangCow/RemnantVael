@@ -32,7 +32,7 @@ public class ExplosionImgGenerator : MonoBehaviour
         float singleAngle = 360 / state.baseState.spawnAmount; // ÇÑÄ­ ¾Þ±Û
         for (int i = 0; i < state.baseState.spawnAmount; i++)
         {
-            state.Set_AllDir(DevTool.Get_DirFromAngle((i * singleAngle)));
+            state.Set_AllDir(DevTool.GetDirFromAngle((i * singleAngle)));
             state.Set_RandomAngleValue_JustAdd(singleAngle);
             state.Set_MultipleAllDir(new Vector2(x, y));
             state.Set_RandomValue();

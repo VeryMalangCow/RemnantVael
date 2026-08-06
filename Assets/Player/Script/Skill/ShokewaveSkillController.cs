@@ -44,7 +44,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
         PlayerAttackerController pac = AttackerManager.instance.SpawnPlayerAttacker();
 
-        pac.Set_State(
+        pac.SetState(
             Get_CurrentAttackerState(),
             State_Juge(),
             State_Anim(),

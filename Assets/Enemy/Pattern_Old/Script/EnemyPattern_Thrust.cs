@@ -152,7 +152,7 @@ public class EnemyPattern_Thrust : EnemyPattern
         attacker.enemy = enemy;
         float targetShadow = depth.targetRange;
 
-        attacker.Set_State(
+        attacker.SetState(
             _as,
             State_Juge(),
             State_Anim(),

@@ -994,7 +994,7 @@ public class DevTool
 
     // 각값 (float:Angle)
     // => 좌표값 (Vector2:Dir) : transform.eulerAngles.z값을 인자로 받는 것이 보편적으로 좋음
-    public static Vector2 Get_DirFromAngle(float angle)
+    public static Vector2 GetDirFromAngle(float angle)
     {
         return new Vector2(
                     Mathf.Cos((angle + 90) * Mathf.Deg2Rad),
@@ -1002,7 +1002,7 @@ public class DevTool
     }
     // 좌표값 (Vecto2:Dir)
     // => 각값(float:Angle)
-    public static float Get_AngleFromDir(Vector2 dir)
+    public static float GetAngleFromDir(Vector2 dir)
     {
         return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
     }
@@ -5349,15 +5349,15 @@ public struct ExplState
     public void Set_RandomAngleValue_PivotZero(float angleExtent)
     {
         float randomAngle = DevTool.Get_RandomValueBaseZero(angleExtent);
-        firstState.dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(originalFirstState.dir));
-        secondState.dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(originalSecondState.dir));
+        firstState.dir = DevTool.GetDirFromAngle(randomAngle + DevTool.GetAngleFromDir(originalFirstState.dir));
+        secondState.dir = DevTool.GetDirFromAngle(randomAngle + DevTool.GetAngleFromDir(originalSecondState.dir));
     }
 
     public void Set_RandomAngleValue_JustAdd(float angleExtent)
     {
         float randomAngle = UnityEngine.Random.Range(0, angleExtent);
-        firstState.dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(originalFirstState.dir));
-        secondState.dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(originalSecondState.dir));
+        firstState.dir = DevTool.GetDirFromAngle(randomAngle + DevTool.GetAngleFromDir(originalFirstState.dir));
+        secondState.dir = DevTool.GetDirFromAngle(randomAngle + DevTool.GetAngleFromDir(originalSecondState.dir));
     }
 }
 

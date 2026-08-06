@@ -59,7 +59,7 @@ public class MissileSkillController : ActiveSkillController
             Vector2 dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
             // State
-            missile.Set_State(
+            missile.SetState(
                 bulletState,
                 State_PosAndRot(dir), 
                 state_Size: null, 

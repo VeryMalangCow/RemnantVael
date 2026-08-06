@@ -30,19 +30,21 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
 
     public override IEnumerator PlayPattern(EnemyAIContext aiContext)
     {
-        EnemyController enemy = aiContext.enemy;
-        Transform enemyTf = enemy.transform;
-        Transform playerTf = aiContext.player.transform;
-        Vector2 dir = playerTf.transform.position - enemyTf.transform.position;
+        // Pre
+        var enemy = aiContext.enemy;
+        var enemyTf = enemy.transform;
+        var playerTf = aiContext.player.transform;
+        Vector2 dir = playerTf.position - enemyTf.position;
         var module = aiContext.GetModule<EnemyMeleeModule>();
         if (module == null)
             yield break;
 
+        // Start
         module.weaponScalePresenter.PlayVfxOn(startDelay);
         enemy.SetLookable(false);
         yield return new WaitForSeconds(startDelay);
 
-        // Actual Attacl Line
+        // Actual Attack Line
         var depths = module.attackPointer.AttackDepths;
         for (int i = 0; i< depths.Length; i++)
         {
@@ -54,6 +56,7 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
 
         SoundManager.instance.PlayEnemyAttackSfxRandom(enemyTf.transform.position, "Sword");
 
+        // End
         module.weaponScalePresenter.PlayVfxOff(endDelay);
         yield return new WaitForSeconds(endDelay);
         enemy.SetLookable(true);
@@ -65,7 +68,7 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
             = AttackerManager.instance.SpawnEnemyAttacker();
         attacker.enemy = enemy;
 
-        attacker.Set_State(
+        attacker.SetState(
             attakerState,
             new AttackerState_Juge<CircleCollider2D>(size),
             new State_Anim(animation, animSpeed),
@@ -89,10 +92,19 @@ public class EnemyPatternMeleeSO : EnemyPatternSO
 #if UNITY_EDITOR
     public override PatternPreviewElement GetPreview()
     {
+        var dmgState = attakerState.dmgState;
+        var critState = attakerState.criticalState;
+        var kbState = attakerState.knockbackState;
         return new PatternPreviewElement($"Melee ({animation.name})",
             new PatternPreviewDetail($"Dmg: {attakerState.dmgState.dmg}", Color.red),
             new PatternPreviewDetail($"Size: {size}", Color.green),
-            new PatternPreviewDetail($"Dis: {spawnDis} ~ {endDis}", Color.cyan));
+            new PatternPreviewDetail($"Dis: {spawnDis} ~ {endDis}", Color.cyan),
+            new PatternPreviewDescription("Conducts a melee attack on the player.\n" +
+            $"Dmg: {dmgState.dmg}\nDmg Type: {dmgState.dmgType}\n" +
+            $"Critical Chance: {critState.criticalChance}\nCritical Dmg: {critState.criticalDmg}\n" +
+            (kbState.canKB ? $"Knockback Power: {kbState.kbPower}\nKnockback Time: {kbState.kbTime}\n" :
+            "No Knockback\n") +
+            $"Size: {size}"));
     }
 #endif
 }

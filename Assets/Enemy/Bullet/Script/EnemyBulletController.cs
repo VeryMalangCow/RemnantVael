@@ -103,7 +103,7 @@ public class EnemyBulletController : BulletController, IPoolable
 
     #region Light
 
-    public void SetOn_LightIntensity(float intensity)
+    public void SetOnLightIntensity(float intensity)
     {
         light2d.intensity = intensity;
         light2d.lightCookieSprite = thisSr.sprite;
@@ -114,7 +114,7 @@ public class EnemyBulletController : BulletController, IPoolable
 
     #region Trail
 
-    public void SetOn_TrailState(float time, float startWidth, Gradient gradient)
+    public void SetOnTrailState(float time, float startWidth, Gradient gradient)
     {
         trail.time = time;
         trail.startWidth = startWidth;

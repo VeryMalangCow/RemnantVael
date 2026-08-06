@@ -28,10 +28,12 @@ public class EnemyPatternDistanceConditionSO : EnemyPatternConditionSO
         return farMode
             ? new PatternPreviewElement(name, left, 
             new PatternPreviewDetail(">=", operClr), 
-            new PatternPreviewDetail($"{targetRange}m (farther)", valueClr))
+            new PatternPreviewDetail($"{targetRange}m (farther)", valueClr),
+            new PatternPreviewDescription($"It must be farther than {targetRange}m to the player."))
             : new PatternPreviewElement(name, left, 
             new PatternPreviewDetail("<=", operClr), 
-            new PatternPreviewDetail($"{targetRange}m (closer)", valueClr));
+            new PatternPreviewDetail($"{targetRange}m (closer)", valueClr),
+            new PatternPreviewDescription($"It must be closer than {targetRange}m to the player."));
     }
 #endif
 }

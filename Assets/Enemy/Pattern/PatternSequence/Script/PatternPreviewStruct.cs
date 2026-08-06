@@ -8,14 +8,22 @@ public struct PatternPreviewElement
     public PatternPreviewDetail left;
     public PatternPreviewDetail oper;
     public PatternPreviewDetail right;
+    public PatternPreviewDescription desc;
 
-    public PatternPreviewElement(string name, PatternPreviewDetail left, PatternPreviewDetail oper, PatternPreviewDetail right)
+    public PatternPreviewElement(
+        string name, 
+        PatternPreviewDetail left, 
+        PatternPreviewDetail oper, 
+        PatternPreviewDetail right,
+        PatternPreviewDescription desc)
     {
         this.name = name;
 
         this.left = left;
         this.oper = oper;
         this.right = right;
+
+        this.desc = desc;
     }
 }
 
@@ -34,6 +42,16 @@ public struct PatternPreviewDetail
     {
         this.name = name;
         this.clr = new Color(0.8f, 0.8f, 0.8f, 1f);
+    }
+}
+
+public struct PatternPreviewDescription
+{
+    public string desc;
+
+    public PatternPreviewDescription(string desc)
+    {
+        this.desc = desc;
     }
 }
 

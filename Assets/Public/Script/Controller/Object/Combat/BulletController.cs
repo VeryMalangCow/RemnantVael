@@ -131,7 +131,7 @@ public abstract class BulletController : MovableDepthController, IPoolable
 
     #region State
 
-    public void Set_State(
+    public void SetState(
         BulletState state, 
         BulletState_PosAndRot state_PosAndRot, 
         BulletState_Size? state_Size, 

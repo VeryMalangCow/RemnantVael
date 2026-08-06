@@ -105,7 +105,7 @@ public abstract class AttackerController : MovableDepthController, IPoolable
 
     #region State
 
-    public Sequence Set_State<T>(
+    public Sequence SetState<T>(
         AttackerState state,
         AttackerState_Juge<T> state_Juge,
         State_Anim state_Anim,

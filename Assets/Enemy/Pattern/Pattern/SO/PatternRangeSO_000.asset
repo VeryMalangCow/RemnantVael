@@ -48,6 +48,8 @@ MonoBehaviour:
   trailStartWidth: 0.4
   trailTime: 0.7
   bulletShadowScale: {x: 0.3, y: 0.3}
+  shootExplAmount: 3
+  explAmount: 6
   lightIntensity: 5
   bulletState:
     ownerData:
@@ -70,3 +72,4 @@ MonoBehaviour:
     statusType: 0
   baseAngle: 0
   size: {x: 2, y: 3}
+  bulletRadiusCondition: 2.5

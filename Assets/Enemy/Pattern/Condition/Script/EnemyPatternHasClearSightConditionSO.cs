@@ -31,7 +31,8 @@ public class EnemyPatternHasClearSightConditionSO : EnemyPatternConditionSO
         return new PatternPreviewElement("HasClearSight", 
             new PatternPreviewDetail("Wall"),
             new PatternPreviewDetail("NoObstacle", Color.yellow),
-            new PatternPreviewDetail($"Radius: {radius}m", Color.red));
+            new PatternPreviewDetail($"Radius: {radius}m", Color.red),
+            new PatternPreviewDescription($"There must be no obstacle of {radius * 2}m thickness between the player and the opponent."));
 
     }
 #endif
