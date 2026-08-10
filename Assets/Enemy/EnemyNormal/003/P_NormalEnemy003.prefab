@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5694203857495159564}
   - component: {fileID: 7671391899007426867}
   - component: {fileID: 8138059332026427226}
+  - component: {fileID: 4241522636595013735}
   m_Layer: 7
   m_Name: P_NormalEnemy003
   m_TagString: Enemy
@@ -77,12 +78,16 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   particleThrowDis: 2
+  patternCollectionSO: {fileID: 11400000, guid: 406997cbf426afc4898e2cb5f17341d2, type: 2}
   sg: {fileID: 8138059332026427226}
-  buff: {fileID: 5694203857495159564}
+  lookingSatellite: {fileID: 8376210550337142964}
+  walkingSatellite: {fileID: 8314429211963477539}
   enemyType: 0
   maxHP: 150
   maxEP: 150
   chargeEPSpeed: 50
+  buff: {fileID: 5694203857495159564}
+  hud: {fileID: 2920926280269970217}
   enemyDropItemPercent:
     moduleDropPercent: 0.1
     moduleRankPercents: 500000000c000000050000000200000001000000
@@ -102,9 +107,6 @@ MonoBehaviour:
     jouleAmountMinMax:
       typeBase: 1
       typeSpecial: 3
-  hud: {fileID: 2920926280269970217}
-  lookingSatellite: {fileID: 8376210550337142964}
-  walkingSatellite: {fileID: 8314429211963477539}
   pingOffsetVec: {x: 0, y: 0.4}
   pingSizeVec: {x: 1.5, y: 1.7}
   orderOfPriorityEnemyPatternList:
@@ -261,6 +263,26 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &4241522636595013735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272305898077013730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca39d3e758d7614a988dd4e0fd1c72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDepths:
+  - {fileID: 5139810350627272259}
+  - {fileID: 4056894064819751254}
+  weaponSpriteRenderers:
+  - {fileID: 2389353122189719573}
+  - {fileID: 7279837516634842338}
+  weaponVfxClr: {r: 1, g: 0, b: 1, a: 1}
+  weaponVfxSize: 1.5
 --- !u!1 &2027737833063953392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,6 +1184,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+--- !u!212 &2389353122189719573 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6554919075280264633, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+  m_PrefabInstance: {fileID: 8925976313212544428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2598394941091488794 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6904064703115002294, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -1192,6 +1219,11 @@ MonoBehaviour:
 --- !u!212 &7051792676472209556 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1874183789220357432, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+  m_PrefabInstance: {fileID: 8925976313212544428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7279837516634842338 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2222629274383368526, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
   m_PrefabInstance: {fileID: 8925976313212544428}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8376210550337142964 stripped

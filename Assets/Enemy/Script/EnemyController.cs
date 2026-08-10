@@ -100,8 +100,9 @@ public abstract class EnemyController : NavObjectController, IPoolable
             defaultSequenceSO: EnemyManager.instance.DefaultSequenceSO);
 
         patternRunner = new EnemyPatternRunner(
-            patternSelector, 
-            aiContext);
+            patternSelector,
+            aiContext,
+            patternCollectionSO == null ? 0.1f : patternCollectionSO.patternInterval);
     }
 
     private void StartLoopPattern()
