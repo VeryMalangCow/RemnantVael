@@ -58,7 +58,7 @@ public struct PatternPreviewDescription
 public static class PatternDraw
 {
     private static readonly float showDuration = 1f;
-    public static void DrawCircleCast(Vector2 start, Vector2 end, float radius)
+    public static void DrawCircleCast(Vector2 start, Vector2 end, float radius, Color clr)
     {
         Vector2 dir = (end - start).normalized;
         Vector2 perpendicular = new Vector2(-dir.y, dir.x);
@@ -67,18 +67,18 @@ public static class PatternDraw
         Debug.DrawLine(
             start + perpendicular * radius,
             end + perpendicular * radius,
-            Color.yellow,
+            clr,
             showDuration);
 
         Debug.DrawLine(
             start - perpendicular * radius,
             end - perpendicular * radius,
-            Color.yellow,
+            clr,
             showDuration);
 
         // 시작/끝 원
-        DrawCircle(start, radius, Color.yellow);
-        DrawCircle(end, radius, Color.yellow);
+        DrawCircle(start, radius, clr);
+        DrawCircle(end, radius, clr);
     }
 
     private static void DrawCircle(Vector2 center, float radius, Color color)

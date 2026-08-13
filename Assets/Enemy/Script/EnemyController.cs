@@ -64,9 +64,15 @@ public abstract class EnemyController : NavObjectController, IPoolable
     [HideInInspector] private EnemyPattern currentEnemyPattern = null;
 
     // 움직임을 통제
-    [HideInInspector] private GameObject target;
+    private GameObject target;
+    private Vector2 lookAtExtraPos = Vector2.zero;
 
-    [HideInInspector] public Vector2 lookAtPoint = Vector2.zero;
+    public enum lookAtType
+    {
+        Target, Position
+    }
+    private lookAtType enemyLookAtType = lookAtType.Target;
+
     [HideInInspector] public Vector2 lookAtDir = Vector2.zero;
 
 
@@ -311,13 +317,39 @@ public abstract class EnemyController : NavObjectController, IPoolable
     public void SetLookable(bool onOff)
         => lookable = onOff;
     
+    public void SetLookAtTarget()
+    {
+        enemyLookAtType = lookAtType.Target;
+    }
+
+    public void SetLookAtPos(Vector2 pos)
+    {
+        enemyLookAtType = lookAtType.Position;
+        lookAtExtraPos = pos;
+    }
+
     public void HandleLookAtTarget()
     {
-        if (isDead || !lookable) return;
+        if (isDead)
+            return;
+        if (!lookable)
+            return;
 
         // 바라볼 방향값 계산
-        lookAtDir = target != null ? 
-            DevTool.Get_Dir(this.gameObject, target) : Vector2.down;
+        switch (enemyLookAtType)
+        {
+            case lookAtType.Target:
+                lookAtDir = target != null ?
+                    DevTool.GetDir(this.gameObject, target) : Vector2.down;
+                break;
+
+            case lookAtType.Position:
+                lookAtDir = DevTool.GetDir(this.gameObject, lookAtExtraPos);
+                break;
+
+            default:
+                return;
+        }
     }
 
     #endregion
@@ -422,7 +454,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
         Take_Damaged(
             state,
             DevTool.Is_ChanceSuccess(state.criticalState.criticalChance),
-            DevTool.Get_Dir(attacker.gameObject, this.gameObject));
+            DevTool.GetDir(attacker.gameObject, this.gameObject));
     }
 
     // 폭발 데미지
@@ -437,7 +469,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
         Take_Damaged(
             state,
             DevTool.Is_ChanceSuccess(state.criticalState.criticalChance),
-            DevTool.Get_Dir(explosion.gameObject, this.gameObject));
+            DevTool.GetDir(explosion.gameObject, this.gameObject));
 
         Try_GainStack(state.isFire, buff.flameStack, state.ownerData);
         Try_GainStack(state.isCold, buff.coldStack, state.ownerData);
@@ -669,7 +701,6 @@ public abstract class EnemyController : NavObjectController, IPoolable
         currentContinuousEnemyPattern = null;
         currentEnemyPattern = null;
 
-        lookAtPoint = Vector2.zero;
         lookAtDir = Vector2.zero;
     }
 

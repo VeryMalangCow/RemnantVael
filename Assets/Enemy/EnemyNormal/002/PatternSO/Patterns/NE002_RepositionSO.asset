@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDelay: 0
   endDelay: 0
-  arriveDistance: 0.2
+  arriveDistance: 0.1
   followSO: {fileID: 11400000, guid: a70be91195a59f341bf27e8b946a7a14, type: 2}
   rangeSO: {fileID: 11400000, guid: 99196528a28b5c74cbb35ca360aa9c6c, type: 2}
+  repositionType: 2

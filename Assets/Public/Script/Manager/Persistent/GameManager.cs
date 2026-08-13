@@ -867,12 +867,12 @@ public class DevTool
         return new Vector2(_X, _Y).normalized;
     }
 
-    public static Vector2 Get_Dir(GameObject fromGO, GameObject toGO)
+    public static Vector2 GetDir(GameObject fromGO, GameObject toGO)
     {
         return Get_Dir(fromGO.transform.position, toGO.transform.position);
     }
 
-    public static Vector2 Get_Dir(GameObject fromGO, Vector2 toPos)
+    public static Vector2 GetDir(GameObject fromGO, Vector2 toPos)
     {
         return Get_Dir(fromGO.transform.position, toPos);
     }
@@ -1258,7 +1258,7 @@ public class DevTool
 
     public static Vector2 Get_DirForPlayer<T>(T tType) where T : MonoBehaviour
     {
-        return Get_Dir(tType.gameObject, PlayerManager.instance.playerController.gameObject);
+        return GetDir(tType.gameObject, PlayerManager.instance.playerController.gameObject);
     }
 
     public static float GetDisForPlayer<T>(T tType) where T : MonoBehaviour

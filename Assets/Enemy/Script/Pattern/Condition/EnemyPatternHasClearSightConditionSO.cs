@@ -17,16 +17,17 @@ public class EnemyPatternHasClearSightConditionSO : EnemyPatternConditionSO
 
         if (distance <= Mathf.Epsilon)
             return false;
-
-#if UNITY_EDITOR
-        PatternDraw.DrawCircleCast(aPos, bPos, radius);
-#endif
         bool result = Physics2D.CircleCast(
             aPos,
             radius,
             dir / distance,
             distance,
             aiContext.wallLayer).collider == null;
+
+#if UNITY_EDITOR
+        PatternDraw.DrawCircleCast(aPos, bPos, radius, result ? Color.green : Color.red);
+#endif
+
         return Interference ? !result : result;
     }
 
