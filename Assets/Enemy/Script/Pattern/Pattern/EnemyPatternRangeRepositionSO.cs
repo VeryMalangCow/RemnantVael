@@ -14,9 +14,13 @@ public class EnemyPatternRangeRepositionSO : EnemyPatternSO
     {
         EnemyController enemy = aiContext.enemy;
 
+        if (aiContext.targetPos == Vector2.zero)
+            aiContext.targetPos = aiContext.player.transform.position;
+
         yield return new WaitForSeconds(startDelay);
 
         Vector2 enemyPos = enemy.transform.position;
+
 
         // 1. 후보 위치 생성
         // 2. 후보 위치 검증
@@ -27,7 +31,6 @@ public class EnemyPatternRangeRepositionSO : EnemyPatternSO
 
         if (!TryFindRepositionTarget(aiContext, enemyPos, out targetPos))
         {
-            yield return new WaitForSeconds(endDelay);
             yield break;
         }
 
@@ -41,10 +44,16 @@ public class EnemyPatternRangeRepositionSO : EnemyPatternSO
     {
         target = default;
 
-        float angleStep = 360f / candidateCount;
 
         float radius = GetRadius();
+
+        if (IsAttackPosition(aiContext, origin, radius))
+            return false;
+        
+        
+        float angleStep = 360f / candidateCount;
         float moveDis = radius * 3f;
+
         for (int i = 0; i < candidateCount; i++)
         {
             float angle = angleStep * i;
@@ -52,7 +61,7 @@ public class EnemyPatternRangeRepositionSO : EnemyPatternSO
                 Mathf.Cos(angle * Mathf.Deg2Rad),
                 Mathf.Sin(angle * Mathf.Deg2Rad));
 
-            Vector2 candidate = origin + dir * moveDis;
+            Vector2 candidate = origin + (dir * moveDis);
 
             if (!IsValidCandidate(aiContext, origin, candidate))
                 continue;
@@ -66,6 +75,7 @@ public class EnemyPatternRangeRepositionSO : EnemyPatternSO
 
         return false;
     }
+
     private bool IsValidCandidate(EnemyAIContext aiContext, Vector2 origin, Vector2 candidate)
     {
         CapsuleCollider2D capsule = aiContext.mapJugeCol;

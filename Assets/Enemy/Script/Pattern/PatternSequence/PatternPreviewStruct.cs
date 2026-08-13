@@ -57,7 +57,8 @@ public struct PatternPreviewDescription
 
 public static class PatternDraw
 {
-    public static void DrawCircleCast(Vector2 start, Vector2 end, float radius, float duration = 0.5f)
+    private static readonly float showDuration = 1f;
+    public static void DrawCircleCast(Vector2 start, Vector2 end, float radius)
     {
         Vector2 dir = (end - start).normalized;
         Vector2 perpendicular = new Vector2(-dir.y, dir.x);
@@ -67,20 +68,20 @@ public static class PatternDraw
             start + perpendicular * radius,
             end + perpendicular * radius,
             Color.yellow,
-            duration);
+            showDuration);
 
         Debug.DrawLine(
             start - perpendicular * radius,
             end - perpendicular * radius,
             Color.yellow,
-            duration);
+            showDuration);
 
         // 시작/끝 원
-        DrawCircle(start, radius, Color.yellow, duration);
-        DrawCircle(end, radius, Color.yellow, duration);
+        DrawCircle(start, radius, Color.yellow);
+        DrawCircle(end, radius, Color.yellow);
     }
 
-    private static void DrawCircle(Vector2 center, float radius, Color color, float duration)
+    private static void DrawCircle(Vector2 center, float radius, Color color)
     {
         const int segmentCount = 32;
 
@@ -99,7 +100,7 @@ public static class PatternDraw
                 Mathf.Cos(angleB),
                 Mathf.Sin(angleB)) * radius;
 
-            Debug.DrawLine(a, b, color, duration);
+            Debug.DrawLine(a, b, color, showDuration);
         }
     }
 }
