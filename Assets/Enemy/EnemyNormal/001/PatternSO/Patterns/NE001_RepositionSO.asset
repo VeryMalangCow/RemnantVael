@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c43bf4d5c55aa743b187c9589fbcae6, type: 3}
-  m_Name: PatternFollowSO
+  m_Script: {fileID: 11500000, guid: dd8a019610cbf49458625c4d89bede50, type: 3}
+  m_Name: NE001_RepositionSO
   m_EditorClassIdentifier: 
   startDelay: 0
   endDelay: 0
-  speed: 2
-  dis: 3
-  ignoreWall: 0
-  rayRadius: 1.2
+  repositionDistance: 1
+  arriveDistance: 0.1
+  moveSpeed: 3
+  radius: 0.4

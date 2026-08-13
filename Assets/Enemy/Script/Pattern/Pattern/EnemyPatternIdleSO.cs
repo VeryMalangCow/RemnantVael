@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PatternIdleSO",
+[CreateAssetMenu(fileName = "E999_IdleSO",
     menuName = "ScriptableObject/EnemyPatternSO/Pattern/Idle")]
 
 public class EnemyPatternIdleSO : EnemyPatternSO

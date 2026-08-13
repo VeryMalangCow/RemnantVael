@@ -13,6 +13,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
     // Pattern
     [SerializeField] private EnemyPatternCollectionSO patternCollectionSO;
+    [SerializeField] public CapsuleCollider2D mapJugeCol;
     private EnemyAIContext aiContext;
     private EnemyPatternSelector patternSelector;
     private EnemyPatternRunner patternRunner;

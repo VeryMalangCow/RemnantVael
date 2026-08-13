@@ -67,7 +67,7 @@ public class EnemyPattern_Thrust : EnemyPattern
             targetDir,
             out Vector2 endPoint))
             {
-                enemy.Set_NavDir(endPoint);
+                enemy.SetNavDir(endPoint);
                 dirForTarget = targetDir;
             }
         }
@@ -139,7 +139,7 @@ public class EnemyPattern_Thrust : EnemyPattern
             targetDir,
             out Vector2 endPoint))
         {
-            enemy.Set_NavDir(endPoint);
+            enemy.SetNavDir(endPoint);
             enemy.SetMoveSpeed(speed);
         }
 
@@ -171,7 +171,7 @@ public class EnemyPattern_Thrust : EnemyPattern
     {
         isThrusting = false;
         dirForTarget = Vector2.zero;
-        enemy.Set_NavDir(Vector2.zero);
+        enemy.SetNavDir(Vector2.zero);
         enemy.SetMoveSpeed(0);
     }
 

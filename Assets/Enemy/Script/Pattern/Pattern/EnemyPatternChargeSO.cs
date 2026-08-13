@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PatternChargeSO",
+[CreateAssetMenu(fileName = "E999_ChargeSO",
     menuName = "ScriptableObject/EnemyPatternSO/Pattern/Charge")]
 public class EnemyPatternChargeSO : EnemyPatternSO
 {
@@ -51,12 +51,12 @@ public class EnemyPatternChargeSO : EnemyPatternSO
         }
         if (DevTool.TryGetDirNavMeshEnd(enemyPos, dir, out Vector2 endPoint))
         {
-            enemy.Set_NavDir(endPoint);
+            enemy.SetNavDir(endPoint);
             enemy.SetMoveSpeed(speed);
         }
         SoundManager.instance.PlayEnemyAttackSfxRandom(enemyPos, "Thrust");
         yield return new WaitForSeconds(dur);
-        enemy.Set_NavDir(Vector2.zero);
+        enemy.SetNavDir(Vector2.zero);
         enemy.SetMoveSpeed(0);
 
         // End

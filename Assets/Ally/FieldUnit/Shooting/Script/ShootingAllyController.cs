@@ -215,7 +215,7 @@ public class ShootingAllyController : FieldUnitAllyController
         {
             if (isFollow)
             {
-                Set_NavDir(randomPos);
+                SetNavDir(randomPos);
                 Set_Attacking(false);
                 enemy = null;
                 Set_AllyStateMode(eAllyStateMode.Move);

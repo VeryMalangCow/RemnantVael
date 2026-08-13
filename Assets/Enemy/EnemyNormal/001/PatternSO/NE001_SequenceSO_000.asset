@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cdaae5a81c92214ca51c826c49c0a77, type: 3}
-  m_Name: PatternSequenceSO_005
+  m_Name: NE001_SequenceSO_000
   m_EditorClassIdentifier: 
   conditions:
-  - {fileID: 11400000, guid: d5a58f03bdfd15040b1e67f51ad7a7b4, type: 2}
-  - {fileID: 11400000, guid: 2b823b8e63ec1b247b762164a1101aa4, type: 2}
+  - {fileID: 11400000, guid: f8bc7e61fff3c0d488dabde11723a414, type: 2}
   patterns:
-  - {fileID: 11400000, guid: 9e1612b8618fe8547ba7b1f87c84eb8f, type: 2}
+  - {fileID: 11400000, guid: ff27b35d2b82b80449d874f9cb3c005f, type: 2}
+  - {fileID: 11400000, guid: 1921e8ff31983a84e96a1224f443dab1, type: 2}

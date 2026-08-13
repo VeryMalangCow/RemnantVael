@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91cedcfb0f8c99545ab4330cad260833, type: 3}
-  m_Name: PatternCollectionSO_002
+  m_Name: NE002_CollectionSO
   m_EditorClassIdentifier: 
   patterns:
   - so: {fileID: 11400000, guid: 2048ba3fcf96aa14890a8e46e5a9df20, type: 2}
     priority: 0
     weight: 1
+  - so: {fileID: 11400000, guid: 196d7ec8c98479f4d852545ee2efcfc7, type: 2}
+    priority: 0
+    weight: 1
   - so: {fileID: 11400000, guid: 62454a71cea3d624883daa3dc2be78a5, type: 2}
     priority: 0
     weight: 1
+  patternInterval: 0.1

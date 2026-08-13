@@ -1,14 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PatternFollowSO", 
+[CreateAssetMenu(fileName = "E999_FollowSO", 
     menuName = "ScriptableObject/EnemyPatternSO/Pattern/Follow")]
 public class EnemyPatternFollowSO : EnemyPatternSO
 {
-    [SerializeField] private float speed;
+    [SerializeField] public float speed;
     [SerializeField] private float dis;
     [SerializeField] private bool ignoreWall;
-    [SerializeField] private float rayRadius;
 
     private static float followInitDelay = 0.2f;
     private static readonly WaitForSeconds followWait = new(followInitDelay);
@@ -45,11 +44,8 @@ public class EnemyPatternFollowSO : EnemyPatternSO
 
             existWall = false;
             if (!ignoreWall)
-            {
-                existWall = Physics2D.CircleCast(
-                    aPos, rayRadius, dir.normalized, currentDis,
-                    wallMask).collider != null;
-            }
+                existWall = Physics2D.Linecast(bPos, aPos, wallMask);
+            
 
             if (currentDis <= dis && !existWall)
                 break;
@@ -57,6 +53,8 @@ public class EnemyPatternFollowSO : EnemyPatternSO
             enemy.SetNavDir(playerTf);
             yield return followWait;
         }
+
+        aiContext.targetPos = playerTf.position;
 
         enemy.SetMoveSpeed(0);
         enemy.EndNav();

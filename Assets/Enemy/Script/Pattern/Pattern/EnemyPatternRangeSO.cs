@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PatternRangeSO",
+[CreateAssetMenu(fileName = "E999_RangeSO",
     menuName = "ScriptableObject/EnemyPatternSO/Pattern/Range")]
 public class EnemyPatternRangeSO : EnemyPatternSO
 {
@@ -12,7 +12,7 @@ public class EnemyPatternRangeSO : EnemyPatternSO
     [SerializeField] private float trailStartWidth;
     [SerializeField] private float trailTime;
     [Space(10)]
-    [SerializeField] private Vector2 bulletShadowScale;
+    [SerializeField] public Vector2 bulletShadowScale;
     [Space(10)]
     [SerializeField] private int shootExplAmount = 3;
     [SerializeField] private int explAmount;
@@ -23,7 +23,7 @@ public class EnemyPatternRangeSO : EnemyPatternSO
     [Header("=== State")]
     [SerializeField] private BulletState bulletState;
     [SerializeField] private float baseAngle = 0f;
-    [SerializeField] private Vector2 size;
+    [SerializeField] public Vector2 size;
 
     public override IEnumerator PlayPattern(EnemyAIContext aiContext)
     {
@@ -34,9 +34,12 @@ public class EnemyPatternRangeSO : EnemyPatternSO
 
         var enemy = aiContext.enemy;
         var enemyTf = enemy.transform;
-        var playerTf = aiContext.player.transform;
-        Vector2 dir = (playerTf.position - enemyTf.position).normalized;
-
+        Vector2 dir;
+        if (aiContext.targetPos != Vector2.zero)
+            dir = (aiContext.targetPos - (Vector2)enemyTf.position).normalized;
+        else
+            dir = (aiContext.player.transform.position - enemyTf.position).normalized;
+        
         // Start
         module.weaponScalePresenter.PlayVfxOn(startDelay);
         enemy.SetLookable(false);
@@ -56,6 +59,7 @@ public class EnemyPatternRangeSO : EnemyPatternSO
 
         // End
         module.weaponScalePresenter.PlayVfxOff(endDelay);
+        aiContext.targetPos = Vector2.zero;
         yield return new WaitForSeconds(endDelay);
         enemy.SetLookable(true);
     }
@@ -67,7 +71,7 @@ public class EnemyPatternRangeSO : EnemyPatternSO
         float targetShadow = depth.targetRange;
         bullet.SetState(
             this.bulletState,
-            new BulletState_PosAndRot(depth.transform.position, targetDir, 0, size.x * 0.5f),
+            new BulletState_PosAndRot(depth.transform.position, targetDir, 0, size.x * 0.2f),
             new BulletState_Size(bulletShadowScale, size),
             new State_Anim(animation, 1),
             new BulletState_Effect(explAmount, 1f),

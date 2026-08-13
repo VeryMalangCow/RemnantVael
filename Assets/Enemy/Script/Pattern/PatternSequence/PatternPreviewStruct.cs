@@ -55,4 +55,53 @@ public struct PatternPreviewDescription
     }
 }
 
+public static class PatternDraw
+{
+    public static void DrawCircleCast(Vector2 start, Vector2 end, float radius, float duration = 0.5f)
+    {
+        Vector2 dir = (end - start).normalized;
+        Vector2 perpendicular = new Vector2(-dir.y, dir.x);
+
+        // 양쪽 경계선
+        Debug.DrawLine(
+            start + perpendicular * radius,
+            end + perpendicular * radius,
+            Color.yellow,
+            duration);
+
+        Debug.DrawLine(
+            start - perpendicular * radius,
+            end - perpendicular * radius,
+            Color.yellow,
+            duration);
+
+        // 시작/끝 원
+        DrawCircle(start, radius, Color.yellow, duration);
+        DrawCircle(end, radius, Color.yellow, duration);
+    }
+
+    private static void DrawCircle(Vector2 center, float radius, Color color, float duration)
+    {
+        const int segmentCount = 32;
+
+        float angleStep = 360f / segmentCount;
+
+        for (int i = 0; i < segmentCount; i++)
+        {
+            float angleA = angleStep * i * Mathf.Deg2Rad;
+            float angleB = angleStep * (i + 1) * Mathf.Deg2Rad;
+
+            Vector2 a = center + new Vector2(
+                Mathf.Cos(angleA),
+                Mathf.Sin(angleA)) * radius;
+
+            Vector2 b = center + new Vector2(
+                Mathf.Cos(angleB),
+                Mathf.Sin(angleB)) * radius;
+
+            Debug.DrawLine(a, b, color, duration);
+        }
+    }
+}
+
 #endif

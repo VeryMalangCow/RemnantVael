@@ -43,10 +43,10 @@ public class NavObjectController : AliveObjectController
 
     public void SetNavDir(Transform targetTf)
     {
-        Set_NavDir(targetTf.position);
+        SetNavDir(targetTf.position);
     }
 
-    public void Set_NavDir(Vector2 targetPos)
+    public void SetNavDir(Vector2 targetPos)
     {
         moveAtDir = Get_NextDir(transform.position, targetPos);
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DistanceConditionSO", 
+[CreateAssetMenu(fileName = "NE999_DisSO", 
     menuName = "ScriptableObject/EnemyPatternSO/Condition/Distance")]
 public class EnemyPatternDistanceConditionSO : EnemyPatternConditionSO
 {

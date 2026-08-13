@@ -5,8 +5,12 @@ using UnityEngine;
 public class EnemyAIContext
 {
     public PlayerController player;
-    public EnemyController enemy;
-    public int wallLayer;
+    public EnemyController enemy; 
+    public CapsuleCollider2D mapJugeCol;
+
+    public int wallLayer; 
+
+    public Vector2 targetPos;
 
     public Dictionary<Type, EnemyModule> modules;
 
@@ -15,6 +19,8 @@ public class EnemyAIContext
     {
         this.player = player;
         this.enemy = enemy;
+        this.mapJugeCol = enemy.mapJugeCol;
+
         this.wallLayer = LayerMask.GetMask("Wall");
 
         EnemyModule[] allModule = enemy.GetComponents<EnemyModule>();
