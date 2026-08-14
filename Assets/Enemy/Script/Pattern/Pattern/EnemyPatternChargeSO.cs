@@ -35,7 +35,11 @@ public class EnemyPatternChargeSO : EnemyPatternSO
         var enemyTf = enemy.transform;
         var enemyPos = enemyTf.position;
         var playerTf = aiContext.player.transform;
-        Vector2 dir = playerTf.position - enemyPos;
+        Vector2 dir;
+        if (aiContext.targetPos != Vector2.zero)
+            dir = (aiContext.targetPos - (Vector2)enemyTf.position).normalized;
+        else
+            dir = (aiContext.player.transform.position - enemyTf.position).normalized;
 
         // Start
         module.weaponScalePresenter.PlayVfxOn(startDelay);
@@ -61,6 +65,7 @@ public class EnemyPatternChargeSO : EnemyPatternSO
 
         // End
         module.weaponScalePresenter.PlayVfxOff(endDelay);
+        aiContext.targetPos = Vector2.zero;
         yield return new WaitForSeconds(endDelay);
         enemy.SetLookable(true);
     }

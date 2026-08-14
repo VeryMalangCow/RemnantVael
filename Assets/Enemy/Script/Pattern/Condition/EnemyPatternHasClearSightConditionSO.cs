@@ -12,21 +12,45 @@ public class EnemyPatternHasClearSightConditionSO : EnemyPatternConditionSO
     {
         Vector2 aPos = aiContext.enemy.transform.position;
         Vector2 bPos = aiContext.player.transform.position;
+
         Vector2 dir = bPos - aPos;
         float distance = dir.magnitude;
 
         if (distance <= Mathf.Epsilon)
             return false;
-        bool result = Physics2D.CircleCast(
-            aPos,
-            radius,
-            dir / distance,
-            distance,
-            aiContext.wallLayer).collider == null;
+
+        bool result;
 
 #if UNITY_EDITOR
-        PatternDraw.DrawCircleCast(aPos, bPos, radius, result ? Color.green : Color.red);
+        Color drawColor;
 #endif
+
+        if (radius <= Mathf.Epsilon)
+        {
+            result = Physics2D.Linecast(
+                aPos, 
+                bPos, 
+                aiContext.wallLayer).collider == null;
+
+#if UNITY_EDITOR
+            drawColor = result ? Color.green : Color.red;
+            PatternDraw.DrawLineCast(aPos, bPos, drawColor);
+#endif
+        }
+        else
+        {
+            result = Physics2D.CircleCast(
+                aPos,
+                radius,
+                dir / distance,
+                distance,
+                aiContext.wallLayer).collider == null;
+
+#if UNITY_EDITOR
+            drawColor = result ? Color.green : Color.red;
+            PatternDraw.DrawCircleCast(aPos, bPos, radius, drawColor);
+#endif
+        }
 
         return Interference ? !result : result;
     }

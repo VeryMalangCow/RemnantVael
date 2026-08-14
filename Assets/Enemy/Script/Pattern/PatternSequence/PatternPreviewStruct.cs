@@ -58,6 +58,16 @@ public struct PatternPreviewDescription
 public static class PatternDraw
 {
     private static readonly float showDuration = 1f;
+
+    public static void DrawLineCast(Vector2 start, Vector2 end, Color clr)
+    {
+        Debug.DrawLine(
+            start,
+            end,
+            clr,
+            showDuration);
+    }
+
     public static void DrawCircleCast(Vector2 start, Vector2 end, float radius, Color clr)
     {
         Vector2 dir = (end - start).normalized;

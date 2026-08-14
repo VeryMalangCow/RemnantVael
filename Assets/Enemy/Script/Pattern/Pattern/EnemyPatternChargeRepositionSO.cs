@@ -1,13 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "E999_RangeRepositionSO",
-    menuName = "ScriptableObject/EnemyPatternSO/Pattern/Range Reposition")]
-public class EnemyPatternRangeRepositionSO : EnemyPatternRepositionSO
+[CreateAssetMenu(fileName = "E999_ChargeRepositionSO",
+    menuName = "ScriptableObject/EnemyPatternSO/Pattern/Charge Reposition")]
+public class EnemyPatternChargeRepositionSO : EnemyPatternRepositionSO
 {
-    [Header("=== Connector (Range)")]
-    [SerializeField] private EnemyPatternRangeSO rangeSO;
-
     // Pattern PLAY
     public override IEnumerator PlayPattern(EnemyAIContext aiContext)
     {
@@ -42,23 +39,23 @@ public class EnemyPatternRangeRepositionSO : EnemyPatternRepositionSO
 
     // 크기 반지름 계산
     protected override float GetRadius(EnemyAIContext aiContext)
-        => rangeSO.size.x * rangeSO.bulletShadowScale.x * 0.5f;
-    
+    {
+        CapsuleCollider2D capsule = aiContext.mapJugeCol;
+
+        return Mathf.Max(
+            capsule.size.x,
+            capsule.size.y) * 0.5f;
+    }
 
 #if UNITY_EDITOR
     public override PatternPreviewElement GetPreview()
     {
-        float radius = GetRadius(null);
-        float moveDis = (radius * 3f) + 0.1f;
-
         return new PatternPreviewElement("Reposition",
             new PatternPreviewDetail($"Speed: {followSO.speed}", Color.cyan),
-            new PatternPreviewDetail($"Dis: {moveDis}", Color.red),
-            new PatternPreviewDetail($"Radius: {radius}", Color.green),
+            new PatternPreviewDetail($"Dis: Enemy's bigger x or y capsule Collider. * 3 + 0.1f", Color.red),
+            new PatternPreviewDetail($"Radius: Enemy's bigger x or y capsule Collider.", Color.green),
             new PatternPreviewDescription("Move to the possible location attacked."));
 
     }
 #endif
 }
-
-

@@ -139,6 +139,6 @@ public static class PlayerAddress
 public static class EnemyAddress
 {
     public static string Get(eEnemy enemyType, int enemyId)
-        => $"{enemyType.ToString()}Enemy_{enemyId:00}";
+        => $"{enemyType.ToString()}Enemy_{enemyId:000}";
     
 }

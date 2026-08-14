@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd8a019610cbf49458625c4d89bede50, type: 3}
-  m_Name: NE002_RepositionSO
+  m_Script: {fileID: 11500000, guid: 7c43bf4d5c55aa743b187c9589fbcae6, type: 3}
+  m_Name: NE000_FollowSO
   m_EditorClassIdentifier: 
   startDelay: 0
   endDelay: 0
-  arriveDistance: 0.1
-  followSO: {fileID: 11400000, guid: a70be91195a59f341bf27e8b946a7a14, type: 2}
-  rangeSO: {fileID: 11400000, guid: 99196528a28b5c74cbb35ca360aa9c6c, type: 2}
-  repositionType: 2
+  speed: 2.75
+  dis: 1.8
+  ignoreWall: 0
+  rayRadius: 0.1

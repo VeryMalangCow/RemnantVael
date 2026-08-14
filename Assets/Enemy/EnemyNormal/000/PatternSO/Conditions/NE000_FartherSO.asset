@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c43bf4d5c55aa743b187c9589fbcae6, type: 3}
-  m_Name: NE002_FollowSO
+  m_Script: {fileID: 11500000, guid: 7bad023057cc1bb45a590381b8c64191, type: 3}
+  m_Name: NE000_FartherSO
   m_EditorClassIdentifier: 
-  startDelay: 0
-  endDelay: 0
-  speed: 2
-  dis: 3
-  ignoreWall: 0
-  rayRadius: 1.2
+  farMode: 1
+  targetRange: 1.8
