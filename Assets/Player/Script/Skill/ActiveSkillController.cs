@@ -104,7 +104,7 @@ public class ActiveSkillController : MonoBehaviour
     {
         return currentChargeAmount > 0 &&
             (PlayerManager.instance.playerController.currentEp > needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState) &&
-            playerController.movementState == eMovementState.IdleOrWalk;
+            playerController.movementState == MovementState.IdleOrWalk;
     }
 
     public virtual void Active_Skill()

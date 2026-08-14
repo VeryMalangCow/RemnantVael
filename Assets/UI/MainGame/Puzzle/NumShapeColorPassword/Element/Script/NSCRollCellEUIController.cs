@@ -16,7 +16,7 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
     [Space(10)]
     [Header("=== Img")]
     [SerializeField] private RectTransform rollImgParentRt;
-    [SerializeField] protected eNSCPuzzleType nscType;
+    [SerializeField] protected PuzzleNSCType nscType;
 
     [Space(10)]
     [Header("=== Lock")]

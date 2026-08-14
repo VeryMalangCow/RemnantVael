@@ -184,7 +184,7 @@ public class WorldTxtEUIController : ElementUIController, IPoolable
     {
         Set_Bold(isCritical);
         Play_DamageTxt(targetPos, string.Format("{0:F1}", dmg),
-            PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Physics, isCritical), Color.black, 
+            PlayerManager.instance.playerController.Get_CorrectColor(DamageType.Physics, isCritical), Color.black, 
             Get_FontSize_ByCritical(isCritical),
             new Vector2(-0.2f, 0.2f), 1f);
         
@@ -194,7 +194,7 @@ public class WorldTxtEUIController : ElementUIController, IPoolable
     {
         Set_Bold(isCritical);
         Play_DamageTxt(targetPos, string.Format("{0:F1}", dmg),
-            PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, isCritical), Color.black, 
+            PlayerManager.instance.playerController.Get_CorrectColor(DamageType.Energy, isCritical), Color.black, 
             Get_FontSize_ByCritical(isCritical),
             new Vector2(-0.2f, 0.2f), 1f);
         

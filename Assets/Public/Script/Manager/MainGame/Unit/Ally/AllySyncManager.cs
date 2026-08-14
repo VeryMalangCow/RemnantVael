@@ -98,7 +98,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController bullet = null,
         DroppingBombController droppingBullet = null)
     {
-        Activity_InflictStatusOneMoreEffect(eStatusEffect.Flame, rank, enemy);
+        Activity_InflictStatusOneMoreEffect(StatusEffectType.Flame, rank, enemy);
     }
 
     // 냉기
@@ -107,7 +107,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController bullet = null,
         DroppingBombController droppingBullet = null)
     {
-        Activity_InflictStatusOneMoreEffect(eStatusEffect.Cold, rank, enemy);
+        Activity_InflictStatusOneMoreEffect(StatusEffectType.Cold, rank, enemy);
     }
 
     // 전기
@@ -116,7 +116,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController bullet = null,
         DroppingBombController droppingBullet = null)
     {
-        Activity_InflictStatusOneMoreEffect(eStatusEffect.Electricity, rank, enemy);
+        Activity_InflictStatusOneMoreEffect(StatusEffectType.Electricity, rank, enemy);
     }
 
     // 부식
@@ -125,7 +125,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController bullet = null,
         DroppingBombController droppingBullet = null)
     {
-        Activity_InflictStatusOneMoreEffect(eStatusEffect.Corrosion, rank, enemy);
+        Activity_InflictStatusOneMoreEffect(StatusEffectType.Corrosion, rank, enemy);
     }
 
     // 치명타 발생 => 공격력 버프
@@ -169,25 +169,25 @@ public class AllySyncManager : Singleton<AllySyncManager>
     #region Unique
 
     // 상태이상을 한번 더 가하는 함수
-    private void Activity_InflictStatusOneMoreEffect(eStatusEffect kind, int rank, EnemyController enemy)
+    private void Activity_InflictStatusOneMoreEffect(StatusEffectType kind, int rank, EnemyController enemy)
     {
         if (UnityEngine.Random.Range(0, 100) < new List<int>() { 25, 60, 100 }[rank - 1])
         {
             switch (kind)
             {
-                case eStatusEffect.Flame:
+                case StatusEffectType.Flame:
                     enemy.buff.flameStack.ReGain_Stack();
                     return;
 
-                case eStatusEffect.Cold:
+                case StatusEffectType.Cold:
                     enemy.buff.coldStack.ReGain_Stack();
                     return;
 
-                case eStatusEffect.Electricity:
+                case StatusEffectType.Electricity:
                     enemy.buff.electricityStack.ReGain_Stack();
                     return;
 
-                case eStatusEffect.Corrosion:
+                case StatusEffectType.Corrosion:
                     enemy.buff.corrosionStack.ReGain_Stack();
                     return;
 

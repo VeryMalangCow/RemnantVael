@@ -98,9 +98,9 @@ public class AimController : StaticDepthController
     }
 
     // 데미지 타입만으로 변경
-    public void Set_DmgType(eDamageType dmgType)
+    public void Set_DmgType(DamageType dmgType)
     {
-        if (dmgType == eDamageType.Physics)
+        if (dmgType == DamageType.Physics)
         { Set_PhysicsType(); }
         else
         { Set_EnergyType(); }

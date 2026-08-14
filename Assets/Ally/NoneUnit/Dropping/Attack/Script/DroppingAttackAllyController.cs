@@ -71,8 +71,8 @@ public class DroppingAttackAllyController : DroppingAllyController
     private CombatState Get_BulletState()
     {
         return new CombatState(
-            new CombatOwner(eCombatOwner.Ally, id),
-            new DmgState(eDamageType.Physics, actualAllyState.dmg.value),
+            new CombatOwner(CombatOwnerType.Ally, id),
+            new DmgState(DamageType.Physics, actualAllyState.dmg.value),
             new CriticalState(actualAllyState.criticalChacne.value, 1 + actualAllyState.criticalDmg.value),
             new KnockbackState(true, actualAllyState.kbPower.value, 0.2f));
     }

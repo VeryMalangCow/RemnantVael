@@ -65,7 +65,7 @@ public class EnemyBuffController : MonoBehaviour
         #region Normal Status Debuff
 
         flameStack = new StatusEffect_Temporary_WithAmount(
-            this.enemy, eStatusEffect.Flame, flameMax, 
+            this.enemy, StatusEffectType.Flame, flameMax, 
             maxCooltime: 3f,
             onceTimeReduceAmount: 1,
             isResetWhenGain: false,
@@ -75,7 +75,7 @@ public class EnemyBuffController : MonoBehaviour
             EnemyManager.instance.flameIcon);
 
         coldStack = new StatusEffect_Temporary_WithAmount(
-            this.enemy, eStatusEffect.Cold, coldMax,
+            this.enemy, StatusEffectType.Cold, coldMax,
             maxCooltime: 6f, 
             onceTimeReduceAmount: 1,
             isResetWhenGain: true,
@@ -85,7 +85,7 @@ public class EnemyBuffController : MonoBehaviour
             EnemyManager.instance.coldIcon);
 
         electricityStack = new StatusEffect_Temporary_WithAmount(
-            this.enemy, eStatusEffect.Electricity, electricityMax, 
+            this.enemy, StatusEffectType.Electricity, electricityMax, 
             maxCooltime: 5f, 
             onceTimeReduceAmount: 1,
             isResetWhenGain: true,
@@ -95,7 +95,7 @@ public class EnemyBuffController : MonoBehaviour
             EnemyManager.instance.electricityIcon);
 
         corrosionStack = new StatusEffect_Temporary_WithAmount(
-            this.enemy, eStatusEffect.Corrosion, corrosionMax,
+            this.enemy, StatusEffectType.Corrosion, corrosionMax,
             maxCooltime: 4f, 
             onceTimeReduceAmount: 1, 
             isResetWhenGain: false,
@@ -197,7 +197,7 @@ public class EnemyBuffController : MonoBehaviour
     // 화염 속성이 줄어들때
     private void Active_FlameReduce()
     {
-        enemy.Take_Damage(DevTool.Get_FrameDmg(this), eDamageType.Physics);
+        enemy.Take_Damage(DevTool.Get_FrameDmg(this), DamageType.Physics);
     }
 
     // 전기 속성을 얻을 때
@@ -242,7 +242,7 @@ public class EnemyBuffController : MonoBehaviour
 
         for (int i = 0; i < targetEnemies.Count; i++)
         {
-            targetEnemies[i].Take_Damage(dmg, eDamageType.Physics);
+            targetEnemies[i].Take_Damage(dmg, DamageType.Physics);
         }
     }
 
@@ -253,7 +253,7 @@ public class EnemyBuffController : MonoBehaviour
     private void Active_FullStack(
         StatusEffect_Temporary_WithAmount fullStackBuff,
         StatusEffect_Permanent_WithAmount permanentBuff,
-        float dmg, eDamageType dmgType)
+        float dmg, DamageType dmgType)
     {
         fullStackBuff.Reduce_Stack(fullStackBuff.maxStack);
         permanentBuff.Gain_Stack(1, true);
@@ -266,7 +266,7 @@ public class EnemyBuffController : MonoBehaviour
     // Inferno
     private void Active_FlameFullStack()
     {
-        float dmg = DevTool.Get_FlameExplDmg(out eDamageType dmgType);
+        float dmg = DevTool.Get_FlameExplDmg(out DamageType dmgType);
         Active_FullStack(flameStack, infernoStack, dmg, dmgType);
 
         Play_ExplosionAttack(dmgType, dmg, 0);
@@ -275,7 +275,7 @@ public class EnemyBuffController : MonoBehaviour
     // AbsoliteZero
     private void Active_ColdFullStack()
     {
-        float dmg = DevTool.Get_ColdExplDmg(out eDamageType dmgType);
+        float dmg = DevTool.Get_ColdExplDmg(out DamageType dmgType);
         Active_FullStack(coldStack, absoluteZeroStack, dmg, dmgType);
 
         Play_ExplosionAttack(dmgType, dmg, 1);
@@ -284,7 +284,7 @@ public class EnemyBuffController : MonoBehaviour
     // Plasma
     private void Active_ElectricityFullStack()
     {
-        float dmg = DevTool.Get_ElectricityExplDmg(out eDamageType dmgType);
+        float dmg = DevTool.Get_ElectricityExplDmg(out DamageType dmgType);
         Active_FullStack(electricityStack, plasmaStack, dmg, dmgType);
 
         Play_ExplosionAttack(dmgType, dmg, 2);
@@ -293,7 +293,7 @@ public class EnemyBuffController : MonoBehaviour
     // Decay
     private void Active_CorrosionFullStack()
     {
-        float dmg = DevTool.Get_CorrosionExplDmg(out eDamageType dmgType);
+        float dmg = DevTool.Get_CorrosionExplDmg(out DamageType dmgType);
         Active_FullStack(corrosionStack, decayStack, dmg, dmgType);
 
         Play_ExplosionAttack(dmgType, dmg, 3);
@@ -302,7 +302,7 @@ public class EnemyBuffController : MonoBehaviour
 
     #region Explosion
 
-    private void Play_ExplosionAttack(eDamageType dmgType, float dmg, int statusIndex)
+    private void Play_ExplosionAttack(DamageType dmgType, float dmg, int statusIndex)
     {
         PlayerExplosionController pec = ExplosionManager.instance.SpawnPlayerExplosion();
         pec.Add_HittedObjectList(enemy);
@@ -313,14 +313,14 @@ public class EnemyBuffController : MonoBehaviour
             enemy.targetRange);
     }
 
-    private ExplosionState Get_ExlposionState(eDamageType dmgType, float dmg, int statusIndex)
+    private ExplosionState Get_ExlposionState(DamageType dmgType, float dmg, int statusIndex)
     {
         List<bool> statusBool = new List<bool> { false, false, false, false }; // Fire, Cold, Electricity, Corrosion
         statusBool[statusIndex] = true;
 
         return new ExplosionState(
             new CombatState(
-                new CombatOwner(eCombatOwner.Enemy),
+                new CombatOwner(CombatOwnerType.Enemy),
                 new DmgState(dmgType, dmg),
                 new CriticalState(0, 1),
                 new KnockbackState(true, 10f, 0.2f)),

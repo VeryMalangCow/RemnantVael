@@ -12,7 +12,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     #region Player Attack
 
     // 적에게 공격이 명중했을 경우 (공격자 기준)
-    public void Anim_AttackSuccess(Vector2 spawnPos, eDamageType dmgType, bool isCritical, float animSize = 1)
+    public void Anim_AttackSuccess(Vector2 spawnPos, DamageType dmgType, bool isCritical, float animSize = 1)
     {
         State_Anim anim = new State_Anim(
             PlayerManager.instance.playerController.Get_CorrectAC(dmgType, isCritical), 2f);

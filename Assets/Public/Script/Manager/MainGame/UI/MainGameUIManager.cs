@@ -118,8 +118,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>, IMainGameInitiali
         yield return null;
 
         PlayerController player = PlayerManager.instance.playerController;
-        Color mainClr = player.Get_CorrectColor(eDamageType.Energy, false);
-        Color subClr = player.Get_CorrectColor(eDamageType.Energy, true);
+        Color mainClr = player.Get_CorrectColor(DamageType.Energy, false);
+        Color subClr = player.Get_CorrectColor(DamageType.Energy, true);
 
         yield return InitAsync(hudPrefab, delegate (HudController ui) { hud = ui; });
         yield return hud.InitAsync(mainClr, subClr);

@@ -9,7 +9,7 @@ public class AllySolarController : SolarSystemController
 
     [SerializeField] private FieldUnitAllyController ally;
     [SerializeField] public Rigidbody2D rb;
-    [SerializeField] private eAllyStateMode allyStateMode;
+    [SerializeField] private AllyStateMode allyStateMode;
 
     #endregion
 
@@ -26,7 +26,7 @@ public class AllySolarController : SolarSystemController
 
     #region Set (State)
 
-    public void Set_AllyStateMode(eAllyStateMode stateMode)
+    public void Set_AllyStateMode(AllyStateMode stateMode)
     {
         if (allyStateMode == stateMode) return;
 
@@ -41,15 +41,15 @@ public class AllySolarController : SolarSystemController
     {
         switch (allyStateMode)
         {
-            case eAllyStateMode.Idle:
+            case AllyStateMode.Idle:
                 Set_RotSmooth(ally.Get_ForPlayerDir(), Time.deltaTime);
                 break;
 
-            case eAllyStateMode.Move:
+            case AllyStateMode.Move:
                 Set_RotSmooth(rb.velocity, Time.deltaTime);
                 break;
 
-            case eAllyStateMode.Attack:
+            case AllyStateMode.Attack:
                 Set_RotSmooth(ally.Get_ForEnemyDir(), Time.deltaTime);
                 break;
         }

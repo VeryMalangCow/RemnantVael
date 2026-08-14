@@ -196,10 +196,10 @@ public class RoomController : MonoBehaviour
 
         switch (roomRule.roomType)
         {
-            case eRoomType.Completed: Complete(); break;
-            case eRoomType.KillAll: KillAll(); break;
-            case eRoomType.Safe: Safe(); break;
-            case eRoomType.Prison: Prison(); break;
+            case RoomType.Completed: Complete(); break;
+            case RoomType.KillAll: KillAll(); break;
+            case RoomType.Safe: Safe(); break;
+            case RoomType.Prison: Prison(); break;
 
             default: break;
         }
@@ -209,8 +209,8 @@ public class RoomController : MonoBehaviour
     {
         switch (roomRule.roomType)
         {
-            case eRoomType.KillAll:
-                if (roomRule.enemyType == eEnemy.Normal) 
+            case RoomType.KillAll:
+                if (roomRule.enemyType == EnemyType.Normal) 
                      SoundManager.instance.PlayRoomSfx(transform.position, "CompleteKillAll"); 
                 else
                     SoundManager.instance.PlayRoomSfx(transform.position, "BattleWin");
@@ -218,7 +218,7 @@ public class RoomController : MonoBehaviour
 
             default: break;
         }
-        roomRule.roomType = eRoomType.Completed;
+        roomRule.roomType = RoomType.Completed;
 
         Play_RoomState();
     }
@@ -234,7 +234,7 @@ public class RoomController : MonoBehaviour
     {
         SoundManager.instance.PlayRoomSfx(transform.position, "StartSafe");
 
-        roomRule.roomType = eRoomType.Completed;
+        roomRule.roomType = RoomType.Completed;
         Complete();
     }
 
@@ -242,7 +242,7 @@ public class RoomController : MonoBehaviour
     {
         SoundManager.instance.PlayRoomSfx(transform.position, "StartPrison");
 
-        roomRule.roomType = eRoomType.Completed;
+        roomRule.roomType = RoomType.Completed;
         Complete();
     }
 
@@ -395,7 +395,7 @@ public class RoomController : MonoBehaviour
         List<GateController> bothOpenedGates = new List<GateController>();
         for (int i = 0; i < singleOpenedGates.Count; i++)
         {
-            if (singleOpenedGates[i].parterGate.thisRoom.roomRule.roomType == eRoomType.Completed &&
+            if (singleOpenedGates[i].parterGate.thisRoom.roomRule.roomType == RoomType.Completed &&
                 singleOpenedGates[i].parterGate.isOpen)
             {
                 bothOpenedGates.Add(singleOpenedGates[i]);

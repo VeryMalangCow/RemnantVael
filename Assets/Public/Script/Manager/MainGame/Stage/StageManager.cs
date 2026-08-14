@@ -2767,7 +2767,7 @@ public class StageManager : Singleton<StageManager>, IMainGameInitializer
     // Complete -> Kill All
     public void CompleteRoomKillAll()
     {
-        if (currentRoomController == null || currentRoomController.roomRule.roomType == eRoomType.Completed) return;
+        if (currentRoomController == null || currentRoomController.roomRule.roomType == RoomType.Completed) return;
 
         StartCoroutine(CompleteRoomKillAllCor());
     }

@@ -32,8 +32,8 @@ public class AllyDroppingBombController : DroppingBombController
     {
         return new ExplosionState(
             new CombatState(
-                new CombatOwner(eCombatOwner.Ally, id),
-                new DmgState(eDamageType.Physics, state.dmgState.dmg),
+                new CombatOwner(CombatOwnerType.Ally, id),
+                new DmgState(DamageType.Physics, state.dmgState.dmg),
                 new CriticalState(state.criticalState),
                 new KnockbackState(true, state.knockbackState.kbPower, state.knockbackState.kbTime)),
             sizeState,

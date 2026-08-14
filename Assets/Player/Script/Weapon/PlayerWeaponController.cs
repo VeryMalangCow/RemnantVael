@@ -15,7 +15,7 @@ public class PlayerWeaponController : PlayerSolarController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public eDamageType dmgType;
+    [SerializeField] public DamageType dmgType;
     [SerializeField] public float aliveTime;
     [HideInInspector] public float currentDelayROF = 0;
     [HideInInspector] public bool isInputed = false;
@@ -90,7 +90,7 @@ public class PlayerWeaponController : PlayerSolarController
     {
         if (isInputed &&
            currentDelayROF >= 1 &&
-           player.movementState == eMovementState.IdleOrWalk)
+           player.movementState == MovementState.IdleOrWalk)
         {
             return true;
         }
@@ -157,10 +157,10 @@ public class PlayerWeaponController : PlayerSolarController
     {
         return new BulletState(
             new CombatState(
-                new CombatOwner(eCombatOwner.Player),
+                new CombatOwner(CombatOwnerType.Player),
                 new DmgState(dmgType, player.baseWeapon.baseDamage.buffedState),
                 new CriticalState(player.baseWeapon.cc.actualState, player.baseWeapon.cd.buffedState),
-                new KnockbackState(dmgType == eDamageType.Physics ? true : false, player.baseWeapon.kbPower.actualState, 0.2f)),
+                new KnockbackState(dmgType == DamageType.Physics ? true : false, player.baseWeapon.kbPower.actualState, 0.2f)),
             checkIsCritical: true,
             muzzleSpeed: muzzleSpeed.actualState,
             aliveTime);

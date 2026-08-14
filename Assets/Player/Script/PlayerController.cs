@@ -160,13 +160,13 @@ public class PlayerController : AliveObjectController
     [HideInInspector] private SpriteRenderer shadowSr;
 
     // Combat Mode
-    [HideInInspector] private eDamageType dmgMode = eDamageType.Physics;
+    [HideInInspector] private DamageType dmgMode = DamageType.Physics;
 
     // Invincible
     [HideInInspector] private bool isInvincible = false;
 
     // Movement
-    [HideInInspector] public eMovementState movementState = eMovementState.IdleOrWalk;
+    [HideInInspector] public MovementState movementState = MovementState.IdleOrWalk;
 
     // Shield
     [HideInInspector] public List<Shield> shieldElements = new List<Shield>();
@@ -182,7 +182,7 @@ public class PlayerController : AliveObjectController
     [HideInInspector] private readonly float wheelLowestAnimSpeed = 0.5f;
 
     // Book
-    [HideInInspector] private eDamageType targetDmgMode = eDamageType.Physics;
+    [HideInInspector] private DamageType targetDmgMode = DamageType.Physics;
     [HideInInspector] private ChargeCooltimeData castingTime = new ChargeCooltimeData();
     [HideInInspector] private Dele reservationDele = null;
     [HideInInspector] private const float invincibleTime = 0.5f;
@@ -242,7 +242,7 @@ public class PlayerController : AliveObjectController
 
         baseSeq.SetLoops(-1, LoopType.Yoyo);
 
-        PrisonBuild.unlockedClr = Get_CorrectColor(eDamageType.Energy, false);
+        PrisonBuild.unlockedClr = Get_CorrectColor(DamageType.Energy, false);
 
         // Item
         chargedBettery = 0;
@@ -698,7 +698,7 @@ public class PlayerController : AliveObjectController
     // Try Lv Up
     public void Try_STAllyLvUp()
     {
-        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
+        if (StageManager.instance.currentRoomController.roomRule.roomType != RoomType.Completed)
             return;
 
         if (needStrikeTeamPresence <= strikeTeamPresence)
@@ -713,7 +713,7 @@ public class PlayerController : AliveObjectController
 
     public void Try_UTAllyLvUp()
     {
-        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
+        if (StageManager.instance.currentRoomController.roomRule.roomType != RoomType.Completed)
             return;
 
         if (needUplinkTeamPresence <= uplinkTeamPresence)
@@ -728,7 +728,7 @@ public class PlayerController : AliveObjectController
 
     public void Try_NTAllyLvUp()
     {
-        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
+        if (StageManager.instance.currentRoomController.roomRule.roomType != RoomType.Completed)
             return;
 
         if (needNeoTeamPresence <= neoTeamPresence)
@@ -783,11 +783,11 @@ public class PlayerController : AliveObjectController
 
     private void Play_Movement(float deltaTime)
     {
-        if (movementState == eMovementState.IdleOrWalk)
+        if (movementState == MovementState.IdleOrWalk)
         {
             Play_Walk(deltaTime);
         }
-        else if (movementState == eMovementState.Dash)
+        else if (movementState == MovementState.Dash)
         {
             dash.Play_Dash(deltaTime);
         }
@@ -808,7 +808,7 @@ public class PlayerController : AliveObjectController
             InputManager.instance.isPlayingBuffered = true;
             afterImgGenerator.Start_Gen(0.7f, 0.03f, 0.5f);
             AddCurrentEp(-dash.Get_ActualNeedEP());
-            movementState = eMovementState.Dash;
+            movementState = MovementState.Dash;
         }
     }
 
@@ -850,7 +850,7 @@ public class PlayerController : AliveObjectController
     // 상태 변경이나 스킬, 대시 등을 사용할 수 있는 상황인가?
     private bool Can_Change()
     {
-        if (movementState != eMovementState.IdleOrWalk)
+        if (movementState != MovementState.IdleOrWalk)
         {
             return false;
         }
@@ -876,8 +876,8 @@ public class PlayerController : AliveObjectController
             new State_Anim(dmgTypeStateAc.typeSpecial, 2f), 
             innerSprite: changeState_DamageType);
 
-        targetDmgMode = targetDmgMode == eDamageType.Physics ?
-            eDamageType.Energy : eDamageType.Physics;
+        targetDmgMode = targetDmgMode == DamageType.Physics ?
+            DamageType.Energy : DamageType.Physics;
 
         Start_Casting(combatModeInterval);
     }
@@ -929,7 +929,7 @@ public class PlayerController : AliveObjectController
     public void Start_Casting(float castingTime)
     {
         this.castingTime.max = castingTime;
-        movementState = eMovementState.Casting;
+        movementState = MovementState.Casting;
         rb.velocity = Vector2.zero;
 
         InputManager.instance.isPlayingBuffered = true;
@@ -961,12 +961,12 @@ public class PlayerController : AliveObjectController
 
     private void Caculate_Casting(float deltaTime)
     {
-        if (movementState != eMovementState.Casting)
+        if (movementState != MovementState.Casting)
         { return; }
 
         if (castingTime.Is_Charge(deltaTime)) // 캐스팅 완료
         {
-            movementState = eMovementState.IdleOrWalk;
+            movementState = MovementState.IdleOrWalk;
             InputManager.instance.isPlayingBuffered = false;
 
             Set_CombatMode();
@@ -1018,7 +1018,7 @@ public class PlayerController : AliveObjectController
     private void Reset_StateAnim()
     {
         stateAnim.Set_Anim(
-                new State_Anim(targetDmgMode == eDamageType.Physics ?
+                new State_Anim(targetDmgMode == DamageType.Physics ?
                     dmgTypeStateAc.typeA : dmgTypeStateAc.typeB, 0.8f));
     }
 
@@ -1050,22 +1050,22 @@ public class PlayerController : AliveObjectController
 
     #region Visual
 
-    public Color Get_CorrectColor(eDamageType damageType, bool isCritical)
+    public Color Get_CorrectColor(DamageType damageType, bool isCritical)
     {
         return Get_CorrectTComponent(clr, damageType, isCritical);
     }
 
-    public Gradient Get_CorrectGradient(eDamageType damageType, bool isCritical)
+    public Gradient Get_CorrectGradient(DamageType damageType, bool isCritical)
     {
         return Get_CorrectTComponent(gradient, damageType, isCritical);
     }
 
-    public AnimationClip Get_CorrectAC(eDamageType damageType, bool isCritical)
+    public AnimationClip Get_CorrectAC(DamageType damageType, bool isCritical)
     {
         return Get_CorrectTComponent(hittedPointAc, damageType, isCritical);
     }
 
-    private T Get_CorrectTComponent<T>(PlayerVisual<T> t, eDamageType damageType, bool isCritical)
+    private T Get_CorrectTComponent<T>(PlayerVisual<T> t, DamageType damageType, bool isCritical)
     {
         return t.Get_CorrectType(damageType).Get_Special(isCritical);
     }

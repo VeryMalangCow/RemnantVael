@@ -36,7 +36,7 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
     {
         switch (nscType)
         {
-            case eNSCPuzzleType.Color:
+            case PuzzleNSCType.Color:
                 rollClrArr = StaticResourceManager.instance.BuildReso.prisonPrefab.nscClrArr;
                 for (int i = 0; i < rollImgList.Count; i++)
                     rollImgList[i].sprite = StaticResourceManager.instance.BuildReso.prisonPrefab.nscClrSprite;

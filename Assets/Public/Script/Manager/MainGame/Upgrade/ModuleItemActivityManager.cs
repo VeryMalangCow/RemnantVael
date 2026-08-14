@@ -122,12 +122,12 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // 유도탄 발사
     private void Activity_MI_000(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(rank, eDamageType.Energy);
+        Activity_Derivative(rank, DamageType.Energy);
     }
 
     private void Activity_MI_001(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(rank, eDamageType.Physics);
+        Activity_Derivative(rank, DamageType.Physics);
     }
 
     #endregion
@@ -137,22 +137,22 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // 크리티컬 시, 상태이상 부여
     private void Activity_MI_002(int rank, EnemyController enemy = null)
     {
-        Activity_InflictStatusEffect(eStatusEffect.Flame, rank, enemy);
+        Activity_InflictStatusEffect(StatusEffectType.Flame, rank, enemy);
     }
 
     private void Activity_MI_003(int rank, EnemyController enemy = null)
     {
-        Activity_InflictStatusEffect(eStatusEffect.Cold, rank, enemy);
+        Activity_InflictStatusEffect(StatusEffectType.Cold, rank, enemy);
     }
 
     private void Activity_MI_004(int rank, EnemyController enemy = null)
     {
-        Activity_InflictStatusEffect(eStatusEffect.Electricity, rank, enemy);
+        Activity_InflictStatusEffect(StatusEffectType.Electricity, rank, enemy);
     }
 
     private void Activity_MI_005(int rank, EnemyController enemy = null)
     {
-        Activity_InflictStatusEffect(eStatusEffect.Corrosion, rank, enemy);
+        Activity_InflictStatusEffect(StatusEffectType.Corrosion, rank, enemy);
     }
 
     #endregion
@@ -170,25 +170,25 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // 화염
     private void Activity_MC_001(int rank, EnemyController enemy = null, BulletController bullet = null)
     {
-        Activity_InflictStatusOneMoreEffect(eStatusEffect.Flame, rank, enemy);
+        Activity_InflictStatusOneMoreEffect(StatusEffectType.Flame, rank, enemy);
     }
 
     // 냉기
     private void Activity_MC_002(int rank, EnemyController enemy = null, BulletController bullet = null)
     {
-        Activity_InflictStatusOneMoreEffect(eStatusEffect.Cold, rank, enemy);
+        Activity_InflictStatusOneMoreEffect(StatusEffectType.Cold, rank, enemy);
     }
 
     // 전기
     private void Activity_MC_003(int rank, EnemyController enemy = null, BulletController bullet = null)
     {
-        Activity_InflictStatusOneMoreEffect(eStatusEffect.Electricity, rank, enemy);
+        Activity_InflictStatusOneMoreEffect(StatusEffectType.Electricity, rank, enemy);
     }
 
     // 부식
     private void Activity_MC_004(int rank, EnemyController enemy = null, BulletController bullet = null)
     {
-        Activity_InflictStatusOneMoreEffect(eStatusEffect.Corrosion, rank, enemy);
+        Activity_InflictStatusOneMoreEffect(StatusEffectType.Corrosion, rank, enemy);
     }
 
     // 치명타 발생 => 공격력 버프
@@ -220,7 +220,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Unique (MI)
 
     // 데미지 타입을 통해서, 유도탄을 발사하는 함수
-    private void Activity_Derivative(int rank, eDamageType dmgType)
+    private void Activity_Derivative(int rank, DamageType dmgType)
     {
         // 편의성
         PlayerController PC = PlayerManager.instance.playerController;
@@ -244,7 +244,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             BulletState bulletState = 
                 new BulletState(
                     new CombatState(
-                        new CombatOwner(eCombatOwner.Player),
+                        new CombatOwner(CombatOwnerType.Player),
                         dmgState, 
                         criticalState, 
                         knockbackState), 
@@ -260,24 +260,24 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     }
 
     // 상태이상을 적에게 가하는 함수
-    private void Activity_InflictStatusEffect(eStatusEffect kind, int gainAmount, EnemyController enemy)
+    private void Activity_InflictStatusEffect(StatusEffectType kind, int gainAmount, EnemyController enemy)
     {
         switch (kind)
         {
-            case eStatusEffect.Flame: 
-                enemy.buff.flameStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+            case StatusEffectType.Flame: 
+                enemy.buff.flameStack.Gain_Stack(gainAmount, true, new CombatOwner(CombatOwnerType.Player));
                 return;
 
-            case eStatusEffect.Cold:
-                enemy.buff.coldStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+            case StatusEffectType.Cold:
+                enemy.buff.coldStack.Gain_Stack(gainAmount, true, new CombatOwner(CombatOwnerType.Player));
                 return;
 
-            case eStatusEffect.Electricity:
-                enemy.buff.electricityStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+            case StatusEffectType.Electricity:
+                enemy.buff.electricityStack.Gain_Stack(gainAmount, true, new CombatOwner(CombatOwnerType.Player));
                 return;
 
-            case eStatusEffect.Corrosion:
-                enemy.buff.corrosionStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+            case StatusEffectType.Corrosion:
+                enemy.buff.corrosionStack.Gain_Stack(gainAmount, true, new CombatOwner(CombatOwnerType.Player));
                 return;
 
             default: return;
@@ -285,25 +285,25 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     }
 
     // 상태이상을 한번 더 가하는 함수
-    private void Activity_InflictStatusOneMoreEffect(eStatusEffect kind, int rank, EnemyController enemy)
+    private void Activity_InflictStatusOneMoreEffect(StatusEffectType kind, int rank, EnemyController enemy)
     {
         if (UnityEngine.Random.Range(0, 100) < new List<int>() { 25, 60, 100 }[rank - 1])
         {
             switch (kind)
             {
-                case eStatusEffect.Flame:
+                case StatusEffectType.Flame:
                     enemy.buff.flameStack.ReGain_Stack();
                     return;
 
-                case eStatusEffect.Cold:
+                case StatusEffectType.Cold:
                     enemy.buff.coldStack.ReGain_Stack();
                     return;
 
-                case eStatusEffect.Electricity:
+                case StatusEffectType.Electricity:
                     enemy.buff.electricityStack.ReGain_Stack();
                     return;
 
-                case eStatusEffect.Corrosion:
+                case StatusEffectType.Corrosion:
                     enemy.buff.corrosionStack.ReGain_Stack();
                     return;
 

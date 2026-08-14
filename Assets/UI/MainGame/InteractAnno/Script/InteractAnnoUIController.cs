@@ -39,7 +39,7 @@ public class InteractAnnoUIController : UIController
 
     public void Offset_ColorComp()
     {
-        Color clr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color clr = PlayerManager.instance.playerController.Get_CorrectColor(DamageType.Energy, false);
 
         interactableClr = clr;
         innerLImg.color = clr;

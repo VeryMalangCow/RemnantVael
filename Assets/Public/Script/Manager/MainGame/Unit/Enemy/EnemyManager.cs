@@ -7,13 +7,13 @@ using UnityEngine;
 [Serializable]
 public class EnemyPoolSet<T> where T : EnemyController, IPoolable
 {
-    public eEnemy enemyType;
+    public EnemyType enemyType;
     public Dictionary<int, PoolSystem<T>> dict = new Dictionary<int, PoolSystem<T>>();
     public List<PoolSystem<T>> updateList = new List<PoolSystem<T>>();
     public Transform parentTf;
 
     // Set Pool
-    public IEnumerator SetEnemyPoolAsync(eEnemy type, List<int> enemyIndices, int size, float limitMsPerFrame = 8f)
+    public IEnumerator SetEnemyPoolAsync(EnemyType type, List<int> enemyIndices, int size, float limitMsPerFrame = 8f)
     {
         enemyType = type;
 
@@ -160,9 +160,9 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     // Pool Dict 객체 값 -> 삽입 및 생성
     public IEnumerator SetEnemyPoolsAsync(List<int> normalEnemyIndices, List<int> eliteEnemyIndices, List<int> bossEnemyIndices)
     {
-        yield return normalEnemyPoolSet.SetEnemyPoolAsync(eEnemy.Normal, normalEnemyIndices, 8);
-        yield return eliteEnemyPoolSet.SetEnemyPoolAsync(eEnemy.Elite, eliteEnemyIndices, 4);
-        yield return bossEnemyPoolSet.SetEnemyPoolAsync(eEnemy.Boss, bossEnemyIndices, 2);
+        yield return normalEnemyPoolSet.SetEnemyPoolAsync(EnemyType.Normal, normalEnemyIndices, 8);
+        yield return eliteEnemyPoolSet.SetEnemyPoolAsync(EnemyType.Elite, eliteEnemyIndices, 4);
+        yield return bossEnemyPoolSet.SetEnemyPoolAsync(EnemyType.Boss, bossEnemyIndices, 2);
     }
  
     // Pool Dict 객체 값 -> 삭제 및 데이터 초기화
@@ -209,19 +209,19 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
     public void RemoveBossEnemy(BossEnemyController enemy, int enemyId) => bossEnemyPoolSet.dict[enemyId].Enqueue(enemy);
 
 
-    public EnemyController SpawnEnemy(eEnemy type, int enemyId)
+    public EnemyController SpawnEnemy(EnemyType type, int enemyId)
     {
-        if (type == eEnemy.Normal)
+        if (type == EnemyType.Normal)
         {
             Debug.Log($"<color=red>EnemyDequeue : {type} : {enemyId}</color>");
             return SpawnNormalEnemy(enemyId);
         }
-        else if (type == eEnemy.Elite)
+        else if (type == EnemyType.Elite)
         {
             Debug.Log($"<color=red>EnemyDequeue : {type} : {enemyId}</color>");
             return SpawnEliteEnemy(enemyId);
         }
-        else if (type == eEnemy.Boss)
+        else if (type == EnemyType.Boss)
         {
             Debug.Log($"<color=red>EnemyDequeue : {type} : {enemyId}</color>");
             return SpawnBossEnemy(enemyId);
@@ -230,21 +230,21 @@ public class EnemyManager : Singleton<EnemyManager>, IMainGameInitializer
         return null;
     }
 
-    public void RemoveEnemy(EnemyController enemy, eEnemy type, int enemyId)
+    public void RemoveEnemy(EnemyController enemy, EnemyType type, int enemyId)
     {
-        if (type == eEnemy.Normal)
+        if (type == EnemyType.Normal)
         {
             Debug.Log($"<color=red>EnemyEnqueue</color> : {type} : {enemyId}");
             NormalEnemyController normalEnemy = enemy as NormalEnemyController;
             if (normalEnemy != null) RemoveNormalEnemy(normalEnemy, enemyId);
         }
-        else if (type == eEnemy.Elite)
+        else if (type == EnemyType.Elite)
         {
             Debug.Log($"<color=red>EnemyEnqueue</color> : {type} : {enemyId}");
             EliteEnemyController eliteEnemy = enemy as EliteEnemyController;
             if (eliteEnemy != null) RemoveEliteEnemy(eliteEnemy, enemyId);
         }
-        else if (type == eEnemy.Boss)
+        else if (type == EnemyType.Boss)
         {
             Debug.Log($"<color=red>EnemyEnqueue</color> : {type} : {enemyId}");
             BossEnemyController bossEnemy = enemy as BossEnemyController;

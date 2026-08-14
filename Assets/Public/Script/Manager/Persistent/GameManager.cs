@@ -1208,9 +1208,9 @@ public class DevTool
 
     // 데미지와 크리티컬로 인덱스 구하기
     // 0: PB / 1: PC / 2: EB / 3: EC
-    public static int Get_IndexOfDmgTypeAndCritical(eDamageType dmgType, bool isCritical)
+    public static int Get_IndexOfDmgTypeAndCritical(DamageType dmgType, bool isCritical)
     {
-        if (dmgType == eDamageType.Physics)
+        if (dmgType == DamageType.Physics)
         {
             if (!isCritical)
             { return 0; }
@@ -1227,15 +1227,15 @@ public class DevTool
     }
 
     // 1:P / 2:E
-    public static eDamageType Get_DmgTypeFromIndex(int index)
+    public static DamageType Get_DmgTypeFromIndex(int index)
     {
         if (index == 0 || index == 1)
         {
-            return eDamageType.Physics;
+            return DamageType.Physics;
         }
         else
         {
-            return eDamageType.Energy;
+            return DamageType.Energy;
         }
     }
 
@@ -1312,18 +1312,18 @@ public class DevTool
             * buff.flameStack.currentStack
             * (buff.infernoStack.currentStack + 1);
     }
-    public static float Get_FlameExplDmg(out eDamageType dmgType)
+    public static float Get_FlameExplDmg(out DamageType dmgType)
     {
-        dmgType = eDamageType.Physics;
+        dmgType = DamageType.Physics;
         return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 10f;
     }
 
 
     // 냉기
-    public static float Get_ColdExplDmg(out eDamageType dmgType)
+    public static float Get_ColdExplDmg(out DamageType dmgType)
     {
-        dmgType = eDamageType.Energy;
+        dmgType = DamageType.Energy;
         return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 7.5f;
     }
@@ -1337,17 +1337,17 @@ public class DevTool
             * buff.electricityStack.currentStack
             * (buff.plasmaStack.currentStack + 1);
     }
-    public static float Get_ElectricityExplDmg(out eDamageType dmgType)
+    public static float Get_ElectricityExplDmg(out DamageType dmgType)
     {
-        dmgType = eDamageType.Energy;
+        dmgType = DamageType.Energy;
         return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 7.5f;
     }
 
     // 부식
-    public static float Get_CorrosionExplDmg(out eDamageType dmgType)
+    public static float Get_CorrosionExplDmg(out DamageType dmgType)
     {
-        dmgType = eDamageType.Physics;
+        dmgType = DamageType.Physics;
         return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 5f;
     }
@@ -1957,7 +1957,7 @@ public class DeadParticleElement
 [System.Serializable]
 public class CombatOwner
 {
-    public eCombatOwner owner;
+    public CombatOwnerType owner;
     public int id;
 
     public CombatOwner(CombatOwner owner)
@@ -1966,7 +1966,7 @@ public class CombatOwner
         id = owner.id;
     }
 
-    public CombatOwner(eCombatOwner typeOwner, int id = -1)
+    public CombatOwner(CombatOwnerType typeOwner, int id = -1)
     {
         owner = typeOwner;
         this.id = id;
@@ -2050,7 +2050,7 @@ public class BulletState : CombatState
     [SerializeField] public float aliveTime;
 
     [SerializeField] public bool isStatus = false;
-    [SerializeField] public eStatusEffect statusType;
+    [SerializeField] public StatusEffectType statusType;
 
     #endregion
 
@@ -2093,7 +2093,7 @@ public class BulletState : CombatState
 
     #region Status
 
-    public void Set_Status(bool isOn, eStatusEffect statueType)
+    public void Set_Status(bool isOn, StatusEffectType statueType)
     {
         isStatus = isOn;
         statusType = statueType;
@@ -2202,7 +2202,7 @@ public class DmgState : ElementState
 {
     #region Value
 
-    [SerializeField] public eDamageType dmgType;
+    [SerializeField] public DamageType dmgType;
     [SerializeField] public float dmg;
 
     #endregion
@@ -2215,7 +2215,7 @@ public class DmgState : ElementState
         dmg = state.dmg;
     }
 
-    public DmgState(eDamageType dmgType, float dmg)
+    public DmgState(DamageType dmgType, float dmg)
     {
         this.dmgType = dmgType;
         this.dmg = dmg;
@@ -2227,7 +2227,7 @@ public class DmgState : ElementState
 
     public override void Reset_State()
     {
-        dmgType = eDamageType.Physics;
+        dmgType = DamageType.Physics;
         dmg = 0;
     }
 
@@ -3593,7 +3593,7 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
 {
     #region Value
 
-    public eStatusEffect statusType;
+    public StatusEffectType statusType;
 
     public int maxStack;
     public int currentStack;
@@ -3609,7 +3609,7 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
 
     // 생성자
     public StatusEffect_Temporary_WithAmount(
-        EnemyController enemy, eStatusEffect statusType, int maxStack, float maxCooltime, int onceTimeReduceAmount, bool isResetWhenGain,
+        EnemyController enemy, StatusEffectType statusType, int maxStack, float maxCooltime, int onceTimeReduceAmount, bool isResetWhenGain,
         EffectDele gainFunc, EffectDele reduceFunc, EffectDele fullStack,
         Sprite iconSprite)
         : base(enemy, maxCooltime, gainFunc, reduceFunc, iconSprite)
@@ -3633,16 +3633,16 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
     {
         switch (statusType)
         {
-            case eStatusEffect.Flame:
+            case StatusEffectType.Flame:
                 return new DeleEnemy(ModuleItemManager.instance.ActiveSync_EnemyTakingFire);
 
-            case eStatusEffect.Cold:
+            case StatusEffectType.Cold:
                 return new DeleEnemy(ModuleItemManager.instance.ActiveSync_EnemyTakingCold);
 
-            case eStatusEffect.Electricity:
+            case StatusEffectType.Electricity:
                 return new DeleEnemy(ModuleItemManager.instance.ActiveSync_EnemyTakingElectricity);
 
-            case eStatusEffect.Corrosion:
+            case StatusEffectType.Corrosion:
                 return new DeleEnemy(ModuleItemManager.instance.ActiveSync_EnemyTakingCorrosion);
         }
         return null;
@@ -3653,16 +3653,16 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
         AllyController ally = AllyManager.instance.allAlly[id];
         switch (statusType)
         {
-            case eStatusEffect.Flame:
+            case StatusEffectType.Flame:
                 return new DeleEnemy(ally.ActiveAlly_EnemyTakingFire);
 
-            case eStatusEffect.Cold: 
+            case StatusEffectType.Cold: 
                 return new DeleEnemy(ally.ActiveAlly_EnemyTakingCold);
 
-            case eStatusEffect.Electricity: 
+            case StatusEffectType.Electricity: 
                 return new DeleEnemy(ally.ActiveAlly_EnemyTakingElectricity);
 
-            case eStatusEffect.Corrosion: 
+            case StatusEffectType.Corrosion: 
                 return new DeleEnemy(ally.ActiveAlly_EnemyTakingCorrosion);
         }
         return null;
@@ -3680,9 +3680,9 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
 
         // 플레이어 속성
         CurrentGainStack = gainAmount;
-        if (combatOwner.owner == eCombatOwner.Player)
+        if (combatOwner.owner == CombatOwnerType.Player)
             Get_PlayerIDele()(enemy);
-        else if (combatOwner.owner == eCombatOwner.Ally)
+        else if (combatOwner.owner == CombatOwnerType.Ally)
             Get_AllyIDele(combatOwner.id)(enemy);
 
         if (isResetWhenGain)
@@ -4857,9 +4857,9 @@ public class PlayerVisual<T>
     [SerializeField] public CoupleData<T> physics;
     [SerializeField] public CoupleData<T> energy;
 
-    public CoupleData<T> Get_CorrectType(eDamageType dmgType)
+    public CoupleData<T> Get_CorrectType(DamageType dmgType)
     {
-        if (dmgType == eDamageType.Physics)
+        if (dmgType == DamageType.Physics)
         {
             return physics;
         }
@@ -5511,17 +5511,17 @@ public delegate void DeleEnemy(EnemyController enemy);
 
 #region About Combat
 
-public enum eCombatOwner
+public enum CombatOwnerType
 {
     Player, Ally, Enemy
 }
 
-public enum eDamageType
+public enum DamageType
 {
     Physics, Energy
 }
 
-public enum eStatusEffect
+public enum StatusEffectType
 {
     Flame, Cold, Electricity, Corrosion
 }
@@ -5530,12 +5530,12 @@ public enum eStatusEffect
 
 #region About Movement
 
-public enum eMovementState
+public enum MovementState
 {
     Casting, IdleOrWalk, Dash
 }
 
-public enum eDashStyle
+public enum DashType
 {
     OneWay, CanInputWay, Teleport
 }
@@ -5544,7 +5544,7 @@ public enum eDashStyle
 
 #region Enemy
 
-public enum eEnemy
+public enum EnemyType
 {
     Normal, Elite, Boss
 }
@@ -5553,7 +5553,7 @@ public enum eEnemy
 
 #region Room
 
-public enum eRoomType
+public enum RoomType
 {
     Completed, KillAll, Survived, Safe, Prison
 }
@@ -5562,7 +5562,7 @@ public enum eRoomType
 
 #region Puzzle
 
-public enum eNSCPuzzleType
+public enum PuzzleNSCType
 {
     Num, Shape, Color
 }
@@ -5589,7 +5589,7 @@ public enum SoundType
 
 #region Ally
 
-public enum eAllyStateMode
+public enum AllyStateMode
 {
     Idle, Move, Attack
 }

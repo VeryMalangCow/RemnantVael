@@ -16,7 +16,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     #region Find 
 
     // 기본 공격 발사
-    public void Expl_Player_ShootBaseBullet(int playerID, Vector2 spawnPos, Vector2 dir, eDamageType dmgType, bool isCritical)
+    public void Expl_Player_ShootBaseBullet(int playerID, Vector2 spawnPos, Vector2 dir, DamageType dmgType, bool isCritical)
     {
         switch (playerID)
         {
@@ -73,7 +73,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
 
 
     // 플레이어 오브젝트 파괴
-    public void Expl_Player_ObjectDestroy(int playerID, Vector2 spawnPos, eDamageType dmgType, bool isCritical)
+    public void Expl_Player_ObjectDestroy(int playerID, Vector2 spawnPos, DamageType dmgType, bool isCritical)
     {
         switch (playerID)
         {
@@ -87,7 +87,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     }
 
     // 플레이어 (큰) 오브젝트 파괴
-    public void Expl_Player_BigObjectDestroy(int playerID, Vector2 spawnPos, eDamageType dmgType, bool isCritical)
+    public void Expl_Player_BigObjectDestroy(int playerID, Vector2 spawnPos, DamageType dmgType, bool isCritical)
     {
         switch (playerID)
         {
@@ -107,7 +107,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     #region Player 00
 
     // 총알 발사
-    private void Expl_Player00_ShootBaseBullet(Vector2 spawnPos, Vector2 dir, eDamageType dmgType, bool isCritical)
+    private void Expl_Player00_ShootBaseBullet(Vector2 spawnPos, Vector2 dir, DamageType dmgType, bool isCritical)
     {
         Gen_ExplImg_Sector(
             new ExplState(
@@ -124,7 +124,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
         Gen_ExplImg_Sector(
             new ExplState(
                 new ExplState_Base(spawnPos, 4),
-                Get_Sprite(0, eDamageType.Physics, isCritical, 0),
+                Get_Sprite(0, DamageType.Physics, isCritical, 0),
                 new ExplState_MoveAndScale(dir, dis: 0.6f, scale: 1.4f, time: 0.075f, 0.025f),
                 new ExplState_MoveAndScale(dir, dis: 1.2f, scale: 0.7f, time: 0.750f, 0.250f)),
             dir, 75f);
@@ -156,7 +156,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     }
 
     // 오브젝트 파괴
-    private void Expl_Player00_ObjectDestroy(Vector2 spawnPos, eDamageType dmgType, bool isCritical)
+    private void Expl_Player00_ObjectDestroy(Vector2 spawnPos, DamageType dmgType, bool isCritical)
     {
         Gen_ExplImg_Circle(
             new ExplState(
@@ -167,7 +167,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     }
 
     // 큰 오브젝트 파괴
-    private void Expl_Player00_BigObjectDestroy(Vector2 spawnPos, eDamageType dmgType, bool isCritical)
+    private void Expl_Player00_BigObjectDestroy(Vector2 spawnPos, DamageType dmgType, bool isCritical)
     {
         Gen_ExplImg_Circle(
             new ExplState(
@@ -197,7 +197,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
 
     #region Get
 
-    private ExplState_Sprite Get_Sprite(int playerID, eDamageType dmgType, bool isCritical, int materialIndex)
+    private ExplState_Sprite Get_Sprite(int playerID, DamageType dmgType, bool isCritical, int materialIndex)
     {
         return new ExplState_Sprite(
             smokeSpriteList[playerID].Get_CorrectType(dmgType).Get_Special(isCritical),

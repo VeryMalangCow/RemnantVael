@@ -109,8 +109,8 @@ public class MissileBulletController : PlayerBulletController
     {
         return new ExplosionState(
             new CombatState(
-                new CombatOwner(eCombatOwner.Player),
-                new DmgState(eDamageType.Physics, state.dmgState.dmg * 2),
+                new CombatOwner(CombatOwnerType.Player),
+                new DmgState(DamageType.Physics, state.dmgState.dmg * 2),
                 new CriticalState(state.criticalState),
                 new KnockbackState(true, state.knockbackState.kbPower * 2, state.knockbackState.kbTime)),
             new AttackSizeState(1f),

@@ -130,7 +130,7 @@ public class FieldUnitAllyController : AllyController
 
     #region State (Enum)
 
-    protected override void Set_AllyStateMode(eAllyStateMode mode)
+    protected override void Set_AllyStateMode(AllyStateMode mode)
     {
         base.Set_AllyStateMode(mode);
 

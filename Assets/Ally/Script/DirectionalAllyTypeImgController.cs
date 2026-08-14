@@ -20,7 +20,7 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
     {
         allySpriteSet = StaticResourceManager.instance.AllyReso.GetAllySpriteSet(spriteSetName);
         comp.material = allySpriteSet.material;
-        Set_Type(eAllyStateMode.Idle);
+        Set_Type(AllyStateMode.Idle);
 
         base.Start();
     }
@@ -29,19 +29,19 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
 
     #region Set
 
-    public void Set_Type(eAllyStateMode mode)
+    public void Set_Type(AllyStateMode mode)
     {
         switch (mode)
         {
-            case eAllyStateMode.Idle:
+            case AllyStateMode.Idle:
                 dirList = allySpriteSet.allyIdle;
                 break;
 
-            case eAllyStateMode.Move:
+            case AllyStateMode.Move:
                 dirList = allySpriteSet.allyMove;
                 break;
 
-            case eAllyStateMode.Attack:
+            case AllyStateMode.Attack:
                 dirList = allySpriteSet.allyAttack;
                 break;
 

@@ -9,7 +9,7 @@ public class PlayerDashController : MonoBehaviour
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private eDashStyle dashStyle = eDashStyle.OneWay;
+    [SerializeField] private DashType dashStyle = DashType.OneWay;
 
     [Space(10)]
     [Header("=== BU State")]
@@ -51,15 +51,15 @@ public class PlayerDashController : MonoBehaviour
     {
         switch (dashStyle)
         {
-            case eDashStyle.OneWay:
+            case DashType.OneWay:
                 Update_OneWay(deltaTime);
                 break;
 
-            case eDashStyle.CanInputWay:
+            case DashType.CanInputWay:
                 Update_CanInputWay(deltaTime);
                 break;
 
-            case eDashStyle.Teleport:
+            case DashType.Teleport:
                 Update_Teleport(deltaTime);
                 break;
 
@@ -154,7 +154,7 @@ public class PlayerDashController : MonoBehaviour
     void End_Dash()
     {
         playerController.afterImgGenerator.End_Gen();
-        playerController.movementState = eMovementState.IdleOrWalk;
+        playerController.movementState = MovementState.IdleOrWalk;
 
         // ¿¹¾à ÁÂÇ¥
         booked = false;

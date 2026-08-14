@@ -19,8 +19,8 @@ public class RoomRuleController : MonoBehaviour
 
     [Space(5)]
     [Header("-- Type")]
-    [SerializeField] public eRoomType roomType;
-    [SerializeField] public eEnemy enemyType = eEnemy.Normal;
+    [SerializeField] public RoomType roomType;
+    [SerializeField] public EnemyType enemyType = EnemyType.Normal;
 
     [Space(10)]
     [Header("=== Parent TF")]
@@ -69,13 +69,13 @@ public class RoomRuleController : MonoBehaviour
     public bool Is_EliteEnemyRoom(out int eliteEnemyId)
     {
         eliteEnemyId = 0;
-        if (enemyType != eEnemy.Elite || 
-            roomType != eRoomType.KillAll) 
+        if (enemyType != EnemyType.Elite || 
+            roomType != RoomType.KillAll) 
             return false;
 
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
-            if (inRoom_AllEnemySpawn[i].GetEnemyType() == eEnemy.Elite)
+            if (inRoom_AllEnemySpawn[i].GetEnemyType() == EnemyType.Elite)
             {
                 eliteEnemyId = inRoom_AllEnemySpawn[i].Get_SpawnID();
                 return true;
@@ -88,13 +88,13 @@ public class RoomRuleController : MonoBehaviour
     public bool Is_BossEnemyRoom(out int bossEnemyId)
     {
         bossEnemyId = 0;
-        if (enemyType != eEnemy.Boss ||
-            roomType != eRoomType.KillAll)
+        if (enemyType != EnemyType.Boss ||
+            roomType != RoomType.KillAll)
             return false;
 
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
-            if (inRoom_AllEnemySpawn[i].GetEnemyType() == eEnemy.Boss)
+            if (inRoom_AllEnemySpawn[i].GetEnemyType() == EnemyType.Boss)
             {
                 bossEnemyId = inRoom_AllEnemySpawn[i].Get_SpawnID();
                 return true;
@@ -136,12 +136,12 @@ public class RoomRuleController : MonoBehaviour
     {
         Spawn_AllEnemy();
 
-        if (enemyType == eEnemy.Elite && SoundManager.isPlayingBaseBGM)
+        if (enemyType == EnemyType.Elite && SoundManager.isPlayingBaseBGM)
         {
             SoundManager.instance.CastBgmToExtra();
             SoundManager.instance.PlayEliteEnemyBattleBgm();
         }
-        else if (enemyType == eEnemy.Boss && SoundManager.isPlayingBaseBGM)
+        else if (enemyType == EnemyType.Boss && SoundManager.isPlayingBaseBGM)
         {
             SoundManager.instance.CastBgmToExtra();
             SoundManager.instance.PlayBossEnemyBattleBgm();
@@ -186,7 +186,7 @@ public class RoomRuleController : MonoBehaviour
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
             var spot = inRoom_AllEnemySpawn[i];
-            if (spot.GetEnemyType() == eEnemy.Boss)
+            if (spot.GetEnemyType() == EnemyType.Boss)
             {
                 spot.SetSpawnID(id);
             }
@@ -198,7 +198,7 @@ public class RoomRuleController : MonoBehaviour
         for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
             var spot = inRoom_AllEnemySpawn[i];
-            if (spot.GetEnemyType() == eEnemy.Elite)
+            if (spot.GetEnemyType() == EnemyType.Elite)
             {
                 spot.SetSpawnID(id);
             }
@@ -218,16 +218,16 @@ public class RoomRuleController : MonoBehaviour
 
             
             var type = spot.GetEnemyType();
-            if (type == eEnemy.Normal && normalEnemyIndices != null)
+            if (type == EnemyType.Normal && normalEnemyIndices != null)
             {
                 int id = normalEnemyIndices[Random.Range(0, normalEnemyIndices.Count)];
                 spot.SetSpawnID(id);
             }
-            else if (type == eEnemy.Boss && bossId != -1)
+            else if (type == EnemyType.Boss && bossId != -1)
             {
                 spot.SetSpawnID(bossId);
             }
-            else if (type == eEnemy.Elite && eliteId != -1)
+            else if (type == EnemyType.Elite && eliteId != -1)
             {
                 spot.SetSpawnID(eliteId);
             }

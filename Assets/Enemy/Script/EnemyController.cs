@@ -25,7 +25,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     [SerializeField] private RigidbodyAnimSolarController walkingSatellite;
 
     // State
-    [SerializeField] private eEnemy enemyType;
+    [SerializeField] private EnemyType enemyType;
     [SerializeField] private float maxHP;
     [SerializeField] private float maxEP = 100f;
     [SerializeField] private float chargeEPSpeed = 1f;
@@ -85,7 +85,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     [HideInInspector] private RoomController currentRoomController;
 
     // 죽음
-    [HideInInspector] private eDamageType dieStateType;
+    [HideInInspector] private DamageType dieStateType;
 
     public int PoolIndex { get; set; } = -1;
     public int ActiveIndex { get; set; } = -1;
@@ -426,16 +426,16 @@ public abstract class EnemyController : NavObjectController, IPoolable
         {
             switch (state.statusType)
             {
-                case eStatusEffect.Flame:
+                case StatusEffectType.Flame:
                     buff.flameStack.Gain_Stack(1, true, state.ownerData);
                     break;
-                case eStatusEffect.Cold:
+                case StatusEffectType.Cold:
                     buff.coldStack.Gain_Stack(1, true, state.ownerData);
                     break;
-                case eStatusEffect.Electricity:
+                case StatusEffectType.Electricity:
                     buff.electricityStack.Gain_Stack(1, true, state.ownerData);
                     break;
-                case eStatusEffect.Corrosion:
+                case StatusEffectType.Corrosion:
                     buff.corrosionStack.Gain_Stack(1, true, state.ownerData);
                     break;
             }
@@ -492,12 +492,12 @@ public abstract class EnemyController : NavObjectController, IPoolable
         float actualDmg = state.dmgState.dmg;
 
         // INTERFACE: 맞을 때 효과 
-        if (state.ownerData.owner == eCombatOwner.Player)
+        if (state.ownerData.owner == CombatOwnerType.Player)
         {
             ModuleItemManager.instance.Active_Hit(this);
             ModuleItemManager.instance.ActiveSync_Hit();
         }
-        else if (state.ownerData.owner == eCombatOwner.Ally)
+        else if (state.ownerData.owner == CombatOwnerType.Ally)
         {
             AllyManager.instance.allAlly[state.ownerData.id].ActiveAlly_Hit();
         }
@@ -513,12 +513,12 @@ public abstract class EnemyController : NavObjectController, IPoolable
             actualDmg *= state.criticalState.criticalDmg;
 
             // INTERFACE: 치명타를 맞을 때 효과 
-            if (state.ownerData.owner == eCombatOwner.Player)
+            if (state.ownerData.owner == CombatOwnerType.Player)
             {
                 ModuleItemManager.instance.Active_CriticalHit(this);
                 ModuleItemManager.instance.ActiveSync_CriticalHit();
             }
-            else if (state.ownerData.owner == eCombatOwner.Ally)
+            else if (state.ownerData.owner == CombatOwnerType.Ally)
             {
                 AllyManager.instance.allAlly[state.ownerData.id].ActiveAlly_CriticalHit();
             }
@@ -541,7 +541,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
     #region Damaged (Caculate)
 
     // 오직 데미지만을 계산
-    public void Take_Damage(float dmgValue, eDamageType dmgType, bool isCritical = false)
+    public void Take_Damage(float dmgValue, DamageType dmgType, bool isCritical = false)
     {
         // 쉴드 계산
         if (currentSP.Value > 0)
@@ -575,7 +575,7 @@ public abstract class EnemyController : NavObjectController, IPoolable
 
         // 직접 데미지
         // 물리 값
-        if (dmgType == eDamageType.Physics) 
+        if (dmgType == DamageType.Physics) 
         {
             Take_Damaged_Physics(dmgValue, isCritical);
         }

@@ -73,11 +73,11 @@ public class AllySyncIconEUIController : ElementUIController
 
     public void Set_Color()
     {
-        connectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        connectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(DamageType.Energy, false);
         List<Image> list = DevTool.Get_ChildList<Image>(completelyCg.gameObject.transform);
         for (int i = 0; i < list.Count; i++)
         {
-            list[i].color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+            list[i].color = PlayerManager.instance.playerController.Get_CorrectColor(DamageType.Energy, false);
         }
     }
 

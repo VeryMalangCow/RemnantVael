@@ -151,7 +151,7 @@ public class MinimapEUIController : ElementUIController
         Set_ActiveMME(CurrentRC.thisMME);
         Set_ActiveMME(CurrentRC.thisIMME);
 
-        if (CurrentRC.roomRule.roomType == eRoomType.Completed)
+        if (CurrentRC.roomRule.roomType == RoomType.Completed)
         {
             CurrentRC.thisMME.Set_Complete(mainClr);
             CurrentRC.thisIMME.Set_Complete(mainClr);
@@ -169,7 +169,7 @@ public class MinimapEUIController : ElementUIController
             Set_ActiveMME(connectedAllRC[i].thisMME);
             Set_ActiveMME(connectedAllRC[i].thisIMME);
 
-            if (connectedAllRC[i].roomRule.roomType != eRoomType.Completed)
+            if (connectedAllRC[i].roomRule.roomType != RoomType.Completed)
             {
                 connectedAllRC[i].thisMME.Set_Visible();
                 connectedAllRC[i].thisIMME.Set_Visible();

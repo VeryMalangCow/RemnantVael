@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class EnemySpawnContoller : MonoBehaviour
 {
-    [SerializeField] private eEnemy enemyType;
+    [SerializeField] private EnemyType enemyType;
     [SerializeField] private int spawnId;
 
-    public eEnemy GetEnemyType()
+    public EnemyType GetEnemyType()
     {
         return enemyType;
     }

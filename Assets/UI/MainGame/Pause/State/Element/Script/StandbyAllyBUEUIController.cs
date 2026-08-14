@@ -143,8 +143,8 @@ public class StandbyAllyBUEUIController : ElementUIController
             allySyncIconEuiArr[i].Set_Color();
         }
 
-        connectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        connectStateAmountTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        connectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(DamageType.Energy, false);
+        connectStateAmountTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(DamageType.Energy, false);
     }
 
     #endregion

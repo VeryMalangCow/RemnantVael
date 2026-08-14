@@ -37,11 +37,11 @@ public class NSCRollImgCellEUIController : NSCRollCellEUIController
     {
         switch (nscType)
         {
-            case eNSCPuzzleType.Shape:
+            case PuzzleNSCType.Shape:
                 rollSpriteList = StaticResourceManager.instance.BuildReso.prisonPrefab.nscShapeSpriteArr;
                 break;
 
-            case eNSCPuzzleType.Num:
+            case PuzzleNSCType.Num:
                 rollSpriteList = StaticResourceManager.instance.BuildReso.prisonPrefab.nscNumSpriteArr;
                 break;
 

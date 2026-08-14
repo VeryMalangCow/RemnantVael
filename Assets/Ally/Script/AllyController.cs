@@ -19,7 +19,7 @@ public class AllyController : NavObjectController, IPoolable
     [SerializeField] protected AllyState multipleAllyState;
     [SerializeField] protected float maxHP = 150f;
     [HideInInspector] protected static readonly float maxEP = 100f;
-    [SerializeField] protected ReactiveProperty<eAllyStateMode> allyStateMode = new();
+    [SerializeField] protected ReactiveProperty<AllyStateMode> allyStateMode = new();
 
     [Space(10)]
     [Header("=== Comp")]
@@ -284,7 +284,7 @@ public class AllyController : NavObjectController, IPoolable
 
     #region State (Enum)
 
-    protected virtual void Set_AllyStateMode(eAllyStateMode mode)
+    protected virtual void Set_AllyStateMode(AllyStateMode mode)
     {
         if (allyStateMode.Value != mode)
         {

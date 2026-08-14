@@ -93,8 +93,8 @@ public class MissileSkillController : ActiveSkillController
     {
         return new BulletState(
             new CombatState(
-                new CombatOwner(eCombatOwner.Player),
-                new DmgState(eDamageType.Physics, playerController.baseWeapon.baseDamage.buffedState * power.actualState * 1.5f),
+                new CombatOwner(CombatOwnerType.Player),
+                new DmgState(DamageType.Physics, playerController.baseWeapon.baseDamage.buffedState * power.actualState * 1.5f),
                 new CriticalState(playerController.baseWeapon.cc.actualState, playerController.baseWeapon.cd.buffedState),
                 new KnockbackState(true, playerController.baseWeapon.kbPower.actualState * 1.5f, 0.4f)),
             checkIsCritical: true, 

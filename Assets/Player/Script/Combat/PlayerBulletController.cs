@@ -43,7 +43,7 @@ public class PlayerBulletController : BulletController
         if (lightIsApplyPlayerState)
         {
             light2d.color = PlayerManager.instance.playerController.Get_CorrectColor(this.state.dmgState.dmgType, this.state.isCritical);
-            if (this.state.dmgState.dmgType == eDamageType.Physics)
+            if (this.state.dmgState.dmgType == DamageType.Physics)
                 light2d.intensity = intensity;
             else
                 light2d.intensity = intensity * 0.5f;

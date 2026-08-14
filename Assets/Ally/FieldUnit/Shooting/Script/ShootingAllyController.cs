@@ -14,7 +14,7 @@ public class ShootingAllyController : FieldUnitAllyController
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] private bool isAlwaysStatus;
-    [SerializeField] private eStatusEffect stateType;
+    [SerializeField] private StatusEffectType stateType;
 
 
     [Space(10)]
@@ -155,8 +155,8 @@ public class ShootingAllyController : FieldUnitAllyController
     {
         return new BulletState(
             new CombatState(
-                new CombatOwner(eCombatOwner.Ally, id),
-                new DmgState(eDamageType.Physics, actualAllyState.dmg.value),
+                new CombatOwner(CombatOwnerType.Ally, id),
+                new DmgState(DamageType.Physics, actualAllyState.dmg.value),
                 new CriticalState(actualAllyState.criticalChacne.value, 1 + actualAllyState.criticalDmg.value),
                 new KnockbackState(false, 0, 0)),
             checkIsCritical: true,
@@ -190,14 +190,14 @@ public class ShootingAllyController : FieldUnitAllyController
         {
             SetNavDir(enemy.transform);
             Set_Attacking(false);
-            Set_AllyStateMode(eAllyStateMode.Move);
+            Set_AllyStateMode(AllyStateMode.Move);
         }
         // АјАн
         else
         {
             Stop_Follow();
             Set_Attacking(true);
-            Set_AllyStateMode(eAllyStateMode.Attack);
+            Set_AllyStateMode(AllyStateMode.Attack);
         }
     }
 
@@ -218,14 +218,14 @@ public class ShootingAllyController : FieldUnitAllyController
                 SetNavDir(randomPos);
                 Set_Attacking(false);
                 enemy = null;
-                Set_AllyStateMode(eAllyStateMode.Move);
+                Set_AllyStateMode(AllyStateMode.Move);
             }
             else
             {
                 Stop_Follow();
                 Set_Attacking(true);
                 enemy = closestEnemy;
-                Set_AllyStateMode(eAllyStateMode.Attack);
+                Set_AllyStateMode(AllyStateMode.Attack);
             }
 
         }
@@ -238,13 +238,13 @@ public class ShootingAllyController : FieldUnitAllyController
             {
                 Set_Attacking(false);
                 enemy = null;
-                Set_AllyStateMode(eAllyStateMode.Idle);
+                Set_AllyStateMode(AllyStateMode.Idle);
             }
             else
             {
                 Set_Attacking(true);
                 enemy = closestEnemy;
-                Set_AllyStateMode(eAllyStateMode.Attack);
+                Set_AllyStateMode(AllyStateMode.Attack);
             }
         }
 
