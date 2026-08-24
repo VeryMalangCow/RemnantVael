@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "E999_GroupSO",
+[CreateAssetMenu(
+    fileName = "E999_GroupSO",
     menuName = "ScriptableObject/EnemyPatternSO/Condition/Group")]
 
 public class EnemyPatternGroupConditionSO : EnemyPatternConditionSO

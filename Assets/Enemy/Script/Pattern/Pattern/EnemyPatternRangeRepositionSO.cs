@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "E999_RangeRepositionSO",
+[CreateAssetMenu(
+    fileName = "E999_RangeRepositionSO",
     menuName = "ScriptableObject/EnemyPatternSO/Pattern/Range Reposition")]
 public class EnemyPatternRangeRepositionSO : EnemyPatternRepositionSO
 {

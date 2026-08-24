@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "E999_FollowSO", 
+[CreateAssetMenu(
+    fileName = "E999_FollowSO", 
     menuName = "ScriptableObject/EnemyPatternSO/Pattern/Follow")]
 public class EnemyPatternFollowSO : EnemyPatternSO
 {

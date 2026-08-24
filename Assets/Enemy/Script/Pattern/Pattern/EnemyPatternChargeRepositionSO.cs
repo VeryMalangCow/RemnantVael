@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "E999_ChargeRepositionSO",
+[CreateAssetMenu(
+    fileName = "E999_ChargeRepositionSO",
     menuName = "ScriptableObject/EnemyPatternSO/Pattern/Charge Reposition")]
 public class EnemyPatternChargeRepositionSO : EnemyPatternRepositionSO
 {

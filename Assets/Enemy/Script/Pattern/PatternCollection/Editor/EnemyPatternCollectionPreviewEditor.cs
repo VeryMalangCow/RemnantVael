@@ -2,7 +2,6 @@
 
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [CustomEditor(typeof(EnemyPatternCollectionSO))]
 public class EnemyPatternCollectionPreviewEditor : Editor

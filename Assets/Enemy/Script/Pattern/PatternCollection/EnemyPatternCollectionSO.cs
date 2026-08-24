@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "E999_CollectionSO",
+[CreateAssetMenu(
+    fileName = "E999_CollectionSO",
     menuName = "ScriptableObject/EnemyPatternSO/Collection")]
 public class EnemyPatternCollectionSO : ScriptableObject
 {

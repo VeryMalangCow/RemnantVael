@@ -1,6 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "E999_HasClearSightSO",
+[CreateAssetMenu(
+    fileName = "E999_HasClearSightSO",
     menuName = "ScriptableObject/EnemyPatternSO/Condition/HasClearSight")]
 public class EnemyPatternHasClearSightConditionSO : EnemyPatternConditionSO
 {

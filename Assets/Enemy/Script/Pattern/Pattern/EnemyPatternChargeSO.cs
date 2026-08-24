@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "E999_ChargeSO",
+[CreateAssetMenu(
+    fileName = "E999_ChargeSO",
     menuName = "ScriptableObject/EnemyPatternSO/Pattern/Charge")]
 public class EnemyPatternChargeSO : EnemyPatternSO
 {
