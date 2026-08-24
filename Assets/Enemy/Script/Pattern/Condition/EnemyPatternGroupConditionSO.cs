@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "E999_GroupSO",
@@ -7,6 +8,8 @@ public class EnemyPatternGroupConditionSO : EnemyPatternConditionSO
 {
     [SerializeField] private BoolOperator boolOper;
     [SerializeField] private EnemyPatternConditionSO[] conditions;
+    public BoolOperator BoolOper => boolOper;
+    public IReadOnlyList<EnemyPatternConditionSO> Conditions => conditions;
 
     public override bool IsSatisfied(EnemyAIContext aiContext)
     {

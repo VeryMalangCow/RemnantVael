@@ -45,11 +45,10 @@ public class EnemyPatternSequencePreviewEditor : Editor
         Rect rect2 = EditorGUILayout.GetControlRect(false, 1);
         EditorGUI.DrawRect(rect2, subPreviewNameClr);
 
-        if (SO.Conditions == null || SO.Conditions.Count == 0)
+        if (SO.ConditionGroupRoot == null)
             return;
 
-        foreach (var condition in SO.Conditions)
-            TextCondition(condition);
+        TextCondition(SO.ConditionGroupRoot);
     }
 
     private void TextCondition(EnemyPatternConditionSO conditionSO)
@@ -57,13 +56,57 @@ public class EnemyPatternSequencePreviewEditor : Editor
         if (conditionSO == null)
             return;
 
-        Rect rect = EditorGUILayout.GetControlRect(false, 0f);
+        if (conditionSO is EnemyPatternGroupConditionSO groupSO)
+        {
+            TextConditionGroup(groupSO);
+            return;
+        }
 
+        TextNormalCondition(conditionSO);
+    }
+
+    private void TextConditionGroup(EnemyPatternGroupConditionSO groupSO)
+    {
+        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+        // Group Operator
+        string operatorText = groupSO.BoolOper == BoolOperator.And
+            ? "[ AND ]"
+            : "[ OR ]";
+
+        EditorGUILayout.LabelField(
+            operatorText,
+            EditorStyles.boldLabel);
+
+        EditorGUI.indentLevel++;
+
+        var conditions = groupSO.Conditions;
+
+        if (conditions != null)
+        {
+            for (int i = 0; i < conditions.Count; i++)
+            {
+                EnemyPatternConditionSO condition = conditions[i];
+
+                if (condition == null)
+                    continue;
+
+                TextCondition(condition);
+            }
+        }
+
+        EditorGUI.indentLevel--;
+
+        EditorGUILayout.EndVertical();
+    }
+
+    private void TextNormalCondition(EnemyPatternConditionSO conditionSO)
+    {
         var preview = conditionSO.GetPreview();
+
         TextElement(preview);
         FoldOutDescription(conditionSO, preview.desc.desc);
     }
-
 
     // Pattern
     private void TextPatterns(EnemyPatternSequenceSO SO)

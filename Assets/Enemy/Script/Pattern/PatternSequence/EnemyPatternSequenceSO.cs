@@ -5,28 +5,18 @@ using UnityEngine;
     menuName = "ScriptableObject/EnemyPatternSO/Sequence")]
 public class EnemyPatternSequenceSO : ScriptableObject
 {
-    [SerializeField] private EnemyPatternConditionSO[] conditions;
     [SerializeField] private EnemyPatternGroupConditionSO conditionGroupRoot;
     [SerializeField] private EnemyPatternSO[] patterns;
 
+    public EnemyPatternGroupConditionSO ConditionGroupRoot => conditionGroupRoot;
     public IReadOnlyList<EnemyPatternSO> Patterns => patterns;
-    public IReadOnlyList<EnemyPatternConditionSO> Conditions => conditions;
 
 
     public bool IsSatisfied(EnemyAIContext context)
     {
-        if (conditions == null || conditions.Length == 0)
+        if (conditionGroupRoot == null)
             return true;
 
-        for (int i = 0; i < conditions.Length; i++)
-        {
-            if (conditions[i] == null)
-                continue;
-
-            if (!conditions[i].IsSatisfied(context))
-                return false;
-        }
-
-        return true;
+        return conditionGroupRoot.IsSatisfied(context);
     }
 }
