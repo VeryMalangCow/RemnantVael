@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bf66980dd395242930c2293ff7f27e, type: 3}
   m_Name: NE003_GroupRootSO_000
   m_EditorClassIdentifier: 
-  boolOper: 1
+  boolOper: 0
   conditions:
-  - {fileID: 11400000, guid: 91e0c9fd6c123ea4d9a2e6b4c3adcd7e, type: 2}
-  - {fileID: 11400000, guid: bb13a53767e6c4a4f9ebf7eb2363c6a7, type: 2}
+  - {fileID: 11400000, guid: b56ce886a94ddc74288e475248117220, type: 2}
+  - {fileID: 11400000, guid: 2f66b7e8c763d17409863402079b172e, type: 2}

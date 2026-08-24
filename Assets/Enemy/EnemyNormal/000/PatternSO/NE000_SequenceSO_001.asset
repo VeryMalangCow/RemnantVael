@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: NE000_SequenceSO_001
   m_EditorClassIdentifier: 
   conditions:
-  - {fileID: 11400000, guid: afb9163a0235cce4e95cf0e833eb1361, type: 2}
+  - {fileID: 11400000, guid: 6e3b7a43f6a291f4a840c2ff57c9ffa7, type: 2}
+  - {fileID: 11400000, guid: 3fc97475715e0d04fa16ee89aa8c72ad, type: 2}
+  conditionGroupRoot: {fileID: 11400000, guid: 6d70ef9ef32576648b14cbecfb8ad8c4, type: 2}
   patterns:
-  - {fileID: 11400000, guid: ff27b35d2b82b80449d874f9cb3c005f, type: 2}
   - {fileID: 11400000, guid: 1921e8ff31983a84e96a1224f443dab1, type: 2}

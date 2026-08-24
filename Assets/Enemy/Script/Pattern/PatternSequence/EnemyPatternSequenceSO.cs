@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyPatternSequenceSO : ScriptableObject
 {
     [SerializeField] private EnemyPatternConditionSO[] conditions;
+    [SerializeField] private EnemyPatternGroupConditionSO conditionGroupRoot;
     [SerializeField] private EnemyPatternSO[] patterns;
 
     public IReadOnlyList<EnemyPatternSO> Patterns => patterns;

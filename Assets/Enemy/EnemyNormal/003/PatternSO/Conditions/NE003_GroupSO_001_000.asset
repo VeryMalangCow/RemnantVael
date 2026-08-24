@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6bf66980dd395242930c2293ff7f27e, type: 3}
-  m_Name: NE003_GroupSO_001
+  m_Name: NE003_GroupSO_001_000
   m_EditorClassIdentifier: 
   boolOper: 0
   conditions:
-  - {fileID: 11400000, guid: 1117487f1cf15384aa83f7c3e0b41383, type: 2}
+  - {fileID: 11400000, guid: dc0a02574081d6047b4d42f83d6cc790, type: 2}
+  - {fileID: 11400000, guid: 5ef1e32bbc65f9e4483882acf12a3c2b, type: 2}
   - {fileID: 11400000, guid: 2f66b7e8c763d17409863402079b172e, type: 2}

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conditions:
   - {fileID: 11400000, guid: f8bc7e61fff3c0d488dabde11723a414, type: 2}
+  conditionGroupRoot: {fileID: 11400000, guid: e3cf81d2e352c0d40b5d3a9cf8c2e8b9, type: 2}
   patterns:
   - {fileID: 11400000, guid: ff27b35d2b82b80449d874f9cb3c005f, type: 2}
   - {fileID: 11400000, guid: 1921e8ff31983a84e96a1224f443dab1, type: 2}
