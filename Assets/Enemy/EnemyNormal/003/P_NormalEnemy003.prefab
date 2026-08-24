@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7842396115140642684}
   - component: {fileID: 7671391899007426867}
   - component: {fileID: 2508644275988564770}
+  - component: {fileID: 3477652524981381585}
+  - component: {fileID: 2114980234202281441}
   m_Layer: 7
   m_Name: P_NormalEnemy003
   m_TagString: Enemy
@@ -77,7 +79,7 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
     shadowSize: {x: 0.3, y: 0.15}
   particleThrowDis: 2
-  patternCollectionSO: {fileID: 0}
+  patternCollectionSO: {fileID: 11400000, guid: 4afc18fd91a96a1449a69a37e5c36dd5, type: 2}
   mapJugeCol: {fileID: 5542151642388565170}
   sg: {fileID: 2508644275988564770}
   lookingSatellite: {fileID: 8800238567124451591}
@@ -270,6 +272,42 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &3477652524981381585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272305898077013730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc9e9083bbd1f5547aa5b80db9630034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDepths:
+  - {fileID: 5281239173370443760}
+  weaponSpriteRenderers:
+  - {fileID: 3401991529144416678}
+  weaponVfxClr: {r: 1, g: 0, b: 1, a: 1}
+  weaponVfxSize: 1.5
+--- !u!114 &2114980234202281441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272305898077013730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef6bc3c6b9b50041b1d72d05e298866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDepths:
+  - {fileID: 3914198638638926053}
+  waeponSpriteRenderers:
+  - {fileID: 7717429107789145425}
+  weaponVfxClr: {r: 1, g: 0, b: 1, a: 1}
+  weaponVfxSize: 1.5
 --- !u!1 &379664489227312123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1370,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6904064703115002294, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
   m_PrefabInstance: {fileID: 8485218676697031711}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &3401991529144416678 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6554919075280264633, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+  m_PrefabInstance: {fileID: 8485218676697031711}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3914198638638926053 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4869389014298094842, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -1354,6 +1397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &7717429107789145425 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2222629274383368526, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+  m_PrefabInstance: {fileID: 8485218676697031711}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &8053559112837824807 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1874183789220357432, guid: 2624ebe61065a2c4182be26361acf836, type: 3}

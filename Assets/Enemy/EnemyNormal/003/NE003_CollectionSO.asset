@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91cedcfb0f8c99545ab4330cad260833, type: 3}
+  m_Name: NE003_CollectionSO
+  m_EditorClassIdentifier: 
+  patterns:
+  - so: {fileID: 11400000, guid: 5d9a33ddb38ab2742a9d0bc8130209a6, type: 2}
+    priority: 0
+    weight: 1
+  - so: {fileID: 11400000, guid: a2fdea22df9053b48860fdd4e0d6678e, type: 2}
+    priority: 0
+    weight: 1
+  - so: {fileID: 11400000, guid: f04fb26e0d1449d4b8fe61a2da41141a, type: 2}
+    priority: 0
+    weight: 1
+  - so: {fileID: 11400000, guid: 876a1953b07058f4e82629ac63d755ab, type: 2}
+    priority: 1
+    weight: 1
+  - so: {fileID: 11400000, guid: d20c08af39d56dc4c8f1192bf01859d7, type: 2}
+    priority: 1
+    weight: 1
+  patternInterval: 0.1
